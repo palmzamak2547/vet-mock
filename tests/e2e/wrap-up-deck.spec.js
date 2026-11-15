@@ -33,6 +33,11 @@ async function enter(page) {
 const where = (page) => page.locator('.vmx-deck-where > span').first();
 const title = (page) => page.locator('#vmx-deck-title');
 const pileCount = (page) => page.locator('.vmx-deck-pile-btn b');
+// An empty pile is a line that opens nothing (no button), not "ต้องทวน 0".
+async function pileIsEmpty(page) {
+  await expect(page.locator('.vmx-deck-pile-empty')).toHaveText('ยังไม่มีใบที่ต้องทวน');
+  await expect(page.locator('.vmx-deck-pile-btn')).toHaveCount(0);
+}
 async function total(page) {
   return Number(/จาก (\d+)/.exec(await where(page).innerText())[1]);
 }
@@ -47,6 +52,10 @@ test('a card is covered until opened, and is judged only after it is seen', asyn
   for (const h of await heads.all()) await expect(h).toHaveAttribute('aria-expanded', 'false');
   await expect(page.getByRole('button', { name: 'จำได้' })).toHaveCount(0);
   await expect(page.getByText('นึกก่อน แล้วค่อยเปิด')).toBeVisible();
+  // Said once on the screen, beside the card.
+  await expect(page.getByText(/นึก(ให้ได้)?ก่อน แล้วค่อยเปิด/)).toHaveCount(1);
+  // Nothing marked yet: nothing to open.
+  await pileIsEmpty(page);
 
   // One part can be opened alone.
   await heads.first().click();
@@ -67,7 +76,8 @@ test('a card is covered until opened, and is judged only after it is seen', asyn
   await expect(page.getByRole('button', { name: 'เปิดคำตอบ' })).toBeVisible();
   // Thumb-sized controls, measured once the arriving card has settled (it rises in, slightly scaled).
   await page.waitForFunction(() => document.getAnimations().every((a) => a.playState !== 'running'));
-  for (const b of [page.getByRole('button', { name: 'เปิดคำตอบ' }), page.locator('.vmx-deck-pile-btn'), heads.first()]) {
+  // The pile is still empty here: its line holds the button's place at the same height.
+  for (const b of [page.getByRole('button', { name: 'เปิดคำตอบ' }), page.locator('.vmx-deck-pile-empty'), heads.first()]) {
     expect((await b.boundingBox()).height).toBeGreaterThanOrEqual(44);
   }
 });
@@ -78,6 +88,9 @@ test('a card marked ต้องทวน comes back in its own round', async ({
   await page.getByRole('button', { name: 'เปิดคำตอบ' }).click();
   await page.getByRole('button', { name: 'ต้องทวน', exact: true }).click();
   await expect(pileCount(page)).toHaveText('1');
+  // With a card in it the pile is a button, thumb-sized.
+  await expect(page.locator('.vmx-deck-pile-empty')).toHaveCount(0);
+  expect((await page.locator('.vmx-deck-pile-btn').boundingBox()).height).toBeGreaterThanOrEqual(44);
   await page.getByRole('button', { name: 'เปิดคำตอบ' }).click();
   await page.getByRole('button', { name: 'จำได้' }).click();
 
@@ -95,7 +108,7 @@ test('a card marked ต้องทวน comes back in its own round', async ({
   await page.getByRole('button', { name: 'จำได้' }).click();
   // The round is over: what is left to revise, with nothing left.
   await expect(page.getByRole('heading', { name: 'จำได้ครบทุกใบที่ผ่านมา' })).toBeVisible();
-  await expect(pileCount(page)).toHaveText('0');
+  await pileIsEmpty(page);
   // Two cards seen, the rest not: the strip says so, and the way on is the
   // first unseen card, not only a restart that would wipe the marks.
   const n = await page.locator('.vmx-deck-segs i').count();
@@ -129,7 +142,7 @@ test('the deck is where it was after a reload, and a broken record starts it cle
   await page.reload();
   await enter(page);
   await expect(where(page)).toHaveText(`ใบที่ 1 จาก ${n}`);
-  await expect(pileCount(page)).toHaveText('0');
+  await pileIsEmpty(page);
 });
 
 test('the keyboard does what a tap does', async ({ page, context }) => {
@@ -178,7 +191,7 @@ test('the quick round shows the keywords and the mix-up uncovered, and moves on 
   await expect(page.locator('.vmx-deck-quick .vmx-wrap-keylist li').first()).toBeVisible();
   await page.getByRole('button', { name: 'ถัดไป' }).click();
   await expect(where(page)).toHaveText(`ใบที่ 2 จาก ${n}`);
-  await expect(pileCount(page)).toHaveText('0');
+  await pileIsEmpty(page);
   await expect(page.locator('.vmx-deck-segs i').first()).not.toHaveClass(/is-/);
   await page.getByRole('button', { name: 'ต้องทวน', exact: true }).click();
   await expect(pileCount(page)).toHaveText('1');

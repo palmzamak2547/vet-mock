@@ -63,6 +63,11 @@ test('each kind of line wears its icon beside its label, and the key shows all t
   await expect(item.locator('.vmx-wrap-list-label.is-examined svg')).toHaveCount(1);
   await expect(item.locator('.vmx-wrap-pitfall .vmx-wrap-list-label.is-pitfall svg')).toHaveCount(1);
   await expect(item.locator('.vmx-wrap-list-label.is-pitfall')).toHaveText('ระวังสับสน');
+  // The key opens on demand; open, it shows all three.
+  const key = page.locator('.vmx-wrap-howto');
+  expect(await key.getAttribute('open')).toBeNull();
+  await key.locator('summary').click();
+  await expect(page.locator('.vmx-wrap-legend')).toBeVisible();
   await expect(page.locator('.vmx-wrap-legend svg')).toHaveCount(3);
 });
 
@@ -91,3 +96,32 @@ for (const mode of ['full', 'keys']) {
     if (mode === 'keys') await expect(page.locator('.vmx-wrap-cols')).toHaveCount(0);
   });
 }
+
+// The Swine final's overview ran 11 lines on a phone and pushed every item below the first screen. Any overview
+// longer than four lines on screen opens folded to two, with "อ่านต่อ" for the rest (lib/wrap-intro.js).
+test('a long overview opens folded to two lines, and the first item is on the first screen', async ({ page, context }) => {
+  await openSwineFinal(page, context);
+  const intro = page.locator('.vmx-wrap-intro');
+  const more = page.getByRole('button', { name: 'อ่านต่อ', exact: true });
+  await expect(more).toBeVisible();
+  await expect(more).toHaveAttribute('aria-expanded', 'false');
+  const lh = await intro.evaluate((el) => parseFloat(getComputedStyle(el).lineHeight));
+  const folded = (await intro.boundingBox()).height;
+  expect(folded).toBeLessThanOrEqual(lh * 2 + 2);
+  const box = await more.boundingBox();
+  expect(box.height).toBeGreaterThanOrEqual(44);
+  // The first section (the first lecturer's part) starts on the first screen, above the bottom bar on a phone.
+  const viewport = page.viewportSize();
+  const bar = page.locator('.vmx-bottom-nav');
+  const floor = (await bar.isVisible()) ? (await bar.boundingBox()).y : viewport.height;
+  const first = await page.locator('.vmx-wrap-group-head').first().boundingBox();
+  expect(first.y + 24).toBeLessThan(floor);
+  // The key to the kinds of line is closed until asked for, behind a thumb-sized summary.
+  await expect(page.locator('.vmx-wrap-legend')).toBeHidden();
+  expect((await page.locator('.vmx-wrap-howto > summary').boundingBox()).height).toBeGreaterThanOrEqual(44);
+  await more.click();
+  await expect(more).toHaveCount(0);
+  // The keyboard lands on the opened overview, not on the page.
+  await expect(intro).toBeFocused();
+  expect((await intro.boundingBox()).height).toBeGreaterThan(lh * 4);
+});

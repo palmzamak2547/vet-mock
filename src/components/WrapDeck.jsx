@@ -246,9 +246,15 @@ export default function WrapDeck({ items, storageKey, course = '', slideOf = () 
           <button type="button" className={!quick ? 'is-on' : ''} aria-pressed={!quick} onClick={() => setPace('full')}>รอบเต็ม</button>
           <button type="button" className={quick ? 'is-on' : ''} aria-pressed={quick} onClick={() => setPace('quick')}>รอบเร็ว</button>
         </div>
-        <button ref={pileRef} type="button" className="vmx-deck-pile-btn" aria-haspopup="dialog" onClick={() => setPileOpen(true)}>
-          ต้องทวน <b key={grew} className={grew ? 'is-new' : undefined}>{againCount}</b>
-        </button>
+        {/* An empty pile is not a door: it says so and opens nothing. The first card marked ต้องทวน turns it
+            into the button. */}
+        {againCount > 0 ? (
+          <button ref={pileRef} type="button" className="vmx-deck-pile-btn" aria-haspopup="dialog" onClick={() => setPileOpen(true)}>
+            ต้องทวน <b key={grew} className={grew ? 'is-new' : undefined}>{againCount}</b>
+          </button>
+        ) : (
+          <span className="vmx-deck-pile-empty">ยังไม่มีใบที่ต้องทวน</span>
+        )}
       </div>
 
       {/* Each card is a segment: known, still to revise, the one on screen.

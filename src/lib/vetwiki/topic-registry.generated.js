@@ -1161,36 +1161,63 @@ export const VETWIKI_TOPICS = [
     "id": "equine-repro--eqrepro-endometritis",
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
-    "title": "Endometritis ในม้า: แยก 7 ภาวะของมดลูก และการรักษา 4 Goals",
-    "icon": "🦠",
-    "summary": "ตารางแยกโรค 7 ภาวะที่ทำให้ม้าผสมไม่ติด (endometrosis, bacterial/subclinical/chronic bacterial endometritis, metritis, pyometra, PBIE) ตามอาการ cytology ultrasound รังไข่ และการรักษา ต่อด้วยแนวทางรักษา endometritis แบบ 4 goals พร้อมตารางสเปกตรัมยาปฏิชีวนะ และเคสตัวอย่างที่รุ่นพี่บันทึกไว้",
+    "title": "Endometritis in mare",
+    "icon": "🔥",
+    "summary": "ภาวะเยื่อบุมดลูกอักเสบในแม่ม้า เริ่มจากหน้าที่ของมดลูกและ endometrium, contamination กับ infection, กลไกป้องกันของมดลูก และนิยามของ endometritis, metritis, perimetritis, parametritis, pyometra และ endometrosis จากนั้นไล่ชนิดของ endometritis รวม PBIE, ปัจจัยเสี่ยง, เชื้อที่เกี่ยวข้อง และผลต่อ fertility การวินิจฉัยด้วย ultrasound, cytology, culture และ biopsy พร้อม decision tree ส่วนการรักษาแบ่งเป็น 4 เป้าหมาย: ระบายสิ่งที่คั่งในมดลูก, คุมการติดเชื้อ, ลดการอักเสบ และป้องกันการกลับเป็นซ้ำ โดยมี pyometra เป็นหัวข้อแยก",
+    "flagship": false
+  },
+  {
+    "id": "equine-repro--eqrepro-male",
+    "subject": "equine-repro",
+    "topic": "eqrepro-male",
+    "title": "Male reproductive anatomy, function and clinical examination of the stallion",
+    "icon": "🐴",
+    "summary": "กายวิภาค การทำหน้าที่ และการตรวจระบบสืบพันธุ์พ่อม้า: penis แบบ vascular type กับ urethral process ที่เป็นจุด swab ของ CEM, prepuce, scrotum ในฐานะ thermoregulator, testicular descent กับเกณฑ์ cryptorchidism, spermatogenesis 57 วัน, epididymis, accessory sex glands กับ gel fraction และ ampullary obstruction ปิดด้วยพฤติกรรมของพ่อม้าและการผสมตามธรรมชาติ",
+    "flagship": false
+  },
+  {
+    "id": "equine-repro--eqrepro-ai",
+    "subject": "equine-repro",
+    "topic": "eqrepro-ai",
+    "title": "Semen collection and artificial insemination in the horse",
+    "icon": "💉",
+    "summary": "การเก็บน้ำเชื้อและการผสมเทียมในม้า: stallion selection กับโรคที่ติดทางการผสมพันธุ์, การรีดน้ำเชื้อด้วย artificial vagina ที่อุณหภูมิเป็นปัจจัยหลัก, semen evaluation, semen extender กับน้ำเชื้อ 3 ชนิด (สด แช่เย็น แช่แข็ง), insemination dose พร้อมตัวอย่างคำนวณ, การเตรียมแม่ม้าและเวลาผสม, เทคนิค intrauterine insemination และการติดตามหลังผสม",
     "flagship": false
   },
   {
     "id": "equine-repro--eqrepro-stallion-infect",
     "subject": "equine-repro",
     "topic": "eqrepro-stallion-infect",
-    "title": "โรคติดเชื้อทางระบบสืบพันธุ์และการติดต่อทางน้ำเชื้อ",
+    "title": "Infertility problems and infectious diseases in stallions",
     "icon": "🦠",
-    "summary": "แยก EHV type 1 กับ type 3 ให้ออก โรคที่ติดทางน้ำเชื้อและสำคัญต่อการขนส่งข้ามประเทศ และเชื้อที่ก่อ endometritis จากพ่อม้า",
+    "summary": "ปัญหา infertility และโรคติดเชื้อทางระบบสืบพันธุ์ของพ่อม้า: การอ่าน pregnancy rate ต่อครั้งผสม, ปัญหาพฤติกรรม, ejaculatory dysfunction, poor semen quality กับ algorithm ของ azoospermia และการใช้ alkaline phosphatase แยกการอุดตัน ครึ่งหลังเป็นโรคติดเชื้อ 4 โรค: contagious equine metritis, equine coital exanthema (EHV-3), equine viral arteritis ซึ่งเป็น persistent infection ที่ขึ้นกับ testosterone และ dourine",
+    "flagship": false
+  },
+  {
+    "id": "equine-repro--eqrepro-surgery",
+    "subject": "equine-repro",
+    "topic": "eqrepro-surgery",
+    "title": "Equine reproductive surgery",
+    "icon": "🔪",
+    "summary": "ศัลยกรรมระบบสืบพันธุ์ม้า เพศผู้: castration (standing กับ recumbent, ยาและ local block, open กับ closed technique, emasculator, การดูแลหลังผ่าตัดและ complication), cryptorchid, tumor ของ penis กับ reefing และ penile amputation เพศเมีย: Caslick's operation, perineal laceration 3 ระดับ, การตัด endometrial cyst ผ่านกล้อง และ caesarean section สไลด์ส่วนใหญ่เป็นรูป ขั้นตอนการทำจึงมาจากบันทึกคาบและระบุนาทีกำกับไว้",
     "flagship": false
   },
   {
     "id": "equine-repro--eqrepro-pregnancy",
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
-    "title": "การตั้งท้องและการคลอดในม้า",
-    "icon": "🤰",
-    "summary": "ไทม์ไลน์การตั้งท้องม้าตั้งแต่ fertilization ใน oviduct จนถึงคลอด ครอบคลุม maternal recognition, endometrial cup กับ eCG และ accessory CL, ตารางตรวจ ultrasound 4 รอบ, การดูแลและวัคซีนแม่ม้าท้อง, 3 stages of parturition, intrapartum conditions, red bag และ dystocia",
+    "title": "Equine pregnancy and parturition",
+    "icon": "🐎",
+    "summary": "การตั้งท้องและการคลอดของแม่ม้า: early pregnancy กับ PGE2, maternal recognition of pregnancy, endometrial cups กับ eCG และ accessory CL, mid กับ late pregnancy, placentation, ตารางตรวจท้องและการจัดการแฝด, การดูแลแม่ม้าท้อง, เต้านมกับ colostrum และสัญญาณใกล้คลอด จนถึง 3 stages of parturition สไลด์ให้เวลาของ teat waxing และ colostrum ไว้ 2 ชุดที่ไม่ตรงกัน ซึ่งเก็บไว้ทั้งคู่พร้อมเลขหน้า ภาวะผิดปกติระหว่างและหลังคลอดอยู่ในหัวข้อ Postpartum complications ส่วนการดูแลลูกม้าแยกเป็นหัวข้อ Neonatal foal care",
     "flagship": false
   },
   {
     "id": "equine-repro--eqrepro-postpartum",
     "subject": "equine-repro",
     "topic": "eqrepro-postpartum",
-    "title": "ลูกม้าแรกเกิด ภาวะผิดปกติที่พบบ่อย และการผสมหลังคลอด",
-    "icon": "🐴",
-    "summary": "กฎ 1-2-3 ของลูกม้าแรกเกิด การดูแลวันแรกและเกณฑ์ IgG, พฤติกรรมลูกม้าและ imprinting, ภาวะผิดปกติของลูกม้าแรกเกิดที่พบบ่อยรวมถึง neonatal isoerythrolysis, ภาวะผิดปกติของแม่ม้าหลังคลอด และคำแนะนำเรื่อง foal heat",
+    "title": "Postpartum complications",
+    "icon": "🩹",
+    "summary": "ความผิดปกติระหว่างคลอดและปัญหาหลังคลอดของแม่ม้า เริ่มจากสิ่งที่ต้องตรวจในแม่ม้าหลังคลอด (รก, นม, vulva, การยอมรับลูก) แล้วไล่ 9 ภาวะของ intrapartum conditions: red bag, abortion, uterine inertia, premature mammary development, placental insufficiency, post-partum hemorrhage, uterine torsion, retained fetal membrane และ hypocalcemia ต่อด้วย dystocia (เมื่อไรควรสงสัย, สาเหตุ, วิธีแก้) และ post partum breeding ที่ foal heat การตั้งท้องและ 3 stages ของการคลอดปกติอยู่ในหัวข้อ Pregnancy & parturition ส่วนการดูแลลูกม้าแยกเป็นหัวข้อ Neonatal foal care",
     "flagship": false
   },
   {
@@ -1449,9 +1476,9 @@ export const VETWIKI_TOPICS = [
     "id": "milk-meat-hygiene--milk-cleaning",
     "subject": "milk-meat-hygiene",
     "topic": "milk-cleaning",
-    "title": "Cleaning & disinfectants in MCC and milk processing",
+    "title": "Cleaning and disinfectants in milk collecting center and milk processing",
     "icon": "🧼",
-    "summary": "9 ข้อกำหนดพื้นฐาน — สถานประกอบการ + ควบคุมการปฏิบัติงาน + บำรุงรักษา/สุขาภิบาล + สุขลักษณะส่วนบุคคล + ขนส่ง + traceability + ฝึกอบรม + ส่งเสริมสมาชิก + ระบบเอกสาร.",
+    "summary": "การทำความสะอาดและการฆ่าเชื้อในศูนย์รวบรวมน้ำนมและโรงงานแปรรูปนม: กรอบมาตรฐาน GMP, วัตถุประสงค์การทำความสะอาด, ลำดับ CIP, คุณสมบัติสารฆ่าเชื้อและสารทำความสะอาดที่ดี, disinfectant 8 กลุ่ม, สารด่าง กรด และสารเสริมในโรงงาน, ขั้นตอนทำความสะอาดอุปกรณ์, phenol coefficient และเหตุที่ disinfectant ไม่ได้ผล",
     "flagship": false
   },
   {
@@ -1460,16 +1487,16 @@ export const VETWIKI_TOPICS = [
     "topic": "meat-hygiene-intro",
     "title": "Introduction to meat hygiene",
     "icon": "🥩",
-    "summary": "Meat = \"animal tissues suitable for food\", 4 categories: red meat / poultry / seafood / game meat, components: muscle (majority) + epithelial + nervous + connective + adipose.",
+    "summary": "บทนำสุขศาสตร์เนื้อสัตว์: นิยามและประเภทของเนื้อสัตว์ เนื้อเยื่อที่ประกอบเป็นเนื้อ ชนิดของ muscle fiber โปรตีนในกล้ามเนื้อ องค์ประกอบทางเคมีของเนื้อ (น้ำ โปรตีน ไขมัน คาร์โบไฮเดรต แร่ธาตุ วิตามิน) การใช้ dipeptide จำแนกชนิดเนื้อ และนิยามกับขอบเขตของ meat hygiene",
     "flagship": false
   },
   {
     "id": "milk-meat-hygiene--meat-seafood",
     "subject": "milk-meat-hygiene",
     "topic": "meat-seafood",
-    "title": "Seafood: quality changes, spoilage, toxins",
+    "title": "Seafood: quality changes & spoilage, seafood toxins",
     "icon": "🐟",
-    "summary": "Seafood = species variety สูง (chordata, mollusks, arthropod), composition water 60-81% / protein 16-25% / lipid 0.4-21% (range กว้าง), lean meat by default ยกเว้น salmon/อ้วน.",
+    "summary": "อาหารจากสัตว์น้ำ แบ่งเป็น 3 ส่วน คือองค์ประกอบทางเคมีของ seafood (water, protein, non-protein nitrogen compounds, lipid, องค์ประกอบย่อย, dark muscle กับ white muscle), การเปลี่ยนแปลงคุณภาพและการเน่าเสีย (ปัจจัยที่มีผล, rigor mortis, chemical, microbiological และ enzymatic changes, วิธีประเมินความสด 4 กลุ่ม) และ seafood toxins 8 ชนิด ตั้งแต่ ASP, DSP, AZP, PSP, CFP, NSP, puffer fish poisoning จนถึง scombroid fish poisoning พร้อมตารางสรุปท้ายสไลด์",
     "flagship": false
   },
   {
@@ -1478,25 +1505,25 @@ export const VETWIKI_TOPICS = [
     "topic": "meat-microbiology",
     "title": "Microbiology of meat & meat hygiene",
     "icon": "🦠",
-    "summary": "Contamination main เกิดที่ slaughter (evisceration) → storage → distribution, bacteria เป็นกลุ่มสำคัญสุด (spoilage + pathogenic), มี yeast/mold/virus/parasite/protozoa รอง.",
+    "summary": "จุลชีววิทยาของเนื้อสัตว์ในระดับสุขศาสตร์เนื้อสัตว์: แหล่งปนเปื้อน ปัจจัยที่มีผลต่อการโตของเชื้อ จำนวนเชื้อกับการเน่าเสีย แบคทีเรียที่ทำให้เสียและเชื้อก่อโรคที่พบบนเนื้อ ยีสต์และรา เชื้อในเนื้อที่เพิ่งชำแหละ เนื้อแช่เย็น และเนื้อบรรจุ การควบคุมการปนเปื้อน การตรวจทางจุลชีววิทยา indicator organism และมาตรฐานของกรมปศุสัตว์กับกรมวิทยาศาสตร์การแพทย์",
     "flagship": false
   },
   {
     "id": "milk-meat-hygiene--meat-storage",
     "subject": "milk-meat-hygiene",
     "topic": "meat-storage",
-    "title": "Storage of meat & meat products",
+    "title": "Storage of meat and meat products",
     "icon": "🧊",
-    "summary": "พิจารณา 6 มิติ: meat quality, safety, scientific approval, distribution & marketing, investment, application. ปัจจัยจุลินทรีย์ในเนื้อ = extrinsic + intrinsic.",
+    "summary": "การเก็บรักษาเนื้อสัตว์และผลิตภัณฑ์: เกณฑ์ของวิธีเก็บรักษา ปัจจัยภายนอกและภายในที่มีผลต่อจุลินทรีย์ในเนื้อ (อุณหภูมิ R.H. ออกซิเจน pH water activity สารอาหาร) หลักการถนอมเนื้อ 6 วิธี (แช่เย็น แช่แข็ง ปรุงสุก ทำให้แห้ง ฉายรังสี สารเคมี) สีของเนื้อ cured การบรรจุหีบห่อ และระยะเวลาเก็บเนื้อสดกับเนื้อปรุงสุกและเนื้อ cured",
     "flagship": false
   },
   {
     "id": "milk-meat-hygiene--meat-quality",
     "subject": "milk-meat-hygiene",
     "topic": "meat-quality",
-    "title": "Meat quality & wholesomeness",
+    "title": "Meat quality and wholesomeness",
     "icon": "✅",
-    "summary": "Fresh meat = ผ่าน chemical/physical change หลัง slaughter โดย minimal process, 4 properties หลัก: water-holding capacity, color, odor & taste, texture & tenderness.",
+    "summary": "คุณภาพเนื้อสัตว์และอนามัยเนื้อสัตว์ (wholesomeness) ไล่จากนิยามเนื้อสด, คุณภาพแบบ functional กับ conformance, postmortem changes และปัจจัยที่มีผล, คุณภาพเฉพาะของเนื้อวัวและเนื้อหมู (PSE, RFN, DFD, halothane gene, RN- gene), ความหมายของ wholesomeness กับ hazards 3 กลุ่ม, FAT-TOM และอุณหภูมิปรุงสุกของ USDA, คุณค่าต่อสุขภาพ, การตรวจเนื้อในสหรัฐอเมริกา, triangle of needs จนถึงการควบคุม hazards ตลอด food chain และ safe handling",
     "flagship": false
   },
   {
@@ -1505,7 +1532,7 @@ export const VETWIKI_TOPICS = [
     "topic": "meat-molecular",
     "title": "Application of molecular biology in meat science",
     "icon": "🧬",
-    "summary": "Molecular biology = molecular basis ของ DNA/RNA/protein, genomic techniques = ผสม molecular genetics + quantitative genetics + Mendelian genetics + bioinformatics → ใช้ระบุ species + meat authentication.",
+    "summary": "การใช้อณูชีววิทยาใน meat science มี 2 เรื่องใหญ่ เรื่องแรกคือการปรับปรุงคุณภาพเนื้อของสัตว์ในฟาร์มด้วย genomic technologies (QTL, candidate gene approach, genome scan approach, fine mapping และยีนสำคัญในโค ไก่ สุกร) เรื่องที่สองคือ halal authentication of raw meat ตั้งแต่ความหมายของ halal, halal meat supply chain กับ halal critical control points จนถึงเทคนิคตรวจหาเนื้อสุกร (PCR, ELISA, immunochromatographic assays, FTIR spectroscopy) และตารางสรุปเทคนิคท้ายสไลด์",
     "flagship": false
   },
   {
@@ -1514,7 +1541,7 @@ export const VETWIKI_TOPICS = [
     "topic": "meat-slaughter",
     "title": "Slaughterhouse: production facilities & sanitary practices",
     "icon": "🏭",
-    "summary": "Slaughterhouse design depends on: practice / technology / purpose / financial / capacity. Location ต้องมี proper water-electricity-sewerage + hot/cold water + standby generator + pollution-free + remote from urban area.",
+    "summary": "โรงฆ่าสัตว์ ปี 2569: ปัจจัยออกแบบโรง ที่ตั้ง โซนสะอาดและสกปรก พฤติกรรมสัตว์ การขนส่งและคอกพัก วิธีทำให้สลบ (กลไก ไฟฟ้า water bath แก๊ส) การปล่อยเลือด การลวก การควักเครื่องใน การลดอุณหภูมิซาก แล้วเดินตามแผนผังการปฏิบัติที่ดีของโรงฆ่าสุกร สัตว์ปีก และโค กระบือ ทีละขั้นพร้อมตัวเลข",
     "flagship": false
   },
   {
@@ -1523,7 +1550,7 @@ export const VETWIKI_TOPICS = [
     "topic": "meat-ante-post-mortem",
     "title": "Antemortem & postmortem inspection",
     "icon": "🔍",
-    "summary": "Objectives: ให้สัตว์ที่ดูสุขภาพดี/ปกติเข้าฆ่า + แยก abnormal animal ออก + แน่ใจว่าเนื้อปลอด disease/wholesome/ไม่เสี่ยงผู้บริโภค, AM ดูพฤติกรรม + BCS + cleanliness + signs, PM ตัดสินซาก + แยก localized/generalized + acute/chronic.",
+    "summary": "การตรวจสัตว์ก่อนฆ่า (AM) และการตรวจซากหลังฆ่า (PM) ปี 2569: วัตถุประสงค์ ผลการตัดสิน เอกสารและสิ่งที่ดูใน AM การตรวจหัว เครื่องใน ซาก และต่อมน้ำเหลืองใน PM แนวทางของสัตว์ปีก การแยกรอยโรค acute กับ chronic และ localized กับ generalized ภาวะทางพยาธิวิทยาทั่วไป และเกณฑ์ตัดสินซากของโรคจากไวรัส แบคทีเรีย พยาธิ โปรโตซัว และปรสิตสัตว์ขาปล้อง",
     "flagship": false
   },
   {
@@ -1539,9 +1566,9 @@ export const VETWIKI_TOPICS = [
     "id": "milk-meat-hygiene--meat-pest-control",
     "subject": "milk-meat-hygiene",
     "topic": "meat-pest-control",
-    "title": "Pest control in slaughterhouses",
+    "title": "Meat hygiene: pest control",
     "icon": "🪲",
-    "summary": "3 problem ที่ pest ทำให้เกิด: ทำลายผลิตภัณฑ์อาหาร + เป็น carrier ของ pathogen (foodborne disease + zoonosis) + ก่อให้ spoilage, pests = rodents + insects + birds.",
+    "summary": "การควบคุมสัตว์รังควาน (pest control) เริ่มจากปัญหาที่ pest ก่อ ชนิดของ pest (rodents, insects, birds) และหลักการควบคุม 4 ข้อ (no food, no habitat, destroy pest, prevention for the advent) แล้วไล่วิธีควบคุมหนู (proofing, baits, rodenticides, traps) การควบคุมแมลงสาบ (aerosols, baits, dusts, traps) จนถึงการควบคุมแมลงด้วย air curtain, strip door curtain, electrocutor, mesh screen และ insecticides",
     "flagship": false
   },
   {
@@ -1550,7 +1577,7 @@ export const VETWIKI_TOPICS = [
     "topic": "meat-egg-micro",
     "title": "Microbiology of the avian egg",
     "icon": "🥚",
-    "summary": "Microbial contamination → spoilage (economic) + foodborne disease (Salmonella หลัก, E. coli, Campylobacter รอง), egg shell = true shell + shell accessory, tough & flexible, protect embryogenesis.",
+    "summary": "จุลชีววิทยาของไข่ เริ่มจากความสำคัญของจุลินทรีย์กับไข่ โครงสร้างของเปลือกไข่ (true layer, pores, shell accessory material, shell membranes) การแบ่งส่วนภายในไข่ (compartmentalization) และการเสียสภาพที่ทำให้ไข่เน่า วิธีรักษาความสด เหตุที่ไข่ถือเป็น aseptically packaged food ทางที่แบคทีเรียเข้าสู่ไข่ 3 ทาง (trans-ovarian, oviducal, trans-shell) กลไกต้านจุลชีพทางกายภาพและเคมี ปัจจัยและการป้องกัน trans-shell transmission การติด Salmonella จนถึงหลักการล้างไข่ 10 ข้อ",
     "flagship": false
   },
   {

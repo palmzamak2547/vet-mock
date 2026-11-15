@@ -1,0 +1,149 @@
+{
+  "about": "lint:motion budget, per file. Numbers only fall: see scripts/lint-motion.mjs.",
+  "files": {
+    "src/components/CommandPalette.jsx": {
+      "easing-literal": 1
+    },
+    "src/components/DailyGoalCard.jsx": {
+      "layout-transition": 1,
+      "easing-literal": 1
+    },
+    "src/components/PinButton.jsx": {
+      "easing-literal": 2
+    },
+    "src/components/PomodoroTimer.jsx": {
+      "easing-literal": 1
+    },
+    "src/components/Question.jsx": {
+      "layout-transition": 1,
+      "easing-literal": 2
+    },
+    "src/components/QuestsPanel.jsx": {
+      "easing-literal": 3,
+      "layout-transition": 1
+    },
+    "src/components/StreakHeatmap.jsx": {
+      "easing-literal": 2
+    },
+    "src/components/TemplateLibrary.jsx": {
+      "easing-literal": 2
+    },
+    "src/components/ToolsFAB.jsx": {
+      "easing-literal": 4
+    },
+    "src/components/TopLoadingBar.jsx": {
+      "layout-transition": 1,
+      "easing-literal": 2
+    },
+    "src/components/UserMenu.jsx": {
+      "easing-literal": 2
+    },
+    "src/components/VetCalculator.jsx": {
+      "layout-transition": 1,
+      "easing-literal": 3
+    },
+    "src/components/VoiceInputButton.jsx": {
+      "easing-literal": 2
+    },
+    "src/components/XpChip.jsx": {
+      "layout-transition": 1,
+      "easing-literal": 1
+    },
+    "src/styles-admin.css": {
+      "infinite-loop": 1,
+      "easing-literal": 1
+    },
+    "src/styles-buddy.css": {
+      "no-reduced-rule": 2,
+      "easing-literal": 3
+    },
+    "src/styles-connect.css": {
+      "easing-literal": 2
+    },
+    "src/styles-gate.css": {
+      "infinite-loop": 3,
+      "easing-literal": 3
+    },
+    "src/styles-landing.css": {
+      "paint-keyframes": 1,
+      "easing-literal": 69,
+      "infinite-loop": 9,
+      "layout-transition": 2,
+      "no-reduced-rule": 6
+    },
+    "src/styles-motion-kit.css": {
+      "paint-keyframes": 1,
+      "easing-literal": 20,
+      "infinite-loop": 11,
+      "no-reduced-rule": 10,
+      "layout-transition": 1
+    },
+    "src/styles-wiki.css": {
+      "easing-literal": 6
+    },
+    "src/styles-wrap.css": {
+      "easing-literal": 4,
+      "infinite-loop": 1
+    },
+    "src/styles.css": {
+      "paint-keyframes": 3,
+      "layout-transition": 21,
+      "easing-literal": 172,
+      "infinite-loop": 12,
+      "no-reduced-rule": 9,
+      "blanket-reduced": 2
+    },
+    "src/views/AccountSettingsView.jsx": {
+      "layout-transition": 1,
+      "easing-literal": 2
+    },
+    "src/views/AuthView.jsx": {
+      "layout-transition": 1,
+      "easing-literal": 2
+    },
+    "src/views/ConfigView.jsx": {
+      "easing-literal": 2
+    },
+    "src/views/ContributeView.jsx": {
+      "easing-literal": 1
+    },
+    "src/views/ExamView.jsx": {
+      "easing-literal": 1
+    },
+    "src/views/ImageOcclusionView.jsx": {
+      "easing-literal": 2
+    },
+    "src/views/LabView.jsx": {
+      "easing-literal": 9
+    },
+    "src/views/NotesView.jsx": {
+      "layout-transition": 1,
+      "easing-literal": 1
+    },
+    "src/views/PdfAnnotateView.jsx": {
+      "layout-transition": 1,
+      "easing-literal": 1
+    },
+    "src/views/RaceView.jsx": {
+      "layout-transition": 1,
+      "easing-literal": 1
+    },
+    "src/views/ReadingChecklistView.jsx": {
+      "layout-transition": 3,
+      "easing-literal": 3
+    },
+    "src/views/ResultsView.jsx": {
+      "layout-transition": 1,
+      "easing-literal": 1
+    },
+    "src/views/ReviewQueueView.jsx": {
+      "easing-literal": 1
+    },
+    "src/views/SubjectSelectView.jsx": {
+      "layout-transition": 1
+    },
+    "src/views/VideoView.jsx": {
+      "easing-literal": 1
+    }
+  }
+}

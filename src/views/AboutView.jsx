@@ -84,10 +84,10 @@ export default function AboutView({ goHome, setView, onOpenTour }) {
         <h3>เป้าหมาย</h3>
         <div style={{ fontSize: 14, lineHeight: 1.7 }}>
           <ul style={{ paddingLeft: 20, margin: 0 }}>
-            <li>เครื่องมือทบทวนครบจบในเว็บเดียว — โจทย์ฝึก, notes สรุป, flashcard, สรุปคลิป, ห้องสมุดเอกสาร, ถามคลังความรู้, scoring</li>
+            <li>เครื่องมือทบทวนครบจบในเว็บเดียว: โจทย์ฝึก, notes สรุป, flashcard, สรุปคลิป, ห้องสมุดเอกสาร, ถามคลังความรู้, scoring</li>
             <li>รวมโจทย์ฝึกตั้งแต่ปี 1 ถึงปี 5 ไว้ในเว็บเดียว (วิชาส่วนใหญ่ของปี 1 ถึงปี 3 ยังไม่มีโจทย์)</li>
             <li>ไม่มีค่าใช้จ่าย ไม่โฆษณา ไม่เก็บข้อมูลส่วนตัวที่ไม่จำเป็น</li>
-            <li>Open for contribution — ใครอยากช่วยเพิ่มโจทย์ฝึกทักมาได้</li>
+            <li>Open for contribution: ใครอยากช่วยเพิ่มโจทย์ฝึกทักมาได้</li>
           </ul>
         </div>
       </div>
@@ -99,8 +99,8 @@ export default function AboutView({ goHome, setView, onOpenTour }) {
           <FeatureGroup
             title="ค้นหาอัจฉริยะ + ผู้ช่วย (Ctrl+K)"
             items={[
-              'ช่องเดียวค้นทุกอย่าง — ข้อสอบ เอกสารทั้งคลังเอกสาร บทความ VetWiki ยา อาจารย์ และโน้ตของคุณ',
-              'ถามคลังความรู้ได้เลย เช่น "วัคซีนพิษสุนัขบ้าฉีดกี่เข็ม" — แต่ละประโยคของคำตอบบอกว่ามาจากบทความไหนใน VetWiki หรือเป็นการวิเคราะห์ของ VetMock',
+              'ช่องเดียวค้นทุกอย่าง: ข้อสอบ เอกสารทั้งคลังเอกสาร บทความ VetWiki ยา อาจารย์ และโน้ตของคุณ',
+              'ถามคลังความรู้ได้เลย เช่น "วัคซีนพิษสุนัขบ้าฉีดกี่เข็ม" แต่ละประโยคของคำตอบบอกว่ามาจากบทความไหนใน VetWiki หรือเป็นการวิเคราะห์ของ VetMock',
               'สั่งงานด้วยข้อความ หรือพูดใส่ไมค์ในเบราว์เซอร์ที่รองรับ เช่น "จัดข้อสอบ COM5 20 ข้อจับเวลา" ระบบเสนอแผนให้กดยืนยันก่อนทำเสมอ',
             ]}
           />
@@ -112,7 +112,7 @@ export default function AboutView({ goHome, setView, onOpenTour }) {
             ]}
           />
           <FeatureGroup
-            title="VetWiki — คลังความรู้ที่ตรวจสอบได้"
+            title="VetWiki: คลังความรู้ที่ตรวจสอบได้"
             items={[
               'บทความสรุปที่ทุกหัวข้อบอกได้ว่าเนื้อหามาจากไหน จุดที่ตรวจทานกับแหล่งอ้างอิงภายนอกแล้วมีแหล่งให้ตามไปอ่าน และหัวข้อย่อยที่ไม่ได้ตรวจทานมีป้ายบอกไว้',
               'จุดที่หลักฐานไม่ตรงกับที่บรรยายมีป้ายเตือนพร้อมคำแนะนำว่าเวลาสอบควรตอบแบบไหน',
@@ -123,14 +123,14 @@ export default function AboutView({ goHome, setView, onOpenTour }) {
             items={[
               'Quick Practice + Exam Mode (ตั้งจำนวนข้อ + เวลา ได้)',
               '6 ประเภท: MCQ (4-5 ช้อยส์), True/False, Fill-in, Matching, ตอบสั้น และเขียนตอบ',
-              'Quiz navigator — สำหรับ exam ยาว (≥15 ข้อ) ข้ามไปข้อไหนก็ได้',
+              'Quiz navigator: สำหรับ exam ยาว (≥15 ข้อ) ข้ามไปข้อไหนก็ได้',
               'แยกตามวิชา → หัวข้อ (คาบ) → ความยากของหัวข้อนั้น',
             ]}
           />
           <FeatureGroup
             title="Spaced Repetition (SR)"
             items={[
-              'SM-2 algorithm — ใบที่ผิดบ่อยจะกลับมาเร็วกว่า',
+              'SM-2 algorithm: ใบที่ผิดบ่อยจะกลับมาเร็วกว่า',
               'เลือกขนาด session: 25 / 50 / 100 / 200 / ทั้งหมด',
               'กรองตามวิชาได้ + ตัดข้อที่ flashcard ไม่ได้ (ข้อจับคู่, ข้อ "ข้อใดถูก...") ออกอัตโนมัติ',
             ]}
@@ -138,27 +138,27 @@ export default function AboutView({ goHome, setView, onOpenTour }) {
           <FeatureGroup
             title="ทบทวนเนื้อหา (Notes)"
             items={[
-              'สรุปเนื้อหาแยกหัวข้อ — table, callout, source citation',
+              'สรุปเนื้อหาแยกหัวข้อ: table, callout, source citation',
               'อิงจาก slide 2026 + เปรียบเทียบกับโน้ตของรุ่นพี่',
             ]}
           />
           <FeatureGroup
             title="คลิปย้อนหลัง"
             items={[
-              'รวม YouTube playlists ของอาจารย์/รุ่นพี่ — ดูใน-app ได้',
+              'รวม YouTube playlists ของอาจารย์/รุ่นพี่, ดูใน-app ได้',
               'Search ในเพลย์ลิสต์ + เปลี่ยนคลิป + จำคลิปที่ดูแล้ว',
             ]}
           />
           <FeatureGroup
             title="Track ตัวเอง"
             items={[
-              'Dashboard — % ตอบถูกต่อหัวข้อ, weak topics, streak',
+              'Dashboard: % ตอบถูกต่อหัวข้อ, weak topics, streak',
               'ประวัติคะแนนสอบเก่า + ทบทวนข้อที่เคยตอบผิด',
               'Bookmark + Note ส่วนตัวต่อข้อ',
             ]}
           />
           <FeatureGroup
-            title="👥 Cloud features (เลือกเปิด — ต้อง Login)"
+            title="👥 Cloud features (เลือกเปิด: ต้อง Login)"
             items={[
               'กลุ่มติว + อันดับคะแนน',
               'Sync bookmark/note/SR ข้ามเครื่อง',
@@ -170,7 +170,7 @@ export default function AboutView({ goHome, setView, onOpenTour }) {
             items={[
               'เพิ่มโจทย์ฝึกเอง (custom question manager)',
               'Theme: ☀️ light / 🌙 dark',
-              'Mobile-friendly — ใช้บน iPad, มือถือ portrait/landscape ได้',
+              'Mobile-friendly: ใช้บน iPad, มือถือ portrait/landscape ได้',
             ]}
           />
         </div>
@@ -210,13 +210,13 @@ export default function AboutView({ goHome, setView, onOpenTour }) {
         <h3>ขอบคุณ</h3>
         <div style={{ fontSize: 14, lineHeight: 1.7 }}>
           <ul style={{ paddingLeft: 20, margin: 0 }}>
-            <li><strong>พี่พล Vet 84</strong> — แชร์โน้ตทบทวน Orthopedic, ESF, Approach</li>
-            <li><strong>Kimchii 85</strong> — แชร์โน้ตทบทวน COM III, COM IV, Exotic</li>
-            <li><strong>TJ86</strong> — แชร์โน้ตทบทวน COM V (รวบรวมจากรุ่นพี่ + อัพเดต 2024)</li>
-            <li><strong>pployyyn Vet 83</strong> — แชร์โน้ตทบทวน Repro Lab</li>
-            <li><strong>Vet 84</strong> (Ping, Sunsun, Saideang, Janny) — แชร์โน้ตทบทวน Surg Lab 3</li>
-            <li><strong>Vet 85</strong> — แชร์โน้ตทบทวน Surg Lab eye + aural</li>
-            <li><strong>เพื่อนๆ Vet 86</strong> — feedback และการใช้งานจริง</li>
+            <li><strong>พี่พล Vet 84</strong>: แชร์โน้ตทบทวน Orthopedic, ESF, Approach</li>
+            <li><strong>Kimchii 85</strong>: แชร์โน้ตทบทวน COM III, COM IV, Exotic</li>
+            <li><strong>TJ86</strong>: แชร์โน้ตทบทวน COM V (รวบรวมจากรุ่นพี่ + อัพเดต 2024)</li>
+            <li><strong>pployyyn Vet 83</strong>: แชร์โน้ตทบทวน Repro Lab</li>
+            <li><strong>Vet 84</strong> (Ping, Sunsun, Saideang, Janny): แชร์โน้ตทบทวน Surg Lab 3</li>
+            <li><strong>Vet 85</strong>: แชร์โน้ตทบทวน Surg Lab eye + aural</li>
+            <li><strong>เพื่อนๆ Vet 86</strong>: feedback และการใช้งานจริง</li>
           </ul>
         </div>
       </div>

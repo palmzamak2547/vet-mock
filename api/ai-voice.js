@@ -11,7 +11,8 @@
 //            (the provider takes files into a private agent's call only with the account key)
 //
 // Refusals are JSON { error, message, retryAfter? } with the page's words in
-// `message`: 401/403 from the Chula wall, 429 when the student has used the
+// `message`: 401/403 from the Chula wall (401 pass_invalid for a trial link the
+// database refuses, docs/CHULA-SIGNIN.md "Trial links"), 429 when the student has used the
 // day's sessions, 503 when voice is off, unconfigured, out of credits or the
 // limiter is down (it fails closed: a session costs money). The caps and
 // their reasons are in api/_lib/ai/voice.js; the agent itself in
@@ -24,6 +25,7 @@
 
 import { allowedOrigin, clientIP, rateLimit, rateRefund, kvGetJSON, kvSetJSON } from './_lib/rate-limit.js';
 import { requireChula } from './_lib/chula-gate.js';
+import { trialPassOf, requirePass, passKey } from './_lib/guest-pass.js';
 import {
   voiceConfig, readBalance, budgetVerdict, mintConversation, retryTicket, verifyRetryTicket, retryTicketTtl, voiceUserId,
   bangkokDay, secondsToBangkokMidnight, VOICE_MESSAGES, photoPass, verifyPhotoPass, photoPassTtl, attachPhoto, PHOTO_TYPES, PHOTOS_PER_CALL,
@@ -102,7 +104,7 @@ export default async function handler(req, res) {
   }
   if (req.method === 'OPTIONS') {
     res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-VetMock-Pass');
     res.setHeader('Access-Control-Max-Age', '7200');
     res.setHeader('Cache-Control', 'no-store');
     return res.status(204).end();
@@ -113,7 +115,10 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'method', message: 'ใช้ได้เฉพาะ GET และ POST' });
   }
   if (req.headers.origin && !allowed) return res.status(403).json({ error: 'origin', message: 'เว็บนี้ไม่ได้รับอนุญาตให้เริ่มคุยด้วยเสียง' });
-  const gate = await requireChula(req, res);
+  // A trial link (_lib/guest-pass.js) speaks for a request with no session; it uses none of the
+  // link's messages here, the call's own caps below count it. A bearer token always goes to the gate.
+  const pass = trialPassOf(req);
+  const gate = pass ? await requirePass(pass, res, { count: false }) : await requireChula(req, res);
   if (!gate) return undefined;
 
   let body;
@@ -122,8 +127,9 @@ export default async function handler(req, res) {
   } catch {
     body = null;
   }
-  // who is counted: the student, or the address while the wall is off and nobody signed in
-  const who = gate.userId || `ip:${clientIP(req)}`;
+  // who is counted: the student; a trial link as itself (one allowance per link, never per address);
+  // or the address while the wall is off and nobody signed in
+  const who = gate.userId || (pass ? passKey(pass) : `ip:${clientIP(req)}`);
   if (body?.action === 'file') return sendPhoto(res, body, who, cfg);
   if (body?.action !== 'start') return res.status(400).json({ error: 'input', message: 'คำขอไม่ถูกต้อง' });
   const transport = body.transport === 'websocket' ? 'websocket' : 'webrtc';
@@ -179,18 +185,20 @@ export default async function handler(req, res) {
     return res.status(429).json({ error: 'rate', message: 'เริ่มคุยถี่เกินไป รอสักครู่แล้วลองใหม่', retryAfter: burst.retryAfter });
   }
   const dayKey = `ai-voice:day:${who}:${day}`;
+  // a student has their own calls a day; a trial link has its own number, shared by its holders
+  const sessionsCap = pass ? cfg.passSessions : cfg.userSessions;
   let left = null;
   if (!retried) {
-    const used = await take(dayKey, cfg.userSessions, toMidnight);
+    const used = await take(dayKey, sessionsCap, toMidnight);
     if (!used.ok) {
       if (used.unavailable) return refuse(res, 503, 'limiter', { retryAfter: used.retryAfter });
       res.setHeader('Retry-After', String(used.retryAfter));
-      return refuse(res, 429, 'user', { retryAfter: used.retryAfter, sessions: cfg.userSessions });
+      return refuse(res, 429, 'user', { retryAfter: used.retryAfter, sessions: sessionsCap });
     }
   }
   // the limiter's own count (null without the shared store: then unknown, never a guess)
   const used = await kv.get(`rl:${dayKey}`);
-  if (Number.isFinite(used)) left = Math.max(0, cfg.userSessions - used);
+  if (Number.isFinite(used)) left = Math.max(0, sessionsCap - used);
 
   const user = voiceUserId(who, cfg);
   let credential;

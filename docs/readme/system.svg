@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" role="img" aria-labelledby="t d">
+  <title id="t">How VetMock fits together</title>
+  <desc id="d">Reviewed data files are built with the React app and served by Vercel. The app runs in the browser with a service worker and local storage, and signs in and syncs through Supabase. Data lints and CI check the data and the build before it ships.</desc>
+  <style>
+    :root { --bg: #fdf8ef; --card: #ffffff; --ink: #2b2419; --mute: #6b5f4d; --line: #d9ccb0; --green: #4a6b4a; --soft: #e6eadf; --on: #ffffff; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #1f1b14; --card: #2a251b; --ink: #fdf8ef; --mute: #bdb3a0; --line: #4a4233; --green: #8fb98f; --soft: #2f3a2c; --on: #1f1b14; }
+    }
+    text { font-family: Sarabun, 'IBM Plex Sans Thai', system-ui, sans-serif; fill: var(--ink); }
+    .h { font-size: 15px; font-weight: 700; }
+    .s { font-size: 12.5px; fill: var(--mute); }
+    .k { font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; fill: var(--green); }
+    .box { fill: var(--card); stroke: var(--line); stroke-width: 1.5; }
+    .soft { fill: var(--soft); stroke: var(--green); stroke-width: 1.5; }
+    .arrow { stroke: var(--green); stroke-width: 2; fill: none; }
+    .bg { fill: var(--bg); }
+    .rule { stroke: var(--line); }
+    .head { fill: var(--green); }
+  </style>
+  <rect class="bg" width="960" height="400" rx="18"/>
+
+  <!-- source -->
+  <text class="k" x="40" y="46">SOURCE IN THE REPOSITORY</text>
+  <rect class="box" x="40" y="62" width="230" height="278" rx="14"/>
+  <text class="h" x="58" y="92">Reviewed data</text>
+  <text class="s" x="58" y="114">Question banks</text>
+  <text class="s" x="58" y="134">Study notes and wiki</text>
+  <text class="s" x="58" y="154">Lecture clip summaries</text>
+  <text class="s" x="58" y="174">Timetable, syllabi, glossary</text>
+  <line x1="58" y1="196" x2="252" y2="196" class="rule"/>
+  <text class="h" x="58" y="224">App code</text>
+  <text class="s" x="58" y="246">Vite and React</text>
+  <text class="s" x="58" y="266">Vercel functions in api/</text>
+  <text class="s" x="58" y="286">SQL migrations in supabase/</text>
+  <text class="s" x="58" y="318">Every count is generated</text>
+
+  <!-- gate -->
+  <text class="k" x="330" y="46">BEFORE IT SHIPS</text>
+  <rect class="soft" x="330" y="62" width="230" height="278" rx="14"/>
+  <text class="h" x="348" y="92">Pull request checks</text>
+  <text class="s" x="348" y="114">Data lints on every bank</text>
+  <text class="s" x="348" y="134">Unit tests, Bangkok and UTC</text>
+  <text class="s" x="348" y="154">Production build, bundle budget</text>
+  <text class="s" x="348" y="174">End to end on Chromium,</text>
+  <text class="s" x="348" y="192">Firefox, WebKit and a phone</text>
+  <text class="s" x="348" y="224">Merged only when green.</text>
+  <text class="s" x="348" y="244">Vercel then builds main.</text>
+
+  <!-- runtime -->
+  <text class="k" x="620" y="46">WHAT A STUDENT USES</text>
+  <rect class="box" x="620" y="62" width="300" height="130" rx="14"/>
+  <text class="h" x="638" y="92">Browser, installable as an app</text>
+  <text class="s" x="638" y="114">Service worker keeps it working offline</text>
+  <text class="s" x="638" y="134">Progress saved on the device first</text>
+  <text class="s" x="638" y="154">Notes and banks load per subject</text>
+  <text class="s" x="638" y="174">vetmock.com</text>
+  <rect class="box" x="620" y="210" width="300" height="130" rx="14"/>
+  <text class="h" x="638" y="240">Supabase</text>
+  <text class="s" x="638" y="262">Sign-in with faculty accounts</text>
+  <text class="s" x="638" y="282">Postgres with row-level security</text>
+  <text class="s" x="638" y="302">One atomic call syncs progress</text>
+  <text class="s" x="638" y="322">Used only when signed in</text>
+
+  <!-- arrows -->
+  <path class="arrow" d="M272 200 H316"/><path class="head" d="M316 193 L330 200 L316 207Z"/>
+  <path class="arrow" d="M562 127 H606"/><path class="head" d="M606 120 L620 127 L606 134Z"/>
+  <path class="arrow" d="M770 194 V196"/>
+  <path class="arrow" d="M770 192 V210"/><path class="head" d="M763 204 L770 210 L777 204Z"/>
+  <text class="s" x="40" y="376">Arrows read left to right: source, checks, what runs for a student.</text>
+</svg>

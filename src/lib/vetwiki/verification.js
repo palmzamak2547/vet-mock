@@ -24,6 +24,8 @@ import { ONE_HEALTH_VERIFICATIONS } from './verification-one-health.js';
 import { EQUINE_MEDICINE_VERIFICATIONS } from './verification-equine-medicine.js';
 import { SWINE_CLINIC_VERIFICATIONS } from './verification-swine-clinic.js';
 import { AQUATIC_CLINIC_VERIFICATIONS } from './verification-aquatic-clinic.js';
+import { MILK_MEAT_HYGIENE_VERIFICATIONS } from './verification-milk-meat-hygiene.js';
+import { EQUINE_REPRO_VERIFICATIONS } from './verification-equine-repro.js';
 
 const TODAY = '2026-07-24';
 
@@ -1347,34 +1349,6 @@ const CURATED = {
         },
       ],
     },
-    'milk-meat-hygiene--milk-mastitis--mastitis-classification-pathogen-list': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--milk-mastitis--mastitis-classification-pathogen-list--v1',
-          statement: 'Environmental mastitis เป็นรูปแบบที่พบบ่อยและสร้างความสูญเสียมากที่สุดในฟาร์มโคนมสมัยใหม่ที่ควบคุมการแพร่แบบ contagious ได้แล้ว โดยมูลโค สภาพแวดล้อมในโรงเรือน และแปลงหญ้าที่ใช้แล้วเป็นแหล่งสำคัญของเชื้อ เช่น Escherichia coli และ Streptococcus uberis อย่างไรก็ตาม การจัดกลุ่มเชื้อแบบ binary เป็น contagious หรือ environmental อาจทำให้เข้าใจผิดได้ โดยเฉพาะกับ Staphylococcus aureus, Streptococcus uberis และ streptococci อื่นรวมถึง Streptococcus agalactiae',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-29083115', locator: 'Vol 65 Suppl 1, pages 166-185; abstract (review)', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Environmental mastitis can be caused by a wide range of bacterial species, and binary classification of species as contagious or environmental is misleading, particularly for Staphylococcus aureus, Streptococcus uberis and other streptococc' },
-        },
-        {
-          id: 'milk-meat-hygiene--milk-mastitis--mastitis-classification-pathogen-list--v2',
-          statement: 'Subclinical mastitis นิยมนิยามด้วยเกณฑ์ somatic cell count (SCC) มากกว่า 200,000 cells/mL ที่ระดับ quarter',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-30591327', locator: 'Vol 102, issue 2, pages 1402-1416; abstract, methods (case definition)', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Quarter somatic cell count (SCC) was measured using the reference method (DeLaval cell counter; De Laval International AB, Tumba, Sweden) with SCM defined as SCC >200,000 cells/mL.' },
-        },
-        {
-          id: 'milk-meat-hygiene--milk-mastitis--mastitis-classification-pathogen-list--v3',
-          statement: 'California Mastitis Test (CMT) เป็น cow-side test สำหรับคัดกรอง subclinical mastitis โดยประเมิน SCC ทางอ้อม เมื่อเทียบกับวิธีอ้างอิง Fossomatic cell count พบ sensitivity 81.0% และ specificity 92.9% และให้ผลตรงกับวิธีอ้างอิง 83.1% ของตัวอย่าง',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-37505872', locator: 'Vol 10, issue 7, article 468; abstract, results (284 mixed milk samples, FSCC as gold standard)', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'The CMT matched with the FSCC in 83.1% of the samples ... The sensitivity and specificity reached 81.0% and 92.9% for the CMT' },
-        },
-      ],
-    },
   },
   'milk-meat-hygiene--milk-quality-composition': {
     'milk-meat-hygiene--milk-quality-composition--factors-affecting-milk-composition': {
@@ -1435,42 +1409,6 @@ const CURATED = {
     },
   },
   'milk-meat-hygiene--milk-raw-std': {
-    'milk-meat-hygiene--milk-raw-std--standard-parameters-raw-milk': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--milk-raw-std--standard-parameters-raw-milk--v1',
-          statement: 'มกษ. 6003-2553 (TAS 6003-2010) กำหนดองค์ประกอบขั้นต่ำของน้ำนมโคดิบ: fat ไม่น้อยกว่า 3.35% โดยน้ำหนัก, milk solids not fat (SNF) ไม่น้อยกว่า 8.25% โดยน้ำหนัก และ protein ไม่น้อยกว่า 3.00% โดยน้ำหนัก',
-          evidenceStatus: 'expert-consensus',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'guide-national-bureau-of-agr-2010', locator: 'Section 3 Quality, clauses 3.9-3.11 (ACFS unofficial English translation)', kind: 'guideline' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: '3.9 Protein content shall not be less than 3.00% by weight. 3.10 Fat content shall not be less than 3.35% by weight. 3.11 Milk solids not fat shall not be less than 8.25% by weight.' },
-        },
-        {
-          id: 'milk-meat-hygiene--milk-raw-std--standard-parameters-raw-milk--v2',
-          statement: 'มกษ. 6003-2553 กำหนดว่า freezing point ของน้ำนมโคดิบต้องไม่สูงกว่า -0.520 องศาเซลเซียส และให้ตรวจด้วย thermistor cryoscopy ตามวิธี ISO 5764/IDF 108',
-          evidenceStatus: 'expert-consensus',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'guide-national-bureau-of-agr-2010', locator: 'Section 3 Quality clause 3.5, and Section 10 Table 1 item 4 (methods of analysis)', kind: 'guideline' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: '3.5 Freezing point shall not be above – 0.520°C. ... Table 1 item 4: Freezing point (section 3.5) | ISO 5764/IDF 108 | Thermistor Cryoscopy' },
-        },
-        {
-          id: 'milk-meat-hygiene--milk-raw-std--standard-parameters-raw-milk--v3',
-          statement: 'มกษ. 6003-2553 กำหนด somatic cell count (SCC) ไม่เกิน 500,000 cells/ml และเกณฑ์จุลินทรีย์: standard plate count ไม่เกิน 5 x 10^5 cfu/ml, coliform count ไม่เกิน 10^4 cfu/ml, thermoduric count ไม่เกิน 10^3 cfu/ml',
-          evidenceStatus: 'expert-consensus',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'guide-national-bureau-of-agr-2010', locator: 'Section 3 Quality clause 3.8 (SCC) and Section 8.3 Microbiological criteria, clauses 8.3.1-8.3.3', kind: 'guideline' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: '3.8 Somatic cell count shall not exceed 500,000 cells/ml ... 8.3.1 Standard plate count shall not exceed 5 x 10^5 cfu/ml. 8.3.2 Coliform count shall not exceed 10^4 cfu/ml. 8.3.3 Thermoduric count shall not exceed 10^3 cfu/ml.' },
-        },
-        {
-          id: 'milk-meat-hygiene--milk-raw-std--standard-parameters-raw-milk--v4',
-          statement: 'มกษ. 6003-2553 กำหนดเกณฑ์ physicochemical และ platform test ของน้ำนมโคดิบ: titratable acid ไม่เกิน 0.16% และ pH 6.6 ถึง 6.8, specific gravity ไม่น้อยกว่า 1.028 ที่ 20 องศาเซลเซียส, ต้องไม่เกิด protein precipitation เมื่อทดสอบด้วย 70% ethyl alcohol และ methylene blue reduction time ต้องนานกว่า 4 ชั่วโมง หรือ resazurin reduction test อย่างน้อย grade 4.5 ที่ 1 ชั่วโมง',
-          evidenceStatus: 'expert-consensus',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'guide-national-bureau-of-agr-2010', locator: 'Section 3 Quality, clauses 3.3, 3.4, 3.6, 3.7', kind: 'guideline' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: '3.3 There shall be no protein precipitation under preliminary testing with 70% ethyl alcohol. If precipitation is observed, the test shall be confirmed by the clot on boiling test. 3.4 Tritable acid shall not exceed 0.16% and pH shall be 6.' },
-        },
-      ],
-    },
     'milk-meat-hygiene--milk-raw-std--objectives-of-milk-quality-determination': {
       claims: [
         {
@@ -1497,34 +1435,6 @@ const CURATED = {
     },
   },
   'milk-meat-hygiene--milk-raw-storage': {
-    'milk-meat-hygiene--milk-raw-storage--cold-chain-principles-transport': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--milk-raw-storage--cold-chain-principles-transport--v1',
-          statement: 'ตามเกณฑ์ EU (Reg. 853/2004) น้ำนมดิบต้อง cool ทันทีหลังรีดให้ไม่เกิน 8°C ถ้าเก็บ (collection) ทุกวัน หรือไม่เกิน 6°C ถ้าไม่ได้เก็บทุกวัน และระหว่าง transport ต้องรักษา cold chain โดยอุณหภูมิเมื่อถึงโรงงานปลายทางต้องไม่เกิน 10°C',
-          evidenceStatus: 'expert-consensus',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'guide-european-union-europea-2004', locator: 'Annex III, Section IX, Chapter I, Part II(B), points 2(a) and 3', kind: 'guideline' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Milk must be cooled immediately to not more than 8 oC in the case of daily collection, or not more than 6 oC if collection is not daily ... During transport the cold chain must be maintained and, on arrival at the establishment of destinati' },
-        },
-        {
-          id: 'milk-meat-hygiene--milk-raw-storage--cold-chain-principles-transport--v2',
-          statement: 'การเก็บน้ำนมดิบที่อุณหภูมิ ≥6°C ทำให้ bacterial count, protease activity และ proteolysis เพิ่มขึ้นอย่างมีนัยสำคัญ ส่วน deep cooling ที่ 2°C หรือการใช้ heating ร่วมกับ refrigeration ที่ ≤4°C ยืด storage life ได้ โดย isolate ที่พบเด่นคือ Pseudomonas fluorescens และ Bacillus cereus',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-28252354', locator: 'J Dairy Res 2017;84(1):92-101', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'all of the samples showed increasing BC, PA and PL as a function of temperature, time and initial BC with a significant increase in those criteria ≥6 °C ... deep cooling (2 °C) and combination of heating and refrigeration (≤4 °C) significan' },
-        },
-        {
-          id: 'milk-meat-hygiene--milk-raw-storage--cold-chain-principles-transport--v3',
-          statement: 'Psychrotrophic bacteria ที่เติบโตในน้ำนมดิบแช่เย็นสร้าง protease และ lipase ที่ทน heat โดยยังคง activity อยู่หลังให้ความร้อนที่ 70, 80 หรือ 90°C และ protease ทนความร้อนได้มากกว่า lipase จึงเป็นเหตุผลว่า cold chain ที่ล้มเหลวทำให้ผลิตภัณฑ์เสียได้แม้ผ่านความร้อนแล้ว',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-30070086', locator: 'J Zhejiang Univ Sci B 2018;19(8):630-642', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Proteases and lipases produced by psychrotrophic bacteria retained activity after heat treatment at 70, 80, or 90 °C, and proteases appeared to be more heat-stable than lipases.' },
-        },
-      ],
-    },
     'milk-meat-hygiene--milk-raw-storage--milk-collecting-centers-ศูนย์รวบรวมน้ำนม-mcc': {
       claims: [
         {
@@ -1551,42 +1461,6 @@ const CURATED = {
     },
   },
   'milk-meat-hygiene--milk-products-storage': {
-    'milk-meat-hygiene--milk-products-storage--storage-methodology-per-product-class': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--milk-products-storage--storage-methodology-per-product-class--v1',
-          statement: 'Pasteurisation ของน้ำนมดิบและผลิตภัณฑ์นมต้องใช้อย่างน้อย 72°C นาน 15 วินาที หรืออย่างน้อย 63°C นาน 30 นาที หรือ combination ที่เทียบเท่า โดยผล alkaline phosphatase (ALP) test ทันทีหลังการให้ความร้อนต้องเป็น negative',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-33968255', locator: 'EFSA Journal 2021;19(4):e06576', kind: 'guideline' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Pasteurisation of raw milk, colostrum, dairy or colostrum-based products must be achieved using at least 72°C for 15 s, at least 63°C for 30 min or any equivalent combination, such that the alkaline phosphatase (ALP) test immediately after' },
-        },
-        {
-          id: 'milk-meat-hygiene--milk-products-storage--storage-methodology-per-product-class--v2',
-          statement: 'สำหรับนมโค ผล ALP test ที่ถือว่า negative คือ activity ≤ 350 milliunits ต่อลิตร (mU/L) วัดด้วย ISO 11816-1 โดย ALP activity ในน้ำนมแกะดิบสูงกว่านมโคประมาณ 3 เท่า และในน้ำนมแพะต่ำกว่านมโคประมาณ 5 เท่า',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-33968255', locator: 'EFSA Journal 2021;19(4):e06576', kind: 'guideline' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'For cows\' milk, a negative result is when the measured activity is ≤ 350 milliunits of enzyme activity per litre (mU/L) using the ISO standard 11816-1 ... ALP activity in raw ovine milk appears to be about three times higher and in caprine' },
-        },
-        {
-          id: 'milk-meat-hygiene--milk-products-storage--storage-methodology-per-product-class--v3',
-          statement: 'ระดับ somatic cell count (SCC) ที่สูงในน้ำนมดิบสัมพันธ์กับปริมาณ heat-stable protease (plasmin) และ lipase (lipoprotein lipase) ที่มากขึ้น ซึ่งย่อย protein และ fat ระหว่างการเก็บแบบ refrigerated ทำให้เกิด off-flavour ในนม pasteurized แม้ไม่มีเชื้อเติบโต',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-16527874', locator: 'J Dairy Sci 2006;89 Suppl 1:E15-9', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Increased SCC is correlated with increased amounts of heat-stable protease (plasmin) and lipase (lipoprotein lipase) in milk. When starting with raw milk that has a low bacterial count, and in the absence of microbial growth in pasteurized' },
-        },
-        {
-          id: 'milk-meat-hygiene--milk-products-storage--storage-methodology-per-product-class--v4',
-          statement: 'ในสหรัฐฯ ช่วงปี 2009-2014 ผลิตภัณฑ์นมที่ไม่ผ่าน pasteurization ก่อให้เกิดการเจ็บป่วยจาก outbreak มากกว่าผลิตภัณฑ์ที่ผ่าน pasteurization ประมาณ 840 เท่า (95% CrI 611-1,158) และการเข้าโรงพยาบาลมากกว่าประมาณ 45 เท่า (95% CrI 34-59)',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-28518026', locator: 'Emerg Infect Dis 2017;23(6):957-964', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Unpasteurized dairy products thus cause 840 (95% CrI 611-1,158) times more illnesses and 45 (95% CrI 34-59) times more hospitalizations than pasteurized products.' },
-        },
-      ],
-    },
     'milk-meat-hygiene--milk-products-storage--abnormalities-of-milk-3-categories': {
       claims: [
         {
@@ -1609,58 +1483,6 @@ const CURATED = {
     },
   },
   'milk-meat-hygiene--milk-quality-determination': {
-    'milk-meat-hygiene--milk-quality-determination--methods-of-milk-quality-testing': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--milk-quality-determination--methods-of-milk-quality-testing--v1',
-          statement: 'เกณฑ์ EU สำหรับน้ำนมโคดิบกำหนด somatic cell count (SCC) ≤ 400,000 cells/mL คิดเป็น rolling geometric average ในช่วง 3 เดือน โดยเก็บตัวอย่างอย่างน้อย 1 ตัวอย่าง/เดือน',
-          evidenceStatus: 'expert-consensus',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'guide-european-union-europea-2004', locator: 'Annex III, Section IX, Chapter I, Part III (Criteria for raw milk and colostrum)', kind: 'guideline' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Somatic cell count: ≤ 400 000 [per ml] ... Rolling geometric average over a three-month period, with at least one sample per month, unless the competent authority specifies another methodology to take account of seasonal variations in produ' },
-        },
-        {
-          id: 'milk-meat-hygiene--milk-quality-determination--methods-of-milk-quality-testing--v2',
-          statement: 'เกณฑ์ EU สำหรับน้ำนมโคดิบกำหนด plate count ที่ 30°C (total bacterial count, TBC) ≤ 100,000 cfu/mL คิดเป็น rolling geometric average ในช่วง 2 เดือน โดยเก็บตัวอย่างอย่างน้อย 2 ตัวอย่าง/เดือน',
-          evidenceStatus: 'expert-consensus',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'guide-european-union-europea-2004', locator: 'Annex III, Section IX, Chapter I, Part III (Criteria for raw milk and colostrum)', kind: 'guideline' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Plate Count at 30°C: ≤ 100 000 [per ml] ... Rolling geometric average over a two-month period, with at least two samples per month.' },
-        },
-        {
-          id: 'milk-meat-hygiene--milk-quality-determination--methods-of-milk-quality-testing--v3',
-          statement: 'SCC เป็น screening test ไม่ใช่ definitive test สำหรับ intramammary infection (IMI) ที่ threshold 200,000 cells/mL จากการตรวจ quarter-composite SCC ครั้งเดียว ได้ sensitivity 44.3% และ specificity 87.3% สำหรับการติดเชื้อจาก pathogen ใดก็ตาม และ sensitivity 65.1% specificity 73.0% สำหรับ major pathogens',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-27544856', locator: 'J Dairy Sci 2016;99(11):9271-9286', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'The overall Se and Sp at a threshold of 200,000 cells/mL for a single quarter-cSCC observation obtained closest to the time of bacteriologic culture were 44.3 and 87.3%, respectively, for cows infected with any pathogen, and 65.1 and 73.0%,' },
-        },
-        {
-          id: 'milk-meat-hygiene--milk-quality-determination--methods-of-milk-quality-testing--v4',
-          statement: 'Resazurin reduction test ใช้ติดตามการปนเปื้อนของ bacteria และ yeast ในน้ำนมมานานราว 50 ปี โดยอาศัยลำดับการเปลี่ยนสี คือ resazurin (สีน้ำเงิน ไม่เรืองแสง) ถูก reduce เป็น resorufin (สีชมพู เรืองแสงสูง) แล้วถูก reduce ต่อเป็น hydroresorufin (ไม่มีสี ไม่เรืองแสง)',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-10951200', locator: 'Eur J Biochem 2000;267(17):5421-6', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'The \'resazurin reduction test\' has been used for about 50 years to monitor bacterial and yeast contamination of milk, and also for assessing semen quality. Resazurin (blue and nonfluorescent) is reduced to resorufin (pink and highly fluores' },
-        },
-        {
-          id: 'milk-meat-hygiene--milk-quality-determination--methods-of-milk-quality-testing--v5',
-          statement: 'Methylene blue reduction time (RTMB) สั้นลงเมื่อการปนเปื้อนของจุลินทรีย์ในน้ำนมสูงขึ้น ในการศึกษาที่แอลจีเรีย RTMB ลดลงประมาณ 54% สอดคล้องกับการเพิ่มขึ้นอย่างมีนัยสำคัญของ total mesophilic aerobic bacteria, coliforms, yeasts และ molds ระหว่างจุดเก็บตัวอย่างสองจุด',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-25374932', locator: 'ScientificWorldJournal 2014;2014:131593', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'The average contamination by total mesophilic aerobic bacteria (TMAB), coliforms, yeasts, molds, and different pathogens in samples taken at M1 showed significant changes at M2. This was confirmed by the decrease of reduction time of methyl' },
-        },
-        {
-          id: 'milk-meat-hygiene--milk-quality-determination--methods-of-milk-quality-testing--v6',
-          statement: 'Alcohol test สะท้อนความไม่เสถียรของ casein micelle ต่อ ionic balance ตัวอย่างน้ำนมที่ไม่เสถียรต่อ ethanol 72% v/v มีค่า pH, casein และ non-fat-solids ต่ำกว่า และมี freezing point, chloride, sodium และ potassium สูงกว่าตัวอย่างที่เสถียรที่ ethanol 78% v/v ขึ้นไป โดยตัวแปรที่เข้าสู่ logistic model ของ alcohol stability คือ chloride, potassium, ionic calcium และ somatic cell count',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-15190949', locator: 'J Dairy Res 2004;71(2):201-6', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Unstable samples to ethanol (72%, v/v) presented lower values of pH, somatic cells count, casein and non-fat-solids relative to ethanol stable samples (ethanol at 78%, v/v or more); whereas freezing point, chloride, sodium and potassium con' },
-        },
-      ],
-    },
   },
   'milk-meat-hygiene--milk-microbiology': {
     'milk-meat-hygiene--milk-microbiology--microorganisms-in-milk-2-main-groups': {
@@ -1699,72 +1521,8 @@ const CURATED = {
         },
       ],
     },
-    'milk-meat-hygiene--milk-microbiology--sources-of-contamination-indicator-organisms': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--milk-microbiology--sources-of-contamination-indicator-organisms--v1',
-          statement: 'หลายประเทศใช้ Escherichia coli และ coliforms เป็น indicator ของ sanitary quality ในอาหาร และตั้ง limit ไว้สำหรับ cheese รวมถึง cheese ที่ทำจากนมดิบ',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-31500718', locator: '85:103283', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Many countries use Escherichia coli and coliforms as indicators of sanitary quality of foods and have set limits for cheeses, including raw-milk cheeses.' },
-        },
-        {
-          id: 'milk-meat-hygiene--milk-microbiology--sources-of-contamination-indicator-organisms--v2',
-          statement: 'จากการสำรวจ raw drinking milk ที่วางขายปลีกในอังกฤษ 902 ตัวอย่าง มี 229 ตัวอย่าง (25.4%) ที่ไม่ผ่านเกณฑ์เพราะ aerobic colony count และ/หรือ coliforms สูงเกิน',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-29215775', locator: '124(2):535-546', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'A total of 229 of 902 samples (25·4%) gave unsatisfactory results due to elevated aerobic colony counts and/or coliforms, whilst 139 of 902 samples (15·4%) were of borderline quality due to coagulase-positive staphylococci.' },
-        },
-      ],
-    },
   },
   'milk-meat-hygiene--milk-borne-pathogens': {
-    'milk-meat-hygiene--milk-borne-pathogens--detail-per-pathogen-brucella-listeria-salmonella-stec-mycobacter': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--milk-borne-pathogens--detail-per-pathogen-brucella-listeria-salmonella-stec-mycobacter--v1',
-          statement: 'Coxiella burnetii ถูกจัดว่าเป็น pathogen ที่ทนความร้อนมากที่สุดในน้ำนมดิบมาโดยตลอด จึงถูกใช้เป็น reference pathogen ในการกำหนดสภาวะ pasteurization ของผลิตภัณฑ์นม',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-26143937', locator: '82(4):478-84', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'The obligate intracellular pathogen Coxiella burnetii has long been considered the most heat resistant pathogen in raw milk, making it the reference pathogen for determining pasteurisation conditions for milk products.' },
-        },
-        {
-          id: 'milk-meat-hygiene--milk-borne-pathogens--detail-per-pathogen-brucella-listeria-salmonella-stec-mycobacter--v2',
-          statement: 'การศึกษาที่ wildlife-livestock-human interface ในแอฟริกาใต้ยืนยันว่า zoonotic TB จาก Mycobacterium bovis ถ่ายทอดสู่คนได้ทั้งทางน้ำนมที่ไม่ผ่าน pasteurization และทาง aerosol โดยการบริโภคน้ำนมเป็น risk factor ที่สัมพันธ์กับประวัติ TB ในครัวเรือนอย่างมีนัยสำคัญสูง',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-31337117', locator: '8(3):101', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Ownership of a bTB infected herd and consumption of milk were recognized as highly significant risk factors associated with a history of TB in the household using multiple correspondence analysis (MCA) and logistic regression. The findings' },
-        },
-        {
-          id: 'milk-meat-hygiene--milk-borne-pathogens--detail-per-pathogen-brucella-listeria-salmonella-stec-mycobacter--v3',
-          statement: 'ในการศึกษาผู้ป่วยที่มีไข้ที่ Ijara ประเทศเคนยา การบริโภคน้ำนมที่ซื้อมาสัมพันธ์กับความเสี่ยง brucellosis ที่สูงขึ้น ขณะที่การต้มน้ำนมก่อนบริโภคสัมพันธ์กับความเสี่ยงที่ลดลงอย่างชัดเจน',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-32236091', locator: '14(4):e0008108', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'The IT and LASSO approaches both identified consuming purchased milk as strongly associated with elevated risk and boiling milk before consumption strongly associated with reduced risk.' },
-        },
-        {
-          id: 'milk-meat-hygiene--milk-borne-pathogens--detail-per-pathogen-brucella-listeria-salmonella-stec-mycobacter--v4',
-          statement: 'จากการเฝ้าระวังผู้ป่วยโรคติดเชื้อทางเดินอาหารในรัฐมินนิโซตา พบ hemolytic uremic syndrome ใน 21% ของผู้ป่วยที่ติดเชื้อ Escherichia coli O157 ซึ่งมีประวัติดื่มน้ำนมดิบ',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-24520559', locator: '20(1):38-44', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Severe illness was noted, including hemolytic uremic syndrome among 21% of Escherichia coli O157-infected patients reporting raw milk consumption, and 1 death was reported.' },
-        },
-        {
-          id: 'milk-meat-hygiene--milk-borne-pathogens--detail-per-pathogen-brucella-listeria-salmonella-stec-mycobacter--v5',
-          statement: 'การสำรวจฟาร์มโคนมในสหรัฐฯ ตรวจพบ Campylobacter spp. ใน bulk tank milk หรือ milk filter ที่ 24.9% ของฟาร์ม (weighted prevalence) โดย 91.8% ของ isolate เป็น Campylobacter jejuni',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-28237599', locator: '100(5):3470-3479', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'The weighted prevalence of operations from which we detected Campylobacter spp. in either bulk tank milk or milk filters was 24.9%. ... The majority (91.8%) of isolates were C. jejuni, but C. lari and C. coli were also isolated.' },
-        },
-      ],
-    },
     'milk-meat-hygiene--milk-borne-pathogens--sources-of-contamination-3-categories': {
       claims: [
         {
@@ -1779,26 +1537,6 @@ const CURATED = {
     },
   },
   'milk-meat-hygiene--milk-industry-std': {
-    'milk-meat-hygiene--milk-industry-std--gmp-haccp-detail-processing-plant-standard': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--milk-industry-std--gmp-haccp-detail-processing-plant-standard--v1',
-          statement: 'การจัดทำแผน HACCP ในโรงงานแปรรูปนมใช้ **หลักการ 7 ข้อของ HACCP (seven principles)** เป็นกรอบวิธีการ ร่วมกับการมี pre-requisite programs อยู่ก่อน',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-16786735', locator: 'Vol 56(1):60-8, abstract (Methodology)', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'The used methodology was based in the application of the seven principles of the HACCP, the information from the plant about the compliment of the pre-requisite programs (70-80%), the experience of the HACCP team' },
-        },
-        {
-          id: 'milk-meat-hygiene--milk-industry-std--gmp-haccp-detail-processing-plant-standard--v2',
-          statement: 'ในสายการผลิตผลิตภัณฑ์นม ขั้นตอนที่ถูกกำหนดเป็น **CCP** ได้แก่ การรับน้ำนมดิบ (raw milk receipt) · **pasteurization** · การบรรจุ (packaging) · การเก็บรักษา (storage) เพราะเป็นจุดที่เสี่ยงต่อการปนเปื้อนมากที่สุด',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-38646882', locator: 'Vol 91(1):125-135, abstract', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'In yogurt production, raw milk receipt, pasteurization, packaging, and storage are the steps most susceptible to contamination and were considered critical control points.' },
-        },
-      ],
-    },
     'milk-meat-hygiene--milk-industry-std--standards-hierarchy-4-layers-from-top-to-bottom': {
       claims: [
         {
@@ -1833,92 +1571,8 @@ const CURATED = {
     },
   },
   'milk-meat-hygiene--milk-processing': {
-    'milk-meat-hygiene--milk-processing--heat-treatment-time-temp-product-specific-lines': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--milk-processing--heat-treatment-time-temp-product-specific-lines--v1',
-          statement: 'Pasteurization ของน้ำนมมี 2 รูปแบบหลัก — **LTLT (low temperature long time) = 63°C นาน 30 นาที** และ **HTST (high temperature short time) = 72°C นาน 15 วินาที**',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-21381400', locator: 'Issue 128:81-4, abstract (plant pasteurization experiment)', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'We conducted plant pasteurization experiment at four pasteurization conditions (high temperature, short time (HTST); 82, 77, 72 degrees C for 15 seconds and low temperature, long time (LTLT); 63 degrees C for 30 minutes)' },
-        },
-        {
-          id: 'milk-meat-hygiene--milk-processing--heat-treatment-time-temp-product-specific-lines--v2',
-          statement: 'ในการทดสอบระดับโรงงาน ทั้ง HTST (72, 77, 82°C/15 วินาที) และ LTLT (63°C/30 นาที) ไม่พบโคโลนีของ **Mycobacterium avium subsp. paratuberculosis (MAP)** ในน้ำนมที่ผ่านความร้อน ทั้งสายพันธุ์ ATCC19698 และ OKY-20',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-21381400', locator: 'Issue 128:81-4, abstract (conclusion)', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'In conclusion, there appeared no colony of the two MAP strains formed from the milk pasteurized at the four pasteurization conditions examined.' },
-        },
-        {
-          id: 'milk-meat-hygiene--milk-processing--heat-treatment-time-temp-product-specific-lines--v3',
-          statement: '**UHT ที่ 135°C นาน ~5 วินาที กำจัดสปอร์ได้หมด** ขณะที่ pasteurization ทั่วไป (75-95°C/15 วินาที) ทำลายเชื้อรูป vegetative ได้แต่ **ไม่กำจัดสปอร์** — นี่คือเหตุผลที่ UHT เก็บที่อุณหภูมิห้องได้ แต่นมพาสเจอร์ไรส์ต้องแช่เย็น',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-41829232', locator: 'Vol 15(5):959, abstract', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'This study systematically compared the effects of instantaneous ultra-high-temperature treatment (INF, 145-155 °C/0.09 s) with that of conventional pasteurization (75-95 °C/15 s) as well as ultra-high-temperature treatment (UHT, 135 °C/5 s)' },
-        },
-        {
-          id: 'milk-meat-hygiene--milk-processing--heat-treatment-time-temp-product-specific-lines--v4',
-          statement: '**Alkaline phosphatase (ALP)** เป็นเอนไซม์ธรรมชาติในน้ำนมที่ใช้ยืนยันว่า pasteurization เพียงพอ โดยเกณฑ์สาธารณสุขของสหรัฐฯ และยุโรปสำหรับเครื่องดื่มนมพาสเจอร์ไรส์คือ **ALP ไม่เกิน 350 mU/ลิตร**',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-21740717', locator: 'Vol 74(7):1144-54, abstract', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Alkaline phosphatase is a ubiquitous milk enzyme that historically has been used to verify adequate pasteurization of milk for public health purposes... The U.S. and European public health limit for alkaline phosphatase in pasteurized drink' },
-        },
-        {
-          id: 'milk-meat-hygiene--milk-processing--heat-treatment-time-temp-product-specific-lines--v5',
-          statement: 'ความร้อนสูงกระทบโปรตีนในนม — หลัง **UHT** พบว่า lactoferrin และ IgG **เสียสภาพหมด (complete denaturation)** และค่า **furosine** (ดัชนีปฏิกิริยา glycation) สูงราว **67 mg/100 g protein** เทียบกับราว **15 mg/100 g protein** ที่ 95°C/15 วินาที',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-41829232', locator: 'Vol 15(5):959, abstract', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'The retention of lactoferrin and immunoglobulin G was about 30% and 12% after INF treatment, respectively, which were higher than that of 13% and 8% in the 85 °C/15 s group, and complete denaturation in the 95 °C/15 s and UHT groups... furo' },
-        },
-      ],
-    },
   },
   'milk-meat-hygiene--milk-cleaning': {
-    'milk-meat-hygiene--milk-cleaning--cleaning-agents-disinfectants-detail': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--milk-cleaning--cleaning-agents-disinfectants-detail--v1',
-          statement: 'ชุด **CIP มาตรฐาน** ของโรงงานนมคือ water rinse → **sodium hydroxide (โซดาไฟ) 1% ที่ 65°C นาน 10 นาที** → water rinse → **nitric acid (กรดไนตริก) 1.0% ที่ 65°C นาน 10 นาที** → water rinse',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-16216371', locator: 'Vol 106(3):254-62, abstract', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'a standard clean-in-place (CIP) regime (water rinse, 1% sodium hydroxide at 65 degrees C for 10 min, water rinse, 1.0% nitric acid at 65 degrees C for 10 min, water rinse)' },
-        },
-        {
-          id: 'milk-meat-hygiene--milk-cleaning--cleaning-agents-disinfectants-detail--v2',
-          statement: 'เมื่อแบคทีเรียเกาะติดผิว **stainless steel** เป็น biofilm แล้ว ชุด CIP มาตรฐาน (caustic + acid) **ไม่สามารถกำจัดออกได้อย่างสม่ำเสมอ (not reproducibly)**',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-16216371', locator: 'Vol 106(3):254-62, abstract', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Once bacteria attached to surfaces, a standard clean-in-place (CIP) regime (water rinse, 1% sodium hydroxide at 65 degrees C for 10 min, water rinse, 1.0% nitric acid at 65 degrees C for 10 min, water rinse) did not reproducibly ensure thei' },
-        },
-        {
-          id: 'milk-meat-hygiene--milk-cleaning--cleaning-agents-disinfectants-detail--v3',
-          statement: 'ในการศึกษาระดับห้องปฏิบัติการ **การเพิ่มขั้นตอน sanitizer เข้าไปใน CIP ไม่ได้ช่วยให้กำจัด biofilm ดีขึ้น** ขณะที่การใช้ caustic additive ร่วมกับ acid blend ลดจำนวนเซลล์ที่เก็บได้จากผิว stainless steel ลง **3.8 log**',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-16216371', locator: 'Vol 106(3):254-62, abstract (results)', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'The combination of NaOH plus Eliminator and Nitroplus achieved a 3.8 log reduction in the number of cells recovered from the stainless steel surface. The incorporation of a sanitizer step into the CIP did not appear to enhance biofilm remov' },
-        },
-      ],
-    },
-    'milk-meat-hygiene--milk-cleaning--ส่วนที่-1-ข้อกำหนดสำหรับสถานที่ผลิตอาหารทุกประเภท': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--milk-cleaning--ส่วนที่-1-ข้อกำหนดสำหรับสถานที่ผลิตอาหารทุกประเภท--v1',
-          statement: 'แบคทีเรียส่วนใหญ่ที่แยกได้บ่อยในห่วงโซ่น้ำนม **สร้าง biofilm ได้** เช่น **Staphylococcus aureus** (และ staphylococci อื่น) · **Bacillus spp.** · **Listeria monocytogenes** · **Pseudomonas spp.** ซึ่งเข้าไปตั้งรกรากบนเครื่องรีดนมและเครื่องมือแปรรูปนม และ **ทนต่อสารฆ่าเชื้อ (biocides) ได้มากกว่ารูป planktonic**',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-39603496', locator: 'Vol 108(8):8157-8175, abstract', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Biofilm formation allows microorganisms including bacteria to persist on abiotic or biotic surfaces, to resist treatments with biocides (disinfectants and antibiotics)... most of the bacterial species isolated frequently in the dairy chain' },
-        },
-      ],
-    },
   },
   'milk-meat-hygiene--milk-biosec-dairy': {
     'milk-meat-hygiene--milk-biosec-dairy--lecture-identity': {
@@ -1971,424 +1625,20 @@ const CURATED = {
     },
   },
   'milk-meat-hygiene--meat-hygiene-intro': {
-    'milk-meat-hygiene--meat-hygiene-intro--meat-as-a-food-definition-4-categories': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--meat-hygiene-intro--meat-as-a-food-definition-4-categories--v1',
-          statement: 'ตามนิยามของ Codex Code of Hygienic Practice for Meat คำว่า meat หมายถึงทุกส่วนของสัตว์ที่ตั้งใจให้ใช้เป็นอาหาร หรือได้รับการตัดสินแล้วว่า safe and suitable สำหรับการบริโภคของมนุษย์ ซึ่งครอบคลุมกว้างกว่าเฉพาะ muscle tissue',
-          evidenceStatus: 'expert-consensus',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'guide-codex-alimentarius-com-2005', locator: 'Definitions section, entry for \'meat\'. ไม่ได้ยืนยันเลขข้อย่อยที่แน่นอน จึงไม่ระบุ clause number', kind: 'guideline' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: '' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-hygiene-intro--meat-as-a-food-definition-4-categories--v2',
-          statement: 'IARC นิยาม red meat ว่าเป็น mammalian muscle meat ทั้งหมด ซึ่งรวม beef, veal, pork, lamb, mutton, horse และ goat และจากการประเมินของ IARC Working Group จัด processed meat ไว้ใน Group 1 (carcinogenic to humans) ส่วน red meat อยู่ใน Group 2A (probably carcinogenic to humans)',
-          evidenceStatus: 'expert-consensus',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'guide-international-agency-f-2018', locator: 'Working Group evaluation (ประกาศผลการประเมินเดือนตุลาคม 2015, monograph เล่มเต็มตีพิมพ์ปี 2018) ไม่ได้ยืนยันเลขหน้า', kind: 'guideline' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: '' },
-        },
-      ],
-    },
-    'milk-meat-hygiene--meat-hygiene-intro--meat-components-5-tissue-types': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--meat-hygiene-intro--meat-components-5-tissue-types--v1',
-          statement: 'Intramuscular connective tissue (IMCT) โดยเฉพาะส่วน perimysium เป็นโครงสร้างที่กำหนด mechanical integrity ของเนื้อที่ปรุงสุกมากที่สุด และการทำสุกจะเพิ่มความแข็งแรงของ IMCT ในช่วง 20-50 องศาเซลเซียส แต่ลดบทบาทของมันลงเมื่ออุณหภูมิสูงขึ้นหรือใช้เวลานานขึ้น',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-22063743', locator: 'Meat Sci 2005;70(3):435-47, abstract', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'The perimysial component of IMCT varies most in amount between muscles and is also the IMCT structure most involved in defining the mechanical integrity of cooked meat. ... Cooking increases IMCT strength in the range 20-50 °C and decreases' },
-        },
-      ],
-    },
-    'milk-meat-hygiene--meat-hygiene-intro--nutrition-structure-global-trends': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--meat-hygiene-intro--nutrition-structure-global-trends--v1',
-          statement: 'สีของเนื้อสดถูกกำหนดโดย myoglobin โดย deoxymyoglobin ให้สีม่วง, oxymyoglobin ให้สีแดงสด และเมื่อ oxidize ไปเป็น metmyoglobin จะให้สีน้ำตาล ทั้งนี้เนื้อวัวที่มี myoglobin สูงจะเกิดการเปลี่ยนสี (discoloration) ได้ง่ายกว่าเนื้อไก่ขาว',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-28846443', locator: 'Crit Rev Food Sci Nutr 59(2):228-252, abstract', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'A decreased redness is attributed to a large degree to the oxidation of the bright red oxymyoglobin or the purplish deoxymyoglobin into the brownish metmyoglobin, as well as to the denaturation of myoglobin. Surely, the high myoglobin conte' },
-        },
-      ],
-    },
   },
   'milk-meat-hygiene--meat-seafood': {
-    'milk-meat-hygiene--meat-seafood--spoilage-mechanisms-seafood-toxins-detail': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--meat-seafood--spoilage-mechanisms-seafood-toxins-detail--v1',
-          statement: 'Scombroid poisoning หรือ histamine fish poisoning เกิดจากแบคทีเรียที่ใช้เอนไซม์ histidine decarboxylase เปลี่ยน free histidine ในเนื้อปลาไปเป็น histamine โดยการลดอุณหภูมิที่ไม่เพียงพอหลังจับปลาเป็นตัวส่งเสริมการสร้าง histamine และปลาที่มี free histidine สูงคือกลุ่มที่พบเป็นสาเหตุบ่อยที่สุด',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-20152850', locator: 'Toxicon 2010;56(2):231-43, abstract', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Inadequate cooling following harvest promotes bacterial histamine production, and can result in outbreaks of scombroid poisoning. Fish with high levels of free histidine, the enzyme substrate converted to histamine by bacterial histidine de' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-seafood--spoilage-mechanisms-seafood-toxins-detail--v2',
-          statement: 'Histamine-forming bacteria ที่เชื่อมโยงกับ scombroid fish poisoning ส่วนใหญ่เป็นแบคทีเรีย Gram-negative เช่น Morganella spp. และ Photobacterium spp. ซึ่งมียีน hdc สำหรับสร้าง histidine decarboxylase และพบได้ที่เหงือก ทางเดินอาหาร และผิวหนังของปลา โดยเฉพาะปลาในวงศ์ Scombridae',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-36916556', locator: 'J Food Prot 2023;86(3):100049, abstract', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Previous studies linked a plethora of Gram-negative HFB including Morganella spp. and Photobacterium spp. to scombroid fish poisoning from many types of seafood, especially the Scombridae family. These bacteria possess the hdc gene to produ' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-seafood--spoilage-mechanisms-seafood-toxins-detail--v3',
-          statement: 'Paralytic shellfish poisoning (PSP) เกิดจาก saxitoxins ที่สร้างโดย dinoflagellate Alexandrium catenella แล้วสะสมผ่านห่วงโซ่อาหารในหอยกรองอาหาร โดยเกณฑ์ความปลอดภัยด้านอาหารทะเลที่ใช้อ้างอิงคือ 80 ไมโครกรัม STX equivalents ต่อเนื้อหอย 100 กรัม',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-35550288', locator: 'Harmful Algae 2022;114:102205, abstract', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'This algal species produces neurotoxins that impact marine wildlife health and cause the human illness known as paralytic shellfish poisoning (PSP). ... PSTs (saxitoxin equivalents, STX eq.) were detected in all trophic levels with concentr' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-seafood--spoilage-mechanisms-seafood-toxins-detail--v4',
-          statement: 'Ciguatera fish poisoning เป็นโรคจาก seafood toxin ที่มีรายงานบ่อยที่สุดในโลก อาการเป็นชุดผสมของระบบทางเดินอาหาร ระบบประสาทและ neuropsychological และระบบหัวใจหลอดเลือด ซึ่งอาจคงอยู่เป็นวัน สัปดาห์ หรือเป็นเดือน',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-28335428', locator: 'Mar Drugs 2017;15(3):72, abstract', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Ciguatera Fish Poisoning (CFP) is the most frequently reported seafood-toxin illness in the world. ... The illness produces a complex array of gastrointestinal, neurological and neuropsychological, and cardiovascular symptoms, which may las' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-seafood--spoilage-mechanisms-seafood-toxins-detail--v5',
-          statement: 'Tetrodotoxin (TTX) เป็น neurotoxin ที่พบครั้งแรกในปลาปักเป้า แต่ตรวจพบได้ในสัตว์หลายกลุ่มที่มีแบคทีเรียสร้าง TTX อาศัยอยู่ ออกฤทธิ์หลักโดยยับยั้ง voltage-gated sodium channels และขนาดที่ทำให้คนเสียชีวิตอยู่ในช่วงประมาณ 1.5 ถึง 2.0 มิลลิกรัม',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-34437388', locator: 'Toxins (Basel) 2021;13(8):517, abstract', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Tetrodotoxin (TTX) is a potent neurotoxin that was first identified in pufferfish but has since been isolated from an array of taxa that host TTX-producing bacteria. ... TTX is primarily a powerful sodium channel inhibitor that targets volt' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-seafood--spoilage-mechanisms-seafood-toxins-detail--v6',
-          statement: 'ในปลาแช่เย็น Shewanella baltica ถูกจัดเป็น specific spoilage organism โดยสามารถ reduce trimethylamine-N-oxide (TMAO) ไปเป็น trimethylamine (TMA) และสร้าง H2S ทำให้ค่า TVB-N สูงกว่ากลุ่ม Pseudomonas อย่างมีนัยสำคัญ',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-27747903', locator: 'Lett Appl Microbiol 64(1):86-93, abstract', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'All of them were able to grow aerobically from 4 to 30°C, and reduce trimethylamine-N-oxide to trimethylamine (TMA) and produce H S except SB01, PF05 and PF07. ... the TVB-N value of S. baltica was significantly higher than that of Pseudomo' },
-        },
-      ],
-    },
   },
   'milk-meat-hygiene--meat-microbiology': {
-    'milk-meat-hygiene--meat-microbiology--introduction-where-contamination-starts': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--meat-microbiology--introduction-where-contamination-starts--v1',
-          statement: 'Salmonella อาศัยอยู่ในทางเดินอาหารของโคที่สุขภาพดีได้ตามปกติ และถูกถ่ายทอดมาปนเปื้อนที่ผิว carcass ระหว่างขั้นตอน hide removal และ evisceration',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-26125489', locator: 'Vol 210, pages 149-55 (abstract, opening statement and results)', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Salmonella is a foodborne pathogen that commonly inhabits the gastrointestinal tract of a healthy feedlot cattle and can be transferred to the carcass surface during hide removal and evisceration procedures.' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-microbiology--introduction-where-contamination-starts--v2',
-          statement: 'หนัง (hide) เป็นแหล่งปนเปื้อนหลักที่มี bacterial load สูงกว่าผิว carcass ชัดเจน โดยพบ mean total plate count บน exterior hide ในช่วง 8.2 ถึง 12.5 log CFU/100 cm2 ขณะที่ผิว carcass หลังลอกหนังแต่ก่อนทำ decontamination อยู่ในช่วง 6.1 ถึง 9.1 log CFU/100 cm2',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-10945584', locator: 'Vol 63, issue 8, pages 1080-6 (abstract, results)', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Sponge swab samples yielded mean (log CFU/100 cm2) total plate counts (TPC), total coliform counts (TCC), and Escherichia coli counts (ECC) on the exterior hide in the ranges of 8.2 to 12.5, 6.0 to 7.9, and 5.5 to 7.5, respectively, while c' },
-        },
-      ],
-    },
-    'milk-meat-hygiene--meat-microbiology--intrinsic-extrinsic-factors-standard-pathogen-panel': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--meat-microbiology--intrinsic-extrinsic-factors-standard-pathogen-panel--v1',
-          statement: 'Process hygiene criteria สำหรับ aerobic colony count และ Enterobacteriaceae บน carcass ตาม Commission Regulation (EC) No 2073/2005 อ้างอิงกับ destructive sampling (excision) เท่านั้น แต่อนุญาตให้ใช้ sampling scheme อื่น เช่น swab และใช้ indicator organism อื่น เช่น E. coli ได้ ถ้าพิสูจน์ได้ว่าให้หลักประกันความปลอดภัยเทียบเท่ากัน',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-17706823', locator: 'Vol 118, issue 2, pages 180-5 (abstract, aim and rationale)', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'These criteria apply only to destructive sampling of total aerobic counts and Enterobacteriaceae, but alternative sampling schemes, as well as alternative indicator organisms such as E. coli, are allowed if equivalent guarantees of food saf' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-microbiology--intrinsic-extrinsic-factors-standard-pathogen-panel--v2',
-          statement: 'Campylobacter jejuni เป็นสาเหตุอันดับต้นของ bacterial gastroenteritis ทั่วโลก และการติดเชื้อมักถ่ายทอดผ่านการบริโภคเนื้อสัตว์ปีกดิบหรือปรุงไม่สุก',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-34041858', locator: 'Vol 68, issue 6, pages 638-649 (abstract, opening statement)', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Campylobacter jejuni is the leading cause of bacterial gastroenteritis globally, and infections are often transmitted through consumption of raw or undercooked poultry.' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-microbiology--intrinsic-extrinsic-factors-standard-pathogen-panel--v3',
-          statement: 'pH และ temperature ทำงานร่วมกันเป็น hurdle ต่อ Listeria monocytogenes โดยที่อุณหภูมิ chill 5 องศาเซลเซียส เชื้อเจริญได้ที่ pH 7.0 แต่ไม่เจริญที่ pH 5.13',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-2118897', locator: 'Vol 69, issue 1, pages 63-72 (abstract, results)', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'At 5 degrees C growth occurred at pH 7.0 but not at pH 5.13.' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-microbiology--intrinsic-extrinsic-factors-standard-pathogen-panel--v4',
-          statement: 'Pseudomonas ที่สร้าง protease เป็นกลุ่มเด่นของ spoilage flora ในเนื้อดิบที่เก็บแบบ aerobic ที่อุณหภูมิ chill โดยมี Enterobacteriaceae ตามมาห่าง ๆ',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-17133818', locator: 'Vol 69, issue 11, pages 2729-37 (abstract, opening statement and results)', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Proteolytic pseudomonads dominate the spoilage flora of aerobically chill-stored proteinaceous raw foods. ... Pseudomonads dominated the psychrotrophic flora, followed distantly by members of the Enterobacteriaceae.' },
-        },
-      ],
-    },
   },
   'milk-meat-hygiene--meat-storage': {
-    'milk-meat-hygiene--meat-storage--factors-affecting-microorganisms-in-meat': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--meat-storage--factors-affecting-microorganisms-in-meat--v1',
-          statement: 'อุณหภูมิเก็บรักษาเป็น extrinsic factor ที่กำหนดชนิดจุลินทรีย์ในเนื้อ โดยเนื้อหมูที่เก็บ -2°C กับ 4°C มี bacterial community คล้ายกันมาก แต่ที่ 10°C ทั้ง psychrophilic และ mesophilic bacteria ขึ้นได้ และองค์ประกอบใกล้เคียงกับเนื้อที่เก็บอุณหภูมิห้อง (25°C)',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-35954075', locator: 'Foods 2022;11(15):2307', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'The microbial composition exhibited high similarity between pork meat stored at -2 °C and 4 °C' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-storage--factors-affecting-microorganisms-in-meat--v2',
-          statement: 'บรรยากาศรอบเนื้อ (gas atmosphere/packaging) เป็น extrinsic factor ที่กำหนดกลุ่มจุลินทรีย์เด่น โดยซากโคที่เก็บ 0°C แบบ aerobic มี Pseudomonas spp. เป็นกลุ่มเด่น ส่วนแบบ vacuum (anaerobic) มี Serratia spp. เป็นกลุ่มเด่น',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-34416953', locator: 'Food Microbiol 2021;100:103849', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'The predominant group was Pseudomonas spp. under aerobic conditions and Serratia spp. under anaerobic conditions.' },
-        },
-      ],
-    },
-    'milk-meat-hygiene--meat-storage--specific-storage-methods-chilling-freezing-map-curing-drying': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--meat-storage--specific-storage-methods-chilling-freezing-map-curing-drying--v1',
-          statement: 'ในเนื้อแดงแช่เย็นที่เก็บแบบ aerobic จุลินทรีย์หลักที่ทำให้เกิด spoilage คือ psychrotrophic Pseudomonas species ซึ่งทนสภาวะเครียดได้ดีกว่าจุลินทรีย์ psychrotroph กลุ่มอื่น',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-33336914', locator: 'Compr Rev Food Sci Food Saf 2019;18(5):1622-1635', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Psychrotrophic Pseudomonas species are the key microorganisms that cause spoilage in aerobically stored chilled meat.' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-storage--specific-storage-methods-chilling-freezing-map-curing-drying--v2',
-          statement: 'MAP ยับยั้ง total aerobic bacteria และ lactic acid bacteria ในเนื้อโคบรรจุกล่องที่เก็บและขนส่งที่ 4±2°C ได้ดีกว่า vacuum packaging',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-31333861', locator: 'J Anim Sci Technol 2019;61(1):47-53', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'MAP was more effective than vacuum packaging for the inhibition of total aerobic, lactic acid bacteria' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-storage--specific-storage-methods-chilling-freezing-map-curing-drying--v3',
-          statement: 'Codex ใช้ -18°C เป็นอุณหภูมิอ้างอิงของ quick frozen food โดยต้องรักษา product temperature ที่ -18°C หรือต่ำกว่า ตลอด cold chain ทั้งห้องเย็น การขนส่ง และตู้แช่ ณ จุดขายปลีก',
-          evidenceStatus: 'expert-consensus',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'guide-codex-alimentarius-com-1976', locator: 'CXC 8-1976 (adopted 1976; revised 1978, 1983, 2008). Frozen storage, transport and retail provisions. Exact clause numbering of the adopted 2008 revision was NOT verified.', kind: 'guideline' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'maintain a product temperature of -18°C or lower with a minimum of fluctuation' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-storage--specific-storage-methods-chilling-freezing-map-curing-drying--v4',
-          statement: 'Nitrite ถูกใช้ควบคุม Clostridium botulinum ในผลิตภัณฑ์เนื้อหมักมาแต่เดิม แต่ใน dry fermented sausage ปัจจัย pH, aw และ competitive microbiota อาจมีบทบาทมากกว่า nitrite โดยการศึกษาแบบ challenge test ตรวจไม่พบ botulinum neurotoxin แม้ในสูตรที่ไม่ใส่ nitrate/nitrite เลย เมื่อ pH ลดต่ำกว่า 5.0-5.2 และ aw ลดจาก 0.96 เหลือ 0.88-0.90',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-26619314', locator: 'Int J Food Microbiol 2016;218:66-70', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Botulinum neurotoxin was not detected in any of the sausages, including those manufactured without nitrate and nitrite.' },
-        },
-      ],
-    },
   },
   'milk-meat-hygiene--meat-quality': {
-    'milk-meat-hygiene--meat-quality--definition-of-fresh-meat': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--meat-quality--definition-of-fresh-meat--v1',
-          statement: 'Codex Code of Hygienic Practice for Meat นิยาม fresh meat ว่าเป็นเนื้อที่นอกจาก refrigeration แล้ว ไม่ได้ผ่านการ treat เพื่อการถนอมอาหารด้วยวิธีอื่นนอกจาก protective packaging และยังคง natural characteristics ไว้',
-          evidenceStatus: 'expert-consensus',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'guide-codex-alimentarius-com-2005', locator: 'CXC 58-2005 (CAC/RCP 58-2005), Section 3 Definitions, paragraph 13 (page 5 of 52)', kind: 'guideline' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Meat that apart from refrigeration has not been treated for the purpose of preservation other than through protective packaging' },
-        },
-      ],
-    },
-    'milk-meat-hygiene--meat-quality--properties-of-meat-4-key-attributes': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--meat-quality--properties-of-meat-4-key-attributes--v1',
-          statement: 'Myoglobin เป็น sarcoplasmic heme protein ที่กำหนดสีของเนื้อเป็นหลัก และ chemistry ของ myoglobin เป็น species specific โดยผู้บริโภคใช้สีของเนื้อสดเป็นตัวชี้วัด wholesomeness ณ จุดขาย',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-23190143', locator: 'Annu Rev Food Sci Technol 2013;4:79-99', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Myoglobin is the sarcoplasmic heme protein primarily responsible for the meat color, and the chemistry of myoglobin is species specific.' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-quality--properties-of-meat-4-key-attributes--v2',
-          statement: 'สีเนื้อขึ้นกับ redox state ของ myoglobin โดยการรีดิวซ์ metmyoglobin กลับไปเป็น oxymyoglobin ทำให้สีเนื้อเปลี่ยนจากสีน้ำตาลเป็นสีแดงสด',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-25221843', locator: 'J Agric Food Chem 2014;62(39):9472-8', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'The reduction of MetMb to MbO2 changes the color of meat from brown to the more desirable bright red.' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-quality--properties-of-meat-4-key-attributes--v3',
-          statement: 'μ-calpain (micro-calpain) เป็นเอนไซม์หลักที่รับผิดชอบ postmortem proteolysis ของโปรตีนกล้ามเนื้อ ซึ่งเป็นกลไกของ meat tenderization ระหว่างการบ่มเนื้อ',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-16971586', locator: 'J Anim Sci 2006;84(10):2834-40', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'micro-calpain is largely responsible for postmortem proteolysis of muscle proteins' },
-        },
-      ],
-    },
-    'milk-meat-hygiene--meat-quality--quality-defects-wholesomeness-criteria-detail': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--meat-quality--quality-defects-wholesomeness-criteria-detail--v1',
-          statement: 'PSE pork สัมพันธ์กับ recessive halothane allele ซึ่งทำให้ Ca release channel / ryanodine receptor (RYR1) ที่ sarcoplasmic reticulum ผิดปกติ ปล่อย Ca2+ ออกมาไม่หยุดเมื่อสัตว์เจอ stress ก่อนฆ่า ทำให้ pH ของกล้ามเนื้อลดลงอย่างรวดเร็วหลังฆ่า เกิดเนื้อ pale, soft, exudative ที่ WHC ต่ำและ drip loss สูง',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-27854153', locator: 'Anim Biotechnol 2017;28(2):148-155', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Abnormal lactic acid metabolism caused by stress prior to slaughter leads to the sudden drop in postmortem muscle pH producing the PSE pork.' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-quality--quality-defects-wholesomeness-criteria-detail--v2',
-          statement: 'Dark cutting beef แบบ classic (DFD) จัดกลุ่มด้วย ultimate pH ของ longissimus thoracis มากกว่า 6.0 และมี lactate กับ glucidic potential ต่ำที่สุด สีเข้ม รวมทั้ง purge, drip loss และ cooking loss ลดลง',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-25173716', locator: 'Meat Sci 2014;98(4):842-9', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'ten B4 with LT pH>6.0 (CL, classic), and ten B4 with LT pH<6.0 (AT, atypical)' },
-        },
-      ],
-    },
   },
   'milk-meat-hygiene--meat-molecular': {
-    'milk-meat-hygiene--meat-molecular--applications-species-id-authentication-adulteration-qpcr': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--meat-molecular--applications-species-id-authentication-adulteration-qpcr--v1',
-          statement: 'Cytochrome c oxidase subunit I (COI) เป็นบริเวณ DNA ที่นิยมใช้เป็น barcode มากที่สุดสำหรับ species identification ในสัตว์ รวมทั้งปลาและ shellfish โดย DNA barcoding ที่อาศัย Sanger sequencing เป็นวิธีที่ใช้มากที่สุดในการพิสูจน์ชนิดของ seafood',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-32838560', locator: 'Crit Rev Food Sci Nutr 2021;61(22):3904-3935', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Cytochrome c oxidase subunit I (COI) gene has been the preferential targeted DNA region in animal species identification' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-molecular--applications-species-id-authentication-adulteration-qpcr--v2',
-          statement: 'การตรวจชนิดสัตว์ในผลิตภัณฑ์เนื้อแปรรูปควรใช้ amplicon สั้นและจับหลายยีน โดย multiplex PCR-RFLP ที่จับยีนไมโทคอนเดรีย cytochrome b และ ND5 ด้วย target ขนาด 73-146 bp ยังคงตรวจได้แม้ตัวอย่างผ่าน boiling และ autoclaving',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-27501408', locator: 'J Agric Food Chem 2016;64(32):6343-54', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'all targets (73, 90, 106, 120, 138, and 146 bp) were stable under extreme boiling and autoclaving treatments' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-molecular--applications-species-id-authentication-adulteration-qpcr--v3',
-          statement: 'Real-time PCR ที่ใช้ primer จำเพาะสุกรจับยีน cytochrome b ซึ่งเป็น multi-copy target ใช้พิสูจน์ Halal/Kosher ของ gelatine ได้ โดยระดับการปลอมปนต่ำสุดที่ตรวจพบคือ 1.0% w/w ใน marshmallow และ gum drop',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-22098822', locator: 'Meat Sci 2012;90(3):686-9', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'The minimum level of adulteration that could be detected was 1.0% w/w for marshmallows and gum drops.' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-molecular--applications-species-id-authentication-adulteration-qpcr--v4',
-          statement: 'PCR-RFLP ที่ขยายชิ้นส่วนยีน cytochrome b แล้วตัดด้วย restriction enzyme AluI ใช้แยกเนื้อลาออกจากเนื้อม้าได้ และเมื่อสำรวจผลิตภัณฑ์เนื้อ 224 ตัวอย่างในอิหร่านพบเนื้อ haram รวม 7.58% ของตัวอย่างทั้งหมด',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-24426061', locator: 'J Food Sci Technol 2014;51(1):148-52', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'the mitochondrial DNA segment (cytochrome-b gene) was amplified and products were digested with AluI restriction enzyme' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-molecular--applications-species-id-authentication-adulteration-qpcr--v5',
-          statement: 'Limit of detection ของการตรวจ porcine DNA ใน gelatine ต่างกันมากตามวิธีสกัด DNA และชุดตรวจที่ใช้ โดยวิธีที่พัฒนาขึ้น (TübiGel) ตรวจได้ที่ 0.01% porcine gelatin ขณะที่ชุดตรวจการค้าสองชุดตรวจได้ที่ 0.1% และมากกว่า 5% ตามลำดับ',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-33818304', locator: 'Food Addit Contam Part A Chem Anal Control Expo Risk Assess 2021;38(6):881-891', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'detection limit of 0.01% porcine gelatin, whilst the Biotecon method had 0.1% and R-Biopharm method detected >5%' },
-        },
-      ],
-    },
   },
   'milk-meat-hygiene--meat-slaughter': {
-    'milk-meat-hygiene--meat-slaughter--layout-zoning-water-consumption-waste-handling-detail': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--meat-slaughter--layout-zoning-water-consumption-waste-handling-detail--v1',
-          statement: 'หนัง (hide) ของโคคือแหล่งหลักของการปนเปื้อนซากระหว่างกระบวนการชำแหละ และการขนส่ง + การพักใน lairage ทำให้ความชุกของ Escherichia coli O157:H7 บนหนังเพิ่มจาก 50.3% ตอนขึ้นรถที่ feedlot เป็น 94.4% ตอนถลกหนังในโรงฆ่า',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-17340859', locator: '70(2):280-6', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Hide has been established as the main source of carcass contamination during cattle processing... The prevalence of E. coli O157:H7 on hides increased from 50.3 to 94.4% between the time cattle were loaded onto tractor-trailers at the feedl' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-slaughter--layout-zoning-water-consumption-waste-handling-detail--v2',
-          statement: 'ความชุกของ EHEC O157 บนซากโคลดลงตามลำดับขั้นของสายการผลิต คือ 43% ที่ pre-evisceration, 18% ที่ post-evisceration (ก่อน antimicrobial intervention) และ 2% หลังซากเข้าห้องเย็น แสดงว่า sanitary procedure ในสายการผลิตลดการปนเปื้อนได้จริง',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-10725380', locator: '97(7):2999-3003', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Carcass samples were taken at three points during processing: preevisceration, postevisceration before antimicrobial intervention, and postprocessing after carcasses entered the cooler... Prevalence of EHEC O157 in the three postprocessing' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-slaughter--layout-zoning-water-consumption-waste-handling-detail--v3',
-          statement: 'ในสายการฆ่าสุกร ขั้นตอน scalding, singeing และ chilling ลดจำนวนจุลินทรีย์บนซาก ส่วน dehairing และ polishing ทำให้การปนเปื้อนเพิ่มขึ้นอย่างมีนัยสำคัญ จึงเสนอให้ scalding, singeing และ chilling เป็นจุดที่รวมเข้าในระบบ HACCP',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-17133797', locator: '69(11):2568-75', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'mean TVCs and the percentage of Enterobacteriaceae-positive carcasses were reduced (P < 0.05) after scalding (1.9 log CFU cm(-2) and 12%, respectively), singeing (1.9 log CFU cm(-2) and 66%, respectively), and blast chilling (2.3 log CFU cm' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-slaughter--layout-zoning-water-consumption-waste-handling-detail--v4',
-          statement: 'คอกพักสัตว์ (lairage) เป็นแหล่งสำคัญของการปนเปื้อน Salmonella บนซากสุกร โดย serotype และ MLVA/PFGE profile ที่พบบนซากมักเชื่อมโยงกับ holding pen มากกว่าที่พบจาก caecum content หรือ lymph node ของตัวสัตว์เอง',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-23261811', locator: '161(1):44-52', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'The Salmonella serotypes identified on the carcasses of the 16 tracked batches were frequently linked to lairage, whereas the serotypes detected at the farm, transport or pig-related samples (i.e., caecum content and lymph nodes) were only' },
-        },
-      ],
-    },
   },
   'milk-meat-hygiene--meat-ante-post-mortem': {
-    'milk-meat-hygiene--meat-ante-post-mortem--am-pm-lesion-judgement-table-per-organ-disposition': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--meat-ante-post-mortem--am-pm-lesion-judgement-table-per-organ-disposition--v1',
-          statement: 'Routine abattoir meat inspection ตรวจจับซากที่ติด Mycobacterium bovis ได้เพียงส่วนน้อย โดยมี sensitivity 28.2% เมื่อเทียบกับ detailed abattoir inspection และ 55.2% เมื่อเทียบกับ culture + microscopy ทำให้พลาดซากที่มีรอยโรค TB ถึง 71.8%',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-20691081', locator: '10:462', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'The sensitivity (Sn) and specificity (Sp) of RA inspection were 28.2% (95/337) [95%CI: 23.4-33.0] and 99.3% (2963/2985) [95%CI: 99.0-99.6], respectively, when DA inspection was considered as reference test. When culture and microscopy (CM)' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-ante-post-mortem--am-pm-lesion-judgement-table-per-organ-disposition--v2',
-          statement: 'รอยโรค tuberculosis ในโคที่ตรวจพบตอน postmortem อยู่ที่ปอดและ lymph node ที่เกี่ยวข้องประมาณ 59% และ lymph node ของหัวประมาณ 35% จึงเป็นตำแหน่งที่ต้องกรีดตรวจเป็นหลัก และ routine inspection มี sensitivity เพียง 23.8% เทียบกับ detailed inspection',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-23080340', locator: '45(3):855-64', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'About 59.45 % of tuberculous lesions were observed in the lungs and associated lymph nodes, whereas 35.13 % lesions were from the lymph nodes of the head... The sensitivity of RA meat inspection was 23.8 % in comparison to the detailed abat' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-ante-post-mortem--am-pm-lesion-judgement-table-per-organ-disposition--v3',
-          statement: 'Routine meat inspection มี sensitivity ต่ำมากต่อ bovine cysticercosis โดยแบบจำลอง scenario-analysis ของเบลเยียมประเมิน sensitivity ของ meat inspection สำหรับ cysticerci ทั้งที่ยังมีชีวิตและที่เสื่อมสภาพไว้เพียง 0.54% (95% CI 0.37-0.71%) เทียบกับความชุกจริงที่ประเมินได้ 42.5%',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-30466649', locator: '161:1-8', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'The model estimated the current prevalence of BCC to be 42.5% (95% CI: 32.4-60.7%) and the sensitivity of the MI for viable and degenerated cysticerci at only 0.54% (95% CI: 0.37-0.71%).' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-ante-post-mortem--am-pm-lesion-judgement-table-per-organ-disposition--v4',
-          statement: 'ในโคขุนที่ตรวจ postmortem แบบ routine พบ Cysticercus bovis บ่อยที่สุดที่หัวใจ รองลงมาคือตับและกล้ามเนื้อ masseter และ postmortem inspection มี sensitivity 52.4% เมื่อเทียบกับ stereoscopic microscopy เป็น gold standard',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-25803448', locator: '12(5):462-5', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'The sensitivity of the postmortem inspection, when compared to a gold standard of stereoscopic microscopy, was 52.4%... Cysticerci were most frequently found in the heart, followed by liver and masseter muscles.' },
-        },
-      ],
-    },
-    'milk-meat-hygiene--meat-ante-post-mortem--general-principles-am-vs-pm': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--meat-ante-post-mortem--general-principles-am-vs-pm--v1',
-          statement: 'การตรวจซากสุกรในสหภาพยุโรปเปลี่ยนเป็น visual inspection อย่างเดียวตาม Regulation (EU) No 219/2014 เพราะการ palpation และ incision อาจทำให้เกิด cross-contamination และแพร่ zoonotic agent แต่การตัด palpation/incision ออกทำให้การตรวจพบรอยโรคตับลดลง 59% และรอยโรคปอดลดลง 38.5%',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-36590018', locator: '11(4):10761', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'According to Regulation (EU) No 219/2014, pig carcasses inspection is exclusively visual as palpation and incision could lead to cross-contamination and spread of relevant zoonotic agents... Carcasses undergone the only visual inspection ha' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-ante-post-mortem--general-principles-am-vs-pm--v2',
-          statement: 'Abattoir surveillance สำหรับ bovine tuberculosis มี herd-level detection sensitivity ต่ำ โดยแบบจำลองในไอร์แลนด์ประเมินไว้เฉลี่ย 0.24 ภายใต้ current meat inspection และลดเหลือ 0.16 ถึง 0.08 หากเปลี่ยนไปใช้ visual-only inspection',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-29876359', locator: '5:82', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'The simulated mean herd-level detection sensitivity estimates were 0.24 for CMI, and 0.16, 0.12, 0.10 and 0.08 for VOI2-5, assuming a 2-, 3-, 4- and 5-fold decrease, respectively, in the animal-level detection sensitivity of VOI relative to' },
-        },
-      ],
-    },
   },
   'milk-meat-hygiene--meat-cutting-grading': {
     'milk-meat-hygiene--meat-cutting-grading--immobilization-exsanguination': {
@@ -2415,166 +1665,10 @@ const CURATED = {
         },
       ],
     },
-    'milk-meat-hygiene--meat-cutting-grading--rigor-mortis-ageing-cutting-grading-detail': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--meat-cutting-grading--rigor-mortis-ageing-cutting-grading-detail--v1',
-          statement: 'การจำแนก DFD ในเนื้อโคใช้ ultimate pH ที่ 48 ชั่วโมงหลังฆ่า โดยเนื้อปกติมี pHu ต่ำกว่า 5.8, atypical DFD อยู่ระหว่าง 5.8 ถึง 6.0 และ typical DFD มี pHu ตั้งแต่ 6.0 ขึ้นไป',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-38103397', locator: '209:109415', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'The steaks were divided according to their pHu (normal pH < 5.8, atypical darkness, firmness, and dryness [DFD] > 5.8 pH < 6, and typical DFD pH ≥ 6).' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-cutting-grading--rigor-mortis-ageing-cutting-grading-detail--v2',
-          statement: 'เนื้อโค normal pH มี ultimate pH ราว 5.47 ± 0.02 ส่วนซาก dark cutting มี ultimate pH สูงราว 6.69 ± 0.09 และ dark cutting steaks มีค่า lightness (L*), redness (a*) และ yellowness (b*) ต่ำที่สุดไม่ว่าจะ aging ด้วยวิธีใด',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-33223267', locator: '172:108365', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Strip loins from six normal pH carcasses (pH = 5.47 ± 0.02) and dark cutting (DC) strip loins from six high pH carcasses (pH = 6.69 ± 0.09) were obtained... In general, DC steaks had the lowest lightness (L*), redness (a*), and yellowness (' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-cutting-grading--rigor-mortis-ageing-cutting-grading-detail--v3',
-          statement: 'การ ageing ทำให้เนื้อนุ่มขึ้นผ่าน proteolysis ของ myofibrillar protein (desmin, titin, filamin) โดย μ-calpain และอัตราการเกิดขึ้นกับ ultimate pH โดยในเนื้อ pHu สูง (≥ 6.2) μ-calpain เกิด autolysis เร็วกว่าและ titin กับ filamin ถูกย่อยเร็วกว่า',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-24769876', locator: '97(4):548-57', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'bull LD (n = 94) were aged at -1.5°C for up to 28 days post mortem. μ-Calpain autolysed faster in high ultimate pH (pH(u)) meat (pH(u)≥6.2) and this was concomitant with the more rapid degradation of titin and filamin in this pH(u) group.' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-cutting-grading--rigor-mortis-ageing-cutting-grading-detail--v4',
-          statement: 'Porcine stress syndrome ซึ่งทำให้เกิดเนื้อ PSE สัมพันธ์กับ mutation C เป็น T ที่ base pair 1843 ของ skeletal muscle ryanodine receptor (ryr1) cDNA และการตรวจด้วย DNA-based assay ทำนาย genotype ทั้งแบบ homozygous และ heterozygous ได้แม่นยำกว่า halothane challenge test',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-8392044', locator: '71(6):1395-9', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'The DNA-based assay for a C to T mutation at base pair 1,843 of the skeletal muscle ryanodine receptor (ryr1) cDNA, which is very highly correlated with PSS, was also determined for these animals... The results of this study indicate that t' },
-        },
-      ],
-    },
   },
   'milk-meat-hygiene--meat-pest-control': {
-    'milk-meat-hygiene--meat-pest-control--problems-of-pest-3-main-impacts': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--meat-pest-control--problems-of-pest-3-main-impacts--v1',
-          statement: 'หนู (wild rats) ในเขตเมืองเป็น reservoir ของ pathogenic Leptospira และปล่อยเชื้อออกทางปัสสาวะ คนติดเชื้อจากการสัมผัสน้ำผิวดินหรือดินที่ปนเปื้อนปัสสาวะสัตว์ติดเชื้อ (ในหนูป่าเมือง Fukuoka เพาะเชื้อขึ้นจาก kidney 72.2% และจากปัสสาวะ 30.8%)',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-25890990', locator: '59(6):322-30', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'urban rats carry pathogenic leptospires and people acquire these pathogens through contact with surface water or soil contaminated by the urine of the infected animals' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-pest-control--problems-of-pest-3-main-impacts--v2',
-          statement: 'Plague เป็น flea-borne zoonosis ที่เกิดจากแบคทีเรียแกรมลบ coccobacillus ชื่อ Yersinia pestis โดยตรวจพบ pla gene ของเชื้อได้ทั้งใน rodents, shrews และ fleas ในพื้นที่ระบาด',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-29433443', locator: '18(1):2', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Plague is a flea-borne zoonotic and invasive disease caused by a gram negative coccobacillus bacterium called Yersinia pestis. ... The plasminogen activator gene (pla gene) of Y. pestis was detected in 42.8% bubo aspirates, 6.9% rodents, 3.' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-pest-control--problems-of-pest-3-main-impacts--v3',
-          statement: 'Murine typhus (endemic typhus) เกิดจาก Rickettsia typhi ซึ่งมีหนู Rattus rattus และ Rattus norvegicus เป็น mammalian host และหมัดหนู Xenopsylla cheopis เป็น vector หลัก (ในการศึกษาที่ Kisangani พบ R. typhi ในหนู 13% และใน X. cheopis pools ถึง 72%)',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-24445202', locator: '90(3):463-8', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'An overall prevalence of 17% Bartonella species and 13% Rickettsia typhi, the agent of murine typhus, was found in the cosmopolitan rat species, Rattus rattus and Rattus norvegicus that were infested by a majority of Xenopsylla cheopis flea' },
-        },
-      ],
-    },
-    'milk-meat-hygiene--meat-pest-control--types-of-pest-3-categories': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--meat-pest-control--types-of-pest-3-categories--v1',
-          statement: 'แมลงสาบเป็น carrier ของแบคทีเรียที่สำคัญทางการแพทย์ มีรายงานอย่างน้อย 78 bacterial species จาก 42 genera โดย Blattella germanica เป็นชนิดที่พบปนเปื้อนบ่อยที่สุดและมีความหลากหลายของเชื้อมากที่สุด รองลงมาคือ Periplaneta americana',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-31219601', locator: '56(6):1534-1554', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'At least 78 bacterial species and 42 genera from 24 families and 11 orders of bacteria were reported to have contaminated cockroaches. ... Blattella germanica is the most commonly contaminated cockroach species, with the widest bacterial sp' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-pest-control--types-of-pest-3-categories--v2',
-          statement: 'แมลงวันบ้าน (Musca domestica) ที่กินอาหารปนเปื้อนสามารถส่งผ่าน foodborne pathogens ได้แก่ Salmonella enterica, Cronobacter sakazakii, Escherichia coli O157:H7 และ Listeria monocytogenes ไปยังไข่ของมัน และ S. enterica กับ C. sakazakii ยังถูกส่งต่อไปถึงตัวเต็มวัยรุ่น F1 โดยพบที่ผิวลำตัวมากกว่าในทางเดินอาหารประมาณ 2.4 เท่า',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-26228457', locator: '15:150', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'All foodborne pathogens were present in samples containing pooled house fly eggs. ... Only S. enterica and C. sakazakii were transmitted to F1 generation adults and their presence was 2.4 times more likely on their body surfaces than in the' },
-        },
-      ],
-    },
-    'milk-meat-hygiene--meat-pest-control--control-methods-ipm-traps-baits-exclusion': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--meat-pest-control--control-methods-ipm-traps-baits-exclusion--v1',
-          statement: 'การควบคุมนกกิ้งโครง European starling (Sturnus vulgaris) ในฟาร์มโค ทำให้ตรวจไม่พบ Salmonella enterica ใน feed bunk และลดลงมากใน water trough แต่ไม่ได้ลด herd prevalence ในตัวโค ผู้วิจัยจึงสรุปว่าไม่ควรใช้การควบคุมนกเป็นมาตรการเดี่ยว แต่ควรเป็นส่วนหนึ่งของแผนควบคุมโรคแบบครอบคลุม',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-21324202', locator: '7:9', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Within the starling-controlled CAFO, detections of S. enterica contamination disappeared from feed bunks and substantially declined within water troughs following starling control operations. ... Starling control was not observed to reduce' },
-        },
-      ],
-    },
   },
   'milk-meat-hygiene--meat-egg-micro': {
-    'milk-meat-hygiene--meat-egg-micro--significance-of-microbe-with-egg': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--meat-egg-micro--significance-of-microbe-with-egg--v1',
-          statement: 'Salmonella enterica serovar Enteritidis เป็นเชื้อที่ทำให้เกิด egg-associated salmonellosis ในคน โดยในสหรัฐฯ การนำ egg quality assurance program (EQAP) มาใช้สัมพันธ์กับอุบัติการณ์ที่ลดลง คือไข่ที่ผลิตภายใต้ EQAP เพิ่มขึ้น 1% สัมพันธ์กับ S. Enteritidis incidence ลดลง 0.14% (p < 0.05)',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-15504264', locator: '10(10):1782-9', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'Regression analysis showed that a 1% increase in the number of eggs produced under an EQAP was associated with a 0.14% decrease in S. Enteritidis incidence (p < 0.05). These data indicate that EQAPs probably played a major role in reducing' },
-        },
-      ],
-    },
-    'milk-meat-hygiene--meat-egg-micro--egg-shell-structure-and-function': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--meat-egg-micro--egg-shell-structure-and-function--v1',
-          statement: 'ความหนาเปลือกไข่ พื้นที่เปลือก และจำนวนรู (pores) ไม่ใช่ปัจจัยที่กำหนดการ penetrate ของแบคทีเรียผ่านเปลือกไข่ แต่ cuticle deposition ต่างหากที่สัมพันธ์ โดยไข่ที่ถูก penetrate มี cuticle deposition เฉลี่ยต่ำกว่าไข่ที่ไม่ถูก penetrate และเชื้อแกรมลบที่เคลื่อนที่ได้ penetrate บ่อยที่สุด (Pseudomonas sp. 60%, Alcaligenes sp. 58%, S. Enteritidis 43%)',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-16822571', locator: '112(3):253-60', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'The eggshell characteristics such as area eggshell, shell thickness and number of pores did not influence the bacterial eggshell penetration. For each individual bacterial strain the mean cuticle deposition was lower for penetrated compared' },
-        },
-      ],
-    },
-    'milk-meat-hygiene--meat-egg-micro--egg-contamination-routes-salmonella-vertical-horizontal-processi': {
-      claims: [
-        {
-          id: 'milk-meat-hygiene--meat-egg-micro--egg-contamination-routes-salmonella-vertical-horizontal-processi--v1',
-          statement: 'Vertical transmission ของ Salmonella Enteritidis สู่ไข่เกิดจากการที่เชื้อ colonize ที่ ovary และ oviduct ของแม่ไก่ไข่ ซึ่งเป็นตำแหน่งหลักของการติดเชื้อในระบบสืบพันธุ์',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-14676008', locator: '32(6):583-90', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'The ovaries and the oviducts of the laying hens are the major sites of SE colonization from which vertical transmission to eggs occurs.' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-egg-micro--egg-contamination-routes-salmonella-vertical-horizontal-processi--v2',
-          statement: 'S. Enteritidis penetrate ผ่านเปลือกไข่ได้จริง (horizontal หรือ trans-shell route) โดยหลังเก็บ 14 วันที่ 20 องศาเซลเซียส ความชื้นสัมพัทธ์ 60% พบการ penetrate 6.0% ในไข่ free-range และ 16.0% ในไข่ขาว generic แต่สูงถึง 30-34% ในไข่ generic brown, organic และ omega-3 และพบบ่อยขึ้นเมื่อไม่มี cuticle spots',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-17388050', locator: '70(3):623-8', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'At 14 days of storage, only 6.0% of the eggs from free-range hens and 16.0% of the generic (i.e., eggs from hens in conventional battery cages that were given standard feed) white eggs were penetrated. The generic brown, organic, and omega-' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-egg-micro--egg-contamination-routes-salmonella-vertical-horizontal-processi--v3',
-          statement: 'USDA FSIS กำหนดให้ liquid egg white (LEW) ต้องผ่าน pasteurization ที่ 56.7 องศาเซลเซียส นาน 3.5 นาที',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-22410216', locator: '75(3):443-8', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'The U.S. Department of Agriculture, Food Safety and Inspection Service (FSIS) requires that liquid egg white (LEW) be pasteurized at 56.7 degrees C for 3.5 min.' },
-        },
-        {
-          id: 'milk-meat-hygiene--meat-egg-micro--egg-contamination-routes-salmonella-vertical-horizontal-processi--v4',
-          statement: 'Haugh unit (HU) เป็นค่าวัด internal egg quality ที่ได้จากการวัด albumen height ค่าจะลดลงเมื่อเก็บนานขึ้น (เฉลี่ย 72.44 ที่เวลาเริ่มต้น เหลือ 59.99 ที่ 7 สัปดาห์) และขึ้นกับอุณหภูมิขณะวัดด้วย โดยที่ 7 สัปดาห์ HU ลดลงประมาณ 6 หน่วยเมื่ออุณหภูมิทดสอบสูงขึ้น จึงควรรายงานอุณหภูมิที่ใช้วัดทุกครั้ง',
-          evidenceStatus: 'established',
-          reviewStatus: 'verified',
-          sourceRefs: [{ sourceId: 'pmid-16553288', locator: '85(3):550-5', kind: 'primary-literature' }],
-          review: { reviewedBy: 'reference-verified', reviewedAt: '2026-08-01', method: 'reference-cross-check', approvedScopes: ['learning', 'assessment'], rationale: 'The HU measurements averaged 72.44 at time zero and 59.99 at 7 wk. At 7 wk for all devices, HU values decreased 6 units with increased temperature (P < 0.05). ... Thus, it is recommended that egg testing temperature be reported when HU are' },
-        },
-      ],
-    },
   },
 
   // ---- references catalog, 2026-10-06 -------------------------------------
@@ -2790,7 +1884,7 @@ function mergeOverlays(base, extra) {
 }
 
 /** @type {Record<string, Record<string, object>>} */
-export const VERIFICATIONS = mergeOverlays(mergeOverlays(mergeOverlays(mergeOverlays(mergeOverlays(mergeOverlays(CURATED, GENERATED_VERIFICATIONS), EPIDEMIOLOGY_VERIFICATIONS), ONE_HEALTH_VERIFICATIONS), EQUINE_MEDICINE_VERIFICATIONS), SWINE_CLINIC_VERIFICATIONS), AQUATIC_CLINIC_VERIFICATIONS);
+export const VERIFICATIONS = mergeOverlays(mergeOverlays(mergeOverlays(mergeOverlays(mergeOverlays(mergeOverlays(mergeOverlays(mergeOverlays(CURATED, GENERATED_VERIFICATIONS), EPIDEMIOLOGY_VERIFICATIONS), ONE_HEALTH_VERIFICATIONS), EQUINE_MEDICINE_VERIFICATIONS), SWINE_CLINIC_VERIFICATIONS), AQUATIC_CLINIC_VERIFICATIONS), MILK_MEAT_HYGIENE_VERIFICATIONS), EQUINE_REPRO_VERIFICATIONS);
 
 /** Look up the verification overlay for a topic (or empty object). */
 export function verificationFor(topicId) {

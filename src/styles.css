@@ -158,8 +158,43 @@
   --dur-fast: 120ms; --dur: 180ms; --dur-slow: 300ms;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  /* The motion family (src/lib/motion/springs.js, which documents every number). Four springs
+     by response and damping ratio: tap 0.30 s / 0.70, control 0.35 s / 0.82, sheet 0.45 s / 1,
+     page 0.50 s / 1, baked into linear() curves; *-exit leave at 0.8 of the response; pop and
+     nudge are the tap spring kicked once (yes, no). Duration = settle time. Generated, never
+     hand-edited: tests/unit/motion-springs.test.mjs fails when these drift from the library. */
+  --vm-ease-tap: linear(0, 0.0339, 0.1182, 0.2315, 0.3571, 0.4831, 0.6013, 0.7068, 0.7969, 0.8709, 0.9292, 0.9733, 1.0048, 1.0259, 1.0385, 1.0446, 1.0459, 1.0439, 1.0397, 1.0344, 1.0286, 1.0228, 1.0175, 1.0127, 1.0087, 1.0054, 1.0029, 1.0009, 0.9996, 0.9987, 0.9982, 0.9979, 0.9979, 0.998, 0.9982, 0.9985, 0.9987, 1);
+  --vm-dur-tap: 491ms;
+  --vm-ease-control: linear(0, 0.0332, 0.1138, 0.2196, 0.3347, 0.4487, 0.555, 0.6498, 0.7315, 0.7998, 0.8555, 0.8997, 0.9339, 0.9596, 0.9784, 0.9917, 1.0006, 1.0062, 1.0094, 1.0108, 1.0111, 1.0105, 1.0096, 1.0083, 1.0071, 1.0058, 1.0047, 1.0036, 1.0028, 1.0021, 1.0015, 1);
+  --vm-dur-control: 480ms;
+  --vm-ease-sheet: linear(0, 0.0344, 0.1143, 0.2148, 0.3206, 0.4226, 0.5162, 0.5991, 0.6708, 0.7318, 0.7829, 0.8252, 0.8599, 0.8882, 0.9112, 0.9296, 0.9444, 0.9562, 0.9656, 0.973, 0.9788, 0.9835, 0.9871, 0.99, 0.9922, 0.9939, 0.9953, 0.9964, 0.9972, 0.9978, 0.9983, 0.9987, 1);
+  --vm-dur-sheet: 661ms;
+  --vm-ease-page: linear(0, 0.0344, 0.1143, 0.2149, 0.3206, 0.4226, 0.5162, 0.5991, 0.6709, 0.7318, 0.7829, 0.8252, 0.86, 0.8883, 0.9112, 0.9296, 0.9444, 0.9562, 0.9656, 0.973, 0.9789, 0.9835, 0.9871, 0.99, 0.9922, 0.9939, 0.9953, 0.9964, 0.9972, 0.9978, 0.9983, 0.9987, 1);
+  --vm-dur-page: 734ms;
+  --vm-ease-sheet-exit: linear(0, 0.0344, 0.1144, 0.2149, 0.3207, 0.4228, 0.5164, 0.5993, 0.671, 0.732, 0.783, 0.8253, 0.8601, 0.8884, 0.9113, 0.9297, 0.9445, 0.9562, 0.9656, 0.973, 0.9789, 0.9835, 0.9871, 0.99, 0.9922, 0.9939, 0.9953, 0.9964, 0.9972, 0.9978, 0.9983, 0.9987, 1);
+  --vm-dur-sheet-exit: 529ms;
+  --vm-ease-page-exit: linear(0, 0.0344, 0.1143, 0.2148, 0.3205, 0.4226, 0.5161, 0.599, 0.6708, 0.7317, 0.7828, 0.8251, 0.8599, 0.8882, 0.9111, 0.9296, 0.9444, 0.9562, 0.9655, 0.973, 0.9788, 0.9835, 0.9871, 0.99, 0.9922, 0.9939, 0.9953, 0.9964, 0.9972, 0.9978, 0.9983, 0.9987, 1);
+  --vm-dur-page-exit: 587ms;
+  --vm-ease-pop: linear(0, 0.2369, 0.4347, 0.5967, 0.7264, 0.8269, 0.9015, 0.9532, 0.9847, 0.9987, 0.9978, 0.9842, 0.96, 0.9271, 0.8874, 0.8423, 0.7933, 0.7415, 0.6881, 0.634, 0.58, 0.5268, 0.4749, 0.4248, 0.3769, 0.3315, 0.2887, 0.2487, 0.2117, 0.1775, 0.1463, 0.118, 0.0925, 0.0696, 0.0494, 0.0316, 0.0161, 0.0028, -0.0086, -0.018, -0.0259, -0.0322, -0.0371, -0.0408, -0.0434, -0.045, -0.0458, -0.046, -0.0455, -0.0444, -0.043, -0.0413, -0.0392, -0.037, -0.0347, -0.0322, -0.0297, -0.0272, -0.0248, -0.0224, 0);
+  --vm-dur-pop: 339ms;
+  --vm-ease-nudge: linear(0, 0.2273, 0.4264, 0.5959, 0.7351, 0.8438, 0.9228, 0.9734, 0.9974, 0.9968, 0.9742, 0.9324, 0.8742, 0.8025, 0.7204, 0.6307, 0.5361, 0.4392, 0.3425, 0.248, 0.1576, 0.0729, -0.0048, -0.0745, -0.1355, -0.1873, -0.2297, -0.2628, -0.2866, -0.3017, -0.3086, -0.3079, -0.3006, -0.2873, -0.269, -0.2466, -0.221, -0.1931, -0.1638, -0.1339, -0.104, -0.0748, -0.047, -0.0209, 0.003, 0.0243, 0.043, 0.0589, 0.0718, 0.0818, 0.089, 0.0935, 0.0955, 0.0951, 0.0927, 0.0885, 0.0828, 0.0758, 0.0678, 0.0591, 0);
+  --vm-dur-nudge: 438ms;
+  --vm-ease-press: cubic-bezier(0.2, 0, 0, 1);
+  --vm-dur-press: 100ms;
+  --vm-dur-fade: 160ms;
+  --vm-dur-fade-out: 120ms;
+  --vm-calm-travel: 0.5;
   /* Touch floor — already enforced in rules; now referenceable as a token */
   --touch-min: 44px;
+}
+
+/* The exam session (data-vm-calm on its root): the same responses, critically damped, so
+   nothing overshoots. Sheet and page are critically damped already. */
+[data-vm-calm] {
+  --vm-ease-tap: linear(0, 0.0344, 0.1143, 0.2147, 0.3204, 0.4224, 0.516, 0.5989, 0.6706, 0.7316, 0.7827, 0.825, 0.8598, 0.8881, 0.911, 0.9295, 0.9443, 0.9561, 0.9655, 0.9729, 0.9788, 0.9834, 0.9871, 0.9899, 0.9922, 0.9939, 0.9953, 0.9963, 0.9972, 0.9978, 0.9983, 0.9987, 1);
+  --vm-dur-tap: 441ms;
+  --vm-ease-control: linear(0, 0.0344, 0.1143, 0.2148, 0.3205, 0.4225, 0.5161, 0.599, 0.6707, 0.7317, 0.7828, 0.8251, 0.8598, 0.8882, 0.9111, 0.9295, 0.9443, 0.9561, 0.9655, 0.973, 0.9788, 0.9835, 0.9871, 0.9899, 0.9922, 0.9939, 0.9953, 0.9963, 0.9972, 0.9978, 0.9983, 0.9987, 1);
+  --vm-dur-control: 514ms;
 }
 
 [data-theme="dark"] {
@@ -6959,6 +6994,31 @@ body.vmx-reading .vmx-pdf-body {
   gap: 10px;
 }
 .vmx-fac-card-names { flex: 1; min-width: 0; }
+/* A lecturer's portrait, or the initials when there is none to show: one box,
+   the same size either way (InstructorPortrait.jsx). */
+.vmx-portrait {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 30%;
+  background: var(--clr-surface-2);
+  border: 1px solid var(--clr-border);
+  color: var(--clr-ink-soft);
+  font-weight: 650;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  user-select: none;
+}
+/* Beside the portrait the names keep room for a two-word Thai name. */
+.vmx-fac-card-portrait ~ .vmx-fac-card-tag { max-width: 40%; }
+.vmx-portrait img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .vmx-fac-card-name-th {
   font-size: 17px;
   font-weight: 650;
@@ -7479,6 +7539,12 @@ button.vmx-ladder-step:focus-visible { outline: 2px solid var(--clr-ink); outlin
 .vmx-decide-toggle:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
 .vmx-decide-region { margin-top: var(--space-3); }
 .vmx-decide-reset { margin-left: var(--space-2); vertical-align: middle; }
+/* While the count is on its way (DecideLines): the counting words and the line
+   they will become share one cell, the second hidden, so the cell is already
+   the counted line's height for this width. */
+.vmx-decide-pending { display: grid; }
+.vmx-decide-pending > * { grid-area: 1 / 1; }
+.vmx-decide-ghost { visibility: hidden; }
 .vmx-mode-why { margin: var(--space-2) 0 var(--space-2); }
 @media (prefers-reduced-motion: reduce) { .vmx-decide-toggle::after { transition: none; } }
 

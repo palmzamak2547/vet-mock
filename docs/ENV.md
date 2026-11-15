@@ -9,7 +9,7 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 - **optional**: a feature turns off or a default applies.
 - Runtime: *browser build* is baked in by Vite at build time (a change needs a rebuild); *function* is read by a Vercel function per request; *edge function* by a Supabase function; *script*, *test* and *build* run on a machine or in CI.
 
-124 names, 12 required; 10 more are set by the platform.
+125 names, 12 required; 10 more are set by the platform.
 
 ## Supabase
 
@@ -36,8 +36,8 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 | Name | Need | Runtime | Read in | Without it / what it does |
 |---|---|---|---|---|
 | `VITE_LIBRARY_CDN_BASE` | optional | browser build | `src/lib/library.js` | Public CDN origin of R2 library files (absolute https, no trailing slash). Without it no CDN link is built and files open through signed links. A new host also needs connect-src in vercel.json and CORS on the bucket. |
-| `CLOUDFLARE_API_TOKEN` | required | function, script | `api/_lib/blob-token.js`, `api/_lib/open-ticket.js`, `api/_lib/r2.js` +6 | Cloudflare token (secret) for R2 temporary credentials; also keys library links and open tickets. Without it library files do not open. |
-| `R2_ACCOUNT_ID` | required | function, script | `api/_lib/r2.js`, `api/_lib/system-status.js`, `api/ai-transcribe.js` +4 | Cloudflare account id of the R2 buckets. Without it library files do not open. |
+| `CLOUDFLARE_API_TOKEN` | required | function, script | `api/_lib/blob-token.js`, `api/_lib/open-ticket.js`, `api/_lib/r2.js` +7 | Cloudflare token (secret) for R2 temporary credentials; also keys library links and open tickets. Without it library files do not open. |
+| `R2_ACCOUNT_ID` | required | function, script | `api/_lib/r2.js`, `api/_lib/system-status.js`, `api/ai-transcribe.js` +5 | Cloudflare account id of the R2 buckets. Without it library files do not open. |
 | `CF_ACCOUNT_ID` | optional | function | `api/_lib/r2.js`, `api/_lib/system-status.js`, `api/ai-transcribe.js` +1 | Same account id under an older name; read when R2_ACCOUNT_ID is unset. |
 | `R2_ACCESS_KEY_ID` | optional | function | `api/_lib/r2.js` | Permanent R2 key id; when set with R2_SECRET_ACCESS_KEY it is used instead of temporary credentials. |
 | `R2_SECRET_ACCESS_KEY` | optional | function | `api/_lib/r2.js` | Permanent R2 secret (secret). See R2_ACCESS_KEY_ID. |
@@ -92,6 +92,7 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 | `AI_VOICE_CREDITS_PER_MINUTE` | optional | function | `api/_lib/ai/voice.js` | Credits a call minute is budgeted at; default 600. |
 | `AI_VOICE_SESSION_SECONDS` | optional | function | `api/_lib/ai/voice.js` | Longest call; default 300. |
 | `AI_VOICE_USER_SESSIONS` | optional | function | `api/_lib/ai/voice.js` | Calls a student a Bangkok day; default 4. |
+| `AI_VOICE_PASS_SESSIONS` | optional | function | `api/_lib/ai/voice.js` | Calls a trial link a Bangkok day, shared by everyone who holds the link; default 8. |
 | `AI_VOICE_MAX_CONCURRENT` | optional | function | `api/_lib/ai/voice.js` | Calls at once; default 4. |
 | `GEMINI_API_KEY` | optional | function | `api/_lib/mochi-voice.js`, `api/_lib/system-status.js`, `api/mochi-voice.js` | Gemini key (secret) for Mochi's live voice. Without it that feature stays closed. |
 | `MOCHI_VOICE_OPEN` | optional | function | `api/_lib/mochi-voice.js` | 1 opens Mochi's voice to students; default closed. |
@@ -139,9 +140,9 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 
 | Name | Need | Runtime | Read in | Without it / what it does |
 |---|---|---|---|---|
-| `VMX_EVIDENCE_DATA` | optional | script | `scripts/evidence/build.mjs` | Answer-evidence data root outside the checkout. Scripts only. |
+| `VMX_EVIDENCE_DATA` | optional | script | `scripts/evidence/build.mjs`, `scripts/instructor-portraits.mjs` | Answer-evidence data root outside the checkout. Scripts only. |
 | `VMX_EVIDENCE_FLOOR_CNY` | optional | script | `scripts/evidence/build.mjs`, `scripts/evidence/pages.py` | DeepSeek balance the evidence build keeps; default 40. Scripts only. |
-| `VMX_EVIDENCE_FOLDER` | optional | script | `scripts/evidence/build.mjs` | Evidence image folder (the grant); default read from the data root. Scripts only. |
+| `VMX_EVIDENCE_FOLDER` | optional | script | `scripts/evidence/build.mjs`, `scripts/instructor-portraits.mjs` | Evidence image folder (the grant); default read from the data root. Scripts only. |
 | `VMX_EVIDENCE_POINTER` | optional | script | `scripts/evidence/build.mjs` | Model that points at slide lines. Scripts only. |
 | `VMX_EVIDENCE_READER` | optional | script | `scripts/evidence/build.mjs` | Model that reads those lines without the key. Scripts only. |
 | `VMX_PROVENANCE_DATA` | optional | script | `scripts/provenance/build.mjs`, `scripts/provenance/crops.py` | Provenance data root outside the checkout. Scripts only. |
@@ -167,8 +168,8 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 | `PLAYWRIGHT_CHROMIUM` | optional | test, script | `vca/playwright.config.js`, `vca/scripts/make-icons.mjs`, `vca/scripts/render-og.mjs` | A Chromium binary for the VCA specs and image scripts. |
 | `PERF_BUDGET_CPU` | optional | test | `tests/e2e/perf-budget.spec.js` | CPU slowdown for the perf budget spec. |
 | `UPDATE_PERF_BUDGETS` | optional | test | `tests/e2e/perf-budget.spec.js` | 1 rewrites perf-budgets.json from a fresh measurement. |
-| `PGLITE_MODULE` | optional | script | `scripts/gate.mjs`, `scripts/test-annotation-db.mjs`, `scripts/test-chula-wall-db.mjs` +4 | Path of the pglite module the SQL harnesses load. |
-| `PG_CONTAINER` | optional | script | `scripts/test-annotation-db.mjs`, `scripts/test-chula-wall-db.mjs`, `scripts/test-library-held-db.mjs` +2 | Postgres service container the SQL harnesses use in CI. |
+| `PGLITE_MODULE` | optional | script | `scripts/gate.mjs`, `scripts/test-annotation-db.mjs`, `scripts/test-chula-wall-db.mjs` +5 | Path of the pglite module the SQL harnesses load. |
+| `PG_CONTAINER` | optional | script | `scripts/test-annotation-db.mjs`, `scripts/test-chula-wall-db.mjs`, `scripts/test-library-held-db.mjs` +3 | Postgres service container the SQL harnesses use in CI. |
 | `PG_MODULE` | optional | script | `vca/scripts/test-community-db.mjs` | Path of the pg module the VCA community harness loads. |
 | `PGHOST` | optional | script | `vca/scripts/test-community-db.mjs` | Postgres socket folder for the VCA community harness. |
 | `PGUSER` | optional | script | `vca/scripts/test-community-db.mjs` | Postgres user for the VCA community harness; default postgres. |
@@ -205,7 +206,7 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 | Name | Read in | Meaning |
 |---|---|---|
 | `CI` | `playwright.config.js`, `research/playwright.config.js`, `scripts/check-ci-graphics.mjs` +1 | set by GitHub Actions; Playwright and a few scripts switch to CI mode |
-| `GITHUB_ACTIONS` | `scripts/test-annotation-db.mjs`, `scripts/test-chula-wall-db.mjs`, `scripts/test-library-held-db.mjs` +2 | set by GitHub Actions; the SQL harnesses refuse native Postgres without it |
+| `GITHUB_ACTIONS` | `scripts/test-annotation-db.mjs`, `scripts/test-chula-wall-db.mjs`, `scripts/test-library-held-db.mjs` +3 | set by GitHub Actions; the SQL harnesses refuse native Postgres without it |
 | `GITHUB_STEP_SUMMARY` | `scripts/e2e-durations.mjs`, `scripts/perf-budget.mjs`, `tests/e2e/perf-budget.spec.js` | set by GitHub Actions; perf and e2e duration reports append to it |
 | `NODE_ENV` | `api/_lib/rate-limit.js` | set by Node tooling and Vercel; production makes the rate limiter require Upstash |
 | `PATH` | `scripts/video-asr.py` | the system search path; scripts/video-asr.py adds its CUDA folder |

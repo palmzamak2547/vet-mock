@@ -43,12 +43,12 @@ export function statusLabel(state, strictFocus = true, minutes, buddy, paused = 
         : 'พร้อมเริ่ม กด เริ่ม เพื่อฟักลูกไก่ (โหมดเข้ม ห้ามออกจากหน้าเกิน 5 วินาที)';
     case 'focus':
       return strictFocus
-        ? `กำลังโฟกัส — อย่าออกจากหน้านี้เกิน 5 วินาทีนะ ${buddy || 'ไก่'}จะหนี!`
-        : 'กำลังโฟกัส — สลับแอปอ่าน PDF/สรุปได้ตามสะดวก 📚';
+        ? `กำลังโฟกัส: อย่าออกจากหน้านี้เกิน 5 วินาทีนะ ${buddy || 'ไก่'}จะหนี!`
+        : 'กำลังโฟกัส: สลับแอปอ่าน PDF/สรุปได้ตามสะดวก 📚';
     case 'shortBreak':
       return `พักสายตา ${minutes || DEFAULTS.shortBreakMin} นาที`;
     case 'longBreak':
-      return `พักยาว ${minutes || DEFAULTS.longBreakMin} นาที — เก่งมาก! 🌻`;
+      return `พักยาว ${minutes || DEFAULTS.longBreakMin} นาที 🌻`;
     case 'failed':
       return `${who}หนีไปแล้ว! เริ่มใหม่อีกครั้ง`;
     default:

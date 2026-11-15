@@ -81,7 +81,7 @@ export default function StreakHeatmap({ history = [] }) {
   if (grid.cells.length === 0) {
     return (
       <div className="vmx-empty" style={{ fontSize: 14 }}>
-        ยังไม่มีข้อมูลเลย — เริ่มทำข้อสอบเพื่อดูสถิติ
+        ยังไม่มีข้อมูลเลย: เริ่มทำข้อสอบเพื่อดูสถิติ
       </div>
     );
   }

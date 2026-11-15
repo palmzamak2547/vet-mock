@@ -1,4 +1,6 @@
 import Mochi from '../components/Mochi.jsx';
+import { shownName, shownPicture } from '../lib/public-display.js';
+import BoardPresenceNotice from '../components/BoardPresenceNotice.jsx';
 import { useState, useEffect, useRef } from 'react';
 import { getGroupMembers, getSharedQuestions, getGroupLeaderboard, deleteSharedQuestion } from '../lib/api.js';
 import { qualifiesForLeaderboard } from '../lib/leaderboard-gate.js';
@@ -13,7 +15,7 @@ const SECTIONS = ['members', 'questions', 'leaderboard'];
 const ALL_PENDING = { members: true, questions: true, leaderboard: true };
 const NONE_FAILED = { members: '', questions: '', leaderboard: '' };
 
-export default function GroupDetailView({ group, user, goBack }) {
+export default function GroupDetailView({ group, user, goBack, onEditIdentity = null }) {
   const [tab, setTab] = useState('leaderboard'); // 'leaderboard' | 'questions' | 'members'
   const [members, setMembers] = useState([]);
   const [questions, setQuestions] = useState([]);
@@ -88,7 +90,7 @@ export default function GroupDetailView({ group, user, goBack }) {
       alertDialog(`คัดลอกรหัส ${group.code} แล้ว ส่งให้เพื่อนได้เลย!`);
     } else {
       // Surface the code so the user can long-press to copy manually
-      alertDialog(`คัดลอกอัตโนมัติไม่ได้บนเบราว์เซอร์นี้ — กดค้าง code นี้แล้วเลือก Copy:\n\n${group.code}`);
+      alertDialog(`คัดลอกอัตโนมัติไม่ได้บนเบราว์เซอร์นี้ กดค้างที่รหัสนี้แล้วเลือกคัดลอก:\n\n${group.code}`);
     }
   };
 
@@ -129,6 +131,7 @@ export default function GroupDetailView({ group, user, goBack }) {
           <div style={{ marginBottom: 12, fontSize: 14, color: 'var(--clr-ink-soft)' }}>
             อันดับจากผลดีที่สุดของสมาชิกแต่ละคนที่ระบบตรวจคะแนนแล้ว (อย่างน้อย 5 ข้อ) สมาชิกที่ปิดการแสดงบนอันดับจะไม่ปรากฏ
           </div>
+          <BoardPresenceNotice user={user} rows={leaderboard} scope="group" onEdit={onEditIdentity} />
           {leaderboard.length === 0 ? (
             <div className="vmx-empty">ยังไม่มีใครทำข้อสอบในกลุ่มนี้ — ลองเป็นคนแรกกันเถอะ 💪</div>
           ) : (
@@ -140,7 +143,7 @@ export default function GroupDetailView({ group, user, goBack }) {
                   </div>
                   <div style={{ flex: 1 }}>
                     <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16 }}>
-                      {r.profiles?.avatar_emoji || '🐾'} {r.profiles?.username || 'ไม่ระบุชื่อ'}
+                      {shownPicture(r.profiles?.avatar_emoji)} {shownName(r.profiles?.username, 'ไม่ระบุชื่อ')}
                       {r.user_id === user.id && <span style={{ marginLeft: 8, fontSize: 14, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</span>}
                     </div>
                     <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginTop: 2 }}>
@@ -170,7 +173,7 @@ export default function GroupDetailView({ group, user, goBack }) {
             questions.map((q) => (
               <div key={q.id} className="vmx-review-item">
                 <div className="vmx-review-head">
-                  <span>โดย {q.author_name || 'ไม่ระบุชื่อ'}{!q.invalid && q.data.subject ? `, ${SUBJECTS.find((s) => s.id === q.data.subject)?.name || q.data.subject}` : ''}</span>
+                  <span>โดย {shownName(q.author_name, 'ไม่ระบุชื่อ')}{!q.invalid && q.data.subject ? `, ${SUBJECTS.find((s) => s.id === q.data.subject)?.name || q.data.subject}` : ''}</span>
                   {q.author_id === user.id && (
                     <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={async () => {
                       if (!(await confirmDialog({ title: 'ลบข้อนี้ออกจากกลุ่ม?', confirmLabel: 'ลบ', tone: 'danger' }))) return;
@@ -206,9 +209,9 @@ export default function GroupDetailView({ group, user, goBack }) {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 12 }}>
           {members.map((m) => (
             <div key={m.id} className="vmx-dash-card" style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 40, marginBottom: 8 }}>{m.avatar_emoji || '🐾'}</div>
+              <div style={{ fontSize: 40, marginBottom: 8 }}>{shownPicture(m.avatar_emoji)}</div>
               <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16 }}>
-                {m.username}
+                {shownName(m.username)}
                 {m.id === user.id && <div style={{ fontSize: 14, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</div>}
               </div>
               {m.role === 'admin' && <div style={{ fontSize: 11, color: 'var(--clr-gold-text)', marginTop: 4 }}>👑 Admin</div>}

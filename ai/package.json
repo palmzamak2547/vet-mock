@@ -5,7 +5,7 @@
   "description": "VetMock AI research preview, served on ai.vetmock.com",
   "type": "module",
   "engines": {
-    "node": ">=20"
+    "node": "24.x"
   },
   "scripts": {
     "dev": "vite --port 43130 --strictPort",
