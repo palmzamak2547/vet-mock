@@ -24,9 +24,10 @@ function harness({ view = 'home', online = true, waiting = true, controlled = tr
   const reg = { waiting: waiting ? worker : null, addEventListener() {}, update() { checks++; return updateResult; } };
   const navigator = { onLine: online, serviceWorker: { controller: controlled ? worker : null, addEventListener: on(swListeners), register: async () => reg } };
   const code = readFileSync(new URL('../../src/lib/app-lifecycle.js', import.meta.url), 'utf8')
-    .replace('import.meta.env?.MODE', '"production"').replace(/^import .*update-safety\.js'\s*$/m, '');
+    .replace('import.meta.env?.MODE', '"production"').replace(/^import .*update-safety\.js'\s*$/m, '')
+    .replace(/^import .*native-detect\.js'\s*$/m, '');
   vm.runInNewContext(code, {
-    window, document, navigator, publishUpdateStatus, CustomEvent, URL,
+    window, document, navigator, publishUpdateStatus, CustomEvent, URL, IS_APP: false,
     setTimeout: fn => { timers.push(fn); return fn; }, clearTimeout() {}, setInterval: fn => intervals.push(fn),
     console: { warn() {}, info() {} },
   });

@@ -301,9 +301,10 @@ function ScoreBadge({ total, max, pct, touched }) {
       ติ๊กเกณฑ์เพื่อให้คะแนน
     </div>
   );
-  const color = pct >= 75 ? 'var(--clr-sage)' : pct >= 50 ? 'var(--clr-gold)' : 'var(--clr-rose)';
+  const color = pct >= 75 ? 'var(--clr-right)' : pct >= 50 ? 'var(--clr-part)' : 'var(--clr-rose)';
+  const onColor = pct >= 75 ? 'var(--clr-right-on)' : pct >= 50 ? '#2b2419' : 'var(--clr-rose-on)';
   return (
-    <div style={{ display: 'inline-flex', alignItems: 'baseline', gap: 6, padding: '4px 12px', borderRadius: 999, background: color, color: '#fff', fontFamily: 'var(--vmx-mono)', fontWeight: 700 }}>
+    <div style={{ display: 'inline-flex', alignItems: 'baseline', gap: 6, padding: '4px 12px', borderRadius: 999, background: color, color: onColor, fontFamily: 'var(--vmx-mono)', fontWeight: 700 }}>
       <span style={{ fontSize: 16 }}>{total}</span>
       <span style={{ fontSize: 14, opacity: 0.85 }}>/ {max}</span>
       <span style={{ fontSize: 14, opacity: 0.85 }}>, {pct}%</span>
@@ -347,7 +348,7 @@ function AutoAnalysis({ wordCount, target, softMax, hardMax, coverage, copied, h
             <div style={{ fontSize: 14, marginTop: 4 }}>
               <span style={{ color: 'var(--clr-ink-soft)' }}>ขาด:</span>{' '}
               {coverage.missing.slice(0, 4).map((m, i) => (
-                <span key={i} style={{ display: 'inline-block', padding: '1px 6px', margin: '2px 3px 0 0', borderRadius: 999, background: 'var(--clr-rose-soft, rgba(184, 88, 88, 0.12))', color: 'var(--clr-rose-text)', fontSize: 14 }}>{m}</span>
+                <span key={i} style={{ display: 'inline-block', padding: '1px 6px', margin: '2px 3px 0 0', borderRadius: 999, background: 'var(--clr-rose-soft, rgba(184, 88, 88, 0.12))', color: 'var(--clr-rose-soft-text)', fontSize: 14 }}>{m}</span>
               ))}
               {coverage.missing.length > 4 && <span style={{ color: 'var(--clr-ink-soft)' }}>+{coverage.missing.length - 4}</span>}
             </div>
@@ -448,7 +449,7 @@ function CalibrationBlock({ predicted, setPredicted, submitted, onSubmit, maxSco
                 <strong>{actual}/{maxScore}</strong>
                 {' '}
                 <span style={{
-                  color: Math.abs(gap) <= 1 ? 'var(--clr-sage-text)' : Math.abs(gap) <= 2 ? 'var(--clr-gold-text)' : 'var(--clr-rose-text)',
+                  color: Math.abs(gap) <= 1 ? 'var(--clr-right-text)' : Math.abs(gap) <= 2 ? 'var(--clr-part-text)' : 'var(--clr-rose-text)',
                   fontWeight: 600,
                 }}>
                   ({gap > 0 ? '+' : ''}{gap.toFixed(1)})

@@ -33,6 +33,7 @@ const stubs = [
   { match: 'lib/richtext\\.jsx$', contents: 'export const RichText = ({ text }) => text;' },
   { match: 'components/BackBar\\.jsx$', contents: 'export default function BackBar({ label }) { return label; }' },
   { match: 'lib/dialog\\.js$', contents: 'export const confirmDialog = async () => true;' },
+  { match: 'components/StatePanel\\.jsx$', contents: 'export default function StatePanel({ title, body, actionLabel }) { return [title, " ", body, " ", actionLabel]; }' },
 ];
 
 const { default: RaceView } = await loadModule('src/views/RaceView.jsx', { stubs });
@@ -74,7 +75,10 @@ test('a null snapshot from enter_race shows the room refusal, not a retry prompt
   assert.ok(findComponent(panel.tree, 'JoinForm'), 'the student stays in the lobby to type another code');
 });
 
-test('a null snapshot while polling stops the poll with the same refusal', async (t) => {
+// A room that vanishes before its start was closed by its host or expired
+// (multiplayer wave): the waiting room says so and offers the way back,
+// instead of the join refusal, which talks about typing a code.
+test('a null snapshot while polling stops the poll and says the room closed', async (t) => {
   const restore = browserGlobals();
   let polls = 0;
   globalThis.__raceRpc = async (owner, name) => {
@@ -92,7 +96,8 @@ test('a null snapshot while polling stops the poll with the same refusal', async
   await settle(panel);
   assert.equal(polls, 1, 'the poll ran once');
   const shown = textOf(panel.tree);
-  assert.ok(shown.includes(RACE_REFUSALS['Room unavailable']), `the refusal replaces the connection message: ${shown}`);
+  assert.match(shown, /ห้อง ABC123 ปิดแล้ว/, `the closed room replaces the connection message: ${shown}`);
+  assert.match(shown, /กลับไปหน้าแข่ง/, 'with the way back');
   assert.doesNotMatch(shown, /การเชื่อมต่อสะดุด/);
   assert.match(source, /if \(state == null\) \{ alive = false; clearInterval\(timer\);/, 'the poll stops instead of retrying forever');
 });

@@ -1,4 +1,6 @@
 import Mochi from '../components/Mochi.jsx';
+import { displayStem } from '../lib/match-stem.js';
+import '../styles-review.css';
 import DecideLines from '../components/DecideLines.jsx';
 import { MotionEnter, MotionButton } from '../components/MotionFeedback.jsx';
 import { useState, useMemo, useRef, useEffect } from 'react';
@@ -22,6 +24,7 @@ import RichBlocks from '../components/RichBlocks.jsx';
 import WikiLinkForQuestion from '../components/WikiLinkForQuestion.jsx';
 import ZoomableImage from '../components/ZoomableImage.jsx';
 import SmartPassage from '../components/SmartPassage.jsx';
+import FlagChip from '../components/FlagChip.jsx';
 import { loadUserFlashcards, srCardFor } from '../lib/user-flashcards.js';
 // Wave-4 card types — each lib produces Q-shaped objects with a
 // distinct `type` so the renderer below can dispatch to the right
@@ -354,7 +357,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
           onClick={() => startSession()}
           disabled={starting || (dueCount === 0 && scopeReady)}
         >
-          {starting ? 'กำลังโหลดคลังข้อสอบ…' : bankError ? 'ลองโหลดคลังอีกครั้ง' : dueCount === 0 && scopeReady ? 'ไม่มีใบที่ต้องทบทวน' : 'เริ่ม Session →'}
+          {starting ? 'กำลังโหลดคลังข้อสอบ…' : bankError ? 'ลองโหลดคลังอีกครั้ง' : dueCount === 0 && scopeReady ? 'ไม่มีใบที่ต้องทบทวน' : 'เริ่มทบทวน'}
         </button>
       </div>
     );
@@ -363,7 +366,6 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
         <div className="vmx-hero">
           <Mochi state="read" size={56} slot="review-intro" className="vmx-hero-mochi" />
           <h1>ทบทวน <em>ตามรอบ</em></h1>
-          <p>ทำติดต่อกันทุกวันสำคัญกว่าทำเยอะๆ ครั้งเดียว</p>
         </div>
 
         <section className="vmx-decide" aria-label="รอบทบทวนวันนี้">
@@ -553,54 +555,46 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
           {/* Status — separate "Due" (reviewed before, time to revisit)
               from "New" (unseen). Fresh user sees Due 0 + New 1842
               instead of misleading "Due 1842". Both feed the session. */}
-          <div style={{ marginTop: 8, padding: '14px 16px', borderRadius: 12, background: 'var(--clr-surface-2)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
-            <div style={{ display: 'flex', gap: 18 }}>
+          <div className="vmx-srs-status">
+            <div className="vmx-srs-status-group">
               <div>
-                <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                  Due ทบทวน
-                </div>
-                <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 32, lineHeight: 1, marginTop: 2, color: dueReviewedCount > 100 ? 'var(--clr-rose-text)' : 'var(--clr-ink)' }}>
+                <div className="vmx-srs-status-label">Due ทบทวน</div>
+                <div className={`vmx-srs-status-num${dueReviewedCount > 100 ? ' is-over' : ''}`}>
                   {dueReviewedCount}
-                  <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginLeft: 6 }}>ใบ</span>
+                  <span className="vmx-srs-status-unit">ใบ</span>
                 </div>
               </div>
               {newCount > 0 && (
                 <div>
-                  <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                    ใหม่
-                  </div>
-                  <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 32, lineHeight: 1, marginTop: 2, color: 'var(--clr-gold-text)' }}>
+                  <div className="vmx-srs-status-label">ใหม่</div>
+                  <div className="vmx-srs-status-num is-new">
                     {newCount}
-                    <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginLeft: 6 }}>ใบ</span>
+                    <span className="vmx-srs-status-unit">ใบ</span>
                   </div>
                 </div>
               )}
             </div>
-            <div style={{ textAlign: 'right' }}>
-              <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                จะทำวันนี้
-              </div>
-              <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 32, lineHeight: 1, marginTop: 2, color: 'var(--clr-sage-text)' }}>
+            <div className="vmx-srs-status-today">
+              <div className="vmx-srs-status-label">จะทำวันนี้</div>
+              <div className="vmx-srs-status-num is-today">
                 {sessionSize === 'all' ? dueCount : Math.min(sessionSize, dueCount)}
               </div>
             </div>
           </div>
 
           {dueReviewedCount > 100 && sessionSize !== 'all' && (
-            <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 10, background: 'rgba(184, 137, 64, 0.10)', border: '1px solid var(--clr-gold)', fontSize: 14, lineHeight: 1.6 }}>
-              <strong>มีใบค้างทบทวน {dueReviewedCount} ใบ — เยอะหน่อย</strong>
-              <br />
-              <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>
-                Algorithm จะหยิบ "ใบที่ค้างนานสุด" มาก่อน, ทำ {sessionSize} วันนี้ + ทำต่อพรุ่งนี้ดีกว่ายัดทีเดียว, ทำต่อเนื่องสำคัญสุด
+            <div className="vmx-srs-note is-gold">
+              <strong>มีใบค้างทบทวน {dueReviewedCount} ใบ</strong>
+              <span>
+                ระบบหยิบใบที่ค้างนานที่สุดก่อน ทำ {sessionSize} ใบวันนี้ แล้วทำต่อพรุ่งนี้ จะจำได้ดีกว่าทำรวดเดียว
               </span>
             </div>
           )}
           {stats.total === 0 && newCount > 0 && (
-            <div style={{ marginTop: 12, padding: '10px 14px', borderRadius: 10, background: 'rgba(74, 107, 74, 0.10)', border: '1px solid var(--clr-sage)', fontSize: 14, lineHeight: 1.6 }}>
-              <strong>เริ่มจาก 0 — มี {newCount} ใบใหม่รอเปิด</strong>
-              <br />
-              <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>
-                ทำ {Math.min(sessionSize === 'all' ? 25 : sessionSize, 25)} ใบวันนี้ก่อน, พรุ่งนี้ค่อยกลับมา review ใบเดิม + เปิดใบใหม่อีก, ติดต่อกันทุกวันสำคัญสุด
+            <div className="vmx-srs-note is-sage">
+              <strong>มี {newCount} ใบใหม่รอเปิด</strong>
+              <span>
+                ทำ {Math.min(sessionSize === 'all' ? 25 : sessionSize, 25)} ใบวันนี้ก่อน พรุ่งนี้กลับมาทวนใบเดิมและเปิดใบใหม่เพิ่ม
               </span>
             </div>
           )}
@@ -613,17 +607,17 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
 
 
           {/* Mini stats */}
-          <div className="vmx-stat-grid" style={{ marginTop: 16 }}>
+          <div className="vmx-stat-grid vmx-srs-stats">
             <div className="vmx-stat-card">
               <div className="vmx-stat-num">{stats.total}</div>
               <div className="vmx-stat-lbl">การ์ดทั้งหมด</div>
             </div>
             <div className="vmx-stat-card">
-              <div className="vmx-stat-num" style={{ color: 'var(--clr-sage-text)' }}>{stats.mastered}</div>
+              <div className="vmx-stat-num">{stats.mastered}</div>
               <div className="vmx-stat-lbl">จำได้แล้ว</div>
             </div>
             <div className="vmx-stat-card">
-              <div className="vmx-stat-num" style={{ color: 'var(--clr-gold-text)' }}>{stats.dueTomorrow}</div>
+              <div className="vmx-stat-num">{stats.dueTomorrow}</div>
               <div className="vmx-stat-lbl">ถึงรอบพรุ่งนี้</div>
             </div>
           </div>
@@ -706,7 +700,6 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
         {partialNotice}
         <div className="vmx-hero">
           <h1>ทบทวน <em>เสร็จแล้ว</em></h1>
-          <p>ทบทวนเสร็จแล้ว, กลับมาทบทวนพรุ่งนี้นะ</p>
         </div>
         <div className="vmx-results-hero">
           <Mochi state={reviewedCount > 0 ? 'happy' : 'idle'} size={80} animate slot="review-complete" className="vmx-result-mochi" />
@@ -722,7 +715,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
         <div className="vmx-btn-row">
           {remaining > 0 && (
             <button className="vmx-btn vmx-btn-primary" onClick={() => { setSessionCards(null); }}>
-              ทำต่ออีก session →
+              ทำต่ออีกรอบ
             </button>
           )}
           <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>← กลับหน้าแรก</button>
@@ -743,13 +736,15 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
       ? `${String.fromCharCode(65 + currentQ.answer)}. ${stripRichText(opt)}`
       : 'คำตอบของข้อนี้ผิดรูปแบบ — แจ้งให้ทีมแก้';
   } else if (currentQ.type === 'tf') {
-    // Visual T/F reveal — green ✓ for true, red ✗ for false
+    // The key of a true/false card: the statement's value, said in words, in a
+    // neutral pill (red here read as "you were wrong").
     answerNode = (
       <span style={{
         display: 'inline-flex', alignItems: 'center', gap: 8,
         padding: '6px 16px', borderRadius: 999,
-        background: currentQ.answer ? 'var(--clr-sage-soft)' : 'var(--clr-rose-soft)',
-        color: currentQ.answer ? 'var(--clr-sage-text)' : 'var(--clr-rose-text)',
+        background: 'var(--clr-surface-2)',
+        color: 'var(--clr-ink)',
+        border: '1px solid var(--clr-border)',
         fontWeight: 700,
         fontSize: 18,
       }}>
@@ -880,13 +875,18 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
               maxHeight="var(--vmx-sr-figure-max, 320px)"
             />
           )}
-          <div style={{ fontSize: 18 }}><RichText text={currentQ.q} /></div>
+          <div style={{ fontSize: 18 }}><RichText text={displayStem(currentQ)} /></div>
         </div>
         {showAnswer && (
           <MotionEnter effect="flip" className="back">
             <div className="answer">
               {answerNode || answerText}
             </div>
+            {/* A disputed key (major flag) carries its caution here too: all
+                15 can enter spaced repetition, and the card shows the key. */}
+            {/* Keyed by the card: FlagChip keeps whether it is open, and one opened on a
+                disputed card opened already expanded on the next. */}
+            <FlagChip key={`flag:${currentQ.subject}:${currentQ.id}`} flag={currentQ.flag} revealed />
             {currentQ.explain && <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}><RichBlocks text={currentQ.explain} /></div>}
             {safeImageUrl(currentQ.explainImage) && (
               <ZoomableImage

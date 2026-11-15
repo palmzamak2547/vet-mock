@@ -53,11 +53,11 @@ export function smallTextControls(source, file = 'inline.jsx') {
   return found;
 }
 
-// Left for a reviewed change, because they sit inside a running set (the written answer box of a question,
-// and the race's own controls), which takes two reviews (AGENTS.md, sync and exam session). Rows only go.
+// Left for a reviewed change, because it sits inside a running set (the written answer box of a question),
+// which takes two reviews (AGENTS.md, sync and exam session). Rows only go. The race's three controls
+// left this list in the multiplayer wave.
 const KNOWN = {
   'src/components/Question.jsx': 1,
-  'src/views/RaceView.jsx': 3,
 };
 
 test('no text control is drawn under 16 px by an inline style', () => {

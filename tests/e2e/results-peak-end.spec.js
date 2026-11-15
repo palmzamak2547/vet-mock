@@ -132,7 +132,9 @@ test('misses come first, and the buddy and the ladder say one thing', async ({ p
   await play(page, 'rrrww'); // 60%: the practice mark, under the 80% to climb
   await page.getByRole('button', { name: 'ดูผลลัพธ์ →', exact: true }).click();
   await results(page);
-  await expect(page.getByText(/อีกนิดถึง 80% ก็ขึ้นขั้นถัดไปได้/)).toBeVisible();
+  // Since 5.224.0 the line under the score is for 80% and up; below it the ladder note says how far the
+  // climb is (it was "ถึงเกณฑ์ซ้อมแล้ว อีกนิดถึง 80% ก็ขึ้นขั้นถัดไปได้ ลองอีกชุดนะ!" under the score).
+  await expect(page.getByText(/ได้ 60% ยังไม่ถึง 80% ที่จะขึ้นขั้นต่อไป ทำขั้นนี้อีกชุดให้แม่นก่อน/)).toBeVisible();
   await expect(page.getByText('ทำได้ดีมาก! ถึงเกณฑ์ซ้อมแล้ว', { exact: false })).toHaveCount(0);
   await expect(page.getByRole('button', { name: /แก้ข้อที่ผิด 2 ข้อ ทันที/ })).toBeVisible();
 });

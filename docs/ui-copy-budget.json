@@ -5,7 +5,7 @@
     "src/components/CommandPalette.jsx": 1,
     "src/components/DiagramLabelDrill.jsx": 1,
     "src/components/QComments.jsx": 1,
-    "src/components/Question.jsx": 5,
+    "src/components/Question.jsx": 4,
     "src/components/QuestsPanel.jsx": 3,
     "src/components/ShortcutSheet.jsx": 2,
     "src/views/AboutView.jsx": 5,
@@ -19,7 +19,7 @@
     "src/views/ReadingChecklistView.jsx": 1,
     "src/views/ResultsView.jsx": 1,
     "src/views/ReviewView.jsx": 1,
-    "src/views/SRSessionView.jsx": 2,
+    "src/views/SRSessionView.jsx": 1,
     "src/views/ScoresView.jsx": 2,
     "src/views/TopicSelectView.jsx": 6
   },
@@ -36,7 +36,6 @@
     "src/views/AboutView.jsx": 2,
     "src/views/ConfigView.jsx": 1,
     "src/views/QuestionManagerView.jsx": 2,
-    "src/views/ResultsView.jsx": 1,
     "src/views/ReviewView.jsx": 1,
     "src/views/SubjectSelectView.jsx": 1
   }

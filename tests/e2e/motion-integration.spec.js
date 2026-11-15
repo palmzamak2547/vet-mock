@@ -136,7 +136,7 @@ test('a failed animation API cannot break the actual navigation action', async (
 
 test('the supplied flip reveals only the actual SR answer after the learner asks', async ({ page }) => {
   await page.goto('/app/review');
-  await page.getByRole('button', { name: 'เริ่ม Session →', exact: true }).click();
+  await page.getByRole('button', { name: 'เริ่มทบทวน', exact: true }).click();
   await expect(page.locator('.vmx-flashcard')).toBeVisible({ timeout: 25_000 });
   await expect(page.locator('.vmx-flashcard .back')).toHaveCount(0);
   await page.getByRole('button', { name: 'แสดงคำตอบ (Space)', exact: true }).press('Enter');
@@ -343,7 +343,7 @@ test('leaving a set opened from the timer: one tap on the back control leaves th
   await row.click({ timeout: 30_000 });
   await page.waitForFunction(() => history.state?.vmxView === 'exam', null, { timeout: 30_000 });
   await page.goBack();
-  await page.getByRole('button', { name: 'ออกจากชุด', exact: true }).click();
+  await page.getByRole('button', { name: 'เก็บไว้แล้วออก', exact: true }).click();
   await expect(page).toHaveURL(/\/app\/focus$/);
   await page.locator('.vmx-back-bar').getByRole('button').first().click();
   await expect(page).not.toHaveURL(/\/app\/focus$/);

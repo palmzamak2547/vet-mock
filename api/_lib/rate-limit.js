@@ -44,7 +44,15 @@ const UPSTASH_TOKEN = (typeof process !== 'undefined' && process.env?.UPSTASH_RE
 const HAS_UPSTASH = !!(UPSTASH_URL && UPSTASH_TOKEN);
 let _loggedBackend = false;
 let lastFailureLog = 0;
-const SHARED_TIMEOUT_MS = 1800;
+// 3.5 s, not 1.8 s: any call can be the one that opens a new connection to the
+// store (two limits asked side by side, or the first call after a quiet
+// minute), and on 15 Nov 2026 a new connection took about 2 s from this
+// region. With 1.8 s the first chat of every fresh instance was refused, and
+// warming one connection (5.227.11) did not help the second one opened
+// beside it. A store that is really down still fails closed, 1.7 s later.
+const SHARED_TIMEOUT_MS = 3500;
+const SLOW_CALL_MS = 1200;
+let lastSlowLog = 0;
 // The first call of a fresh instance also pays the name lookup and the TLS
 // handshake to the store. On 15 Nov 2026 the first chat of every new
 // deployment was refused ("shared limiter unavailable") because that call
@@ -89,11 +97,31 @@ async function upstashPipeline(commands) {
   });
   if (!res.ok) throw new Error(`upstash ${res.status}`);
   const body = await res.json();
+  const took = Date.now() - started;
+  if (!cold && took > SLOW_CALL_MS && Date.now() - lastSlowLog > 60_000) {
+    lastSlowLog = Date.now();
+    console.log('[rate-limit] slow store call on a warm instance:', took, 'ms');
+  }
   if (cold && !storeWarm) {
     storeWarm = true;
     console.log('[rate-limit] first store call of this instance took', Date.now() - started, 'ms');
   }
   return body;
+}
+
+let warming = false;
+/**
+ * Open the connection to the store as the instance starts, so the name lookup
+ * and the TLS handshake run while the caller does other work (the gate) and
+ * the first real limiter call finds the connection ready. One PING, never
+ * awaited, never counted against a limit, never able to fail a request; at
+ * most one in flight, and nothing once the store has answered or when it is
+ * not configured.
+ */
+export function warmStore() {
+  if (!HAS_UPSTASH || storeWarm || warming) return;
+  warming = true;
+  upstashPipeline([['PING']]).catch(() => {}).finally(() => { warming = false; });
 }
 
 async function rateLimitUpstash(key, max, winMs, by = 1) {

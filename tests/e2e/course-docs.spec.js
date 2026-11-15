@@ -25,6 +25,14 @@ test.beforeEach(async ({ page }) => {
   });
 });
 
+/** The course documents sit behind one row of the schedule page: open it. */
+async function openDocs(page) {
+  const section = page.getByRole('region', { name: /ประมวลรายวิชาและตารางสอน ปี 5/ });
+  await section.locator('summary').click();
+  await expect(section.locator('li').first()).toBeVisible();
+  return section;
+}
+
 /** Open one document from the schedule page and wait for its drawn page. */
 async function open(page, kind, name) {
   await page.getByRole('button', { name: `${kind} ${name}`, exact: true }).click();
@@ -36,7 +44,7 @@ async function open(page, kind, name) {
 
 test('the schedule page lists every course with its syllabus and teaching timetable', async ({ page }) => {
   await page.goto('/app/schedule');
-  const section = page.getByRole('region', { name: /ประมวลรายวิชาและตารางสอน ปี 5/ });
+  const section = await openDocs(page);
   await expect(section.locator('li')).toHaveCount(COURSES.length);
   for (const [code, name] of COURSES) {
     await expect(section.getByText(code, { exact: true })).toBeVisible();
@@ -50,6 +58,7 @@ test('the schedule page lists every course with its syllabus and teaching timeta
 for (const [code, name] of COURSES) {
   test(`${code}: both documents draw clean`, async ({ page }) => {
     await page.goto('/app/schedule');
+    await openDocs(page);
     for (const kind of ['ประมวลรายวิชา', 'ตารางสอน']) {
       const { dialog, preview } = await open(page, kind, name);
       await expect(preview).toHaveAttribute('data-layout', 'clean');
@@ -61,6 +70,7 @@ for (const [code, name] of COURSES) {
 
 test('the syllabus downloads as a one-page A4 PDF', async ({ page }) => {
   await page.goto('/app/schedule');
+  await openDocs(page);
   const { dialog } = await open(page, 'ประมวลรายวิชา', 'อายุรศาสตร์สัตว์ปีก');
   await expect(dialog.getByText('ประมวลรายวิชาฉบับอ่านง่าย พร้อมพิมพ์บนกระดาษ A4')).toBeVisible();
   const [download] = await Promise.all([
@@ -76,6 +86,7 @@ test('the syllabus downloads as a one-page A4 PDF', async ({ page }) => {
 
 test('a teaching timetable longer than a page downloads as one A4 page each', async ({ page }) => {
   await page.goto('/app/schedule');
+  await openDocs(page);
   const { dialog, preview } = await open(page, 'ตารางสอน', 'สุขศาสตร์น้ำนมและการตรวจคุณภาพเนื้อสัตว์');
   // The picture is the pages one under the other.
   const { width, height } = await preview.locator('img').evaluate((img) => ({ width: img.naturalWidth, height: img.naturalHeight }));
@@ -97,7 +108,7 @@ test('a document that cannot load leaves a note under the course list', async ({
   const chunk = /\/(?:assets\/TimetableSheet-[^/]+\.js|src\/components\/TimetableSheet\.jsx)(?:\?.*)?$/;
   await page.route(chunk, (route) => route.abort('internetdisconnected'));
   await page.goto('/app/schedule');
-  const section = page.getByRole('region', { name: /ประมวลรายวิชาและตารางสอน ปี 5/ });
+  const section = await openDocs(page);
   await section.getByRole('button', { name: 'ตารางสอน อายุรศาสตร์สัตว์ปีก', exact: true }).click();
   const note = section.getByRole('alert');
   await expect(note).toContainText('ตารางสอนฉบับพิมพ์');

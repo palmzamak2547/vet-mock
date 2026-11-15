@@ -8,7 +8,9 @@
 // catch around every parse). Writes dispatch `vmx-xp-changed` so the
 // XpChip + QuestsPanel can re-render without polling.
 
+import { dayKey } from './study-day.js';
 import { readStoredJson } from './stored-json.js';
+
 const STORAGE_KEY = 'vmx-xp';
 const EVENT_NAME = 'vmx-xp-changed';
 
@@ -28,12 +30,9 @@ const DEFAULT_STATE = Object.freeze({
   todayDate: '',
 });
 
+// Bangkok's day, the streak's (lib/study-day.js).
 function todayKey() {
-  const d = new Date();
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  return `${y}-${m}-${day}`;
+  return dayKey(Date.now());
 }
 
 export function getXpState() {

@@ -8,6 +8,8 @@
     "--clr-orange-soft",
     "--clr-red-deep",
     "--clr-red-soft",
-    "--vmx-color-accent"
+    "--vmx-color-accent",
+    "--vmx-print-foot",
+    "--vmx-print-head"
   ]
 }

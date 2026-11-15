@@ -1,0 +1,70 @@
+/* Spaced review: the figures and notes inside ปรับเอง. They used to be inline
+   styles in SRSessionView; the screen's own rules live here. */
+.vmx-srs-status {
+  margin-top: 8px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--clr-surface-2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.vmx-srs-status-group { display: flex; gap: 18px; }
+.vmx-srs-status-today { text-align: right; }
+.vmx-srs-status-label {
+  font-size: 14px;
+  font-family: var(--vmx-mono);
+  color: var(--clr-ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.vmx-srs-status-num {
+  font-family: var(--vmx-display);
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1;
+  margin-top: 2px;
+  color: var(--clr-ink);
+}
+.vmx-srs-status-num.is-over { color: var(--clr-rose-text); }
+.vmx-srs-status-num.is-new { color: var(--clr-gold-text); }
+.vmx-srs-status-num.is-today { color: var(--clr-sage-text); }
+.vmx-srs-status-unit {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--clr-ink-soft);
+  margin-left: 6px;
+}
+
+.vmx-srs-note {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+}
+.vmx-srs-note span { color: var(--clr-ink-soft); }
+.vmx-srs-note.is-gold { background: rgba(184, 137, 64, 0.10); border: 1px solid var(--clr-gold); }
+.vmx-srs-note.is-sage { background: rgba(74, 107, 74, 0.10); border: 1px solid var(--clr-sage); }
+
+.vmx-srs-stats { margin-top: 16px; }
+.vmx-srs-stats .vmx-stat-card:nth-child(2) .vmx-stat-num { color: var(--clr-sage-text); }
+.vmx-srs-stats .vmx-stat-card:nth-child(3) .vmx-stat-num { color: var(--clr-gold-text); }
+
+/* Pinboard: the bookmarked questions, counted apart from the pins. */
+.vmx-pin-saved {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: var(--clr-surface-2);
+  font-size: 14px;
+}

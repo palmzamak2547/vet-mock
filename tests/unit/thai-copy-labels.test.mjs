@@ -31,12 +31,13 @@ test('the wrong-answer banner never says the answer is marked with a tick', () =
   assert.ok(body.includes("'✓ คุณตอบถูก'"), 'the right branch is pinned by e2e and stays');
 
   // "ด้านล่าง" is only true while every caller hands over a correct answer and
-  // the row renders on a miss. Both callers do; the true/false one says ✗ False.
+  // the row renders on a miss. Both callers do; the true/false one says True or False.
   assert.match(body, /\(alwaysShowCorrect \|\| !ok\) && correctNode != null/);
   const callers = src.split('<InstantFeedback').slice(1).map((s) => s.slice(0, s.indexOf('/>')));
-  assert.equal(callers.length, 2, 'MCQ and true/false are the two callers');
+  assert.equal(callers.length, 3, 'MCQ, true/false and fill-in are the three callers');
   for (const caller of callers) assert.match(caller, /correctNode=\{/);
-  assert.ok(callers[1].includes("correctIsTrue ? '✓ True' : '✗ False'"));
+  // The words carry the choice (11 Nov 2026): no tick or cross in the true/false key.
+  assert.ok(callers[1].includes("correctIsTrue ? 'True' : 'False'"));
 });
 
 // ── Home ────────────────────────────────────────────────────────────────────
@@ -105,7 +106,7 @@ test('the spaced-repetition start and finish screens label their numbers in Thai
   // It is the due date of the scheduler that served the card (FSRS or SM-2).
   assert.equal(count(s, 'ถึงรอบ {fmtDate(dueAt(currentCard, scheduler))}'), 3);
   // Pinned by mochi-presence and motion-integration.
-  assert.ok(s.includes("'เริ่ม Session →'"));
+  assert.ok(s.includes("'เริ่มทบทวน'"));
   assert.ok(s.includes('แสดงคำตอบ (Space)'));
 });
 

@@ -22,7 +22,6 @@ export default function LeaderboardView({ user, goHome, selectedYear, setView })
   // to [] gaslights the user about what's wrong. Track the failure
   // explicitly and surface it with a retry button.
   const [error, setError] = useState(null);
-  const [scoreSource, setScoreSource] = useState('server');
   const requestId = useRef(0);
   // Year-scope toggle — Palm directive 2026-05-18 Q2=C: user picks
   // between current-year leaderboard and lifetime cross-year ranking.
@@ -45,7 +44,10 @@ export default function LeaderboardView({ user, goHome, selectedYear, setView })
     const yearArg = yearScope === 'current' && Number.isFinite(selectedYear)
       ? selectedYear
       : null;
-    getLeaderboard({ year: yearArg, scoreSource })
+    // Only runs the server marked against the set's key. Scores a phone sent
+    // by itself (old runs and private sets) are anyone's to write, so they
+    // stay in each student's own history and never rank.
+    getLeaderboard({ year: yearArg, scoreSource: 'server' })
       .then((rows) => { if (request === requestId.current) setRawScores(Array.isArray(rows) ? rows : []); })
       .catch((err) => {
         if (request !== requestId.current) return;
@@ -53,7 +55,7 @@ export default function LeaderboardView({ user, goHome, selectedYear, setView })
         setError(thaiError(err, 'โหลดข้อมูลไม่สำเร็จ'));
       })
       .finally(() => { if (request === requestId.current) setLoading(false); });
-  }, [yearScope, selectedYear, scoreSource]);
+  }, [yearScope, selectedYear]);
 
   useEffect(() => { load(); return () => { requestId.current++; }; }, [load]);
 
@@ -71,17 +73,6 @@ export default function LeaderboardView({ user, goHome, selectedYear, setView })
       {/* Where the student stands on this board, or why they are not on it. */}
       <BoardPresenceNotice user={user} rows={loading || error ? null : scores} onEdit={setView ? () => setView('profile') : null} />
 
-      <div className="vmx-btn-row" role="group" aria-label="แหล่งคะแนน" style={{ justifyContent: 'center', flexWrap: 'wrap' }}>
-        {[['server', 'ตรวจคำตอบบนระบบ'], ['client', 'คะแนนเดิม / ชุดส่วนตัว']].map(([value, label]) => (
-          <button key={value} className={scoreSource === value ? 'vmx-btn vmx-btn-primary' : 'vmx-btn vmx-btn-ghost'} aria-pressed={scoreSource === value}
-            onClick={() => setScoreSource(value)}>{label}</button>
-        ))}
-      </div>
-      <p style={{ textAlign: 'center', color: 'var(--clr-ink-soft)', fontSize: 14, margin: '10px 0 20px' }}>
-        {scoreSource === 'server'
-          ? 'ตรวจคะแนนกับเฉลยของชุดที่ใช้บนระบบ เป็นผลฝึกทำเอง ไม่มีการคุมสอบ'
-          : 'เก็บคะแนนเดิมและชุดส่วนตัวไว้ให้ดูย้อนหลัง คะแนนกลุ่มนี้ส่งมาจากเครื่องผู้ใช้'}
-      </p>
       {/* Year-scope toggle — Palm directive Q2=C. Defaults to current
           year (sticky via localStorage). Hidden when selectedYear is
           null (no year context, just show lifetime). */}
@@ -129,9 +120,7 @@ export default function LeaderboardView({ user, goHome, selectedYear, setView })
       ) : error ? (
         <StatePanel kind="error" title="โหลดอันดับคะแนนไม่สำเร็จ" body={error} actionLabel="ลองอีกครั้ง" onAction={load} />
       ) : scores.length === 0 ? (
-        <StatePanel art={EMPTY_ART.leaderboard} title="ยังไม่มีคะแนนในหมวดนี้" body={scoreSource === 'server'
-          ? 'ทำชุดมาตรฐานอย่างน้อย 5 ข้อแล้วส่งผลสำเร็จ คะแนนจะปรากฏที่นี่ คะแนนก่อนหน้านี้อยู่ในหมวดคะแนนเดิม'
-          : 'ยังไม่มีคะแนนเดิมหรือชุดส่วนตัวในขอบเขตปีที่เลือก'} />
+        <StatePanel art={EMPTY_ART.leaderboard} title="ยังไม่มีคะแนน" body="ทำชุดข้อสอบอย่างน้อย 5 ข้อแล้วส่งผลสำเร็จ คะแนนจะขึ้นที่นี่" />
       ) : (
         <div>
           {scores.map((r, idx) => (
@@ -159,7 +148,7 @@ export default function LeaderboardView({ user, goHome, selectedYear, setView })
                   </div>
                 </div>
                 <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 24, color: r.pct >= 80 ? 'var(--clr-sage-text)' : r.pct >= 60 ? 'var(--clr-gold-text)' : 'var(--clr-rose-text)' }}>{r.pct}%</div>
+                  <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 24, color: r.pct >= 80 ? 'var(--clr-right-text)' : r.pct >= 60 ? 'var(--clr-part-text)' : 'var(--clr-rose-text)' }}>{r.pct}%</div>
                   <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>{r.correct}/{r.total}</div>
                 </div>
               </div>
@@ -169,7 +158,7 @@ export default function LeaderboardView({ user, goHome, selectedYear, setView })
       )}
       {!loading && !error && scores.length > 0 && (
         <p style={{ marginTop: 14, fontSize: 14, color: 'var(--clr-ink-soft)', textAlign: 'center' }}>
-          ชุดที่มีไม่ถึง {LEADERBOARD_MIN_QUESTIONS} ข้อจะไม่นับเข้ากระดานอันดับ
+          นับเฉพาะชุดที่ระบบตรวจคำตอบ และมีอย่างน้อย {LEADERBOARD_MIN_QUESTIONS} ข้อ ไม่มีการคุมสอบ
         </p>
       )}
 

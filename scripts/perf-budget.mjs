@@ -23,7 +23,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { HEADROOM, budgetFor, checkSizes, entryFiles, gzipBytes, routeSizes } from './lib/perf-logic.mjs';
+import { HEADROOM, budgetFor, checkSizes, entryFiles, gzipBytes, lazyOnlyProblems, routeSizes } from './lib/perf-logic.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
@@ -136,5 +136,20 @@ if (over.length) {
   console.error('\nA budget is an alarm. Find what grew; if the growth is worth it, run node scripts/perf-budget.mjs --write and');
   console.error('put the measured reason in the pull request (docs/GITFLOW.md section 1).');
   process.exit(1);
+}
+// Modules moved out of the first load stay out: one that is imported statically again would ride
+// back into it silently, a few KB at a time.
+const lazy = budgets.lazyOnly;
+if (lazy?.modules?.length) {
+  const lazyProblems = lazyOnlyProblems(manifest, routes[lazy.route ?? 'firstLoad'].entries, lazy.modules);
+  for (const line of lazyProblems) {
+    console.error(`  lazyOnly: ${line}`);
+    console.log(`::error title=Bundle budget::${line}`);
+  }
+  if (lazyProblems.length) {
+    console.error(`\nperf:budget: ${lazyProblems.length} module(s) of lazyOnly in ${path.basename(budgetsPath)} reached the first load again`);
+    process.exit(1);
+  }
+  console.log(`perf:budget: ${lazy.modules.length} lazyOnly module(s) stay out of the first load`);
 }
 console.log(`\nperf:budget: ${Object.keys(routes).length} routes within their budgets`);

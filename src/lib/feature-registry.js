@@ -353,8 +353,8 @@ export const FEATURES = [
   {
     id: 'groups', category: 'social',
     label: 'กลุ่มติว', labelEn: 'Study groups', icon: '👥',
-    hint: 'แชร์ข้อสอบและอันดับคะแนนกลุ่ม',
-    kw: 'group กลุ่ม ติว study room แชร์ share เพื่อน',
+    hint: 'อันดับคะแนนของกลุ่ม',
+    kw: 'group กลุ่ม ติว study room เพื่อน',
     auth: true,
     invoke: { kind: 'view', view: 'groups' },
   },

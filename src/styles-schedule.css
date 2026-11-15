@@ -1,0 +1,187 @@
+/* ============================================================
+   Timetable and exams (views/ScheduleView.jsx, components/WeekTimetable.jsx,
+   components/AcademicCalendar.jsx). Chunk-scoped: loaded with the schedule
+   page only, never on first load. Tokens only: docs/DESIGN_SYSTEM.md.
+
+   One page, read top to bottom: the classes of the day in question, the next
+   paper with the one filled button, the other papers as rows on hairlines,
+   and everything a student opens now and then behind one tap at the end.
+   Three text steps per block: 14 px for what supports, 15 or 16 px for what
+   is read, 20 px and up for the one thing the block is about.
+   ============================================================ */
+
+.vmx-hero.vmx-sched-hero { margin-bottom: var(--space-4); }
+.vmx-sched { display: grid; gap: var(--space-5); }
+.vmx-sched > * { min-width: 0; }
+.vmx-sched-nowrap { white-space: nowrap; }
+
+/* A section's own line: what it is on the left, its one disclosure on the
+   right. The disclosure is a real button, so the row is as tall as a thumb. */
+.vmx-sched-head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); min-height: var(--touch-min); }
+.vmx-sched-label { margin: 0; min-width: 0; font-size: 14px; line-height: 1.4; font-weight: 600; color: var(--clr-ink); }
+.vmx-sched-toggle { appearance: none; flex: 0 0 auto; min-height: var(--touch-min); display: inline-flex; align-items: center; gap: var(--space-2); padding: 0 2px 0 var(--space-3); border: 0; border-radius: var(--r-sm); background: none; color: var(--clr-sage-text); font: inherit; font-size: 14px; font-weight: 600; white-space: nowrap; cursor: pointer; }
+.vmx-sched-toggle:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
+/* The chevron every disclosure on this page shares: down when shut, up when open. */
+.vmx-sched-toggle::after, .vmx-sched-fold-row::after { content: ""; flex: 0 0 auto; width: 7px; height: 7px; margin: 0 3px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: translateY(-2px) rotate(45deg); }
+.vmx-sched-toggle[aria-expanded="true"]::after, .vmx-sched-fold[open] > summary > .vmx-sched-fold-row::after { transform: translateY(2px) rotate(-135deg); }
+
+/* The classes of one day (components/WeekTimetable.jsx). Shut, the block is
+   the day a student is asking about and nothing to press; open, the five days
+   with each class a way into its material. */
+.vmx-sched-day { margin: 0; min-width: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 var(--space-2); font-size: 15px; line-height: 1.4; color: var(--clr-ink); }
+.vmx-sched-day strong { font-weight: 700; }
+.vmx-sched-tag { font-size: 14px; font-weight: 700; color: var(--clr-sage-text); }
+.vmx-sched-room { font-size: 14px; color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; }
+.vmx-sched-classes { list-style: none; margin: 0; padding: 0; }
+.vmx-sched-class { display: grid; grid-template-columns: 5.6em minmax(0, 1fr) auto; gap: 0 var(--space-3); align-items: baseline; padding: 3px 0; font-size: 15px; line-height: 1.4; color: var(--clr-ink); text-align: left; }
+.vmx-sched-time { font-size: 14px; color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.vmx-sched-name { min-width: 0; font-weight: 600; overflow-wrap: anywhere; }
+.vmx-sched-now { display: block; font-size: 14px; font-weight: 700; color: var(--clr-rose-text); white-space: nowrap; }
+.vmx-sched-idle { margin: 0; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
+.vmx-sched-days { display: grid; }
+.vmx-sched-daygroup { padding: var(--space-2) 0; border-top: 1px solid var(--clr-border); }
+.vmx-sched-daygroup:first-child { padding-top: 0; border-top: 0; }
+button.vmx-sched-class { appearance: none; width: 100%; min-height: var(--touch-min); margin: 0; padding: 6px 0; border: 0; border-radius: var(--r-sm); background: none; font: inherit; font-size: 15px; cursor: pointer; }
+button.vmx-sched-class .vmx-sched-name { color: var(--clr-ocean-text); }
+button.vmx-sched-class:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
+@media (hover: hover) and (pointer: fine) {
+  button.vmx-sched-class:hover .vmx-sched-name { text-decoration: underline; text-underline-offset: 3px; }
+}
+div.vmx-sched-class { min-height: var(--touch-min); align-items: center; padding: 6px 0; }
+.vmx-sched-source { margin: var(--space-2) 0 0; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
+/* An exam period: classes are off, and one quiet line says so. */
+.vmx-sched-suspended { margin: 0; font-size: 14px; line-height: 1.5; color: var(--clr-ink); }
+.vmx-sched-suspended strong { font-weight: 600; }
+.vmx-sched-suspended span { display: block; color: var(--clr-ink-soft); }
+
+/* The next paper: the page's one card and its one filled button. */
+.vmx-sched-papers { display: grid; gap: var(--space-2); }
+.vmx-sched-papers > * { min-width: 0; }
+.vmx-exam-card.vmx-sched-next { display: grid; gap: var(--space-3); padding: var(--space-4); }
+.vmx-sched-next-top { display: flex; align-items: center; gap: 14px; }
+.vmx-sched-date { flex: 0 0 auto; min-width: 44px; display: grid; justify-items: center; gap: 2px; text-align: center; }
+.vmx-sched-next .vmx-exam-date-month { font-size: 15px; line-height: 1.2; }
+.vmx-sched-next-main { min-width: 0; display: grid; gap: 2px; }
+.vmx-sched-next .vmx-sched-next-title { margin-bottom: 2px; }
+.vmx-sched-next .vmx-sched-next-title { margin: 0; font-size: 20px; line-height: 1.2; letter-spacing: 0; font-weight: 700; color: var(--clr-ink); text-wrap: balance; overflow-wrap: anywhere; }
+.vmx-sched-fact { margin: 0; font-size: 15px; line-height: 1.5; color: var(--clr-ink); font-variant-numeric: tabular-nums; }
+.vmx-sched-left { margin: 0; font-size: 15px; line-height: 1.5; font-weight: 700; color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.vmx-sched-left.is-near { color: var(--clr-rose-text); }
+.vmx-btn.vmx-sched-go { white-space: nowrap; }
+.vmx-sched-next > .vmx-sched-go { width: 100%; min-height: 48px; }
+@media (min-width: 640px) {
+  .vmx-sched-next > .vmx-sched-go { width: auto; min-width: 240px; justify-self: start; }
+}
+.vmx-sched-none { margin: 0; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
+.vmx-sched-done { margin: 0; font-size: 15px; line-height: 1.5; color: var(--clr-ink); }
+
+/* The other papers: date, course, days left, when and where, one row each on
+   a hairline, and nothing to press: "ฝึกวิชาอื่น" in the last group starts them. */
+.vmx-sched-rows { list-style: none; margin: 0; padding: 0; }
+.vmx-sched-papers > .vmx-sched-rows { padding: 0 var(--space-4); }
+.vmx-sched-row { display: flex; align-items: flex-start; gap: 14px; padding: 10px 0; border-top: 1px solid var(--clr-border); }
+.vmx-sched-rows > .vmx-sched-row:first-child { border-top: 0; }
+.vmx-sched-rows .vmx-exam-card.is-past { background: none; }
+.vmx-sched-row .vmx-exam-date-month { line-height: 1.2; }
+.vmx-sched-row .vmx-exam-date-day { font-size: 20px; line-height: 1.2; }
+.vmx-sched-row-main { flex: 1 1 auto; min-width: 0; display: grid; justify-items: start; gap: 1px; }
+.vmx-sched-row-top { justify-self: stretch; display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-3); }
+.vmx-sched-row-title { min-width: 0; font-size: 16px; line-height: 1.35; font-weight: 600; color: var(--clr-ink); overflow-wrap: anywhere; }
+.vmx-sched-row-left { flex: 0 0 auto; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.vmx-sched-row-left.is-near { color: var(--clr-rose-text); font-weight: 600; }
+.vmx-sched-row-meta { margin: 0; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; }
+.vmx-sched-subhead { margin: var(--space-3) 0 0; padding-top: var(--space-3); border-top: 1px solid var(--clr-border); font-size: 14px; line-height: 1.4; font-weight: 600; color: var(--clr-ink); }
+.vmx-sched-extra { margin: 0; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; }
+.vmx-sched-outline { margin: 2px 0 0; padding-left: 18px; font-size: 14px; line-height: 1.5; color: var(--clr-ink); }
+.vmx-sched-links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.vmx-sched-links .vmx-exam-link { border: 1px solid var(--clr-border); border-radius: var(--r-pill); background: var(--clr-surface-2); color: var(--clr-ink); text-decoration: none; }
+.vmx-sched-row .vmx-sched-go { margin-top: var(--space-2); }
+.vmx-sched-row .vmx-sched-none { margin-top: 2px; }
+
+/* What is opened now and then: one group, one tap each. A row is a native
+   disclosure (or, for the page to keep, a button), and its body is mounted
+   only once it is opened. */
+.vmx-sched-more { overflow: hidden; border: 1px solid var(--clr-border); border-radius: var(--r-lg); background: var(--clr-surface); }
+.vmx-sched-fold-row, .vmx-sched-act { display: flex; align-items: center; gap: var(--space-3); min-height: 52px; padding: var(--space-2) 14px; color: var(--clr-ink); font-size: 15px; line-height: 1.4; font-weight: 600; }
+.vmx-sched-fold { scroll-margin: var(--space-3) 0 calc(var(--vmx-bottom-nav-h, 0px) + env(safe-area-inset-bottom, 0px) + var(--space-4)); }
+.vmx-sched-fold > summary { display: block; list-style: none; cursor: pointer; }
+.vmx-sched-fold > summary::-webkit-details-marker { display: none; }
+.vmx-sched-fold-row::after { color: var(--clr-ink-soft); }
+.vmx-sched-act { appearance: none; width: 100%; border: 0 solid var(--clr-border); background: none; font: inherit; font-size: 15px; font-weight: 600; text-align: left; cursor: pointer; }
+.vmx-sched-more > * + * { border-top: 1px solid var(--clr-border); }
+/* The outline sits inside the row, so the group's rounded edge never cuts it. */
+.vmx-sched-fold > summary:focus-visible, .vmx-sched-act:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: -3px; border-radius: var(--r-md); }
+.vmx-sched-fold > summary:active, .vmx-sched-act:active { background: var(--clr-surface-2); }
+@media (hover: hover) and (pointer: fine) {
+  .vmx-sched-fold > summary:hover, .vmx-sched-act:hover { background: var(--clr-surface-2); }
+}
+.vmx-sched-fold-title { flex: 1 1 auto; min-width: 0; display: grid; gap: 1px; }
+.vmx-sched-fold-sub { font-size: 14px; font-weight: 400; color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; }
+.vmx-sched-fold-sub.is-last-day { color: var(--clr-rose-text); font-weight: 600; }
+.vmx-sched-fold-note { flex: 0 0 auto; font-size: 14px; font-weight: 400; color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.vmx-sched-fold-body { padding: 0 14px 14px; }
+.vmx-sched-fold-lede { margin: 0 0 var(--space-2); font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
+.vmx-sched-pick { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.vmx-sched-pick .vmx-btn { max-width: 100%; }
+
+/* A course's two documents (the printable sheet draws them). */
+.vmx-sched-docs { list-style: none; margin: 0; padding: 0; }
+.vmx-sched-doc { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 var(--space-3); padding: var(--space-2) 0 2px; border-top: 1px solid var(--clr-border); }
+.vmx-sched-doc-name { flex: 1 1 15em; min-width: 0; font-size: 15px; line-height: 1.4; color: var(--clr-ink); }
+.vmx-sched-doc-code { margin-left: 6px; font-size: 14px; color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.vmx-sched-doc-links { display: flex; gap: var(--space-4); }
+.vmx-sched-doc-open { appearance: none; min-width: var(--touch-min); min-height: var(--touch-min); display: inline-flex; align-items: center; padding: 0; border: 0; border-radius: var(--r-sm); background: none; color: var(--clr-sage-text); font: inherit; font-size: 14px; font-weight: 600; white-space: nowrap; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; cursor: pointer; }
+.vmx-sched-doc-open:hover { text-decoration-thickness: 2px; }
+.vmx-sched-doc-open:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
+
+/* The printable sheet on its way, and the note a tap that could not open it leaves. */
+.vmx-sched-opening { margin: 0; padding: var(--space-2) 14px; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
+.vmx-sched-fold-body > .vmx-sched-opening { padding-left: 0; padding-right: 0; }
+.vmx-timetable-failed { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin: 0; padding: 10px 14px; background: var(--clr-surface-2); color: var(--clr-ink); font-size: 14px; line-height: 1.6; }
+.vmx-timetable-failed > span { flex: 1 1 20em; min-width: 0; text-wrap: pretty; }
+.vmx-timetable-failed .vmx-btn { white-space: nowrap; }
+.vmx-sched-fold-body > .vmx-timetable-failed { margin-bottom: var(--space-2); border: 1px solid var(--clr-border); border-radius: var(--r-sm); }
+
+/* A year the app holds no timetable for. */
+.vmx-sched-empty { margin: 0; padding: var(--space-4) var(--space-4) var(--space-1); border: 1px solid var(--clr-border); border-radius: var(--r-lg); background: var(--clr-surface); display: grid; gap: var(--space-1); }
+.vmx-sched-empty strong { font-size: 16px; line-height: 1.35; font-weight: 700; color: var(--clr-ink); }
+.vmx-sched-empty span { display: flex; flex-wrap: wrap; align-items: center; gap: 0 var(--space-2); font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
+
+.vmx-sched-foot { margin: 0; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
+
+/* Registration and payment windows (components/AcademicCalendar.jsx), inside their disclosure. */
+.vmx-cal { display: grid; gap: var(--space-3); }
+.vmx-cal-label { margin: 0; font-size: 14px; line-height: 1.4; font-weight: 600; color: var(--clr-ink); }
+.vmx-cal-list { list-style: none; margin: 0; padding: 0; }
+.vmx-cal-row { display: grid; gap: 2px; padding: 10px 0; border-top: 1px solid var(--clr-border); }
+.vmx-cal-list > .vmx-cal-row:first-child { padding-top: 2px; border-top: 0; }
+.vmx-cal-row-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0 var(--space-3); }
+.vmx-cal-title { flex: 1 1 12em; min-width: 0; font-size: 15px; line-height: 1.4; font-weight: 600; color: var(--clr-ink); }
+.vmx-cal-dates { font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.vmx-cal-status { margin: 0; font-size: 14px; line-height: 1.5; font-weight: 600; color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; }
+.vmx-cal-row.is-open .vmx-cal-status, .vmx-cal-row.is-ahead .vmx-cal-status { color: var(--clr-sage-text); }
+.vmx-cal-row.is-urgent .vmx-cal-status { color: var(--clr-rose-text); }
+.vmx-cal-row.is-soon .vmx-cal-status { color: var(--clr-gold-text); }
+.vmx-cal-note { margin: 0; font-size: 14px; line-height: 1.6; color: var(--clr-ink-soft); }
+.vmx-cal-warn { margin: 0; font-size: 14px; line-height: 1.6; color: var(--clr-rose-text); }
+.vmx-cal-none { margin: 0; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
+.vmx-cal-links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.vmx-cal-link { display: inline-flex; align-items: center; min-height: var(--touch-min); padding: 0 var(--space-3); border: 1px solid var(--clr-border); border-radius: var(--r-pill); background: var(--clr-surface-2); color: var(--clr-ink); font-size: 14px; text-decoration: none; }
+.vmx-cal-all { margin-left: -14px; font-size: 14px; color: var(--clr-sage-text); }
+.vmx-cal-group { display: grid; gap: var(--space-1); padding: var(--space-3) 14px; border-radius: var(--r-md); background: var(--clr-surface-2); }
+.vmx-cal-group-title { margin: 0; font-size: 15px; line-height: 1.4; font-weight: 700; color: var(--clr-ink); }
+.vmx-cal-group-code { color: var(--clr-sage-text); font-variant-numeric: tabular-nums; }
+
+/* Motion that explains: what a tap opened comes down from the row that opened
+   it, and the chevron turns with it. Transform and opacity only, the app's own
+   duration and curve (--dur 180 ms for the 6 px rise, --dur-fast for the
+   chevron's turn). Nothing moves on arrival, and each effect is its own
+   choice under reduced motion: there, what was opened is simply there. */
+@media (prefers-reduced-motion: no-preference) {
+  .vmx-sched-fold-body, .vmx-sched-week-body.is-toggled { animation: vmx-sched-in var(--dur) var(--ease-out) backwards; }
+  .vmx-sched-toggle::after, .vmx-sched-fold-row::after { transition: transform var(--dur-fast) var(--ease-out); }
+}
+@keyframes vmx-sched-in { from { opacity: 0; transform: translate3d(0, -6px, 0); } }
+/* The sheet's loading line stays unseen for its first 400 ms: a sheet that is
+   already on the device opens without a line flashing under the button. */
+@keyframes vmx-sched-late { from { opacity: 0; } }

@@ -99,7 +99,7 @@ export default function TodaysQModal({ q, dateStr, onClose, onDone }) {
             if (revealed) {
               if (isCorrectAnswer) {
                 bg = 'rgba(74, 107, 74, 0.15)';
-                border = '2px solid var(--clr-sage)';
+                border = '2px solid var(--clr-right)';
               } else if (isPicked) {
                 bg = 'rgba(192, 57, 43, 0.10)';
                 border = '2px solid var(--clr-rose, #c0392b)';
@@ -117,7 +117,7 @@ export default function TodaysQModal({ q, dateStr, onClose, onDone }) {
                 <div className="vmx-option-text">
                   <RichText text={opt} />
                 </div>
-                {revealed && isCorrectAnswer && <span style={{ marginLeft: 'auto', color: 'var(--clr-sage-text)', fontWeight: 700 }}>✓</span>}
+                {revealed && isCorrectAnswer && <span style={{ marginLeft: 'auto', color: 'var(--clr-right-text)', fontWeight: 700 }}>✓</span>}
                 {revealed && isPicked && !isCorrectAnswer && <span style={{ marginLeft: 'auto', color: 'var(--clr-rose-text, #c0392b)' }}>✗</span>}
               </button>
             );
@@ -125,8 +125,8 @@ export default function TodaysQModal({ q, dateStr, onClose, onDone }) {
         </div>
 
         {revealed && q.explain && (
-          <div style={{ marginTop: 12, padding: 12, borderRadius: 10, background: 'rgba(74, 107, 74, 0.06)', border: '1px solid var(--clr-sage)', fontSize: 14, lineHeight: 1.6 }}>
-            <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', color: 'var(--clr-sage-text)', marginBottom: 4 }}>
+          <div style={{ marginTop: 12, padding: 12, borderRadius: 10, background: 'rgba(74, 107, 74, 0.06)', border: '1px solid var(--clr-right)', fontSize: 14, lineHeight: 1.6 }}>
+            <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', color: 'var(--clr-right-text)', marginBottom: 4 }}>
               เฉลย
             </div>
             <RichBlocks text={q.explain} />

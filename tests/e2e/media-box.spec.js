@@ -199,7 +199,9 @@ const smallQuestion = QUESTIONS_Y5_EQUINE_FINAL_RECALL.find((q) => q.id === 2095
 test('the zoom view draws a small picture as large as the screen allows, never smaller than the card', async ({ page }) => {
   const [w, h] = QUESTION_MEDIA_SIZES[smallQuestion.image];
   expect([w, h], 'the smallest of the question pictures').toEqual([204, 136]);
-  await parkSet(page, [{ ...figureQuestion, image: smallQuestion.image, imageAlt: smallQuestion.imageAlt }, NEXT_QUESTION]);
+  // An id the bank does not hold: a resumed set takes each bank question's current copy (5.224.0),
+  // which would put 104006's own picture back in place of the small one this check needs.
+  await parkSet(page, [{ ...figureQuestion, id: 104998, image: smallQuestion.image, imageAlt: smallQuestion.imageAlt }, NEXT_QUESTION]);
   const image = await holdBack(page, `**${smallQuestion.image}`);
   const sizes = page.waitForResponse((r) => SIZES_FILE.test(r.url()) && r.ok());
   await openWhileHeld(page, '/app');
@@ -404,7 +406,7 @@ async function startReview(page, cards) {
     sessionStorage.setItem('vmx-sr-plan-size', String(count));
   }, { srCards, count: cards.length });
   await page.goto('/app/review', { waitUntil: 'domcontentloaded' });
-  await page.getByRole('button', { name: 'เริ่ม Session →', exact: true }).click();
+  await page.getByRole('button', { name: 'เริ่มทบทวน', exact: true }).click();
 }
 
 for (const screen of [{ width: 375, height: 812 }, { width: 1280, height: 800 }]) {

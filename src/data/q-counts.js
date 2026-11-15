@@ -10,9 +10,9 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 8894;
+export const QB_TOTAL = 8893;
 export const QB_SOURCE_TOTAL = 9105;
-export const QB_BLOCKED_TOTAL = 211;
+export const QB_BLOCKED_TOTAL = 212;
 
 export const Q_COUNTS_BY_SUBJECT = {
   'aquatic-clinic': 532,
@@ -50,7 +50,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'swine-clinic': 268,
   'swine-herd': 36,
   'swine-repro': 29,
-  'vca': 1342,
+  'vca': 1341,
   'vet-dev-anat': 26,
   'vet-histo': 104,
   'vet-imaging': 35,
@@ -100,7 +100,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'swine-clinic': 268,
   'swine-herd': 36,
   'swine-repro': 29,
-  'vca': 1342,
+  'vca': 1341,
   'vet-dev-anat': 26,
   'vet-histo': 104,
   'vet-imaging': 35,
@@ -149,7 +149,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'swine-clinic': 245,
   'swine-herd': 27,
   'swine-repro': 29,
-  'vca': 951,
+  'vca': 950,
   'vet-dev-anat': 26,
   'vet-imaging': 35,
   'vet-juris': 46,
@@ -193,7 +193,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'swine-clinic': 81,
     'swine-herd': 22,
     'swine-repro': 17,
-    'vca': 951,
+    'vca': 950,
     'vet-dev-anat': 26,
     'vet-imaging': 5,
     'zoonoses': 312,
@@ -232,7 +232,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'swine-clinic': 164,
     'swine-herd': 11,
     'swine-repro': 18,
-    'vca': 951,
+    'vca': 950,
     'vet-dev-anat': 26,
     'vet-imaging': 35,
     'vet-juris': 46,
@@ -260,7 +260,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'swine-clinic': 94,
     'swine-herd': 31,
     'swine-repro': 17,
-    'vca': 1342,
+    'vca': 1341,
     'vet-histo': 104,
     'vet-imaging': 5,
     'zoonoses': 373,
@@ -283,7 +283,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'swine-clinic': 174,
     'swine-herd': 16,
     'swine-repro': 18,
-    'vca': 1342,
+    'vca': 1341,
     'vet-histo': 104,
     'vet-imaging': 35,
     'vet-juris': 46,
@@ -307,7 +307,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'ruminant-clinical': 15,
     'surg2': 18,
     'surg3': 40,
-    'vca': 1342,
+    'vca': 1341,
     'vet-dev-anat': 26,
     'vet-neuroanat': 40,
     'vet-pharm-2': 62,
@@ -330,7 +330,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'ruminant-clinical': 15,
     'surg2': 18,
     'surg3': 40,
-    'vca': 1342,
+    'vca': 1341,
     'vet-dev-anat': 26,
     'vet-neuroanat': 40,
     'vet-pharm-2': 62,
@@ -347,28 +347,28 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
     2: 104,
     3: 62,
     4: 139,
-    5: 4278,
+    5: 4277,
   },
   '1-final': {
     1: 297,
     2: 104,
     3: 62,
     4: 302,
-    5: 3701,
+    5: 3700,
   },
   '2-mid': {
     1: 297,
     2: 40,
     3: 62,
     4: 1633,
-    5: 1476,
+    5: 1475,
   },
   '2-final': {
     1: 297,
     2: 40,
     3: 62,
     4: 1633,
-    5: 1476,
+    5: 1475,
   },
 };
 
@@ -571,7 +571,7 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'anatomy': 7,
       'aquatic': 101,
       'clinical-pathology': 30,
-      'dogcat': 342,
+      'dogcat': 341,
       'epidemiology': 13,
       'equine': 109,
       'exotic': 90,
@@ -915,7 +915,7 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'anatomy': 7,
       'aquatic': 101,
       'clinical-pathology': 30,
-      'dogcat': 342,
+      'dogcat': 341,
       'epidemiology': 13,
       'equine': 109,
       'exotic': 90,
@@ -1213,7 +1213,7 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'anatomy': 7,
       'aquatic': 101,
       'clinical-pathology': 30,
-      'dogcat': 342,
+      'dogcat': 341,
       'epidemiology': 13,
       'equine': 109,
       'exotic': 90,
@@ -1482,7 +1482,7 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'anatomy': 7,
       'aquatic': 101,
       'clinical-pathology': 30,
-      'dogcat': 342,
+      'dogcat': 341,
       'epidemiology': 13,
       'equine': 109,
       'exotic': 90,
@@ -1701,7 +1701,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
       'anatomy': 7,
       'aquatic': 70,
       'clinical-pathology': 13,
-      'dogcat': 276,
+      'dogcat': 275,
       'epidemiology': 12,
       'equine': 80,
       'exotic': 58,
@@ -1973,7 +1973,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
       'anatomy': 7,
       'aquatic': 70,
       'clinical-pathology': 13,
-      'dogcat': 276,
+      'dogcat': 275,
       'epidemiology': 12,
       'equine': 80,
       'exotic': 58,
@@ -2180,7 +2180,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
       'anatomy': 7,
       'aquatic': 70,
       'clinical-pathology': 13,
-      'dogcat': 276,
+      'dogcat': 275,
       'epidemiology': 12,
       'equine': 80,
       'exotic': 58,
@@ -2368,7 +2368,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
       'anatomy': 7,
       'aquatic': 70,
       'clinical-pathology': 13,
-      'dogcat': 276,
+      'dogcat': 275,
       'epidemiology': 12,
       'equine': 80,
       'exotic': 58,
@@ -2402,7 +2402,7 @@ export const Q_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 2076,
-  5: 6315,
+  5: 6314,
 };
 
 // Visible per-year totals (hidden topics excluded). Every user-facing
@@ -2414,7 +2414,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 1981,
-  5: 6315,
+  5: 6314,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -3037,7 +3037,7 @@ export const Q_COUNTS_BY_TOPIC = {
     "anatomy": 7,
     "aquatic": 101,
     "clinical-pathology": 30,
-    "dogcat": 342,
+    "dogcat": 341,
     "epidemiology": 13,
     "equine": 109,
     "exotic": 90,
@@ -3630,7 +3630,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
     "anatomy": 7,
     "aquatic": 70,
     "clinical-pathology": 13,
-    "dogcat": 276,
+    "dogcat": 275,
     "epidemiology": 12,
     "equine": 80,
     "exotic": 58,
@@ -3742,4 +3742,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-11-15T13:42:23.481Z
+// Built: 2026-11-15T13:49:50.650Z

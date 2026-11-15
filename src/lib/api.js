@@ -70,7 +70,24 @@ export async function leaveGroup(groupId, userId) {
   const supabase = await getSupabase();
   const { error } = await supabase.from('group_members')
     .delete().eq('group_id', groupId).eq('user_id', userId);
+  if (error) {
+    // The database keeps one admin per group (20261115120100); the page
+    // offers the last admin no Leave button, so this only meets a stale page.
+    if (String(error.message || '').includes('Last admin cannot leave')) {
+      throw new Error('คุณเป็นผู้ดูแลคนเดียวของกลุ่มนี้ จึงออกจากกลุ่มไม่ได้ ลบกลุ่มแทนได้');
+    }
+    throw error;
+  }
+}
+
+// Deleting a group takes its members and its invite code with it. Only the
+// account that created it may (policy groups_delete_creator); a refused
+// delete removes no row and reports no error, so the row count decides.
+export async function deleteGroup(groupId) {
+  const supabase = await getSupabase();
+  const { data, error } = await supabase.from('groups').delete().eq('id', groupId).select('id');
   if (error) throw error;
+  if (!Array.isArray(data) || data.length === 0) throw new Error('ลบได้เฉพาะคนที่สร้างกลุ่มนี้');
 }
 
 export async function getMyGroups(userId) {
@@ -132,61 +149,6 @@ export async function getGroupLeaderboard(groupId) {
   if (!ids.length) return [];
   const board = await getLeaderboard({ scoreSource: 'server', limit: GROUP_BOARD_SOURCE_LIMIT });
   return groupBoardRows(ids, board);
-}
-
-// ==========================================================
-// SHARED QUESTIONS
-// ==========================================================
-export async function shareQuestion(groupId, questionData, authorId, authorName) {
-  const supabase = await getSupabase();
-  // Sanitize image URLs at the source — group members rendering shared
-  // content would leak IP/UA via tracking pixels otherwise. Allow-list
-  // logic in src/lib/safe-url.js. Defense-in-depth: same check also runs
-  // at every <img src> sink (Question.jsx, ReviewView, SRSessionView).
-  const { sanitizeSharedQuestionData } = await import('./safe-url.js');
-  const safeData = sanitizeSharedQuestionData(questionData);
-  const { data, error } = await supabase.from('shared_questions')
-    .insert({ group_id: groupId, author_id: authorId, author_name: authorName, data: safeData })
-    .select().single();
-  if (error) throw error;
-  return data;
-}
-
-// shared_questions.data is JSON another member wrote (the app has no share
-// action yet, so today only a direct API insert can put a row there), and it
-// was handed to the page exactly as stored: one row whose tags was a string
-// blanked the whole Shared Q tab with "q.data.tags.map is not a function".
-// The question text decides whether a row can be shown; the fields around it
-// are made safe rather than fatal. A row that cannot be shown is kept and
-// flagged, so the list stays honest and its author can still delete it.
-export function readSharedQuestion(row) {
-  const data = row?.data;
-  const readable = !!data && typeof data === 'object' && !Array.isArray(data)
-    && typeof data.q === 'string' && data.q.trim() !== '';
-  if (!readable) return { ...row, invalid: true };
-  return {
-    ...row,
-    invalid: false,
-    data: {
-      ...data,
-      subject: typeof data.subject === 'string' && data.subject ? data.subject : null,
-      tags: Array.isArray(data.tags) ? data.tags.filter((t) => typeof t === 'string' && t.trim() !== '') : [],
-    },
-  };
-}
-
-export async function getSharedQuestions(groupId) {
-  const supabase = await getSupabase();
-  const { data, error } = await supabase.from('shared_questions')
-    .select('*').eq('group_id', groupId).order('created_at', { ascending: false });
-  if (error) throw error;
-  return (data || []).map(readSharedQuestion);
-}
-
-export async function deleteSharedQuestion(id) {
-  const supabase = await getSupabase();
-  const { error } = await supabase.from('shared_questions').delete().eq('id', id);
-  if (error) throw error;
 }
 
 // ==========================================================
@@ -253,6 +215,7 @@ export async function saveExamResult(result) {
         ? 'ชุดนี้ถูกส่งจากอีกแท็บด้วยคำตอบต่างกันแล้ว กรุณาสำรองผลชุดนี้'
         : 'ผลสอบยังรอส่ง ระบบจะลองใหม่เมื่อเชื่อมต่อได้');
       error.retryAfter = Number(receipt?.retryAfter) || 0;
+      error.conflict = receipt?.error === 'result_conflict';
       // The outbox sets aside a result the server refuses for good (400, 409,
       // 413) so it cannot hold every later result on the device.
       error.status = response.ok ? 0 : response.status;
@@ -535,44 +498,4 @@ export async function subscribeQComments(qSubject, qId, onEvent) {
     )
     .subscribe();
   return channel;
-}
-
-// ==========================================================
-// RACE RESULTS — final scores from multiplayer races
-// ==========================================================
-export async function recordRaceResult(raceCode, userId, subject, questionCount, correctCount, durationMs) {
-  await ensureProfile();
-  const supabase = await getSupabase();
-  if (!supabase) return null;
-  const { data, error } = await supabase
-    .from('race_results')
-    .insert({
-      race_code: raceCode,
-      user_id: userId,
-      subject,
-      question_count: questionCount,
-      correct_count: correctCount,
-      duration_ms: durationMs,
-    })
-    .select()
-    .single();
-  if (error) {
-    console.warn('[race] record failed:', error.message);
-    return null;
-  }
-  return data;
-}
-
-export async function listRaceResults(raceCode) {
-  const supabase = await getSupabase();
-  if (!supabase) return [];
-  const { data, error } = await supabase
-    .from('race_results')
-    .select('*, profiles ( username, avatar_emoji )')
-    .eq('race_code', raceCode)
-    .order('correct_count', { ascending: false })
-    .order('duration_ms', { ascending: true })
-    .limit(20);
-  if (error) return [];
-  return data || [];
 }
