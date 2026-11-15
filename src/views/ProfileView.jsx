@@ -7,8 +7,8 @@
 //   what is next          the coming papers from the timetable, the one goal
 //   how far have I come   four weeks of answers as a small figure, the
 //                         badges earned and the next one with how far it is
-//   where do I stand      my own line on the board, a way to the board and
-//                         to the groups (signed in)
+//   where do I stand      my own line on the board and a way to the board
+//                         (signed in; the groups entry is hidden for now)
 //   the rest              reading, review, timetable, settings, the app
 //
 // A student with nothing yet gets one next thing to do instead of zeros.
@@ -493,7 +493,6 @@ function StandingStrip({ user, year, setView }) {
       </p>
       <div className="vmx-hub-standing-go">
         <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setView('leaderboard-global')}>กระดานอันดับ</button>
-        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setView('groups')}>กลุ่มติว</button>
       </div>
     </section>
   );
