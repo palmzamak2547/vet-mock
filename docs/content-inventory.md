@@ -28,9 +28,9 @@ Consistency: source banks **9095**, learner-ready **8884**, fail-closed **211**,
 | | |
 |---|---|
 | Note files | 38 |
-| Topics | 423 |
-| Sections | 4409 |
-| Sections carrying a source locator | 4409 (100%) |
+| Topics | 424 |
+| Sections | 4424 |
+| Sections carrying a source locator | 4424 (100%) |
 
 ## Video summaries
 
@@ -44,11 +44,11 @@ Consistency: source banks **9095**, learner-ready **8884**, fail-closed **211**,
 
 | | |
 |---|---|
-| Governed topics | 249 |
-| Governed sections | 2099 |
-| Claims verified against an external source | 3480 |
-| Distinct external sources cited | 2236 |
-| Share of note sections governed | 47.6% |
+| Governed topics | 250 |
+| Governed sections | 2114 |
+| Claims verified against an external source | 3492 |
+| Distinct external sources cited | 2246 |
+| Share of note sections governed | 47.8% |
 
 ## VetWiki coverage of questions
 
@@ -56,7 +56,7 @@ Learner-ready questions that open an article, through their own topic or a judge
 
 | Subject | Questions | Reach an article | Via a judged link | Coverage |
 |---|---|---|---|---|
-| aquatic-clinic | 532 | 433 | 12 | 81.4% |
+| aquatic-clinic | 532 | 439 | 12 | 82.5% |
 | avian-medicine | 581 | 431 | 0 | 74.2% |
 | biochem-1 | 271 | 0 | 0 | 0.0% |
 | cliapprum | 136 | 95 | 51 | 69.9% |
@@ -99,4 +99,4 @@ Learner-ready questions that open an article, through their own topic or a judge
 | vet-neuroanat | 40 | 40 | 0 | 100.0% |
 | vet-pharm-2 | 62 | 0 | 0 | 0.0% |
 | zoonoses | 470 | 458 | 0 | 97.4% |
-| **All** | 8884 | 5702 | 331 | 64.2% |
+| **All** | 8884 | 5708 | 331 | 64.3% |

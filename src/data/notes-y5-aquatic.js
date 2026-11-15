@@ -5094,5 +5094,635 @@ export const NOTES_Y5_AQUATIC = {
         ]
       }
     ]
+  },
+  "aqua-toxicology": {
+    "topic": "aqua-toxicology",
+    "title": "Aquatic toxicology & aquatic animal impact",
+    "lecturer": "Worrayanee Thammatorn",
+    "icon": "🧪",
+    "summary": "พิษวิทยาทางน้ำ: ความหมายและแหล่งมลพิษ, ระยะของผลพิษตั้งแต่ fate and exposure ถึงผลต่อระบบนิเวศ, ปัจจัย 4 กลุ่มที่ทำให้ความเป็นพิษต่างกัน (สารเคมี, การสัมผัส, น้ำรอบตัว, ตัวสัตว์), กรอบ Adverse Outcome Pathway พร้อมตัวอย่าง endocrine disruptor, สารเคมีตัวเดียวหลายเส้นทางและสารเคมีผสม, biochemical marker 6 กลุ่ม และกรณีศึกษา 2 เรื่อง ตารางสารพิษแต่ละชนิดอยู่ในเด็คหน้า 24 ถึง 41 และไม่ได้สรุปไว้ในโน้ตนี้",
+    "sections": [
+      {
+        "heading": "นิยามของ aquatic toxicology",
+        "source": "Aquatic toxicology (3 พ.ย. 69) p.2; บันทึกคาบ 3 พ.ย. 2569 [8:00-13:00]",
+        "body": [
+          "Aquatic toxicology คือศาสตร์ที่ศึกษา **ผลกระทบ** ของสารเคมีที่มนุษย์ผลิต และวัสดุหรือกิจกรรมจากมนุษย์และจากธรรมชาติ ต่อ **สิ่งมีชีวิตในน้ำ** ในหลายระดับ ตั้งแต่ระดับใต้เซลล์ ตัวสัตว์ ไปจนถึง community และ ecosystem",
+          {
+            "sub": "ลำดับของเรื่อง (แผนภาพ p.2)",
+            "body": [
+              {
+                "bullets": [
+                  "Toxicants → adverse health effects (ในคนและสัตว์) → สังคมตื่นตัว (alerted societies)",
+                  "จากนั้นแตกเป็น 2 ทาง: การรักษา (treatment) และการประเมินอันตรายและความเสี่ยง (hazard and risk assessment) ซึ่งนำไปสู่การจัดการ (management)"
+                ]
+              }
+            ]
+          },
+          {
+            "callout": "Paracelsus (1493-1541): สารทุกชนิดเป็นพิษได้ ไม่มีสารใดที่ไม่เป็นพิษ ขนาดที่ได้รับ (dose) คือสิ่งที่แยกพิษออกจากยา",
+            "kind": "tip"
+          }
+        ]
+      },
+      {
+        "heading": "แหล่งมลพิษทางน้ำ",
+        "source": "Aquatic toxicology (3 พ.ย. 69) p.3; บันทึกคาบ 3 พ.ย. 2569 [13:00-18:00]",
+        "body": [
+          {
+            "table": {
+              "headers": [
+                "แหล่ง",
+                "ตัวอย่างที่มา",
+                "สารที่ปล่อย"
+              ],
+              "rows": [
+                [
+                  "น้ำเสียจากชุมชน (wastewater, community)",
+                  "บ้าน อาคารพาณิชย์ โรงแรม โรงพยาบาล โรงเรียน สำนักงาน",
+                  "ขยะอินทรีย์, nano- และ microplastics (NMPs), ยาและผลิตภัณฑ์ดูแลส่วนบุคคล (PPCPs)"
+                ],
+                [
+                  "อุตสาหกรรม (industry)",
+                  "โรงงานและเหมือง",
+                  "สารพิษอินทรีย์และอนินทรีย์ เช่น NMPs และโลหะหนัก"
+                ],
+                [
+                  "เกษตรกรรม (agriculture)",
+                  "ฟาร์มสัตว์ ฟาร์มเกษตร และการเพาะเลี้ยงสัตว์น้ำ",
+                  "มูลสัตว์, ยากำจัดศัตรูพืช (pesticides), ปุ๋ย, ยาสัตว์และยาอื่น (PhACs), NMPs"
+                ],
+                [
+                  "การขนส่งทางน้ำ (water transportation)",
+                  "น้ำมันและสารเคมีรั่วไหล (oil and chemical spill)",
+                  "ปิโตรเลียมและ polycyclic aromatic hydrocarbons (PAHs)"
+                ]
+              ]
+            }
+          },
+          {
+            "bullets": [
+              "ระบบบำบัดน้ำเสียกำจัดสารบางชนิดไม่หมด จึงมี PPCPs หลุดลงแหล่งน้ำธรรมชาติได้",
+              "ทิ้งสารอินทรีย์ลงคลอง → ออกซิเจนในน้ำลดลงและแบคทีเรียเพิ่ม"
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "ระยะของผลพิษในสัตว์น้ำ",
+        "source": "Aquatic toxicology (3 พ.ย. 69) p.4; บันทึกคาบ 3 พ.ย. 2569 [18:00-26:00]",
+        "body": [
+          "สารเคมีที่ปล่อยลงน้ำผ่านเป็น 3 ระยะ ระยะแรกอยู่นอกตัวสัตว์ สองระยะหลังเกี่ยวกับตัวสัตว์โดยตรง",
+          {
+            "table": {
+              "headers": [
+                "ระยะ",
+                "เนื้อหา"
+              ],
+              "rows": [
+                [
+                  "Fate and exposure",
+                  "สารเคมี → transport, transformation, concentration; ผลคือ **bioavailability** ก่อนเข้าสู่ตัวสัตว์"
+                ],
+                [
+                  "Effects: toxicokinetics",
+                  "uptake, distribution, metabolism, elimination; ผลที่ตามมาคือ **bioaccumulation**"
+                ],
+                [
+                  "Effects: toxicodynamics",
+                  "ปฏิกิริยาของสารกับเนื้อเยื่อเป้าหมาย (กลไกพิษระดับ molecule, cell, organism); ผลคือ toxicity"
+                ],
+                [
+                  "Ecological effects",
+                  "ผลต่อ populations, biocoenosis, ecosystem"
+                ]
+              ]
+            }
+          },
+          {
+            "sub": "ข้อควรรู้ในแต่ละระยะ",
+            "body": [
+              {
+                "bullets": [
+                  "**Transformation**: แบคทีเรียหรือปัจจัยในน้ำเปลี่ยนสารเคมีเป็นอีกตัวหนึ่ง ซึ่งทำให้พิษเพิ่มหรือลดก็ได้",
+                  "**Toxicokinetics**: ดู distribution ได้โดยเก็บหลายอวัยวะแล้ววัดความเข้มข้นภายใน (internal concentration) ของสารในแต่ละอวัยวะ",
+                  "**Bioaccumulation**: ทดสอบโดยให้สัตว์สัมผัสสารช่วงหนึ่ง แล้วดูช่วง elimination ว่ายังมีสารตกค้างในตัวสัตว์หรือไม่",
+                  "**Toxicodynamics**: ถ้าสารถูก metabolize เป็นตัวที่ active ได้ ให้แยก parent compound (ตัวแรก) ออกจาก metabolite (ตัวที่เกิดต่อมา)"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "วงจรของร่างกายเมื่อ homeostasis ถูกรบกวน (p.4)",
+            "body": [
+              {
+                "bullets": [
+                  "ลำดับ: homeostasis → adaptation → compensation → damage → dysfunction → disease → death",
+                  "ลูกศร \"± recovery\" ย้อนกลับไปที่ homeostasis ได้จาก damage, dysfunction และ disease",
+                  "Adaptation คือร่างกายตอบสนองต่อสารแล้วยังอยู่ในช่วงปกติ; compensation คือตอบสนองจนเกินช่วงปกติ; ถ้าเกินกว่าที่ร่างกายทำได้ จะเกิด damage ของเซลล์และ dysfunction ของอวัยวะ"
+                ]
+              }
+            ]
+          },
+          "ระดับ ecological มองเป็นกลุ่มประชากรและความสัมพันธ์กับสิ่งมีชีวิตชนิดอื่น เช่น ถ้ากบทั้งหมดกลายเป็นตัวผู้จนสืบพันธุ์ไม่ได้ ต้องดูต่อว่ากบกินสัตว์ใดและสัตว์ใดกินกบ"
+        ]
+      },
+      {
+        "heading": "ปัจจัยที่ทำให้ความเป็นพิษต่างกัน: ภาพรวมและสารเคมี",
+        "source": "Aquatic toxicology (3 พ.ย. 69) p.5-6; บันทึกคาบ 3 พ.ย. 2569 [26:00-32:00]",
+        "body": [
+          "ปัจจัยมี 4 กลุ่ม: (1) สารเคมี (2) การสัมผัส (exposure) (3) น้ำรอบตัวสัตว์ (surrounding medium) (4) ตัวสิ่งมีชีวิต",
+          {
+            "sub": "1. สารเคมี (p.6)",
+            "body": [
+              {
+                "table": {
+                  "headers": [
+                    "ปัจจัย",
+                    "รายละเอียด"
+                  ],
+                  "rows": [
+                    [
+                      "Physico-chemical characteristics",
+                      "solubility, vapor pressure, ionization, functional groups"
+                    ],
+                    [
+                      "Dose or concentration",
+                      "concentration คือปริมาณสารในน้ำ; dose คือปริมาณที่สัตว์ได้รับจริง (เช่น มก. ต่อ กก.)"
+                    ],
+                    [
+                      "Translocation",
+                      "พิษเฉพาะที่ (local) หรือทั้งร่างกาย (systemic)"
+                    ],
+                    [
+                      "Biotransformation",
+                      "สารถูกเปลี่ยนให้ active (พิษเพิ่ม) หรือ inactive (พิษลด)"
+                    ],
+                    [
+                      "Chemical interactions",
+                      "ไม่มีผลต่อกัน, พิษเพิ่ม หรือพิษลด (additive, synergistic, antagonistic)"
+                    ]
+                  ]
+                }
+              },
+              {
+                "bullets": [
+                  "Additive และ synergistic = พิษเพิ่ม (ตัวอย่าง 1 + 1 = 2 และ 1 + 1 = 3 ตามลำดับ); antagonistic = หักล้างกัน (1 + 1 = 0)",
+                  "การศึกษาสารเดี่ยวทำได้ง่ายกว่าสารหลายตัว เพราะสารหลายตัวต้องดู interaction ระหว่างกัน"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "ปัจจัยที่ทำให้ความเป็นพิษต่างกัน: การสัมผัส",
+        "source": "Aquatic toxicology (3 พ.ย. 69) p.7; บันทึกคาบ 3 พ.ย. 2569 [31:00-36:00]",
+        "body": [
+          {
+            "table": {
+              "headers": [
+                "ปัจจัย",
+                "รายละเอียด"
+              ],
+              "rows": [
+                [
+                  "Exposure routes",
+                  "อาหาร (feed), น้ำ (water), การฉีด (injection)"
+                ],
+                [
+                  "Duration and frequency",
+                  "สั้นหรือยาว (short-term, long-term); ครั้งเดียวหรือซ้ำ (single, repeated)"
+                ],
+                [
+                  "Exposure systems",
+                  "static, recirculatory, renewal, flow-through"
+                ]
+              ]
+            }
+          },
+          {
+            "bullets": [
+              "สัตว์น้ำส่วนมากฉีดแบบ intraperitoneal; เมื่อให้สารในปริมาณเท่ากัน การฉีดมักให้ผลเสียต่อสัตว์มากที่สุดเพราะ bioavailability สูง",
+              "Short-term คือชั่วโมงถึงวัน (acute toxicity, เช่น สารถูกชะเข้าแหล่งน้ำกะทันหัน); long-term คือเดือน โดยใช้ความเข้มข้นต่ำ",
+              "**Static**: ถังน้ำใส่สารแล้วปล่อยนิ่ง",
+              "**Recirculatory**: ใช้ปั๊มหมุนน้ำที่ใส่สารในถัง",
+              "**Renewal**: เมื่อครบเวลาหนึ่ง เปลี่ยนน้ำใหม่แล้วใส่สารที่ความเข้มข้นเดิม",
+              "**Flow-through**: มีแหล่งกำเนิดสารแล้วปล่อยน้ำผ่านถัง ทั้งแบบเป็นช่วง (intermittent) และต่อเนื่อง (continuous); เลียนธรรมชาติได้ใกล้เคียงที่สุดแต่ใช้น้ำและสารมาก จึงงานส่วนมากเลือก renewal, recirculation หรือ static ตามงบ"
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "ปัจจัยที่ทำให้ความเป็นพิษต่างกัน: น้ำรอบตัวสัตว์",
+        "source": "Aquatic toxicology (3 พ.ย. 69) p.8; บันทึกคาบ 3 พ.ย. 2569 [36:00-43:00]",
+        "body": [
+          {
+            "table": {
+              "headers": [
+                "ปัจจัย",
+                "ผลต่อความเป็นพิษ"
+              ],
+              "rows": [
+                [
+                  "Water temperature",
+                  "ไม่มีผล หรือเพิ่มหรือลดผล ขึ้นกับสารเคมี"
+                ],
+                [
+                  "Dissolved oxygen (DO)",
+                  "DO ↓ → respiratory rate ↑ → toxicant uptake ↑ → toxicity ↑"
+                ],
+                [
+                  "pH",
+                  "มีผลกับสารที่แตกตัวเป็นไอออนได้ (ionizable compounds)"
+                ],
+                [
+                  "Salinity",
+                  "toxicity ↔ (ไม่ค่อยเปลี่ยน)"
+                ],
+                [
+                  "Water hardness",
+                  "hardness ↓ → gill permeability ↑ → heavy metal uptake ↑ → toxicity ↑"
+                ],
+                [
+                  "Suspended and dissolved matter",
+                  "เกิด sorption หรือ binding กับสาร"
+                ]
+              ]
+            }
+          },
+          {
+            "bullets": [
+              "**pH กับแอมโมเนีย**: NH4+ (แอมโมเนียม) กับ NH3 (แอมโมเนีย); NH3 ไม่มีขั้ว ผ่านเยื่อไขมันเข้าเซลล์ได้ดีกว่า จึงเป็นพิษกว่า ที่อุณหภูมิเท่ากัน pH เป็นเบสมากขึ้น NH3 ยิ่งมาก พิษยิ่งเพิ่ม ดังนั้นค่า total ammonia nitrogen (TAN) ต้องแปลงเป็นปริมาณ NH3 จึงจะรู้ว่าพิษต่อสัตว์เท่าใด",
+              "**Salinity**: NaCl ในน้ำไม่ค่อยจับกับสารเคมี จึงยังไม่เห็นว่าเพิ่มหรือลดพิษ",
+              "**Hardness**: น้ำอ่อนมีแคลเซียมและแมกนีเซียมน้อย จับกับเหงือกน้อย โลหะหนักจึงผ่านเหงือกได้มาก ผลที่เห็นส่วนมากเป็นผลของโลหะหนัก",
+              "**Suspended and dissolved matter**: สารอินทรีย์จับสารเคมีไว้ (เหมือนโคลน) สัตว์ดูดซึมได้น้อย พิษจึงลดลง คล้ายฤทธิ์ antagonistic"
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "ปัจจัยที่ทำให้ความเป็นพิษต่างกัน: ตัวสิ่งมีชีวิต",
+        "source": "Aquatic toxicology (3 พ.ย. 69) p.9; บันทึกคาบ 3 พ.ย. 2569 [43:00-54:00]",
+        "body": [
+          {
+            "table": {
+              "headers": [
+                "ปัจจัย",
+                "รายละเอียด"
+              ],
+              "rows": [
+                [
+                  "Test species",
+                  "พืช, invertebrates, vertebrates"
+                ],
+                [
+                  "Sex",
+                  "ต่างกันที่ฮอร์โมนและเมแทบอลิซึม"
+                ],
+                [
+                  "Age",
+                  "อายุน้อย → susceptible มากกว่า"
+                ],
+                [
+                  "Life-stage",
+                  "ชีวิตและการลอกคราบ: inter-, pre-, post-molt และ molt (ecdysis)"
+                ],
+                [
+                  "Size",
+                  "ตัวเล็ก → susceptible มากกว่า"
+                ],
+                [
+                  "Health and nutrition",
+                  "ไม่แข็งแรงหรือขาดสารอาหาร → susceptible มากกว่า"
+                ],
+                [
+                  "Acclimation",
+                  "ทนขึ้น หรืออ่อนแอลง"
+                ]
+              ]
+            }
+          },
+          {
+            "bullets": [
+              "ชนิดสัตว์ที่ศึกษาเลือกตามเหตุผล เช่น ความสำคัญทางเศรษฐกิจหรือทางนิเวศ ผลของแต่ละชนิดต่างกันมาก จึงสรุปไม่ได้ว่ากลุ่มใดไวกว่ากันโดยรวม",
+              "เพศ: ต่างกันจริง แต่ทิศทางไม่คงที่ ขึ้นกับชนิดสัตว์",
+              "ระยะลอกคราบของกุ้ง: ระยะ intermolt ไวต่อสารเคมีน้อยที่สุด",
+              "Acclimation: การสัมผัสสารมาก่อนอาจทำให้ทนขึ้น หรืออาจลดภูมิคุ้มกันก็ได้ ขึ้นกับสัตว์และสาร"
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "กรอบ Adverse Outcome Pathway (AOP)",
+        "source": "Aquatic toxicology (3 พ.ย. 69) p.10; บันทึกคาบ 3 พ.ย. 2569 [53:00-58:00], [63:00-64:00]",
+        "body": [
+          "แผนภาพ AOP มีแกนตั้งเป็นระดับการจัดระเบียบของสิ่งมีชีวิต และแกนนอนเป็น pathogenesis หรือเวลา เริ่มจากสารเคมีเข้าสัมผัสแล้วเกิด molecular initiating event",
+          {
+            "bullets": [
+              "**Molecular initiating event (MIE)**: เหตุการณ์แรกระดับโมเลกุลหลังสัมผัสสาร",
+              "**Key event (KE)**: การเปลี่ยนแปลงที่สำคัญระหว่างทาง (สัญลักษณ์ดาว)",
+              "**Key event relationship (KER)**: ความสัมพันธ์ระหว่าง KE ที่ติดกัน (ลูกศร)",
+              "**Adverse outcome (AO)**: ผลเสียที่ปลายทาง (สัญลักษณ์วงกลม) ที่ระดับ organ, organism และ population"
+            ]
+          },
+          {
+            "table": {
+              "headers": [
+                "ระดับ",
+                "ตัวอย่าง"
+              ],
+              "rows": [
+                [
+                  "Molecular",
+                  "receptor/ligand interaction; DNA binding; protein oxidation"
+                ],
+                [
+                  "Organelle",
+                  "mitochondria; nucleus; endoplasmic reticulum"
+                ],
+                [
+                  "Cellular",
+                  "gene activation; protein production; altered staging"
+                ],
+                [
+                  "Tissue",
+                  "histopathology"
+                ],
+                [
+                  "Organ",
+                  "altered physiology; altered development/function"
+                ],
+                [
+                  "Organism",
+                  "lethality; impaired development and reproduction"
+                ],
+                [
+                  "Population",
+                  "altered sex ratio; extinction"
+                ]
+              ]
+            }
+          },
+          {
+            "bullets": [
+              "ระดับ molecular ถึง cellular มีวงเล็บกำกับว่า mechanism of action, toxicity pathway",
+              "ประโยชน์ของ AOP ที่สร้างไว้: ใช้ป้องกัน (prevent) และทำนาย (predict) ผลของสารเคมี รวมถึงสารหลายตัวร่วมกัน และแบ่งปันข้อมูลทั่วโลกเพื่อลดการใช้สัตว์ทดลอง"
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "ตัวอย่าง AOP: endocrine disruptor ที่ยับยั้ง aromatase",
+        "source": "Aquatic toxicology (3 พ.ย. 69) p.11-13; บันทึกคาบ 3 พ.ย. 2569 [58:00-64:00]",
+        "body": [
+          {
+            "sub": "สรีรวิทยาปกติของปลา (p.11-12)",
+            "body": [
+              {
+                "bullets": [
+                  "Testosterone ถูก aromatase เปลี่ยนเป็น estrogen",
+                  "Estrogen กระตุ้น liver ให้สร้าง **vitellogenin (VTG)** ซึ่งเป็นสารตั้งต้นของการสร้างไข่ใน ovary",
+                  "VTG ถูกปล่อยเข้ากระแสเลือดไปที่ ovary → สร้างไข่ → วางไข่ → ประชากรคงอยู่"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "เมื่อสาร Fadrozole ยับยั้ง aromatase (p.12)",
+            "body": [
+              "Aromatase inhibition → reduced E2 synthesis → reduced E2 concentration → reduced VTG production → reduced circulating VTG → reduced VTG uptake → decreased spawning → population reduction"
+            ]
+          },
+          {
+            "sub": "หลักฐานในแต่ละระดับ (p.13)",
+            "body": [
+              {
+                "table": {
+                  "headers": [
+                    "ระดับ",
+                    "เหตุการณ์",
+                    "วิธีพิสูจน์"
+                  ],
+                  "rows": [
+                    [
+                      "Molecular (MIE)",
+                      "inhibited aromatase; enzyme binding",
+                      "in vitro; QSAR"
+                    ],
+                    [
+                      "Organelle",
+                      "-",
+                      "-"
+                    ],
+                    [
+                      "Cellular และ tissue",
+                      "reduced VTG synthesis; reduced estrogen synthesis",
+                      "in vitro"
+                    ],
+                    [
+                      "Organ",
+                      "reduced egg production",
+                      "in vivo"
+                    ],
+                    [
+                      "Organism",
+                      "decreased spawning",
+                      "in vivo"
+                    ],
+                    [
+                      "Population",
+                      "population decline",
+                      "-"
+                    ]
+                  ]
+                }
+              },
+              {
+                "bullets": [
+                  "QSAR ใช้โมเดลทำนายว่าสารจับกับเอนไซม์ได้หรือไม่",
+                  "ใน in vitro ใช้เพลตที่มีเอนไซม์ เซลล์ตับ (ดู VTG) และ ovary (ดู estrogen) แล้วยืนยันต่อด้วย in vivo โดยให้ปลาที่ไวต่อสารสัมผัสสาร"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "สารเคมีตัวเดียว หลายเส้นทาง",
+        "source": "Aquatic toxicology (3 พ.ย. 69) p.14-19; บันทึกคาบ 3 พ.ย. 2569 [64:00-67:00]",
+        "body": [
+          "สารเคมีตัวเดียวอาจกระตุ้นหลาย MIE และได้หลาย AO ที่ effective concentration ต่างกัน (effective concentration = ความเข้มข้นของสารที่ทำให้เกิดการเปลี่ยนแปลงที่สนใจ)",
+          {
+            "table": {
+              "headers": [
+                "Effective concentration",
+                "เส้นทางที่ถูกกระตุ้น"
+              ],
+              "rows": [
+                [
+                  "ต่ำ (p.15)",
+                  "MIE 3 ถึง AO 3"
+                ],
+                [
+                  "กลาง (p.16)",
+                  "MIE 2 ถึง AO 2 และ MIE 3 ถึง AO 3"
+                ],
+                [
+                  "สูง (p.17)",
+                  "ทั้ง 3 เส้นทาง"
+                ]
+              ]
+            }
+          },
+          {
+            "bullets": [
+              "AO ที่เกิดที่ความเข้มข้นต่ำสุดคือ AO ที่ไวที่สุด (AO 3 ในตัวอย่าง)",
+              "ถ้าต้องเลือก AO เป็นตัวบ่งชี้ (indicator) ความเป็นพิษในสิ่งแวดล้อม ต้องเลือกว่าจะใช้ AO ตัวใด",
+              "ในความจริงเส้นทางเชื่อมกันเป็นเครือข่าย (network of AOP) เพราะ KE บางตัวใช้ร่วมกันหลายเส้นทาง (p.18-19): ที่ความเข้มข้นต่ำก็เกิด AO ครบทั้ง 3 ตัว จึงเลือก AO ตัวเดียวเป็นตัวบ่งชี้ได้ยาก"
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "สารเคมีผสม (chemical mixtures)",
+        "source": "Aquatic toxicology (3 พ.ย. 69) p.20-22; บันทึกคาบ 3 พ.ย. 2569 [66:00-68:00]",
+        "body": [
+          "สารเคมี 1 และสารเคมี 2 มี MIE ของตัวเอง แต่ไปรวมที่ KE ตัวเดียวกัน แล้วส่งต่อ KE สองตัวถึง AO เดียว แต่ละสารมีแถบ effective concentration ของตัวเอง",
+          {
+            "bullets": [
+              "p.20: แผนภาพตั้งต้น ทั้งสองสารอยู่ที่ระดับต่ำ",
+              "p.21: สาร 1 สูงสุดแต่สาร 2 ยังต่ำ → KE ถัดไปและ AO ไม่ถูกกระตุ้น จึงไม่เกิด AO",
+              "p.22: ทั้งสองสารสูง → เกิด AO",
+              "ผลที่ตามมา: AO ตัวนี้เกิดจากสองสารร่วมกัน จึงบอกการมีอยู่ของสารใดสารหนึ่งตามลำพังไม่ได้ และไม่เหมาะเป็นตัวบ่งชี้การปนเปื้อนของสารเดี่ยว"
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Aquatic toxicology เป็นศาสตร์สหวิทยาการ",
+        "source": "Aquatic toxicology (3 พ.ย. 69) p.23; บันทึกคาบ 3 พ.ย. 2569 [68:00-71:00]",
+        "body": [
+          {
+            "table": {
+              "headers": [
+                "กลุ่ม",
+                "รายการ"
+              ],
+              "rows": [
+                [
+                  "Integrated processes",
+                  "toxicity testing; chemical measurements; statistical analyses; modeling; structure-activity relationships"
+                ],
+                [
+                  "Biological structure/function",
+                  "aquatic ecology; behavior; physiology; histology; biochemistry"
+                ],
+                [
+                  "Environmental concentration (distribution/fate): physical factors",
+                  "molecular structure; solubility; volatility; sorption"
+                ],
+                [
+                  "Environmental concentration: chemical factors",
+                  "hydrolysis; photolysis; red/ox"
+                ],
+                [
+                  "Environmental concentration: biological factors",
+                  "bioaccumulation; biotransformation; biodegradation"
+                ]
+              ]
+            }
+          },
+          "สัตวแพทย์เสริมความรู้ด้าน behavior, physiology, histology และ biochemistry ให้งานกลุ่มนี้ และทำงานร่วมกับ ecotoxicologist นักนิเวศวิทยา และงานประมง"
+        ]
+      },
+      {
+        "heading": "ตารางสารพิษทางน้ำ (อยู่ในเด็คหน้า 24 ถึง 41)",
+        "source": "Aquatic toxicology (3 พ.ย. 69) p.24-41",
+        "body": [
+          "ตารางของสารพิษแต่ละชนิดอยู่ที่หน้า 24 ถึง 41 ของเด็ค หน้าเหล่านี้ไม่ได้สรุปไว้ในโน้ตนี้ ให้เปิดดูจากเด็คโดยตรง"
+        ]
+      },
+      {
+        "heading": "Biochemical marker",
+        "source": "Aquatic toxicology (3 พ.ย. 69) p.42-44; บันทึกคาบ 3 พ.ย. 2569 [112:00-122:00]",
+        "body": [
+          "Biochemical marker คือค่าที่วัดการตอบสนองของสิ่งมีชีวิตหลังสัมผัสสารพิษในน้ำ ประเมินได้ที่ระดับ molecules, cells หรือ tissues",
+          {
+            "table": {
+              "headers": [
+                "กลุ่มที่วิเคราะห์",
+                "ตัวอย่าง"
+              ],
+              "rows": [
+                [
+                  "Endocrine disruption",
+                  "vitellogenin, estrogen (17β-estradiol, E2), testosterone, gonad histopathology (intersex)"
+                ],
+                [
+                  "Detoxification",
+                  "cytochrome P450, ethoxyresorufin O-deethylase (EROD), glutathione S-transferase (GST), glutathione (GSH)"
+                ],
+                [
+                  "Oxidative damage",
+                  "oxidative stress (reactive oxygen species, ROS) และระบบ antioxidant (SOD, CAT, GPx, GST, glutathione reductase GR)"
+                ],
+                [
+                  "Biotransformation",
+                  "metabolites ของ parent compounds"
+                ],
+                [
+                  "Metal elimination",
+                  "metalloproteins (metallothionein, transferrin, selenoprotein)"
+                ],
+                [
+                  "Biochemical and hematological profiles",
+                  "glucose, total protein, AST, ALP, hemocyte count, leukocyte count"
+                ]
+              ]
+            }
+          },
+          {
+            "bullets": [
+              "เลือก marker ตามเส้นทาง AOP ของ AO ที่สนใจ เช่น AO คือวางไข่ลดลง ให้วัด testosterone, estrogen และ vitellogenin รวมถึงดู gonad ว่ามี intersex หรือไม่",
+              "Oxidative damage: ROS สูงขึ้นเมื่อสัมผัสสาร ร่างกายตอบสนองด้วย antioxidant เพิ่มขึ้นก่อน ถ้าเกินกำลังกำจัด ROS จะสูงขึ้นขณะที่ antioxidant ลดลง การวัดจึงบอกความเสี่ยงที่เนื้อเยื่อจะเสียหายได้ก่อนเห็นความเสียหาย",
+              "Biotransformation: ถ้าสารถูก metabolize เร็วจนไม่พบ parent compound ให้วัด metabolite เป็นหลักฐานว่าสัตว์เคยได้รับสาร",
+              "Metal elimination: metalloproteins จับโลหะหนักและช่วยกำจัด ถ้าสัมผัสโลหะหนักมาก ควรพบ metalloproteins เพิ่มขึ้น",
+              "ค่าเลือดและค่าทางชีวเคมีหลากหลายตามชนิดสัตว์ และไม่จำเพาะต่อสารพิษมากนัก"
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "กรณีศึกษา: มลพิษทำให้สัตว์น้ำเสี่ยงต่อปรสิตและเชื้อโรค",
+        "source": "Aquatic toxicology (3 พ.ย. 69) p.45-46; บันทึกคาบ 3 พ.ย. 2569 [121:00-125:00]",
+        "body": [
+          {
+            "sub": "กรณีที่ 1: ปลา whitebait ลดลงในแม่น้ำ (p.45)",
+            "body": [
+              {
+                "bullets": [
+                  "เหตุการณ์: ประชากร whitebait ในแม่น้ำลดลงหลังฟาร์มโคนมขนาดอุตสาหกรรมขยายตัว",
+                  "ปลามีความพิการเพิ่มขึ้น: ปรสิตในกระดูกสันหลังของปลา → whitebait โค้งงอ (ถูกล่าได้ง่าย)",
+                  "ปรสิตอยู่ร่วมกับ whitebait มาตั้งแต่ปี 1945",
+                  "การใช้ยากำจัดวัชพืช (herbicide) ทำให้ (1) ภูมิคุ้มกันของ whitebait บกพร่อง และ (2) ปรสิตสืบพันธุ์เพิ่มขึ้นในหอยแม่น้ำ (river snail)"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "กรณีที่ 2: กุ้งตายจากไวรัส white spot syndrome (p.46)",
+            "body": [
+              {
+                "bullets": [
+                  "ก่อนการระบาด: โปรแกรมเฝ้าระวังยาฆ่าแมลงตรวจพบ pesticide mixtures ในระดับ sublethal",
+                  "สายเหตุผล: แม่น้ำปนเปื้อนยาฆ่าแมลง → สุขภาพกุ้งเสีย → ไวต่อเชื้อโรค",
+                  "ผลของสารพิษทางน้ำมักไม่เห็นทันที จึงต้องมีการติดตาม (monitoring)"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
 };

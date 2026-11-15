@@ -59,5 +59,5 @@ test('a topic counts a work once: Rabies cites the WOAH chapter under two ids an
 });
 
 test('the masthead counts works', () => {
-  assert.equal(SHELF_TOTALS.sources, 2236); // 2102 + four zoonoses works (5.146.1) + 48 works the Epidemiology notes of 2569 cite + 23 the One Health final notes of 2569 cite + 12 net from the Equine Medicine notes of 2569 (94 new sources in; the claims of the replaced stub sections out with them) + 47 the Swine Clinic notes of 2569 cite
+  assert.equal(SHELF_TOTALS.sources, 2246); // 2102 + four zoonoses works (5.146.1) + 48 works the Epidemiology notes of 2569 cite + 23 the One Health final notes of 2569 cite + 12 net from the Equine Medicine notes of 2569 (94 new sources in; the claims of the replaced stub sections out with them) + 47 the Swine Clinic notes of 2569 cite + 10 the Aquatic toxicology notes of 2569 cite
 });
