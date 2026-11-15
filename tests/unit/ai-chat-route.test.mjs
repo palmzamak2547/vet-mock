@@ -78,7 +78,8 @@ test('OPTIONS answers the chat origins with the agreed preflight', async () => {
     assert.equal(res.statusCode, 204);
     assert.equal(res.headers['access-control-allow-origin'], origin);
     assert.equal(res.headers['access-control-allow-methods'], 'POST, GET, OPTIONS');
-    assert.equal(res.headers['access-control-allow-headers'], 'Content-Type, Authorization');
+    // the pass header is a trial link's code (api/_lib/guest-pass.js), sent across origins by the page
+    assert.equal(res.headers['access-control-allow-headers'], 'Content-Type, Authorization, X-VetMock-Pass');
     assert.equal(res.headers['access-control-max-age'], '7200');
   }
   const res = fakeRes();

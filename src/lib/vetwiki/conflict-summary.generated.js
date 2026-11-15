@@ -102,6 +102,7 @@ export const VETWIKI_CONFLICT_COUNTS = Object.freeze({
   "zoonoses--zoo-corona": 1,
   "zoonoses--zoo-intro": 2,
   "zoonoses--zoo-mycoses": 1,
+  "zoonoses--zoo-prion": 1,
   "zoonoses--zoo-rabies": 3,
   "zoonoses--zoo-siv-civ": 1
 });

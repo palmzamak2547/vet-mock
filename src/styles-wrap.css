@@ -25,7 +25,7 @@
 .vmx-wrap-howto { margin: 0; }
 .vmx-wrap-howto > summary { display: inline-flex; align-items: center; gap: 6px; min-height: var(--touch-min); padding: 0; font-size: 14px; font-weight: 600; color: var(--clr-ink-soft); cursor: pointer; list-style: none; }
 .vmx-wrap-howto > summary::-webkit-details-marker { display: none; }
-.vmx-wrap-howto > summary::before { content: ''; width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(-45deg); transition: transform 0.15s ease; }
+.vmx-wrap-howto > summary::before { content: ''; width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(-45deg); transition: transform var(--vm-dur-control) var(--vm-ease-control); }
 .vmx-wrap-howto[open] > summary::before { transform: rotate(45deg); }
 .vmx-wrap-howto > summary:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; border-radius: var(--r-sm); }
 .vmx-wrap-howto[open] > .vmx-wrap-legend { margin-bottom: 6px; }
