@@ -207,6 +207,10 @@ function pngBytes(canvas) {
 export async function readSourceBytes(src, { fetchImpl = (...a) => fetch(...a) } = {}) {
   if (!src) throw new Error('ไม่พบไฟล์ต้นฉบับ ลองเปิดเอกสารใหม่อีกครั้ง');
   if (src.kind === 'file') return src.file.arrayBuffer();
+  // A library document whose download is still running behind page one: wait
+  // for it, so the bytes come from the service worker's kept copy instead of a
+  // second download. A download that broke is no reason to give up here.
+  if (src.ready) await Promise.resolve(src.ready).catch(() => {});
   const expired = (res) => res.status === 401 || res.status === 403;
   let res = await fetchImpl(src.url);
   if (expired(res) && typeof src.resolve === 'function') {

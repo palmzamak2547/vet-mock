@@ -24,6 +24,10 @@ import { readerTarget, readerUrl, viewForAppPath } from '../../src/lib/view-rout
 import { contentHitRows, downloadDocFile, missingDocReason, openDocInTab, openDocOrOffer, readerPayload, resolveDocUrl } from '../../src/lib/library.js';
 import { vcaLibraryDocs } from '../../src/lib/vca-library.js';
 import { VCA_MATERIALS } from '../../src/data/vca-materials.js';
+import { setDirectStorage } from '../../api/library-blob.js';
+// These pin the REST route (storage ignores Range); the signed S3 route is
+// tested in library-blob-ranges.test.mjs.
+setDirectStorage(false);
 
 test('the reader address names the deck, and a link may ask for a page', () => {
   assert.equal(viewForAppPath('/app/tools/pdf'), 'pdf-annotate');
@@ -292,8 +296,21 @@ test('a range lets storage go once its bytes are out', async (t) => {
   assert.equal(cancelled, true, 'the rest of the object is not pulled through the function');
 });
 
-test('a PDF still comes back whole: a viewer told it may seek would pull the deck once per range', async (t) => {
+// Until 5.238.0 a PDF came back whole whatever was asked, because each range
+// pulls the object from byte 0 through the function. Now the reader reads a
+// few ranges to draw page one early, and each is counted as every byte read
+// to reach it (tests/unit/library-blob-ranges.test.mjs holds the count).
+test('a PDF with a catalogued size answers a range with exactly those bytes', async (t) => {
   const { url } = storage(t, { mime: 'application/pdf' });
+  const res = await get(url, { range: 'bytes=0-1' });
+  assert.equal(res.statusCode, 206);
+  assert.equal(res.headers.get('accept-ranges'), 'bytes');
+  assert.deepEqual(res.bytes(), [1, 2]);
+  assert.deepEqual((await get(url, { range: 'bytes=17-19' })).bytes(), [18, 19, 20]);
+});
+
+test('a PDF whose size is not catalogued still comes back whole', async (t) => {
+  const { url } = storage(t, { mime: 'application/pdf', catalogued: 0 });
   const res = await get(url, { range: 'bytes=0-1' });
   assert.equal(res.statusCode, 200);
   assert.equal(res.headers.get('accept-ranges'), 'none');

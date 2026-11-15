@@ -69,7 +69,23 @@ test('the reader exports through readSourceBytes and keeps the link minter (wiri
   const { readFileSync } = await import('node:fs');
   const view = readFileSync(new URL('../../src/views/PdfAnnotateView.jsx', import.meta.url), 'utf8');
   assert.match(view, /import \{[^}]*\breadSourceBytes\b[^}]*\} from '\.\.\/lib\/pdf-export\.js';/);
-  assert.match(view, /sourceRef\.current = \{ kind: 'url', url, resolve: typeof doc\.resolve === 'function' \? doc\.resolve : null \};/);
+  assert.match(view, /sourceRef\.current = \{ kind: 'url', url, resolve: typeof doc\.resolve === 'function' \? doc\.resolve : null, ready: ranged\?\.done \|\| null \};/);
   assert.match(view, /return readSourceBytes\(sourceRef\.current\);/);
   assert.doesNotMatch(view, /โหลดไฟล์ต้นฉบับไม่สำเร็จ \(\$\{res\.status\}\)/, 'no bare status code in the export error');
+});
+
+test('an export waits for the download still running behind page one instead of starting another', async () => {
+  let release;
+  const ready = new Promise((resolve) => { release = resolve; });
+  const fetched = [];
+  const reading = readSourceBytes({ kind: 'url', url: '/ok', ready },
+    { fetchImpl: async (u) => { fetched.push(u); return ok(new ArrayBuffer(3)); } });
+  await new Promise((r) => setTimeout(r, 10));
+  assert.deepEqual(fetched, [], 'nothing fetched while the first download is still arriving');
+  release(3);
+  assert.equal((await reading).byteLength, 3);
+  assert.deepEqual(fetched, ['/ok']);
+  // A download that broke does not stop the export from trying on its own.
+  const broken = Promise.reject(new Error('network'));
+  assert.equal((await readSourceBytes({ kind: 'url', url: '/ok', ready: broken }, { fetchImpl: async () => ok(new ArrayBuffer(1)) })).byteLength, 1);
 });
