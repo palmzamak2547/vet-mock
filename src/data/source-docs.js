@@ -459,6 +459,12 @@ export const SOURCE_DOCS = [
     match: /โรคทริคิโนซิส \(Trichinosis\)/,
     editions: [{ id: '15p', pages: 15 }],
   },
+  // อ.รุ่งธรรม's 2569 deck for the 6 Nov class (JE, Nipah, greasy pig, Mycoplasma suis, pseudorabies, CSF), MyCourseVille 2026/1, 87 pages.
+  {
+    slug: 'swine-rk-2569', subject: 'swine-clinic', title: 'RK Slide - 6 November',
+    match: /RK Slide - 6 November/,
+    editions: [{ id: '87p', pages: 87 }],
+  },
   // The 2024 Swine Medicine lecture note in the library (335 pages); the 9 Oct 2026 control and diagnosis class teaches from it.
   {
     slug: 'swine-lecture-note-2024', subject: 'swine-clinic', title: 'Lecture note: Swine Medicine 2024',
@@ -525,6 +531,17 @@ export const SOURCE_DOCS = [
     slug: 'oh-risk-analysis-2569', subject: 'one-health', title: "Animal & Human Health Risk Analysis (Present)",
     match: /Animal & Human Health Risk Analysis \(Present\)/i,
     editions: [{ id: '34p', pages: 34 }],
+  },
+  {
+    slug: 'oh-gmo-2569', subject: 'one-health', title: "One Health perspective of food and feed GMOs (4 พ.ย. 69)",
+    match: /One Health perspective of food and feed GMOs \(4 พ\.ย\. 69\)/i,
+    editions: [{ id: '21p', pages: 21 }],
+  },
+  // The 11 Nov 2569 livestock waste lecture; the library file is named OHVPH_SP_E4.
+  {
+    slug: 'oh-livestock-waste-2569', subject: 'one-health', title: "OHVPH_SP_E4 (livestock waste management, 11 พ.ย. 69)",
+    match: /OHVPH_SP_E4/,
+    editions: [{ id: '56p', pages: 56 }],
   },
   {
     slug: 'oh-foodborne-2024', subject: 'one-health', title: "One Health approach to combat foodborne diseases (deck 2024)",
