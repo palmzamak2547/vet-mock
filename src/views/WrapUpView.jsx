@@ -12,7 +12,7 @@
 // same lecturer-practice start the topic screen uses, and "สไลด์ PDF" opens
 // the deck in the reader, so nothing here has a second copy of that logic.
 // ============================================================
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import { loadWrapUp } from '../data/exam-wrapups.js';
 import { lecturerSetIn, FORMAT_LABEL } from '../data/lecturer-sets.js';
@@ -27,6 +27,7 @@ import { boardKey, resolveBoard } from '../lib/wrap-board.js';
 import { BOARD_LOADERS } from '../data/wrapup-boards/index.js';
 import { alertDialog } from '../lib/dialog.js';
 import { READING_BAND, currentItem, progressLabel } from '../lib/wrap-progress.js';
+import { introFolds } from '../lib/wrap-intro.js';
 
 // Motion is decided per effect: a jump or the strip following along is a
 // convenience, so under reduced motion it lands at once instead of gliding.
@@ -98,6 +99,42 @@ const MODES = ['full', 'keys', 'deck', 'board'];
 const readMode = () => {
   try { const m = localStorage.getItem(MODE_KEY); return MODES.includes(m) ? m : 'full'; } catch { return 'full'; }
 };
+
+// The paper's overview (lib/wrap-intro.js): longer than four lines on this screen, it opens folded to two
+// with "อ่านต่อ", so the first section is on the first screen. Measured on the screen it is drawn on, before
+// paint, and again when the width changes; once opened it stays open.
+function WrapIntro({ text }) {
+  const ref = useRef(null);
+  const [folds, setFolds] = useState(false);
+  const [open, setOpen] = useState(false);
+  // The button leaves when pressed: the paragraph it opened takes the focus, so the keyboard is not dropped.
+  const openIntro = () => {
+    setOpen(true);
+    window.requestAnimationFrame(() => ref.current?.focus({ preventScroll: true }));
+  };
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return undefined;
+    // scrollHeight is the whole text's height, folded or not.
+    const measure = () => setFolds(introFolds(el.scrollHeight, parseFloat(getComputedStyle(el).lineHeight)));
+    measure();
+    if (typeof ResizeObserver !== 'function') return undefined;
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [text]);
+  const folded = folds && !open;
+  // Folded, "อ่านต่อ" sits at the end of the second line instead of on a row of its own: on a 664 px phone
+  // that row alone kept the first lecturer's part under the bottom bar.
+  return (
+    <div className={`vmx-wrap-intro-box${folded ? ' is-folded' : ''}`}>
+      <p ref={ref} id="vmx-wrap-intro" tabIndex={-1} className={`vmx-wrap-intro${folded ? ' is-folded' : ''}`}><CitedText text={text} /></p>
+      {folded && (
+        <button type="button" className="vmx-wrap-intro-more" aria-expanded="false" aria-controls="vmx-wrap-intro" onClick={openIntro}>อ่านต่อ</button>
+      )}
+    </div>
+  );
+}
 
 // While the page waits: the shape of what is coming, in the page's skeleton tone.
 function Skeleton({ label }) {
@@ -346,7 +383,7 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
         </div>
         {/* The deck is the second pass: the paper's overview was read on the
             first, and on a phone it would push the card off the first screen. */}
-        {shown.intro && shownMode !== 'deck' && shownMode !== 'board' && <p className="vmx-wrap-intro"><CitedText text={shown.intro} /></p>}
+        {shown.intro && shownMode !== 'deck' && shownMode !== 'board' && <WrapIntro text={shown.intro} />}
         <div className="vmx-wrap-mode" role="group" aria-label="โหมดการอ่าน">
           <button type="button" className={shownMode === 'full' ? 'is-on' : ''} aria-pressed={shownMode === 'full'} onClick={() => pickMode('full')}>อ่านเต็ม</button>
           <button type="button" className={shownMode === 'keys' ? 'is-on' : ''} aria-pressed={shownMode === 'keys'} onClick={() => pickMode('keys')}>เฉพาะคีย์เวิร์ด</button>
@@ -356,18 +393,22 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
             <button type="button" className={shownMode === 'board' ? 'is-on' : ''} aria-pressed={shownMode === 'board'} onClick={() => pickMode('board')}>แยกโรค</button>
           )}
         </div>
-        {shownMode === 'deck' && <p className="vmx-wrap-mode-note">นึกให้ได้ก่อน แล้วค่อยเปิดดู ใบที่ยังไม่แม่นจะวนกลับมาให้ทวนอีกรอบ</p>}
         {/* The key to the page, one kind of line per row, each with the
             icon the items use, so it is learned once here. The deck is
             read one card at a time and labels its own parts. */}
-        {shownMode !== 'deck' && shownMode !== 'board' && <ul className="vmx-wrap-legend" aria-label="วิธีอ่านหน้านี้">
+        {/* The key is read once, so it opens on demand (the clutter gate, point 4): about 250 px under the
+            mode buttons pushed the first lecturer's part off a 727 px phone. */}
+        {shownMode !== 'deck' && shownMode !== 'board' && <details className="vmx-wrap-howto">
+          <summary>ความหมายของแต่ละบรรทัด</summary>
+          <ul className="vmx-wrap-legend" aria-label="วิธีอ่านหน้านี้">
           <li><span className="vmx-wrap-signal" /><span><b>คีย์เวิร์ด</b> คำที่ชี้โรคหรือหัวข้อนั้น</span></li>
           <li><span className="vmx-wrap-signal is-emphasis"><NavIcon name="said" size={16} /></span><span><b>อาจารย์เน้น</b> สิ่งที่ผู้สอนย้ำในคาบ แตะนาทีเพื่อเปิดคลิป</span></li>
           <li><span className="vmx-wrap-signal is-examined"><NavIcon name="sheet" size={16} /></span><span><b>มีในข้อสอบเก่า</b> ข้อเท็จจริงที่ข้อสอบเก่าหรือบันทึกรุ่นก่อนเคยถาม</span></li>
           <li><span className="vmx-wrap-signal is-pitfall"><NavIcon name="caution" size={16} /></span><span><b>ระวังสับสน</b> จุดที่มักสับสนกับโรคหรือหัวข้อใกล้กัน</span></li>
           <li><span className="vmx-wrap-signal" /><span><b>เคยออกกี่รุ่น</b> รุ่นพี่กี่รุ่นที่เจอข้อสอบเก่าของ{unit}นั้น</span></li>
           {hasSlides && slideBase && <li><span className="vmx-wrap-signal" /><span><b>สไลด์</b> หน้าที่บรรทัดนั้นอ้าง แตะเพื่อดูเต็มจอ</span></li>}
-        </ul>}
+          </ul>
+        </details>}
       </header>
 
       {shownMode === 'board' ? (
