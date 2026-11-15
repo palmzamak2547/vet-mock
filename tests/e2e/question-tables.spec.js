@@ -144,12 +144,18 @@ test('a highlight stays on its words around a table, and a table takes none', as
 
   await openPinned(page, q);
   const pane = page.locator('.vmx-q-passage-pane');
-  await pane.getByTitle(/^ไฮไลท์ข้อความ/).click();
-  // Select as a drag would, then let go: the component reads the selection on mouseup.
-  const select = (from, to) => page.evaluate(([a, b]) => {
+  // The highlighter is in the pane's tools; a phone's pane has none, and marks in the reading sheet (5.240.0).
+  const phone = !(await pane.getByRole('button', { name: 'ปากกาไฮไลต์' }).isVisible());
+  if (phone) {
+    await pane.getByRole('button', { name: 'อ่านเต็มจอ' }).click();
+    await expect(page.getByRole('dialog')).toBeVisible();
+  } else await pane.getByRole('button', { name: 'ปากกาไฮไลต์' }).click();
+  const where = phone ? '.vmx-case-sheet' : '.vmx-q-passage-pane';
+  // Select as a mouse drag would, then let go: the highlighter reads the selection on mouseup.
+  const select = (from, to) => page.evaluate(([a, b, where]) => {
     const point = (spec) => {
-      const el = spec.run != null ? document.querySelector(`.vmx-q-passage-pane [data-off="${spec.run}"]`)
-        : document.querySelector('.vmx-q-passage-pane table.vmx-qtable tbody td');
+      const el = spec.run != null ? document.querySelector(`${where} [data-off="${spec.run}"]`)
+        : document.querySelector(`${where} table.vmx-qtable tbody td`);
       const text = document.createTreeWalker(el, NodeFilter.SHOW_TEXT).nextNode();
       return [text, spec.end ? text.nodeValue.length : 0];
     };
@@ -159,23 +165,30 @@ test('a highlight stays on its words around a table, and a table takes none', as
     const sel = window.getSelection();
     sel.removeAllRanges();
     sel.addRange(range);
-    document.querySelector('.vmx-q-passage-pane [data-off]').parentElement.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
-  }, [from, to]);
+    document.querySelector(`${where} [data-off]`).parentElement.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
+  }, [from, to, where]);
+  const marks = page.locator(`${where} mark`);
+  // The words marked, run by run: since 5.240.0 the prose is typeset in blocks, and a mark that spans two
+  // blocks is drawn as one piece in each; a blank line between them is a gap, not text.
+  const words = (texts) => texts.map((t) => t.replace(/\s+/g, ' ').trim());
+  const marked = async (loc) => words([(await loc.allTextContents()).join(' ')]);
 
   // A whole line that sits after a table.
   await select({ run: between.start }, { run: between.start, end: true });
-  await expect(pane.locator('mark')).toHaveText([between.text]);
+  await expect.poll(() => marked(marks)).toEqual(words([between.text]));
   // From the lead sentence into a cell: the mark ends where the prose ends.
   await select({ run: lead.start }, { table: true });
-  await expect(pane.locator('mark')).toHaveText([lead.text, between.text]);
+  await expect.poll(() => marked(marks)).toEqual(words([`${lead.text} ${between.text}`]));
   // Inside a table alone: nothing.
   await select({ table: true }, { table: true, end: true });
-  await expect(pane.locator('mark')).toHaveCount(2);
+  await expect.poll(() => marked(marks)).toEqual(words([`${lead.text} ${between.text}`]));
+  if (phone) await page.getByRole('button', { name: 'กลับไปที่คำถาม' }).click();
+  await expect.poll(() => marked(pane.locator('mark'))).toEqual(words([`${lead.text} ${between.text}`]));
 
   // The marks are kept by their place in the passage's text: the same words after a reload.
   await page.goto('/app/pinboard', { waitUntil: 'domcontentloaded' });
   await page.getByRole('button').filter({ has: page.getByText('ข้อที่มีตาราง', { exact: true }) }).click();
-  await expect(page.locator('.vmx-q-passage-pane mark')).toHaveText([lead.text, between.text], { timeout: 30_000 });
+  await expect.poll(() => marked(page.locator('.vmx-q-passage-pane mark')), { timeout: 30_000 }).toEqual(words([`${lead.text} ${between.text}`]));
 });
 
 test('a stem whose numbers moved to a table is still read aloud with them', async ({ page }) => {

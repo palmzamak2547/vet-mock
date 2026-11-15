@@ -1,0 +1,137 @@
+// The case pane keeps each account's marks on each case apart (components/case/CasePane.jsx).
+// It replaced SmartPassage in 5.240.0; this replaces that file's scope test. What it guards:
+// the marks saved before the release are never written or removed, a clear has a way back that
+// lands on the case it came from even after the card moved on, an unreadable record is never
+// written over, and the next account on the device sees none of the last one's marks.
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { loadModule, mount as mountNow, settle, findAll, textOf } from '../helpers/fake-react.mjs';
+
+// The pane's tools load with the case, a moment after it draws.
+async function mount(Comp, props) { const inst = mountNow(Comp, props); await settle(inst); return inst; }
+import { QB_ENGPROF } from '../../src/data/questions-engprof.js';
+import { legacyPassageHash, caseKey, marksStorageKey } from '../../src/lib/case-marks.js';
+
+const A = QB_ENGPROF.find((q) => q.passage);
+const B = QB_ENGPROF.find((q) => q.passage && q.passage !== A.passage);
+const props = (q, ownerId = null) => ({ text: q.passage, title: q.passage_title, subject: q.subject, ownerId });
+const legacy = (q) => `vmx-pass-${legacyPassageHash(q.passage)}`;
+const keyOf = (q, ownerId = null) => marksStorageKey(ownerId, caseKey({ subject: q.subject, title: q.passage_title, passage: q.passage }));
+
+function seeded() {
+  const values = new Map();
+  for (const [q, label, color] of [[A, 'A', '#1a1a1a'], [B, 'B', '#1e6fc7']]) {
+    values.set(`${legacy(q)}-hl`, JSON.stringify([{ id: label, start: 0, end: 8, color: 'yellow' }]));
+    values.set(`${legacy(q)}-dr`, JSON.stringify([{ color, width: 2, points: [[0, 0, 0.5], [10, 10, 0.5]] }]));
+  }
+  return values;
+}
+
+async function setup(values, { failGet = () => false } = {}) {
+  const writes = [];
+  const storage = {
+    getItem(key) { if (failGet(key)) throw new Error('Unreadable storage'); return values.get(key) ?? null; },
+    setItem(key, value) { writes.push(key); values.set(key, String(value)); },
+    removeItem(key) { writes.push(`-${key}`); values.delete(key); },
+  };
+  globalThis.window = { localStorage: storage, addEventListener() {}, removeEventListener() {} };
+  const { default: CasePane } = await loadModule('src/components/case/CasePane.jsx', { stubs: [{ match: '\.css$', contents: '' }] });
+  return { CasePane, writes };
+}
+
+const marks = (tree) => findAll(tree, (n) => n.type === 'mark');
+const button = (tree, label) => findAll(tree, (n) => n.type === 'button' && n.props['aria-label'] === label)[0];
+
+test('the old marks are adopted as a copy, and clearing leaves the old keys as they were', async () => {
+  const values = seeded();
+  const saved = Object.fromEntries(values);
+  const { CasePane, writes } = await setup(values);
+  const pane = await mount(CasePane, props(A));
+  assert.equal(textOf(marks(pane.tree)[0]), A.passage.slice(0, 8), 'the old highlight, on its words');
+  button(pane.tree, 'ล้างทั้งหมด').props.onClick();
+  pane.flush();
+  assert.equal(marks(pane.tree).length, 0);
+  assert.match(textOf(pane.tree), /ล้างแล้ว 2 รอย/);
+  for (const [k, v] of Object.entries(saved)) assert.equal(values.get(k), v, `${k} untouched`);
+  assert.ok(!writes.some((k) => k.startsWith('-')), 'nothing removed');
+  assert.ok(!writes.some((k) => k.startsWith('vmx-pass-')), 'no old key written');
+  // Read again: still cleared (adoption happens once), and undo brings them back.
+  const again = await mount(CasePane, props(A));
+  assert.equal(marks(again.tree).length, 0);
+  pane.unmount(); again.unmount();
+});
+
+test('the way back from a clear returns the marks to their own case after the card moved on', async () => {
+  const values = seeded();
+  const { CasePane } = await setup(values);
+  const pane = await mount(CasePane, props(A));
+  button(pane.tree, 'ล้างทั้งหมด').props.onClick();
+  pane.flush();
+  pane.update(props(B));   // a timed paper moved to the next question, on another passage
+  assert.equal(textOf(marks(pane.tree)[0]), B.passage.slice(0, 8));
+  const undo = findAll(pane.tree, (n) => n.type === 'button' && textOf(n) === 'ย้อนกลับ')[0];
+  undo.props.onClick();
+  pane.flush();
+  assert.equal(textOf(marks(pane.tree)[0]), B.passage.slice(0, 8), 'B as it was');
+  assert.equal(JSON.parse(values.get(keyOf(A))).marks.length, 2, 'A has its marks back');
+  pane.update(props(A));
+  assert.equal(textOf(marks(pane.tree)[0]), A.passage.slice(0, 8));
+  pane.unmount();
+});
+
+test('undo and redo in the pane', async () => {
+  const values = seeded();
+  const { CasePane } = await setup(values);
+  const pane = await mount(CasePane, props(A));
+  button(pane.tree, 'ล้างทั้งหมด').props.onClick();
+  pane.flush();
+  assert.equal(marks(pane.tree).length, 0);
+  button(pane.tree, 'ย้อนกลับ').props.onClick();
+  pane.flush();
+  assert.equal(marks(pane.tree).length, 1);
+  button(pane.tree, 'ทำซ้ำ').props.onClick();
+  pane.flush();
+  assert.equal(marks(pane.tree).length, 0);
+  pane.unmount();
+});
+
+test('an unreadable record shows nothing and is never written over', async () => {
+  const values = seeded();
+  values.set(keyOf(B), '{');
+  const { CasePane, writes } = await setup(values, { failGet: (k) => k === 'never' });
+  const pane = await mount(CasePane, props(B));
+  assert.equal(marks(pane.tree).length, 0);
+  writes.length = 0;
+  button(pane.tree, 'ล้างทั้งหมด').props.onClick();
+  pane.flush();
+  assert.deepEqual(writes, []);
+  assert.equal(values.get(keyOf(B)), '{');
+  pane.update(props(A));
+  assert.equal(marks(pane.tree).length, 1, 'the next case reads as usual');
+  pane.unmount();
+});
+
+test('storage that throws on read gives an empty pane that writes nothing', async () => {
+  const values = seeded();
+  const { CasePane, writes } = await setup(values, { failGet: () => true });
+  const pane = await mount(CasePane, props(A));
+  assert.equal(marks(pane.tree).length, 0);
+  button(pane.tree, 'ล้างทั้งหมด').props.onClick();
+  pane.flush();
+  assert.deepEqual(writes, []);
+  pane.unmount();
+});
+
+test('the next account on the device sees none of the last account\'s marks', async () => {
+  const values = seeded();
+  const { CasePane } = await setup(values);
+  const pane = await mount(CasePane, props(A, 'u1'));
+  assert.equal(marks(pane.tree).length, 1, 'u1 was signed in at first run: adopted');
+  pane.update(props(A, 'u2'));
+  assert.equal(marks(pane.tree).length, 0, 'u2 on the same device');
+  pane.update(props(A, null));
+  assert.equal(marks(pane.tree).length, 0, 'a visitor after sign-out');
+  pane.update(props(A, 'u1'));
+  assert.equal(marks(pane.tree).length, 1, 'u1 again');
+  pane.unmount();
+});

@@ -23,7 +23,7 @@ import { RichText, stripRichText } from '../lib/richtext.jsx';
 import RichBlocks, { StemText } from '../components/RichBlocks.jsx';
 import WikiLinkForQuestion from '../components/WikiLinkForQuestion.jsx';
 import ZoomableImage from '../components/ZoomableImage.jsx';
-import SmartPassage from '../components/SmartPassage.jsx';
+import CasePane from '../components/case/CasePane.jsx';
 import FlagChip from '../components/FlagChip.jsx';
 import { loadUserFlashcards, srCardFor } from '../lib/user-flashcards.js';
 // Wave-4 card types — each lib produces Q-shaped objects with a
@@ -855,7 +855,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
           </div>
           {currentQ.passage && (
             <div style={{ textAlign: 'left' }}>
-              <SmartPassage text={currentQ.passage} title={currentQ.passage_title} />
+              <CasePane text={currentQ.passage} title={currentQ.passage_title} subject={currentQ.subject} ownerId={ownerId} ask={currentQ.q || ''} />
             </div>
           )}
           {/* The figure as the practice card shows it (Question.jsx): one figure

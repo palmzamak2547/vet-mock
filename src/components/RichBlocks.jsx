@@ -73,17 +73,20 @@ const SPLIT_PAIRS = 8;
  * from its own parts, so every character of the text is in the page, in
  * order: the ":" stays after its label, and the "|" before a range is kept
  * for a screen reader while the column gap stands for it on screen.
+ * renderText is called with each piece and its offset in `text`, so a surface
+ * that marks words by offset (the case reader) can find them; a renderer that
+ * takes one argument draws exactly as before.
  */
 function ProseBlock({ text, block, renderText }) {
   const { lines } = block;
-  if (block.type === 'para') return <div className="vmx-rb-p">{renderText(blockText(text, block))}</div>;
+  if (block.type === 'para') return <div className="vmx-rb-p">{renderText(blockText(text, block), (block.lead || lines[0])?.start ?? block.start)}</div>;
   if (block.type === 'list') {
     return (
       <div className="vmx-rb-list">
         {lines.map(({ start, parts }) => (
           <Fragment key={start}>
             <span className={/^\s*\d/.test(parts.marker) ? 'vmx-rb-mark is-num' : 'vmx-rb-mark'}>{parts.indent}{parts.marker}{parts.gap}</span>
-            <span className="vmx-rb-item">{renderText(parts.body)}</span>
+            <span className="vmx-rb-item">{renderText(parts.body, start + parts.indent.length + parts.marker.length + parts.gap.length)}</span>
           </Fragment>
         ))}
       </div>
@@ -95,8 +98,8 @@ function ProseBlock({ text, block, renderText }) {
       <div className="vmx-rb-results">
         {lines.map(({ start, parts }) => (
           <Fragment key={start}>
-            <span className="vmx-rb-k">{renderText(parts.label + parts.gap)}</span>
-            <span className="vmx-rb-r">{renderText(parts.result + parts.tail)}</span>
+            <span className="vmx-rb-k">{renderText(parts.label + parts.gap, start)}</span>
+            <span className="vmx-rb-r">{renderText(parts.result + parts.tail, start + parts.label.length + parts.gap.length)}</span>
           </Fragment>
         ))}
       </div>
@@ -112,12 +115,12 @@ function ProseBlock({ text, block, renderText }) {
           const side = b ? ' is-b' : '';
           return (
             <Fragment key={start}>
-              <span className={`vmx-rb-k${side}`} style={at}>{renderText(parts.label + parts.sep)}</span>
+              <span className={`vmx-rb-k${side}`} style={at}>{renderText(parts.label + parts.sep, start)}</span>
               <span className={`vmx-rb-v${side}`} style={at}>
-                {renderText(parts.value)}
+                {renderText(parts.value, start + parts.label.length + parts.sep.length)}
                 {parts.bar ? <span className="vmx-sr-only">{parts.bar}</span> : null}
               </span>
-              {block.range ? <span className={`vmx-rb-x${side}`} style={at}>{renderText(parts.range)}</span> : null}
+              {block.range ? <span className={`vmx-rb-x${side}`} style={at}>{renderText(parts.range, start + parts.label.length + parts.sep.length + parts.value.length + parts.bar.length)}</span> : null}
             </Fragment>
           );
         })}
@@ -127,7 +130,7 @@ function ProseBlock({ text, block, renderText }) {
   if (!block.lead) return grid;
   return (
     <div className="vmx-rb-group">
-      <div className={block.lead.label ? 'vmx-rb-lead is-label' : 'vmx-rb-lead'}>{renderText(block.lead.text)}</div>
+      <div className={block.lead.label ? 'vmx-rb-lead is-label' : 'vmx-rb-lead'}>{renderText(block.lead.text, block.lead.start)}</div>
       {grid}
     </div>
   );

@@ -226,6 +226,8 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
         onOpenWiki={revealAnswer ? onOpenWiki : undefined}
         english={lang === 'en' && translationsById ? (translationsById[String(currentQ.id)] ?? null) : null}
         englishNote={lang === 'en' ? englishNoteFor(questions, currentIdx, translationsById) : null}
+        ownerId={user?.id || null}
+        clockDeadline={useTimer ? questionDeadline : null}
       />
       </div>
 
