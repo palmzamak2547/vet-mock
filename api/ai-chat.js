@@ -29,7 +29,7 @@
 // and counts only, never message text or the client address.
 // ============================================================
 
-import { allowedOrigin, clientIP, rateLimit } from './_lib/rate-limit.js';
+import { allowedOrigin, clientIP, rateLimit, warmStore } from './_lib/rate-limit.js';
 import { requireChula } from './_lib/chula-gate.js';
 import { trialPassOf, requirePass, passKey } from './_lib/guest-pass.js';
 import { chatConfig } from './_lib/ai/config.js';
@@ -54,6 +54,8 @@ const UNAVAILABLE = 'ผู้ช่วยยังไม่พร้อมใ�
 
 export default async function handler(req, res) {
   const t0 = Date.now();
+  // the store's handshake runs while the gate answers
+  if (req.method === 'POST') warmStore();
   const origin = req.headers.origin;
   const allowed = allowedOrigin(req);
 
