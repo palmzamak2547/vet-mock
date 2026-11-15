@@ -214,7 +214,7 @@ What a pass opens:
 |---|---|
 | `POST /api/ai-chat` | answers as a guest, from VetMock's own content; each request uses one of the pass's messages |
 | `POST /api/ai-transcribe` | the microphone's speech to text; checked without counting (the question it becomes is counted) |
-| `POST /api/ai-voice` | the live voice call (start, and a photo into that call); checked without counting, under the same caps as a student's call, counted per link |
+| `POST /api/ai-voice` | the live voice call (start, and a photo into that call); checked without counting, under the same caps as a student's call, counted per link, except the calls a day: a link has its own number (`AI_VOICE_PASS_SESSIONS`, default 8) because its holders share it |
 | `POST /api/ai-chat` with `voice` | the call's tools, answered as a guest; each tool call uses one of the pass's messages, as any request to this route does |
 
 The call's caps (the day's sessions, the burst limit, the free restarts, the
