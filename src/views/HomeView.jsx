@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useRef, useState, lazy, Suspense } from 'react';
+import { shownName, shownPicture } from '../lib/public-display.js';
+import { isAutoName } from '../lib/identity-gate.js';
 import { subjectText, streakShown, bangkokDayNumber } from '../hooks/utils.js';
 import { QB, isQBYearLoaded } from '../data/questions.js';
 // Phase 2 perf: lightweight precomputed Q counts for header/total
@@ -8,12 +10,12 @@ import { Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE } from '../data/q-counts.js';
 import { QB_TOTAL, Q_CURRENT_SCOPE_COUNTS, Q_HIGH_PREDICTION_COUNTS, Q_VISIBLE_COUNTS_BY_SUBJECT, Q_VISIBLE_COUNTS_BY_YEAR } from '../data/q-counts.js';
 import { hasSupabase } from '../lib/supabase.js';
 import { useBuddyPanel } from '../hooks/useStudyBuddies.js';
-import { getUpcomingExams, SEMESTER, EXAM_SCHEDULE, getNextExam, fmtThaiDate, calendarDay, shortCountdown, getNextClass, getCurrentClass, getTopMilestone, getUpcomingEvents } from '../data/schedule.js';
+import { getUpcomingExams, SEMESTER, EXAM_SCHEDULE, getNextExam, fmtThaiDate, calendarDay, shortCountdown, getNextClass, getCurrentClass, getHomeMilestone, getUpcomingEvents } from '../data/schedule.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, YEARS, CURRENT_YEAR, visibleQuestionCount, yearForSubject, hiddenTopicIdsFor } from '../data/curriculum.js';
 import { hasNotes } from '../data/notes-registry.generated.js';
 import { librarySubjectCounts } from '../lib/library.js';
 import { LATEST_CHANGELOG, RECENT_CHANGELOG, SCOPE_LABELS } from '../data/latest-changelog.generated.js';
-import { loadSeen, markSeen, markUnseen, saveSeen, unseenReleases } from '../lib/changelog-seen.js';
+import { loadSeen, markSeen, saveSeen, unseenReleases, isNews, chipDue, loadChipDay, saveChipDay, localDay } from '../lib/changelog-seen.js';
 import { useLocalStorage } from '../hooks/useStorage.js';
 import { seasonalMochiKey } from '../lib/seasonal-mochi.js';
 import { SEASONAL_MOCHI } from '../data/art.js';
@@ -96,6 +98,10 @@ const PHASE_LABELS = {
 // Shared empty list so a year without subjects does not mint a fresh array
 // (and a fresh memo dependency) on every render.
 const NO_SUBJECTS = Object.freeze([]);
+const courseNamed = (c) => {
+  const name = c && [...SUBJECTS, ...Object.values(SUBJECTS_BY_YEAR).flat()].find((s) => s.id === c.subject)?.name;
+  return name ? { ...c, title: name } : null;
+};
 // Same idea for list props that may arrive undefined: a fresh [] per render
 // would hand every memo below a new dependency each time.
 const NO_ITEMS = Object.freeze([]);
@@ -166,9 +172,12 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   // published schedule is one tap away instead of buried in a PDF.
   // After the last class of the day this is tomorrow's first (dayOffset 1),
   // so the chip does not go dark every evening.
-  const nextClassToday = getNextClass(selectedYear);
+  // A class row prints the course's own name in the app, never the
+  // registrar's capitals cut mid-word with a room code (5.226); a class whose
+  // course the app does not know shows no row.
+  const nextClassToday = courseNamed(getNextClass(selectedYear));
   const currentClassNow = getCurrentClass(selectedYear);
-  const topMilestone = getTopMilestone();
+  const topMilestone = getHomeMilestone();
   // Faculty/สโมสร announcements with a real date+room (e.g. the stethoscope
   // fitting sessions) — only while they're still ahead, and only for the
   // years they were announced to.
@@ -277,11 +286,22 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   // One tap (the chip that opens the banner) now yields the whole list.
   const [expanded, setExpanded] = useState(true);
   const showAnnouncement = unseenChangelog.length > 0;
-  const newestUnseen = unseenChangelog[0];
   // What the note lists: the unseen releases, else (reopened from the bottom
   // strip with nothing unread) the newest one.
   const noteReleases = showAnnouncement ? unseenChangelog : (LATEST_CHANGELOG ? [LATEST_CHANGELOG] : []);
-  const noteChangeCount = noteReleases.reduce((n, release) => n + release.changes.length, 0);
+  // Opening the note marks what it shows as seen at that moment (5.226), so
+  // the chip does not come back for those releases however the student
+  // leaves (back gesture, a tap elsewhere, no ✕). The list is kept as it was
+  // opened, so marking it seen does not change the note under the reader.
+  const [openedReleases, setOpenedReleases] = useState(null);
+  const shownReleases = openedReleases || noteReleases;
+  const noteChangeCount = shownReleases.reduce((n, release) => n + release.changes.length, 0);
+  // The chip: news only, no count, one Home visit a day (lib/changelog-seen.js).
+  // Decided once per visit, so it does not vanish under the reader when the
+  // day is recorded.
+  const [chipToday] = useState(() => chipDue(unseenChangelog, loadChipDay(), localDay()));
+  const newestNews = unseenChangelog.find(isNews);
+  useEffect(() => { if (chipToday) saveChipDay(localDay()); }, [chipToday]);
 
   // Onboarding tour — opt-in via a friendly banner.
   //
@@ -707,7 +727,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   const [forceChangelogOpen, setForceChangelogOpen] = useState(false);
   // Once the full banner is open, the chip that opened it must go — two
   // changelog affordances on screen at once read as a glitch.
-  const showChangelogChip = showAnnouncement && !forceChangelogOpen;
+  const showChangelogChip = chipToday && Boolean(newestNews) && !forceChangelogOpen;
   // The bottom-strip link opens the note itself. The note renders at the top
   // of Home and the link sits at the very bottom, so the note has to be
   // scrolled to and handed focus, or on a phone the tap looks like nothing
@@ -720,6 +740,10 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   // scrolls to the note and hands it focus; the bottom strip additionally
   // clears the read mark so a closed note can be opened again.
   const revealChangelogNote = () => {
+    // A second tap while the note is open keeps the list it opened with.
+    const shown = forceChangelogOpen && openedReleases ? openedReleases : noteReleases;
+    setOpenedReleases(shown);
+    setSeenChangelog((seen) => markSeen(seen, shown.map((r) => r.version)));
     setForceChangelogOpen(true);
     requestAnimationFrame(() => {
       const note = changelogNoticeRef.current;
@@ -728,12 +752,9 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
       note.focus({ preventScroll: true });
     });
   };
-  const openChangelogNote = () => {
-    // With nothing unread, the newest release reads as unread again until
-    // the note is closed, as a cleared read mark did before.
-    if (!showAnnouncement && LATEST_CHANGELOG) setSeenChangelog((seen) => markUnseen(seen, LATEST_CHANGELOG.version));
-    revealChangelogNote();
-  };
+  // The foot link opens the unread releases, else the newest one; either way
+  // what it shows is seen from then on.
+  const openChangelogNote = () => revealChangelogNote();
 
   // Whether the vitals rail's chip row has anything to show.
   // ⚠️ This MUST list every child of the rail's chip row. The condition
@@ -770,6 +791,10 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
       import('./ExamView.jsx').catch(() => {});
       import('./ResultsView.jsx').catch(() => {});
       import('./ReviewView.jsx').catch(() => {});
+      // Finishing a set or a review card writes its answers through this
+      // module. Never loaded before, a set finished offline could not save
+      // them and asked the student to back the set up (offline audit, 15 Nov).
+      import('../lib/study-event-log.js').catch(() => {});
     };
     const idle = window.requestIdleCallback
       || ((cb) => setTimeout(cb, 1500));
@@ -880,16 +905,14 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
       <div className="vmx-hero vmx-home-hero">
         <h1>
           {user
-            ? <>สวัสดีคุณ <em>{profile?.username || 'นิสิต'}</em></>
+            ? <>สวัสดีคุณ <em>{isAutoName(profile?.username, user?.email, user) ? 'นิสิต' : shownName(profile.username)}</em></>
             : <>พร้อมฝึกสำหรับ <em>{phaseMeta?.short || yearMeta?.label || 'วันนี้'}</em></>}
         </h1>
         {isScaffoldYear ? (
           <p><strong>{yearMeta.label}</strong> — อยู่ระหว่างจัดเตรียมข้อสอบและเนื้อหา</p>
-        ) : (history.length === 0 ? (
-          <p style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>
-            ลองทำ <strong>1 ข้อแรก</strong> ใช้เวลาเพียง 20 วินาทีเพื่อเริ่มสะสมสถิติ
-          </p>
-        ) : null)}
+        ) : null}
+        {/* No "ลองทำ 1 ข้อแรก" line here (5.226): the plan card under it says
+            the same thing with its button (NextActionCard). */}
         {/* Permanent tutorial entry — unlike the first-visit banner below,
             this survives exam attempts and dismissal so mid-term newcomers
             (and anyone who wants a refresher) can always reach the tour.
@@ -1034,7 +1057,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
       )}
       {/* bannerWinner can never be 'announcement' (see its ternary) — the
           banner opens only from the chip. */}
-      {forceChangelogOpen && noteReleases.length > 0 && (
+      {forceChangelogOpen && shownReleases.length > 0 && (
         <div
           ref={changelogNoticeRef}
           tabIndex={-1}
@@ -1045,7 +1068,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
         >
           {/* One block per unseen release, newest first; the first carries
               the ✕, which marks every listed release seen. */}
-          {noteReleases.map((release, index) => (
+          {shownReleases.map((release, index) => (
             <div
               key={release.version}
               style={index ? { marginTop: 14, paddingTop: 12, borderTop: '1px dashed var(--clr-border)' } : undefined}
@@ -1064,8 +1087,9 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                     type="button"
                     className="vmx-icon-close vmx-tap"
                     onClick={() => {
-                      setSeenChangelog((seen) => markSeen(seen, noteReleases.map((r) => r.version)));
+                      setSeenChangelog((seen) => markSeen(seen, shownReleases.map((r) => r.version)));
                       setForceChangelogOpen(false);
+                      setOpenedReleases(null);
                     }}
                     aria-label="ปิดประกาศ"
                     title="ปิดประกาศ"
@@ -1720,10 +1744,10 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                     type="button"
                     onClick={() => setView('schedule')}
                     className="vmx-vitals-row"
-                    title={`${nextClassToday.code}, ${nextClassToday.room}, ${nextClassToday.start}-${nextClassToday.end}`}
+                    title={`${nextClassToday.title}, ${nextClassToday.room}, ${nextClassToday.start}-${nextClassToday.end}`}
                   >
                     <span style={{ minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                      {classRowLabel(nextClassToday, currentClassNow, (s) => truncateThai(s, 20))}
+                      {classRowLabel(nextClassToday, currentClassNow, (s) => truncateThai(s, 32))}
                     </span>
                     <span className="vmx-vitals-row-meta">{nextClassToday.room}</span>
                   </button>
@@ -1777,13 +1801,13 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                     type="button"
                     onClick={revealChangelogNote}
                     className="vmx-vitals-row"
-                    title={`${newestUnseen.headline}, ${fmtThaiDate(newestUnseen.date)}`}
+                    title={`${newestNews.headline}, ${fmtThaiDate(newestNews.date)}`}
                   >
                     <span style={{ minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                      {truncateThai(newestUnseen.headline, 30)}
+                      {truncateThai(newestNews.headline, 30)}
                     </span>
                     <span className="vmx-vitals-row-meta" style={{ color: 'var(--clr-gold-text)' }}>
-                      {noteChangeCount ? `${noteChangeCount} รายการ` : 'ใหม่'}
+                      ใหม่
                     </span>
                   </button>
                 )}
@@ -1938,8 +1962,8 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
           This is also the escape hatch for the banner's own ✕: that button
           marks every listed release seen, which makes showAnnouncement
           false, and this link then sits below the fold-out menu waiting to be
-          tapped. The link opens the note itself (openChangelogNote marks the
-          newest release unread again when nothing else is, opens the banner,
+          tapped. The link opens the note itself (openChangelogNote shows the unread releases, else the
+          newest, marks them seen, opens the banner,
           scrolls to it and hands it focus) with the details open, since
           `expanded` now starts true. Bringing back only the chip is not
           enough: on a phone it sits far above this link, so the tap would
@@ -1963,7 +1987,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
           color: 'var(--clr-ink-soft)',
         }}>
           <button type="button" className="vmx-link-btn" onClick={openChangelogNote} style={linkStyle}>
-            {showAnnouncement ? `มีอะไรใหม่ (${newestUnseen.version})` : `อัปเดตล่าสุด (${LATEST_CHANGELOG.version})`}
+            {showAnnouncement ? 'มีอะไรใหม่' : 'อัปเดตล่าสุด'}
           </button>
         </div>
       )}
@@ -2290,7 +2314,7 @@ function SubjectGrid({ subjects, customQuestions = NO_ITEMS, readingChecklist = 
               const hasAccData = acc && acc.total >= 5;
               const accPct = hasAccData ? Math.round((acc.correct / acc.total) * 100) : 0;
               const accColor = hasAccData
-                ? (accPct < 60 ? 'var(--clr-rose)' : (accPct < 80 ? 'var(--clr-gold)' : 'var(--clr-sage)'))
+                ? (accPct < 60 ? 'var(--clr-rose-text)' : (accPct < 80 ? 'var(--clr-part-text)' : 'var(--clr-right-text)'))
                 : 'var(--clr-ink-soft)';
               const cov = progressBySubject[s.id];
               const hasCoverage = cov && cov.covered > 0 && cov.total > 0;

@@ -105,8 +105,11 @@ test('CI runs the data lints before the build and only lint:dist after it (STAB-
   const steps = read('.github/workflows/build.yml').split(/\n\s*- name: /).slice(1)
     .map((s) => ({ name: s.split('\n')[0].trim(), run: /run: (.+)/.exec(s)?.[1]?.trim() }));
   const at = (run) => steps.findIndex((s) => s.run === run);
-  assert.ok(at('npm run lint:data') >= 0, 'build.yml runs npm run lint:data');
-  assert.ok(at('npm run build') > at('npm run lint:data'), 'lint:data runs before the build');
+  // Since 15 Nov 2026 Build runs every lint:data step to the end through scripts/lint-all.mjs, which
+  // reads the chain from package.json (tests/unit/lint-all.test.mjs), where it ran the chain itself.
+  const dataLints = 'npm run lint:data:all -- --github --summary="$GITHUB_STEP_SUMMARY"';
+  assert.ok(at(dataLints) >= 0, 'build.yml runs every lint:data step');
+  assert.ok(at('npm run build') > at(dataLints), 'lint:data runs before the build');
   assert.ok(at('npm run test:unit') < at('npm run build'), 'the unit tests run before the build');
   assert.ok(at('npm run lint:dist') > at('npm run build'), 'lint:dist runs after the build');
   assert.equal(steps.filter((s) => /lint:all/.test(s.run || '')).length, 0, 'lint:all would rerun the data lints after the build');

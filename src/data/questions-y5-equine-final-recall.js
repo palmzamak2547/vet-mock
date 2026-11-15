@@ -595,8 +595,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209513,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -638,8 +638,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209514,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -681,8 +681,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209515,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -724,8 +724,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209516,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "short",
     "examScope": "final",
@@ -764,8 +764,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209517,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "short",
     "examScope": "final",
@@ -806,8 +806,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209518,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -855,8 +855,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209519,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -898,8 +898,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209520,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -941,8 +941,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209521,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -985,8 +985,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209522,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -1024,8 +1024,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209523,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -1063,8 +1063,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209524,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -1107,8 +1107,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209525,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -1146,8 +1146,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209526,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -1189,8 +1189,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209527,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -1227,8 +1227,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209528,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -1270,8 +1270,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209529,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -1314,8 +1314,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209530,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -1358,8 +1358,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209531,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -1402,8 +1402,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209532,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "short",
     "examScope": "final",
@@ -1455,8 +1455,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209533,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "short",
     "examScope": "final",
@@ -1502,8 +1502,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209534,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "short",
     "examScope": "final",
@@ -1555,8 +1555,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209535,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -1600,8 +1600,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209536,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "short",
     "examScope": "final",
@@ -1648,8 +1648,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209537,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "short",
     "examScope": "final",
@@ -1694,8 +1694,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209538,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -1742,8 +1742,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209539,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -1790,8 +1790,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209540,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -1838,8 +1838,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209541,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -1891,8 +1891,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209542,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -1945,8 +1945,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209543,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -1988,8 +1988,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209544,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -2036,8 +2036,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209545,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "short",
     "examScope": "final",
@@ -2088,8 +2088,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209546,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "short",
     "examScope": "final",
@@ -2149,8 +2149,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209547,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -2203,8 +2203,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209548,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -2263,8 +2263,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209549,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -2313,8 +2313,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209550,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -2363,8 +2363,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209551,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -2407,8 +2407,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209552,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -2451,8 +2451,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209553,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -2495,8 +2495,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209554,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -2544,8 +2544,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209555,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -2594,8 +2594,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209556,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -2639,8 +2639,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209557,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -2689,8 +2689,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209558,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -2739,8 +2739,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209559,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -2782,8 +2782,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209560,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -2825,8 +2825,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209561,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -2869,8 +2869,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209562,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -2912,8 +2912,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209563,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -2966,8 +2966,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209564,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "mcq",
     "examScope": "final",
@@ -3009,8 +3009,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209565,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "short",
     "examScope": "final",
@@ -3054,8 +3054,8 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
   },
   {
     "id": 209566,
-    "subject": "equine-medicine",
-    "topic": "equine-neonatal",
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
     "year": 5,
     "type": "short",
     "examScope": "final",
@@ -4115,7 +4115,7 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
       "Sling ยกตัวม้าแล้วหย่อนลงบนเบาะ"
     ],
     "answer": 1,
-    "explain": "ในโรงพยาบาลนิยมนำสลบแบบ swing door คือให้ม้าซึมแล้วกั้นลำตัวไว้ระหว่างประตูบุนวมกับผนังห้อง induction เมื่อยานำสลบออกฤทธิ์จึงค่อยคลายประตูให้ม้าล้มลงอย่างควบคุมได้ free fall คือปล่อยให้ม้าล้มเองโดยประคองหัวลงบนพื้นนุ่ม ใช้ได้ในภาคสนาม vertical hydraulic table ไม่ค่อยใช้ และ sling ใช้พยุงม้า ไม่ใช่วิธีนำสลบ",
+    "explain": "ในโรงพยาบาลนิยมนำสลบแบบ swing door คือให้ม้าซึมแล้วกั้นลำตัวไว้ระหว่างประตูบุนวมกับผนังห้อง induction เมื่อยานำสลบออกฤทธิ์ ม้าจะค่อย ๆ ไหลตัวลงตามผนังอย่างควบคุมได้ ไม่ล้มแรงจนหัวกระแทกพื้น free fall คือปล่อยให้ม้าล้มเองโดยประคองหัวลงบนพื้นนุ่ม ใช้ได้ในภาคสนาม vertical hydraulic table หรือ tilt table เป็นอีกแบบที่บางแห่งใช้ โดยยึดม้าไว้กับโต๊ะที่ตั้งขึ้นแล้วปรับโต๊ะมารองรับตัวม้าเมื่อยาออกฤทธิ์ ส่วน sling หรือเชือกที่ห้อยจากตะขอหรือรอกเหนือห้องใช้ประคองให้ม้าค่อย ๆ ทรุดลงระหว่างนำสลบได้ในบางแห่ง แต่การยกม้าทั้งตัวขึ้นด้วยรอกทำหลังม้านอนลงแล้ว เพื่อพาเข้าห้องผ่าตัดและวางบนเตียง ไม่ใช่วิธีนำม้าล้มลง",
     "source": "สรุป Equine anesthesia ของ Vet 84 ฉบับ 4 หน้า หน้า 2 (เขียนโดย Vet 83); Equine surgery & anesthesia 5th year หน้า 15 และ 80",
     "verified": "สรุปปลายภาค Equine Med Final (Vet 84 รวบรวม) หน้า 10 (รายการคำถามยาสลบแบบตัวเลือก 15 ข้อ); ตัวเลือกเรียบเรียงจากสไลด์ ไม่ใช่ตัวเลือกเดิมของข้อสอบ",
     "sourceType": "past-paper",
@@ -7332,6 +7332,289 @@ export const QUESTIONS_Y5_EQUINE_FINAL_RECALL = [
         "doc": "equine-lameness-notes-v84",
         "edition": "16p",
         "page": 12
+      }
+    ]
+  },
+  {
+    "id": 209639,
+    "subject": "equine-medicine",
+    "topic": "equine-infectious",
+    "year": 5,
+    "type": "short",
+    "q": "vector ของ AHS",
+    "keywords": [
+      "Culicoides",
+      "biting midges",
+      "ริ้น",
+      "C. imicola"
+    ],
+    "model_answer": "Culicoides spp. (biting midges หรือริ้น) เป็นพาหะนำโรคหลัก โดยเฉพาะ C. imicola และ C. bolitinos",
+    "explain": "African horse sickness (AHS) เป็น vector-borne disease ที่แพร่โดย biting midges สกุล Culicoides ริ้นตัวเล็กกว่ายุงจนลอดมุ้งตาห่างได้ การควบคุมจึงใช้มุ้งตาถี่ร่วมกับยาฆ่าแมลง แมลงดูดเลือดชนิดอื่น เช่น ยุง เห็บ และ biting flies แพร่เชื้อได้เป็นครั้งคราว และลมพาริ้นที่มีเชื้อไปได้ไกลถึง 700 กม. เหนือน้ำ หรือ 150 กม. บนบก",
+    "source": "Eq Infectious Dz and Biosecurity หน้า 9 และ 15; 14B7TUfov00 [32:42-33:45]",
+    "verified": "สรุปกลางภาค Equine Med ของ Vet 84 ฉบับ 8 หน้า หน้า 1 ข้อ 2 ของรายการที่จดด้วยลายมือ (ส่วน infectious ของข้อสอบรุ่น Vet 84 เป็นข้อเติมคำ โจทย์ภาษาอังกฤษ ผู้จดไม่ได้จดคำตอบ คำตอบเขียนจากสไลด์และคาบเรียนปี 2569)",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg midterm Vet 84 บันทึกหลังสอบ",
+    "tags": [
+      "equine-infectious",
+      "African-horse-sickness",
+      "vector"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 9
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 15
+      },
+      {
+        "doc": "equine-mid-summary-v84",
+        "edition": "8p",
+        "page": 1
+      }
+    ]
+  },
+  {
+    "id": 209640,
+    "subject": "equine-medicine",
+    "topic": "equine-infectious",
+    "year": 5,
+    "type": "short",
+    "q": "reservoirs ของ AHS",
+    "keywords": [
+      "zebra",
+      "ม้าลาย",
+      "natural host"
+    ],
+    "model_answer": "ม้าลาย (zebra) เป็นแหล่งรังโรคตามธรรมชาติ ติดเชื้อได้โดยไม่ป่วยรุนแรง",
+    "explain": "ม้าลายเป็น natural host ของ African horse sickness virus ติดเชื้อแล้วมักไม่ตาย จึงเป็นแหล่งรังโรคในแอฟริกา ส่วนม้าไวต่อโรคมากที่สุด โดย pulmonary form มี mortality มากกว่า 95% และ cardiac form มากกว่า 50%",
+    "source": "Eq Infectious Dz and Biosecurity หน้า 10 และ 12; 14B7TUfov00 [33:45-34:17]",
+    "verified": "สรุปกลางภาค Equine Med ของ Vet 84 ฉบับ 8 หน้า หน้า 1 ข้อ 3 ของรายการที่จดด้วยลายมือ (ส่วน infectious ของข้อสอบรุ่น Vet 84 เป็นข้อเติมคำ โจทย์ภาษาอังกฤษ ผู้จดไม่ได้จดคำตอบ คำตอบเขียนจากสไลด์และคาบเรียนปี 2569)",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg midterm Vet 84 บันทึกหลังสอบ",
+    "tags": [
+      "equine-infectious",
+      "African-horse-sickness",
+      "reservoir"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 10
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 12
+      },
+      {
+        "doc": "equine-mid-summary-v84",
+        "edition": "8p",
+        "page": 1
+      }
+    ]
+  },
+  {
+    "id": 209641,
+    "subject": "equine-medicine",
+    "topic": "equine-infectious",
+    "year": 5,
+    "type": "short",
+    "q": "gold standard ของ EIA",
+    "keywords": [
+      "AGID",
+      "Agar gel immunodiffusion",
+      "Coggins test"
+    ],
+    "model_answer": "Agar gel immunodiffusion (AGID) หรือ Coggins test",
+    "explain": "Equine infectious anemia วินิจฉัยด้วยการตรวจทางซีรัม โดย AGID เป็นวิธีมาตรฐาน ส่วน ELISA และ PCR ใช้ร่วมได้ การป้องกันอาศัย serodiagnosis testing, quarantine, fly control และ euthanasia ม้าที่ติดเชื้อ",
+    "source": "Eq Infectious Dz and Biosecurity หน้า 24; 14B7TUfov00 [60:32-61:07]",
+    "verified": "สรุปกลางภาค Equine Med ของ Vet 84 ฉบับ 8 หน้า หน้า 1 ข้อ 4 ของรายการที่จดด้วยลายมือ (ส่วน infectious ของข้อสอบรุ่น Vet 84 เป็นข้อเติมคำ โจทย์ภาษาอังกฤษ ผู้จดไม่ได้จดคำตอบ คำตอบเขียนจากสไลด์และคาบเรียนปี 2569)",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg midterm Vet 84 บันทึกหลังสอบ",
+    "tags": [
+      "equine-infectious",
+      "equine-infectious-anemia",
+      "AGID"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 24
+      },
+      {
+        "doc": "equine-mid-summary-v84",
+        "edition": "8p",
+        "page": 1
+      }
+    ]
+  },
+  {
+    "id": 209642,
+    "subject": "equine-medicine",
+    "topic": "equine-infectious",
+    "year": 5,
+    "type": "short",
+    "q": "EHV ตัวไหนมี neuro",
+    "keywords": [
+      "EHV-1",
+      "equine herpesvirus 1",
+      "neurological"
+    ],
+    "model_answer": "EHV-1",
+    "explain": "EHV-1 ทำให้เกิดได้ทั้งโรคทางเดินหายใจ การแท้ง และอาการทางระบบประสาท เช่น ขาหลังอ่อนแรง เดินลำบาก จนถึงอัมพาต ส่วน EHV-4 มักจำกัดอยู่ที่ระบบทางเดินหายใจ EHV-3 เป็นสาเหตุของ equine coital exanthema และ EHV-5 สัมพันธ์กับ equine multinodular pulmonary fibrosis",
+    "source": "Eq Infectious Dz and Biosecurity หน้า 18; 14B7TUfov00 [50:32]",
+    "verified": "สรุปกลางภาค Equine Med ของ Vet 84 ฉบับ 8 หน้า หน้า 1 ข้อ 5 ของรายการที่จดด้วยลายมือ (ส่วน infectious ของข้อสอบรุ่น Vet 84 เป็นข้อเติมคำ โจทย์ภาษาอังกฤษ ผู้จดไม่ได้จดคำตอบ คำตอบเขียนจากสไลด์และคาบเรียนปี 2569)",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg midterm Vet 84 บันทึกหลังสอบ",
+    "tags": [
+      "equine-infectious",
+      "equine-herpesvirus",
+      "EHV-1"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 18
+      },
+      {
+        "doc": "equine-mid-summary-v84",
+        "edition": "8p",
+        "page": 1
+      }
+    ]
+  },
+  {
+    "id": 209643,
+    "subject": "equine-medicine",
+    "topic": "equine-infectious",
+    "year": 5,
+    "type": "short",
+    "q": "Streptococcus ______ ทำให้เกิด Strangles",
+    "keywords": [
+      "equi",
+      "Streptococcus equi",
+      "S. equi subsp. equi"
+    ],
+    "model_answer": "equi (Streptococcus equi)",
+    "explain": "Strangles เกิดจาก Streptococcus equi ชื่อโรคมาจากต่อมน้ำเหลืองใต้คางและรอบ throatlatch ที่บวมจนม้าหายใจลำบาก ติดต่อจากการสัมผัสโดยตรงกับน้ำมูกหรือหนองจากฝี และจากอุปกรณ์ที่ปนเปื้อน วินิจฉัยด้วย culture, PCR และ antibody test",
+    "source": "Eq Infectious Dz and Biosecurity หน้า 45, 46 และ 50; 14B7TUfov00 [92:21-92:53]",
+    "verified": "สรุปกลางภาค Equine Med ของ Vet 84 ฉบับ 8 หน้า หน้า 1 ข้อ 7 ของรายการที่จดด้วยลายมือ (ส่วน infectious ของข้อสอบรุ่น Vet 84 เป็นข้อเติมคำ โจทย์ภาษาอังกฤษ ผู้จดไม่ได้จดคำตอบ คำตอบเขียนจากสไลด์และคาบเรียนปี 2569)",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg midterm Vet 84 บันทึกหลังสอบ",
+    "tags": [
+      "equine-infectious",
+      "strangles",
+      "Streptococcus-equi"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 45
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 46
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 50
+      },
+      {
+        "doc": "equine-mid-summary-v84",
+        "edition": "8p",
+        "page": 1
+      }
+    ]
+  },
+  {
+    "id": 209644,
+    "subject": "equine-medicine",
+    "topic": "equine-infectious",
+    "year": 5,
+    "type": "short",
+    "q": "classic signs ของ tetanus ที่ไม่ใช่ stiffness คือ",
+    "keywords": [
+      "third eyelid protrusion",
+      "third eyelid",
+      "prolapse of the third eyelid"
+    ],
+    "model_answer": "Third eyelid protrusion (third eyelid ยื่นออกมาคลุมตา)",
+    "explain": "อาการเด่นของ tetanus คือ stiffness ที่ม้ายืนขาแข็งแบบ saw horse และ third eyelid ยื่นออกมา ร่วมกับ muscle spasm ที่รุนแรงขึ้นเมื่อมีสิ่งกระตุ้น เช่น เสียงดัง แสงจ้า หรือการสัมผัส ม้าตายจากระบบหายใจล้มเหลว",
+    "source": "Eq Infectious Dz and Biosecurity หน้า 40; 14B7TUfov00 [83:24]",
+    "verified": "สรุปกลางภาค Equine Med ของ Vet 84 ฉบับ 8 หน้า หน้า 1 ข้อ 8 ของรายการที่จดด้วยลายมือ (ส่วน infectious ของข้อสอบรุ่น Vet 84 เป็นข้อเติมคำ โจทย์ภาษาอังกฤษ ผู้จดไม่ได้จดคำตอบ คำตอบเขียนจากสไลด์และคาบเรียนปี 2569)",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg midterm Vet 84 บันทึกหลังสอบ",
+    "tags": [
+      "equine-infectious",
+      "tetanus",
+      "third-eyelid"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 40
+      },
+      {
+        "doc": "equine-mid-summary-v84",
+        "edition": "8p",
+        "page": 1
+      }
+    ]
+  },
+  {
+    "id": 209645,
+    "subject": "equine-medicine",
+    "topic": "equine-infectious",
+    "year": 5,
+    "type": "short",
+    "q": "โรคอะไรที่ต้องระวังเวลาอยู่ใกล้ฟาร์มหมู",
+    "keywords": [
+      "Japanese encephalitis",
+      "JE",
+      "amplifier"
+    ],
+    "model_answer": "Japanese encephalitis (JE)",
+    "explain": "Japanese encephalitis virus เป็น Flavivirus ที่มียุง Culex เป็นพาหะนำโรค และมีสุกรเป็น amplifier สำคัญ ม้าที่อยู่ใกล้ฟาร์มสุกรจึงเสี่ยงติดเชื้อมากขึ้น อาการในม้าคือไข้ อ่อนแรง และอาการทางระบบประสาท ป้องกันด้วยวัคซีน JE",
+    "source": "Eq Infectious Dz and Biosecurity หน้า 33, 34 และ 36; 14B7TUfov00 [72:30]",
+    "verified": "สรุปกลางภาค Equine Med ของ Vet 84 ฉบับ 8 หน้า หน้า 1 ข้อ 10 ของรายการที่จดด้วยลายมือ (ส่วน infectious ของข้อสอบรุ่น Vet 84 เป็นข้อเติมคำ โจทย์ภาษาอังกฤษ ผู้จดไม่ได้จดคำตอบ คำตอบเขียนจากสไลด์และคาบเรียนปี 2569)",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg midterm Vet 84 บันทึกหลังสอบ",
+    "tags": [
+      "equine-infectious",
+      "Japanese-encephalitis",
+      "amplifier-host"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 33
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 34
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 36
+      },
+      {
+        "doc": "equine-mid-summary-v84",
+        "edition": "8p",
+        "page": 1
       }
     ]
   },

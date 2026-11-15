@@ -167,7 +167,7 @@
  "8355": {
   "type": "short",
   "q": "จงยกตัวอย่าง clinical signs 2 แบบ ที่สามารถพบได้ในสุกรแม่พันธุ์ที่เป็น MMA (mastitis-metritis-agalactia) syndrome",
-  "model_answer": "แม่สุกรที่เป็น MMA แสดงอาการภายใน 12-72 ชั่วโมงหลังคลอด อาการแรกคือเต้านมอักเสบ เต้านมบวม ร้อน และเจ็บ บางครั้งมีหนอง อาการที่สองคือมดลูกอักเสบ มีหนองไหลออกจากช่องคลอด นอกจากนี้แม่สุกรมีไข้ ไม่กินอาหาร และน้ำนมลดลง ลูกสุกรจึงได้นมไม่พอและอดนม",
+  "model_answer": "แม่สุกรที่เป็น MMA เริ่มแสดงอาการตั้งแต่ 1-2 วันแรกหลังคลอด และพบได้จนถึงสัปดาห์แรกหลังคลอด อาการแรกคือเต้านมอักเสบ เต้านมบวม ร้อน แดง และเจ็บ อาการที่สองคือมดลูกอักเสบ มีหนองไหลออกจากช่องคลอด นอกจากนี้แม่สุกรมีไข้ราว 39.5 องศาเซลเซียส ซึม ไม่กินอาหาร และน้ำนมลดลง ลูกสุกรจึงได้นมไม่พอและอ่อนแอ",
   "rubric": ""
  },
  "8356": {
@@ -1610,6 +1610,48 @@
   "model_answer": "เกิดจากเชื้อ Babesia caballi และ Theileria (Babesia) equi ซึ่งติดต่อผ่านเห็บ (tick-borne protozoa) โดยเห็บ 14 ชนิด เช่น Dermacentor, Hyalomma และ Rhipicephalus และติดได้ทางเข็มหรือกระบอกฉีดยาที่ปนเปื้อนและการถ่ายเลือด",
   "rubric": ""
  },
+ "209639": {
+  "type": "short",
+  "q": "vector ของ AHS",
+  "model_answer": "Culicoides spp. (biting midges หรือริ้น) เป็นพาหะนำโรคหลัก โดยเฉพาะ C. imicola และ C. bolitinos",
+  "rubric": ""
+ },
+ "209640": {
+  "type": "short",
+  "q": "reservoirs ของ AHS",
+  "model_answer": "ม้าลาย (zebra) เป็นแหล่งรังโรคตามธรรมชาติ ติดเชื้อได้โดยไม่ป่วยรุนแรง",
+  "rubric": ""
+ },
+ "209641": {
+  "type": "short",
+  "q": "gold standard ของ EIA",
+  "model_answer": "Agar gel immunodiffusion (AGID) หรือ Coggins test",
+  "rubric": ""
+ },
+ "209642": {
+  "type": "short",
+  "q": "EHV ตัวไหนมี neuro",
+  "model_answer": "EHV-1",
+  "rubric": ""
+ },
+ "209643": {
+  "type": "short",
+  "q": "Streptococcus ______ ทำให้เกิด Strangles",
+  "model_answer": "equi (Streptococcus equi)",
+  "rubric": ""
+ },
+ "209644": {
+  "type": "short",
+  "q": "classic signs ของ tetanus ที่ไม่ใช่ stiffness คือ",
+  "model_answer": "Third eyelid protrusion (third eyelid ยื่นออกมาคลุมตา)",
+  "rubric": ""
+ },
+ "209645": {
+  "type": "short",
+  "q": "โรคอะไรที่ต้องระวังเวลาอยู่ใกล้ฟาร์มหมู",
+  "model_answer": "Japanese encephalitis (JE)",
+  "rubric": ""
+ },
  "210027": {
   "type": "short",
   "q": "กรณี Listeria monocytogenes ปนเปื้อนในอาหารพร้อมบริโภค (ready-to-eat foods) การปนเปื้อนนี้มาจากส่วนใดของ One Health ระหว่างสัตว์ คน หรือสิ่งแวดล้อม",
@@ -1895,7 +1937,7 @@
  "212074": {
   "type": "short",
   "q": "ปัจจัยที่ใช้กำหนด Quality grade ในหมู 2 ข้อ",
-  "model_answer": "quality grade ของสุกรตามมาตรฐานที่ปรับปรุงของ USDA ใช้ 2 ปัจจัย คือ 1. สีของเนื้อแดงที่เห็น (color of exposed lean) แบ่ง 6 ระดับ และ 2. ปริมาณไขมันแทรก (marbling) แบ่ง 10 ระดับ ดูที่หน้าตัด longissimus dorsi ที่ซี่โครงที่ 10 แล้วจัดเป็น Prime, Choice หรือ Select ส่วนเกรด U.S. No. 1-4 ของซากที่คุณภาพยอมรับได้ คิดจากผลผลิตที่คาดของ 4 lean cuts ซึ่งประเมินจากความหนาไขมันสันหลังเหนือซี่โครงซี่สุดท้าย (backfat thickness over the last rib) และระดับกล้ามเนื้อ (degree of muscling) ปัจจัยชุดหลังนี้บอกปริมาณเนื้อ ไม่ใช่ลักษณะคุณภาพ",
+  "model_answer": "ซากสุกรตามมาตรฐาน USDA แบ่งระดับคุณภาพเป็น acceptable กับ unacceptable ก่อน ซากที่ unacceptable จัดเป็น Utility ส่วนซากที่ acceptable จัดเกรด U.S. No. 1 ถึง 4 จาก 2 ปัจจัย คือ 1. ความหนาไขมันสันหลังเหนือซี่โครงซี่สุดท้าย (backfat thickness over the last rib) และ 2. ระดับกล้ามเนื้อ (degree of muscling) ซึ่งใช้คาดผลผลิตของ 4 lean cuts",
   "rubric": ""
  },
  "212075": {

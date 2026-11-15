@@ -27,6 +27,11 @@ import { saveNoteRetryTarget } from '../lib/note-retry.js';
 import { recordQuestEvent, todayKey } from '../lib/quests.js';
 import NavIcon from '../components/NavIcon.jsx';
 import { motionIsReduced } from '../lib/motion-preferences.js';
+import { noteSourceLabel } from '../lib/source-label.js';
+import { NOTE_SOURCE_TITLES } from '../data/note-source-titles.generated.js';
+
+// A file name a registered document claims is shown as that document's title.
+const registeredTitle = (name) => (Object.prototype.hasOwnProperty.call(NOTE_SOURCE_TITLES, name) ? NOTE_SOURCE_TITLES[name] : null);
 
 // One topic can only count once a day towards the reading quests, so
 // re-opening the same page cannot tick the counter three times. The day is
@@ -325,8 +330,8 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
           การเชื่อมต่อสะดุดขณะโหลดวิชา {subjectMeta?.name || subject} ข้อมูลเดิมยังอยู่ครบ
         </div>
         <div className="vmx-btn-row">
-          <button className="vmx-btn vmx-btn-primary" onClick={retryLoad}>ลองอีกครั้ง</button>
           <button className="vmx-btn vmx-btn-ghost" onClick={goBack || goHome}>{backLabel === 'เลือกหัวข้ออื่น' ? 'กลับไปเลือกหัวข้อ' : `กลับ${backLabel}`}</button>
+          <button className="vmx-btn vmx-btn-primary" onClick={retryLoad}>ลองอีกครั้ง</button>
         </div>
       </>
     );
@@ -427,11 +432,11 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
                     reads as a rendering failure rather than a missing field. */}
                 {/* "TBD" is a placeholder in the data, not a person: no line at all. */}
                 {topicLecturerLabel(activeSubject, t.lecturer) && (
-                  <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 4 }}>
+                  <div style={{ fontSize: 14, color: active ? 'var(--clr-ink)' : 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 4 }}>
                     ผู้สอน: {topicLecturerLabel(activeSubject, t.lecturer).name}
                   </div>
                 )}
-                <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', marginTop: 4 }}>
+                <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: active ? 'var(--clr-ink)' : 'var(--clr-ink-soft)', marginTop: 4 }}>
                   {t.sections.length} ส่วน
                 </div>
               </button>
@@ -676,7 +681,7 @@ const SectionBlock = memo(function SectionBlock({ section, number, highlight, co
           <SlideFigures sectionId={figSectionId} source={section.source || ''} />
           {section.source && (
             <div style={{ marginTop: 14, paddingTop: 10, borderTop: '1px dashed var(--clr-border)', fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
-              แหล่งที่มา: {section.source}
+              แหล่งที่มา: {noteSourceLabel(section.source.replace(/\s*·\s*/g, ', '), registeredTitle)}
             </div>
           )}
         </MotionEnter>

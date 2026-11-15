@@ -18,6 +18,7 @@ import { ladderStep, ladderStepFor, ladderPreset, rememberLadderStep } from '../
 import { adjustOpen, decide, forget, recall, rememberRows, setAdjustOpen } from '../lib/decide.js';
 import { PRACTICE_SETUP } from '../lib/decisions/practice-setup.js';
 import { practiceSignals } from '../lib/decide-signals.js';
+import DecideLines from '../components/DecideLines.jsx';
 
 // ============================================================
 // ConfigView — ตั้งค่าก่อนเริ่มฝึก/สอบ
@@ -121,10 +122,12 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
   // A practice set decides for the student; an exam shows its rows (header).
   const compact = mode !== 'exam';
   // What the screen was on arrival, latched once the pool's count is known
-  // (below): whether the app had decided this set, and whether ปรับเอง starts
-  // open. Read once, so a row change never closes the region under the
-  // student and an exam that steps down a rung keeps its rows in view.
+  // (below): whether the app had decided this set. Whether ปรับเอง starts open
+  // is latched at the first draw. Read once, so a row change never closes the
+  // region under the student and an exam that steps down a rung keeps its rows
+  // in view.
   const arrivalRef = useRef(null);
+  const firstOpenRef = useRef(null); // whether ปรับเอง was drawn open (below)
   const [opened, setOpened] = useState(null); // the student's own toggle on this visit
   const [pickedRung, setPickedRung] = useState(false);
   // A row the student changes is theirs from now on, but only on a set the app
@@ -285,7 +288,8 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
   const practiceMinutes = Math.ceil((servedCount * timePerQ) / 60);
   const summary = [
     `${servedCount.toLocaleString()} ข้อ`,
-    !useTimer ? 'ไม่จับเวลา' : isExamMode ? `${examBudgetLabel} นาฬิกาเดียว` : `${timePerQ} วินาทีต่อข้อ (ประมาณ ${practiceMinutes} นาที)`,
+    // The exam clock's rule is said once, at its switch; here only its length.
+    !useTimer ? 'ไม่จับเวลา' : isExamMode ? examBudgetLabel : `${timePerQ} วินาทีต่อข้อ (ประมาณ ${practiceMinutes} นาที)`,
     isExamMode ? 'เฉลยหลังส่ง' : instantFeedback ? 'เฉลยทันทีรายข้อ' : 'เฉลยหลังส่ง',
     ...(panicPending ? ['เรียงตามแนวข้อสอบก่อน'] : []),
   ].join(', ');
@@ -298,30 +302,38 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
   const plainPool = !panicPending && (practiceMode === 'all' || practiceMode === 'adaptive');
   // The app's own choice is the rung's preset (its clock, the answer after
   // every question), so seconds or feedback the student set never read as it.
+  // Until the bank has counted the pool, the line is drawn (hidden, DecideLines)
+  // for the set's own size: the line the count most likely brings.
+  const lineCount = knownAvailableCount ?? numQuestions;
   const decision = compact ? decide(PRACTICE_SETUP, practiceSignals({
-    subject, year: selectedYear, available: knownAvailableCount, timePerQ: undefined, instantFeedback: true, practiceMode, hasHistory,
+    subject, year: selectedYear, available: lineCount, timePerQ: undefined, instantFeedback: true, practiceMode, hasHistory,
   })) : null;
   const chosen = decision?.value;
   // The line may say the app chose only what the app did choose: a plain pool
   // with a count known and not empty, set exactly as the decision says.
-  const follows = Boolean(chosen) && plainPool && knownAvailableCount > 0
-    && servedCount === Math.min(chosen.numQuestions, knownAvailableCount)
+  const follows = Boolean(chosen) && plainPool && lineCount > 0
+    && servedCount === Math.min(chosen.numQuestions, lineCount)
     && useTimer === chosen.useTimer && (!useTimer || timePerQ === chosen.timePerQ)
     && Boolean(instantFeedback) === chosen.instantFeedback
     && (practiceMode === 'adaptive' ? 'adaptive' : 'random') === chosen.pick;
   if (arrivalRef.current === null && knownAvailableCount != null) {
     const decided = compact && follows;
-    arrivalRef.current = { decided, open: !decided || adjustOpen('config') };
+    arrivalRef.current = { decided };
   }
   const arrival = arrivalRef.current;
   // Rows are tucked only when the app decided the set; anything else (Panic, a
   // curated pool, a Home card's own settings, an empty pool) opens with them.
-  const adjusting = opened ?? (arrival ? arrival.open : adjustOpen('config'));
+  // Settled at the first draw, from the line as drawn: opening the rows when
+  // the count landed moved ปรับเอง up under the finger (15 Nov).
+  if (firstOpenRef.current === null) firstOpenRef.current = !(compact && follows) || adjustOpen('config');
+  const adjusting = opened ?? firstOpenRef.current;
   const toggleAdjust = () => { const next = !adjusting; setOpened(next); setAdjustOpen('config', next); };
   const rememberable = compact && Boolean(arrival?.decided) && plainPool;
   const rung = ladderStep(activeStep);
   const lead = !follows ? 'ชุดนี้' : pickedRung || decision.by === 'you' ? 'ตั้งไว้แล้ว' : 'จัดให้แล้ว';
-  const why = !follows ? (showLadder ? stepHint : '')
+  // The rung's description is said once: under the chosen step while ปรับเอง is open,
+  // in the summary card only while it is closed.
+  const why = !follows ? (showLadder && !adjusting ? stepHint : '')
     : pickedRung && decision.by !== 'you' ? `ขั้น${rung.label}ที่คุณเลือก` : decision.why;
   const showRestore = compact && rememberable && follows && decision.by === 'you';
   // Back to the rung's own preset (its count, its clock, the answer after
@@ -343,10 +355,10 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
     globalThis.requestAnimationFrame?.(() => startRef.current?.focus());
   };
 
-  // Back and start as one pair, the same shape as the exam screen's
-  // previous/next bar; the start is the wide one.
+  // Back and start as one action row (docs/DESIGN_SYSTEM.md, Action rows):
+  // the way back at the left, the start last, at the right edge of the column.
   const actionsRow = (
-    <div className="vmx-config-actions-row">
+    <div className="vmx-btn-row is-bar">
       <button className="vmx-btn vmx-btn-ghost vmx-config-back" onClick={onBack || goHome}>
         ← {subject && subject !== 'all' ? 'เลือกหัวข้อ' : 'หน้าแรก'}
       </button>
@@ -415,39 +427,34 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
 
       {compact && (
         <section className="vmx-decide" aria-label="ชุดที่จะเริ่ม">
-          <p className="vmx-decide-what" id="vmx-config-summary">
-            {knownAvailableCount == null ? 'กำลังตรวจจำนวนข้อ…'
-              : knownAvailableCount === 0 ? 'ยังไม่มีข้อที่พร้อมใช้ในชุดนี้ เปลี่ยนได้ใน "ปรับเอง"'
-                : <><strong>{lead}:</strong> {summary}</>}
-          </p>
-          {knownAvailableCount > 0 && why && (
-            <p className="vmx-decide-why">
-              {why}
-              {showRestore && (
-                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm vmx-decide-reset" onClick={restoreChosen}>
-                  กลับไปใช้ค่าที่จัดให้
-                </button>
-              )}
-            </p>
-          )}
+          <DecideLines
+            id="vmx-config-summary"
+            pending={knownAvailableCount == null ? 'กำลังตรวจจำนวนข้อ…' : null}
+            what={knownAvailableCount === 0 ? 'ยังไม่มีข้อที่พร้อมใช้ในชุดนี้ เปลี่ยนได้ใน "ปรับเอง"' : <><strong>{lead}:</strong> {summary}</>}
+            why={knownAvailableCount !== 0 && why ? (
+              <>
+                {why}
+                {showRestore && (
+                  <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm vmx-decide-reset" onClick={restoreChosen}>
+                    กลับไปใช้ค่าที่จัดให้
+                  </button>
+                )}
+              </>
+            ) : null}
+          />
+          {/* ปรับเอง belongs to the line it adjusts: the screen reads summary,
+              adjust, act, and the start row is never split from the content
+              by a third button. */}
+          <button
+            type="button"
+            className="vmx-decide-toggle"
+            aria-expanded={adjusting}
+            aria-controls="vmx-config-adjust"
+            onClick={toggleAdjust}
+          >
+            ปรับเอง
+          </button>
         </section>
-      )}
-
-      {/* The start stays in the thumb's reach (.vmx-config-actions is sticky on
-          a phone): right under the line while ปรับเอง is closed, after the rows
-          while it is open. */}
-      {compact && !adjusting && <div className="vmx-config-actions">{actionsRow}</div>}
-
-      {compact && (
-        <button
-          type="button"
-          className="vmx-decide-toggle"
-          aria-expanded={adjusting}
-          aria-controls="vmx-config-adjust"
-          onClick={toggleAdjust}
-        >
-          ปรับเอง
-        </button>
       )}
       <div
         {...(compact ? { id: 'vmx-config-adjust', role: 'region', 'aria-label': 'ปรับเอง', hidden: !adjusting } : {})}
@@ -490,9 +497,11 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
                 </optgroup>
               ))}
             </select>
-            <div className="vmx-config-hint">
-              {phaseScope ? `ตัวเลขคือข้อของ${scopeLabel} วิชาที่ไม่มีข้อในช่วงนี้เลือกไม่ได้` : 'เปลี่ยนวิชาได้ที่นี่ โดยไม่ต้องย้อนกลับ'}
-            </div>
+            {phaseScope && (
+              <div className="vmx-config-hint">
+                {`ตัวเลขคือข้อของ${scopeLabel} วิชาที่ไม่มีข้อในช่วงนี้เลือกไม่ได้`}
+              </div>
+            )}
           </div>
         )}
 
@@ -562,7 +571,9 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
           <div className="vmx-chip-row">
             {countPresets.map((n) => (
               <button key={n} className={`vmx-chip ${numQuestions === n ? 'active' : ''}`} aria-pressed={numQuestions === n} onClick={() => { questionCountRef.current = n; rememberRow({ numQuestions: n }); setNumQuestions(n); }}>
-                {n}
+                {/* The whole pool is a count with a unit and a meaning, not a
+                    bare "6257" (5.226). */}
+                {n === knownAvailableCount && !QCOUNT_PRESETS.includes(n) ? `ทั้งหมด ${n.toLocaleString()} ข้อ` : n}
               </button>
             ))}
             <label className="vmx-custom-number">
@@ -600,7 +611,7 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
                 one budget for the whole set and submits it when it runs out; a
                 practice clock runs per question and moves on by itself. */}
             <span id="vmx-timer-state" style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>
-              {!useTimer ? 'ปิด — โหมดอ่านไม่จับเวลา'
+              {!useTimer ? 'ปิด: ทำได้ตามสบาย ไม่จับเวลา'
                 : isExamMode ? `${examBudgetLabel} นาฬิกาเดียวทั้งชุด, หมดเวลาคือส่งทั้งชุด`
                 : `${timePerQ} วินาที / ข้อ, หมดเวลาข้อไหนจะไปข้อถัดไปเอง`}
             </span>
@@ -661,7 +672,7 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
                 onClick={() => { rememberRow({ instantFeedback: !instantFeedback }); setInstantFeedback(!instantFeedback); }}
               />
               <span id="vmx-instant-state" style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>
-                {instantFeedback ? 'เปิด — ตอบปุ๊บรู้ผล + อ่านคำอธิบายทันที' : 'ปิด — เฉลยหลังส่งเท่านั้น'}
+                {instantFeedback ? 'เปิด: ตอบแล้วเห็นเฉลยและคำอธิบายทันที' : 'ปิด: ดูเฉลยหลังส่งทั้งชุด'}
               </span>
             </div>
           </div>
@@ -694,18 +705,15 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
       </div>
 
       </div>
-      {compact && adjusting && <div className="vmx-config-actions">{actionsRow}</div>}
 
-      {/* The start bar: what the set is, in one line, and the one button.
-          A phone keeps it at the bottom of the screen (see .vmx-config-actions)
-          so the primary action is in reach without scrolling past the panel.
-          A practice set carries it at the top instead (the decision above). */}
-      {!compact && (
-        <div className="vmx-config-actions">
-          <div className="vmx-config-summary" id="vmx-config-summary">{summary}</div>
-          {actionsRow}
-        </div>
-      )}
+      {/* The start bar, after the rows in both states: in flow it sits right
+          under the summary while ปรับเอง is closed, and while the rows run past
+          the screen it stays at the bottom edge (.vmx-config-actions is
+          sticky at every size). An exam carries its one-line summary above it. */}
+      <div className="vmx-config-actions">
+        {!compact && <div className="vmx-config-summary" id="vmx-config-summary">{summary}</div>}
+        {actionsRow}
+      </div>
     </>
   );
 }

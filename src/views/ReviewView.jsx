@@ -1,12 +1,13 @@
 import { humanSource } from '../lib/source-label.js';
-import { followsExamPattern, readableSource } from '../lib/source-line.js';
+import { displayStem } from '../lib/match-stem.js';
+import { followsExamPattern, readableSource, cautionChipShown, CAUTION_CHIP_TEXT, tagTopicLabels } from '../lib/source-line.js';
 import { useState, useMemo, useEffect, useRef, lazy, Suspense } from 'react';
 import { SUBJECTS } from '../data/curriculum.js';
 import { isAnswered, reviewOutcome, matchScore, subjectText } from '../hooks/utils.js';
 import WikiLinkForQuestion from '../components/WikiLinkForQuestion.jsx';
 import { parseVerified, VERIFIED_STYLE } from '../data/verified.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
-import RichBlocks from '../components/RichBlocks.jsx';
+import RichBlocks, { StemText } from '../components/RichBlocks.jsx';
 import { hasTable } from '../lib/rich-blocks.js';
 import { safeImageUrl } from '../lib/safe-url.js';
 import SmartGrader from '../components/SmartGrader.jsx';
@@ -95,7 +96,7 @@ function ReviewNoteEditor({ qId, noteText, setNote }) {
           borderRadius: 6,
           border: '1px solid var(--clr-border)',
           fontFamily: 'inherit',
-          fontSize: 14,
+          fontSize: 16,
           lineHeight: 1.5,
           resize: 'vertical',
           background: 'var(--clr-bg)',
@@ -228,8 +229,8 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
   const tabs = [
     { id: 'all',        label: 'ทั้งหมด',    iconName: 'practice', color: 'var(--clr-ink)' },
     { id: 'wrong',      label: 'ผิด',        iconName: 'close',    color: 'var(--clr-rose-text)' },
-    { id: 'correct',    label: 'ถูก',        iconName: 'check',    color: 'var(--clr-sage-text)' },
-    { id: 'self',       label: 'ประเมินเอง', iconName: 'pen',      color: 'var(--clr-gold-text)' },
+    { id: 'correct',    label: 'ถูก',        iconName: 'check',    color: 'var(--clr-right-text)' },
+    { id: 'self',       label: 'ประเมินเอง', iconName: 'pen',      color: 'var(--clr-part-text)' },
     { id: 'skipped',    label: 'ข้าม',       iconName: 'repeat',   color: 'var(--clr-ink-soft)' },
     { id: 'bookmarked', label: 'บันทึกไว้',   iconName: 'bookmark', color: 'var(--clr-gold-text)' },
     { id: 'noted',      label: 'มีโน้ต',     iconName: 'note',     color: 'var(--clr-plum-text)' },
@@ -408,12 +409,14 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                   <NavIcon name="star" size={16} filled={bookmarks.includes(q.id)} />
                 </button>
                 <span className={`vmx-review-result ${correct ? 'ok' : (outcome === 'self' || isPartial ? '' : 'no')}`}
-                  style={outcome === 'self' ? { background: 'var(--clr-gold-soft)', color: 'var(--clr-gold-text)' } : isPartial ? { background: 'var(--clr-gold-soft)', color: 'var(--clr-gold-text)' } : undefined}>
+                  style={outcome === 'self' ? { background: 'var(--clr-part-soft)', color: 'var(--clr-part-text)' } : isPartial ? { background: 'var(--clr-part-soft)', color: 'var(--clr-part-text)' } : undefined}>
                   {!answered ? 'ข้าม' : outcome === 'self' ? 'ประเมินเอง' : (correct ? '✓ ถูก' : (isPartial ? `◐ ${ms.correct}/${ms.total}` : '✗ ผิด'))}
                 </span>
+                {/* A disputed key is named beside the verdict it may have decided. */}
+                {cautionChipShown(q.flag) && <span className="vmx-review-caution-badge">{CAUTION_CHIP_TEXT}</span>}
               </div>
             </div>
-            <h2 className="vmx-review-q"><RichText text={q.q} /></h2>
+            <StemText text={displayStem(q)} ask={(content) => <h2 className="vmx-review-q">{content}</h2>} />
 
             {isCorrectCollapsed ? (
               <button
@@ -497,6 +500,24 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 {!correct && <div className="vmx-review-ans correct-ans"><span className="k">เฉลย:</span>{correctDisplay}</div>}
               </>
             )}
+            {/* The same rule as the card (docs/releases/pending/quiet-labels.md): a
+                disputed key (major) is the caution, in rose; a minor flag is a
+                quiet note. Both in the card's own 14px text, sources included.
+                Right under the key: a student marked wrong on a disputed key
+                reads that before the reason, the note editor or the tags. */}
+            {cautionChipShown(q.flag) && q.flag.note && (
+              <div className="vmx-review-caution" style={{ marginTop: 8, padding: '8px 10px', borderRadius: 8, background: 'var(--clr-rose-soft)', border: '1px solid var(--clr-rose)', fontSize: 14, lineHeight: 1.6, color: 'var(--clr-ink)' }}>
+                <strong>{CAUTION_CHIP_TEXT}:</strong> {q.flag.note}
+                {q.flag.sources?.length > 0 && (
+                  <div style={{ marginTop: 4, color: 'var(--clr-rose-soft-text)', overflowWrap: 'anywhere' }}>แหล่งที่มา: {q.flag.sources.join(', ')}</div>
+                )}
+              </div>
+            )}
+            {!cautionChipShown(q.flag) && typeof q.flag?.note === 'string' && q.flag.note.trim() && (
+              <div className="vmx-review-note" style={{ marginTop: 8, fontSize: 14, lineHeight: 1.6, color: 'var(--clr-ink-soft)' }}>
+                หมายเหตุ: {q.flag.note}
+              </div>
+            )}
             {q.explain && q.type !== 'match' && <div className="vmx-review-explain"><span className="k">เหตุผล:</span><RichBlocks text={q.explain} /></div>}
             {safeImageUrl(q.explainImage) && (
               <ZoomableImage
@@ -513,9 +534,10 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
             {q && q.id && (
               <ReviewNoteEditor qId={q.id} noteText={notes?.[q.id]} setNote={setNote} />
             )}
-            {q.tags && q.tags.length > 0 && (
+            {/* Topics by the labels the card uses; working slugs stay out. */}
+            {tagTopicLabels(q).length > 0 && (
               <div style={{ marginTop: 10 }}>
-                {q.tags.map((t) => <span key={t} className="vmx-tag-pill">#{t}</span>)}
+                {tagTopicLabels(q).map((t) => <span key={t} className="vmx-tag-pill">{t}</span>)}
               </div>
             )}
             {q.verified && (() => {
@@ -545,16 +567,6 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 </div>
               );
             })()}
-            {q.flag && (
-              <div style={{ marginTop: 8, padding: '8px 10px', borderRadius: 8, background: 'var(--clr-rose-soft)', border: `1px solid ${q.flag.severity === 'major' ? 'var(--clr-rose)' : 'var(--clr-gold)'}`, fontSize: 14, color: 'var(--clr-ink)' }}>
-                <strong>{q.flag.severity === 'major' ? 'ข้อควรระวังสำคัญ' : 'หมายเหตุ'}:</strong> {q.flag.note}
-                {q.flag.sources?.length > 0 && (
-                  <div style={{ marginTop: 4, fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-                    <NavIcon name="wiki" size={11} /> {q.flag.sources.join(', ')}
-                  </div>
-                )}
-              </div>
-            )}
             {/* The whole source, as the card's chip shows it once the key is
                 on screen: the origin first, then the pointer it rests on. A
                 timed paper reaches its full source only here, and Review never

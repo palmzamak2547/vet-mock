@@ -1,4 +1,5 @@
 import { allowedOrigin, clientIP, rateLimit, sendRateLimitFailure } from './_lib/rate-limit.js';
+import { readJsonBody, sendBadBody } from './_lib/body.js';
 import { authenticatedUser, signedRpc } from './_lib/app-backend.js';
 import { scoreSubmission } from './_lib/exam-scoring.js';
 import { isWritingType } from '../src/hooks/utils.js';
@@ -28,7 +29,9 @@ export default async function handler(req, res) {
   if (req.headers.origin && !origin) return res.status(403).json({ error: 'origin_not_allowed' });
   const gate = await requireChula(req, res);
   if (!gate) return undefined;
-  if (Buffer.byteLength(JSON.stringify(req.body || {})) > 3 * 1024 * 1024) return res.status(413).json({ error: 'submission_too_large' });
+  const body = readJsonBody(req);
+  if (!body) return sendBadBody(res);
+  if (Buffer.byteLength(JSON.stringify(body)) > 3 * 1024 * 1024) return res.status(413).json({ error: 'submission_too_large' });
   const ipLimit = await rateLimit(`exam-result:${clientIP(req)}`, 600, 10 * 60 * 1000);
   if (!ipLimit.ok) return sendRateLimitFailure(res, ipLimit);
   try {
@@ -37,14 +40,19 @@ export default async function handler(req, res) {
     const accountLimit = await rateLimit(`exam-result-user:${auth.userId}`, 120, 60 * 60 * 1000);
     if (!accountLimit.ok) return sendRateLimitFailure(res, accountLimit);
     let result;
-    try { result = scoreSubmission(req.body, await catalog()); }
+    try { result = scoreSubmission(body, await catalog()); }
     catch (error) {
       if (['invalid-submission', 'duplicate-questions', 'invalid-score'].includes(error.message)) return res.status(400).json({ error: error.message });
       throw error;
     }
     const receipt = await signedRpc('record_exam_receipt', 'exam-result', { ...result, user_id: auth.userId }, auth.token);
     return res.status(receipt?.ok ? 200 : 409).json(receipt);
-  } catch {
+  } catch (error) {
+    // record_exam_receipt raises "Receipt unavailable" when the result's id is already another
+    // account's row (migration 20261011120200): no retry can ever store it. Answered as the
+    // conflict it is, so the outbox sets that record aside and sends the ones behind it; a 503
+    // would hold every later result on the device.
+    if (error?.detail === 'Receipt unavailable') return res.status(409).json({ ok: false, error: 'result_conflict' });
     return res.status(503).json({ error: 'result_pending', retryAfter: 30 });
   }
 }

@@ -3,6 +3,7 @@
 // so the importing view can offer its existing explicit retry; preventing the
 // Vite event would turn a rejected import into an undefined module instead.
 import { publishUpdateStatus } from './update-safety.js'
+import { IS_APP } from './native-detect.js'
 
 window.addEventListener('vite:preloadError', () => {
   if (navigator.onLine === false) return
@@ -57,6 +58,41 @@ const announceWaitingWorker = (worker) => {
   publishUpdateStatus(window, 'service-worker')
 }
 
+// The first visit's files arrive before any worker controls the page, so the
+// worker never saw them and an offline reload of that visit drew a blank page.
+// Once a worker takes control, name the app files this page already loaded so
+// the worker keeps them (sw.js CACHE_LOADED).
+// The browser keeps 250 timing entries by default; Home's pictures alone can
+// fill that before a lazy chunk is listed.
+try { window.performance?.setResourceTimingBufferSize?.(1000) } catch { /* optional */ }
+const appFile = (name) => {
+  try {
+    const url = new URL(name)
+    return url.origin === window.location.origin && /^\/(?:assets|fonts)\//.test(url.pathname) ? url.href : null
+  } catch { return null }
+}
+let loadedFilesReported = false
+const reportLoadedFiles = () => {
+  const worker = navigator.serviceWorker.controller
+  const perf = window.performance
+  if (loadedFilesReported || !worker || typeof perf?.getEntriesByType !== 'function') return
+  loadedFilesReported = true
+  const send = (entries) => {
+    const urls = new Set(entries.map((entry) => appFile(entry.name)).filter(Boolean))
+    if (urls.size) worker.postMessage({ type: 'CACHE_LOADED', urls: [...urls] })
+  }
+  send(perf.getEntriesByType('resource'))
+  // A file still downloading at the takeover finishes outside the worker as
+  // well: name those too as they complete (the worker skips what it holds).
+  if (typeof window.PerformanceObserver === 'function') {
+    try {
+      const observer = new window.PerformanceObserver((list) => send(list.getEntries()))
+      observer.observe({ type: 'resource' })
+      setTimeout(() => observer.disconnect(), 30000)
+    } catch { /* the first list is what is kept */ }
+  }
+}
+
 window.addEventListener('pagehide', (event) => {
   // BFCache keeps this document alive. A real departure gives the worker a
   // chance to trim old assets after the last window closes, never mid-study.
@@ -68,13 +104,17 @@ window.addEventListener('pagehide', (event) => {
 window.addEventListener('load', () => {
   if (!('serviceWorker' in navigator)) return
   // The Android app serves its own copy of the build and updates it natively (src/lib/native-app.js).
-  if (window.VetMockApp) return
+  // IS_APP too: native-app.js is loaded with import() and may still be on its way at the load event.
+  if (window.VetMockApp || IS_APP) return
   if (import.meta.env?.MODE !== 'production') {
     // Dev mode — clear any stale SW so HMR flows freely
     navigator.serviceWorker.getRegistrations()
       .then((regs) => regs.forEach((r) => r.unregister()))
       .catch(() => {})
     return
+  }
+  if (!navigator.serviceWorker.controller) {
+    navigator.serviceWorker.addEventListener('controllerchange', reportLoadedFiles, { once: true })
   }
   navigator.serviceWorker.register('/sw.js').then((reg) => {
     // A worker may already be waiting when this tab opens.

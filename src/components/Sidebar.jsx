@@ -120,7 +120,7 @@ export default function Sidebar({
         type="button"
         className="vmx-logo vmx-logo-btn vmx-sidebar-brand"
         onClick={goHome}
-        aria-label="VetMock — หน้าแรก"
+        aria-label="VetMock: หน้าแรก"
       >
         <Wordmark size={24} cycle />
       </button>

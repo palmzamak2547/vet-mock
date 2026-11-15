@@ -6,6 +6,457 @@
 // ============================================================
 
 export const VIDEO_REGISTRY = {
+ "4HoVshWJzAo": {
+  "title": "Epidemiological approach to zoonoses",
+  "session": "4",
+  "date": "2026-11-13",
+  "durationSec": 6138,
+  "subject": "zoonoses",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLdEGWCa6KP70",
+  "topics": [],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "720ploUu9Oo": {
+  "title": "Livestock waste management",
+  "session": "7",
+  "date": "2026-11-11",
+  "durationSec": 3494,
+  "subject": "one-health",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLUkxr1h8UGtY",
+  "topics": [
+   [
+    "oh-livestock-waste",
+    1920,
+    2940,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "HjybdZFuD8E": {
+  "title": "Antemortem & Postmortem inspection",
+  "session": "7",
+  "date": "2026-11-11",
+  "durationSec": 8495,
+  "subject": "milk-meat-hygiene",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLLCu_1UIckNA",
+  "topics": [
+   [
+    "meat-ante-post-mortem",
+    180,
+    1200,
+    "high"
+   ],
+   [
+    "meat-ante-post-mortem",
+    2400,
+    7440,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "4ISFo-PV2lc": {
+  "title": "หน่วยงาน และองค์กรที่เกี่ยวข้องกับการควบคุมโรคระบาดสัตว์น้ำ มกอช",
+  "session": "6",
+  "date": "2026-11-10",
+  "durationSec": 9177,
+  "subject": "aquatic-clinic",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLX_tj_W1SgqE",
+  "topics": [],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "TYLIbgerEsw": {
+  "title": "Japanese encephalitis",
+  "session": "6",
+  "date": "2026-11-06",
+  "durationSec": 6582,
+  "subject": "swine-clinic",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLXVS-5YCQzqk",
+  "topics": [
+   [
+    "swine-prv-je",
+    4440,
+    5760,
+    "ambiguous"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "w1EAbprOd_M": {
+  "title": "Bacterial zoonoses(ต่อ) + Prion diseases",
+  "session": "3",
+  "date": "2026-11-04",
+  "durationSec": 9311,
+  "subject": "zoonoses",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLdEGWCa6KP70",
+  "topics": [
+   [
+    "zoo-bacterial",
+    360,
+    4080,
+    "high"
+   ],
+   [
+    "zoo-helminthic",
+    5220,
+    5640,
+    "high"
+   ],
+   [
+    "zoo-prion",
+    5640,
+    8820,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "rLIJCE3ij9s": {
+  "title": "Equine lameness I",
+  "session": "5",
+  "date": "2026-11-05",
+  "durationSec": 12104,
+  "subject": "equine-medicine",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLaj5owvXDpPs",
+  "topics": [
+   [
+    "equine-lameness",
+    8160,
+    8700,
+    "high"
+   ],
+   [
+    "equine-lameness",
+    9180,
+    11340,
+    "medium"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "pXxxZN-3hNA": {
+  "title": "One health perspective on food and feed GMOs",
+  "session": "6",
+  "date": "2026-11-04",
+  "durationSec": 3561,
+  "subject": "one-health",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLUkxr1h8UGtY",
+  "topics": [
+   [
+    "oh-concept",
+    780,
+    1380,
+    "high"
+   ],
+   [
+    "oh-gmo",
+    1380,
+    2760,
+    "medium"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "D9sbVGJAEWA": {
+  "title": "Slaughterhouse",
+  "session": "6",
+  "date": "2026-11-04",
+  "durationSec": 9798,
+  "subject": "milk-meat-hygiene",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLLCu_1UIckNA",
+  "topics": [],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "oLzElKUr0dU": {
+  "title": "Ornithobacteriosis + Campylobacteriosis + Listeriosis + Histomoniasis",
+  "session": "5",
+  "date": "2026-11-03",
+  "durationSec": 6772,
+  "subject": "avian-medicine",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLV0M_1h3Ge3M",
+  "topics": [],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "zYRQuoLlrWg": {
+  "title": "Aquatic toxicology",
+  "session": "5",
+  "date": "2026-11-03",
+  "durationSec": 7540,
+  "subject": "aquatic-clinic",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLX_tj_W1SgqE",
+  "topics": [
+   [
+    "aqua-toxicology",
+    0,
+    60,
+    "ambiguous"
+   ],
+   [
+    "aqua-toxicology",
+    480,
+    720,
+    "high"
+   ],
+   [
+    "aqua-toxicology",
+    3180,
+    4200,
+    "medium"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "oQpo0GnOTj0": {
+  "title": "Trichinosis + FMD + PCV2",
+  "session": "5",
+  "date": "2026-10-30",
+  "durationSec": 6205,
+  "subject": "swine-clinic",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLXVS-5YCQzqk",
+  "topics": [],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "pWwhXN2E4yY": {
+  "title": "Mycotoxicosis(ต่อ)",
+  "session": "4.2",
+  "date": "2026-11-02",
+  "durationSec": 3462,
+  "subject": "avian-medicine",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLV0M_1h3Ge3M",
+  "topics": [
+   [
+    "avian-mycosis",
+    1020,
+    3462,
+    "medium"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "4la33MLOYhM": {
+  "title": "Equine reproductive surgery + 13,14 Equine pregnancy & Its complications",
+  "session": "12",
+  "date": "2026-10-29",
+  "durationSec": 9531,
+  "subject": "equine-repro",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLK_0ekR-txos",
+  "topics": [
+   [
+    "eqrepro-male",
+    1200,
+    1500,
+    "ambiguous"
+   ],
+   [
+    "eqrepro-pregnancy",
+    4920,
+    6360,
+    "ambiguous"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "TLdoEVtldtE": {
+  "title": "Aquatic animals products",
+  "session": "2",
+  "date": "2026-10-28",
+  "durationSec": 5988,
+  "subject": "food-industry",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLakGwr0kO4UE",
+  "topics": [
+   [
+    "fiqc-aquatic",
+    600,
+    3300,
+    "high"
+   ],
+   [
+    "fiqc-aquatic",
+    4920,
+    5640,
+    "ambiguous"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "_gZS4uB8SJ4": {
+  "title": "One health approach to address environmental health risks II",
+  "session": "5",
+  "date": "2026-10-28",
+  "durationSec": 3554,
+  "subject": "one-health",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLUkxr1h8UGtY",
+  "topics": [
+   [
+    "oh-env-carcinogen",
+    2340,
+    3120,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "ckTr460hIn4": {
+  "title": "Pest control + Microbiology of the avian egg",
+  "session": "5",
+  "date": "2026-10-28",
+  "durationSec": 3520,
+  "subject": "milk-meat-hygiene",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLLCu_1UIckNA",
+  "topics": [
+   [
+    "meat-pest-control",
+    0,
+    1260,
+    "high"
+   ],
+   [
+    "meat-egg-micro",
+    1260,
+    3420,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "YZhZ86q6bHk": {
+  "title": "Bacterial zoonoses",
+  "session": "2",
+  "date": "2026-10-27",
+  "durationSec": 7320,
+  "subject": "zoonoses",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLdEGWCa6KP70",
+  "topics": [
+   [
+    "zoo-bacterial",
+    180,
+    600,
+    "high"
+   ],
+   [
+    "zoo-helminthic",
+    1080,
+    1920,
+    "high"
+   ],
+   [
+    "zoo-rickettsial",
+    3780,
+    6720,
+    "medium"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
  "EQnBE3-pL94": {
   "title": "Marine mammal medicine",
   "session": "4",
@@ -192,7 +643,7 @@ export const VIDEO_REGISTRY = {
  },
  "1dAsMNt_5XA": {
   "title": "Mycotic infection(ต่อ) + Mycotoxicosis",
-  "session": "4",
+  "session": "4.1",
   "date": "2026-10-26",
   "durationSec": 3653,
   "subject": "avian-medicine",
@@ -246,6 +697,40 @@ export const VIDEO_REGISTRY = {
    [
     3426.3,
     3481,
+    "after"
+   ]
+  ],
+  "media": true,
+  "captions": "youtube",
+  "card": true
+ },
+ "8efJw7eJlBw": {
+  "title": "Aquarium veterinarian",
+  "session": "3",
+  "date": "2026-10-20",
+  "durationSec": 9864,
+  "subject": "aquatic-clinic",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLX_tj_W1SgqE",
+  "topics": [
+   [
+    "aqua-aquarium-vet",
+    5460,
+    5580,
+    "ambiguous"
+   ]
+  ],
+  "skips": [
+   [
+    7165.5,
+    9014,
+    "pause"
+   ],
+   [
+    9785.4,
+    9864,
     "after"
    ]
   ],
@@ -366,7 +851,7 @@ export const VIDEO_REGISTRY = {
   "title": "HACCP for poultry + Polutry standard for export",
   "session": "1",
   "date": "2026-10-14",
-  "durationSec": 12462,
+  "durationSec": 12461,
   "subject": "food-industry",
   "year": 5,
   "term": 1,
@@ -393,7 +878,7 @@ export const VIDEO_REGISTRY = {
    ]
   ],
   "skips": [],
-  "media": false,
+  "media": true,
   "captions": "youtube",
   "card": true,
   "note": "รวบมาเรียนครั้งเดียว"
@@ -402,7 +887,7 @@ export const VIDEO_REGISTRY = {
   "title": "One health approach to combat foodborne diseases",
   "session": "3",
   "date": "2026-10-14",
-  "durationSec": 3734,
+  "durationSec": 3733,
   "subject": "one-health",
   "year": 5,
   "term": 1,
@@ -423,7 +908,7 @@ export const VIDEO_REGISTRY = {
    ]
   ],
   "skips": [],
-  "media": false,
+  "media": true,
   "captions": "youtube",
   "card": true
  },
@@ -458,7 +943,7 @@ export const VIDEO_REGISTRY = {
    ]
   ],
   "skips": [],
-  "media": false,
+  "media": true,
   "captions": "youtube",
   "card": true
  },
@@ -481,7 +966,7 @@ export const VIDEO_REGISTRY = {
    ]
   ],
   "skips": [],
-  "media": false,
+  "media": true,
   "captions": "youtube",
   "card": true
  },
@@ -489,7 +974,7 @@ export const VIDEO_REGISTRY = {
   "title": "Reproductive diseases",
   "session": "3",
   "date": "2026-10-02",
-  "durationSec": 5071,
+  "durationSec": 5070,
   "subject": "swine-clinic",
   "year": 5,
   "term": 1,
@@ -505,12 +990,12 @@ export const VIDEO_REGISTRY = {
    [
     "swine-repro",
     2280,
-    5071,
+    5070,
     "high"
    ]
   ],
   "skips": [],
-  "media": false,
+  "media": true,
   "captions": "youtube",
   "card": true
  },
@@ -518,7 +1003,7 @@ export const VIDEO_REGISTRY = {
   "title": "Yersinia",
   "session": "2",
   "date": "2026-10-07",
-  "durationSec": 6122,
+  "durationSec": 6121,
   "subject": "swine-clinic",
   "year": 5,
   "term": 1,
@@ -545,7 +1030,7 @@ export const VIDEO_REGISTRY = {
    ]
   ],
   "skips": [],
-  "media": false,
+  "media": true,
   "captions": "youtube",
   "card": true
  },
@@ -568,7 +1053,7 @@ export const VIDEO_REGISTRY = {
    ]
   ],
   "skips": [],
-  "media": false,
+  "media": true,
   "captions": "youtube",
   "card": true
  },
@@ -863,6 +1348,29 @@ export const VIDEO_REGISTRY = {
   "captions": "youtube",
   "card": true
  },
+ "eFol_YfalMg": {
+  "title": "Cleaning and disinfectants in milk collecting center and milk processing",
+  "session": "1",
+  "date": "2026-09-30",
+  "durationSec": 4647,
+  "subject": "milk-meat-hygiene",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLLCu_1UIckNA",
+  "topics": [
+   [
+    "milk-cleaning",
+    540,
+    4647,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
  "J0_PVwAL884": {
   "title": "Disease in fish culture",
   "session": "1",
@@ -914,6 +1422,65 @@ export const VIDEO_REGISTRY = {
     12360,
     12976,
     "medium"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "WeikQjYjlK0": {
+  "title": "Equine respiratory diseases",
+  "session": "6",
+  "date": "2026-09-17",
+  "durationSec": 4087,
+  "subject": "equine-medicine",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLaj5owvXDpPs",
+  "topics": [
+   [
+    "equine-respi",
+    0,
+    3420,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true,
+  "note": "มีแค่1ชั่วโมงแรกนะ หลังจากนั้นเน็ตหลุด"
+ },
+ "ezb2wLM_R2o": {
+  "title": "AHRA AE Adeno Salmo Omphalitis Ascited Staph",
+  "session": "7",
+  "date": "2026-09-15",
+  "durationSec": 11272,
+  "subject": "avian-medicine",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLV0M_1h3Ge3M",
+  "topics": [
+   [
+    "avian-ae",
+    4920,
+    5520,
+    "high"
+   ],
+   [
+    "avian-adeno",
+    5520,
+    6240,
+    "medium"
+   ],
+   [
+    "avian-salmonella",
+    6240,
+    9300,
+    "high"
    ]
   ],
   "skips": [],
@@ -1182,6 +1749,53 @@ export const VIDEO_REGISTRY = {
   "captions": "youtube",
   "card": true
  },
+ "ScpsvwW0FhM": {
+  "title": "IBD + Neoplastic + Chicken infectious anemia + Reovirus + Runting and Stuning syndrome",
+  "session": "5",
+  "date": "2026-09-01",
+  "durationSec": 7877,
+  "subject": "avian-medicine",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLV0M_1h3Ge3M",
+  "topics": [
+   [
+    "avian-ibd",
+    240,
+    2040,
+    "high"
+   ],
+   [
+    "avian-marek",
+    2040,
+    4440,
+    "high"
+   ],
+   [
+    "avian-rss",
+    4440,
+    6120,
+    "medium"
+   ],
+   [
+    "avian-reo",
+    6120,
+    6720,
+    "high"
+   ],
+   [
+    "avian-rss",
+    6720,
+    7500,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
  "Nto0dg3GP1w": {
   "title": "Ornamental fish medicine",
   "session": "5",
@@ -1382,6 +1996,35 @@ export const VIDEO_REGISTRY = {
   "captions": "youtube",
   "card": true
  },
+ "hHvKF5h22RU": {
+  "title": "Shrimp biology and fish immunology",
+  "session": "4",
+  "date": "2026-08-25",
+  "durationSec": 8288,
+  "subject": "aquatic-clinic",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLX_tj_W1SgqE",
+  "topics": [
+   [
+    "aqua-shrimp-immunology",
+    4440,
+    7080,
+    "high"
+   ],
+   [
+    "aqua-shrimp-immunology",
+    7260,
+    8288,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
  "F1jwpqQCGBM": {
   "title": "Avian influenza",
   "session": "4",
@@ -1411,6 +2054,29 @@ export const VIDEO_REGISTRY = {
   "captions": "youtube",
   "card": true,
   "note": "ช่วงท้ายทีมหลุดหายนะ"
+ },
+ "4n_3DBI9LXA": {
+  "title": "LSS and fish health + Water quality in aquaculture pond",
+  "session": "3",
+  "date": "2026-08-18",
+  "durationSec": 10389,
+  "subject": "aquatic-clinic",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLX_tj_W1SgqE",
+  "topics": [
+   [
+    "aqua-life-support",
+    480,
+    2520,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
  },
  "Jx489N1psMo": {
   "title": "Outbreak investigation + Report outbreak",
@@ -1741,6 +2407,52 @@ export const VIDEO_REGISTRY = {
   "captions": "youtube",
   "card": true
  },
+ "8ekNMuG25gI": {
+  "title": "Mycoplasmosis",
+  "session": "2",
+  "date": "2026-08-11",
+  "durationSec": 7559,
+  "subject": "avian-medicine",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLV0M_1h3Ge3M",
+  "topics": [
+   [
+    "avian-myco",
+    180,
+    780,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "r8YaeGUc4E0": {
+  "title": "Fish biology",
+  "session": "2",
+  "date": "2026-08-11",
+  "durationSec": 5802,
+  "subject": "aquatic-clinic",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLX_tj_W1SgqE",
+  "topics": [
+   [
+    "aqua-fish-biology",
+    2580,
+    3600,
+    "high"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
  "OPoCv_-EfpQ": {
   "title": "Measurement (ต่อ)",
   "session": "2.2",
@@ -1793,6 +2505,47 @@ export const VIDEO_REGISTRY = {
   "card": true,
   "note": "ช่วง 15 นาทีแรกไม่มีอัด (เน็ตล่ม)"
  },
+ "oWZEdlLXcpo": {
+  "title": "Intro + Avian influenza + Swine and canine influenza",
+  "session": "1",
+  "date": "2026-08-07",
+  "durationSec": 9181,
+  "subject": "zoonoses",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLdEGWCa6KP70",
+  "topics": [
+   [
+    "zoo-intro",
+    720,
+    1380,
+    "ambiguous"
+   ],
+   [
+    "zoo-intro",
+    1800,
+    2400,
+    "medium"
+   ],
+   [
+    "zoo-ai-basic",
+    2400,
+    5220,
+    "high"
+   ],
+   [
+    "zoo-siv-civ",
+    6420,
+    9181,
+    "medium"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
  "R4k7-CbupPc": {
   "title": "Role of Veterinarian in One Health",
   "session": "1",
@@ -1821,6 +2574,47 @@ export const VIDEO_REGISTRY = {
     2820,
     3120,
     "medium"
+   ]
+  ],
+  "skips": [],
+  "media": false,
+  "captions": "youtube",
+  "card": true
+ },
+ "7XyI0SjnuBA": {
+  "title": "ND, IB, ILT, AMPV, Avian pox",
+  "session": "1",
+  "date": "2026-08-04",
+  "durationSec": 7669,
+  "subject": "avian-medicine",
+  "year": 5,
+  "term": 1,
+  "channel": "UCCyb7FcNA6xQa0jOwQtNRSQ",
+  "playlist": "PLV0M_1h3Ge3M",
+  "topics": [
+   [
+    "avian-nd",
+    420,
+    2040,
+    "high"
+   ],
+   [
+    "avian-nd",
+    2580,
+    3240,
+    "high"
+   ],
+   [
+    "avian-lt",
+    3840,
+    5400,
+    "high"
+   ],
+   [
+    "avian-mpv",
+    5400,
+    6060,
+    "high"
    ]
   ],
   "skips": [],

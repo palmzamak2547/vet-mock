@@ -1,3 +1,4 @@
+// @ts-check
 // ============================================================
 // r2.js — SigV4 presigning for Cloudflare R2 (S3-compatible).
 // ============================================================
@@ -60,6 +61,11 @@ export function r2Config(env = process.env) {
 /** A presigned URL for one object. `method` is GET to read, PUT to ingest.
  *  Returns null when R2 is not configured, so callers can degrade rather
  *  than throw a secret-shaped error at a student. */
+/** @typedef {Record<string, string | undefined>} Env */
+/**
+ * @param {string} key
+ * @param {{ method?: string, expiresIn?: number, bucket?: string, env?: Env, now?: number }} [opts]
+ */
 export function presign(key, { method = 'GET', expiresIn = 300, bucket, env = process.env, now } = {}) {
   const cfg = r2Config(env);
   if (!cfg.configured) return null;
@@ -124,8 +130,14 @@ export function cfConfig(env = process.env) {
 
 // Temp credentials are cached for most of their lifetime so a burst of
 // students opening decks costs one mint, not one per open.
+/** @typedef {{ accessKeyId: string, secretAccessKey: string, sessionToken: string }} TempCreds */
+/** @type {{ creds: TempCreds | null, until: number, key: string }} */
 let tempCache = { creds: null, until: 0, key: '' };
 
+/**
+ * @param {{ permission?: string, ttlSeconds?: number, bucket?: string, env?: Env, fetchImpl?: typeof fetch }} [opts]
+ * @returns {Promise<TempCreds | null>}
+ */
 export async function tempCredentials({ permission = 'object-read-only', ttlSeconds = 900, bucket, env = process.env, fetchImpl = fetch } = {}) {
   const cfg = cfConfig(env);
   if (!cfg.configured) return null;
@@ -137,6 +149,7 @@ export async function tempCredentials({ permission = 'object-read-only', ttlSeco
   const r = await fetchImpl(
     `https://api.cloudflare.com/client/v4/accounts/${cfg.accountId}/r2/temp-access-credentials`,
     {
+      redirect: 'error',
       method: 'POST',
       headers: { Authorization: `Bearer ${cfg.apiToken}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({ bucket: b, permission, ttlSeconds }),
@@ -162,6 +175,11 @@ export async function tempCredentials({ permission = 'object-read-only', ttlSeco
  *  credentials carry a session token, which SigV4 includes as
  *  X-Amz-Security-Token — in the QUERY and therefore in the signature,
  *  like every other parameter. */
+/**
+ * @param {{ accessKeyId?: string, secretAccessKey?: string, sessionToken?: string } | null | undefined} creds
+ * @param {string} key
+ * @param {{ method?: string, expiresIn?: number, bucket?: string, accountId?: string, env?: Env, now?: number }} [opts]
+ */
 export function presignWith(creds, key, { method = 'GET', expiresIn = 300, bucket, accountId, env = process.env, now } = {}) {
   const acct = accountId || cfConfig(env).accountId || r2Config(env).accountId;
   const b = bucket || cfConfig(env).bucket;
@@ -222,7 +240,7 @@ export async function tokenKeyEnv(env = process.env, fetchImpl = fetch) {
   if (!token || !accountId) return null;
   const secret = sha256Hex(token);
   if (tokenId.of !== secret || Date.now() - tokenId.at > 6 * 3600 * 1000) {
-    const ask = async (u) => (await fetchImpl(u, { headers: { Authorization: `Bearer ${token}` }, signal: AbortSignal.timeout(6000) })).json();
+    const ask = async (u) => (await fetchImpl(u, { redirect: 'error', headers: { Authorization: `Bearer ${token}` }, signal: AbortSignal.timeout(6000) })).json();
     // A user token verifies on /user; an account-owned token only on its account.
     let v = await ask('https://api.cloudflare.com/client/v4/user/tokens/verify').catch(() => null);
     if (!v?.success || !v.result?.id) v = await ask(`https://api.cloudflare.com/client/v4/accounts/${encodeURIComponent(accountId)}/tokens/verify`).catch(() => null);

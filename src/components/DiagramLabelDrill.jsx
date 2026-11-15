@@ -182,7 +182,7 @@ function DrillRunner({ drill, onBack, onClose }) {
         )}
 
         {revealed && (
-          <div style={{ marginTop: 14, padding: 14, borderRadius: 10, background: scorePct >= 70 ? 'rgba(74,107,74,0.10)' : 'rgba(192,57,43,0.10)', border: `1px solid ${scorePct >= 70 ? 'var(--clr-sage)' : 'var(--clr-rose, #c0392b)'}` }}>
+          <div style={{ marginTop: 14, padding: 14, borderRadius: 10, background: scorePct >= 70 ? 'rgba(74,107,74,0.10)' : 'rgba(192,57,43,0.10)', border: `1px solid ${scorePct >= 70 ? 'var(--clr-right)' : 'var(--clr-rose, #c0392b)'}` }}>
             <div style={{ fontSize: 22, fontFamily: 'var(--vmx-display)', fontWeight: 700, marginBottom: 4 }}>
               {scorePct}%, ถูกตั้งแต่ครั้งแรก {firstTryCount}/{drill.anchors.length}
             </div>
@@ -208,8 +208,8 @@ function DrillRunner({ drill, onBack, onClose }) {
               </ul>
             </details>
             <div className="vmx-btn-row" style={{ marginTop: 12 }}>
-              <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={() => { setProgress({}); setActiveAnchor(null); setRevealed(false); }}>🔁 ทำซ้ำ</button>
               <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={onBack}>เปลี่ยน diagram</button>
+              <button type="button" className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={() => { setProgress({}); setActiveAnchor(null); setRevealed(false); }}>🔁 ทำซ้ำ</button>
             </div>
           </div>
         )}

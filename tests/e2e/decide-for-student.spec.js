@@ -59,7 +59,7 @@ test('a topic tap shows what was set up and starts in one tap, the same set as b
   const expected = ladderPreset('understand', { available }).numQuestions;
 
   await expect(page.locator('#vmx-config-summary')).toHaveText(`จัดให้แล้ว: ${expected} ข้อ, ไม่จับเวลา, เฉลยทันทีรายข้อ`);
-  await expect(page.locator('.vmx-decide-why')).toHaveText(/^เริ่มขั้นแรก ข้อที่น่าจะง่ายมาก่อน เห็นเฉลยทุกข้อ/);
+  await expect(page.locator('.vmx-decide-why')).toHaveText(/^เริ่มขั้นแรก ข้อที่น่าจะง่ายมาก่อน(?: ใกล้สอบแล้ว ลองขั้นแบบสอบใน "ปรับเอง")?$/);
   const adjust = page.getByRole('button', { name: 'ปรับเอง', exact: true });
   await expect(adjust).toHaveAttribute('aria-expanded', 'false');
   await expect(page.getByRole('spinbutton', { name: /จำนวนข้อ.*กำหนดเอง/ })).toBeHidden();
@@ -213,7 +213,7 @@ test('the review planner says what today is and starts in one tap', async ({ pag
   await expect(page.locator('.vmx-decide-why')).toHaveText('ใบที่ค้างนานสุดมาก่อน');
   await expect(page.getByRole('button', { name: 'ปรับเอง', exact: true })).toHaveAttribute('aria-expanded', 'false');
   await expect(page.getByRole('group', { name: 'จำนวนวันนี้', exact: true })).toBeHidden();
-  await page.getByRole('button', { name: 'เริ่ม Session →', exact: true }).click();
+  await page.getByRole('button', { name: 'เริ่มทบทวน', exact: true }).click();
   await expect(page.getByText(card.front, { exact: true })).toBeVisible({ timeout: 20_000 });
 });
 

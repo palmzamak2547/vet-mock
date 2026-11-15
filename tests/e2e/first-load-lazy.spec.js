@@ -1,0 +1,284 @@
+// Code that left the first load (perf-budgets.json lazyOnly) loads only when it is needed, and the first
+// screen is the same whether or not it can load.
+import { test, expect, PINNED_NOW } from './fixtures.js';
+
+const chunk = (name) => new RegExp(`/assets/${name}-[A-Za-z0-9_-]+\\.js$`);
+const ORIGIN_MOVE = chunk('origin-move');
+const NATIVE_APP = chunk('native-app');
+const MOTION_SETTINGS = chunk('MotionSettings');
+const ANY_LAZY = (url) => [ORIGIN_MOVE, NATIVE_APP, MOTION_SETTINGS].some((re) => re.test(url.pathname));
+
+async function watch(page, pattern) {
+  const seen = [];
+  const hit = (url) => (typeof pattern === 'function' ? pattern(url) : pattern.test(url.pathname));
+  page.on('request', (r) => { if (hit(new URL(r.url()))) seen.push(r.url()); });
+  return seen;
+}
+
+// The first screen once it has settled. Both loads of a pair run against the same seed, so they draw the
+// same thing; what moves on its own for a moment (the top loading bar running out, the countdown's number
+// counting up to its value) is waited out, never left out: the DOM is read when it has stopped changing
+// for 800 ms. Read at the load event instead, two loads were caught at different frames of those motions.
+async function firstScreen(page) {
+  await page.locator('#root > *').first().waitFor();
+  await page.waitForLoadState('load');
+  // The top loading bar runs out and leaves the page once the first screen has loaded; it is read after it
+  // has gone, on either page (WebKit sometimes still held it, faded out, at the moment of the read).
+  await page.waitForFunction(() => !document.querySelector('#root [role="progressbar"]'), null, { timeout: 15_000 });
+  // Both pages' clocks are then stopped at the same instant, so the live clocks (the countdown's seconds,
+  // the landing card's timer) read the same in both.
+  await page.clock.pauseAt(Date.parse(PINNED_NOW) + 20_000);
+  // The landing's cookie card is left out: it opens once the nav has scrolled or the hero has left the
+  // view, which WebKit reported on one page and not the other (CI, 15 Nov), and no lazy code draws it.
+  const read = () => page.locator('#root').evaluate((root) => {
+    const copy = root.cloneNode(true);
+    copy.querySelectorAll('.lp-cookie-dock').forEach((el) => el.remove());
+    return copy.innerHTML.replace(/\s+id="[^"]*:r[0-9a-z]+:[^"]*"/g, '');
+  });
+  let last = await read();
+  let still = Date.now();
+  for (const deadline = Date.now() + 15_000; Date.now() < deadline;) {
+    await page.waitForTimeout(200);
+    const now = await read();
+    if (now !== last) { last = now; still = Date.now(); } else if (Date.now() - still >= 800) return now;
+  }
+  return last;
+}
+
+const RETURNING_Y5 = { 'vmx-selected-year': '5', 'vmx-seen-landing': '1', 'vmx-bookmarks': '[90001]' };
+const seed = (entries) => (values) => { for (const [k, v] of Object.entries(values)) localStorage.setItem(k, v); };
+
+// Two fresh browsers with the same seed and the same pinned clock: one may fetch the lazy code, one may not.
+async function freshPage(browser, entries, block) {
+  const { baseURL, viewport, userAgent, isMobile, hasTouch, deviceScaleFactor } = test.info().project.use;
+  // Reduced motion: the wordmark's phrases cycle for as long as the page is open, and the countdown's
+  // number rolls up, so two loads read at any moment differ by where those motions stand. With motion
+  // turned down the app draws them still, and every element is still compared.
+  const ctx = await browser.newContext({ baseURL, viewport, userAgent, isMobile, hasTouch, deviceScaleFactor, reducedMotion: 'reduce' });
+  await ctx.addInitScript(seed(entries), entries);
+  const page = await ctx.newPage();
+  // The pinned calendar, as a clock the check can stop (firstScreen).
+  await page.clock.install({ time: Date.parse(PINNED_NOW) });
+  if (block) await page.route(block, (route) => route.abort());
+  return page;
+}
+
+for (const [who, entries] of [['a first-time visitor', {}], ['a returning Year-5 student', RETURNING_Y5]]) {
+  test(`${who}: the move and app-layer code is never fetched, and blocking it changes nothing on the first screen`, async ({ browser }) => {
+    const normal = await freshPage(browser, entries, null);
+    const fetched = await watch(normal, ANY_LAZY);
+    await normal.goto('/');
+    const shown = await firstScreen(normal);
+    expect(fetched).toEqual([]);
+
+    const blocked = await freshPage(browser, entries, ANY_LAZY);
+    await blocked.goto('/');
+    expect(await firstScreen(blocked)).toBe(shown);
+    await normal.context().close();
+    await blocked.context().close();
+  });
+}
+
+test('mid-move: the inbox is merged before the app first draws, and nothing is lost', async ({ page, context }) => {
+  const inbox = { fields: { 'vmx-bookmarks': '[90002,90003]' }, owner: null };
+  await context.addInitScript(([values, inboxValue]) => {
+    if (sessionStorage.getItem('seeded')) return;
+    sessionStorage.setItem('seeded', '1');
+    for (const [k, v] of Object.entries(values)) localStorage.setItem(k, v);
+    localStorage.setItem('vmx-move-inbox', inboxValue);
+    // What the store can read when the app's first element appears.
+    new MutationObserver((_, obs) => {
+      const root = document.getElementById('root');
+      if (!root?.firstElementChild) return;
+      obs.disconnect();
+      window.__atFirstDraw = { inbox: localStorage.getItem('vmx-move-inbox'), bookmarks: localStorage.getItem('vmx-bookmarks') };
+    }).observe(document, { childList: true, subtree: true });
+  }, [RETURNING_Y5, JSON.stringify(inbox)]);
+  const fetched = await watch(page, ORIGIN_MOVE);
+  await page.goto('/');
+  await page.locator('#root > *').first().waitFor();
+  const at = await page.evaluate(() => window.__atFirstDraw);
+  expect(fetched.length).toBe(1);
+  expect(at.inbox).toBeNull();
+  expect(JSON.parse(at.bookmarks).sort()).toEqual([90001, 90002, 90003]);
+});
+
+test('mid-move with the move code unreachable: the app starts and the inbox waits for the next boot', async ({ page, context, browserName }) => {
+  // Playwright's WebKit never fetches again a module that failed once in the page, even after a reload,
+  // so the second boot cannot be shown there; Chromium and Firefox show it.
+  test.skip(browserName === 'webkit', 'WebKit under Playwright keeps a failed module failed across reloads');
+  const inbox = JSON.stringify({ fields: { 'vmx-bookmarks': '[90002]' }, owner: null });
+  await context.addInitScript(([values, inboxValue]) => {
+    if (sessionStorage.getItem('seeded')) return;
+    sessionStorage.setItem('seeded', '1');
+    for (const [k, v] of Object.entries(values)) localStorage.setItem(k, v);
+    localStorage.setItem('vmx-move-inbox', inboxValue);
+  }, [RETURNING_Y5, inbox]);
+  await page.route(ORIGIN_MOVE, (route) => route.abort());
+  await page.goto('/');
+  await page.locator('#root > *').first().waitFor();
+  expect(await page.evaluate(() => localStorage.getItem('vmx-move-inbox'))).toBe(inbox);
+
+  await page.unroute(ORIGIN_MOVE);
+  await page.reload();
+  await page.locator('#root > *').first().waitFor();
+  await expect.poll(() => page.evaluate(() => localStorage.getItem('vmx-move-inbox'))).toBeNull();
+  expect(JSON.parse(await page.evaluate(() => localStorage.getItem('vmx-bookmarks'))).sort()).toEqual([90001, 90002]);
+  // The merge that went through clears its count of tries.
+  expect(await page.evaluate(() => localStorage.getItem('vmx-move-inbox-attempts'))).toBeNull();
+});
+
+test('mid-move with the move code stalling: the app starts after the wait, and the late code merges nothing', async ({ page, context }) => {
+  const inbox = JSON.stringify({ fields: { 'vmx-bookmarks': '[90002]' }, owner: null });
+  await context.addInitScript(([values, inboxValue]) => {
+    if (sessionStorage.getItem('seeded')) return;
+    sessionStorage.setItem('seeded', '1');
+    for (const [k, v] of Object.entries(values)) localStorage.setItem(k, v);
+    localStorage.setItem('vmx-move-inbox', inboxValue);
+  }, [RETURNING_Y5, inbox]);
+  let release;
+  const held = new Promise((resolve) => { release = resolve; });
+  let arrived = false;
+  await page.route(ORIGIN_MOVE, async (route) => { await held; await route.continue(); arrived = true; });
+  const asked = Date.now();
+  await page.goto('/', { waitUntil: 'commit' });
+  await page.locator('#root > *').first().waitFor({ timeout: 15_000 });
+  expect(Date.now() - asked).toBeGreaterThanOrEqual(3_500);
+  expect(await page.evaluate(() => window.__vmxMoveSkip)).toBe(true);
+
+  // The code arrives under the running app: it must leave the inbox for the next boot.
+  release();
+  await expect.poll(() => arrived).toBe(true);
+  await page.waitForTimeout(500);
+  expect(await page.evaluate(() => localStorage.getItem('vmx-move-inbox'))).toBe(inbox);
+  expect(await page.evaluate(() => localStorage.getItem('vmx-bookmarks'))).toBe('[90001]');
+  // A timeout is not a try: the next healthy boot merges with all its tries left.
+  expect(await page.evaluate(() => localStorage.getItem('vmx-move-inbox-attempts'))).toBeNull();
+  await page.unroute(ORIGIN_MOVE);
+  await page.reload();
+  await page.locator('#root > *').first().waitFor();
+  await expect.poll(() => page.evaluate(() => localStorage.getItem('vmx-move-inbox'))).toBeNull();
+  expect(JSON.parse(await page.evaluate(() => localStorage.getItem('vmx-bookmarks'))).sort()).toEqual([90001, 90002]);
+});
+
+test('a merge the device refuses three boots running: the app says once that the data is still at the old address', async ({ page, context }) => {
+  const inbox = JSON.stringify({ from: 'https://vetmock.vercel.app', fields: { 'vmx-bookmarks': '[90002]' }, owner: null });
+  await context.addInitScript(([values, inboxValue]) => {
+    if (!sessionStorage.getItem('seeded')) {
+      sessionStorage.setItem('seeded', '1');
+      for (const [k, v] of Object.entries(values)) localStorage.setItem(k, v);
+      localStorage.setItem('vmx-move-inbox', inboxValue);
+    }
+    // A full device: the merge's own writes are refused, the count beside it is not.
+    const set = Storage.prototype.setItem;
+    Storage.prototype.setItem = function setItem(key, value) {
+      if (key === 'vmx-bookmarks' || key === 'vmx-move-base') throw new DOMException('full', 'QuotaExceededError');
+      return set.call(this, key, value);
+    };
+  }, [RETURNING_Y5, inbox]);
+  const notice = page.locator('.vmx-update-notice', { hasText: 'ยังอยู่ที่ที่อยู่เดิม' });
+  for (let boot = 1; boot <= 3; boot++) {
+    if (boot === 1) await page.goto('/'); else await page.reload();
+    await page.locator('#root > *').first().waitFor();
+    if (boot < 3) await expect(notice).toHaveCount(0);
+  }
+  await expect(notice).toHaveCount(1, { timeout: 10_000 });
+  await expect(notice.getByRole('link', { name: 'ลองย้ายอีกครั้ง' })).toHaveAttribute('href', 'https://vetmock.vercel.app/?vmx-move=retry');
+  await page.reload();
+  await page.locator('#root > *').first().waitFor();
+  await page.waitForTimeout(2_000);
+  await expect(notice).toHaveCount(0);
+  expect(await page.evaluate(() => localStorage.getItem('vmx-move-inbox'))).toBe(inbox);
+});
+
+// The Android app's bridge as the WebView injects it before any page script: enough of Capacitor for
+// native-app.js to install itself, recording what the app layer asks of the shell.
+function fakeAndroidBridge() {
+  window.__nativeCalls = [];
+  window.Capacitor = {
+    isNativePlatform: () => true,
+    getPlatform: () => 'android',
+    nativePromise: (plugin, method) => { window.__nativeCalls.push(method); return Promise.resolve({ languages: [], state: 'prompt' }); },
+    addListener: () => ({ remove() {} }),
+  };
+  new MutationObserver((_, obs) => {
+    const root = document.getElementById('root');
+    if (!root?.firstElementChild) return;
+    obs.disconnect();
+    window.__appAtFirstDraw = typeof window.VetMockApp?.haptic === 'function';
+  }).observe(document, { childList: true, subtree: true });
+}
+
+test('inside the Android app: the app layer is fetched and in place before the app first draws', async ({ page, context }) => {
+  await context.addInitScript(fakeAndroidBridge);
+  const fetched = await watch(page, NATIVE_APP);
+  await page.goto('/');
+  await page.locator('#root > *').first().waitFor();
+  expect(fetched.length).toBe(1);
+  expect(await page.evaluate(() => window.__appAtFirstDraw)).toBe(true);
+  // The splash is told the first screen has painted, and no service worker registers inside the app.
+  await expect.poll(() => page.evaluate(() => window.__nativeCalls.includes('ready'))).toBe(true);
+  await page.waitForLoadState('load');
+  expect(await page.evaluate(async () => (await navigator.serviceWorker?.getRegistrations?.() ?? []).length)).toBe(0);
+});
+
+test('inside the Android app with the app layer unreachable: the app still starts, as a browser page', async ({ page, context }) => {
+  await context.addInitScript(fakeAndroidBridge);
+  await page.route(NATIVE_APP, (route) => route.abort());
+  await page.goto('/');
+  await page.locator('#root > *').first().waitFor();
+  expect(await page.evaluate(() => window.__appAtFirstDraw)).toBe(false);
+});
+
+// The theme panel on a page that shows the header's theme button (the same page motion-integration opens).
+const THEME_PAGE = '/wiki/zoonoses/zoo-rabies';
+const themeButton = (page) => page.getByRole('button', { name: 'ตัวเลือกธีมและจานสี', exact: true });
+const themePanel = (page) => page.getByRole('dialog', { name: 'ตั้งค่าธีมและจานสี', exact: true });
+
+test('the motion settings arrive with the theme panel, in the row that held their place', async ({ page }) => {
+  let release;
+  const held = new Promise((resolve) => { release = resolve; });
+  const fetched = await watch(page, MOTION_SETTINGS);
+  await page.route(MOTION_SETTINGS, async (route) => { await held; await route.continue(); });
+  await page.goto(THEME_PAGE);
+  await themeButton(page).waitFor();
+  expect(fetched).toEqual([]);
+
+  await themeButton(page).click();
+  const row = themePanel(page).locator('.vmx-theme-motion-settings');
+  await expect(row.getByText('ตั้งค่า Mochi และการเคลื่อนไหว', { exact: true })).toBeVisible();
+  const before = await themePanel(page).boundingBox();
+  // A tap on the row while the code is on its way.
+  await row.getByText('ตั้งค่า Mochi และการเคลื่อนไหว', { exact: true }).click();
+  release();
+  const motion = themePanel(page).getByRole('combobox', { name: 'การเคลื่อนไหว', exact: true });
+  await expect(motion).toBeVisible();
+  expect(fetched.length).toBe(1);
+  // Nothing above the row moved when it filled in.
+  const after = await themePanel(page).boundingBox();
+  expect(after.y).toBe(before.y);
+  expect(after.x).toBe(before.x);
+});
+
+test('the motion settings unreachable: the panel keeps its row and every other control works', async ({ page }) => {
+  await page.route(MOTION_SETTINGS, (route) => route.abort());
+  await page.goto(THEME_PAGE);
+  await themeButton(page).click();
+  await expect(themePanel(page).getByText('ตั้งค่า Mochi และการเคลื่อนไหว', { exact: true })).toBeVisible();
+  await expect(themePanel(page).getByRole('combobox', { name: 'การเคลื่อนไหว', exact: true })).toHaveCount(0);
+  await expect(themePanel(page).getByRole('button', { name: /Ocean/ })).toBeVisible();
+});
+
+test('keyboard focus on the placeholder row moves to the real row when the settings arrive', async ({ page }) => {
+  let release;
+  const held = new Promise((resolve) => { release = resolve; });
+  await page.route(MOTION_SETTINGS, async (route) => { await held; await route.continue(); });
+  await page.goto(THEME_PAGE);
+  await themeButton(page).click();
+  const summary = themePanel(page).locator('.vmx-theme-motion-settings summary');
+  await summary.focus();
+  await expect(summary).toBeFocused();
+  release();
+  await expect(themePanel(page).locator('.vmx-motion-settings-body')).toHaveCount(1);
+  await expect(themePanel(page).locator('.vmx-theme-motion-settings summary')).toBeFocused();
+});

@@ -108,6 +108,60 @@ test('the course-group box names the term its code registers', () => {
   assert.match(next, /ภาคการศึกษาปลาย 2569: ลงทะเบียนทั้งชุดด้วยรหัสกลุ่ม 3190599/);
 });
 
+// The same compile, at a chosen instant: each window's row, by its title, and
+// how the row is toned (the class the stylesheet colours its status line by).
+function calendarRows(at) {
+  const source = readFileSync(new URL('../../src/components/AcademicCalendar.jsx', import.meta.url), 'utf8');
+  const body = source.replace(/^import[\s\S]*?;\r?\n/gm, '').replace('export default function ', 'function ');
+  const { code } = transformSync(body, { loader: 'jsx', jsxFactory: 'h', jsxFragment: 'Fragment' });
+  const h = (type, props, ...children) => {
+    const node = { type, props: props || {}, children: children.flat(Infinity) };
+    return typeof type === 'function' ? type({ ...node.props, children: node.children }) : node;
+  };
+  const deps = { ...schedule, h, Fragment: 'Fragment', useState: (init) => [init, () => {}] };
+  const Calendar = new Function(...Object.keys(deps), `${code}\nreturn AcademicCalendar;`)(...Object.values(deps));
+  const textOf = (node) => (node == null || typeof node === 'boolean' ? ''
+    : typeof node !== 'object' ? String(node)
+      : Array.isArray(node) ? node.map(textOf).join('') : textOf(node.children));
+  const rows = {};
+  const walk = (node) => {
+    if (Array.isArray(node)) { node.forEach(walk); return; }
+    if (!node || typeof node !== 'object') return;
+    if (node.type === 'li') {
+      const title = node.children.flatMap((c) => c?.children || []).find((c) => c?.type === 'strong');
+      rows[textOf(title)] = { tone: node.props.className.replace('vmx-cal-row', '').trim(), text: textOf(node) };
+    }
+    walk(node.children);
+  };
+  walk(Calendar({ year: 5, now: new Date(at) }));
+  return rows;
+}
+
+// The term's payment window is open for months, and the page drew it in the
+// warning colour from its first day ("เปิดอยู่ เหลืออีก 63 วัน" in rose on
+// 15 Nov). A window reads as urgent only when that changes what a student
+// does today: a payment window in its last PAYMENT_NOTICE_DAYS, the rule
+// Home's chip follows, and a one-day deadline on its day.
+test('a window is toned urgent only when it is about to close', () => {
+  const PAY = 'ภาคปลาย: ชำระค่าเล่าเรียน ผ่านแอป CUNEX';
+  const early = calendarRows('2026-11-15T10:00:00+07:00');
+  assert.equal(early[PAY].tone, 'is-open', '63 days left: open, not an alarm');
+  assert.match(early[PAY].text, /เปิดอยู่ เหลืออีก 63 วัน, ปิด 23\.00 น\. ของวันที่ 17 ม\.ค\. 70/);
+  const late = calendarRows('2027-01-04T10:00:00+07:00');
+  assert.equal(schedule.PAYMENT_NOTICE_DAYS, 14);
+  assert.equal(late[PAY].tone, 'is-urgent', '13 days left');
+  assert.equal(late['ภาคปลาย: ลงทะเบียนสาย เพิ่ม/เปลี่ยนตอน/ลดรายวิชา'].tone, 'is-open', 'a registration round is open, never an alarm');
+  assert.equal(calendarRows('2027-01-03T10:00:00+07:00')[PAY].tone, 'is-urgent', '14 days left, the first urgent day');
+  assert.equal(calendarRows('2027-01-02T10:00:00+07:00')[PAY].tone, 'is-open', '15 days left');
+  // A window still ahead, and the one-day deadline on its day.
+  assert.equal(calendarRows('2026-12-07T23:30:00+07:00')['ภาคปลาย: ดูผลการแสดงความจำนง รอบที่ 1'].tone, 'is-ahead');
+  const drop = calendarRows('2027-02-12T10:00:00+07:00')['ภาคปลาย: วันสุดท้ายของการลดรายวิชา'];
+  assert.equal(drop.tone, 'is-urgent');
+  assert.match(drop.text, /วันสุดท้ายวันนี้, ปิด 23\.59 น\./);
+  // The row names its window once: no kind label in front of a title that already says it.
+  assert.doesNotMatch(early[PAY].text, /^ชำระเงิน/);
+});
+
 // What the chip, the schedule page's lists and the events read at each
 // instant. Self-contained: the zone replays run this source in child processes.
 function readCalendar(api, { instants, eventsAt }) {

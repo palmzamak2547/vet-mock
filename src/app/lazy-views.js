@@ -9,8 +9,20 @@
 // to that: each resolves to a file loaded lazily and never statically.
 // ============================================================
 
-import { lazy, useEffect } from 'react';
+import { createElement, lazy, useEffect } from 'react';
 import { hasSavedSession } from '../lib/supabase.js';
+import { importFresh } from '../lib/chunk-error.js';
+
+// lazy() keeps a failed import failed for good, so a screen offered with a
+// retry (the search palette's frame) needs a new lazy() for the next try, and
+// importFresh for Chromium's module map. `.retry()` swaps it in; the next
+// render of the returned component suspends on the fresh import.
+export function lazyWithRetry(load) {
+  let Current = lazy(load);
+  function Retryable(props) { return createElement(Current, props); }
+  Retryable.retry = () => { Current = lazy(() => importFresh(load)); };
+  return Retryable;
+}
 
 // Lazy — HomeView is 1300+ lines and pulls curriculum.js + changelog.
 // Splitting it shaves ~80KB off the initial bundle. We prefetch it on
@@ -25,7 +37,7 @@ export const ChulaGateExit = lazy(() => import('../views/ChulaGateView.jsx').the
 // Lazy — pulls VIDEO_SUMMARIES (~200KB) into a separate chunk so it
 // only ships when the user actually presses ⌘K (or clicks the search
 // button). Keeps the first-paint bundle small.
-export const CommandPalette = lazy(() => import('../components/CommandPalette.jsx'));
+export const CommandPalette = lazyWithRetry(() => import('../components/CommandPalette.jsx'));
 
 // InstructorProfile — also lazy. Opens when an instructor is selected
 // from the palette, and brings the faculty directory with it.
@@ -129,6 +141,8 @@ export const PhaseWrappedView = lazy(() => import('../views/PhaseWrappedView.jsx
 // chunk, which is what tests/unit/boot-weight.test.mjs holds every declaration
 // here to.
 export const ProfileView = lazy(() => import('../views/ProfileView.jsx'));
+// The first-run "how classmates see you" sheet: once per account, on Home.
+export const IdentityStep = lazy(() => import('../components/IdentityStep.jsx'));
 // (Removed MockExamView/MockResultsView — an unwired English "DEMO ONLY" stub.
 //  "Mock Exam" nav now routes into the real config → exam engine. 2026-07-24)
 

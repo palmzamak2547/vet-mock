@@ -30,7 +30,7 @@ import { panicPool } from '../../src/lib/question-metadata.js';
 import * as examPool from '../../src/lib/exam-pool.js';
 import { createQuestionTiming, newStudySessionId, validSessionId } from '../../src/lib/study-events.js';
 import { inflightExamKey, isOwnedExam } from '../../src/lib/exam-recovery.js';
-import { secondsUntilDeadline } from '../../src/lib/exam-clock.js';
+import { secondsUntilDeadline, examNow } from '../../src/lib/exam-clock.js';
 
 const { timeForQuestion, isWritingType } = utils;
 const { buildExamPool } = examPool;
@@ -251,7 +251,7 @@ function hookAt(props) {
     useCallback: (fn) => fn,
     useEffect: () => {},
     timeForQuestion, isWritingType, confirmDialog: async () => true,
-    inflightExamKey, isOwnedExam, secondsUntilDeadline,
+    inflightExamKey, isOwnedExam, secondsUntilDeadline, examNow,
     createQuestionTiming, newStudySessionId, validSessionId,
   });
   return vm.runInContext(`${src}\nuseExamSession`, ctx)(props);
@@ -306,9 +306,10 @@ const minutesIn = (label) => [...label.matchAll(/\d+/g)].map((x) => Number(x[0])
 const clockFor = (qs, base) => qs.reduce((total, q) => total + timeForQuestion(q, base), 0);
 
 test('an MCQ-only subject shows exactly its minutes', () => {
-  const pool = poolOf('equine-repro');
+  // vet-histo since the Equine Med neonatal rows moved into equine-repro (15 Nov 2026) and brought other allowances with them.
+  const pool = poolOf('vet-histo');
   assert.ok(pool.length >= 50 && pool.every((q) => timeForQuestion(q, 60) === 60),
-    'equine-repro is no longer an all-base-allowance pool; pick another for this case');
+    'vet-histo is no longer an all-base-allowance pool; pick another for this case');
   assert.equal(configClockLabel({ numQuestions: 50, timePerQ: 60, availablePool: pool }), '50 นาที');
 });
 
@@ -333,7 +334,7 @@ test('the timer line is unchanged while the pool is still being counted, and for
   assert.equal(configClockLabel({ numQuestions: 50, timePerQ: 60, availablePool: null }), '50 นาที');
   assert.equal(configClockLabel({ numQuestions: 0, timePerQ: 60, availablePool: poolOf('swine-clinic') }), '0 นาที');
   assert.equal(configClockLabel({ numQuestions: 1, timePerQ: 45, availablePool: null }), '45 วินาที');
-  assert.ok(CONFIG.includes("{!useTimer ? 'ปิด — โหมดอ่านไม่จับเวลา'"), 'the timer-off wording moved');
+  assert.ok(CONFIG.includes("{!useTimer ? 'ปิด: ทำได้ตามสบาย ไม่จับเวลา'"), 'the timer-off wording moved');
 });
 
 test('the range hint names the item types that get more time, and only those', () => {

@@ -29,8 +29,9 @@
 // and counts only, never message text or the client address.
 // ============================================================
 
-import { allowedOrigin, clientIP, rateLimit } from './_lib/rate-limit.js';
+import { allowedOrigin, clientIP, rateLimit, warmStore } from './_lib/rate-limit.js';
 import { requireChula } from './_lib/chula-gate.js';
+import { trialPassOf, requirePass, passKey } from './_lib/guest-pass.js';
 import { chatConfig } from './_lib/ai/config.js';
 import { validateChatInput, INPUT_MESSAGES } from './_lib/ai/input.js';
 import { checkLimits, LIMIT_MESSAGES } from './_lib/ai/limits.js';
@@ -53,6 +54,8 @@ const UNAVAILABLE = 'ผู้ช่วยยังไม่พร้อมใ�
 
 export default async function handler(req, res) {
   const t0 = Date.now();
+  // the store's handshake runs while the gate answers
+  if (req.method === 'POST') warmStore();
   const origin = req.headers.origin;
   const allowed = allowedOrigin(req);
 
@@ -95,7 +98,7 @@ export default async function handler(req, res) {
   }
   if (req.method === 'OPTIONS') {
     res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-VetMock-Pass');
     res.setHeader('Access-Control-Max-Age', '7200');
     res.setHeader('Cache-Control', 'no-store');
     return res.status(204).end();
@@ -107,7 +110,10 @@ export default async function handler(req, res) {
   }
   if (origin && !allowed) return res.status(403).json({ error: 'origin', message: 'เว็บนี้ไม่ได้รับอนุญาตให้เรียกใช้ผู้ช่วย' });
   // Members only while the Chula wall is on; the library is then read with their own token.
-  const gate = await requireChula(req, res);
+  // A trial link (_lib/guest-pass.js) speaks for a request with no session: its holder is a
+  // guest, and each request uses one of the link's messages, whatever is answered after this.
+  const pass = trialPassOf(req);
+  const gate = pass ? await requirePass(pass, res, { count: true }) : await requireChula(req, res);
   if (!gate) return undefined;
 
   // A malformed JSON body throws when req.body is first read (the platform
@@ -120,7 +126,9 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'input', message: INPUT_MESSAGES.shape });
   }
   // The voice agent's tools (ai/voice-tools.js): one JSON answer, not a stream.
-  if (body && typeof body === 'object' && body.voice) return voiceTool(req, res, body.voice, gate);
+  // A trial link's call is answered too, as a guest: no token, so the library is not read, and
+  // each tool call has used one of the link's messages above.
+  if (body && typeof body === 'object' && body.voice) return voiceTool(req, res, body.voice, gate, pass);
   const input = validateChatInput(body);
   if (!input.ok) return res.status(400).json({ error: 'input', message: input.message });
 
@@ -152,13 +160,15 @@ export default async function handler(req, res) {
 }
 
 // A spoken turn waits on this answer, so it never queues behind the chat's
-// budget: its own counter, per student (or address while the wall is off).
-async function voiceTool(req, res, raw, gate) {
+// budget: its own counter, per student, per trial link (as /api/ai-voice counts its call), or per
+// address while the wall is off.
+async function voiceTool(req, res, raw, gate, pass) {
   const input = validateVoiceTool(raw);
   if (!input.ok) return res.status(400).json({ error: 'input', message: VOICE_TOOL_ERRORS.shape });
   warmCorpus();
   const t0 = Date.now();
-  const rl = await rateLimit(`ai-voice:tool:${gate.userId || `ip:${clientIP(req)}`}`, 240, 60 * 60 * 1000);
+  const who = gate.userId || (gate.trial && pass ? passKey(pass) : `ip:${clientIP(req)}`);
+  const rl = await rateLimit(`ai-voice:tool:${who}`, 240, 60 * 60 * 1000);
   if (!rl.ok) {
     if (rl.retryAfter) res.setHeader('Retry-After', String(rl.retryAfter));
     return res.status(rl.unavailable ? 503 : 429).json({ error: 'rate', message: rl.unavailable ? LIMIT_MESSAGES.unavailable : VOICE_TOOL_ERRORS.rate, retryAfter: rl.retryAfter });

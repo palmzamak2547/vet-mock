@@ -57,7 +57,7 @@ export const QB_Y5_FINAL_MIXED = [
     answer: 2,
     explain: 'PCV-2 ไม่ทำให้เกิด jaundice เป็นหลัก (PCV-2 = PMWS/PDNS/PRDC) → คู่ IMHA + PCV2 ผิด\nIMHA → hemolysis → unconjugated bilirubinemia → jaundice (ถูก)\nแต่ PCV-2 ไม่ใช่ cause ของ jaundice\n\n❌ ข้ออื่น (เข้าเกณฑ์ jaundice ได้)\n— Babesiosis = hemolytic anemia, Lipidosis = hepatic\n— M. haemofelis = hemolysis, Lepto = hepatic+renal\n— Anaplasma = hemolytic, Copper = hepatic',
     verified: 'สรุป 80 p.1 (Vet 83 marked "PCV-2 ไม่ทำ jaundice")',
-    flag: { note: 'Vet 83 noted "All are incorrect" suggesting Q ambiguous — answer = pair containing PCV-2', severity: 'minor' } },
+    flag: { note: 'Vet 83 บันทึกว่าผิดทุกข้อ แปลว่าโจทย์อาจกำกวม ข้อนี้ใช้คู่ที่มี PCV-2 เป็นคำตอบ', severity: 'major' } },
 
   { id: 8002, subject: 'livestock-pathology', topic: 'lpath-systemic', year: 5,
     source: 'สรุป 80 รวมทั้งสัตว์เล็ก-ใหญ่ (Vet 83 update).pdf',
@@ -99,7 +99,7 @@ export const QB_Y5_FINAL_MIXED = [
     answer: 3,
     explain: 'Postmortem changes sequence: Pallor → Algor (เย็น) → Rigor (แข็ง) → Livor (เลือดตก) → Putrefaction (เน่า)\nPutrefaction + algor mortis = ทั้งคู่ postmortem changes (เน่า + เย็นตัว) ✓\n\n❌ ทำไมข้ออื่นผิด\n— Pseudomelanosis = PM change แต่ bile imbibition = อาจเป็น antemortem\n— Rigor มี Hb imbibition ผสม\n— Hypostatic congestion เป็น PM แต่ gas accumulation = แค่ในบางกรณี\n— Bloat = อาจเกิด antemortem ใน GDV',
     verified: 'สรุป 80 p.2 (Vet 83 marked "เฉลยที่อาจารย์อยากให้")',
-    flag: { note: 'multiple options arguably PM changes; (D) selected per Vet 83 key', severity: 'minor' } },
+    flag: { note: 'หลายตัวเลือกอาจนับเป็นการเปลี่ยนแปลงหลังตายได้ ข้อนี้ใช้ Putrefaction, algor mortis (decomposed) ตามเฉลยของ Vet 83', severity: 'major' } },
 
   { id: 8006, subject: 'vca', topic: 'dogcat', year: 5,
     source: 'สรุป 80 รวมทั้งสัตว์เล็ก-ใหญ่ (Vet 83 update).pdf',
@@ -256,7 +256,7 @@ export const QB_Y5_FINAL_MIXED = [
     answer: 1,
     explain: 'กลุ่มโรคที่เกี่ยวข้องกับ PCV2 (PCVAD) ได้แก่ PMWS, reproductive disease ที่ทำให้แท้งช่วงท้าย, PDNS, PRDC, PNP และ PCV2 necrotic enteritis อาการเด่นคือผอมแห้ง หายใจลำบาก โลหิตจาง บางครั้งท้องเสียและดีซ่าน ร่วมกับรอยโรคในเนื้อเยื่อน้ำเหลือง คู่ต่อมน้ำเหลืองโตทั่วตัวกับท้องเสีย คู่ดีซ่านกับผอมแห้ง และคู่ reproductive failure กับ hepatitis ที่ทำให้ดีซ่าน จึงเข้ากับ PCVAD ส่วน mesocolon edema เป็นรอยโรคของ Clostridium difficile ในลูกสุกรแรกเกิดและของ edema disease ไม่ใช่ของ PCV2 คู่นี้จึงเป็นคำตอบ แม้ diffuse pneumonia ที่อยู่ในคู่เดียวกันจะเข้ากับโรคระบบหายใจจาก PCV2 ได้ก็ตาม',
     verified: 'สรุป 80 p.6 (Vet 83 marked B "Mesocolon edema = ไม่ใช่ PCVAD")',
-    flag: { note: 'คำตอบนี้ยึด mesocolon edema ซึ่งเป็นรอยโรคของ Clostridium difficile และ edema disease ไม่ใช่ PCV2 แต่คู่ diphtheritic colitis กับ PDNS ก็มี diphtheritic colitis ซึ่งไม่อยู่ในกลุ่ม PCVAD โดยตรงเช่นกัน (ลำไส้อักเสบของ PCV2 เป็นแบบ necrotic enteritis) ข้อนี้จึงเถียงได้ระหว่างสองคู่', severity: 'minor' } },
+    flag: { note: 'เฉลยของข้อนี้คือคู่ที่มี mesocolon edema เพราะเป็นรอยโรคของ Clostridium difficile และ edema disease ไม่ใช่ PCV2 แต่คู่ diphtheritic colitis กับ PDNS ก็เถียงได้ เพราะ diphtheritic colitis ไม่อยู่ในกลุ่ม PCVAD โดยตรงเช่นกัน (ลำไส้อักเสบของ PCV2 เป็นแบบ necrotic enteritis)', severity: 'major' } },
 
   { id: 8021, subject: 'swine-clinic', topic: 'swine-resp-viral', year: 5,
     source: 'สรุป 80 รวมทั้งสัตว์เล็ก-ใหญ่ (Vet 83 update).pdf',
@@ -288,7 +288,7 @@ export const QB_Y5_FINAL_MIXED = [
     answer: 1,
     explain: 'Streptococcus suis ก่อโรคแบบลุกลามได้ทั้ง septicemia, meningitis, endocarditis, pneumonia และ arthritis ส่วน Haemophilus (Glaesserella) parasuis ทำให้เกิด fibrinopurulent polyserositis, polyarthritis และ meningitis คู่ S. suis type II กับ H. parasuis จึงทำให้ข้ออักเสบได้ทั้งคู่ แต่ไม่ใช่คู่เดียว Erysipelothrix rhusiopathiae, Mycoplasma hyosynoviae และ Mycoplasma hyorhinis ก็เป็นสาเหตุของข้ออักเสบติดเชื้อในสุกรหลังหย่านม คู่ M. hyorhinis กับ E. rhusiopathiae และคู่ H. parasuis กับ M. hyosynoviae จึงถูกด้วย คู่ osteochondrosis กับ M. hyopneumoniae ไม่ถูก เพราะแม้ osteochondrosis จะเป็นรอยโรคที่ข้อ แต่ M. hyopneumoniae ก่อโรคปอด ส่วน FMD กับการขาด biotin ทำให้ขาเจ็บจากรอยโรคที่กีบ ไม่ใช่โรคของข้อ',
     verified: 'สรุป 80 p.7 (Vet 83 marked "S. suis, Glasser")',
-    flag: { note: 'ข้อนี้มีคู่ที่ถูกมากกว่าหนึ่งคู่ คำตอบที่ใช้คือ S. suis type II กับ H. parasuis แต่ M. hyorhinis, E. rhusiopathiae และ M. hyosynoviae ก็เป็นสาเหตุของข้ออักเสบติดเชื้อในสุกร คู่ M. hyorhinis กับ E. rhusiopathiae และคู่ H. parasuis กับ M. hyosynoviae จึงถูกเช่นกัน', severity: 'major' } },
+    flag: {"severity":"major","note":"ข้อนี้มีคู่ที่ถูกมากกว่าหนึ่งคู่ คำตอบที่บันทึกไว้คือ S. suis type II กับ H. parasuis แต่ M. hyorhinis, E. rhusiopathiae และ M. hyosynoviae ก็เป็นสาเหตุของข้ออักเสบติดเชื้อในสุกรหลังหย่านม คู่ M. hyorhinis กับ E. rhusiopathiae และคู่ H. parasuis กับ M. hyosynoviae จึงถูกเช่นกัน บันทึกอีกฉบับของข้อเดียวกันมีคำว่า แตกต่างจากกลุ่มอื่น ต่อท้ายโจทย์ และให้คำตอบเป็นคู่ osteochondrosis กับ M. hyopneumoniae เพราะ M. hyopneumoniae ก่อโรคที่ปอด ไม่ใช่ที่ข้อ โจทย์ที่บันทึกไว้ในข้อนี้จึงอาจตกคำนั้นไป"} },
 
   { id: 8024, subject: 'swine-clinic', topic: 'swine-ileitis-bacti', year: 5,
     source: 'สรุป 80 รวมทั้งสัตว์เล็ก-ใหญ่ (Vet 83 update).pdf',
@@ -371,10 +371,10 @@ export const QB_Y5_FINAL_MIXED = [
     examOrigin: 'Vet 80 past paper · Vet 83 update commentary',
     tags: ['zoonosis', 'public-health', 'differential'], type: 'mcq',
     q: 'ข้อใดกล่าวถูกต้องเกี่ยวกับ zoonosis',
-    options: ['โรค Trichinellosis มีสัตว์ปีก เช่น นก ไก่ เป็นแหล่งของเชื้อ และทำให้คนป่วยรุนแรง', 'โรคอหิวาต์สุกร (ASF/CSF) ติดต่อสู่คนได้ โดยมีเนื้อสุกรเป็นแหล่งของเชื้อ', 'Sodium carbonate หรือ sodium hydroxide เป็นสารเคมีที่ไม่เหมาะสำหรับใช้ฆ่าเชื้อในการควบคุมโรคปากและเท้าเปื่อย (FMD)', 'โรค Trypanosomiasis (ซึ่งมี tsetse fly เป็นพาหะ) ไม่สามารถเกิดขึ้นในประเทศไทยได้', "Duck plague เป็นไวรัสในเขตร้อน 2499 เกิดจากเชื้อ Herpes virus ก่อให้เกิด diphtheritic esophagitis"],
+    options: ['โรค Trichinellosis มีสัตว์ปีก เช่น นก ไก่ เป็นแหล่งของเชื้อ และทำให้คนป่วยรุนแรง', 'โรคอหิวาต์สุกร (ASF/CSF) ติดต่อสู่คนได้ โดยมีเนื้อสุกรเป็นแหล่งของเชื้อ', 'Sodium carbonate หรือ sodium hydroxide เป็นสารเคมีที่ไม่เหมาะสำหรับใช้ฆ่าเชื้อในการควบคุมโรคปากและเท้าเปื่อย (FMD)', 'โรค Trypanosomiasis (ซึ่งมี tsetse fly เป็นพาหะ) ไม่สามารถเกิดขึ้นในประเทศไทยได้', "Duck plague เป็นไวรัสในเขตร้อน พ.ศ. 2519 (ค.ศ. 1976) เกิดจากเชื้อ Herpes virus ก่อให้เกิด diphtheritic esophagitis"],
     answer: 4,
-    explain: 'Duck plague (DP) = Anatid herpesvirus 1 → diphtheritic membrane + hemorrhage ที่ esophagus + cloaca + intestine\nเกิดในไทยจริง (1976 first reported)\n\n❌ ข้ออื่นผิด\n— Trichinella = สุกร/หมูป่า → คน ไม่ใช่สัตว์ปีก\n— ASF/CSF ไม่ติดคน\n— Sodium hydroxide = useful disinfectant for FMD\n— Trypanosomiasis เกิดในไทยได้ (T. evansi + Trypanosoma surra)',
-    verified: 'สรุป 80 p.9 (Vet 83 marked E + "zoonosis!")' },
+    explain: 'Duck plague (DP) = Anatid herpesvirus 1 → diphtheritic membrane + hemorrhage ที่ esophagus + cloaca + intestine\nเกิดในไทยจริง — ระบาดครั้งแรกของไทย ค.ศ. 1976 (พ.ศ. 2519) รายงานตีพิมพ์ใน Journal of the Thai Veterinary Medical Association (1977) และระบาดในเขตร้อนที่ Tamil Nadu ประเทศอินเดีย เดือนพฤศจิกายน ปีเดียวกัน\n\n❌ ข้ออื่นผิด\n— Trichinella = สุกร/หมูป่า → คน ไม่ใช่สัตว์ปีก\n— ASF/CSF ไม่ติดคน\n— Sodium hydroxide = useful disinfectant for FMD\n— Trypanosomiasis เกิดในไทยได้ (T. evansi + Trypanosoma surra)',
+    verified: 'สรุป 80 p.9 (Vet 83 marked E + "zoonosis!"); 2026-11-15 แก้ปีในตัวเลือกจาก พ.ศ. 2499 เป็น พ.ศ. 2519 (ค.ศ. 1976) ตามหลักฐาน: "The first outbreak of duck plague in Thailand" J Thai Vet Med Assoc 1977;28:61-79 (อ้างใน Wiley Duck Plague chapter 2007) และ Dhama et al. 2017 Vet Q (Tamil Nadu, 1976) — ไม่พบหลักฐานรองรับปี พ.ศ. 2499 (1956)' },
 
   { id: 8032, subject: 'avian-medicine', topic: 'avian-fowl-cholera', year: 5,
     source: 'สรุป 80 รวมทั้งสัตว์เล็ก-ใหญ่ (Vet 83 update).pdf',
@@ -479,7 +479,7 @@ export const QB_Y5_FINAL_MIXED = [
     answer: 4,
     explain: 'กลุ่มโรคที่สัมพันธ์กับ PCV2 (PCVAD) ได้แก่ PMWS, reproductive disease ที่ทำให้แท้งช่วงท้าย, PDNS, PRDC, PNP และ PCV2 necrotic enteritis โดย necrotizing vasculitis เป็นรอยโรคหลักของ PDNS และ hepatitis พบได้ใน PMWS ซึ่งทำให้ดีซ่าน คำตอบที่ใช้คือผิดทุกข้อ ซึ่งนับทุกคู่เป็นรอยโรคของ PCV2 แต่ congenital tremor ไม่อยู่ในกลุ่ม PCVAD และ congenital tremor type A-II ปัจจุบันพบว่าเกิดจาก atypical porcine pestivirus ไม่ใช่ PCV2 คู่ hepatitis กับ congenital tremor จึงเป็นคำตอบที่เถียงได้',
     verified: 'สรุป 80 p.12 (Vet 83 marked E + checked all options)',
-    flag: { note: 'คำตอบผิดทุกข้อนับ congenital tremor เป็นรอยโรคของ PCV2 แต่ congenital tremor ไม่อยู่ในกลุ่มโรค PCVAD และ type A-II ปัจจุบันพบว่าเกิดจาก atypical porcine pestivirus คู่ hepatitis กับ congenital tremor จึงตอบได้เช่นกัน', severity: 'major' } },
+    flag: {"severity":"major","note":"คำตอบที่บันทึกไว้คือผิดทุกข้อ ซึ่งนับ congenital tremor เป็นรอยโรคของ PCV2 แต่กลุ่มโรค PCVAD ในเนื้อหาปีนี้มี PMWS, reproductive disease, PDNS, PRDC, PNP และ PCV2 necrotic enteritis ไม่มี congenital tremor และ congenital tremor type A-II ปัจจุบันพบว่าเกิดจาก atypical porcine pestivirus (de Groof และคณะ 2016, Postel และคณะ 2016) คู่ hepatitis กับ congenital tremor จึงตอบได้เช่นกัน"} },
 
   { id: 8043, subject: 'vca', topic: 'dogcat', year: 5,
     source: 'สรุป 80 รวมทั้งสัตว์เล็ก-ใหญ่ (Vet 83 update).pdf',
@@ -525,7 +525,7 @@ export const QB_Y5_FINAL_MIXED = [
     explain: 'S. choleraesuis = septicemic salmonella ใน pig → diffuse interstitial pneumonia + multi-organ\n→ "diffuse pneumonia" ลักษณะ pattern systemic\n\n❌ ข้ออื่น\n— P. multocida = bronchopneumonia (secondary)\n— S. suis II = meningitis เด่น\n— M. hyo = cranioventral specific ไม่ใช่ diffuse\n— APP = caudo-dorsal pleuropneumonia',
     verified: 'สรุป 80 p.13 (Vet 83 marked B "S. choleraesuis")' },
 
-  { id: 8047, subject: 'vca', topic: 'dogcat', year: 5,
+  { id: 8047, noShuffle: true, flag: { severity: 'unclear', note: 'ตัวเลือก C ถึง E เป็นข้อความจากการสแกนที่อ่านไม่ออก รอถอดใหม่จากต้นฉบับ' }, subject: 'vca', topic: 'dogcat', year: 5,
     source: 'สรุป 80 รวมทั้งสัตว์เล็ก-ใหญ่ (Vet 83 update).pdf',
     examOrigin: 'Vet 80 past paper · Vet 83 update commentary',
     tags: ['liver-pathology', 'Pasteurella'], type: 'mcq',

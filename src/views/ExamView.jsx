@@ -8,13 +8,28 @@ import { useBuddyCountOnQ } from '../hooks/useStudyBuddies.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 import { motionIsReduced } from '../lib/motion-preferences.js';
 import { correctRun } from '../lib/mochi-reactions.js';
+import { exitSetDialog } from '../lib/exit-set.js';
 import { preloadMochiRig } from '../components/MochiLive.jsx';
+import { readQuestionLang, writeQuestionLang, loadQuestionTranslations, englishNoteFor } from '../lib/question-language.js';
 
 export default function ExamView({ currentQ, currentIdx, questions, questionDeadline, timedOutIdx, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote, jumpToQ, answers, bookmarks, user, goHome, mode, instantFeedback, onOpenWiki }) {
   const [showNote, setShowNote] = useState(false);
   const [showNav, setShowNav] = useState(false);
   const [confirmSubmit, setConfirmSubmit] = useState(false);
   const [confirmExit, setConfirmExit] = useState(false);
+  // ภาษาของโจทย์ (ไทย/EN): ข้อที่มีฉบับแปลจึงเปลี่ยนข้อความ ข้อที่ยังไม่มี
+  // คงฉบับไทยพร้อมโน้ตเงียบ ๆ · preference คงอยู่ข้ามชุด · ฉบับ EN โหลด
+  // เป็น chunk แยกเฉพาะเมื่อสลับเป็น EN เสียงอ่านยังอ่านฉบับไทย
+  // (คลิปอ่านออกเสียงเป็นคลังไทย) — toggle นี้สลับเฉพาะข้อความบนจอ
+  const [lang, setLangState] = useState(readQuestionLang);
+  const [translationsById, setTranslationsById] = useState(null);
+  const setLang = (next) => { setLangState(next); writeQuestionLang(next); };
+  useEffect(() => {
+    if (lang !== 'en' || translationsById) return undefined;
+    let alive = true;
+    loadQuestionTranslations().then((m) => { if (alive) setTranslationsById(m); });
+    return () => { alive = false; };
+  }, [lang, translationsById]);
   // Practice-only instant reveal: ✓/✗ + explanation right after answering.
   // Exam mode always defers feedback to the results/review flow.
   const revealAnswer = mode !== 'exam' && Boolean(instantFeedback);
@@ -139,6 +154,10 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
           );
         })()}
         <div className="vmx-exam-top-right">
+        <div className="vmx-lang-toggle" role="group" aria-label="ภาษาของโจทย์และตัวเลือก">
+          <button type="button" className={`vmx-lang-btn${lang === 'th' ? ' is-on' : ''}`} aria-pressed={lang === 'th'} onClick={() => setLang('th')}>ไทย</button>
+          <button type="button" className={`vmx-lang-btn${lang === 'en' ? ' is-on' : ''}`} aria-pressed={lang === 'en'} onClick={() => setLang('en')}>EN</button>
+        </div>
         {useTimer && (
           <ExamClock deadline={questionDeadline} writing={currentQ?.type === 'essay' || currentQ?.type === 'short'} />
         )}
@@ -147,7 +166,9 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
           // motivational "✓ n/m" chip. Writing types self-grade in Review,
           // so they stay out of the count entirely.
           const graded = questions.filter((q) => !isWritingType(q) && isAnswered(answers[q.id]));
-          if (!graded.length) return null;
+          // Its place is kept before the first answer, so the header does not grow and the
+          // card does not jump down when that answer lands.
+          if (!graded.length) return <div className="vmx-live-score is-empty" aria-hidden="true">✓ 0/0</div>;
           const ok = graded.filter((q) => isCorrect(q, answers[q.id])).length;
           return (
             <div className={`vmx-live-score ${ok / graded.length >= 0.6 ? '' : 'low'}`} title="คะแนนสดของชุดนี้ (เฉพาะข้อตรวจอัตโนมัติ)">
@@ -203,6 +224,8 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
         revealAnswer={revealAnswer}
         answerRun={answerRun}
         onOpenWiki={revealAnswer ? onOpenWiki : undefined}
+        english={lang === 'en' && translationsById ? (translationsById[String(currentQ.id)] ?? null) : null}
+        englishNote={lang === 'en' ? englishNoteFor(questions, currentIdx, translationsById) : null}
       />
       </div>
 
@@ -236,10 +259,7 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
           completed, explicitly discarded, or expires. */}
       <ConfirmDialog
         open={confirmExit}
-        title="ออกจากชุดนี้?"
-        body={`ความคืบหน้า${answeredCount > 0 ? ` ${answeredCount} จาก ${questions.length} ข้อ` : ''} จะถูกเก็บไว้ที่หน้าแรก กดทำต่อเพื่อกลับมาข้อเดิมได้ภายใน 6 ชั่วโมง${useTimer ? ' เวลาที่เหลือจะหยุดนับจนกว่าจะกลับมาทำต่อ' : ''}`}
-        confirmLabel="เก็บไว้แล้วออก"
-        cancelLabel="ทำต่อ"
+        {...exitSetDialog({ questions, answers, timed: useTimer })}
         onConfirm={() => { setConfirmExit(false); goHome(); }}
         onCancel={() => setConfirmExit(false)}
       />
@@ -276,6 +296,9 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
                       type="button"
                       className="vmx-btn vmx-btn-primary"
                       onClick={() => { setConfirmSubmit(false); nextQ(); }}
+                      // It takes focus as it opens: a key still held from the press that
+                      // opened the dialog repeats onto it and must not submit the paper.
+                      onKeyDown={(e) => { if (e.repeat && (e.key === 'Enter' || e.key === ' ')) e.preventDefault(); }}
                       style={{ flex: '1 1 140px' }}
                       autoFocus
                     >
@@ -362,12 +385,12 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
                   fontWeight: isCurrent ? 700 : 500,
                   position: 'relative',
                   background: isCurrent
-                    ? 'var(--clr-rose)'
+                    ? 'var(--clr-ink)'
                     : answeredHere
                       ? 'var(--clr-sage-soft)'
                       : 'var(--clr-surface-2)',
-                  color: isCurrent ? 'white' : 'var(--clr-ink)',
-                  border: isCurrent ? '2px solid var(--clr-rose)' : '1px solid var(--clr-border)',
+                  color: isCurrent ? 'var(--clr-surface)' : 'var(--clr-ink)',
+                  border: isCurrent ? '2px solid var(--clr-ink)' : '1px solid var(--clr-border)',
                   transition: 'transform 0.1s',
                   minHeight: 44,
                 }}
@@ -376,7 +399,7 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
               >
                 {i + 1}
                 {isBookmarked && (
-                  <span style={{ position: 'absolute', top: 1, right: 4, fontSize: 9, color: isCurrent ? 'white' : 'var(--clr-gold-text)' }}>★</span>
+                  <span style={{ position: 'absolute', top: 1, right: 4, fontSize: 9, color: isCurrent ? 'var(--clr-surface)' : 'var(--clr-gold-text)' }}>★</span>
                 )}
               </button>
             );
@@ -384,7 +407,7 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
         </div>
 
         <div style={{ marginTop: 12, display: 'flex', gap: 12, fontSize: 14, color: 'var(--clr-ink-soft)', flexWrap: 'wrap' }}>
-          <span><span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--clr-rose)', borderRadius: 3, verticalAlign: 'middle', marginRight: 4 }} /> ข้อปัจจุบัน</span>
+          <span><span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--clr-ink)', borderRadius: 3, verticalAlign: 'middle', marginRight: 4 }} /> ข้อปัจจุบัน</span>
           <span><span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--clr-sage-soft)', borderRadius: 3, verticalAlign: 'middle', marginRight: 4 }} /> ตอบแล้ว</span>
           <span><span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--clr-surface-2)', borderRadius: 3, border: '1px solid var(--clr-border)', verticalAlign: 'middle', marginRight: 4 }} /> ยังไม่ตอบ</span>
           <span>★ Bookmark</span>

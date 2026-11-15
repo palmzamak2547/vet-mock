@@ -1,6 +1,8 @@
 // Public, content-hashed geometry only. Kept separate from personal study data.
+import { isOfflineAnswer } from './offline-answer.js';
+
 export const ATLAS_CACHE_NAME = 'vmx-atlas-models-v1';
-export const ATLAS_CACHE_BUDGET = 32 * 1024 * 1024;
+const ATLAS_CACHE_BUDGET = 32 * 1024 * 1024;
 const HASHED_MODEL = /^\/atlas\/[a-z0-9-]+-[a-f0-9]{12}\.glb$/;
 let cacheWrite = Promise.resolve();
 let cacheWritesDisabled = false;
@@ -121,7 +123,12 @@ export async function loadAtlasAsset(asset, { signal, onProgress = () => {}, onS
   } catch (error) {
     throw transportError(error, 'เชื่อมต่ออินเทอร์เน็ตไม่ได้ โมเดลนี้ยังไม่ได้เก็บไว้ในเครื่อง ลองใหม่เมื่ออินเทอร์เน็ตพร้อม');
   }
-  if (!response.ok) throw new Error('โหลดไฟล์โมเดลไม่สำเร็จ');
+  if (!response.ok) {
+    // The worker answers a model it could not fetch offline with its own 503.
+    const body = response.status === 503 ? await response.clone().text().catch(() => null) : null;
+    if (isOfflineAnswer(response, body)) throw new Error('เชื่อมต่ออินเทอร์เน็ตไม่ได้ โมเดลนี้ยังไม่ได้เก็บไว้ในเครื่อง ลองใหม่เมื่ออินเทอร์เน็ตพร้อม');
+    throw new Error('โหลดไฟล์โมเดลไม่สำเร็จ');
+  }
   let bytes;
   if (response.body?.getReader) {
     const reader = response.body.getReader();

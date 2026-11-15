@@ -25,18 +25,21 @@ export default function ConfirmDialog({
   tone = 'default',
   // A notice has nothing to cancel — one button, and Esc/backdrop dismiss it.
   hideCancel = false,
+  // Focus the cancel button first: where staying is the safer answer (leaving a timed paper).
+  focusCancel = false,
   // Ask for a line of text instead of a yes/no. onConfirm receives the value.
   input = null,          // { placeholder?, maxLength?, multiline?, initial? }
   onConfirm,
   onCancel,
 }) {
   const confirmRef = useRef(null);
+  const cancelRef = useRef(null);
   const inputRef = useRef(null);
   const [value, setValue] = useState(input?.initial || '');
   const dialogRef = useModalFocus({
     active: open,
     onClose: onCancel,
-    initialFocusRef: input ? inputRef : confirmRef,
+    initialFocusRef: input ? inputRef : (focusCancel && !hideCancel ? cancelRef : confirmRef),
   });
 
   // A fresh open starts from the caller's initial value, not the last answer.
@@ -117,6 +120,7 @@ export default function ConfirmDialog({
           </button>
           {!hideCancel && (
             <button
+              ref={cancelRef}
               type="button"
               className="vmx-btn vmx-btn-ghost"
               onClick={onCancel}

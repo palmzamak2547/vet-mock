@@ -35,6 +35,7 @@ const STAND_INS = [
     'export const isQBYearLoaded = () => true;',
     'export const isQBFullyLoaded = () => true;',
   ].join('\n')],
+  [/\.css$/, ''],
   [/[\\/]Mochi\.jsx$/, 'export default function Mochi() { return null; }'],
   [/[\\/]MotionFeedback\.jsx$/, [
     'export function MotionEnter({ children, className }) { return <div className={className}>{children}</div>; }',
@@ -83,7 +84,7 @@ async function cardFigures(t, question) {
   const { container } = await mountElement(t, mod, dom.document, mod.createElement(mod.SRSessionView, {
     srCards: {}, setSrCards: () => ({ accepted: true }), goHome: () => {}, customQuestions: [question], selectedYear: 4,
   }));
-  const [start] = buttonsWithText(container, 'เริ่ม Session');
+  const [start] = buttonsWithText(container, 'เริ่มทบทวน');
   await click(mod, start);
   await mod.act(async () => {});
   const [card] = findAll(container, (n) => hasClass(n, 'vmx-flashcard'));
@@ -96,7 +97,7 @@ async function cardImages(t, question, { reveal = false } = {}) {
   const { container } = await mountElement(t, mod, dom.document, mod.createElement(mod.SRSessionView, {
     srCards: {}, setSrCards: () => ({ accepted: true }), goHome: () => {}, customQuestions: [question], selectedYear: 4,
   }));
-  const [start] = buttonsWithText(container, 'เริ่ม Session');
+  const [start] = buttonsWithText(container, 'เริ่มทบทวน');
   assert.ok(start, 'the planning step offers to start');
   await click(mod, start);
   await mod.act(async () => {});

@@ -1047,9 +1047,17 @@
 .vmx-motion-loader { display: block; width: 40px; height: 28px; overflow: hidden; }
 .vmx-motion-loader .vm-loader { width: 280px; transform: scale(.14); transform-origin: top left; gap: 0; }
 .vmx-motion-loader .vm-loader-caption { display: none; }
-.vmx-motion-loader.is-measured { width: min(100%, 280px); height: 40px; overflow: visible; }
+/* The measured bar keeps everything it draws inside its own box: the paw rides
+   above the bar in the box's top padding (its 28px plus a 13px hop), and the
+   percentage is written by whoever shows the bar, on its status line. The old
+   40px box let the paw rise 50px into the element above and the 22px value
+   hang 25px into the line below (15 Nov 2026, the library reader on a phone). */
+.vmx-motion-loader.is-measured { box-sizing: border-box; width: min(100%, 308px); height: auto; padding: 48px 14px 0; overflow: visible; }
 .vmx-motion-loader.is-measured .vm-loader { width: 100%; transform: none; }
-.vmx-motion-loader.is-measured .vm-loader-art { width: 100%; min-height: 0; height: 28px; margin: 0; }
+.vmx-motion-loader.is-measured .vm-loader-art { width: 100%; min-height: 0; height: 10px; margin: 0; }
+.vmx-motion-loader.is-measured .vm-progress-fill { background: var(--clr-sage); }
+.vmx-motion-loader.is-measured .vm-progress-fill svg { top: -34px; color: var(--clr-sage); }
+.vmx-motion-loader.is-measured .vm-progress-value { display: none; }
 @media (max-width: 380px) {
   .vm-host .vm-play, .vm-host .vm-interaction { padding: 12px; }
   .vm-host .vm-bubble { width: 46px; height: 46px; }

@@ -8,7 +8,7 @@
 //     New deploy → served fresh. Offline → last cached index.html.
 //   • Images, audio, manifest icons: stale-while-revalidate.
 //   • Same-origin /api requests: network-only, never cached.
-//   • Other GETs: network-first, fall back to cache.
+//   • Other GETs: network-first; a cached copy after 4 s, else wait up to 15 s.
 //
 // Install + activate are kept lean. The small static shell is cached
 // best-effort; Vite's hashed assets populate a shared immutable cache
@@ -18,7 +18,7 @@
 // version-scoped, while immutable hashed assets survive across deploys.
 // ============================================================
 
-const SW_VERSION = 'v228-2026-11-01';
+const SW_VERSION = 'v230-2026-11-15';
 const RUNTIME = `vmx-runtime-${SW_VERSION}`;
 const ASSETS = 'vmx-assets-v1';
 // Atlas verifies content hashes and owns a bounded public-model cache.
@@ -46,7 +46,34 @@ const LIB_ACCESS_URL = '/__vmx/library-access.json';
 const libraryClients = new Map();
 let libraryWrites = Promise.resolve();
 const NAV_TIMEOUT_MS = 4000;
+// The longest a GET with no cached copy waits on a stalled connection before
+// the offline answer (networkFirst, waitWhenUncached).
+const UNCACHED_WAIT_MS = 15000;
 const ASSET_CLEANUP_DELAY_MS = 1000;
+
+// Every answer this worker makes up because the network could not be reached
+// carries this header, so a page tells "offline" from a server fault without
+// knowing each body (src/lib/offline-answer.js).
+const OFFLINE_HEADER = 'X-VMX-Offline';
+const offlineHeaders = (type) => ({ 'Content-Type': type, 'Cache-Control': 'no-store', [OFFLINE_HEADER]: '1' });
+
+// A page the student can read when a navigation has no copy on this device:
+// Thai, one action, no network needed to draw it (no font, no stylesheet).
+function offlinePage() {
+  const html = '<!doctype html><html lang="th"><head><meta charset="utf-8">'
+    + '<meta name="viewport" content="width=device-width, initial-scale=1"><title>VetMock</title>'
+    + '<style>:root{color-scheme:light dark;--bg:#faf7f0;--ink:#2d2418;--soft:#6b6357;--btn:#2d2418;--btn-ink:#faf7f0}'
+    + '@media (prefers-color-scheme:dark){:root{--bg:#1c1915;--ink:#f2ece1;--soft:#b9b0a2;--btn:#f2ece1;--btn-ink:#1c1915}}'
+    + 'body{margin:0;min-height:100vh;display:grid;place-items:center;background:var(--bg);color:var(--ink);'
+    + 'font-family:system-ui,-apple-system,"Segoe UI",sans-serif;padding:16px;box-sizing:border-box}'
+    + 'main{max-width:420px;text-align:center}h1{font-size:20px;line-height:1.2;letter-spacing:0;margin:0 0 8px}'
+    + 'p{font-size:16px;line-height:1.6;color:var(--soft);margin:0 0 20px}'
+    + 'button{min-height:44px;padding:10px 24px;border-radius:999px;border:0;background:var(--btn);color:var(--btn-ink);font:inherit;font-weight:600}'
+    + '</style></head><body><main><h1>ยังไม่ได้ต่ออินเทอร์เน็ต</h1>'
+    + '<p>หน้านี้ยังไม่ได้เก็บไว้ในเครื่องนี้ ต่ออินเทอร์เน็ตแล้วลองอีกครั้ง</p>'
+    + '<button type="button" onclick="location.reload()">ลองอีกครั้ง</button></main></body></html>';
+  return new Response(html, { status: 503, headers: offlineHeaders('text/html; charset=utf-8') });
+}
 
 self.addEventListener('install', (event) => {
   // Install in the background. The browser activates after old clients close.
@@ -192,7 +219,9 @@ async function trimAssetsWhenUnused(cache, incoming = 0) {
 
 function cacheFirst(request, cacheName, event, key = request) {
   return caches.open(cacheName).then((cache) =>
-    cache.match(key).then(async (hit) => {
+    // A cache read that throws is a miss, as in networkFirst: the Atlas
+    // shell copy and then the network still get their turn.
+    cache.match(key).catch(() => undefined).then(async (hit) => {
       if (hit) return hit;
       if (cacheName === ASSETS) {
         const atlasHit = await caches.open(ATLAS_SHELL).then(atlas => atlas.match(request)).catch(() => undefined);
@@ -212,27 +241,42 @@ function cacheFirst(request, cacheName, event, key = request) {
   );
 }
 
-async function networkFirst(request, cacheName, timeoutMs, event) {
+// waitWhenUncached: past the timeout, a request with no cached copy keeps
+// waiting for the network instead of answering 503. A slow phone is not an
+// offline one; only a cached copy is a reason to stop waiting. Navigations
+// keep the fast fallback, since the cached home shell stands in for them.
+// Waiting has an end: past UNCACHED_WAIT_MS a stalled request is aborted and
+// answered offline, so a connection that never answers cannot hold it forever.
+async function networkFirst(request, cacheName, timeoutMs, event, { waitWhenUncached = false } = {}) {
   const offlineResponse = () => new Response('Offline', {
     status: 503,
-    headers: { 'Cache-Control': 'no-store' },
+    headers: { 'Cache-Control': 'no-store', [OFFLINE_HEADER]: '1' },
   });
   const controller = typeof AbortController === 'undefined'
     ? null
     : new AbortController();
   let timer;
+  let bound;
 
   const timeout = new Promise((resolve) => {
     timer = setTimeout(async () => {
-      controller?.abort();
       const hit = await runtimeMatch(request, cacheName);
+      if (!hit && waitWhenUncached) return;
+      controller?.abort();
       resolve(hit || offlineResponse());
     }, timeoutMs);
+    if (waitWhenUncached) {
+      bound = setTimeout(() => {
+        controller?.abort();
+        resolve(offlineResponse());
+      }, Math.max(timeoutMs, UNCACHED_WAIT_MS));
+    }
   });
 
   const network = fetch(request, controller ? { signal: controller.signal } : undefined)
     .then((res) => {
-      if (res && res.ok) {
+      // Only a whole answer is kept: a 206 for a Range request is a part.
+      if (res && res.ok && res.status === 200) {
         const clone = res.clone();
         keepAlive(event, caches.open(cacheName).then((cache) => cache.put(request, clone)));
       }
@@ -247,12 +291,16 @@ async function networkFirst(request, cacheName, timeoutMs, event) {
     return await Promise.race([network, timeout]);
   } finally {
     clearTimeout(timer);
+    clearTimeout(bound);
   }
 }
 
 function staleWhileRevalidate(request, cacheName, event) {
   return caches.open(cacheName).then((cache) =>
-    cache.match(request).then(async (cached) => {
+    // runtimeMatch also reads the previous version's runtime, which activate
+    // keeps for exactly this: a figure seen last week still opens offline
+    // the day after a worker release.
+    runtimeMatch(request, cacheName).then(async (cached) => {
       if (!cached) cached = await caches.open(ATLAS_SHELL).then(atlas => atlas.match(request)).catch(() => undefined);
       const fetchPromise = fetch(request).then((res) => {
         if (res && res.ok) keepAlive(event, cache.put(request, res.clone()));
@@ -406,7 +454,7 @@ async function libraryDoc(request, hash, event) {
     // answer. This document was never opened on this device.
     return new Response(JSON.stringify({ error: 'offline_not_cached' }), {
       status: 503,
-      headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
+      headers: offlineHeaders('application/json'),
     });
   }
 
@@ -467,13 +515,7 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       fetch(request).catch(() => new Response(
         JSON.stringify({ error: 'Offline' }),
-        {
-          status: 503,
-          headers: {
-            'Content-Type': 'application/json',
-            'Cache-Control': 'no-store',
-          },
-        },
+        { status: 503, headers: offlineHeaders('application/json') },
       ))
     );
     return;
@@ -506,8 +548,7 @@ self.addEventListener('fetch', (event) => {
         if (response.ok) return response;
       } catch { /* Use the last complete Atlas entry below. */ }
       finally { clearTimeout(timer); }
-      return await caches.open(ATLAS_SHELL).then(cache => cache.match('/app/atlas'))
-        || new Response('Atlas is not available offline yet.', { status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
+      return await caches.open(ATLAS_SHELL).then(cache => cache.match('/app/atlas')) || offlinePage();
     })());
     return;
   }
@@ -515,7 +556,7 @@ self.addEventListener('fetch', (event) => {
   // Do not duplicate multi-megabyte geometry in the generic runtime cache.
   // Atlas checks its own content-addressed cache before making this request.
   if (/^\/atlas\/[a-z0-9-]+-[a-f0-9]{12}\.glb$/.test(url.pathname)) {
-    event.respondWith(fetch(request).catch(() => new Response('Offline', { status: 503 })));
+    event.respondWith(fetch(request).catch(() => new Response('Offline', { status: 503, headers: offlineHeaders('text/plain') })));
     return;
   }
 
@@ -533,7 +574,10 @@ self.addEventListener('fetch', (event) => {
         if (res && (res.ok || res.type === 'opaqueredirect' || (res.status >= 400 && res.status < 500))) {
           return res;
         }
-        return runtimeMatch('/', RUNTIME).then((root) => root || res);
+        // With no home shell either, the student reads why in Thai instead
+        // of a bare "Offline" (a server error with no shell stays as sent).
+        return runtimeMatch('/', RUNTIME).then((root) => root
+          || (res?.headers?.get(OFFLINE_HEADER) === '1' ? offlinePage() : res));
       })
     );
     return;
@@ -554,8 +598,9 @@ self.addEventListener('fetch', (event) => {
   }
 
   // Everything else (scripts not under /assets/, data files, etc.):
-  // network-first with a bounded cache fallback.
-  event.respondWith(networkFirst(request, RUNTIME, NAV_TIMEOUT_MS, event));
+  // network-first; a cached copy answers after the timeout, and with none the
+  // request waits for the network rather than failing as "Offline".
+  event.respondWith(networkFirst(request, RUNTIME, NAV_TIMEOUT_MS, event, { waitWhenUncached: true }));
 });
 
 // Allow the page to ask "are you ready?" (used by main.jsx to detect
@@ -594,4 +639,36 @@ self.addEventListener('message', (event) => {
     event.ports?.[0]?.postMessage({ version: SW_VERSION });
   }
   if (event.data === 'ATLAS_OFFLINE_CAPABILITY') event.ports?.[0]?.postMessage({ atlasShell: true });
+  // The first visit loaded its files before this worker controlled the page,
+  // so none went through it, and an offline reload drew a blank page. The
+  // page names them once it is controlled (app-lifecycle.js) and they are
+  // kept here, mostly straight from the browser's own HTTP cache.
+  if (event.data?.type === 'CACHE_LOADED' && Array.isArray(event.data.urls)) {
+    keepAlive(event, cacheLoaded(event.data.urls));
+  }
 });
+
+async function cacheLoaded(urls) {
+  const assets = await caches.open(ASSETS);
+  const runtime = await caches.open(RUNTIME);
+  for (const raw of urls.slice(0, 300)) {
+    let url;
+    try { url = new URL(raw, self.location.origin); } catch { continue; }
+    if (url.origin !== self.location.origin || url.search) continue;
+    const cache = /^\/assets\/[\w.-]+\.(?:js|css)$/.test(url.pathname) ? assets
+      : /^\/fonts\/[\w.-]+\.woff2$/.test(url.pathname) ? runtime : null;
+    // ignoreVary: a copy the page's own request already stored (it may carry
+    // headers this list's request lacks) is never replaced.
+    if (!cache || await cache.match(url.href, { ignoreVary: true }).catch(() => undefined)) continue;
+    try {
+      const res = await fetch(url.href);
+      if (!res || !res.ok || res.type !== 'basic') continue;
+      // The bytes of a hashed file do not vary by request. A "Vary: Origin"
+      // kept here would make the page's own module request (which carries an
+      // Origin this one lacks) miss the copy offline.
+      const headers = new Headers(res.headers);
+      headers.delete('vary');
+      await cache.put(url.href, new Response(await res.arrayBuffer(), { status: res.status, statusText: res.statusText, headers }));
+    } catch { /* Best effort: a file not kept is fetched on its next use. */ }
+  }
+}

@@ -17,10 +17,11 @@
 // ============================================================
 
 import { isTopicRead } from './study-progress.js';
+import { dayKey } from './study-day.js';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
-export const DOW_SHORT = ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'];
-export const DOW_FULL = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัส', 'ศุกร์', 'เสาร์'];
+const DOW_SHORT = ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'];
+const DOW_FULL = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัส', 'ศุกร์', 'เสาร์'];
 const TH_MONTHS = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
 
 // Days and clock times are Bangkok's (UTC+7, no daylight saving), never the
@@ -31,11 +32,8 @@ const BANGKOK_OFFSET_MS = 7 * 60 * 60 * 1000;
 /** A Date whose UTC fields read Bangkok's wall clock at that instant. */
 const bangkokWall = (value) => new Date(new Date(value).getTime() + BANGKOK_OFFSET_MS);
 
-/** Bangkok calendar day as YYYY-MM-DD; '' for a value that is not a time. */
-export const dayKey = (value) => {
-  const b = bangkokWall(value);
-  return Number.isNaN(b.getTime()) ? '' : b.toISOString().slice(0, 10);
-};
+/** Bangkok calendar day as YYYY-MM-DD; '' for a value that is not a time (lib/study-day.js). */
+export { dayKey };
 
 /** A history row's time as a number, or null when the row carries none. */
 export function rowTime(value) {
@@ -81,6 +79,32 @@ export function weekTrack(history, now = Date.now()) {
     });
   }
   return track;
+}
+
+/**
+ * The last `days` Bangkok days ending today, oldest first, each with its
+ * answers and how many were right: { date, day, dow, isToday, count, correct }.
+ * weekTrack is the seven-day reading of the same rows.
+ */
+export function daysTrack(history, days = 28, now = Date.now()) {
+  const counts = new Map();
+  for (const row of Array.isArray(history) ? history : []) {
+    const t = rowTime(row?.date);
+    if (t == null) continue;
+    const key = dayKey(t);
+    const cell = counts.get(key) || { count: 0, correct: 0 };
+    cell.count += 1;
+    if (row?.correct === true) cell.correct += 1;
+    counts.set(key, cell);
+  }
+  const out = [];
+  for (let i = days - 1; i >= 0; i--) {
+    const b = bangkokWall(new Date(now).getTime() - i * DAY_MS);
+    const key = b.toISOString().slice(0, 10);
+    const cell = counts.get(key) || { count: 0, correct: 0 };
+    out.push({ date: key, day: b.getUTCDate(), dow: b.getUTCDay(), isToday: i === 0, ...cell });
+  }
+  return out;
 }
 
 /**

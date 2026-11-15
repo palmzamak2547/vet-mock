@@ -26,7 +26,7 @@ const catalog = () => (catalogCache ||= buildCatalog());
 const FEATURE_BY_ID = new Map(FEATURES.map((f) => [f.id, f]));
 
 /** The model-free action request a plan describes, in agent-actions' shape. */
-export function actionRequest({ type, subject, feature, num, wiki } = {}) {
+function actionRequest({ type, subject, feature, num, wiki } = {}) {
   if (type === 'practice') return { type, params: { subject: subject || 'all', numQuestions: num || 10 } };
   if (type === 'library') return { type, params: { subject } };
   if (type === 'wiki') return wiki ? { type, params: { subject: wiki.subject, topic: wiki.topic } } : null;

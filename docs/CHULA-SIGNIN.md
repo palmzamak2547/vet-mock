@@ -57,6 +57,8 @@ Public on purpose (checked by the pre-request allow-list or untouched):
   member's open ticket, `api/_lib/open-ticket.js`, which VetMock AI's file
   links carry because a tapped link sends no header; a ticket names one
   document for a day and only a member's answer carries one);
+- `rpc/ai_guest_pass_use` (is this trial link's code good; see "Trial links"
+  below. It tells nothing about any account and opens no row);
 - the landing page, OG images, robots and sitemap, the blog, wiki link previews
   (head tags plus the noscript article for crawlers), the atlas catalogue page;
 - `/api/send-feedback`, so a student who cannot get in can still say so.
@@ -192,13 +194,122 @@ is one tap. One shared session across subdomains is a follow-up, not this releas
 - iOS caps cookies written by script at 7 days, which would sign home-screen
   users out and lock them out offline.
 
+The design for one sign-in across the four sites (a one-time handoff, each site
+keeping its own session) is in [FAMILY-SIGNIN.md](FAMILY-SIGNIN.md); not built.
+A redirect sign-in on vetmock.com, vca and ai keeps the student's destination
+(path, query and section) in the tab's sessionStorage, accepted only as a
+same-origin relative path (`src/lib/family/return-path.js`).
+
+## Trial links
+
+Palm, 15 Nov 2026: a person without a Chula account should be able to try the
+assistant for a limited time. A trial link is
+`https://ai.vetmock.com/?pass=<code>`. It opens the assistant on that site for
+whoever holds it, until the pass expires, is used up or is revoked. The wall
+itself does not move.
+
+What a pass opens:
+
+| Route | For a trial visitor |
+|---|---|
+| `POST /api/ai-chat` | answers as a guest, from VetMock's own content; each request uses one of the pass's messages |
+| `POST /api/ai-transcribe` | the microphone's speech to text; checked without counting (the question it becomes is counted) |
+| `POST /api/ai-voice` | the live voice call (start, and a photo into that call); checked without counting, under the same caps as a student's call, counted per link, except the calls a day: a link has its own number (`AI_VOICE_PASS_SESSIONS`, default 8) because its holders share it |
+| `POST /api/ai-chat` with `voice` | the call's tools, answered as a guest; each tool call uses one of the pass's messages, as any request to this route does |
+
+The call's caps (the day's sessions, the burst limit, the free restarts, the
+photos a call and the provider balance floor) are the ones a student has, and
+they apply per link: the route counts a trial call as
+`pass:<first 16 hex of the SHA-256 of the code>`, never as the address, so
+everyone who shares one link shares one allowance. The call's tools are counted
+the same way. The code itself is never logged, and neither is that key's
+source.
+
+What it never opens:
+
+- The Chula-only library. The request has no session, so the search goes out
+  with the public key and the database refuses it while the wall is on. No
+  answer and no tool of the call carries a file, a slide or an open ticket.
+- Any account data: a trial visitor has no account, and a photo pass from one
+  link's call does not open another's.
+- Every other `/api` function, vetmock.com, vca and research: nothing else reads
+  the header.
+- Any row. The visitor is `anon` to every policy. No policy, no table in
+  `public` or `vca` and no part of `chula_access_state` changed.
+
+How it works:
+
+- The page (`ai/src/lib/pass.js`) takes the code out of the address as it
+  starts, keeps it on the device (`vmx-ai-pass`) and sends it as
+  `X-VetMock-Pass` on a request that has no session. With the wall on, nobody
+  signed in and a code held, the page is open instead of showing the sign-in
+  card; the call button is shown as for a member, and one line under the box
+  says what the link covers. Every request of a call (its start, its tools, a
+  photo) goes through the same helper and carries the code; a `pass_invalid`
+  during or before a call drops the code, ends the call and shows the sign-in
+  card with its line. A member who opens a trial link stays a member, and the code is
+  dropped when an account leaves the device, so a sign-out still lands on the
+  sign-in card.
+- `api/_lib/guest-pass.js` reads the header only on a request with no bearer
+  token: a session is judged by the gate as before, whatever header rides with
+  it. It asks `public.ai_guest_pass_use` with the public key. A good pass is the
+  guest the gate returns while the wall is off (`member: false`, no token). A
+  refused one is `401 pass_invalid`, and the page then shows the sign-in card
+  with one line. When the database cannot be asked the answer is 503, never an
+  opening.
+- `private.ai_guest_pass` keeps the SHA-256 of the code, an expiry, a cap (200
+  messages unless set) and the count. The count rises in one `UPDATE` whose
+  `WHERE` holds every condition, so two requests at once cannot pass the cap.
+- A trial visitor is limited by address like any guest: 20 questions in 10
+  minutes and 150 a day, inside the whole feature's daily budget.
+
+To make one, the owner makes the code and its hash on their own machine, so the
+code is never in a statement or a database log:
+
+```bash
+node -e "const c=require('crypto');const code=c.randomBytes(24).toString('base64url');console.log('https://ai.vetmock.com/?pass='+code);console.log(c.createHash('sha256').update(code).digest('hex'))"
+```
+
+The first line is the link to hand over; the second goes into one insert in the
+SQL editor:
+
+```sql
+insert into private.ai_guest_pass (code_sha256, note, expires_at, max_messages)
+values ('<the 64 hex characters>', '<who it is for>', now() + interval '7 days', 200);
+```
+
+To end one, and to see how much each has used:
+
+```sql
+update private.ai_guest_pass set revoked_at = now() where note = '<who it is for>';
+select note, expires_at, used_messages, max_messages, revoked_at
+  from private.ai_guest_pass order by created_at desc;
+```
+
+Known limits:
+
+- Whoever holds the link holds the pass. It is not tied to a person or a
+  device; the expiry, the cap and `revoked_at` are what bound it.
+- The code is in the address of the first page request, so the page host's
+  request log has it. That log is the owner's own; keep passes short-lived.
+- Every chat request with a good pass uses one message, also one that is then
+  refused for its input or for asking too fast.
+- A visitor on a trial link sees no sign-in button until the pass ends.
+- A value shaped like a code that is not a pass costs one database call, as a
+  well-formed session token with a bad signature does.
+
 ## Tests
 
 - `tests/unit/chula.test.mjs`: the domain and member rule, the copies in the
   sub-apps, error mapping, the gate's decisions.
 - `tests/unit/chula-api-gate.test.mjs`: the API gate with a stubbed backend.
+- `tests/unit/guest-pass.test.mjs`: the trial pass header, the database call
+  with a stub, and the chat, transcribe and voice routes with a pass.
+- `ai/tests/unit/pass.test.mjs` and `ai/tests/unit/wall.test.mjs`: the code on
+  the device, and the page open on a trial link.
 - `scripts/test-chula-wall-db.mjs`: the hook, the trigger, the pre-request, the
-  restrictive policies and the switch on the CI Postgres service.
+  restrictive policies, the switch and the trial pass function on the CI
+  Postgres service.
 - `tests/e2e/chula-wall.spec.js`: the connected bundle with every request to the
   database answered by the spec. The app has no test-only code path; the spec
   plants sessions as test data, so nothing can leak into a production build.

@@ -24,6 +24,7 @@
 // is undefined, so every read goes through optional chaining and the module
 // stays importable outside the bundler.
 import { SUBJECTS } from '../data/curriculum.js';
+import { createRefusalMemory } from './refusal-memory.js';
 import { EXTERNAL_COURSES } from '../data/library-courses.js';
 import { googleDriveSourceUrl, mergeLibrarySources, vcaFileDoc, vcaLibraryDocs } from './vca-library.js';
 import { openSourceDocs, openSourceUrl, withOpenLabels } from './open-sources.js';
@@ -298,12 +299,37 @@ export function isMissingLibraryTable(err) {
   return err?.code === '42P01' || err?.code === 'PGRST205';
 }
 
+// A refusal from the Chula sign-in wall (42501 chula_member_required, or a
+// token PostgREST will not take). Forgetting it after every failure made a
+// signed-out browser ask again on every render: 744 catalogue and 154
+// related-document refusals in one hour from one browser on 15 Nov 2026. It
+// is remembered only while signed out, for a minute at most, and any auth
+// event or the retry button forgets it (refusal-memory.js).
+export function isAccessRefusal(err) {
+  for (let e = err, depth = 0; e && depth < 3; e = e.cause, depth++) {
+    if (e.code === '42501' || e.code === 'PGRST301' || e.code === 'PGRST302' || e.status === 401) return true;
+    if (/chula_member_required/.test(String(e.message || ''))) return true;
+  }
+  return false;
+}
+
 // One catalog, fetched once per session. Before this, three consumers each
 // pulled the same 1,496 rows independently — LibraryView refetched on every
 // mount (~700 KB and two paged requests), while the AI-search source and the
 // subject-count helper kept private caches. One cache means one truth on
 // screen, and the invalidation event clears everyone at once.
 let _catalogPromise = null;
+const _catalogRefusal = createRefusalMemory();
+const _relatedRefusal = createRefusalMemory();
+const _refusedRelated = new Set();
+
+/** Ask again: the retry button, and every auth event. */
+export function forgetLibraryRefusals() {
+  if (_catalogRefusal.forget()) _catalogPromise = null;
+  _relatedRefusal.forget();
+  for (const key of _refusedRelated) _related.delete(key);
+  _refusedRelated.clear();
+}
 // The last rows fetched, with the revision they were fetched at, so a refresh
 // whose revision has not moved reuses them instead of downloading them again.
 // In memory only: a signed-in catalogue carries restricted rows, and the disk
@@ -313,6 +339,7 @@ let _catalogPromise = null;
 let _lastFetch = null; // { revision, result }
 let _catalogEpoch = 0;
 export function getLibraryCatalog() {
+  if (_catalogRefusal.expired()) _catalogPromise = null;
   if (!_catalogPromise) {
     _catalogPromise = Promise.all([
       fetchLibraryDocs().catch((error) => ({ docs: [], configured: false, error })),
@@ -334,7 +361,9 @@ export function getLibraryCatalog() {
         return combined;
       })
       .catch((err) => {
-        _catalogPromise = null; // a failed fetch must not poison the session
+        // A failed fetch must not poison the session. A refusal to a
+        // signed-out browser is kept for a short while (forgetLibraryRefusals).
+        if (!(isAccessRefusal(err) && _catalogRefusal.remember(_librarySignedIn))) _catalogPromise = null;
         throw err;
       });
   }
@@ -480,12 +509,19 @@ if (typeof window !== 'undefined') {
     event.ports?.[0]?.postMessage({ epoch: _librarySignedIn && state?.signedIn && state.epoch === event.data.epoch ? state.epoch : null });
   });
   window.addEventListener('vmx-palette-invalidate', () => { _catalogPromise = null; _subjectCounts = null; });
+  // A sign-in, a token refresh or any other auth event: a refusal remembered
+  // under the old token is asked again.
+  window.addEventListener('vmx-auth-state', () => forgetLibraryRefusals());
   window.addEventListener('vmx-library-auth-changed', (event) => {
     setLibraryAccess(event.detail?.signedIn === true).catch(() => {});
     _lastFetch = null;
     _catalogEpoch += 1;
     _catalogPromise = null;
     _subjectCounts = null;
+    _related.clear();
+    _refusedRelated.clear();
+    _catalogRefusal.forget();
+    _relatedRefusal.forget();
     _urlIntent.clear();
   });
   // A guest boot needs no auth SDK, but must revoke a session-only reader's
@@ -990,6 +1026,7 @@ export function fetchRelatedDocs(targets) {
   const list = [...new Set((targets || []).filter(Boolean))].sort().slice(0, 200);
   if (!list.length) return Promise.resolve(new Map());
   const key = list.join('|');
+  if (_relatedRefusal.expired()) { for (const k of _refusedRelated) _related.delete(k); _refusedRelated.clear(); }
   if (!_related.has(key)) {
     _related.set(key, (async () => {
       const { hasSupabase, getSupabase } = await import('./supabase.js');
@@ -1003,7 +1040,13 @@ export function fetchRelatedDocs(targets) {
         out.get(row.target_id).push(row);
       }
       return out;
-    })().catch(() => { _related.delete(key); return new Map(); }));
+    })().catch((error) => {
+      // Related files are an extra under a document: an empty list is right to
+      // show, but only a refusal is kept; anything else is asked again.
+      if (isAccessRefusal(error) && _relatedRefusal.remember(_librarySignedIn)) _refusedRelated.add(key);
+      else _related.delete(key);
+      return new Map();
+    }));
   }
   return _related.get(key);
 }
@@ -1141,6 +1184,27 @@ export async function openDocInTab(resolve) {
   } catch (e) {
     if (win) { try { win.close(); } catch { /* already gone */ } }
     throw e;
+  }
+}
+
+/** openDocInTab for a tap that has no shelf under it (the search palette).
+ *  When the link cannot be had (blocked tab and a failed lookup together sent
+ *  the student to the shelf without a word), `ask(title)` offers a retry,
+ *  which runs inside that dialog's own tap so a tab may open; declining goes
+ *  to the shelf with the document searched, its card there to tap
+ *  (`toShelf(title)`). The student ends with the document or a card for it.
+ *  @returns {Promise<'opened'|'shelf'>} */
+export async function openDocOrOffer(resolve, { title = '', ask, toShelf, open = openDocInTab }) {
+  for (;;) {
+    try {
+      await open(resolve);
+      return 'opened';
+    } catch {
+      if (!(await ask(title))) {
+        toShelf(title);
+        return 'shelf';
+      }
+    }
   }
 }
 

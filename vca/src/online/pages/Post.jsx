@@ -10,7 +10,7 @@ import { useTitle } from '../../lib/hooks.js';
 import { navigate, withQuery } from '../../router.js';
 import { Avatar, Byline } from '../ui/Avatar.jsx';
 import { JoinPrompt, PostChips, ReportSheet, Soon } from '../ui/bits.jsx';
-import { QuestionPeek } from '../ui/QuestionPeek.jsx';
+import { QuestionPeek } from '../../components/QuestionPeek.jsx';
 import { AttachButton, MediaGrid, MediaTray, useMediaTray } from '../ui/Media.jsx';
 import { askJoin } from '../ui/AccountButton.jsx';
 import { MODE } from '../config.js';
@@ -120,7 +120,17 @@ export default function Post({ route }) {
     setLiked((s) => { const n = new Set(s); if (on) n.add(targetId); else n.delete(targetId); return n; });
     const bump = (x) => ({ ...x, likes: Math.max(0, x.likes + (on ? 1 : -1)) });
     if (target === 'post') setPost(bump); else setComments((cs) => cs.map((c) => (c.id === targetId ? bump(c) : c)));
-    try { const b = await getBackend(); await b.board.like(target, targetId, on); } catch { /* the next load corrects the count */ }
+    try {
+      const b = await getBackend();
+      await b.board.like(target, targetId, on);
+    } catch {
+      // Not recorded: put the heart and the count back, and say why, instead of
+      // showing a like the server never kept.
+      setLiked((s) => { const n = new Set(s); if (on) n.delete(targetId); else n.add(targetId); return n; });
+      const undo = (x) => ({ ...x, likes: Math.max(0, x.likes + (on ? -1 : 1)) });
+      if (target === 'post') setPost(undo); else setComments((cs) => cs.map((c) => (c.id === targetId ? undo(c) : c)));
+      setError(on ? 'กดถูกใจไม่สำเร็จ ลองอีกครั้ง' : 'ยกเลิกถูกใจไม่สำเร็จ ลองอีกครั้ง');
+    }
   };
   const send = async (e) => {
     e.preventDefault();

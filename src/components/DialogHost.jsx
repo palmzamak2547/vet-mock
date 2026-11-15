@@ -68,6 +68,7 @@ export default function DialogHost({ scope, owner } = {}) {
       confirmLabel={req.confirmLabel}
       cancelLabel={req.cancelLabel}
       tone={req.tone}
+      focusCancel={Boolean(req.focusCancel)}
       hideCancel={req.mode === 'alert'}
       input={req.input || null}
       onConfirm={(value) => settle(req.mode === 'prompt' ? value : true)}

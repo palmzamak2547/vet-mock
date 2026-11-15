@@ -18,6 +18,7 @@ test('config: off without a key or agent, defaults that keep the house floor, ba
   assert.equal(c.sessionSeconds, 300);
   assert.equal(c.floorCredits, 50_000, 'Tipjai keeps 45,000; the default leaves 5,000 more');
   assert.equal(c.userSessions, 4);
+  assert.equal(c.passSessions, 8, 'a trial link is shared, so it gets more calls a day than one student');
   assert.equal(c.sessionCredits, 3000, '5 minutes at 600 credits a minute');
   const odd = voiceConfig({ ...ENV, AI_VOICE_SESSION_SECONDS: '5', AI_VOICE_FLOOR_CREDITS: '-1', AI_VOICE_USER_SESSIONS: 'lots' });
   assert.equal(odd.sessionSeconds, 300);

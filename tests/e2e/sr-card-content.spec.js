@@ -11,27 +11,30 @@ const figure = QB_COM3.find(q => q.id === 822);
 const unsafe = { ...figure, id: 9_900_001, q: 'ตรวจภาพเฉลยของข้อที่เพิ่มเอง',
   explainImage: 'https://untrusted.invalid/tracking.svg' };
 
-async function seed(page, cards, { start = true } = {}) {
+// planned: Home's plan size and a row of the student's own (every year's paper),
+// so the planner says ตั้งไว้แล้ว with its reset button; false leaves every row
+// at the planner's default, so it says จัดให้แล้ว with the app's own reason.
+async function seed(page, cards, { start = true, planned = true } = {}) {
   const now = Date.parse(PINNED_NOW);
   const srCards = Object.fromEntries(cards.map((q, i) => [q.id, {
     ...initCard(q.id), totalReviews: 1, lastReview: now - 4 * 86400000,
     nextReview: now - (cards.length - i) * 86400000,
   }]));
-  await page.addInitScript(({ srCards, unsafe, count }) => {
+  await page.addInitScript(({ srCards, unsafe, count, planned }) => {
     localStorage.setItem('vmx-selected-year', '4');
     localStorage.setItem('vmx-selected-phase', JSON.stringify('2'));
     localStorage.setItem('vmx-seen-landing', '1');
     localStorage.setItem('vmx-consent', JSON.stringify('essential'));
     localStorage.setItem('vmx-sr-cards', JSON.stringify(srCards));
     localStorage.setItem('vmx-sr-subject-filter', JSON.stringify('all'));
-    localStorage.setItem('vmx-sr-phase-scope', JSON.stringify('all'));
+    localStorage.setItem('vmx-sr-phase-scope', JSON.stringify(planned ? 'all' : 'current'));
     // A session of exactly these cards: the way a size outside the planner's
     // chips reaches it is Home's plan (sr.setup treats any other as the default).
-    sessionStorage.setItem('vmx-sr-plan-size', String(count));
+    if (planned) sessionStorage.setItem('vmx-sr-plan-size', String(count));
     localStorage.setItem('vmx-custom-q', JSON.stringify([unsafe]));
-  }, { srCards, unsafe, count: cards.length });
+  }, { srCards, unsafe, count: cards.length, planned });
   await page.goto('/app/review', { waitUntil: 'domcontentloaded' });
-  if (start) await page.getByRole('button', { name: 'เริ่ม Session →', exact: true }).click();
+  if (start) await page.getByRole('button', { name: 'เริ่มทบทวน', exact: true }).click();
 }
 
 const bankChunk = /(?:\/assets\/data-q-com3-(?!special-)[^/]+\.js|\/src\/data\/questions-com3\.js)(?:\?.*)?$/;
@@ -120,7 +123,7 @@ test('SR waits for a held native bank before freezing its complete ordered queue
   try {
     await seed(page, [figure, unsafe], { start: false });
     await bank.requested;
-    const start = page.getByRole('button', { name: 'เริ่ม Session →', exact: true });
+    const start = page.getByRole('button', { name: 'เริ่มทบทวน', exact: true });
     await start.evaluate(button => { button.click(); button.click(); });
     await expect(page.getByRole('button', { name: 'กำลังโหลดคลังข้อสอบ…', exact: true })).toBeDisabled();
     await expect(page.locator('.vmx-flashcard')).toHaveCount(0);
@@ -134,10 +137,42 @@ test('SR waits for a held native bank before freezing its complete ordered queue
   } finally { bank.release(); }
 });
 
+// On a cold visit the planner is drawn while it still counts, and the count
+// arrives a moment later. Nothing above the start row may change height then:
+// a tap that lands as the row moves down reaches no button (main, 15 Nov,
+// Firefox, the first test in this file).
+for (const planned of [true, false]) {
+  test(`the start button holds still when the cards have been counted (${planned ? 'ตั้งไว้แล้ว with the reset button' : 'จัดให้แล้ว with the app reason'})`, async ({ page }) => {
+    const bank = await holdBank(page);
+    try {
+      await seed(page, [figure, unsafe], { start: false, planned });
+      await bank.requested;
+      const summary = page.locator('#vmx-srs-summary');
+      const start = page.getByRole('button', { name: 'เริ่มทบทวน', exact: true });
+      await expect(summary).toContainText('กำลังนับใบที่ถึงรอบ…');
+      await expect(start).toBeEnabled();
+      // WebKit keeps document.fonts.ready waiting while the held bank request is out: wait a few seconds only, and again after the release.
+      const fontsReady = () => page.evaluate(() => Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 5000))]));
+      await fontsReady();
+      const before = await start.boundingBox();
+      bank.release();
+      await expect(summary).toContainText(planned ? 'ตั้งไว้แล้ว:' : 'จัดให้แล้ว:');
+      const why = page.locator('.vmx-decide-why');
+      await expect(why).toContainText(planned ? 'ตามที่คุณตั้งไว้' : 'ใบที่ค้างนานสุดมาก่อน');
+      await expect(why.getByRole('button', { name: 'กลับไปใช้ค่าที่จัดให้', exact: true })).toHaveCount(planned ? 1 : 0);
+      await fontsReady();
+      const after = await start.boundingBox();
+      test.info().annotations.push({ type: 'start-button-shift', description: `top ${(after.y - before.y).toFixed(2)} px, left ${(after.x - before.x).toFixed(2)} px` });
+      expect(Math.abs(after.y - before.y), 'the start button moved down or up').toBeLessThanOrEqual(0.5);
+      expect(Math.abs(after.x - before.x), 'the start button moved sideways').toBeLessThanOrEqual(0.5);
+    } finally { bank.release(); }
+  });
+}
+
 test('SR keeps failed-bank planning and retries before explicit available-card review', async ({ page }) => {
   await page.route(bankChunk, route => route.abort());
   await seed(page, [figure, unsafe], { start: false });
-  await page.getByRole('button', { name: 'เริ่ม Session →', exact: true }).click();
+  await page.getByRole('button', { name: 'เริ่มทบทวน', exact: true }).click();
   await expect(page.getByRole('alert')).toContainText('ยังโหลดคลังข้อสอบไม่ครบ');
   await expect(page.locator('.vmx-flashcard')).toHaveCount(0);
   await page.getByRole('button', { name: 'ลองโหลดคลังอีกครั้ง', exact: true }).click();
@@ -157,14 +192,14 @@ test('a changed SR year scope withdraws a pending start before its bank finishes
   try {
     await seed(page, [figure, unsafe], { start: false });
     await bank.requested;
-    await page.getByRole('button', { name: 'เริ่ม Session →', exact: true }).click();
+    await page.getByRole('button', { name: 'เริ่มทบทวน', exact: true }).click();
     await expect(page.getByRole('button', { name: 'กำลังโหลดคลังข้อสอบ…', exact: true })).toBeDisabled();
     await openAdjust(page);
     await page.getByRole('button', { name: '🌐 ทุกปี', exact: true }).click();
     bank.release();
     await expect(page.getByText('Due ทบทวน', { exact: true }).locator('..').locator('div').last()).toHaveText('2ใบ');
     await expect(page.locator('.vmx-flashcard')).toHaveCount(0);
-    await page.getByRole('button', { name: 'เริ่ม Session →', exact: true }).click();
+    await page.getByRole('button', { name: 'เริ่มทบทวน', exact: true }).click();
     await expect(page.locator('.vmx-flashcard .front')).toContainText(figure.q);
     await expect(page.locator('.vmx-progress')).toContainText('1 / 2');
   } finally { bank.release(); }
@@ -188,7 +223,7 @@ test('a foreground bank recovery refreshes planning counts and native subject re
   await openAdjust(page);
   const dueCount = page.getByText('Due ทบทวน', { exact: true }).locator('..').locator('div').last();
   await expect(dueCount).toHaveText('1ใบ');
-  await page.getByRole('button', { name: 'เริ่ม Session →', exact: true }).click();
+  await page.getByRole('button', { name: 'เริ่มทบทวน', exact: true }).click();
   await expect(page.locator('.vmx-flashcard .front')).toContainText(figure.q);
   await expect(page.locator('.vmx-progress')).toContainText('1 / 3');
   await page.getByRole('button', { name: '← เปลี่ยนการตั้งค่า', exact: true }).click();
@@ -196,6 +231,6 @@ test('a foreground bank recovery refreshes planning counts and native subject re
   const subjects = page.getByRole('combobox', { name: 'วิชา', exact: true });
   await expect(subjects.locator('option[value="engprof"]')).toHaveCount(1);
   await subjects.selectOption('engprof');
-  await page.getByRole('button', { name: 'เริ่ม Session →', exact: true }).click();
+  await page.getByRole('button', { name: 'เริ่มทบทวน', exact: true }).click();
   await expect(page.locator('.vmx-flashcard .front')).toContainText(nativeEnglish.q);
 });

@@ -18,17 +18,12 @@
 // ============================================================
 
 import { getDailyQResultForDate, todayKey } from './daily-q.js';
+import { dayKeyBefore } from './study-day.js';
 
 const THAI_MONTHS = [
   'ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.',
   'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.',
 ];
-
-function pad2(n) { return String(n).padStart(2, '0'); }
-
-function dateKeyFromDate(d) {
-  return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
-}
 
 // Thai short date for the share text — "17 พ.ค. 2026" reads as
 // natural as the rest of the app's Thai copy. Buddhist Era + Latin
@@ -45,11 +40,9 @@ export function formatThaiShortDate(dateStr) {
 // the last row regardless of whether it was answered yet.
 export function getDailyQHistory(days = 7) {
   const out = [];
-  const today = new Date();
+  const today = todayKey();
   for (let i = days - 1; i >= 0; i--) {
-    const d = new Date(today);
-    d.setDate(d.getDate() - i);
-    const key = dateKeyFromDate(d);
+    const key = dayKeyBefore(today, i);
     const result = getDailyQResultForDate(key); // 'correct' | 'wrong' | null
     out.push({
       date: key,

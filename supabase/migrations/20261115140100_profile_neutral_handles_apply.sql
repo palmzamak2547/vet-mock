@@ -1,0 +1,80 @@
+-- Public names that read as a student number or a mail address get a neutral handle.
+--
+-- Written 15 Nov 2026 for release 5.228.0 (docs/releases/5.228.0.md, "Database
+-- steps, final", step 2 of 4). The pull request that adds this file does not
+-- apply it: migrations here are applied by hand, after a second reader. Needs
+-- file 1 (20261115140000_profile_name_rules.sql) applied first.
+--
+-- WHY
+--   The board, the groups, comments and the reading-now list show
+--   profiles.username to other members, and members can read that column
+--   through the API. On 15 Nov 2026, 12 of the 48 accounts with a display name
+--   held one that looks like a student number or the local part of a mail
+--   address. The app already draws such a name as "นิสิต" on the surfaces it
+--   draws, but the raw value stays readable through the API until it changes.
+--
+-- WHAT IT DOES
+--   For every profile whose name private.public_name_leak recognises (a
+--   student number, the account's own mail local part, or an address; file 1
+--   gives the exact rule), except an admin's (public.admin_users), one call to
+--   private.give_neutral_handle:
+--     - the old name, the new handle and the old first-run flag are recorded
+--       in private.profile_name_undo (only the admin can read it);
+--     - profiles.username becomes user_ and six letters from a to f, a name
+--       the app already reads as not chosen: Home greets the student as
+--       "นิสิต", the identity card offers a name, and other members see the
+--       handle;
+--     - identity_intro_done is taken out of that account's metadata, so the
+--       first-run step on Home ("เพื่อนจะเห็นคุณแบบไหน") asks for a name again.
+--   It prints one number: how many accounts it changed. Running it again
+--   changes nothing (a handle is never recognised), and prints 0.
+--
+-- WHAT IT NEVER TOUCHES
+--   No row is deleted. No other profile, no picture, no other metadata key
+--   (the board choice, the level, the year stay), no function, policy or
+--   grant. Names copied elsewhere are not changed: a question shared in a
+--   group keeps the author_name written when it was shared (counted below).
+--   Nothing the live app calls changes: it reads the new name like any other.
+--
+-- WHAT A STUDENT NOTICES
+--   The new name shows after the app next reads the profile (a reload). The
+--   first-run step needs the account's token to carry the new metadata, which
+--   happens at the next token refresh (within the hour) or sign-in. On a
+--   device where the student already closed the step, the device remembers it
+--   (localStorage vmx-identity-intro:<id>) and does not show it again; that
+--   device still greets "นิสิต" and the profile hub's identity card asks for a
+--   name, since the handle reads as not chosen.
+--
+-- HOW TO COUNT BEFORE APPLYING (counts only, no name, no address, no id)
+--   select count(*) filter (where reason = 'student number') as student_number,
+--          count(*) filter (where reason = 'email') as email,
+--          count(*) filter (where reason = 'address') as address,
+--          count(*) as accounts
+--   from (select private.public_name_leak(p.username, u.email) as reason
+--         from public.profiles p left join auth.users u on u.id = p.id
+--         where not exists (select 1 from public.admin_users a where a.user_id = p.id)) s
+--   where reason is not null;
+--
+--   About 12 expected (the 15 Nov count used the app's rule; this rule also
+--   counts a name with an @ and a 7-digit run joined by separators, so it may
+--   be a little higher, never lower). Names copied into shared questions,
+--   which this file leaves as they are:
+--   select count(*) as shared_question_names
+--   from public.shared_questions s left join auth.users u on u.id = s.author_id
+--   where private.public_name_leak(s.author_name, u.email) is not null;
+--
+-- AFTER APPLYING
+--   The number it printed equals both of these, and the count above is 0:
+--   select count(*) from private.profile_name_undo where undone_at is null and reason <> 'collision';
+--   select count(*) from public.profiles where username ~ '^user_[a-f]{6}$';   -- may be higher if file 4 ran
+--
+-- HOW TO TAKE IT BACK
+--   One account (the admin looks up the id in private.profile_name_undo):
+--     select private.undo_neutral_handle('<user id>');
+--   Every account this file changed:
+--     select count(*) filter (where private.undo_neutral_handle(user_id)) as undone
+--     from (select distinct user_id from private.profile_name_undo
+--           where undone_at is null and reason <> 'collision') s;
+--   An account whose student has chosen a new name since is left alone (false).
+
+select private.neutralise_leaking_names() as accounts_changed;

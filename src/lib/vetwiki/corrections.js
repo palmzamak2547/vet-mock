@@ -1080,40 +1080,94 @@ export const CORRECTIONS = {
       "sourceRef": "PMID 23820212 (doi 10.4142/jvs.2013.14.4.487)"
     }
   ],
-  "equine-medicine--equine-colic-bestfit--approach-classification-decision-tree": [
+  "equine-medicine--equine-anesthesia--ประเมินก่อนวางยา": [
     {
       "severity": "narrows",
-      "lectureSays": "โน้ตเขียนเกณฑ์แยก medical กับ surgical ว่า HR มากกว่า 60 เท่ากับ ผ่า",
-      "evidenceSays": "งาน Surgical and postoperative factors influencing short-term survival of horses following small intestinal resection, PMID 12358046, doi 10.2746/042516402776117700 พบว่า heart rate ตั้งแต่ 60 ครั้งต่อนาที สัมพันธ์กับการไม่รอดชีวิตหลัง small intestinal resection ที่ OR 5.6 (95% CI 1.5-20.6) ร่วมกับ postoperative ileus และการต้อง repeat celiotomy ซึ่งเป็น prognostic indicator ไม่ใช่ข้อบ่งชี้ให้ผ่าตัดโดยลำพัง",
-      "examAdvice": "ถ้าอาจารย์ถามเกณฑ์ส่งผ่าตัด ให้ตอบ HR มากกว่า 60 ตามที่สอน แต่ถ้าโจทย์ถามเรื่อง prognosis ให้ตอบว่า HR ตั้งแต่ 60 สัมพันธ์กับการไม่รอดชีวิต",
-      "sourceRef": "PMID 12358046 (doi 10.2746/042516402776117700)"
+      "lectureSays": "โน้ตเขียนให้งด grain 24 ชม. หรือหญ้า 12 ชม. ก่อนวางยา โดยให้น้ำได้ตลอด",
+      "evidenceSays": "งานที่เทียบการงดกับไม่งดอาหารก่อนหัตถการนอกช่องท้องไม่พบประโยชน์ของการงดหญ้า งาน Fasting horses perioperatively decreases manure production and increases time to manure output postoperatively: a controlled randomized trial, PMID 38866041, doi 10.2460/javma.24.04.0235 สุ่มม้า 45 ตัวที่ผ่าตัด orthopedic แบบนัดล่วงหน้า กลุ่มที่ได้หญ้าตลอดถ่ายมูลครั้งแรกหลังผ่าเร็วกว่า (238 นาที เทียบกับ 444-502 นาทีในกลุ่มงด 10 ชม.) และปริมาณมูลลดลงน้อยกว่า โดย oxygenation, hypotension และ colic ไม่ต่างกัน งาน Pre-operative feeding effects on post-anaesthetic colic and faecal output in horses, PMID 41032053, doi 10.1111/evj.70100 (retrospective cohort 620 เคส) พบว่าการงดอาหารสัมพันธ์กับ post-anaesthetic colic มากขึ้น (odds ratio 2.7, 95% CI 1.4-5.5) และงาน Incidence of post-anesthetic colic in non-fasted adult equine patients, PMID 27928173 พบ post-anesthetic colic 2.5% ในม้าที่ไม่งดอาหาร หลักฐานชุดนี้มาจากหัตถการนอกช่องท้องเท่านั้น",
+      "examAdvice": "ในข้อสอบให้ตอบงด grain 24 ชม. หรือหญ้า 12 ชม. ตามสไลด์ แต่เวลาเตรียมม้าผ่าตัดนอกช่องท้องจริงให้รู้ว่าการงดหญ้ายังไม่มีหลักฐานว่าลดภาวะแทรกซ้อน และอาจเพิ่ม colic หลังวางยา แล้วทำตาม protocol ของโรงพยาบาลนั้น",
+      "sourceRef": "PMID 38866041 (doi 10.2460/javma.24.04.0235) และ PMID 41032053 (doi 10.1111/evj.70100)"
     }
   ],
-  "equine-medicine--equine-gi--exam-techniques-9-tools": [
-    {
-      "severity": "narrows",
-      "lectureSays": "โน้ตเขียนว่าตอนทำ nasogastric intubation ให้เช็ค reflux โดย มากกว่า 2 ลิตร ถือว่า significant",
-      "evidenceSays": "ตัวเลข 2 ลิตร มาจาก case definition ของ postoperative ileus (POI) ในงาน Evaluation of factors associated with postoperative ileus in horses: 31 cases (1990-1992), PMID 7744649 ซึ่งนิยาม POI ว่า gastric reflux มากกว่า 2 L ร่วมกับ pulse rate ตั้งแต่ 60 ครั้งต่อนาที หรือมีอาการปวดท้อง ไม่ใช่ cut-off ที่ validate ไว้สำหรับตัดสินใจส่งผ่าตัดก่อนผ่า",
-      "examAdvice": "ตอบ มากกว่า 2 ลิตร เท่ากับ significant reflux ตามที่อาจารย์สอน แล้วจำบริบทไว้ว่าเกณฑ์นี้มาจากนิยาม POI หลังผ่าตัดที่ต้องมี pulse หรืออาการปวดร่วมด้วย",
-      "sourceRef": "PMID 7744649"
-    }
-  ],
-  "equine-medicine--equine-neonatal--parturition-in-the-mare-gestation-length": [
+  "equine-medicine--equine-dentistry--การคะเนอายุ-ฟันแท้ตั้งแต่-2-ปีครึ่งถึงม้าแก่": [
     {
       "severity": "contradicts",
-      "lectureSays": "โน้ตเขียน gestation length ของ Thoroughbred ว่า 320-360 วัน",
+      "lectureSays": "โน้ตเขียนว่าม้าอายุ 7 ปีมี hook ที่ upper corner incisor และ hook นี้พบได้ที่ 7 ปีหรือ 11 ปี",
+      "evidenceSays": "งาน An evaluation of the accuracy of ageing horses by their dentition: changes of dental morphology with age, PMID 8533255, doi 10.1136/vr.137.5.117 (ม้า Thoroughbred 434 ตัวที่รู้อายุจริง) พบว่าการมี hook ที่ upper corner incisor ไม่มีค่าในการประมาณอายุ และสรุปว่ากำหนดอายุเฉพาะให้ลักษณะฟันแต่ละอย่างไม่ได้ เพราะม้าแต่ละตัวต่างกันมาก งาน Ageing horses by an examination of their incisor teeth: an (im)possible task?, PMID 8730689, doi 10.1136/vr.138.13.295 (ม้า 212 ตัวที่มีทะเบียนอายุ) พบเช่นกันว่า seven-year notch แปรผันและไม่สม่ำเสมอพอจะใช้บอกอายุ",
+      "examAdvice": "ในข้อสอบให้ตอบว่า hook ที่ upper corner incisor พบที่ 7 ปีตามสไลด์ แต่เวลาคะเนอายุม้าจริงอย่าฟันธงว่า 7 หรือ 11 ปีเพียงเพราะเห็น hook",
+      "sourceRef": "PMID 8533255 (doi 10.1136/vr.137.5.117) และ PMID 8730689 (doi 10.1136/vr.138.13.295)"
+    }
+  ],
+  "equine-medicine--equine-dentistry--การคะเนอายุจากฟัน-หลักการ-และฟันน้ำนม": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "โน้ตใช้ Galvayne's groove ที่ upper corner incisor บอกอายุ คือเริ่มเห็นที่ขอบเหงือก 10 ปี ยาวลงมาครึ่งทาง 15 ปี และยาวเต็มฟัน 20 ปี",
+      "evidenceSays": "งาน An evaluation of the accuracy of ageing horses by their dentition: changes of dental morphology with age, PMID 8533255, doi 10.1136/vr.137.5.117 ถ่ายภาพฟันม้า Thoroughbred 434 ตัวที่รู้อายุจริง พบว่า Galvayne's groove และ hook ที่ upper corner incisor ไม่มีค่าในการประมาณอายุ ลักษณะที่คงเส้นคงวาที่สุดคือการขึ้นของ incisor และในกลุ่มลักษณะการสึก dental star สัมพันธ์กับอายุมากที่สุด งาน Ageing horses by an examination of their incisor teeth: an (im)possible task?, PMID 8730689, doi 10.1136/vr.138.13.295 ตรวจม้า 212 ตัวที่มีทะเบียนอายุ ได้ผลตรงกันว่า Galvayne's groove กับ seven-year notch แปรผันเกินกว่าจะเชื่อถือได้",
+      "examAdvice": "ในข้อสอบให้ตอบ 10, 15 และ 20 ปีตามสไลด์ แต่เวลาคะเนอายุม้าจริงอย่าใช้ Galvayne's groove ตัดสิน ให้ดูการขึ้นของ incisor กับ dental star เป็นหลัก แล้วบอกเจ้าของว่าเป็นการประมาณ",
+      "sourceRef": "PMID 8533255 (doi 10.1136/vr.137.5.117) และ PMID 8730689 (doi 10.1136/vr.138.13.295)"
+    }
+  ],
+  "equine-medicine--equine-hoof--โรคของ-hoof-capsule-ภายนอก": [
+    {
+      "severity": "narrows",
+      "lectureSays": "โน้ตเขียนว่าการแยกของผนังกีบใน white line disease เป็น delaminating process ที่อาจเกิดจาก mechanical stress สภาพแวดล้อม และพิษอย่าง selenium โดยไม่ได้กล่าวถึงเชื้อ",
+      "evidenceSays": "MSD Veterinary Manual หัวข้อ White Line Disease in Horses (ปรับปรุง Jun 2024) ระบุว่ายังไม่ทราบ etiological agent ที่แน่ชัด และเชื่อว่ามีทั้ง anaerobic bacteria และ fungi เกี่ยวข้อง โดย fungi อาจเป็นสาเหตุแรกเริ่ม หรือเป็น opportunistic pathogen ที่เข้ามาหลังเชื้ออื่นทำความเสียหายเริ่มแรกแล้ว งาน Onychomycosis in white line disease in horses: pathology, mycology and clinical features, PMID 9932091, doi 10.1111/j.2042-3306.1998.tb05119.x ตรวจกีบ 100 กีบจากม้า Thoroughbred 51 ตัวที่เป็น white line disease ยืนยัน onychomycosis ทาง histology ได้ 10 ตัวอย่าง ในจำนวนนี้ 7 ตัวอย่างมีรอยแยกของผนังกีบชั้นในรุนแรงและแยกได้ Scedosporium apiospermum ผู้วิจัยสรุปว่า onychomycosis เป็นเหตุของโรคหรือทำให้โรคแย่ลงได้บ่อย",
+      "examAdvice": "ในข้อสอบให้ตอบสาเหตุตามสไลด์ คือ mechanical stress สภาพแวดล้อม และพิษอย่าง selenium แต่เวลารักษาจริงให้คิดถึง bacteria และ fungi ที่ย่อย keratin ด้วย จึงต้องเปิดผนังกีบส่วนที่เป็นโรคออกให้หมดแล้วใช้ disinfectant เฉพาะที่",
+      "sourceRef": "MSD Veterinary Manual, White Line Disease in Horses (last updated Jun 2024) และ PMID 9932091 (doi 10.1111/j.2042-3306.1998.tb05119.x)"
+    }
+  ],
+  "equine-medicine--equine-infectious--african-horse-sickness-ahs": [
+    {
+      "severity": "narrows",
+      "lectureSays": "โน้ตเขียนว่า incubation period ของ AHS ปกติ 7-14 วัน อาจสั้นถึง 2 วัน",
+      "evidenceSays": "WOAH Technical Disease Card เรื่อง African Horse Sickness (ปรับปรุง December 2020) ให้ incubation period ในม้าประมาณ 3 วันถึง 2 สัปดาห์ โดยปกติน้อยกว่า 9 วัน รูปแบบ cardiac มักเกิดช้ากว่า pulmonary และการทดลองชี้ว่าอาจยาวได้ถึง 21 วัน ส่วน MSD Veterinary Manual หัวข้อ African Horse Sickness (ปรับปรุง Sept 2026) ให้ค่าเฉลี่ย 5-7 วัน ขอบของช่วงใกล้กับโน้ต แต่ช่วงที่พบบ่อยสั้นกว่า 7-14 วัน",
+      "examAdvice": "ในข้อสอบให้ตอบ 7-14 วัน อาจสั้นถึง 2 วันตามสไลด์ แต่เวลาสอบสวนโรคจริงให้ย้อนหาการสัมผัสในช่วง 3 วันถึง 2 สัปดาห์ก่อนเริ่มมีไข้ โดยส่วนใหญ่ฟักตัวไม่ถึง 9 วัน",
+      "sourceRef": "WOAH Technical Disease Card, African Horse Sickness (last updated December 2020)"
+    }
+  ],
+  "equine-medicine--equine-neonatal--พัฒนาการและพฤติกรรมปกติของลูกม้า": [
+    {
+      "severity": "narrows",
+      "lectureSays": "โน้ตเขียนว่าถ้าใช้ milk replacer ให้ 20-25% ของน้ำหนักตัวต่อวัน",
+      "evidenceSays": "แหล่งอ้างอิงให้ตัวเลขต่างกัน ตัวเลข 20-25% ใกล้กับปริมาณนมที่ลูกม้ากินเองจากแม่ งาน Lactation in the horse: milk composition and intake by foals, PMID 6619986, doi 10.1093/jn/113.10.2096 วัดด้วย D2O ได้ว่าลูกม้าที่อายุ 25 และ 39 วันได้ dry matter จากนมราว 2.1 และ 2.0% ของน้ำหนักตัวต่อวัน โดยนมช่วงนั้นมี dry matter 10.5% คิดเป็นนมราว 19-20% ของน้ำหนักตัวต่อวัน แต่คำแนะนำสำหรับ milk replacer ต่ำกว่านั้น MSD Veterinary Manual หัวข้อ Feeding the Aged Horse and the Orphan Foal (ปรับปรุง Feb 2026) ให้เพิ่มปริมาณต่อมื้อหลังอายุ 2 สัปดาห์จนลูกม้าได้ milk replacer ที่เจือจางถูกต้องรวม 10-15% ของน้ำหนักตัวต่อวัน งาน Importance of milk replacer intake and composition in rearing orphan foals, PMID 17424268 (ลูกม้า 20 ตัว เลี้ยงด้วย replacer 50 วัน) พบว่าลูกม้ากิน replacer 10-12 L ต่อน้ำหนักตัว 100 kg ต่อวัน ถ้าให้ตามช่วงห่างมื้อที่แนะนำจะกินไม่ถึง 15% BW ต่อวัน และกลุ่มที่ได้ปริมาณสูงในสัปดาห์แรกกินมากกว่ากลุ่มอื่น 26% แต่ท้องเสียเร็วกว่า (วันที่ 6-11 เทียบกับ 11-22) และนานกว่า (6.3 วัน เทียบกับ 2.5-3.6 วัน)",
+      "examAdvice": "ในข้อสอบให้ตอบ 20-25% ของน้ำหนักตัวต่อวันตามสไลด์ แต่เวลาเลี้ยงลูกม้ากำพร้าด้วย milk replacer จริงให้เริ่มที่ 10-15% ของน้ำหนักตัวต่อวัน ผสมตามฉลาก และดูอุจจาระก่อนเพิ่มปริมาณ เพราะการให้มากเร็วเกินไปทำให้ท้องเสียเร็วและนานขึ้น",
+      "sourceRef": "MSD Veterinary Manual, Feeding the Aged Horse and the Orphan Foal (last updated Feb 2026), PMID 17424268 และ PMID 6619986 (doi 10.1093/jn/113.10.2096)"
+    }
+  ],
+  "equine-medicine--equine-neonatal--อายุครรภ์-และนมน้ำเหลืองกับการรับภูมิคุ้มกัน": [
+    {
+      "severity": "narrows",
+      "lectureSays": "โน้ตเขียนอายุครรภ์ปกติ 335-342 วัน และน้อยกว่า 320 วันเป็น premature",
       "evidenceSays": "งาน Factors affecting gestation length in the Thoroughbred mare, PMID 12417119, doi 10.1016/s0378-4320(02)00171-9 (n = 433, ระบุวัน ovulation) พบพิสัย 315-388 วัน mean 344.1 บวกลบ 0.49 วัน และลูกม้า viable ตลอดพิสัยนี้ ส่วนงาน Determinants of gestation length in Thoroughbred mares on German stud farms, PMID 29475570, doi 10.1016/j.anireprosci.2018.02.001 พบ 306-390 วัน mean 347.0 บวกลบ 14.4 วัน จาก 16,226 การตั้งท้อง",
-      "examAdvice": "ในข้อสอบให้ตอบ 320-360 วันตามสไลด์ แต่เวลาเจอเคสจริงอย่าฟันธงว่า premature หรือ dysmaturity เพียงเพราะอายุครรภ์หลุดกรอบนี้",
+      "examAdvice": "ในข้อสอบให้ตอบ 335-342 วัน และน้อยกว่า 320 วันเป็น premature ตามสไลด์ แต่เวลาเจอเคสจริงอย่าฟันธงว่า premature หรือ dysmaturity เพียงเพราะอายุครรภ์หลุดกรอบนี้",
       "sourceRef": "PMID 12417119 (doi 10.1016/s0378-4320(02)00171-9)"
     }
   ],
-  "equine-medicine--equine-ophth--per-organ-deep-dive": [
+  "equine-medicine--equine-nutrition--อาหารหยาบ-ปริมาณ-แปลงหญ้า-และหญ้าแห้ง": [
     {
       "severity": "narrows",
-      "lectureSays": "โน้ตเขียนหัวข้อ uvea ว่า ERU/uveitis มี leptospirosis link โดยไม่ระบุขอบเขตทางภูมิศาสตร์",
-      "evidenceSays": "งาน Analysis of 1840 equine intraocular fluid samples for the presence of anti-Leptospira antibodies and leptospiral DNA, PMID 36006363, doi 10.3390/vetsci9080448 พบใน intraocular sample ของตา ERU มี MAT titre ตั้งแต่ 1:100 ขึ้นไป 83% และตรวจพบ leptospiral DNA ด้วย PCR 72% ขณะที่ตาปกติและ uveitis จากสาเหตุอื่นตรวจไม่พบ antibody เลย แต่ Gilger et al., PMID 18828691, doi 10.2460/ajvr.69.10.1329 ไม่พบ intraocular bacterial DNA และไม่พบความต่างของ titre ระหว่างม้า ERU กับม้าปกติในสหรัฐฯ ตะวันออกเฉียงใต้ ผู้เขียนยังแนะนำให้ใช้ MAT ร่วมกับ ELISA และ PCR จึงจะวินิจฉัยเชื่อถือได้",
-      "examAdvice": "ตอบว่า ERU สัมพันธ์กับ leptospirosis ตามที่อาจารย์สอน แล้วเติมได้ว่าความสัมพันธ์นี้แรงต่างกันตามภูมิภาค ไม่ใช่สาเหตุเดียวทุกที่",
-      "sourceRef": "PMID 36006363 (doi 10.3390/vetsci9080448)"
+      "lectureSays": "โน้ตเขียนว่า forage ขั้นต่ำ 1% BW (50% ของอาหาร) และ 1.5-2% เหมาะกว่า (70-90% ของอาหาร)",
+      "evidenceSays": "MSD Veterinary Manual หัวข้อ Nutritional Requirements of Horses and Other Equids (ปรับปรุง Feb 2026) จัดเกณฑ์ forage อย่างน้อย 50% ของอาหารทั้งหมดเป็นคำแนะนำในอดีต และให้คำแนะนำปัจจุบันว่าม้าควรได้ forage อย่างน้อย 1.5-2% BW ต่อวัน (DM basis) ส่วนหัวข้อ Feeding Practices in Horses and Other Equids ของคู่มือเดียวกันยังสรุปว่า forage ไม่ควรต่ำกว่า 50% ของอาหารที่กินทั้งหมด และม้าที่คุมน้ำหนักไม่ควรได้อาหารรวมต่ำกว่า 1.25% BW DM ต่อวัน สิ่งที่คู่มือเรียกว่าเกณฑ์ในอดีตคือ forage 50% ของอาหาร ซึ่งโน้ตจับคู่ไว้กับ 1% BW ส่วน 1.5-2% BW ที่โน้ตเรียกว่าเหมาะกว่า คือขั้นต่ำตามคำแนะนำปัจจุบัน",
+      "examAdvice": "ในข้อสอบให้ตอบขั้นต่ำ 1% BW และ 1.5-2% เหมาะกว่าตามสไลด์ แต่เวลาจัดอาหารให้ม้าจริงให้ถือ 1.5% BW (DM) เป็นพื้น อย่าลด forage ลงถึง 1% เพียงเพราะตัวเลขนี้เรียกว่าขั้นต่ำ",
+      "sourceRef": "MSD Veterinary Manual, Nutritional Requirements of Horses and Other Equids (last updated Feb 2026)"
+    }
+  ],
+  "equine-medicine--equine-nutrition--แร่ธาตุ-dod-ในลูกม้า-และน้ำนมแม่ม้า": [
+    {
+      "severity": "narrows",
+      "lectureSays": "โน้ตเขียนว่า DOD เกิดมากขึ้นเมื่อ trace minerals ต่ำกว่า recommended allowance และแนะนำให้เพิ่ม copper กับ zinc ในอาหารตั้งแต่ prenatal ถึง weanling",
+      "evidenceSays": "หลักฐานเรื่อง copper ไม่ได้ไปทางเดียวกัน งาน The effects of copper supplementation on the prevalence of cartilage lesions in foals, PMID 2269267, doi 10.1111/j.2042-3306.1990.tb04310.x (แม่ม้า 21 ตัว) พบ lesion ในลูกกลุ่มที่ได้ copper ต่ำมากกว่ากลุ่มเสริมทั้งที่อายุ 90 และ 180 วัน (ที่ 180 วัน articular lesion 21 เทียบกับ 3) แม้ความต่างที่ 90 วันจะมาจากลูกม้าตัวเดียวเป็นหลัก งาน Influence of liver copper status of mare and newborn foal on the development of osteochondrotic lesions, PMID 12553465, doi 10.2746/042516403775467469 ไม่พบความสัมพันธ์ระหว่าง liver copper ของแม่หรือลูกกับ osteochondrosis ที่อายุ 5 และ 11 เดือน และสรุปว่า copper ไม่น่าเป็นปัจจัยสำคัญของการเกิดโรค แต่ลูกที่ copper แรกเกิดต่ำมี lesion ลดลงช้ากว่า งาน Articular / epiphyseal osteochondrosis in Thoroughbred foals at 5 months of age: influences of growth of the foal and prenatal copper supplementation of the dam, PMID 16317447, doi 10.1080/00480169.2005.36591 (ลูกม้า 33 ตัว) พบว่าการฉีด copper ให้แม่ช่วงท้ายของการตั้งท้องไม่ลดจำนวนหรือความรุนแรงของ lesion ที่อายุ 160 วัน ส่วน lesion ที่ tarsocrural joint สัมพันธ์กับ average daily gain",
+      "examAdvice": "ในข้อสอบให้ตอบตามสไลด์ว่า trace minerals ต่ำสัมพันธ์กับ DOD และให้เสริม copper กับ zinc แต่เวลาแนะนำเจ้าของม้าจริงอย่าบอกว่าเสริม copper แล้วกัน DOD ได้ ให้คุมอัตราการโตของลูกม้าร่วมด้วย",
+      "sourceRef": "PMID 12553465 (doi 10.2746/042516403775467469) และ PMID 16317447 (doi 10.1080/00480169.2005.36591)"
+    }
+  ],
+  "equine-medicine--equine-ophth--keratitis-และการรักษากระจกตา": [
+    {
+      "severity": "narrows",
+      "lectureSays": "โน้ตให้ยาต้านเชื้อราสำหรับ ulcerative keratomycosis เป็นรายการเดียว คือ natamycin, miconazole, itraconazole, ketoconazole และ fluconazole",
+      "evidenceSays": "ยาห้าตัวนี้ได้ผลไม่เท่ากัน งาน Antimicrobial susceptibility patterns of fungi isolated from horses with ulcerative keratomycosis, PMID 9492925 (เชื้อจากม้า 22 ตัวใน Florida เป็น Aspergillus 41% และ Fusarium 32%) พบว่าเชื้อไวต่อ natamycin กับ miconazole มากที่สุด รองลงมาคือ itraconazole และ ketoconazole โดยสี่ตัวนี้ไม่ต่างกันอย่างมีนัยสำคัญ แต่ไวต่อ fluconazole น้อยกว่าอีกสี่ตัวอย่างมีนัยสำคัญ (P<0.0001) งาน In vitro susceptibility patterns of Aspergillus and Fusarium species isolated from equine ulcerative keratomycosis cases in the midwestern and southern United States with inclusion of the new antifungal agent voriconazole, PMID 19751493, doi 10.1111/j.1463-5224.2009.00721.x ยืนยันว่าเชื้อไวต่อ fluconazole ต่ำสม่ำเสมอ โดย Fusarium ไวต่อ natamycin และ voriconazole มากที่สุด และไวต่อ itraconazole กับ ketoconazole น้อยที่สุด งาน In vitro antifungal susceptibility of Fusarium species and Aspergillus fumigatus cultured from eleven horses with fungal keratitis, PMID 35684950, doi 10.1111/vop.12995 พบ Fusarium ดื้อ azole ที่ทดสอบครบ 6 จาก 6 เคส แต่ไวต่อ natamycin ทุกเคส ทั้งหมดนี้เป็นผล in vitro และทุกเคสในงานหลังหายทางคลินิก",
+      "examAdvice": "ในข้อสอบให้ตอบรายการยาตามสไลด์ แต่เวลารักษา keratomycosis จริงอย่าเลือก fluconazole เป็นยาแรก ให้ทำ cytology กับเพาะเชื้อ และถ้าสงสัย Fusarium ให้นึกถึง natamycin ก่อน",
+      "sourceRef": "PMID 9492925 และ PMID 19751493 (doi 10.1111/j.1463-5224.2009.00721.x)"
     }
   ],
   "equine-medicine--equine-poa--pe-lameness-diagnostic-workflow-กรอบ-poa": [
@@ -1134,7 +1188,25 @@ export const CORRECTIONS = {
       "sourceRef": "PMID 15656504 (doi 10.2746/0425164044848154)"
     }
   ],
-  "equine-medicine--equine-tendon--incidence": [
+  "equine-medicine--equine-respi--equine-asthma-iad-และ-rao": [
+    {
+      "severity": "narrows",
+      "lectureSays": "โน้ตเขียนว่ารายรุนแรงให้ systemic corticosteroids คือ dexamethasone 0.1 mg/kg/day IV",
+      "evidenceSays": "ตารางยาใน MSD Veterinary Manual หัวข้อ Asthma in Horses (ปรับปรุง Jul 2026) ให้ dexamethasone 0.04 mg/kg IV หรือ IM วันละครั้ง หรือ 0.05 mg/kg PO วันละครั้ง ตรงกับตารางยาสำหรับ IAD (equine asthma ระดับไม่รุนแรงถึงปานกลาง) ใน Inflammatory Airway Disease of Horses: Revised Consensus Statement, PMID 26806374, doi 10.1111/jvim.13824 งาน Efficacy of oral prednisolone and dexamethasone in horses with recurrent airway obstruction in the presence of continuous antigen exposure, PMID 20525049, doi 10.1111/j.2042-3306.2009.00022.x (ม้า 7 ตัว) พบว่า dexamethasone 0.05 mg/kg PO วันละครั้ง 7 วัน ทำให้ pulmonary function ดีขึ้นจนสองในสามค่าที่วัดไม่ต่างจากตอนอยู่แปลงหญ้า ส่วน 0.1 mg/kg IV ในโน้ตเป็นขนาดที่งาน Efficacy of oral and intravenous dexamethasone in horses with recurrent airway obstruction, PMID 15253084, doi 10.2746/0425164044868413 ใช้ทดลองในม้า RAO 8 ตัวที่มีทางเดินหายใจอุดกั้น และเห็น lung function ดีขึ้นภายใน 2 ชม. จึงเป็นขนาดที่มีหลักฐานรองรับในม้าที่อาการกำเริบ แต่สูงกว่าขนาด IV ในตารางยาปัจจุบันราว 2.5 เท่า (0.1 เทียบกับ 0.04 mg/kg) ไม่ใช่ขนาดเดียวที่ใช้กัน",
+      "examAdvice": "ในข้อสอบให้ตอบ dexamethasone 0.1 mg/kg/day IV ตามสไลด์ แต่เวลาสั่งยาจริงให้เปิด formulary ปัจจุบัน ซึ่งให้ 0.04 mg/kg IV หรือ IM หรือ 0.05 mg/kg PO วันละครั้ง",
+      "sourceRef": "MSD Veterinary Manual, Asthma in Horses (last updated Jul 2026) และ PMID 26806374 (doi 10.1111/jvim.13824)"
+    }
+  ],
+  "equine-medicine--equine-tendon--ยาฉีดเข้ารอยโรค-growth-factors-และ-stem-cells": [
+    {
+      "severity": "narrows",
+      "lectureSays": "โน้ตเขียนว่า BAPN ให้ผลดีมากในการศึกษาขนาดใหญ่ แต่ recurrence ไม่ลด",
+      "evidenceSays": "งาน Medical management of superficial digital flexor tendonitis: a comparative study in 219 horses (1992-2000), PMID 15253082, doi 10.2746/0425164044868422 ติดตามม้าอย่างน้อย 2 ปีหลังกลับไปทำงานเต็มที่ พบ reinjury ของขาที่รักษาในกลุ่มฉีด BAPN (69 ตัว) เท่ากับ 16% ต่ำกว่ากลุ่ม controlled exercise, hyaluronan และ PSGAG ซึ่งอยู่ที่ 42.5-44.4% อย่างมีนัยสำคัญ (P<0.001) แต่เมื่อนับการบาดเจ็บของขาอีกข้างที่ไม่เคยเจ็บรวมด้วย อัตราการบาดเจ็บครั้งถัดไปโดยรวมไม่ต่างกัน คำว่า recurrence ไม่ลดจึงจริงเมื่อนับทั้งสองขา ไม่ใช่ขาที่รักษา",
+      "examAdvice": "ในข้อสอบให้ตอบว่า BAPN ไม่ลด recurrence ตามสไลด์ แต่ถ้าต้องอ้างตัวเลข ให้แยกว่า reinjury ของขาที่รักษาเหลือ 16% ส่วนการบาดเจ็บโดยรวมไม่ลด",
+      "sourceRef": "PMID 15253082 (doi 10.2746/0425164044868422)"
+    }
+  ],
+  "equine-medicine--equine-tendon--อุบัติการณ์-และเอ็นที่บาดเจ็บบ่อย": [
     {
       "severity": "contradicts",
       "lectureSays": "โน้ตเขียน incidence ของ bowed tendon ว่า 18% (Japan) ถึง 48% (Marr et al. 1993) ของม้าที่อยู่ในการฝึก",
@@ -1276,7 +1348,7 @@ export const CORRECTIONS = {
       "sourceRef": "PMID 30002421 (DOI 10.1038/s41572-018-0005-8)"
     }
   ],
-  "milk-meat-hygiene--meat-microbiology--introduction-where-contamination-starts": [
+  "milk-meat-hygiene--meat-microbiology--เนื้อสัตว์ปนเปื้อนจากไหน-และเชื้อกลุ่มใดสำคัญ": [
     {
       "severity": "narrows",
       "lectureSays": "Meat from a healthy animal ควรปราศจาก bacteria หรือสิ่งปนเปื้อนอื่น และการปนเปื้อนเกิดหลักที่ slaughter, storage และ distribution",
@@ -1285,7 +1357,7 @@ export const CORRECTIONS = {
       "sourceRef": "PMID 26125489"
     }
   ],
-  "milk-meat-hygiene--meat-molecular--genomic-techniques-combination-of-4-sub-disciplines": [
+  "milk-meat-hygiene--meat-molecular--molecular-biology-genomic-techniques-และการปรับปรุงคุณภาพเนื้อ": [
     {
       "severity": "narrows",
       "lectureSays": "Genomic techniques คือการรวมกันของ 4 sub-disciplines แต่ในสไลด์ไล่รายชื่อมา 5 ข้อ คือ Genetics, Molecular genetics, Quantitative genetics, Mendelian genetics และ Bioinformatics",
@@ -1294,7 +1366,7 @@ export const CORRECTIONS = {
       "sourceRef": "PMID 32331872"
     }
   ],
-  "milk-meat-hygiene--meat-quality--definition-of-fresh-meat": [
+  "milk-meat-hygiene--meat-quality--เนื้อสดและคุณภาพเนื้อสัตว์": [
     {
       "severity": "narrows",
       "lectureSays": "Fresh meat คือเนื้อที่ผ่าน chemical และ physical change หลัง slaughter แต่ผ่าน minimal process เท่านั้น เช่น การตัดแต่งเป็น retail cuts, cubing, grinding, marination และ freezing",
@@ -1337,6 +1409,60 @@ export const CORRECTIONS = {
       "evidenceSays": "ไม่พบแหล่งอ้างอิงทางวิชาการที่รองรับเพดาน 10 ลิตร/วัน และตัวเลขนี้ไม่ใช่ค่าทางสรีรวิทยา การศึกษาในโคนม Holstein รายงาน milk yield เฉลี่ย 36 ± 7.8 kg/day (PMID 30879826) ตัวเลขในสไลด์น่าจะเป็นเกณฑ์เชิงปฏิบัติของ milk collecting point ขนาดเล็ก มากกว่าจะเป็นความสามารถในการให้นมของแม่โค",
       "examAdvice": "ถ้าข้อสอบถามเกณฑ์ของจุดรับน้ำนม ให้ตอบ 10 ลิตร/วัน ตามสไลด์อาจารย์ แต่อย่านำตัวเลขนี้ไปตอบเป็นศักยภาพการให้นมของโค",
       "sourceRef": "PMID 30879826"
+    }
+  ],
+  "one-health--oh-collaboration--มาตรฐานน้ำทิ้งจากฟาร์มสุกร": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "โน้ตเขียนว่าพารามิเตอร์ที่ควบคุมมี 5 ตัว คือ pH, BOD, SS, COD และ TKN โดย BOD ไม่เกิน 60 และ 100 mg/L ส่วน COD ไม่เกิน 300 และ 400 mg/L",
+      "evidenceSays": "ตัวเลขชุดนี้เป็นของประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม ฉบับลงวันที่ 7 พฤศจิกายน 2548 ซึ่งถูกปรับปรุงแล้ว เอกสารของกรมควบคุมมลพิษเรื่อง การปรับปรุงมาตรฐานควบคุมการระบายน้ำทิ้งจากแหล่งกำเนิดมลพิษประเภทการเลี้ยงสุกร ระบุว่าประกาศฉบับปรับปรุงลงในราชกิจจานุเบกษา เล่ม 138 ตอนพิเศษ 2 ง วันที่ 4 มกราคม 2564 และมีผลบังคับใช้ตั้งแต่ 5 มกราคม 2565 โดยลด BOD ของประเภท ก จาก 60 เป็น 40 mg/L และประเภท ข กับ ค จาก 100 เป็น 80 mg/L ลด COD ของประเภท ก จาก 300 เป็น 250 mg/L และประเภท ข กับ ค จาก 400 เป็น 350 mg/L และเพิ่มฟอสฟอรัสรวม (total phosphorus) ไม่เกิน 5 mg/L ในฟาร์มทุกประเภท ข่าวของกรมควบคุมมลพิษลงวันที่ 30 กรกฎาคม 2564 ให้ตัวเลขชุดใหม่ตรงกัน และตารางค่ามาตรฐานในเอกสารอบรมของกรมปศุสัตว์ปี 2567 มี 6 พารามิเตอร์ โดย pH 5.5-9, SS ไม่เกิน 150 และ 200 mg/L และ TKN ไม่เกิน 120 และ 200 mg/L คงเดิม ทั้งนี้ตรวจจากเอกสารของกรมควบคุมมลพิษและกรมปศุสัตว์ ยังไม่ได้เปิดตัวบทในราชกิจจานุเบกษาโดยตรง",
+      "examAdvice": "ในข้อสอบให้ตอบ 5 พารามิเตอร์และตัวเลขตามสไลด์ คือ BOD 60 กับ 100 และ COD 300 กับ 400 mg/L แต่เวลาตรวจฟาร์มหรืออ้างกฎหมายจริงให้ใช้ค่าปัจจุบัน คือ 6 พารามิเตอร์ โดย BOD 40 กับ 80, COD 250 กับ 350 และฟอสฟอรัสรวม 5 mg/L",
+      "sourceRef": "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม เรื่อง กำหนดมาตรฐานควบคุมการระบายน้ำทิ้งจากแหล่งกำเนิดมลพิษประเภทการเลี้ยงสุกร (ราชกิจจานุเบกษา เล่ม 138 ตอนพิเศษ 2 ง, 4 มกราคม 2564) ตามเอกสารของกรมควบคุมมลพิษ"
+    }
+  ],
+  "one-health--oh-env-carcinogen--คำศัพท์-ghg-vocs-pm": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "ในคาบอธิบายว่า PM10 คืออนุภาคขนาดเล็กกว่า 10 ไมครอนแต่มากกว่า 2.5 ไมครอน ส่วนสไลด์เขียนเพียง PM10 and PM2.5",
+      "evidenceSays": "หน้า Particulate Matter (PM) Basics ของ US EPA (ปรับปรุง September 18, 2026) นิยาม PM10 ว่าเป็น inhalable particles ที่มีเส้นผ่านศูนย์กลางโดยทั่วไปตั้งแต่ 10 ไมครอนลงมา และ PM2.5 เป็น fine inhalable particles ตั้งแต่ 2.5 ไมครอนลงมา PM10 จึงรวม PM2.5 อยู่ด้วย ช่วง 2.5-10 ไมครอนที่อธิบายในคาบเป็นเพียงส่วนหยาบของ PM10 โน้ตเขียนตามนิยามนี้แล้ว",
+      "examAdvice": "ถ้าข้อสอบให้ PM10 เป็นอนุภาคขนาด 2.5-10 ไมครอนตามที่อธิบายในคาบ ให้ตอบตามที่สอน แต่จำไว้ว่านิยามของ EPA ให้ PM10 รวมอนุภาคตั้งแต่ 10 ไมครอนลงมาทั้งหมด",
+      "sourceRef": "US EPA, Particulate Matter (PM) Basics (last updated September 18, 2026)"
+    }
+  ],
+  "one-health--oh-import-risk--risk-estimation-palee-partial-annual-risk-และ-overall-annual-ris": [
+    {
+      "severity": "narrows",
+      "lectureSays": "โน้ตเขียนตามที่สอนว่าการรวม likely consequence ของ outbreak กับ no outbreak และการรวม PAR ของทุก group เป็น summation ที่ยึดค่าสูงสุด ไม่ได้ใช้ matrix",
+      "evidenceSays": "Generic Import Risk Analysis Report for Prawns and Prawn Products ฉบับ final ของ Biosecurity Australia (7 October 2009) หัวข้อ 3.2 รวม PAR ของทุก group เป็น overall annual risk ด้วยกฎ 11 ข้อที่ไล่ตามลำดับ ไม่ได้ยึดค่าสูงสุดเสมอ เช่น ถ้ามี PAR เป็น high มากกว่าหนึ่ง group ผลรวมเป็น extreme ซึ่งสูงกว่าค่าสูงสุด ส่วนตัวอย่าง WSSV ที่ PAR เป็น moderate, high และ low ได้ high ซึ่งเท่ากับค่าสูงสุดพอดี",
+      "examAdvice": "ในข้อสอบให้ตอบตามที่สอนว่ายึดค่าสูงสุด และตัวอย่าง WSSV ได้ high แต่เวลาอ่านหรือทำ import risk analysis จริงให้ใช้กฎของรายงาน เพราะค่า high ที่ซ้ำกันหลาย group ดันผลรวมขึ้นอีกหนึ่งระดับได้",
+      "sourceRef": "Biosecurity Australia, Generic Import Risk Analysis Report for Prawns and Prawn Products, Final report (7 October 2009), Section 3.2"
+    }
+  ],
+  "one-health--oh-import-risk--risk-management-ของ-wssv": [
+    {
+      "severity": "narrows",
+      "lectureSays": "โน้ตให้มาตรการทำให้สุกที่อุณหภูมิแกนกลาง 85°C ให้ pathogen inactivation ลด PALEE เป็น extremely low และให้ testing กับ head/shell removal แต่ละข้อลด PALEE ของ farm กับ hatchery เป็น extremely low และ wild เป็น very low",
+      "evidenceSays": "Generic Import Risk Analysis Report for Prawns and Prawn Products ฉบับ final ของ Biosecurity Australia (7 October 2009) หัวข้อ 15.2 ให้ผลต่างออกไปสองจุด จุดแรก cooking ลดโอกาส entry and exposure ของ WSSV ใน exposure group 1 และ 2 เป็น negligible และ group 3 เป็นอย่างน้อย extremely low จุดที่สอง testing กับ head/shell removal ต้องใช้ร่วมกัน จึงลด group 1 และ 2 เป็น extremely low และ group 3 เป็นอย่างน้อย very low ไม่ใช่ทำข้อใดข้อหนึ่ง ส่วนเงื่อนไขการทำให้สุกในฉบับ final เขียนเป็นผลลัพธ์ คือโปรตีนในเนื้อกุ้งต้อง coagulate ทั้งหมดและไม่เหลือเนื้อดิบ",
+      "examAdvice": "ในข้อสอบให้ตอบผลของแต่ละทางเลือกตามสไลด์ แต่ถ้าต้องอ้างรายงานฉบับ final ให้จำว่า testing ต้องคู่กับ head/shell removal และ cooking ลดความเสี่ยงของ farm กับ hatchery ได้ถึง negligible",
+      "sourceRef": "Biosecurity Australia, Generic Import Risk Analysis Report for Prawns and Prawn Products, Final report (7 October 2009), Section 15.2"
+    }
+  ],
+  "one-health--oh-import-risk--ตัวอย่าง-wssv-ในกุ้งนำเข้าออสเตรเลีย-ภูมิหลัง-entry-และ-exposure": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "โน้ตเขียนว่าเชื้อที่มีความเสี่ยงยอมรับไม่ได้มี 5 ตัว คือ WSSV, YHV, IHHNV, TSV และ NHPB",
+      "evidenceSays": "Generic Import Risk Analysis Report for Prawns and Prawn Products ฉบับ final ของ Biosecurity Australia (7 October 2009) ตัด IHHNV ออกจากรายการ รายงานระบุว่าใน revised draft ปี 2006 IHHNV ยังเป็นเชื้อที่ต้องจัดการความเสี่ยง แต่ในปี 2008 มีรายงานพบ IHHNV สายพันธุ์ที่คล้ายสายพันธุ์ในเอเชียในกุ้งเลี้ยงของ Queensland จึงไม่ถือ IHHNV เป็น potential hazard อีกต่อไป และเงื่อนไขนำเข้าส่วนของ IHHNV ถูกยกเลิกตั้งแต่เดือนกันยายน 2008 มาตรการในฉบับ final จึงครอบคลุมเชื้อ 4 ตัว คือ WSSV, YHV, TSV และ NHPB โดย NHPB ใช้กับสินค้าที่ไม่แช่แข็งเท่านั้น",
+      "examAdvice": "ในข้อสอบให้ตอบ 5 ตัวตามสไลด์ แต่ถ้าต้องอ้างรายงานฉบับ final ปี 2009 ให้ตอบ 4 ตัว โดยไม่มี IHHNV",
+      "sourceRef": "Biosecurity Australia, Generic Import Risk Analysis Report for Prawns and Prawn Products, Final report (7 October 2009), Summary และ Section 4.1"
+    }
+  ],
+  "one-health--oh-livestock-waste--เลือกระบบบำบัด-และมาตรฐานน้ำทิ้งฟาร์มสุกร": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "ตารางมาตรฐานน้ำทิ้งฟาร์มสุกรในโน้ตมี 5 พารามิเตอร์ ให้ BOD ไม่เกิน 60 mg/L ในประเภท ก และ 100 mg/L ในประเภท ข กับ ค ส่วน COD ไม่เกิน 300 และ 400 mg/L",
+      "evidenceSays": "ตัวเลขชุดนี้เป็นของประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม ฉบับลงวันที่ 7 พฤศจิกายน 2548 ซึ่งถูกปรับปรุงแล้ว เอกสารของกรมควบคุมมลพิษเรื่อง การปรับปรุงมาตรฐานควบคุมการระบายน้ำทิ้งจากแหล่งกำเนิดมลพิษประเภทการเลี้ยงสุกร ระบุว่าประกาศฉบับปรับปรุงลงในราชกิจจานุเบกษา เล่ม 138 ตอนพิเศษ 2 ง วันที่ 4 มกราคม 2564 และมีผลบังคับใช้ตั้งแต่ 5 มกราคม 2565 โดยลด BOD ของประเภท ก จาก 60 เป็น 40 mg/L และประเภท ข กับ ค จาก 100 เป็น 80 mg/L ลด COD ของประเภท ก จาก 300 เป็น 250 mg/L และประเภท ข กับ ค จาก 400 เป็น 350 mg/L และเพิ่มฟอสฟอรัสรวม (total phosphorus) ไม่เกิน 5 mg/L ในฟาร์มทุกประเภท ข่าวของกรมควบคุมมลพิษลงวันที่ 30 กรกฎาคม 2564 ให้ตัวเลขชุดใหม่ตรงกัน และตารางค่ามาตรฐานในเอกสารอบรมของกรมปศุสัตว์ปี 2567 มี 6 พารามิเตอร์ โดย pH 5.5-9, SS ไม่เกิน 150 และ 200 mg/L และ TKN ไม่เกิน 120 และ 200 mg/L คงเดิม ทั้งนี้ตรวจจากเอกสารของกรมควบคุมมลพิษและกรมปศุสัตว์ ยังไม่ได้เปิดตัวบทในราชกิจจานุเบกษาโดยตรง",
+      "examAdvice": "ในข้อสอบให้ตอบตามตารางในสไลด์ คือ BOD 60 กับ 100 และ COD 300 กับ 400 mg/L แต่เวลาตรวจฟาร์มหรืออ้างกฎหมายจริงให้ใช้ค่าปัจจุบัน คือ BOD 40 กับ 80, COD 250 กับ 350 และฟอสฟอรัสรวม 5 mg/L",
+      "sourceRef": "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม เรื่อง กำหนดมาตรฐานควบคุมการระบายน้ำทิ้งจากแหล่งกำเนิดมลพิษประเภทการเลี้ยงสุกร (ราชกิจจานุเบกษา เล่ม 138 ตอนพิเศษ 2 ง, 4 มกราคม 2564) ตามเอกสารของกรมควบคุมมลพิษ"
     }
   ],
   "one-health--oh-vet-role--บทนำ-ทำไม-one-health-ต้องมีสัตวแพทย์": [
@@ -1716,6 +1842,160 @@ export const CORRECTIONS = {
       "sourceRef": "PMID 29028571 / DOI 10.1016/j.theriogenology.2017.09.028"
     }
   ],
+  "swine-clinic--swine-asf--detect-การตรวจหาสุกรติดเชื้อ-asfv": [
+    {
+      "severity": "narrows",
+      "lectureSays": "โน้ตเขียนว่า antibody detection ถูกขีดห้ามไว้ ไม่ใช้ตรวจหาสุกรติดเชื้อ ASFV",
+      "evidenceSays": "WOAH Terrestrial Manual 2024 บทที่ 3.9.1 African swine fever เห็นตรงกันเฉพาะกรณีเชื้อรุนแรง คือมักตรวจไม่พบ antibody ในสุกรที่ติด ASFV สายพันธุ์รุนแรงเพราะตายก่อนสร้าง แต่ระบุด้วยว่าสุกรที่รอดสร้าง antibody ตั้งแต่ 7-10 วันหลังติดเชื้อและคงอยู่นาน ในพื้นที่ที่โรคเป็น endemic หรือเมื่อ outbreak เกิดจากสายพันธุ์ความรุนแรงต่ำถึงปานกลาง การสอบสวนควรรวมการตรวจ antibody ด้วย และ antibody เป็นตัวบ่งชี้ที่ดีของรูปแบบ subacute กับ chronic",
+      "examAdvice": "ในข้อสอบให้ตอบตามสไลด์ว่าใช้อาการร่วมกับ PCR และไม่ใช้ antibody detection แต่เวลาเฝ้าระวังในพื้นที่ที่โรคอยู่ประจำถิ่นจริงให้ตรวจ antibody ควบคู่ เพราะ antibody คงอยู่นานในสุกรที่รอดจากสายพันธุ์ไม่รุนแรง",
+      "sourceRef": "WOAH Terrestrial Manual 2024, Chapter 3.9.1 African swine fever (infection with African swine fever virus)"
+    }
+  ],
+  "swine-clinic--swine-greasypig--greasy-pig-การรักษา-และการควบคุม": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "โน้ตเขียนตามสไลด์ว่าให้อาบสุกรป่วยด้วยยาฆ่าเชื้อ เช่น 5% chlorhexidine, 1% Virkon",
+      "evidenceSays": "MSD Veterinary Manual หัวข้อ Exudative Epidermitis in Pigs (ปรับปรุง Jan 2026) ให้พ่น antiseptic ทั่วตัวทุกวัน เช่น chlorhexidine solution 0.05% หรือ povidone-iodine 10% ที่เจือจาง 1:50 ซึ่งเจือจางกว่าตัวเลขในโน้ต 100 เท่า ความเข้มข้น 0.05% เป็นระดับเดียวกับที่ใช้ล้างแผลในสัตว์ งาน Effects of four preparations of 0.05% chlorhexidine diacetate on wound healing in dogs, PMID 1626379, doi 10.1111/j.1532-950x.1992.tb00025.x พบว่า chlorhexidine diacetate 0.05% ทุกสูตรฆ่า Staphylococcus intermedius ได้ 100% โดย wound contraction และ epithelialization ไม่ต่างจากกลุ่มควบคุม สไลด์ไม่ได้บอกว่า 5% เป็นความเข้มข้นก่อนหรือหลังเจือจาง",
+      "examAdvice": "ในข้อสอบให้ตอบ 5% chlorhexidine หรือ 1% Virkon ตามสไลด์ แต่เวลาใช้จริงให้เจือจาง chlorhexidine เป็น 0.05% ก่อนพ่นหรืออาบ อย่าใช้ความเข้มข้น 5% กับผิวลูกสุกรที่ถลอก",
+      "sourceRef": "MSD Veterinary Manual, Exudative Epidermitis in Pigs (last updated Jan 2026) และ PMID 1626379 (doi 10.1111/j.1532-950x.1992.tb00025.x)"
+    },
+    {
+      "severity": "narrows",
+      "lectureSays": "โน้ตเขียนว่ายาแรกคือ penicillin หรือ lincomycin และทางเลือกคือ ceftiofur หรือ enrofloxacin",
+      "evidenceSays": "งาน An investigation of exudative epidermitis (greasy pig disease) and antimicrobial resistance patterns of Staphylococcus hyicus and Staphylococcus aureus isolated from clinical cases, PMID 23904636 (30 ฝูงใน Ontario) พบ S. hyicus ดื้อ penicillin G และ ampicillin 97% และในกลุ่มนี้ดื้อ ceftiofur 71% งาน Insights into the Virulence and Antimicrobial Resistance of Staphylococcus hyicus Isolates from Spanish Swine Farms, PMID 39335044, doi 10.3390/antibiotics13090871 (49 isolates) พบดื้อ lincosamides 83.7% และ penicillins 75.5% ส่วนงาน Trends in antimicrobial susceptibility in relation to antimicrobial usage and presence of resistance genes in Staphylococcus hyicus isolated from exudative epidermitis in pigs, PMID 12223165, doi 10.1016/s0378-1135(02)00177-3 (467 isolates ใน Denmark ปี 1996-2001) พบดื้อ penicillin 54-75% MSD Veterinary Manual หัวข้อ Exudative Epidermitis in Pigs (ปรับปรุง Jan 2026) ระบุว่ามีรายงานการดื้อยา โดยเฉพาะกลุ่ม beta-lactam และให้เลือกยาตามผล culture กับ susceptibility testing",
+      "examAdvice": "ในข้อสอบให้ตอบ penicillin หรือ lincomycin เป็นยาแรกตามสไลด์ แต่เวลารักษาจริงให้ส่งเพาะเชื้อและทำ susceptibility test ก่อนเลือกยา เพราะ S. hyicus ดื้อ penicillin ได้เกินครึ่งของ isolates",
+      "sourceRef": "PMID 23904636 และ PMID 39335044 (doi 10.3390/antibiotics13090871)"
+    }
+  ],
+  "swine-clinic--swine-ileitis-bacti--brachyspira-swine-dysentery-และ-colonic-spirochetosis": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "โน้ตเขียนว่ารอยโรคของ B. pilosicoli พบใน colon และลำไส้เล็ก",
+      "evidenceSays": "MSD Veterinary Manual หัวข้อ Intestinal Spirochetosis in Pigs (ปรับปรุง Jul 2026) ระบุว่าโรคนี้จำกัดอยู่ที่ large intestine รอยโรคเบากว่า swine dysentery เยื่อเมือกหนาตัว บางตัวมี catarrhal colitis ร่วมกับ colonic lymph node โต งาน Extensive intestinal spirochaetosis in pigs challenged with Brachyspira pilosicoli, PMID 15017287, doi 10.1099/jmm.0.05403-0 ให้เชื้อแก่สุกรอายุ 6 สัปดาห์ 6 ตัว พบ diffuse catarrhal colitis ทุกตัว และพบเชื้อเกาะแบบ end-on บนผิวเยื่อเมือกของ large intestine ซึ่งตรงกับชื่อ colonic spirochetosis ที่โน้ตใช้เอง",
+      "examAdvice": "ในข้อสอบให้ตอบ colon และลำไส้เล็กตามสไลด์ แต่เวลาผ่าซากจริงให้หารอยโรคของ Brachyspira ทั้งสองชนิดที่ลำไส้ใหญ่ ถ้ารอยโรคอยู่ที่ลำไส้เล็กให้นึกถึง Lawsonia หรือ Salmonella ก่อน",
+      "sourceRef": "MSD Veterinary Manual, Intestinal Spirochetosis in Pigs (last updated Jul 2026) และ PMID 15017287 (doi 10.1099/jmm.0.05403-0)"
+    }
+  ],
+  "swine-clinic--swine-ileitis-bacti--campylobacter-species": [
+    {
+      "severity": "narrows",
+      "lectureSays": "โน้ตเขียนว่า C. jejuni พบในสุกรมากกว่า 5% และสัมพันธ์กับอาการในสุกร",
+      "evidenceSays": "MSD Veterinary Manual หัวข้อ Enteric Campylobacteriosis in Animals (ปรับปรุง Aug 2026) ระบุว่าสุกรมักเป็นพาหะของ C. coli และบางครั้งชนิดอื่น และงานวิจัยปัจจุบันชี้ว่า Campylobacter spp. ไม่ก่อโรคทางคลินิกในสุกร แม้ตารางในหัวข้อเดียวกันยังลง C. coli ว่าก่อ enteritis ในสุกร หลักฐานจึงไม่ได้ไปทางเดียวกันทั้งหมด แต่ไม่มีส่วนใดที่ผูก C. jejuni กับอาการในสุกร งาน Consequences of Campylobacter jejuni and Campylobacter coli Colonisation of Piglets on Gut Microbiota and Microbial Metabolites, PMID 42197332, doi 10.3390/microorganisms14050945 (ลูกสุกรหย่านม 32 ตัว แบ่งเป็นกลุ่มควบคุมกับกลุ่มที่ให้เชื้อทั้งสองชนิด ติดตาม 4 สัปดาห์) พบว่าเชื้อทั้งสองเกาะที่ jejunum และ caecum ได้ แต่สุกรทุกตัวไม่แสดงอาการ",
+      "examAdvice": "ในข้อสอบให้ตอบตามสไลด์ว่า C. jejuni สัมพันธ์กับอาการในสุกร แต่เวลาเจอสุกรท้องเสียจริงอย่าสรุปว่าเกิดจาก Campylobacter เพียงเพราะเพาะเชื้อได้ ให้หาสาเหตุอื่นก่อน และให้น้ำหนักกับเชื้อนี้ในแง่ zoonosis",
+      "sourceRef": "MSD Veterinary Manual, Enteric Campylobacteriosis in Animals (last updated Aug 2026) และ PMID 42197332 (doi 10.3390/microorganisms14050945)"
+    }
+  ],
+  "swine-clinic--swine-ileitis-bacti--clostridial-enteritis-ในลูกสุกรแรกเกิด": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "โน้ตเขียนว่า Clostridium difficile ในลูกสุกรแรกเกิดไม่ท้องเสีย มี necrotizing colitis เล็กน้อย",
+      "evidenceSays": "MSD Veterinary Manual หัวข้อ Clostridioides difficile Colitis in Pigs (ปรับปรุง Jul 2026) ระบุว่าลูกสุกรที่ติดเชื้อมักท้องเสียตั้งแต่แรกเกิด พบบ่อยที่อายุ 1-7 วัน และสรุปว่าเชื้อนี้เป็นสาเหตุของท้องเสียระดับเล็กน้อยถึงปานกลางในสัปดาห์แรกของชีวิต บทความทบทวน Clostridial diarrheas in piglets: A review, PMID 36870204, doi 10.1016/j.vetmic.2023.109691 ก็จัด C. perfringens type C และ C. difficile เป็นสาเหตุหลักของ neonatal diarrhea ในสุกรทั้งคู่ ส่วนการบวมน้ำของ colon ที่โน้ตบรรยายตรงกับแหล่งอ้างอิง ซึ่งให้ mesocolonic edema เป็นรอยโรคที่พบบ่อยที่สุด",
+      "examAdvice": "ในข้อสอบให้ตอบว่าไม่ท้องเสียตามสไลด์ แต่เวลาเจอลูกสุกรอายุไม่ถึงสัปดาห์ท้องเสียจริง ให้เก็บ C. difficile ไว้ใน differential และส่งตรวจ toxin A/B",
+      "sourceRef": "MSD Veterinary Manual, Clostridioides difficile Colitis in Pigs (last updated Jul 2026) และ PMID 36870204 (doi 10.1016/j.vetmic.2023.109691)"
+    },
+    {
+      "severity": "narrows",
+      "lectureSays": "ตารางในโน้ตแบ่ง C. perfringens เป็น 5 toxigenic types และให้ major toxin ของ type E เป็น α อย่างเดียว",
+      "evidenceSays": "งาน Expansion of the Clostridium perfringens toxin-based typing scheme, PMID 29866424, doi 10.1016/j.anaerobe.2018.04.011 อธิบายว่าระบบ 5 types (A ถึง E) ใช้ typing toxin 4 ตัว คือ α, β, ε และ ι โดย type E คือสายพันธุ์ที่สร้าง α-toxin ร่วมกับ ι-toxin ไม่ใช่ α อย่างเดียว และตั้งแต่ปี 2018 ระบบนี้ขยายเป็น 7 types โดยเพิ่ม type F ที่สร้าง enterotoxin (CPE) และ type G ที่สร้าง NetB ซึ่งก่อ necrotic enteritis ในไก่",
+      "examAdvice": "ในข้อสอบให้ตอบ 5 types ตามตารางในสไลด์ แต่จำเพิ่มว่า type E ต้องมี ι-toxin ด้วย และถ้าโจทย์อ้างระบบหลังปี 2018 ให้ตอบ 7 types คือ A ถึง G",
+      "sourceRef": "PMID 29866424 (doi 10.1016/j.anaerobe.2018.04.011)"
+    }
+  ],
+  "swine-clinic--swine-ileitis-bacti--coccidiosis-balantidiasis-yeast-infection-และ-gastric-ulcer": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "โน้ตเขียนตามภาพวงจรชีวิตว่า oocyst ของ Isospora suis sporulate ใน 4-6 วัน",
+      "evidenceSays": "งาน Sporogony of Isospora suis Biester, 1934 of swine, PMID 7131190 พบว่า sporulation เสร็จภายใน 56 ชม. ที่ 20 °C, 40 ชม. ที่ 25 °C, 16 ชม. ที่ 30 °C และ 12 ชม. ที่ 37 °C งาน The sporulation time of Isospora suis oocysts from different sources, PMID 3788016, doi 10.1016/0304-4017(86)90002-6 บ่มที่ 25 °C แล้วสรุปว่าใช้เวลาไม่เกิน 48 ชม. ตัวเลขราว 5 วันในวรรณกรรมเป็น prepatent period งาน Endogenous development of the swine coccidium, Isospora suis Biester 1934, PMID 7463245 ให้ prepatent period 5 วัน และ patent period 5-8 วัน",
+      "examAdvice": "ในข้อสอบให้ตอบ 4-6 วันตามภาพในสไลด์ แต่เวลาวางแผนล้างคอกคลอดจริงให้จำว่า oocyst พร้อมติดเชื้อได้ภายในไม่ถึง 2 วันในคอกที่อุ่น",
+      "sourceRef": "PMID 7131190 และ PMID 3788016 (doi 10.1016/0304-4017(86)90002-6)"
+    }
+  ],
+  "swine-clinic--swine-ileitis-bacti--colibacillosis-enterotoxigenic-e-coli-และ-edema-disease": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "ตารางในโน้ตให้สายพันธุ์ของ postweaning E. coli diarrhea เป็น K88, K99 และ 987P",
+      "evidenceSays": "บทความทบทวน Swine enteric colibacillosis: diagnosis, therapy and antimicrobial resistance, PMID 28794894, doi 10.1186/s40813-017-0063-4 แยกไว้ว่า ETEC ของ neonatal colibacillosis ส่วนใหญ่มี fimbriae F4 (K88), F5 (K99), F6 (987P) หรือ F41 ส่วน ETEC ของ post-weaning diarrhoea มี F4 (K88) และ F18 บทความทบทวน Escherichia coli in postweaning diarrhea in pigs: an update on bacterial types, pathogenesis, and prevention strategies, PMID 16164007, doi 10.1079/ahr2005105 และ MSD Veterinary Manual หัวข้อ Enteric Colibacillosis in Pigs (ปรับปรุง Jul 2026) ให้ตรงกันว่าหลังหย่านมเป็น F4 หรือ F18 ดังนั้น K99 กับ 987P เป็นของลูกสุกรดูดนม และ F18 ไม่ได้จำกัดอยู่ที่ edema disease",
+      "examAdvice": "ในข้อสอบให้ตอบ K88, K99, 987P ตามตารางในสไลด์ แต่เวลาแปลผล PCR หรือเลือกวัคซีนจริงให้จำว่าท้องเสียหลังหย่านมเป็น F4 (K88) กับ F18 ส่วน K99 และ 987P เป็นของลูกสุกรแรกเกิด",
+      "sourceRef": "PMID 28794894 (doi 10.1186/s40813-017-0063-4) และ PMID 16164007 (doi 10.1079/ahr2005105)"
+    },
+    {
+      "severity": "narrows",
+      "lectureSays": "ตารางในโน้ตให้ edema disease เกิด 10-20 วันหลังหย่านม และ postweaning E. coli diarrhea เกิด 4-10 วันหลังหย่านม",
+      "evidenceSays": "MSD Veterinary Manual หัวข้อ Edema Disease in Pigs (ปรับปรุง Sept 2024) ให้ edema disease มักเกิด 1-2 สัปดาห์หลังหย่านม และเกิดพร้อม postweaning diarrhea ใน outbreak เดียวกันได้ บทความทบทวน Edema disease, PMID 10707419, doi 10.1016/s0749-0720(15)30142-0 ก็จัดโรคนี้เป็นสาเหตุการป่วยและตายในช่วง 2 สัปดาห์แรกหลังหย่านม ช่วงเวลาของสองโรคจึงซ้อนกัน และ edema disease เริ่มได้ก่อนวันที่ 10",
+      "examAdvice": "ในข้อสอบให้ตอบ 10-20 วันและ 4-10 วันหลังหย่านมตามตารางในสไลด์ แต่เวลาเจอเคสจริงอย่าตัด edema disease ออกเพียงเพราะสุกรหย่านมมาไม่ถึง 10 วัน",
+      "sourceRef": "MSD Veterinary Manual, Edema Disease in Pigs (last updated Sept 2024) และ PMID 10707419 (doi 10.1016/s0749-0720(15)30142-0)"
+    },
+    {
+      "severity": "narrows",
+      "lectureSays": "โน้ตเขียนว่า edema disease เกิดจาก neurotoxin (verotoxin) และอาการชักมาจาก neurotoxin",
+      "evidenceSays": "toxin ตัวนี้คือ Shiga toxin 2e (Stx2e หรือ verotoxin 2e) ซึ่งออกฤทธิ์ที่หลอดเลือด ไม่ได้ออกฤทธิ์ที่เซลล์ประสาทโดยตรง บทความทบทวน Edema disease, PMID 10707419, doi 10.1016/s0749-0720(15)30142-0 ระบุว่า Stx2e ทำให้ endothelial cell และ smooth muscle cell ของ small artery กับ arteriole ตาย และ vascular damage ที่ brain stem จนเกิด infarction กับ malacia เป็นสาเหตุหลักของการตาย MSD Veterinary Manual หัวข้อ Edema Disease in Pigs (ปรับปรุง Sept 2024) อธิบายตรงกันว่าเป็น cytotoxin ที่ยับยั้ง protein synthesis และมีเป้าหมายที่ vascular endothelium ทำให้บวมน้ำ เลือดออก และ microthrombosis",
+      "examAdvice": "ในข้อสอบให้ตอบ verotoxin ตามสไลด์ แต่ถ้าต้องอธิบายกลไก ให้เขียนว่า Stx2e ทำลายหลอดเลือด อาการทางประสาทเป็นผลจากหลอดเลือดในสมองเสียหาย",
+      "sourceRef": "PMID 10707419 (doi 10.1016/s0749-0720(15)30142-0)"
+    }
+  ],
+  "swine-clinic--swine-ileitis-bacti--mastitis-metritis-agalactia-syndrome-mma": [
+    {
+      "severity": "narrows",
+      "lectureSays": "โน้ตเขียนว่า MMA เกิดจากแบคทีเรีย คือ E. coli, Klebsiella, Enterobacter, Staphylococci และ Streptococci โดย endotoxin รบกวน prolactin และ oxytocin",
+      "evidenceSays": "การแยกเชื้อเหล่านี้ได้ยังบอกไม่ได้ว่าแม่สุกรป่วย งาน The role of bacterial pathogens in coliform mastitis in sows, PMID 23540195 เพาะเชื้อจากน้ำนมแม่ป่วย 1,026 ตัวอย่าง เทียบกับแม่ปกติ 972 ตัวอย่างใน 6 ฟาร์ม พบชนิดเชื้อไม่ต่างกันอย่างมีนัยสำคัญ โดยพบ E. coli 70.4% ในแม่ป่วย และ 78.0% ในแม่ปกติ งาน Bacteria in milk from anterior and posterior mammary glands in sows affected and unaffected by postpartum dysgalactia syndrome (PPDS), PMID 19545415, doi 10.1186/1751-0147-51-26 (แม่สุกร 56 ตัว) ได้ผลแบบเดียวกัน MSD Veterinary Manual หัวข้อ Postpartum Dysgalactia Syndrome in Sows (ปรับปรุง Aug 2026) เรียกโรคนี้ว่า multifactorial syndrome ที่ไม่มี etiological diagnosis แน่ชัด โดย endotoxemia เป็นหนึ่งในสามปัจจัยเสี่ยงที่ตั้งสมมติฐานไว้ ร่วมกับ stress และแม่อ้วนที่ไม่กินอาหารหลังคลอด",
+      "examAdvice": "ในข้อสอบให้ตอบรายชื่อแบคทีเรียและ endotoxin ตามสไลด์ แต่เวลาเจอฝูงที่มีปัญหาจริงอย่าสรุปจากผลเพาะเชื้อน้ำนมอย่างเดียว ให้แก้ปัจจัยเสี่ยงด้านอาหาร ความเครียด และสุขอนามัยไปพร้อมกัน",
+      "sourceRef": "PMID 23540195 และ PMID 19545415 (doi 10.1186/1751-0147-51-26)"
+    }
+  ],
+  "swine-clinic--swine-ileitis-bacti--proliferative-enteropathy-ileitis-ชื่อ-รูปแบบ-สาเหตุ-และพยาธิกำเ": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "โน้ตเขียนว่า Lawsonia intracellularis เพาะเลี้ยงได้สำเร็จปี 1995",
+      "evidenceSays": "งาน Intracellular bacteria of porcine proliferative enteropathy: cultivation and maintenance in vitro, PMID 8501214, doi 10.1128/jcm.31.5.1136-1142.1993 ตีพิมพ์ปี 1993 รายงานการแยกเชื้อจากลำไส้สุกรป่วยครบทั้ง 10 เคส เลี้ยงใน rat enterocyte cell line (IEC-18) และต่อเชื้อได้เกิน 20 passage ส่วนปี 1995 เป็นปีที่เชื้อได้ชื่อ Lawsonia intracellularis และพิสูจน์ Koch's postulates ในงาน Characterization of Lawsonia intracellularis gen. nov., sp. nov., the obligately intracellular bacterium of porcine proliferative enteropathy, PMID 7547305, doi 10.1099/00207713-45-4-820",
+      "examAdvice": "ในข้อสอบให้ตอบปี 1995 ตามที่สอน แล้วจำไว้ว่างานเพาะเลี้ยงตีพิมพ์ปี 1993 ส่วนปี 1995 คือปีที่ตั้งชื่อเชื้อ",
+      "sourceRef": "PMID 8501214 (doi 10.1128/jcm.31.5.1136-1142.1993) และ PMID 7547305 (doi 10.1099/00207713-45-4-820)"
+    }
+  ],
+  "swine-clinic--swine-ileitis-bacti--proliferative-enteropathy-การวินิจฉัย": [
+    {
+      "severity": "narrows",
+      "lectureSays": "โน้ตเขียนว่า fecal PCR มี specificity สูงมาก 100% และ sensitivity 39-72% และจัด PCR of feces ให้แม่นกว่า immunoassay of feces",
+      "evidenceSays": "บทความทบทวนอย่างเป็นระบบ Diagnostic performance of different fecal Lawsonia intracellularis-specific polymerase chain reaction assays as diagnostic tests for proliferative enteropathy in pigs: a review, PMID 20622217, doi 10.1177/104063871002200401 คำนวณจากงานที่ตีพิมพ์ได้ sensitivity 36-100% และ specificity 50-100% แล้วแต่ assay และชี้ว่า fecal PCR มีแนวโน้มประเมินจำนวนสุกรที่มีรอยโรคสูงเกินจริงมากกว่าต่ำเกินจริง ส่วนงาน Comparison of different methods for diagnosis of porcine proliferative enteropathy, PMID 11989741 (สุกร 40 ตัวที่ให้เชื้อ) พบว่า immunoperoxidase stain ของ fecal smear ไวกว่า PCR ในการตรวจการขับเชื้อ คือ 89.5% เทียบกับ 60.5% ที่วันที่ 21 และ 59.4% เทียบกับ 37.5% ที่วันที่ 28",
+      "examAdvice": "ในข้อสอบให้ตอบ specificity 100% และ sensitivity 39-72% ตามสไลด์ แต่เวลาแปลผล fecal PCR จริงอย่าถือว่าผลบวกแปลว่ามีรอยโรคเสมอ ให้ดูอาการ serology และ histology ร่วมด้วย",
+      "sourceRef": "PMID 20622217 (doi 10.1177/104063871002200401) และ PMID 11989741"
+    }
+  ],
+  "swine-clinic--swine-ileitis-bacti--yersinia-infection": [
+    {
+      "severity": "narrows",
+      "lectureSays": "โน้ตเขียนว่า Yersinia พบไม่บ่อยในสุกร ประเด็นหลักคือเป็น zoonosis",
+      "evidenceSays": "สิ่งที่พบไม่บ่อยคืออาการป่วยในสุกร ไม่ใช่ตัวเชื้อ บทความทบทวน Zoonotic Yersinia enterocolitica in Swine: One Health Implications for Food Safety and Public Health, PMID 41012721, doi 10.3390/vetsci12090795 ระบุว่าสุกรเป็น reservoir หลักของ Y. enterocolitica พบเชื้อบ่อยที่ tonsil และลำไส้ และเชื้อปนเปื้อนเนื้อได้ระหว่างการฆ่า โดย bioserotype 4/O:3 เป็นสาเหตุของโรคในคนบ่อยที่สุด บทความ Unique virulence properties of Yersinia enterocolitica O:3: an emerging zoonotic pathogen using pigs as preferred reservoir host, PMID 25172222, doi 10.1016/j.ijmm.2014.07.008 ระบุเช่นกันว่าสุกรเป็น reservoir หลักของ 4/O:3 และมักเป็น carrier ที่ไม่แสดงอาการ",
+      "examAdvice": "ในข้อสอบให้ตอบว่าพบไม่บ่อยในสุกรตามสไลด์ แต่เวลาทำงานด้าน food safety จริงให้ถือว่าสุกรที่ดูปกติเป็นแหล่งเชื้อหลักของ Y. enterocolitica โดยเฉพาะที่ tonsil",
+      "sourceRef": "PMID 41012721 (doi 10.3390/vetsci12090795) และ PMID 25172222 (doi 10.1016/j.ijmm.2014.07.008)"
+    }
+  ],
+  "swine-clinic--swine-repro--porcine-brucellosis-brucella-suis": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "โน้ตใส่ vaccination ไว้ทั้งในหัวข้อ control และ prevention ของ porcine brucellosis",
+      "evidenceSays": "บทความทบทวน Swine brucellosis: current perspectives, PMID 30050849, doi 10.2147/VMRR.S91360 ระบุว่ายังไม่มีวัคซีนเชิงพาณิชย์ที่ได้รับอนุมัติสำหรับป้องกัน brucellosis ในสุกร และการ depopulation ทั้งฝูงเป็นมาตรการควบคุมที่ได้ผลที่สุด WOAH Terrestrial Manual 2022 บทที่ 3.1.4 Brucellosis ข้อ 1.1.4 ระบุว่ามีความพยายามพัฒนาวัคซีนสำหรับ B. suis ในสุกร แต่ยังไม่มีตัวใดได้ผลเต็มที่ วัคซีนเชื้อเป็น B. suis strain 2 (S2) ที่ผลิตในจีนใช้กันแพร่หลายในประเทศนั้น แต่ยังไม่มีข้อมูลประสิทธิภาพต่อ B. suis จากการทดลองที่ควบคุมเข้มงวด และบทสรุปของบทเดียวกันเขียนว่ายังไม่มีวัคซีนที่เหมาะสำหรับควบคุม Brucella ในสุกร ส่วน MSD Veterinary Manual หัวข้อ Abortion in Pigs (ปรับปรุง Sept 2026) ให้การควบคุมอาศัย test-and-cull",
+      "examAdvice": "ในข้อสอบให้ตอบ vaccination ตามสไลด์ แต่เวลาวางแผนควบคุมโรคในฟาร์มจริงให้ใช้การตรวจ serology แล้วคัดทิ้งกับฝูงปิดเป็นหลัก เพราะยังไม่มีวัคซีนสุกรที่ได้ผลเต็มที่",
+      "sourceRef": "PMID 30050849 (doi 10.2147/VMRR.S91360) และ WOAH Terrestrial Manual 2022, Chapter 3.1.4 Brucellosis, Section 1.1.4"
+    }
+  ],
+  "swine-clinic--swine-repro--porcine-parvovirus-ppv": [
+    {
+      "severity": "narrows",
+      "lectureSays": "รายการอาการของ PPV ในโน้ตมี abortion รวมอยู่ด้วย ขณะที่หัวข้อการวินิจฉัยของโน้ตเองเขียนว่าแม่ไม่แท้ง",
+      "evidenceSays": "บทความ The effect of porcine parvovirus and porcine reproductive and respiratory syndrome virus on porcine reproductive performance, PMID 10844195, doi 10.1016/s0378-4320(00)00135-4 บรรยายว่าการระบาดของ PPV แสดงออกเป็น mummified fetus จำนวนมากขึ้น ถ้าติดเชื้อช่วงต้นของการตั้งท้องจำนวนลูกเกิดมีชีวิตจะลดลงจาก embryonic death กับ resorption แม่แทบไม่แสดงอาการ และ PPV ไม่น่าเป็นสาเหตุโดยตรงของการแท้ง ต่างจาก PRRSV ที่ทำให้แท้ง ลูกตายช่วงท้าย stillborn และลูกอ่อนแอ MSD Veterinary Manual หัวข้อ Abortion in Pigs (ปรับปรุง Sept 2026) ให้ลักษณะเด่นของ PPV เป็นครอกที่มีลูกตายหลายขนาดรวมทั้ง mummified fetus ปนกับ stillborn และลูกปกติในสุกรสาวท้องแรก",
+      "examAdvice": "ในข้อสอบให้ตอบรายการอาการตามสไลด์ แต่เวลาแยกโรคจริง ฝูงที่แท้งเป็นหลักให้นึกถึง PRRSV หรือสาเหตุอื่นก่อน ส่วน PPV เด่นที่ลูกมัมมี่หลายขนาดโดยแม่ไม่แท้ง",
+      "sourceRef": "PMID 10844195 (doi 10.1016/s0378-4320(00)00135-4)"
+    }
+  ],
+  "swine-clinic--swine-trichinosis--ทริคิโนซิส-การวินิจฉัย-การรักษา-และการควบคุม": [
+    {
+      "severity": "narrows",
+      "lectureSays": "โน้ตเขียนว่าในคนให้ thiabendazole 50 mg/kg กินวันละ 2 ครั้ง 5-10 วัน",
+      "evidenceSays": "thiabendazole ใช้ได้ผลจริง แต่แนวทางปัจจุบันไม่ได้ใช้เป็นยาแรก หน้า Clinical Care of Trichinellosis ของ US CDC (12 March 2024) ให้ยาที่แนะนำเป็น albendazole 400 mg วันละ 2 ครั้ง 8-14 วัน หรือ mebendazole 200-400 mg วันละ 3 ครั้ง 3 วัน แล้วต่อด้วย 400-500 mg วันละ 3 ครั้งอีก 10 วัน บทความ Opinion on the diagnosis and treatment of human trichinellosis, PMID 12150691, doi 10.1517/14656566.3.8.1117 ให้ mebendazole หรือ albendazole ร่วมกับ glucocorticosteroid เช่นกัน ส่วน thiabendazole ที่เคยทดลองในไทย งาน Blinded, placebo-controlled trial of antiparasitic drugs for trichinosis myositis, PMID 10882628, doi 10.1086/315645 (ผู้ป่วย 46 คนที่เชียงราย) ใช้ 25 mg/kg วันละ 2 ครั้ง 10 วัน คือรวม 50 mg/kg ต่อวัน ผู้ป่วยที่ได้ thiabendazole ดีขึ้นทั้ง 7 ราย แต่อาสาสมัคร 30% ทนผลข้างเคียงไม่ได้ ตัวเลข 50 mg/kg ในโน้ตจึงควรอ่านเป็นขนาดรวมต่อวันที่แบ่งให้ 2 ครั้ง ไม่ใช่ 50 mg/kg ต่อครั้ง",
+      "examAdvice": "ในข้อสอบให้ตอบ thiabendazole 50 mg/kg วันละ 2 ครั้ง 5-10 วันตามสไลด์ แต่เวลาให้ข้อมูลหรือส่งต่อผู้ป่วยจริงให้อ้าง albendazole หรือ mebendazole ตามแนวทางปัจจุบัน และถ้าต้องใช้ thiabendazole ให้คิดเป็น 25 mg/kg ต่อครั้ง วันละ 2 ครั้ง",
+      "sourceRef": "US CDC, Clinical Care of Trichinellosis (12 March 2024) และ PMID 10882628 (doi 10.1086/315645)"
+    }
+  ],
   "zoonoses--zoo-bacterial--taxonomic-hierarchy-example-colibacillosis-vs-q-fever": [
     {
       "severity": "contradicts",
@@ -1759,6 +2039,15 @@ export const CORRECTIONS = {
       "evidenceSays": "ลักษณะ colony ของ yeast ขึ้นกับชนิดอาหารเลี้ยงเชื้อที่ใช้ เช่น yeast ที่แยกได้จากเลือดขึ้นเป็น colony สีชมพูจางบน CHROMagar Candida และเมื่อเลี้ยงบน cornmeal agar แล้วดูด้วยกล้องจุลทรรศน์เห็นเป็น oval budding yeast cells ปนกับ rudimentary pseudohyphae เป็นบางส่วน ไม่พบแหล่งที่ระบุคำบรรยาย กลม นูน เรียบ บน blood agar โดยตรง (PMID 31471347)",
       "examAdvice": "ตอบ กลม นูน เรียบ ตามสไลด์ได้ แต่ถ้าโจทย์ระบุ media มาให้ ให้ตอบตาม media นั้น",
       "sourceRef": "PMID 31471347"
+    }
+  ],
+  "zoonoses--zoo-prion--prion-biology-cjd-vcjd-bse-และ-scrapie": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "สไลด์ Prion p.5 เขียนว่า PrP^SC พบตามปกติใน cells ในปริมาณน้อยมาก (mainly in the central nervous system)",
+      "evidenceSays": "PrP^Sc คือ abnormal isoform ของ cellular prion protein (PrP^C) และโรคกลุ่ม prion มีลักษณะเด่นคือการสะสมของ PrP^Sc ใน brain: \"Prion diseases or transmissible spongiform encephalopathies (TSEs) are characterized by the accumulation of an abnormal isoform (PrPSc) of the host-encoded cellular prion protein (PrPC) in the brain.\" รูปที่พบตามปกติในเซลล์จึงเป็น PrP^C ส่วน PrP^Sc เป็นรูปที่สัมพันธ์กับโรค",
+      "examAdvice": "แยกให้ขาด: PrP^C คือรูปปกติในเซลล์ (alpha helix, ละลายได้, ถูก protease ย่อย) ส่วน PrP^Sc คือรูปผิดปกติที่สะสมเมื่อเป็นโรค (beta sheet, ไม่ละลาย, ทน protease) ถ้าโจทย์ยกข้อความของสไลด์มาถามตรงตัว ให้รู้ว่าข้อความนั้นมาจาก p.5",
+      "sourceRef": "PMID 9753605 (DOI 10.1006/bbrc.1998.9169)"
     }
   ],
   "zoonoses--zoo-rabies--diagnostic-methods-woah-cdc": [

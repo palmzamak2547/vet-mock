@@ -40,9 +40,6 @@ export const METADATA_SECTIONS = new Set([
   "repro-lect--exotic-repro--exam-note", // an exam tip from the lecturer
   "exotic--wildlife-career--phd-usa-vs-eu-aus", // education pathways, not veterinary science
   "exotic--wildlife-career--funding-sources", // career funding routes
-  "equine-medicine--equine-poa--poa-infectious-dz-station-final-exam-2-questions", // exam-station logistics
-  "equine-medicine--equine-tumors--cases-02-n-detail-per-tumor-type", // case slides, no extractable claim
-  "equine-medicine--equine-gi--lecture-2-exam-techniques-for-equine-alimentary", // a deck section header
   "exotic--field-vet--veterinary-analogy-body-to-ecosystem", // the lecturer's teaching analogy
   "cliapprum--hoof-health-fleet--tli-framework-4-elements", // a framework taught by this lecturer
   "poultry--quality-assurance--bqm-4-มิติ-better-quality-management", // a framework taught by this lecturer
@@ -62,45 +59,15 @@ export const METADATA_SECTIONS = new Set([
   "epidemiology--epidem-intro--ตารางเรียน-กำหนดสอบ-และเงื่อนไขการเข้าเรียน", // ตารางเรียน กำหนดสอบ และเงื่อนไขการเข้าเรียน
   "equine-medicine--equine-acupuncture--title-speaker", // Title + speaker
   "equine-medicine--equine-acupuncture--reference-textbooks-สไลด์โชว์", // Reference textbooks (สไลด์โชว์)
-  "equine-medicine--equine-anesthesia--course-position-จาก-intro-deck", // Course position (จาก Intro deck)
-  "equine-medicine--equine-anesthesia--แหล่งอ่านสำรอง-สรุป-equine-med-mid-สรุป-anes-พี่อันนา", // แหล่งอ่านสำรอง — สรุป Equine Med (mid) + สรุป Anes พี่อันนา
-  "equine-medicine--equine-colic-bestfit--title-lecturer", // Title + lecturer
-  "equine-medicine--equine-colic-surgery--title-lecturer", // Title + lecturer
-  "equine-medicine--equine-colic-surgery--pre-op-intra-op-pictures-case-slides", // Pre-op + intra-op pictures (Case slides)
-  "equine-medicine--equine-dentistry--title-speaker", // Title + speaker
-  "equine-medicine--equine-dentistry--introduction-to-dentistry-4-หัวข้อหลัก", // Introduction to dentistry — 4 หัวข้อหลัก
-  "equine-medicine--equine-hoof--lecture-title-scope", // Lecture title + scope
-  "equine-medicine--equine-infectious--course-lecturer-intro", // Course / lecturer intro
   "equine-medicine--equine-intro--welcome-course-code", // Welcome + course code
   "equine-medicine--equine-intro--course-director-vet-cu-lecturers", // Course director + Vet CU lecturers
   "equine-medicine--equine-intro--guest-lecturers", // Guest lecturers
   "equine-medicine--equine-intro--exam-format-hints-จากสไลด์-handwritten-note", // Exam format hints (จากสไลด์ + handwritten note)
   "equine-medicine--equine-lapove--outline-2-parts", // Outline — 2 parts
-  "equine-medicine--equine-neonatal--title-speaker", // Title + speaker
-  "equine-medicine--equine-neonatal--table-of-contents-8-หัวข้อ", // Table of Contents — 8 หัวข้อ
-  "equine-medicine--equine-nutrition--basic-nutrition-for-your-partner-opening", // Basic Nutrition for Your Partner — opening
-  "equine-medicine--equine-ophth--title-speaker", // Title + speaker
-  "equine-medicine--equine-ophth--lecture-guideline", // Lecture guideline
-  "equine-medicine--equine-parasites--course-intro-speaker", // Course intro — speaker
   "equine-medicine--equine-poa--source-pdf-poa-workflow-snapshots", // Source PDF — POA workflow snapshots
-  "equine-medicine--equine-respi--title-speaker", // Title + speaker
-  "equine-medicine--equine-respi--outline-4-หัวข้อ-อาการ-exam-upper-lower", // Outline — 4 หัวข้อ (อาการ → exam → upper → lower)
-  "equine-medicine--equine-tendon--title-speaker", // Title + speaker
   "equine-medicine--equine-tumors--title-lecturer", // Title + lecturer
-  "milk-meat-hygiene--meat-ante-post-mortem--lecture-identity", // Lecture identity
   "milk-meat-hygiene--meat-cutting-grading--lecture-identity", // Lecture identity
-  "milk-meat-hygiene--meat-egg-micro--lecture-identity", // Lecture identity
-  "milk-meat-hygiene--meat-hygiene-intro--lecture-identity", // Lecture identity
-  "milk-meat-hygiene--meat-microbiology--lecture-identity", // Lecture identity
-  "milk-meat-hygiene--meat-microbiology--lecture-outline-5-main-points", // Lecture outline (5 main points)
-  "milk-meat-hygiene--meat-molecular--lecture-identity", // Lecture identity
-  "milk-meat-hygiene--meat-pest-control--lecture-identity", // Lecture identity
-  "milk-meat-hygiene--meat-quality--lecture-identity", // Lecture identity
-  "milk-meat-hygiene--meat-seafood--lecture-identity", // Lecture identity
-  "milk-meat-hygiene--meat-slaughter--lecture-identity", // Lecture identity
-  "milk-meat-hygiene--meat-storage--lecture-identity", // Lecture identity
   "milk-meat-hygiene--milk-borne-pathogens--lecture-identity", // Lecture identity
-  "milk-meat-hygiene--milk-cleaning--lecture-identity", // Lecture identity
   "milk-meat-hygiene--milk-industry-std--lecture-identity", // Lecture identity
   "milk-meat-hygiene--milk-mastitis--lecture-identity", // Lecture identity
   "milk-meat-hygiene--milk-microbiology--lecture-identity", // Lecture identity
@@ -311,6 +278,61 @@ export const METADATA_SECTIONS = new Set([
   // documents themselves are verified in their per-organisation sections.
   "one-health--vet-standards-catalog--ใช้กับวิชาในหลักสูตร",
 
+  // Epidemiology notes of 2569 (14 Nov 2026): class exercises, lab briefings, made-up teaching scenarios and
+  // descriptions of what a slide or a calculator screen shows. No paper states them; each was judged one by one.
+  "epidemiology--epidem-dx-screening--module-1-ก่อนเริ่ม-computer-lab", // Lab briefing: readiness questions, activity list and further-reading list
+  "epidemiology--epidem-software--สไลด์-intro-ของแต่ละ-module-พูดถึงซอฟต์แวร์แค่ไหน", // Course logistics: which software each intro slide mentions
+  "epidemiology--epidem-software--วิธีหาขนาดตัวอย่าง-และรายชื่อซอฟต์แวร์บนสไลด์", // List of programs and approaches a slide names
+  "epidemiology--epidem-software--statulator-สองตัวอย่างที่ใช้แทน-openepi", // Describes calculator screenshots and teaching inputs
+  "epidemiology--epidem-sample-size--software-และเครื่องคำนวณออนไลน์ที่สไลด์ใช้", // Lists programs a slide names and calculator screenshot outputs; no checkable fact.
+  "epidemiology--epidem-current-research--เป้าหมายของบทและ-scenario-เปิด", // Learning outcomes plus a scenario the slide labels imaginary
+  "epidemiology--epidem-current-research--digital-twin-ฟาร์มโคนม", // Slide of unclear origin; lecture says scenarios are hypothetical
+  "epidemiology--epidem-current-research--ทักษะที่ควรเตรียมและเส้นทางอาชีพ", // Skills list and career advice
+  "epidemiology--epidem-current-research--extended-session-you-are-the-outbreak-intelligence-team", // Group activity on a hypothetical scenario
+  "epidemiology--epidem-current-research--งานจริงที่สไลด์อ้าง", // List of what the slides cite
+  "epidemiology--epidem-outbreak-investigation--module-3-สถานการณ์ลูกโค-100-ตัว", // Hypothetical calf teaching scenario and its assumptions
+  "epidemiology--epidem-outbreak-investigation--module-3-computer-laboratory-briefing", // Lab briefing: review questions, exercises, report contents
+  "epidemiology--epidem-govt-policy--การจัดลำดับและแบ่งกลุ่มโรคของประเทศไทย", // Describes the DLD Bureau of Disease Control 2569 operational plan and its 2024 notifiable-disease prioritisation list, an administrative programme document; web search and PubMed (Thailand disease prioritization/notifiable) reached no official copy or paper stating it.
+  // Equine Medicine notes of 2569 (15 Nov 2026): class cases, worked examples, local practice and descriptions of
+  // what a slide shows. No paper states them; each was judged one by one.
+  "equine-medicine--equine-infectious--ตารางวัคซีนลูกม้าและแม่ม้าตั้งท้อง", // Dose-and-age schedule taken from one lecture deck and the lecturer; published schedules differ by product and country (Merck lists tetanus toxoid for foals of unvaccinated mares at 3, 4 and 6 months and killed EHV-1 for pregnant mares at 3, 5, 7 and 9 months, not the deck schedule), so no source states this table as written.
+  "equine-medicine--equine-tendon--para-peri-tendonitis-rupture-และ-sdft-branch-injuries", // Slide outline of aetiologies and ultrasound categories for para/peri-tendonitis, spontaneous rupture and SDFT branch injuries; no published page found that states this classification (Merck covers only tendinitis, suspensory and ICL desmitis, and rupture of the common digital extensor tendon and peroneus tertius, not these categories), so no source can state it as written.
+  "equine-medicine--equine-respi--อาการของปัญหาระบบหายใจ-และขั้นตอนการตรวจ", // The course outline of a respiratory work-up (signs, then the order of examination steps from history to endoscopy) and the class advice on history taking; a teaching sequence, not a statement a paper makes as written.
+  "equine-medicine--equine-respi--pulmonary-edema", // Section lists causes and treatment of pulmonary edema from the course slides; no equine page found (Merck covers pulmonary edema only for cattle and small animals) that states these lists as written.
+  "equine-medicine--equine-neonatal--พัฒนาการและพฤติกรรมปกติของลูกม้า", // Table of foal developmental milestones and daily behaviour from the deck; no published page found that states these timings as written, and the one source found on replacer intake (Cymbaluk 1993, PMID 17424268) gives 10-12 L/100 kg BW per day, which disagrees with the note (see V8 notes).
+  "equine-medicine--equine-derm--ผิวหนังและขนม้า", // Anatomy and hair-coat description summarised from the course deck (hair types, sweat glands, regional thickness); no single published page found that states these points as written.
+  "equine-medicine--equine-derm--อาการคัน-pruritus-และ-pvas", // Pruritic visual analogue scale wording from the deck; a teaching scale, no published page found that states it as written.
+  "equine-medicine--equine-surgery-wound--field-surgery-เทียบ-hospital-based-surgery", // Comparison table of field and hospital surgery (drugs, monitoring, risk) from the 5th-year surgery lecture; a course framing, no published page found that states it as written.
+  "equine-medicine--equine-surgery-wound--ตัดขน-เตรียมผิว-และห้องผ่าตัด", // Operating-room layout and clipper/skin-prep specifics (Oster no. 40, 2 h, 12 inches) from the deck; the only published evidence found is a human meta-analysis (PMID 39810848) that says clipping is safer than shaving and does not state these specifics.
+  "equine-medicine--equine-surgery-wound--การคลุมผ้า-และการผ่าตัดแบบยืน", // Draping routines and standing-surgery stock design from the deck; no published page found that states these as written.
+  "equine-medicine--equine-surgery-wound--ประเมิน-เตรียม-สำรวจ-และ-debride-แผล", // Step-by-step wound assessment, preparation, exploration and debridement routine from the deck; no equine page found that states it as written (Merck wound pages found are for small animals only).
+  "equine-medicine--equine-surgery-wound--robert-jones-bandage-และ-splints", // Bandage layering and splint material comparison (PVC, wood, fibreglass, commercial) from the deck; no published page found that states it as written.
+  "equine-medicine--equine-surgery-wound--stent-abdominal-และ-head-bandages", // Description of tie-over stent, abdominal and head bandage techniques from the deck; no published page found that states it as written.
+  // Aquatic toxicology notes of 2569 (15 Nov 2026): a section that only says where in the deck a table sits
+  // carries no fact to check.
+  "aquatic-clinic--aqua-toxicology--ตารางสารพิษรายชนิด-ดูในสไลด์หน้า-24-ถึง-41", // the section only points to where tables sit in the deck; it states no fact to check
+  "aquatic-clinic--aqua-toxicology--aquatic-toxicology-เป็นศาสตร์สหวิทยาการ", // a diagram of the disciplines the field draws on; it states no single fact a paper reports
+  // Milk and Meat Hygiene notes of 2569 (15 Nov 2026): sections that list what a slide groups together or
+  // describe a class procedure; no paper states them as one fact.
+  "milk-meat-hygiene--milk-cleaning--สารฆ่าเชื้อที่ดี-คุณสมบัติ-13-ข้อ", // ลิสต์คุณสมบัติ 13 ข้อของสารฆ่าเชื้อที่ดีที่สไลด์รวบรวมไว้ ไม่มีแหล่งภายนอกที่ระบุรายการ 13 ข้อนี้ตามลำดับเดียวกัน
+  "milk-meat-hygiene--milk-cleaning--สารทำความสะอาดที่ดี-คุณสมบัติ-13-ข้อ", // ลิสต์คุณสมบัติ 13 ข้อของสารทำความสะอาดที่ดีที่สไลด์รวบรวมไว้ ไม่มีแหล่งภายนอกที่ระบุรายการนี้
+  "milk-meat-hygiene--milk-cleaning--กรอบมาตรฐานที่เกี่ยวกับการทำความสะอาด", // no open source quotable for it found (verifier and integrator searches): undefined
+  "milk-meat-hygiene--milk-cleaning--วัตถุประสงค์ของการทำความสะอาด-และจุลินทรีย์ที่สำคัญ", // no open source quotable for it found (verifier and integrator searches): undefined
+  "milk-meat-hygiene--milk-cleaning--สารเสริมในสูตรทำความสะอาด", // no open source quotable for it found (verifier and integrator searches): undefined
+  "milk-meat-hygiene--milk-cleaning--ชนิดของสารฆ่าเชื้อในโรงงานและตัวเลขที่ใช้", // no open source quotable for it found (verifier and integrator searches): undefined
+  "milk-meat-hygiene--milk-cleaning--ขั้นตอนทำความสะอาดอุปกรณ์-7-ขั้น", // no open source quotable for it found (verifier and integrator searches): undefined
+  "milk-meat-hygiene--milk-cleaning--phenol-coefficient-p-c-นิยามและวิธีคำนวณ", // no open source quotable for it found (verifier and integrator searches): undefined
+  "milk-meat-hygiene--meat-hygiene-intro--องค์ประกอบของเนื้อ-เนื้อเยื่อ-และกล้ามเนื้อ-3-ชนิด", // no open source quotable for it found (verifier and integrator searches): undefined
+  "milk-meat-hygiene--meat-hygiene-intro--องค์ประกอบทางเคมีของเนื้อ", // no open source quotable for it found (verifier and integrator searches): undefined
+  "milk-meat-hygiene--meat-storage--ระยะเวลาเก็บ-เนื้อสดและเนื้อปรุงสุก", // no open source quotable for it found (verifier and integrator searches): Chilled and frozen storage times per meat type come from the US FSIS storage chart; fsis.usda.gov and foodsafety.gov returned HTTP 403 to every fetch, and no other fetchable source states these per-me
+  "milk-meat-hygiene--meat-storage--ระยะเวลาเก็บ-เนื้อ-cured-เนื้อกระป๋อง-และเนื้อแช่แข็ง", // no open source quotable for it found (verifier and integrator searches): Storage times for cured, canned and frozen meat come from the same US FSIS chart (HTTP 403); FAO and Codex give no per-product times for these items.
+  "milk-meat-hygiene--meat-slaughter--แปลนพื้นโรงฆ่า", // Describes the floor plans of specific Thai Department of Livestock Development scheme plants (a 400-pig/day plant, a 10-cattle/day plant): a local plant layout with no checkable outside fact.
+  // Equine Reproduction notes of 2569 (15 Nov 2026): sections that list what a slide groups together or
+  // describe a class procedure; no paper states them as one fact.
+  "equine-repro--eqrepro-stallion-infect--high-กับ-low-fertility-stallion-ดู-pregnancy-rate-ต่อครั้งผสม", // Worked arithmetic example on made-up figures (60% vs 40% per attempt); the section states no external fact beyond the arithmetic
+  "equine-repro--eqrepro-ai--ภาพรวมของ-ai-ในม้า-ขั้นตอน-ข้อดีข้อเสีย-และ-breeding-registry", // no open source quotable for it found (verifier and integrator searches): The Thoroughbred natural-cover registry rule has no quotable source: Jockey Club rule book pages returned a redirect then HTTP 403; no PubMed record states it. The 7-step AI list and pros/cons are a c
+  "equine-repro--eqrepro-ai--insemination-dose-volume-และตัวอย่างคำนวณ", // the one candidate source (PMID 39151810) states its dose only in full text that is not open; no quotable source found
+  "equine-repro--eqrepro-surgery--ขอบเขตของ-reproductive-surgery-ในม้า", // A list of the procedures the slide groups under equine reproductive surgery (female and male); it states no checkable fact beyond the grouping.
 ]);
 
 /** Sections with no body yet. These need CONTENT before they need a source. */

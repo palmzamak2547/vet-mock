@@ -44,10 +44,18 @@ test('previous and next are one sticky row on a phone, the next one wider', () =
   assert.ok(mediaOpen > 0 && night.indexOf('}\n}', mediaOpen) > at, 'the sticky bar is a phone rule');
 });
 
-test('the config start bar is sticky on a phone and in flow on a desktop', () => {
-  const phone = night.slice(night.indexOf('.vmx-config-actions {\n    position: sticky;'));
-  assert.match(phone, /bottom: calc\(var\(--vmx-bottom-nav-h, 0px\) \+ env\(safe-area-inset-bottom, 0px\) \+ 8px\);/);
-  assert.match(night, /@media \(min-width: 641px\) \{\n  \.vmx-config-actions \{ flex-direction: row;/);
+// 5.235.0: sticky at every size, not only on a phone (the iPad in landscape
+// lost its start under a long ปรับเอง), above the bottom bar where there is one,
+// on the page's own background (docs/DESIGN_SYSTEM.md, Action rows).
+test('the config start bar stays in reach at every size, above the bottom bar', () => {
+  const at = night.indexOf('.vmx-config-actions {\n  position: sticky;');
+  assert.ok(at > 0, 'the start bar is sticky');
+  const bar = night.slice(at, night.indexOf('}', at));
+  assert.match(bar, /bottom: calc\(var\(--vmx-bottom-nav-h, 0px\) \+ env\(safe-area-inset-bottom, 0px\)\);/);
+  assert.match(bar, /background: var\(--clr-bg\);/);
+  // Not a phone-only rule: the last media block before it is closed.
+  const media = night.lastIndexOf('@media', at);
+  assert.ok(media < 0 || night.indexOf('\n}\n', media) < at, 'the sticky start bar is not limited to one width');
 });
 
 test('the instant verdict and the results seal speak Thai, with no English kicker or bullet', () => {
@@ -55,7 +63,8 @@ test('the instant verdict and the results seal speak Thai, with no English kicke
   assert.equal(question.includes("'APPROVED'"), false);
   // The verdict is the Thai headline alone: the Mochi stamp beside it, with
   // its ถูกแล้ว and ลองอีกที label, went in 5.189.2 (Palm: "ดูแปลกตา").
-  assert.match(question, /\{ok \? '✓ คุณตอบถูก' : '✗ ยังไม่ใช่ ดูเฉลยด้านล่าง'\}/);
+  // A partly right fill-in item says how many blanks were right instead (headline).
+  assert.match(question, /\{headline \|\| \(ok \? '✓ คุณตอบถูก' : '✗ ยังไม่ใช่ ดูเฉลยด้านล่าง'\)\}/);
   for (const gone of ["'ลองอีกที'", "'ถูกแล้ว'", 'vmx-mochi-stamp--', 'slot="feedback"']) {
     assert.equal(question.includes(gone), false, `${gone} is back on the verdict`);
   }
@@ -84,4 +93,9 @@ test('the results screen reads the rung off the set and judges it with the app\'
   assert.match(launch, /if \(id === 'exam'\) \{[\s\S]*topic: null/);
   assert.match(launch, /\.\.\.\(id === 'understand' \? \{ gentle: true \} : \{\}\)/);
   assert.equal(launch.includes('excludeIds'), false, 'the next rung re-tests the same material; only "ต่ออีก" excludes');
+});
+
+test('below the pass line on the same rung, the note sends the student to the misses first', () => {
+  assert.ok(results.includes('`ได้ ${pctExact}% ยังไม่ถึงเกณฑ์ซ้อม ${PRACTICE_PASS_PCT}% แก้ข้อที่ผิดก่อน แล้วทำขั้นนี้อีกชุด`'));
+  assert.equal(results.includes('ทำขั้นนี้อีกชุดก่อน`'), false, 'the old note is back');
 });

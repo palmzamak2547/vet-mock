@@ -72,6 +72,26 @@ export function sessionLabel(videoId) {
 const ID = '[0-9A-Za-z_-]{11}';
 
 /**
+ * Every bracketed recording pointer in `text` ("7XyI0SjnuBA [12:34]",
+ * "VET86 7XyI0SjnuBA [6:15-7:09]", "คลิป hLl7taXYRWQ [47:11-49:08]") rewritten
+ * as "<session or clip label> นาที <minutes>". The word before the id is
+ * consumed with it: a clip's own label already starts with "คลิป", and printing
+ * it twice was the bug. An id that is not a known recording is left as written.
+ * The authors write runs like "[5:24], [3:47-4:01]", so commas between brackets
+ * belong to the same citation. No lookbehind (iOS 14): a match that starts
+ * inside a longer token is handed back unchanged instead.
+ */
+function rewriteRecordings(text) {
+  return text.replace(new RegExp(String.raw`(?:(?:VET86|คลิป)\s+)?(${ID})((?:\s*,?\s*\[[^\]]*\])+)`, 'g'), (whole, id, stamps, offset, all) => {
+    if (offset > 0 && /[0-9A-Za-z_-]/.test(all[offset - 1])) return whole;
+    const label = sessionLabel(id);
+    if (!label) return whole;
+    const times = [...stamps.matchAll(/\[([^\]]*)\]/g)].map((m) => m[1].trim()).filter(Boolean);
+    return times.length ? `${label} นาที ${times.join(', ')}` : label;
+  });
+}
+
+/**
  * One citation string, rewritten for a reader. Unrecognised text is kept.
  * Examples:
  *   "7XyI0SjnuBA [12:34]"            -> "คาบ 1 (4 ส.ค.) นาที 12:34"
@@ -84,17 +104,9 @@ export function humanSource(raw) {
   let s = String(raw ?? '').trim();
   if (!s) return '';
 
-  // A recording, with or without the VET86 prefix, followed by its brackets.
-  // The authors write runs like "[5:24], [3:47-4:01]", so commas between
-  // brackets belong to the same citation.
-  s = s.replace(new RegExp(`(?:VET86\\s+)?(${ID})((?:\\s*,?\\s*\\[[^\\]]*\\])+)`, 'g'), (whole, id, stamps) => {
-    const label = sessionLabel(id);
-    if (!label) return whole;
-    const times = [...stamps.matchAll(/\[([^\]]*)\]/g)].map((m) => m[1].trim()).filter(Boolean);
-    return times.length ? `${label} นาที ${times.join(', ')}` : label;
-  });
+  s = rewriteRecordings(s);
   // A recording named on its own, no timestamp.
-  s = s.replace(new RegExp(`(?:VET86\\s+)?(${ID})(?![0-9A-Za-z_-])`, 'g'), (whole, id) => sessionLabel(id) || whole);
+  s = s.replace(new RegExp(String.raw`(?:(?:VET86|คลิป)\s+)?(${ID})(?![0-9A-Za-z_-])`, 'g'), (whole, id) => sessionLabel(id) || whole);
 
   // A page list, written as "p4, p7" or "p12-13": the reader wants the
   // numbers, not the repeated p.
@@ -137,6 +149,79 @@ export function humanSourceParts(raw) {
     .filter(Boolean);
 }
 
+// ── A notes section's source line ─────────────────────────────────
+// The notes were written before this module and cite the way the authors
+// worked: a recording id, a file name with its extension, a stem with
+// underscores. The reader draws them through here. Unlike humanSource this
+// changes only three things and leaves every other character alone, because a
+// hand-written line ("บันทึกคาบ 27 ส.ค. 2569 [40:41-45:00]") is already the
+// words the student should read:
+//   1. a recording pointer becomes the dated label the rest of the app uses;
+//   2. a file name that a registered document claims becomes that document's
+//      title (page reference kept);
+//   3. any other file-style name loses .pdf/.pptx/.docx and shows its
+//      underscores as spaces.
+// Only the display changes; the stored line is never rewritten.
+const FILE_NAME = String.raw`(\s*)([^;,+\[\]\s][^;,+\[\]]*?\.(?:pdf|pptx|docx))(?![0-9A-Za-z_])`;
+// A stem written without its extension: one whitespace-bounded token with an
+// underscore in it ("Role_of_Vet_in_One_Health_2026"). Anything holding / or :
+// (a path, an address) is not one.
+const STEM_TOKEN = String.raw`(^|[\s;,+(])([^\s;,+\[\]()/:]*_[^\s;,+\[\]()/:]*)(?=$|[\s;,+)])`;
+const FILE_STYLE = new RegExp(`${FILE_NAME}|${STEM_TOKEN}`, 'gi');
+const EXTENSION = /\.(?:pdf|pptx|docx)$/i;
+
+/** "Role_of_Vet" -> "Role of Vet"; a run of underscores is one space. */
+const spaced = (name) => name.replace(/_+/g, ' ').replace(/[ \t]{2,}/g, ' ').trim();
+
+/**
+ * The file-style names in a source line, as stored and trimmed: the names with
+ * an extension and the underscored stems, never a recording id. The script
+ * that builds note-source-titles.generated.js asks this which names to look up
+ * in the document registry.
+ */
+export function noteFileNames(raw) {
+  const text = String(raw ?? '');
+  const out = [];
+  text.replace(FILE_STYLE, (whole, lead, fileName, stemLead, stem, offset, all) => {
+    if (fileName !== undefined) out.push(fileName.trim());
+    else if (!isRecordingId(stem, all.slice(offset + whole.length))) out.push(stem);
+    return whole;
+  });
+  return out;
+}
+
+/** An unrecognised 11-character id before its minutes is a recording, not a file. */
+function isRecordingId(token, rest) {
+  return /^[0-9A-Za-z_-]{11}$/.test(token) && rest.trimStart()[0] === '[';
+}
+
+/**
+ * A note section's source line for the reader.
+ *   "คลิป hLl7taXYRWQ [47:11-49:08]"  -> "คลิป One Health (7 ต.ค.) นาที 47:11-49:08"
+ *   "Equine Med Mid 86.pdf p.21"      -> "<registered title> p.21"
+ *   "Derm__4_Bacterial_skin.pdf p.1"  -> "Derm 4 Bacterial skin p.1"
+ * `titleFor(name)` gives the registered document title for a file name, or a
+ * falsy value. The caller supplies it: source-docs.js holds the registry but
+ * uses regex lookbehind and is never shipped, so the view reads
+ * note-source-titles.generated.js instead (the titles worked out from the
+ * registry for the file names the notes use). Without it a file name is only
+ * tidied. Whatever is not a recording or a file-style name is returned exactly
+ * as it came in.
+ */
+export function noteSourceLabel(raw, titleFor = null) {
+  const text = String(raw ?? '');
+  if (!text) return '';
+  return rewriteRecordings(text).replace(FILE_STYLE, (whole, lead, fileName, stemLead, stem, offset, all) => {
+    if (fileName !== undefined) {
+      const title = titleFor ? titleFor(fileName.trim()) : null;
+      return lead + (title || spaced(fileName.replace(EXTENSION, '')));
+    }
+    if (isRecordingId(stem, all.slice(offset + whole.length))) return whole;
+    const title = titleFor ? titleFor(stem) : null;
+    return stemLead + (title || spaced(stem));
+  });
+}
+
 // ── A cited moment a student can open ─────────────────────────────
 // "คาบ 3 นาที 26:48" tells the นิสิต where the fact was taught, but finding
 // that minute meant opening the clip and scrubbing to it by hand. These turn
@@ -160,7 +245,7 @@ export function citeSeconds(stamp) {
 // No lookbehind: WebKit before Safari 16.4 cannot build one, and this module
 // loads with every exam, clip summary and wrap-up (package.json: ios >= 14).
 // The "not inside a longer token" rule is checked by hand in recordingMatches.
-const RECORDING = new RegExp(`(?:VET86\\s+)?(${ID})((?:\\s*,?\\s*\\[[^\\]]*\\])+)`, 'g');
+const RECORDING = new RegExp(`(?:(?:VET86|คลิป)\\s+)?(${ID})((?:\\s*,?\\s*\\[[^\\]]*\\])+)`, 'g');
 const ID_CHAR = /[0-9A-Za-z_-]/;
 
 /** RECORDING's matches that do not start inside a longer id-like token. */
@@ -223,4 +308,63 @@ export function momentFromSearch(search) {
   const seconds = Number(params.get(MOMENT_SECOND_PARAM) || 0);
   // A second that is not one plays the clip from its start rather than not at all.
   return { videoId, seconds: Number.isInteger(seconds) && seconds >= 0 && seconds <= 86400 ? seconds : 0 };
+}
+
+// ── A question the wrap-up cites by its bank id ───────────────────
+// The wrap-ups cite past papers and bank questions by id: "ข้อสอบเก่า
+// 209058, 209059", "แนวข้อสอบ 105579", "ข้อฝึกในคลัง 209163". A six-digit id
+// says nothing to a student; the paper it was sat on does. The stored pointer
+// stays as written (the cohort tags and the lints read it); these find the
+// pointers in a citation and name each the way the question card's chip names
+// an origin (source-line.js): "ข้อสอบเก่า Vet 78, 81, 85 ปลายภาค". The cohorts
+// and papers come from that question's own filing, passed in by the caller
+// (wrap-cohorts.js reads them from exam-recurrence.generated.js), so this
+// module loads no bank. An id with no filed cohort is still never printed:
+// it reads "ข้อสอบเก่า".
+
+const POINTER_KIND = { 'ข้อสอบเก่า': 'past', 'แนวข้อสอบ': 'aligned', 'ข้อฝึกในคลัง': 'practice' };
+/** What each kind of pointer reads as; the first two are the chip's own words. */
+export const POINTER_LABEL = Object.freeze({ past: 'ข้อสอบเก่า', aligned: 'อิงแนวข้อสอบ', practice: 'ข้อฝึกในคลัง' });
+const POINTER_PAPER = Object.freeze({ midterm: 'กลางภาค', final: 'ปลายภาค' });
+const ONE_ID = String.raw`\d{3,7}(?:\s*\([^)]*\))?`;
+const POINTER = new RegExp(String.raw`(ข้อสอบเก่า|แนวข้อสอบ|ข้อฝึกในคลัง)(\s*ปี\s*\d)?\s+(${ONE_ID}(?:\s*(?:,|และ|ถึง)\s*${ONE_ID})*)`, 'g');
+// A remark that only restates who sat it and which paper ("(ปลายภาค Vet 78, Vet 81)").
+const ORIGIN_ONLY = /^(?:(?:กลางภาค|ปลายภาค|ไม่ระบุรุ่น|Vet\s*\d+)[\s,]*)+$/;
+
+/**
+ * The question pointers in one citation, in order:
+ * [{ start, end, kind: 'past'|'aligned'|'practice', ids: ['209058', ...], remarks: ['...'], range? }].
+ * A bracket after an id is a remark about it, kept in `remarks`; `range` is
+ * set for "<id> ถึง <id>", whose ids are only the two ends.
+ */
+export function questionPointers(text) {
+  const out = [];
+  const s = String(text ?? '');
+  for (const m of s.matchAll(POINTER)) {
+    const ids = [];
+    const remarks = [];
+    for (const [, id, remark] of m[3].matchAll(/(\d{3,7})(?:\s*\(([^)]*)\))?/g)) {
+      if (!ids.includes(id)) ids.push(id);
+      if (remark && remark.trim()) remarks.push(remark.trim());
+    }
+    // "209058 ถึง 209064" names a run of items by its ends: the ends say which
+    // papers, but they are not the only items cited, so nothing offers to open them.
+    const range = /\d\s*(?:\([^)]*\)\s*)?ถึง/.test(m[3]);
+    out.push({ start: m.index, end: m.index + m[0].length, kind: POINTER_KIND[m[1]], ids, remarks, ...(range ? { range: true } : {}) });
+  }
+  return out;
+}
+
+/**
+ * The words for one pointer. `origins` is every { cohort, paper } filed for
+ * its ids: "ข้อสอบเก่า Vet 78, 81, 85 ปลายภาค", "ข้อสอบเก่า", "อิงแนวข้อสอบ".
+ * A remark that only restates the filed cohort and paper is left out.
+ */
+export function questionPointerLabel(pointer, origins = []) {
+  const head = POINTER_LABEL[pointer?.kind] || POINTER_LABEL.past;
+  const cohorts = [...new Set(origins.map((o) => Number(o?.cohort)).filter(Number.isInteger))].sort((a, b) => a - b);
+  const papers = [...new Set(origins.map((o) => POINTER_PAPER[o?.paper]).filter(Boolean))];
+  const label = [head, cohorts.length ? `Vet ${cohorts.join(', ')}` : '', papers.join(', ')].filter(Boolean).join(' ');
+  const remarks = (pointer?.remarks || []).filter((r) => !(cohorts.length && ORIGIN_ONLY.test(r)));
+  return remarks.length ? `${label} (${remarks.join(', ')})` : label;
 }

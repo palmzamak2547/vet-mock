@@ -41,7 +41,7 @@ The API lists only public items, so an unlisted upload outside these 21 playlist
 | Captions | YouTube's timed text with word timing (json3) or `npm run fetch:videos` | none |
 | Copy | the owner's export (section 7), stored in R2 | none |
 | Captions where none exist | faster-whisper large-v3 on Palm's GPU (RTX 5050), from our copy | local model, no API cost |
-| Deck | the library deck of the session (lecturer sets, else a deck matched by hand in the clip's `polished.json` `decks`, else title and date), read past the Chula wall through `scripts/lib/library-read.mjs` (Management API for the catalog, R2 for the file); per-page text and red marks: `scripts/video-deck-pages.py` | none |
+| Deck | the library deck of the session (lecturer sets, else a deck matched by hand in the clip's `polished.json` `decks`, else a distinctive title word, else the subject's decks that carry the recording's teaching date, never a class timetable), read past the Chula wall through `scripts/lib/library-read.mjs` (Management API for the catalog, R2 for the file); per-page text and red marks: `scripts/video-deck-pages.py`. A `polished.json` that holds only `decks` does not stop a clip's first summary | none |
 | Slides without a deck | scene-change frames from our copy (ffmpeg), perceptual-hash dedupe, blank and blur filters | none |
 | Analysis | `scripts/video-analyse.mjs` | none |
 | Summary | `scripts/video-summarise.mjs`, from the slices the analysis picked | yes, the only stage |

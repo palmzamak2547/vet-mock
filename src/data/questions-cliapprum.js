@@ -1787,12 +1787,7 @@ export const QB_CLIAPPRUM = [
     source: 'Kim p21 distribution + curriculum.js note', sourceType: 'lecture',
     tags: ['LCS-distribution', 'fleet-health', 'monitoring'], type: 'mcq',
     q: 'จาก LCS distribution ของฟาร์มหนึ่ง: LCS1=42%, LCS2=15%, LCS3=40%, LCS4=2%, LCS5=1% — แปลผลและจัดการอย่างไร',
-    options: [
-      'ฟาร์มสุขภาพดี ไม่ต้องเพิ่มมาตรการใด',
-      'LCS ≥ 3 รวม 43% สูงผิดปกติ ต้องเริ่ม RT + tackle LCS3',
-      'LCS1 42% เป็นค่าสูงสุด ไม่มีจุดที่ต้องระวัง',
-      'คัดทิ้งทุกตัวที่ LCS ≥ 3 (5% × 50 = 25 ตัว)',
-    ],
+    options: ["ฟาร์มสุขภาพดี ไม่ต้องเพิ่มมาตรการใด","LCS ≥ 3 รวม 43% สูงผิดปกติ ต้องเริ่ม RT + tackle LCS3","LCS1 42% เป็นค่าสูงสุด ไม่มีจุดที่ต้องระวัง","LCS ≥ 3 รวม 43% ต้องคัดทิ้งทั้งหมดก่อนโรคลุกลาม"],
     answer: 1,
     explain: 'Fleet health interpretation: LCS ≥3 รวม 43% = **สูงผิดปกติ** (ฝูงสุขภาพดีควร LCS 1-2 ≥ 90%). LCS 3 group (40%) = critical — ต้องสำรวจหาสาเหตุ + เริ่ม RT program. ถ้ายัง LCS 3 มากต่อเนื่อง คาดเป็น LCS 4-5 ในอนาคต. Action: ดึงโคเหลือง (LCS 3) มาตัดแต่งกีบมากกว่าแดง (LCS 4-5) ในอัตราส่วนสูง — เจ้าของอาจไม่อยากแต่ป้องกันได้ดีกว่า',
     verified: 'Kim p21-22 distribution example' },

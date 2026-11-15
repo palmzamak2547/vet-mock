@@ -5,6 +5,7 @@
 // account menu or sign-in client. OWNER: trust role.
 import { useT } from '../i18n/index.js';
 import { linkHandler } from '../router.js';
+import { FamilyMenu } from '@vetmock/lib/family/FamilyMenu.jsx';
 // The same preload as src/preload.js, written here so the landing's first load keeps preload.js inside its
 // own chunk (a module two lazy roots share becomes a chunk of its own and one more request on the front door).
 let preloading = false;
@@ -32,7 +33,7 @@ function Lang() {
 
 /** @param {{ current: 'methods'|'guide'|'cite', children: any }} props */
 export default function PublicShell({ current, children }) {
-  const { t } = useT();
+  const { t, lang } = useT();
   return (
     <div className="rs-ws rs-pub">
       <header className="rs-top rs-pub-top">
@@ -43,6 +44,7 @@ export default function PublicShell({ current, children }) {
         </a>
         <span className="rs-grow" />
         <Lang />
+        <FamilyMenu self="research" lang={lang} carryLang={lang} buttonClassName="rs-iconbtn" />
         <a
           className="rs-btn rs-btn--primary rs-btn--sm rs-pub-open"
           href="/app"

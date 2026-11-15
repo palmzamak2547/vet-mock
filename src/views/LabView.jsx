@@ -314,10 +314,10 @@ export default function LabView({ goHome }) {
             <div style={{ flex: 1 }}>
               <strong style={{ fontSize: '0.95rem' }}>👋 ยินดีต้อนรับ Practical Imaging Lab</strong>
               <ul style={{ margin: '8px 0 0', paddingLeft: 22, fontSize: '14px', lineHeight: 1.6, color: 'var(--clr-ink-soft)' }}>
-                <li>ลาก DICOM (<code>.dcm</code>) ลงด้านล่าง — ลากครั้งละ 2 ไฟล์ได้ (เปิด side-by-side)</li>
+                <li>ลาก DICOM (<code>.dcm</code>) ลงด้านล่าง: ลากครั้งละ 2 ไฟล์ได้ (เปิด side-by-side)</li>
                 <li>เปิด viewer แล้วกด <kbd style={kbdInlineStyle}>?</kbd> ดู 16 keyboard shortcuts</li>
                 <li>มี Norberg + VHS + Length/Angle ครบ, Anonymize ก่อน share ภาพออก</li>
-                <li>ไฟล์ render ใน browser ล้วน — ไม่ขึ้น server</li>
+                <li>ไฟล์ render ใน browser ล้วน: ไม่ขึ้น server</li>
                 <li>เข้าครั้งหน้า bookmark URL <code>#lab</code> ตรงๆ ได้เลย</li>
               </ul>
             </div>
@@ -384,7 +384,7 @@ export default function LabView({ goHome }) {
                   </button>
                 </>
               ) : (
-                'ยังไม่มีเคสตัวอย่างเผยแพร่ — ลากไฟล์ DICOM ของคุณเองด้านล่างเพื่อเริ่มฝึกได้เลย'
+                'ยังไม่มีเคสตัวอย่างเผยแพร่: ลากไฟล์ DICOM ของคุณเองด้านล่างเพื่อเริ่มฝึกได้เลย'
               )}
             </div>
           )}
@@ -400,7 +400,7 @@ export default function LabView({ goHome }) {
               onClick={() => setShowCases(true)}
               className="vmx-lab-action-card"
               style={secondaryCardStyle}
-              title={demoCases.length > 0 ? `ดูเคสทั้งหมด ${demoCases.length} เคส — filter ตาม modality (X-ray/CT/MRI/US)` : "ดูรายการเคส — filter ตาม modality (X-ray/CT/MRI/US)"}
+              title={demoCases.length > 0 ? `ดูเคสทั้งหมด ${demoCases.length} เคส, filter ตาม modality (X-ray/CT/MRI/US)` : "ดูรายการเคส: filter ตาม modality (X-ray/CT/MRI/US)"}
             >
               <div style={{ fontSize: '1.6rem', marginBottom: 4 }}>📚</div>
               <div style={{ fontWeight: 600, fontSize: '0.92rem' }}>

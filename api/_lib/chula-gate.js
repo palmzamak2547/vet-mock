@@ -9,6 +9,55 @@
 // saw the wall off: the AI costs money and the rows are private.
 import { createHash } from 'node:crypto';
 import { backendConfig } from './app-backend.js';
+import { signatureVerdict, resetSessionKeys } from './session-keys.js';
+
+// Before any database call a token is read locally, and refused only when it
+// is certainly not a session: not three dot-separated parts, a payload that is
+// not a JSON object, no subject, or an expiry missing or more than
+// EXPIRY_MARGIN_S in the past (the margin is for clock difference between this
+// server and the auth server; inside it the database decides). A token refused
+// here is no token at all: the caller is a guest, nothing is asked and nothing
+// is counted. Everything else is verified by the database.
+// The issuer and audience are never grounds for refusal: a forger writes the
+// right ones into an unsigned payload, so they stop nobody, while a mismatch on
+// our side (a trailing slash, a custom auth domain, an address that differs
+// between previews and production, another sign-in path of the same project)
+// would turn every member into a guest at once. A mismatch is only logged,
+// without the token.
+// The signature is checked next, against the project's published keys
+// (session-keys.js): a token that names one of them and is not signed by it
+// is a forgery, and is no token either. A token that names no published key
+// still goes to the database, which is the only judge of it.
+export const EXPIRY_MARGIN_S = 60;
+let lastIssuerLog = 0;
+
+export function tokenLooksValid(token, projectUrl, nowMs = Date.now()) {
+  const parts = String(token || '').split('.');
+  if (parts.length !== 3 || parts.some((x) => !x)) return false;
+  let claims;
+  try {
+    claims = JSON.parse(Buffer.from(parts[1], 'base64url').toString('utf8'));
+  } catch {
+    return false;
+  }
+  if (!claims || typeof claims !== 'object' || Array.isArray(claims)) return false;
+  if (typeof claims.sub !== 'string' || !claims.sub) return false;
+  if (!Number.isFinite(claims.exp) || claims.exp * 1000 < nowMs - EXPIRY_MARGIN_S * 1000) return false;
+  const expected = `${String(projectUrl || '').replace(/\/+$/, '')}/auth/v1`;
+  if (claims.iss !== expected && nowMs - lastIssuerLog > 60_000) {
+    lastIssuerLog = nowMs;
+    console.warn('[chula-gate] session issuer differs from the configured project address; the database decides', {
+      issuerHost: (() => { try { return new URL(String(claims.iss)).host; } catch { return 'unreadable'; } })(),
+    });
+  }
+  return true;
+}
+
+// Where the gate stands open without a database. A deployed preview
+// (VERCEL_ENV=preview) may hold live provider keys, so it refuses like
+// production; local development (no VERCEL_ENV, or `vercel dev`'s
+// "development") and the unit suite stay open.
+const deployed = (env) => env.VERCEL_ENV === 'production' || env.VERCEL_ENV === 'preview';
 
 const SWITCH_TTL_MS = 30_000;
 // How long a switch seen off keeps the API open through a database outage. Long
@@ -19,6 +68,13 @@ const MEMBER_TTL_MS = 60_000;
 let lastSwitch = null; // { enforce, at }
 const members = new Map(); // sha256(token) -> { uid, until }
 
+// The length cap is what a real session needs, with room. A token carries the
+// account's profile, so its length follows the profile: the longest among this
+// project's accounts was about 1,500 characters on 15 Nov 2026, and the fullest
+// profile the app lets a student write (a 140-character Thai bio, Thai names, a
+// linked LINE account) comes to about 3,100. A bearer over the cap is no token
+// at all, and the student is asked to sign in again with no reason shown, so
+// the cap stays clear of that (tests/unit/session-signature.test.mjs).
 export function bearerOf(req) {
   const token = String(req?.headers?.authorization || '').replace(/^Bearer\s+/i, '').trim();
   return /^[A-Za-z0-9._~-]{20,4096}$/.test(token) ? token : '';
@@ -31,6 +87,7 @@ const UNAVAILABLE = refuse(503, 'backend-unavailable', 'ตรวจสิทธ
 
 async function askState(cfg, bearer, fetchImpl, production) {
   const response = await fetchImpl(`${cfg.url}/rest/v1/rpc/chula_access_state`, {
+    redirect: 'error',
     method: 'POST',
     headers: { apikey: cfg.key, Authorization: `Bearer ${bearer}`, 'Content-Type': 'application/json' },
     body: '{}',
@@ -52,26 +109,29 @@ async function askState(cfg, bearer, fetchImpl, production) {
  * Chula member or the admin), else { ok: false, status, body }.
  */
 export async function chulaGate(req, { env = process.env, fetchImpl = fetch, now = Date.now } = {}) {
-  const token = bearerOf(req);
+  const cfg = backendConfig(env);
+  let token = bearerOf(req);
+  if (token && cfg.url && !tokenLooksValid(token, cfg.url, now())) token = '';
   const key = token ? createHash('sha256').update(token).digest('hex') : '';
   const remembered = key && members.get(key);
   if (remembered && remembered.until > now()) return { ok: true, userId: remembered.uid, token, member: true };
+  // Only where the database would be asked next. Anything but 'forged' goes on to it.
+  if (token && cfg.url && cfg.key && await signatureVerdict(token, cfg.url, { fetchImpl, now }) === 'forged') token = '';
 
   // A guest needs only the switch, which a warm instance already holds.
   if (!token && lastSwitch && now() - lastSwitch.at < SWITCH_TTL_MS) {
     return lastSwitch.enforce ? SIGNIN_REQUIRED : { ok: true, userId: null, token: null, member: false };
   }
 
-  const cfg = backendConfig(env);
   if (!cfg.url || !cfg.key) {
     // No database configured, so no account exists to check: a local API or the
     // unit suite. Production always has one, and there its absence refuses.
-    return env.VERCEL_ENV === 'production' ? UNAVAILABLE : { ok: true, userId: null, token: null, member: false };
+    return deployed(env) ? UNAVAILABLE : { ok: true, userId: null, token: null, member: false };
   }
   let state = null;
   try {
     // A token the server refuses (expired, forged) leaves a guest: then only the switch matters.
-    const production = env.VERCEL_ENV === 'production';
+    const production = deployed(env);
     if (token) state = await askState(cfg, token, fetchImpl, production);
     if (!state?.signed_in) {
       let enforce = lastSwitch && now() - lastSwitch.at < SWITCH_TTL_MS ? lastSwitch.enforce : undefined;
@@ -109,4 +169,5 @@ export async function requireChula(req, res, options) {
 export function resetChulaGate() {
   lastSwitch = null;
   members.clear();
+  resetSessionKeys();
 }

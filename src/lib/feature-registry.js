@@ -52,10 +52,12 @@
 //   tools     🛠 เครื่องมือ & อื่นๆ
 // ============================================================
 
-// Feature flags — a one-line rollback for in-progress features. An entry with
-// `flag: 'X'` is hidden from home + ⌘K (and thus unreachable, since there is
-// no direct URL routing) when FEATURE_FLAGS.X === false.
+// Feature flags — a one-line rollback for a feature. An entry with
+// `flag: 'X'` is hidden from home + ⌘K when FEATURE_FLAGS.X === false, and the
+// readers that check the flag (the question's wiki link, the notes and results
+// links) hide their way in. Its /app route still opens (src/lib/view-route.js).
 import { SUBJECTS_BY_YEAR } from '../data/curriculum.js';
+import { familyMember } from './family/family.js';
 
 export const FEATURE_FLAGS = {
   VETWIKI_ENABLED: true,
@@ -64,7 +66,15 @@ export const FEATURE_FLAGS = {
 export const IMAGING_PRO_URL = 'https://imaging.cuvetsmo.com';
 // The statistics workspace is its own app on its own origin; the palette opens it in the same tab, as
 // it does Imaging Pro (window.location.assign).
-export const RESEARCH_STUDIO_URL = 'https://research.vetmock.com';
+export const RESEARCH_STUDIO_URL = familyMember('research').url.replace(/\/$/, '');
+
+// The other VetMock sites take their name and sentence from the one family list (family/family.js),
+// so the palette, the home grid and every site say the same thing. Each opens in the same tab and
+// carries the theme on screen (crossingHref, applied by the dispatchers).
+const fromFamily = (id) => { const m = familyMember(id); return { label: m.name, labelEn: m.name, hint: m.th, url: m.url.replace(/\/$/, '') }; };
+const VCA = fromFamily('vca');
+const TUTOR = fromFamily('ai');
+const RESEARCH = fromFamily('research');
 
 export const FEATURE_CATEGORIES = [
   { id: 'practice', label: 'ฝึก & สอบ',          labelEn: 'Practice & Exam',  icon: '📝' },
@@ -304,8 +314,8 @@ export const FEATURES = [
   },
   {
     id: 'research-studio', category: 'tools',
-    label: 'วิเคราะห์ข้อมูลวิจัย', labelEn: 'VetMock Research', icon: '📊',
-    hint: 'สถิติสำหรับงานวิจัยสัตวแพทย์ คำนวณในเครื่องนี้ ข้อมูลไม่ส่งออกนอกเครื่อง',
+    label: RESEARCH.label, labelEn: RESEARCH.labelEn, icon: '📊',
+    hint: RESEARCH.hint,
     kw: 'research studio spss openepi epi info winepiscope epitools สถิติ วิเคราะห์ข้อมูล วิจัย t-test chi-square odds ratio sample size ขนาดตัวอย่าง statistics',
     invoke: { kind: 'external', url: RESEARCH_STUDIO_URL },
   },
@@ -343,8 +353,8 @@ export const FEATURES = [
   {
     id: 'groups', category: 'social',
     label: 'กลุ่มติว', labelEn: 'Study groups', icon: '👥',
-    hint: 'แชร์ข้อสอบและอันดับคะแนนกลุ่ม',
-    kw: 'group กลุ่ม ติว study room แชร์ share เพื่อน',
+    hint: 'อันดับคะแนนของกลุ่ม',
+    kw: 'group กลุ่ม ติว study room เพื่อน',
     auth: true,
     invoke: { kind: 'view', view: 'groups' },
   },
@@ -386,8 +396,8 @@ export const FEATURES = [
   },
   {
     id: 'account-settings', category: 'tools',
-    label: 'ตั้งค่าบัญชี', labelEn: 'Account settings', icon: '⚙️',
-    hint: 'จัดการบัญชี รหัสผ่าน และการลบบัญชี',
+    label: 'บัญชีและข้อมูล', labelEn: 'Account settings', icon: '⚙️',
+    hint: 'วิธีเข้าสู่ระบบ รหัสผ่าน ดาวน์โหลดข้อมูล และการลบบัญชี',
     kw: 'account settings password email logout delete รหัสผ่าน อีเมล ลบ บัญชี',
     auth: true,
     invoke: { kind: 'view', view: 'account-settings' },
@@ -415,6 +425,22 @@ export const FEATURES = [
     hint: 'ตารางสอบเข้าปฏิทิน การ์ด Anki และแอปที่เชื่อมได้',
     kw: 'connect apps เชื่อมแอป google drive notion calendar ปฏิทิน ตารางสอบ anki การ์ด outlook apple ics เชื่อมบัญชี',
     invoke: { kind: 'view', view: 'connect-apps' },
+  },
+  {
+    // The licensing-exam site. Last in the practice group, after the study modes.
+    id: 'vca-site', category: 'practice',
+    label: VCA.label, labelEn: VCA.labelEn, icon: '📜',
+    hint: VCA.hint,
+    kw: 'vca ใบประกอบ ใบประกอบวิชาชีพ สัตวแพทยสภา licensing license board exam สอบใบประกอบ สนามสอบ mock vetmock vca',
+    invoke: { kind: 'external', url: VCA.url },
+  },
+  {
+    // Tools, not learn: the learn group's home tiles are the owner's seven (nav-surfaces.test).
+    id: 'ai-tutor', category: 'tools',
+    label: TUTOR.label, labelEn: TUTOR.labelEn, icon: '💬',
+    hint: TUTOR.hint,
+    kw: 'ai tutor ถาม ถามตอบ แชท chat ติว อธิบาย คำถาม ask vetmock ai ผู้ช่วย',
+    invoke: { kind: 'external', url: TUTOR.url },
   },
 ];
 

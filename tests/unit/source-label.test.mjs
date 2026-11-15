@@ -205,20 +205,26 @@ test('no question shows a middle dot in its source, closed or open, before or af
 
 test('the source panel reads in Thai, with no internal ids or status words', () => {
   // A row with every citation field: source, verified, a flag and tags.
-  const full = bankRow('com5', 568);
+  // com5 568 is major since 11 Nov; as a minor flag its note is a panel row.
+  const row568 = bankRow('com5', 568);
+  const full = { ...row568, flag: { ...row568.flag, severity: 'minor' } };
   const { text } = renderChip(full, { open: true });
   const labels = rowLabels(full);
   for (const english of ['Source', 'Verified', 'Flag', 'Tags']) {
     assert.ok(!labels.includes(english), `"${english}" is still a row label`);
     assert.doesNotMatch(text, new RegExp(`\\b${english}\\b`), `"${english}" is still a row label`);
   }
-  for (const thai of ['ที่มา', 'ตรวจกับ', 'หมายเหตุ', 'แท็ก']) assert.ok(labels.includes(thai), `no "${thai}" label`);
+  for (const thai of ['ที่มา', 'ตรวจกับ', 'หมายเหตุ']) assert.ok(labels.includes(thai), `no "${thai}" label`);
+  // Tags that are working slugs (tritrichomonas, gold-standard) are not printed:
+  // the panel names a topic only when a tag is one (tagTopicLabels, 11 Nov 2026).
+  assert.ok(!labels.includes('แท็ก'), 'the tag slugs are back');
+  assert.doesNotMatch(text, /gold-standard/);
   // Every label is Thai; "Wiki" inside a Thai label is the product's name.
   for (const label of labels) assert.match(label.replace(/Vet ?Wiki|Wiki/g, ''), /^[฀-๿\s]+$/, `label "${label}"`);
-  // ReviewView's wording for a major flag.
+  // A major flag's note is read from the caution chip in the verdict panel, not
+  // repeated here (docs/releases/pending/quiet-labels.md).
   const major = { ...full, flag: { ...full.flag, severity: 'major' } };
-  assert.ok(renderChip(major, { open: true }).text.includes('ข้อควรระวังสำคัญ'));
-  assert.ok(rowLabels(major).includes('ข้อควรระวังสำคัญ'));
+  assert.ok(!renderChip(major, { open: true }).text.includes(full.flag.note.slice(0, 20)));
 
   // An approved VetWiki citation shows its title, not "page#anchor".
   const cited = renderChip(bankRow('com5', 501), { open: true });
@@ -642,7 +648,8 @@ test('every Equine Med Mid 86 citation at p20 or later names its edition', () =>
   const edition = (id) => [...new Set(QB.find((q) => q.subject === 'equine-medicine' && q.id === id).sourcePages.map((c) => c.edition))];
   assert.deepEqual(edition(207538), ['45p'], 'the dentistry recall page, read from the revision');
   assert.deepEqual(edition(207549), ['44p'], 'the colic page, read from the 44-page copy');
-  assert.deepEqual(edition(207580), ['44p'], 'p44 of the 44-page copy is p45 of the revision');
+  // 207580 also cites Eq Respi (80p) since the 2569 deck check added its pages 68 and 72; the Mid 86 page is still the 44-page copy's.
+  assert.deepEqual(edition(207580), ['44p', '80p'], 'p44 of the 44-page copy is p45 of the revision, plus the Eq Respi deck pages');
 });
 
 test('the food-industry questions written from the 25-page re-upload cite its pages', () => {
@@ -663,7 +670,9 @@ test('the food-industry questions written from the 25-page re-upload cite its pa
 test('UI-07: the source toggle is a class-styled button with a line icon and full-opacity text', () => {
   const q = bankRow('food-industry', 207001);
   globalThis.__vmxHooks = hooks();
-  const raw = QSourceChip({ q });
+  // The row exists only once the key is on screen (11 Nov 2026).
+  assert.equal(QSourceChip({ q }), null);
+  const raw = QSourceChip({ q, revealed: true });
   const button = findAll(raw, (n) => n.type === 'button')[0];
   assert.equal(button.props.className, 'vmx-qsource-toggle');
   assert.equal(button.props.style, undefined, 'an inline all:unset resets the class it depends on');

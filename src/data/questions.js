@@ -140,12 +140,42 @@ export function mediaSizesSoon({ load = loadMediaSizes, waitMs = SIZES_WAIT_MS }
   });
 }
 
+// A year is about 70 bank chunks (2.6 MB gzipped for year 5). Asked for all at
+// once, they took the whole connection on a cold visit, and a screen opened
+// meanwhile waited behind every one of them for its own chunk: Progress and
+// the question manager drew after 17 s on a slow 4G phone, Home's own chunk
+// after 6. A few at a time, a chunk asked for later waits behind those few
+// only. The banks still all arrive, in the same order, merged once.
+export const BANK_FETCHES_AT_ONCE = 4;
+
+/** Runs at most `max` of the tasks handed to it at a time, in the order given. */
+export function createLimiter(max) {
+  let running = 0;
+  const waiting = [];
+  const next = () => {
+    if (running >= max || !waiting.length) return;
+    running += 1;
+    const { task, resolve, reject } = waiting.shift();
+    let result;
+    try { result = Promise.resolve(task()); } catch (err) { result = Promise.reject(err); }
+    result.then(resolve, reject).finally(() => { running -= 1; next(); });
+  };
+  return (task) => new Promise((resolve, reject) => { waiting.push({ task, resolve, reject }); next(); });
+}
+
+const _bankFetch = createLimiter(BANK_FETCHES_AT_ONCE);
+
+/** Every bank of `loaders` as `{ file, questions }`, fetched through `limit`. */
+export function importBanks(loaders, limit = _bankFetch, load = importBank) {
+  return Promise.all(loaders.map(({ file, fn, exportName }) => (
+    limit(() => load(fn, exportName)).then((questions) => ({ file, questions }))
+  )));
+}
+
 function _runLoaders(loaders, scopeKey) {
   if (_loadPromises.has(scopeKey)) return _loadPromises.get(scopeKey);
   const p = Promise.all([
-    Promise.all(loaders.map(({ file, fn, exportName }) => (
-      importBank(fn, exportName).then((questions) => ({ file, questions }))
-    ))),
+    importBanks(loaders),
     mediaSizesSoon(),
   ])
     .then(([parts]) => {

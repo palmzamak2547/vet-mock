@@ -10,8 +10,20 @@
 // empty card.
 // ============================================================
 
+import { shownName, shownPicture } from '../lib/public-display.js';
 import { useMemo } from 'react';
 import { SUBJECTS } from '../data/curriculum.js';
+
+// Names come from the server's profile of each account (useStudyBuddies
+// asks buddy_profiles); a classmate it does not name is counted, not named.
+// Until that lookup exists on the database the row is a count alone.
+export function namesLine(list) {
+  const named = (list || []).filter((b) => b?.username);
+  if (!named.length) return '';
+  const shown = named.slice(0, 3).map((b) => `${shownPicture(b.avatar)} ${shownName(b.username)}`).join(', ');
+  const rest = (list || []).length - Math.min(3, named.length);
+  return ` ${shown}${rest > 0 ? ` และอีก ${rest} คน` : ''}`;
+}
 
 export default function StudyBuddiesPanel({ buddies = {}, selfUserId, onJumpToSubject }) {
   const grouped = useMemo(() => {
@@ -74,8 +86,7 @@ export default function StudyBuddiesPanel({ buddies = {}, selfUserId, onJumpToSu
               <span style={{ flex: 1, fontSize: 14 }}>
                 <strong>{m?.name || 'ยังไม่เลือกวิชา'}</strong>
                 <span style={{ marginLeft: 8, color: 'var(--clr-ink-soft)' }}>
-                  {g.list.length} คน — {g.list.slice(0, 3).map((b) => `${b.avatar || '🐾'} ${b.username || 'นิสิต'}`).join(', ')}
-                  {g.list.length > 3 && ` … +${g.list.length - 3}`}
+                  {g.list.length} คน{namesLine(g.list)}
                 </span>
               </span>
               {!idle && <span style={{ fontSize: 11, color: 'var(--clr-ink-soft)' }}>→</span>}

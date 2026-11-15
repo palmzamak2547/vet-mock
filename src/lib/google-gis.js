@@ -26,7 +26,7 @@
 //      → Authorized JavaScript origins:
 //         https://vetmock.vercel.app
 //         http://localhost:5173
-//      (and https://vetmock.com, then flip GIS_AUTHORISED_ON_VETMOCK_COM)
+//         https://vetmock.com (added 2026-10-12)
 //   2. Vercel env vars → VITE_GOOGLE_CLIENT_ID = the OAuth client ID
 //      (the one ending in .apps.googleusercontent.com — public, safe
 //      in client code).
@@ -83,13 +83,10 @@ function loadGisScript() {
 // Google answers GIS only on the Authorized JavaScript origins above.
 // https://vetmock.com was added to the VetMock Web client on 2026-10-12
 // (beside vetmock.vercel.app and localhost:5173), so sign-in there uses the
-// popup flow; set this back to false only if that origin is ever removed.
-export const GIS_AUTHORISED_ON_VETMOCK_COM = true;
-
+// popup flow. If an origin is ever removed from the client, remove it here.
 /** Whether Google lets this origin use the popup flow. */
 export function gisOriginAllowed(origin) {
-  if (origin === 'https://vetmock.vercel.app') return true;
-  if (origin === 'https://vetmock.com') return GIS_AUTHORISED_ON_VETMOCK_COM;
+  if (origin === 'https://vetmock.vercel.app' || origin === 'https://vetmock.com') return true;
   return typeof origin === 'string' && /^http:\/\/localhost(:\d+)?$/.test(origin);
 }
 

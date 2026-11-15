@@ -322,8 +322,20 @@ html.lp-active { background: var(--clr-bg); }
   margin: 0 0 clamp(18px, 2.4vw, 28px); color: var(--clr-ink);
 }
 .lp-root:lang(en) .lp-hero-title { line-height: 1.04; letter-spacing: -0.025em; font-weight: 600; }
-/* Each heading line is one phrase; on wide screens it never breaks inside. */
-@media (min-width: 1001px) { .lp-hero-title .lp-line { white-space: nowrap; } }
+/* Beside the question card (two columns) a heading line must stay inside its own column: before
+   11 Nov 2026 the English first line ran 166 to 230 px past it at every desktop width and under the
+   card (a student's iPad screenshot). tests/e2e/landing-hero-fit.spec.js holds both rules below.
+   Thai: each line is one phrase and never breaks inside, so the type is sized from the column;
+   7.95 is the longer line's width in em (measured 7.82) plus a little air. A browser without
+   container units keeps the size above, where the Thai lines fit up to about 1700 px wide.
+   English: words break cleanly, so its long first line wraps, balanced where the browser can. */
+@media (min-width: 1001px) {
+  .lp-hero-copy { container-type: inline-size; }
+  .lp-hero-title { font-size: min(clamp(40px, 3.6vw + 20px, 84px), calc(100cqi / 7.95)); }
+  .lp-hero-title .lp-line { white-space: nowrap; }
+  .lp-root:lang(en) .lp-hero-title { font-size: clamp(40px, 3.6vw + 20px, 84px); }
+  .lp-root:lang(en) .lp-hero-title .lp-line { white-space: normal; text-wrap: balance; }
+}
 .lp-hero-title em { font-style: normal; }
 .lp-root:lang(en) .lp-hero-title em { font-style: italic; font-weight: 500; }
 /* Masks for rising words, padded so Thai stacked marks are never clipped
@@ -364,8 +376,12 @@ html.lp-active { background: var(--clr-bg); }
 /* Desktop: the stage leaves room above the card, where the horse skull
    floats in the top of a radiograph lightbox (XraySkull rest pose). */
 @media (min-width: 1001px) { .lp-hero-stage { padding-top: clamp(150px, 13vw, 200px); } }
+/* The lightbox stays inside the stage: as wide as the card at most and never above the stage's top.
+   It used to be 112% wide and lifted by 14%, which put its top edge behind the nav's buttons at
+   every width and its right side past the screen edge on a tablet. The skull sits in the top
+   quarter of the disc, which still clears the card. */
 .lp-lightbox {
-  position: absolute; z-index: -1; top: 0; left: 50%; width: min(560px, 112%); aspect-ratio: 1; transform: translate(-46%, -14%);
+  position: absolute; z-index: -1; top: 0; left: 50%; width: min(560px, 100%); aspect-ratio: 1; transform: translateX(-50%);
   border-radius: 50%;
   background: radial-gradient(circle at 50% 45%, rgba(143, 211, 238, 0.2), rgba(13, 17, 20, 0.92) 62%), #0b0f12;
   box-shadow: 0 0 0 1px rgba(214, 233, 242, 0.08), 0 40px 90px -30px rgba(13, 17, 20, 0.55);
@@ -427,7 +443,7 @@ html.lp-active { background: var(--clr-bg); }
 .lp-qcard-explain { position: relative; margin-top: 18px; padding: 14px 16px 18px; border-radius: 16px; background: var(--clr-bg); border-left: 3px solid var(--clr-gold); animation: lp-why-in .7s var(--lp-ease) both; }
 .lp-qcard-verdict-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
 .lp-qcard-verdict { margin: 0; font-family: var(--lp-mono); font-size: 14px; font-weight: 700; }
-.lp-qcard-verdict.is-right { color: var(--clr-sage-text); }
+.lp-qcard-verdict.is-right { color: var(--clr-right-text); }
 .lp-qcard-verdict.is-wrong { color: var(--clr-rose-text); }
 .lp-qcard-why, .lp-qcard-src { margin: 0 0 8px; font-size: 14px; line-height: 1.75; color: var(--clr-ink-soft); }
 .lp-qcard-why b, .lp-qcard-src b { color: var(--clr-ink); font-weight: 700; margin-right: 4px; }
@@ -804,6 +820,23 @@ html.lp-active { background: var(--clr-bg); }
 .lp-foot-links { display: flex; flex-wrap: wrap; gap: 4px 22px; }
 .lp-root .lp-foot-links a { min-height: var(--touch-min); display: inline-flex; align-items: center; font-size: 14px; color: var(--clr-ink-soft); }
 .lp-root .lp-foot-links a:hover { color: var(--clr-ink); }
+/* The other VetMock sites (lib/family): one name and one sentence each. */
+.lp-family { padding: calc(var(--lp-section) * .5) 0; }
+.lp-family-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 1.4vw, 18px); }
+.lp-family-list .vm-family-row {
+  display: flex; flex-direction: column; gap: 6px; height: 100%; min-height: var(--touch-min);
+  padding: clamp(18px, 2vw, 24px); border-radius: var(--lp-radius);
+  background: var(--clr-surface); border: 1px solid var(--lp-line-strong); color: var(--clr-ink); text-decoration: none;
+  transition: border-color var(--dur), transform .5s var(--lp-spring);
+}
+.lp-family-list .vm-family-row:hover { border-color: var(--clr-sage); transform: translateY(-2px); }
+.lp-family-list .vm-family-name { font-family: var(--lp-display); font-weight: 700; font-size: 18px; }
+.lp-family-list .vm-family-line { font-size: 15px; line-height: 1.7; color: var(--clr-ink-soft); text-wrap: pretty; }
+@media (max-width: 760px) { .lp-family-list { grid-template-columns: minmax(0, 1fr); } }
+.lp-foot-family .vm-family-links { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 22px; }
+.lp-root .lp-foot-family a { min-height: var(--touch-min); display: inline-flex; align-items: center; font-size: 14px; color: var(--clr-ink-soft); }
+.lp-root .lp-foot-family a:hover { color: var(--clr-ink); }
+@media (prefers-reduced-motion: reduce) { .lp-family-list .vm-family-row { transition: none; } .lp-family-list .vm-family-row:hover { transform: none; } }
 .lp-credits { margin: 0 0 18px; font-size: 12.5px; color: var(--clr-ink-soft); }
 .lp-credits summary { cursor: pointer; min-height: var(--touch-min); display: inline-flex; align-items: center; font-weight: 600; }
 .lp-credits ul { margin: 6px 0 0; padding-left: 18px; line-height: 1.75; }

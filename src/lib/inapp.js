@@ -1,3 +1,4 @@
+// @ts-check
 // ============================================================
 // inapp.js — the app browsers Thai students open links from
 // ============================================================
@@ -9,6 +10,7 @@
 // default browser. The others need the app's own menu.
 // ============================================================
 
+/** @type {Array<[string, RegExp]>} */
 const APPS = [
   ['line', /\bLine\/\d/i],
   // iOS writes FBAN/MessengerForiOS; Android writes FB_IAB/MESSENGER.

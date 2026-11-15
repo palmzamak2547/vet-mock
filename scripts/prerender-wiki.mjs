@@ -25,6 +25,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildOgHead, wikiArticleTitle } from './lib/og-head.mjs';
 import { articleNoscript } from './lib/wiki-static.mjs';
+import { addToSitemap } from './lib/sitemap.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = path.join(ROOT, 'dist');
@@ -132,16 +133,9 @@ for (const t of topics) {
 // ---- sitemap: merge the wiki URLs into the shipped sitemap ----
 const sitemapPath = path.join(DIST, 'sitemap.xml');
 if (fs.existsSync(sitemapPath)) {
-  let xml = fs.readFileSync(sitemapPath, 'utf8');
-  const today = new Date().toISOString().slice(0, 10);
-  const entries = written
-    .filter((u) => !xml.includes(`${ORIGIN}${u}<`))
-    .map((u) => `  <url><loc>${ORIGIN}${u}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq></url>`)
-    .join('\n');
-  if (entries) {
-    xml = xml.replace('</urlset>', `${entries}\n</urlset>`);
-    fs.writeFileSync(sitemapPath, xml, 'utf8');
-  }
+  const xml = fs.readFileSync(sitemapPath, 'utf8');
+  const next = addToSitemap(xml, ORIGIN, written, { lastmod: new Date().toISOString().slice(0, 10) });
+  if (next !== xml) fs.writeFileSync(sitemapPath, next, 'utf8');
 }
 
 console.log(`✓ prerendered ${written.length} VetWiki pages with per-article metadata`);

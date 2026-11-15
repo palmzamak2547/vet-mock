@@ -1674,7 +1674,7 @@ export const EXAM_RECURRENCE = {
   },
   "equine-medicine": {
     "cohorts": [81, 83, 84, 85],
-    "items": 253,
+    "items": 206,
     "topics": {
       "equine-anesthesia": {
         "cohorts": [83, 85],
@@ -1744,11 +1744,15 @@ export const EXAM_RECURRENCE = {
         "unattributed": ["equine-medicine:209625", "equine-medicine:209626"],
       },
       "equine-infectious": {
-        "cohorts": [],
-        "first": null,
-        "last": null,
-        "items": 1,
-        "sat": {},
+        "cohorts": [84],
+        "first": 84,
+        "last": 84,
+        "items": 8,
+        "sat": {
+          "84": {
+            "midterm": ["equine-medicine:209639", "equine-medicine:209640", "equine-medicine:209641", "equine-medicine:209642", "equine-medicine:209643", "equine-medicine:209644", "equine-medicine:209645"],
+          },
+        },
         "unattributed": ["equine-medicine:209567"],
       },
       "equine-intro": {
@@ -1770,14 +1774,6 @@ export const EXAM_RECURRENCE = {
         "items": 18,
         "sat": {},
         "unattributed": ["equine-medicine:209600", "equine-medicine:209601", "equine-medicine:209602", "equine-medicine:209603", "equine-medicine:209604", "equine-medicine:209605", "equine-medicine:209606", "equine-medicine:209607", "equine-medicine:209608", "equine-medicine:209609", "equine-medicine:209610", "equine-medicine:209611", "equine-medicine:209612", "equine-medicine:209613", "equine-medicine:209614", "equine-medicine:209615", "equine-medicine:209633", "equine-medicine:209634"],
-      },
-      "equine-neonatal": {
-        "cohorts": [],
-        "first": null,
-        "last": null,
-        "items": 54,
-        "sat": {},
-        "unattributed": ["equine-medicine:209513", "equine-medicine:209514", "equine-medicine:209515", "equine-medicine:209516", "equine-medicine:209517", "equine-medicine:209518", "equine-medicine:209519", "equine-medicine:209520", "equine-medicine:209521", "equine-medicine:209522", "equine-medicine:209523", "equine-medicine:209524", "equine-medicine:209525", "equine-medicine:209526", "equine-medicine:209527", "equine-medicine:209528", "equine-medicine:209529", "equine-medicine:209530", "equine-medicine:209531", "equine-medicine:209532", "equine-medicine:209533", "equine-medicine:209534", "equine-medicine:209535", "equine-medicine:209536", "equine-medicine:209537", "equine-medicine:209538", "equine-medicine:209539", "equine-medicine:209540", "equine-medicine:209541", "equine-medicine:209542", "equine-medicine:209543", "equine-medicine:209544", "equine-medicine:209545", "equine-medicine:209546", "equine-medicine:209547", "equine-medicine:209548", "equine-medicine:209549", "equine-medicine:209550", "equine-medicine:209551", "equine-medicine:209552", "equine-medicine:209553", "equine-medicine:209554", "equine-medicine:209555", "equine-medicine:209556", "equine-medicine:209557", "equine-medicine:209558", "equine-medicine:209559", "equine-medicine:209560", "equine-medicine:209561", "equine-medicine:209562", "equine-medicine:209563", "equine-medicine:209564", "equine-medicine:209565", "equine-medicine:209566"],
       },
       "equine-nutrition": {
         "cohorts": [85],
@@ -1844,7 +1840,7 @@ export const EXAM_RECURRENCE = {
   },
   "equine-repro": {
     "cohorts": [84, 85],
-    "items": 133,
+    "items": 187,
     "topics": {
       "eqrepro-ai": {
         "cohorts": [],
@@ -1953,7 +1949,7 @@ export const EXAM_RECURRENCE = {
         "cohorts": [84, 85],
         "first": 84,
         "last": 85,
-        "items": 18,
+        "items": 72,
         "sat": {
           "84": {
             "final": ["equine-repro:105432", "equine-repro:105433", "equine-repro:105434", "equine-repro:105435", "equine-repro:105437", "equine-repro:105438", "equine-repro:105439", "equine-repro:105440", "equine-repro:105441", "equine-repro:105442", "equine-repro:105443", "equine-repro:105444", "equine-repro:105445"],
@@ -1962,7 +1958,7 @@ export const EXAM_RECURRENCE = {
             "midterm": ["equine-repro:105513", "equine-repro:105518", "equine-repro:105519", "equine-repro:105522", "equine-repro:105547"],
           },
         },
-        "unattributed": [],
+        "unattributed": ["equine-repro:209513", "equine-repro:209514", "equine-repro:209515", "equine-repro:209516", "equine-repro:209517", "equine-repro:209518", "equine-repro:209519", "equine-repro:209520", "equine-repro:209521", "equine-repro:209522", "equine-repro:209523", "equine-repro:209524", "equine-repro:209525", "equine-repro:209526", "equine-repro:209527", "equine-repro:209528", "equine-repro:209529", "equine-repro:209530", "equine-repro:209531", "equine-repro:209532", "equine-repro:209533", "equine-repro:209534", "equine-repro:209535", "equine-repro:209536", "equine-repro:209537", "equine-repro:209538", "equine-repro:209539", "equine-repro:209540", "equine-repro:209541", "equine-repro:209542", "equine-repro:209543", "equine-repro:209544", "equine-repro:209545", "equine-repro:209546", "equine-repro:209547", "equine-repro:209548", "equine-repro:209549", "equine-repro:209550", "equine-repro:209551", "equine-repro:209552", "equine-repro:209553", "equine-repro:209554", "equine-repro:209555", "equine-repro:209556", "equine-repro:209557", "equine-repro:209558", "equine-repro:209559", "equine-repro:209560", "equine-repro:209561", "equine-repro:209562", "equine-repro:209563", "equine-repro:209564", "equine-repro:209565", "equine-repro:209566"],
       },
       "eqrepro-stallion-infect": {
         "cohorts": [85],
@@ -4240,7 +4236,7 @@ export const EXAM_RECURRENCE = {
   },
   "vca": {
     "cohorts": [80],
-    "items": 951,
+    "items": 950,
     "topics": {
       "anatomy": {
         "cohorts": [],
@@ -4270,10 +4266,10 @@ export const EXAM_RECURRENCE = {
         "cohorts": [80],
         "first": 80,
         "last": 80,
-        "items": 276,
+        "items": 275,
         "sat": {
           "80": {
-            "unknown": ["vca:8001", "vca:8004", "vca:8005", "vca:8007", "vca:8008", "vca:8009", "vca:8010", "vca:8011", "vca:8012", "vca:8014", "vca:8015", "vca:8038", "vca:8043", "vca:8045", "vca:8047", "vca:8052", "vca:8054", "vca:8060"],
+            "unknown": ["vca:8001", "vca:8004", "vca:8005", "vca:8007", "vca:8008", "vca:8009", "vca:8010", "vca:8011", "vca:8012", "vca:8014", "vca:8015", "vca:8038", "vca:8043", "vca:8045", "vca:8052", "vca:8054", "vca:8060"],
           },
         },
         "unattributed": ["vca:7010", "vca:7022", "vca:7031", "vca:7061", "vca:692008", "vca:692018", "vca:692047", "vca:692058", "vca:692074", "vca:692078", "vca:692082", "vca:692095", "vca:692106", "vca:692115", "vca:692131", "vca:693011", "vca:693012", "vca:693024", "vca:693025", "vca:693036", "vca:693122", "vca:693127", "vca:693128", "vca:693129", "vca:693130", "vca:693131", "vca:693132", "vca:693133", "vca:693135", "vca:694156", "vca:694158", "vca:694162", "vca:694163", "vca:694164", "vca:694168", "vca:694171", "vca:694172", "vca:694173", "vca:694174", "vca:694175", "vca:694176", "vca:694177", "vca:694178", "vca:694179", "vca:694180", "vca:694181", "vca:694182", "vca:694183", "vca:694186", "vca:694187", "vca:694188", "vca:694189", "vca:694190", "vca:694191", "vca:694192", "vca:694193", "vca:694195", "vca:694196", "vca:694197", "vca:694198", "vca:694199", "vca:694200", "vca:694204", "vca:694205", "vca:694206", "vca:694207", "vca:694208", "vca:694209", "vca:694211", "vca:694212", "vca:694213", "vca:694214", "vca:694216", "vca:694217", "vca:694218", "vca:694219", "vca:694220", "vca:694223", "vca:694224", "vca:694225", "vca:694228", "vca:694229", "vca:694230", "vca:694232", "vca:694234", "vca:694235", "vca:694236", "vca:694237", "vca:694238", "vca:694239", "vca:694240", "vca:694241", "vca:694242", "vca:694243", "vca:694245", "vca:694248", "vca:694250", "vca:694251", "vca:694253", "vca:694254", "vca:694255", "vca:694256", "vca:694258", "vca:694261", "vca:694263", "vca:694265", "vca:694266", "vca:694269", "vca:694270", "vca:694271", "vca:694272", "vca:694273", "vca:694274", "vca:694276", "vca:694278", "vca:694279", "vca:694280", "vca:694281", "vca:694282", "vca:694283", "vca:694284", "vca:694285", "vca:694287", "vca:694289", "vca:694290", "vca:694293", "vca:694296", "vca:694297", "vca:694298", "vca:694301", "vca:694302", "vca:694303", "vca:694304", "vca:694305", "vca:694306", "vca:694307", "vca:694339", "vca:694341", "vca:694343", "vca:694345", "vca:694346", "vca:694348", "vca:694351", "vca:694352", "vca:694354", "vca:694357", "vca:694358", "vca:694402", "vca:694403", "vca:694406", "vca:694407", "vca:694408", "vca:694409", "vca:694410", "vca:694411", "vca:694412", "vca:694414", "vca:694415", "vca:694416", "vca:694417", "vca:694418", "vca:694419", "vca:694420", "vca:694422", "vca:694423", "vca:694424", "vca:694431", "vca:694439", "vca:694455", "vca:694456", "vca:694459", "vca:694460", "vca:694461", "vca:694462", "vca:694463", "vca:694464", "vca:694465", "vca:694466", "vca:694467", "vca:694468", "vca:694469", "vca:694470", "vca:694471", "vca:694472", "vca:694473", "vca:694474", "vca:694475", "vca:694476", "vca:694477", "vca:694480", "vca:694481", "vca:694482", "vca:694483", "vca:694484", "vca:694486", "vca:694487", "vca:694488", "vca:694489", "vca:694490", "vca:694492", "vca:694493", "vca:694494", "vca:694495", "vca:694496", "vca:694497", "vca:694499", "vca:694500", "vca:694501", "vca:694502", "vca:694503", "vca:694504", "vca:694506", "vca:694507", "vca:694509", "vca:694510", "vca:694514", "vca:694515", "vca:694517", "vca:694518", "vca:694520", "vca:694521", "vca:694523", "vca:694524", "vca:694525", "vca:694531", "vca:694532", "vca:694533", "vca:694534", "vca:694535", "vca:694536", "vca:694538", "vca:694539", "vca:694541", "vca:694542", "vca:694543", "vca:694544", "vca:694546", "vca:694547", "vca:694548", "vca:694549", "vca:694550", "vca:694551", "vca:694552", "vca:694554", "vca:694555", "vca:694556", "vca:694557", "vca:694558", "vca:694559", "vca:694560", "vca:694561", "vca:694562", "vca:694563", "vca:694564", "vca:694565", "vca:694567", "vca:694570", "vca:694574"],

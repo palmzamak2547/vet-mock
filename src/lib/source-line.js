@@ -23,6 +23,7 @@
 import { isPastPaperQuestion, isExamAlignedQuestion } from './question-metadata.js';
 import { originEntry } from '../data/exam-origins.js';
 import { humanSource } from './source-label.js';
+import { SUBJECTS } from '../data/curriculum.js';
 // Both read by scripts/lint-source-line.mjs with the Node-only check and the
 // parser, so the browser carries two short lists instead of either.
 import { TOPIC_CHIP_HELD, COHORT_UNCONFIRMED } from '../data/source-line.generated.js';
@@ -129,12 +130,37 @@ export const topicChipText = (label) => String(label ?? '').replace(/^คาบ\
 /** Shown where a held topic label will appear. */
 export const TOPIC_CHIP_WAIT = 'หัวข้อแสดงหลังเฉลย';
 
+/**
+ * The tags as a student can read them: a tag that is a topic's id becomes that
+ * topic's label, and a tag that is only a working slug ("placentation-types")
+ * is left out. The panel drops its row when nothing is left.
+ */
+let topicLabels = null;
+export function tagTopicLabels(question) {
+  if (!Array.isArray(question?.tags) || !question.tags.length) return [];
+  if (!topicLabels) {
+    topicLabels = new Map();
+    for (const s of SUBJECTS) for (const t of s.topics || []) if (!topicLabels.has(t.id)) topicLabels.set(t.id, topicChipText(t.label));
+  }
+  return [...new Set(question.tags.map((t) => topicLabels.get(t)).filter(Boolean))];
+}
+
 /** Whether this question's topic label waits for the key. */
 export const holdsTopicChip = (question) => TOPIC_CHIP_HELD.has(`${question?.subject}:${question?.id}`);
 
-/** The data-conflict flag's own words, the same before and after the answer;
- *  its note and sources open only once the key is on screen (Question.jsx). */
-export const flagChipText = (flag) => `ข้อมูลขัดแย้ง, ${String(flag?.severity || 'unclear').toUpperCase()}`;
+// ── The caution chip under the stem ──────────────────────────────────────
+// A label earns a place on the card only when it changes what the student
+// does with the answer (Palm, 11 Nov 2026: "อย่าให้มันเยอะไปจนน่ารำคาญ").
+// A disputed key does: the chip is for `severity: 'major'` alone. A minor
+// flag is a note on the source, read in the panel ("ดูเต็ม") as หมายเหตุ;
+// an unclear flag is withheld from delivery (question-prediction.js).
+
+/** Whether the card draws the caution chip for this flag. */
+export const cautionChipShown = (flag) => flag?.severity === 'major';
+
+/** The chip's words, the same before and after the answer; its note opens
+ *  only once the key is on screen (Question.jsx). */
+export const CAUTION_CHIP_TEXT = 'ข้อควรระวัง';
 
 /**
  * The full line once the key is on screen, as it always read: the origin,

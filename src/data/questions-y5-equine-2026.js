@@ -256,7 +256,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "id": 105229,
     "tags": [
       "Culicoides-hypersensitivity",
-      "hypersensitivity-type"
+      "hypersensitivity-type",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-medicine",
     "topic": "equine-derm",
@@ -273,6 +274,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "Culicoides hypersensitivity เป็นภูมิไวเกิน type I ร่วมกับ type IV รอยโรคเด่นที่แนวสันหลัง และพบที่แนวกลางท้องได้ด้วย\n\n❌ ทำไมข้ออื่นผิด\n— Type II และ III ที่ขาส่วนปลายทั้งสี่ขา = ผิดทั้งชนิด และขาส่วนปลายเป็นตำแหน่งของ chorioptic mange กับ mud fever\n— Type III อย่างเดียว ที่ศีรษะและใบหู = ปฏิกิริยานี้ไม่ได้เป็น type III เดี่ยว และตำแหน่งนั้นก็ไม่ใช่จุดเด่น\n— Type IV อย่างเดียว ที่ฝีเย็บกับโคนหาง = ขาด type I ไป และฝีเย็บกับโคนหางเป็นภาพของ oxyuriasis",
     "verified": "Equine Dermatology น.21",
     "sourceType": "lecture-derived",
+    "examOrigin": "Equine Dermatology (Vet 85) stars this point; their summary of the paper refers to the starred slides",
     "source": "Equine Dermatology lecture deck (Vet 85)",
     "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 21 }]
   },
@@ -451,7 +453,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "id": 105240,
     "tags": [
       "viral-papillomatosis",
-      "young-horse"
+      "young-horse",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-medicine",
     "topic": "equine-derm",
@@ -468,6 +471,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "หูดจากไวรัสในม้าพบบ่อยในม้าอายุน้อยกว่า 3 ปี ไม่จำเพาะสายพันธุ์หรือเพศ และรอยโรคไม่คันไม่เจ็บ\n\n❌ ทำไมข้ออื่นผิด\n— อายุมากกว่า 15 ปีและเจ็บมาก = ช่วงอายุนั้นสัมพันธ์กับ Cushing's syndrome และ SCC ส่วนหูดเป็นรอยโรคที่ไม่เจ็บ\n— เฉพาะม้าสีเทาและลุกลามเข้าต่อมน้ำเหลือง = ม้าสีเทาคือภาพของ melanoma และการลุกลามเข้าต่อมน้ำเหลืองเป็นของ SCC\n— เฉพาะเพศผู้และเกิดที่อวัยวะเพศเท่านั้น = หูดไม่จำเพาะเพศและไม่ได้จำกัดอยู่ที่อวัยวะเพศ",
     "verified": "Equine Dermatology น.36",
     "sourceType": "lecture-derived",
+    "examOrigin": "Equine Dermatology (Vet 85) stars this point; their summary of the paper refers to the starred slides",
     "source": "Equine Dermatology lecture deck (Vet 85)",
     "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 36 }]
   },
@@ -548,7 +552,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "id": 105246,
     "tags": [
       "squamous-cell-carcinoma",
-      "tumor-prevalence"
+      "tumor-prevalence",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-medicine",
     "topic": "equine-derm",
@@ -565,6 +570,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "SCC พบมากเป็นอันดับสอง ราว 20% ของเคส อายุเฉลี่ยประมาณ 12 ปี และพบในเพศผู้มากกว่าเพราะรอยโรคที่อวัยวะเพศ\n\n❌ ทำไมข้ออื่นผิด\n— อันดับหนึ่งและอายุน้อยกว่า 3 ปี = อันดับหนึ่งคือ sarcoid ส่วนอายุน้อยกว่า 3 ปีเป็นภาพของหูดจากไวรัส\n— เฉพาะม้าสีเทาที่โคนหางกับฝีเย็บ = ภาพของ melanoma\n— เฉพาะลูกม้าแรกเกิดและหายเองในสามเดือน = การหายเองในสามเดือนเป็นลักษณะของหูดจากไวรัส\n\n💡 sarcoid มาที่หนึ่ง SCC ตามมาที่สอง และเป็นโรคของม้าวัยกลางขึ้นไป",
     "verified": "Equine Dermatology น.38",
     "sourceType": "lecture-derived",
+    "examOrigin": "Equine Dermatology (Vet 85) stars this point; their summary of the paper refers to the starred slides",
     "source": "Equine Dermatology lecture deck (Vet 85)",
     "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 38 }]
   },
@@ -598,7 +604,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "tags": [
       "melanoma",
       "grey-horse",
-      "predilection-site"
+      "predilection-site",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-medicine",
     "topic": "equine-derm",
@@ -615,6 +622,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "explain": "Melanoma พบบ่อยมากในม้าสีเทาที่อายุมาก และพบน้อยในม้าสีอื่น ตำแหน่งเด่นคือโคนหาง ฝีเย็บ ปากช่องคลอด หนังหุ้มองคชาต ริมฝีปาก และต่อมน้ำลาย parotid\n\n❌ ทำไมข้ออื่นผิด\n— ม้าสีน้ำตาลอายุน้อย ที่แผงคอและแนวสันหลัง = กลับข้างทั้งกลุ่มม้าและตำแหน่ง แนวสันหลังเป็นตำแหน่งของ Culicoides hypersensitivity\n— ม้าขาวเผือกทุกช่วงอายุ ที่ขาส่วนปลายและกีบ = ม้าขาวเผือกสัมพันธ์กับ actinic dermatitis และ SCC\n— เพศผู้ทุกสี ที่เปลือกตาและเยื่อบุตาขาว = รอยโรครอบตาเป็นภาพเด่นของ SCC",
     "verified": "Equine Dermatology น.39",
     "sourceType": "lecture-derived",
+    "examOrigin": "Equine Dermatology (Vet 85) stars this point; their summary of the paper refers to the starred slides",
     "source": "Equine Dermatology lecture deck (Vet 85)",
     "sourcePages": [{ "doc": "equine-dermatology85", "edition": "42p", "page": 39 }]
   },
@@ -3860,7 +3868,7 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "id": 105398,
     "tags": [
       "lateral-recumbency",
-      "brachial-plexus"
+      "radial-nerve"
     ],
     "subject": "equine-medicine",
     "topic": "equine-surgery-wound",
@@ -3868,15 +3876,15 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "type": "mcq",
     "q": "ในการจัดท่า lateral recumbency สำหรับผ่าตัดม้า เหตุใดจึงต้องดึงขาหน้าด้านล่างไปข้างหน้า",
     "options": [
-      "เพื่อลดแรงกดที่ brachial plexus ของขาหน้าด้านล่าง",
+      "เพื่อลดแรงกดที่ triceps และ radial nerve ของขาหน้าด้านล่าง",
       "เพื่อให้กระบังลมขยายตัวได้ดีขึ้นระหว่างการดมยาสลบ",
       "เพื่อป้องกันการบิดหมุนของข้อ carpus ขณะยกม้าขึ้นเตียง",
       "เพื่อให้สายน้ำเกลือที่ jugular vein ไม่ถูกกดทับจนหยุดไหล"
     ],
     "answer": 0,
-    "explain": "ในท่านอนตะแคง น้ำหนักตัวม้าทั้งตัวลงมากองบนขาหน้าด้านล่าง การดึงขาหน้าด้านล่างไปข้างหน้าคือการเลื่อนลำตัวออกจากแนว brachial plexus ไม่ให้เส้นประสาทถูกกดค้างจนเกิด neuropathy หลังวางยาสลบ\n\n❌ ทำไมข้ออื่นผิด\n— \"ให้กระบังลมขยายตัวได้ดีขึ้น\" = การจัดขาหน้าไม่ได้เปลี่ยนพื้นที่ให้กระบังลม เหตุผลของท่านี้อยู่ที่เส้นประสาทใต้ลำตัว\n— \"ป้องกันการบิดหมุนของข้อ carpus ขณะยกม้าขึ้นเตียง\" = การยกม้าเป็นคนละขั้นกับการจัดท่าหลังวางลงแล้ว และสิ่งที่ท่านี้ปกป้องคือเส้นประสาท ไม่ใช่ข้อ\n— \"สายน้ำเกลือที่ jugular vein ไม่ถูกกดทับ\" = jugular vein อยู่ที่คอ คนละตำแหน่งกับ brachial plexus ที่ไหล่\n\n💡 ข้อควรระวังเรื่องการจัดท่าม้าทุกข้อแก้ปัญหาเดียวกันหมด คือ myopathy กับ neuropathy จากการถูกกดค้าง",
-    "verified": "Equine Sx concept น.17",
-    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 17 }],
+    "explain": "ในท่านอนตะแคง น้ำหนักตัวม้าทั้งตัวลงมากองบนขาหน้าด้านล่าง การดึงขาหน้าด้านล่างไปข้างหน้าช่วยเอาน้ำหนักออกจากกล้ามเนื้อ triceps และ radial nerve ที่วิ่งผ่าน musculospiral groove ของกระดูก humerus ไม่ให้ถูกกดค้างจนเกิด myopathy หรือ radial nerve paralysis หลังวางยาสลบ\n\n❌ ทำไมข้ออื่นผิด\n— \"ให้กระบังลมขยายตัวได้ดีขึ้น\" = การจัดขาหน้าไม่ได้เปลี่ยนพื้นที่ให้กระบังลม เหตุผลของท่านี้อยู่ที่กล้ามเนื้อและเส้นประสาทที่ถูกลำตัวกดทับ\n— \"ป้องกันการบิดหมุนของข้อ carpus ขณะยกม้าขึ้นเตียง\" = การยกม้าเป็นคนละขั้นกับการจัดท่าหลังวางลงแล้ว และสิ่งที่ท่านี้ปกป้องคือกล้ามเนื้อกับเส้นประสาท ไม่ใช่ข้อ\n— \"สายน้ำเกลือที่ jugular vein ไม่ถูกกดทับ\" = jugular vein อยู่ที่คอ คนละตำแหน่งกับ triceps และ radial nerve ที่ต้นขาหน้า\n\n💡 ข้อควรระวังเรื่องการจัดท่าม้าทุกข้อแก้ปัญหาเดียวกันหมด คือ myopathy กับ neuropathy จากการถูกกดค้าง",
+    "verified": "Equine Sx concept น.17; Equine surgery & anesthesia 5th year หน้า 44",
+    "sourcePages": [{ "doc": "equine-sx-concept85", "edition": "62p", "page": 17 }, { "doc": "equine-surgery-anesthesia-2569", "edition": "94p", "page": 44 }],
     "sourceType": "lecture-derived",
     "examOrigin": "Equine Sx concept deck (Vet 85 annotated slides)"
   },

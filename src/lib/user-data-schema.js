@@ -1,3 +1,4 @@
+// @ts-check
 import * as v from 'valibot';
 
 // Runtime schemas for the two places where a user can bring JSON into
@@ -30,7 +31,12 @@ const tagsSchema = v.optional(v.pipe(
   v.maxLength(50, 'หนึ่งข้อมี tag ได้ไม่เกิน 50 รายการ'),
 ));
 
-function questionObject(type, fields = {}) {
+/**
+ * @template {v.ObjectEntries} T
+ * @param {string} type
+ * @param {T} fields
+ */
+function questionObject(type, fields = /** @type {T} */ ({})) {
   return v.looseObject({
     id: v.optional(idSchema),
     type: v.literal(type),
@@ -181,6 +187,17 @@ const readingChecklistSchema = v.pipe(
   v.check(value => Object.keys(value).length <= 50_000, 'รายการอ่านมีขนาดใหญ่เกินไป'),
 );
 
+// A finished set still waiting for /api/exam-result (USER_DATA_FIELDS.pendingExamResults). Only the
+// shape the outbox and the server rely on is checked; the server scores it again on arrival.
+const uuidSchema = v.pipe(v.string(), v.uuid('รหัสชุดสอบไม่ถูกต้อง'));
+const pendingExamResultSchema = v.looseObject({
+  id: uuidSchema,
+  user_id: uuidSchema,
+  question_ids: v.pipe(v.array(idSchema), v.minLength(1), v.maxLength(5000)),
+  answers: v.pipe(v.record(v.string(), v.unknown()), v.check(safeRecordKeys, 'พบชื่อช่องข้อมูลที่ไม่ปลอดภัยในผลสอบ')),
+  question_versions: v.optional(v.nullable(v.record(v.string(), v.string()))),
+});
+
 const backupSchema = v.pipe(
   v.looseObject({
     exportDate: v.optional(v.string('วันส่งออกต้องเป็นข้อความ ISO')),
@@ -193,6 +210,7 @@ const backupSchema = v.pipe(
     streak: v.optional(nonNegativeNumber('จำนวนวันต่อเนื่องต้องเป็นตัวเลขตั้งแต่ 0 ขึ้นไป')),
     streakData: v.optional(streakDataSchema),
     customQuestions: v.optional(v.pipe(v.array(CUSTOM_QUESTION_SCHEMA), v.maxLength(50_000, 'จำนวนข้อสอบส่วนตัวมากเกินขอบเขตที่รองรับ'))),
+    pendingExamResults: v.optional(v.pipe(v.array(pendingExamResultSchema), v.maxLength(1000, 'ผลสอบรอส่งมากเกินขอบเขตที่รองรับ'))),
   }),
   v.check(
     (data) => BACKUP_FIELDS.some((field) => Object.prototype.hasOwnProperty.call(data, field)),
@@ -209,6 +227,7 @@ export const BACKUP_FIELDS = Object.freeze([
   'streak',
   'customQuestions',
   'readingChecklist',
+  'pendingExamResults',
 ]);
 
 function firstIssueReason(issues, fallback) {
@@ -223,6 +242,7 @@ function firstIssueReason(issues, fallback) {
     streakData: 'ข้อมูลวันต่อเนื่อง',
     customQuestions: 'ข้อสอบส่วนตัว',
     readingChecklist: 'รายการอ่าน',
+    pendingExamResults: 'ผลสอบรอส่ง',
     pairs: 'คู่คำตอบ',
     left: 'ด้านซ้าย',
     right: 'ด้านขวา',
@@ -265,6 +285,16 @@ export function parseUserBackup(value) {
       return { success: false, reason: 'พบชื่อช่องข้อมูลที่ไม่ปลอดภัยในไฟล์ backup' };
     }
   }
+  // A waiting result the outbox could not send (no owner, from an old build; a broken record) is left
+  // out of the restore and counted, never a reason to refuse the file: history, notes and bookmarks
+  // still come back. An answer map read as a record would also accept an array; the server needs an
+  // object, so such a record is left out too.
+  let skippedPending = 0;
+  if (Array.isArray(value.pendingExamResults)) {
+    const kept = value.pendingExamResults.filter(isSendablePendingResult);
+    skippedPending = value.pendingExamResults.length - kept.length;
+    if (skippedPending) value = { ...value, pendingExamResults: kept };
+  }
   const result = v.safeParse(backupSchema, value, { abortEarly: true });
   if (!result.success) {
     return {
@@ -282,11 +312,40 @@ export function parseUserBackup(value) {
     success: true,
     data: result.output,
     fields: BACKUP_FIELDS.filter((field) => Object.prototype.hasOwnProperty.call(value, field)),
+    skippedPending,
   };
 }
 
-export function describeBackupFields(data, fields) {
+/** A waiting result the outbox can send: the shape the server relies on, with an object of answers. */
+export function isSendablePendingResult(record) {
+  return Boolean(record) && typeof record === 'object' && !Array.isArray(record.answers)
+    && v.is(pendingExamResultSchema, record);
+}
+
+/** What a backup carries of the outbox: the signed-in account's sendable results, nothing else. */
+export function pendingResultsForBackup(list, ownerId) {
+  if (!ownerId || !Array.isArray(list)) return [];
+  return list.filter((r) => isSendablePendingResult(r) && r.user_id === ownerId);
+}
+
+// The outbox records a restore may add: this account's only. The outbox stops at a record of another
+// account (exam-result-outbox.js), so one of them would hold every later result on the device.
+function ownPendingResults(data, ownerId) {
+  const all = Array.isArray(data.pendingExamResults) ? data.pendingExamResults : [];
+  const own = ownerId ? all.filter((r) => r.user_id === ownerId) : [];
+  return { own, others: all.length - own.length };
+}
+
+export function describeBackupFields(data, fields, { ownerId = null, skippedPending = 0 } = {}) {
+  const pending = ownPendingResults(data, ownerId);
   const labels = {
+    pendingExamResults: () => {
+      const skipped = pending.others
+        ? ` (ไม่นำเข้า ${ownerId ? `ของบัญชีอื่น ${pending.others} ชุด` : `${pending.others} ชุด เพราะยังไม่ได้เข้าสู่ระบบ`})`
+        : '';
+      const unreadable = skippedPending ? ` ข้าม ${skippedPending} ชุดที่ระบบส่งไม่ได้` : '';
+      return `ผลสอบรอส่ง ${pending.own.length} ชุด${skipped}${unreadable}`;
+    },
     bookmarks: () => `ข้อที่บันทึกไว้ ${data.bookmarks.length} ข้อ`,
     history: () => `ประวัติการฝึก ${data.history.length} รายการ`,
     notes: () => `โน้ตส่วนตัว ${Object.keys(data.notes).length} ข้อ`,
@@ -303,12 +362,35 @@ export function describeBackupFields(data, fields) {
     .filter(Boolean);
 }
 
+/**
+ * What ล้างความคืบหน้าหลัก on the progress screen writes. Study progress only: the questions a
+ * student wrote stay, and so do finished sets still waiting to be sent (pendingExamResults), which
+ * are the student's exam results and still reach the account after a reset.
+ */
+export function progressResetPatch() {
+  return { history: [], bookmarks: [], srCards: {}, notes: {}, readingChecklist: {}, streakData: { streak: 0, lastDate: null } };
+}
+
 /** Convert an already validated backup into one atomic user-data command. */
-export function userDataPatchFromBackup(data) {
+// The other fields are replaced by the file's copy. The outbox is added to instead: a result already
+// waiting on this device stays (its copy wins on the same id), and the file's results of this
+// account join it. A result the server already has is harmless to send again: the receipt is keyed
+// by the result's id and acknowledges the same submission (migration 20261011120200).
+/**
+ * @param {any} data -- a backup parseUserBackup has already checked, read field by field
+ * @param {{ ownerId?: string | null, current?: { pendingExamResults?: any[] } | null }} [options] -- the device's outbox records, as stored
+ */
+export function userDataPatchFromBackup(data, { ownerId = null, current = null } = {}) {
   const has = field => Object.prototype.hasOwnProperty.call(data, field);
   const patch = Object.fromEntries(BACKUP_FIELDS
-    .filter(field => field !== 'streak' && has(field))
+    .filter(field => field !== 'streak' && field !== 'pendingExamResults' && has(field))
     .map(field => [field, data[field]]));
+  if (has('pendingExamResults') && ownerId) {
+    const waiting = Array.isArray(current?.pendingExamResults) ? current.pendingExamResults : [];
+    const known = new Set(waiting.map((r) => r.id));
+    const added = ownPendingResults(data, ownerId).own.filter((r) => !known.has(r.id) && known.add(r.id));
+    if (added.length) patch.pendingExamResults = [...waiting, ...added];
+  }
   if (has('streakData')) {
     const { freezeJustUsed: _transient, ...streakData } = data.streakData;
     patch.streakData = streakData;

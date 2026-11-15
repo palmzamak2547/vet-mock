@@ -9,12 +9,14 @@ import { IconDown, IconWave } from './components/icons.jsx';
 import { Toasts, toast } from './components/ShareMenu.jsx';
 import { chat as callChat, health, warm } from './lib/api.js';
 import { useWall, wall } from './lib/account.js';
+import { TRIAL_NOTE } from './lib/wall.js';
 import { listChats, saveChat, deleteChat, clearChats, newId, titleFor, getPref, setPref } from './lib/store.js';
 import { hasThaiVoice } from './lib/speech.js';
 import { reducedMotion } from './lib/env.js';
 import { voiceSupport, voiceStatus, voiceOffMessage, loadVoiceSdk, preconnectVoice, VOICE_ERRORS } from './lib/voice.js';
 import { voiceSound } from './lib/voice-sound.js';
 import './styles/app.css';
+import { CHOSEN_ATTR, dropVisit } from '../../src/lib/family/family.js';
 
 // The call screen and the voice SDK load on demand, and early: a pointer over the
 // call button, a finger on it or focus fetches both before the tap.
@@ -79,6 +81,8 @@ export default function App() {
   const [specimen, setSpecimen] = useState(null);
   const [canSpeak, setCanSpeak] = useState(false);
   const [online, setOnline] = useState(() => navigator.onLine !== false);
+  // What the last save of the chat list did: 'trimmed' or 'failed' is said under the composer.
+  const [kept, setKept] = useState('ok');
   const [away, setAway] = useState(false);
   const [beat, setBeat] = useState(-1); // -1: at rest
   const typing = useRef(false);
@@ -90,6 +94,8 @@ export default function App() {
   // The Chula wall (lib/wall.js): until it opens, a sign-in card over the sea instead of the assistant.
   const gate = useWall();
   const open = gate.gate === 'open';
+  // a visitor on a trial link (lib/pass.js): questions, the microphone and the call, no Chula library
+  const trial = gate.trial;
   const wallRef = useRef(null);
   const openRef = useRef(open);
   openRef.current = open;
@@ -266,7 +272,15 @@ export default function App() {
     // the browser's bar follows the page's theme, not the system's (both media variants)
     document.querySelectorAll('meta[name="theme-color"]').forEach((m) => { m.content = THEME_COLOR[theme]; });
   }, [theme]);
-  const toggleTheme = () => setTheme((t) => { const n = t === 'dark' ? 'light' : 'dark'; setPref('vmai-theme', n); return n; });
+  // The student's own pick: saved, and it replaces a theme this visit arrived with from another
+  // VetMock site (theme-boot.js); a chosen theme is what a family link passes along.
+  const toggleTheme = () => setTheme((t) => {
+    const n = t === 'dark' ? 'light' : 'dark';
+    setPref('vmai-theme', n);
+    dropVisit('theme');
+    document.documentElement.setAttribute(CHOSEN_ATTR, n);
+    return n;
+  });
 
   useEffect(() => {
     hasThaiVoice().then(setCanSpeak);
@@ -425,7 +439,7 @@ export default function App() {
 
   // persist after each finished turn
   useEffect(() => {
-    if (!busy && chat.messages.length) { saveChat(chat); setChats(listChats()); }
+    if (!busy && chat.messages.length) { setKept(saveChat(chat)); setChats(listChats()); }
   }, [busy]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const send = useCallback((text, image) => {
@@ -499,6 +513,11 @@ export default function App() {
     prefetchVoice();
     setVoiceOn(true);
   }, [busy, voiceOn, voiceAvail]);
+  // A trial link the server refused during a call (lib/api.js clears it) ends the call: the sign-in card is next,
+  // as after a refused chat request.
+  useEffect(() => {
+    if (!open && gate.problem === 'trial-ended') setVoiceOn(false);
+  }, [open, gate.problem]);
 
   // The call's transcript joins the chat on screen (or starts one), saved like any turn.
   const onVoiceDone = useCallback((messages, info) => {
@@ -508,7 +527,7 @@ export default function App() {
       setChat((c) => {
         const first = messages.find((m) => m.role === 'user')?.content || 'คุยด้วยเสียง';
         const next = { ...c, title: c.title || titleFor(first), messages: [...c.messages, ...messages] };
-        queueMicrotask(() => { saveChat(next); setChats(listChats()); });
+        queueMicrotask(() => { setKept(saveChat(next)); setChats(listChats()); });
         return next;
       });
       requestAnimationFrame(() => requestAnimationFrame(() => anchorTurn(messages[0].id, false)));
@@ -621,6 +640,8 @@ export default function App() {
               voiceOff={voiceAvail?.available === false}
             />
             {!online && <p className="dock-note" role="status">ออฟไลน์อยู่ ต่ออินเทอร์เน็ตแล้วถามต่อได้</p>}
+            {kept === 'failed' && <p className="dock-note" role="alert">เบราว์เซอร์นี้เก็บแชตไว้ไม่ได้ ถ้าปิดหน้านี้ แชตนี้จะหาย</p>}
+            {kept === 'trimmed' && <p className="dock-note" role="status">พื้นที่เก็บในเครื่องเต็ม แชตเก่าที่สุดจึงถูกลบเพื่อเก็บแชตนี้ไว้ ลบแชตที่ไม่ใช้แล้วจากรายการเพื่อเพิ่มที่</p>}
             {mode === 'landing' && (
               <>
                 <button type="button" className="voice-cta" onClick={startVoice} onPointerEnter={prefetchVoice} onFocus={prefetchVoice} onTouchStart={prefetchVoice} disabled={!online}>
@@ -634,6 +655,7 @@ export default function App() {
                   ))}
                 </ul>
                 <p className="dock-note">ทดลองใช้ ตรวจสอบก่อนนำไปใช้กับสัตว์จริง</p>
+                {trial && <p className="dock-note">{TRIAL_NOTE}</p>}
               </>
             )}
           </div>
@@ -653,7 +675,7 @@ export default function App() {
         currentId={chat.id}
         onClose={() => setHistoryOpen(false)}
         onOpen={openChat}
-        onDelete={(id) => { deleteChat(id); setChats(listChats()); if (id === chat.id) setChat(blank()); }}
+        onDelete={(id) => { setKept(deleteChat(id)); setChats(listChats()); if (id === chat.id) setChat(blank()); }}
         onClear={() => { clearChats(); setChats([]); setChat(blank()); setHistoryOpen(false); }}
         account={gate.configured && gate.user ? { email: gate.email, onSignOut: () => { setHistoryOpen(false); wall.signOut(); } } : null}
       />

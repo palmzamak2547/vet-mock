@@ -29,7 +29,7 @@ import { PHASES } from './current-phase.js';
 // phases by its months and, past a finished phase's window, recaps the phase
 // whose months hold today: a look back, where current-phase.js answers which
 // paper is ahead.
-export const PHASE_DEFS = PHASES.map(({ id, label, months, semester, scope }) => (
+const PHASE_DEFS = PHASES.map(({ id, label, months, semester, scope }) => (
   { id, label, months, semester, kind: scope === 'midterm' ? 'mid' : 'final' }
 ));
 

@@ -1713,7 +1713,7 @@ export const QB_Y5_MILK_HYGIENE_PASTPAPER = [
     ]
   },
   {
-    "id": 104672,
+    "id": 104672, "noShuffle": true,
     "subject": "milk-meat-hygiene",
     "topic": "milk-processing",
     "year": 5,
@@ -2327,7 +2327,7 @@ export const QB_Y5_MILK_HYGIENE_PASTPAPER = [
     ]
   },
   {
-    "id": 104736,
+    "id": 104736, "noShuffle": true,
     "subject": "milk-meat-hygiene",
     "topic": "milk-processing",
     "year": 5,
@@ -2540,7 +2540,7 @@ export const QB_Y5_MILK_HYGIENE_PASTPAPER = [
     ]
   },
   {
-    "id": 104760,
+    "id": 104760, "noShuffle": true,
     "subject": "milk-meat-hygiene",
     "topic": "milk-processing",
     "year": 5,
@@ -2699,7 +2699,10 @@ export const QB_Y5_MILK_HYGIENE_PASTPAPER = [
     ],
     "answer": 2,
     "explain": "Iodophores คือไอโอดีนที่จับกับสารพาหะ ปล่อยไอโอดีนอิสระออกมาฆ่าเชื้อ จุดอ่อนสำคัญคือไอโอดีนอิสระทำปฏิกิริยากับสารอินทรีย์ เช่น น้ำนม โปรตีน เลือด และมูลสัตว์ ได้ทันที ทำให้ปริมาณไอโอดีนที่เหลือไปออกฤทธิ์ต่อจุลินทรีย์ลดลงอย่างมาก จึงต้องล้างคราบสกปรกออกให้หมดก่อนลงน้ำยาฆ่าเชื้อเสมอ ตัวลวงที่มักเลือกคือ Phenolic compounds ซึ่งจำสลับกัน เพราะฟีนอลเป็นกลุ่มที่ 'ยังคง' ประสิทธิภาพได้ดีแม้มีสารอินทรีย์ จึงนิยมใช้ในคอกที่สกปรก ส่วน Chlorhexidine ได้รับผลกระทบจากสารอินทรีย์ค่อนข้างน้อย ส่วน surface active agents เช่น quaternary ammonium ถูกลดฤทธิ์ด้วยสบู่ สารลดแรงตึงผิวประจุลบ และน้ำกระด้าง และก็ไม่ควรใช้เมื่อมีสารอินทรีย์เช่นกัน จึงเป็นคำตอบที่มีเหตุผลรองรับด้วย",
-    "flag": {"severity":"major","note":"คำตอบที่บันทึกไว้ของข้อนี้คือ Iodophores ซึ่งออกฤทธิ์ได้น้อยลงเมื่อมีสารอินทรีย์ แต่ surface active agents กลุ่ม quaternary ammonium (QACs) ก็ไม่ควรใช้เมื่อมีสารอินทรีย์เช่นกัน ข้อนี้จึงอาจตอบได้มากกว่าหนึ่งตัวเลือก"},
+    "flag": {
+      "severity": "minor",
+      "note": "คำตอบที่บันทึกไว้คือ Iodophores ซึ่งตรงกับเนื้อหาปีนี้ที่ระบุว่าไอโอโดฟอร์ออกฤทธิ์ได้น้อยลงเมื่อมีสารอินทรีย์ ส่วน surface active agents กลุ่ม quaternary ammonium (QACs) เนื้อหาปีนี้ระบุว่าไม่ควรใช้เมื่อมีสารอินทรีย์ และเอกสารอ้างอิงด้านสารฆ่าเชื้อก็จัดว่า QACs ถูกสารอินทรีย์ลดฤทธิ์ (McDonnell และ Russell 1999) ตัวเลือกนี้จึงมีเหตุผลรองรับด้วย"
+    },
     "source": "สรุปรวมรุ่นพี่ Milk Hygiene, บันทึกแบบทดสอบไว้ทั้งชุด",
     "verified": "อิงแนวข้อสอบ, ตรวจคำตอบซ้ำกับลายมือที่แก้ไว้ในสรุป (หน้า 119)",
     "tags": [

@@ -7,7 +7,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 globalThis.location = { hostname: 'localhost', search: '', origin: 'http://localhost' };
-const { createWall, problemText, PROBLEM_TEXT } = await import('../../src/lib/wall.js');
+const { createWall, problemText, PROBLEM_TEXT, TRIAL_NOTE } = await import('../../src/lib/wall.js');
 const { chat, transcribe, setApiAuth } = await import('../../src/lib/api.js');
 
 // A real Chula identity carries Google's hosted-domain claim; a Gmail one has none.
@@ -474,4 +474,186 @@ test('with no wall (a build without a database) requests go out as before', asyn
   setApiAuth(guest.auth);
   await chat({ messages: [], on: () => {} });
   assert.equal(seen[1].Authorization, undefined, 'a guest while the wall is off sends no header');
+});
+
+// ── a trial link (lib/pass.js; docs/CHULA-SIGNIN.md, "Trial links") ─────────
+// Shaped like a code, and no pass anywhere: the server stubs decide what is good.
+const CODE = 'unit-test-code_not-a-pass-0001';
+const holding = (extra = {}) => memoryStore({ 'vmx-ai-pass': CODE, ...extra });
+const trialLink = { pathname: '/', search: `?pass=${CODE}`, hash: '' };
+
+test('a trial link opens the page for a device with no account, where the sign-in card would be', async () => {
+  const replaced = [];
+  const { wall, store } = wallWith({ auth: fakeAuth().auth, location: trialLink, history: { state: null, replaceState: (_s, _t, url) => replaced.push(url) } });
+  assert.deepEqual(replaced, ['/'], 'the code leaves the address as the page starts');
+  assert.equal(store.getItem('vmx-ai-pass'), CODE);
+  assert.equal(wall.get().gate, 'checking', 'never the assistant before the switch is known');
+  assert.equal(wall.get().trial, false);
+  await wall.start();
+  assert.equal(wall.get().gate, 'open');
+  assert.equal(wall.get().trial, true);
+  assert.equal(wall.apiAuth.pass(), CODE);
+  assert.equal(await wall.apiAuth.token(), null);
+  assert.ok(!JSON.stringify(wall.get()).includes(CODE), 'the state the page draws from never holds the code');
+});
+
+test('a later visit opens on the stored code at once; with the wall off it is an ordinary visit', async () => {
+  const on = wallWith({ auth: fakeAuth().auth, store: holding(remember(true)) });
+  assert.equal(on.wall.get().gate, 'open', 'the wall remembered on and a code held: no flash of the sign-in card');
+  assert.equal(on.wall.get().trial, true);
+  const off = wallWith({ auth: fakeAuth().auth, store: holding(), answer: { enforce: false, member: false, uid: null } });
+  await off.wall.start();
+  assert.equal(off.wall.get().gate, 'open');
+  assert.equal(off.wall.get().trial, false, 'no wall, no trial: a guest like any other');
+  assert.equal(off.wall.apiAuth.pass(), null, 'and the code is not sent');
+  const none = wallWith({ auth: fakeAuth().auth, store: memoryStore(remember(true)) });
+  assert.equal(none.wall.get().gate, 'signin', 'no code, no trial');
+  assert.equal(none.wall.get().trial, false);
+});
+
+test('a member who opens a trial link stays a member: the code is kept and never sent', async () => {
+  const live = { access_token: 't', user: MEMBER };
+  const { auth } = fakeAuth({ stored: () => live, session: async () => ({ session: live, error: null }) });
+  const { wall, store } = wallWith({ auth, location: trialLink, answer: { enforce: true, member: true, uid: MEMBER.id } });
+  await wall.start();
+  assert.equal(wall.get().gate, 'open');
+  assert.equal(wall.get().trial, false);
+  assert.equal(wall.apiAuth.pass(), null);
+  assert.equal(await wall.apiAuth.token(), 't');
+  assert.equal(store.getItem('vmx-ai-pass'), CODE, 'stored, unused while a session exists');
+
+  const other = { access_token: 'g', user: GMAIL };
+  const stranger = fakeAuth({ stored: () => other, session: async () => ({ session: other, error: null }) });
+  const b = wallWith({ auth: stranger.auth, store: holding(), answer: { enforce: true, member: false, uid: GMAIL.id } });
+  await b.wall.start();
+  assert.equal(b.wall.get().gate, 'link', 'a signed-in account that is not a member is asked to link, as before');
+  assert.equal(b.wall.apiAuth.pass(), null);
+});
+
+test('the server refusing the code ends the trial: the sign-in card with one line, the code forgotten', async () => {
+  const { wall, store } = wallWith({ auth: fakeAuth().auth, store: holding(remember(true)) });
+  await wall.start();
+  assert.equal(wall.get().trial, true);
+  wall.apiAuth.refused('pass');
+  assert.equal(wall.get().gate, 'signin');
+  assert.equal(wall.get().trial, false);
+  assert.equal(wall.get().problem, 'trial-ended');
+  assert.equal(problemText(wall.get().problem), 'ลิงก์ทดลองหมดอายุแล้ว เข้าสู่ระบบด้วยอีเมลจุฬาเพื่อใช้ต่อ');
+  assert.equal(store.getItem('vmx-ai-pass'), null);
+  assert.equal(wall.apiAuth.pass(), null);
+});
+
+test('an account leaving the device takes the code with it, so the sign-in card comes back', async () => {
+  const live = { access_token: 't', user: MEMBER };
+  const stays = fakeAuth({ stored: () => live, session: async () => ({ session: live, error: null }) });
+  const a = wallWith({ auth: stays.auth, store: holding(remember(true, [MEMBER.id])), answer: (bearer) => ({ enforce: true, member: bearer === 'Bearer t', uid: bearer === 'Bearer t' ? MEMBER.id : null }) });
+  await a.wall.start();
+  await a.wall.signOut();
+  assert.equal(a.wall.get().gate, 'signin', 'a sign-out lands on the sign-in card, not in a trial');
+  assert.equal(a.store.getItem('vmx-ai-pass'), null);
+
+  const gone = fakeAuth({ stored: () => live, session: async () => ({ session: null, error: null, retryable: false }) });
+  const b = wallWith({ auth: gone.auth, store: holding(remember(true, [MEMBER.id])) });
+  await b.wall.start();
+  assert.equal(b.wall.get().gate, 'signin');
+  assert.equal(b.wall.get().problem, 'expired', 'an ended session is told so, as before');
+  assert.equal(b.store.getItem('vmx-ai-pass'), null);
+});
+
+const trialProvider = () => {
+  const p = { refused: [], refreshed: 0 };
+  p.auth = { token: async () => null, refresh: async () => { p.refreshed += 1; return null; }, refused: (kind) => p.refused.push(kind), pass: () => CODE };
+  return p;
+};
+
+test('a trial visitor\'s request carries the code and no token; a session never carries the code', async () => {
+  const p = trialProvider();
+  setApiAuth(p.auth);
+  const seen = [];
+  globalThis.fetch = async (url, init) => { seen.push(init.headers); return new Response(streamOf(DONE), { status: 200 }); };
+  await chat({ messages: [{ role: 'user', content: 'x' }], on: () => {} });
+  assert.equal(seen[0]['X-VetMock-Pass'], CODE);
+  assert.equal(seen[0].Authorization, undefined);
+  assert.equal(seen[0]['Content-Type'], 'application/json', 'the other headers stay');
+  setApiAuth({ ...p.auth, token: async () => 'tok' });
+  await chat({ messages: [], on: () => {} });
+  assert.equal(seen[1].Authorization, 'Bearer tok');
+  assert.equal(seen[1]['X-VetMock-Pass'], undefined, 'a member is never sent as a trial visitor');
+  assert.deepEqual(p.refused, []);
+  assert.equal(p.refreshed, 0);
+});
+
+test('a refused code ends the trial with no refresh and no retry; a temporary error ends nothing', async () => {
+  const p = trialProvider();
+  setApiAuth(p.auth);
+  let calls = 0;
+  globalThis.fetch = async () => { calls += 1; return Response.json({ error: 'pass_invalid', message: 'ลิงก์ทดลองนี้ใช้ไม่ได้แล้ว' }, { status: 401 }); };
+  await assert.rejects(chat({ messages: [], on: () => {} }), (e) => e.reason === 'pass_invalid' && e.status === 401 && e.message === 'ลิงก์ทดลองนี้ใช้ไม่ได้แล้ว');
+  assert.equal(calls, 1);
+  assert.equal(p.refreshed, 0, 'there is no session to refresh');
+  assert.deepEqual(p.refused, ['pass']);
+  globalThis.fetch = async () => Response.json({ error: 'backend-unavailable', message: 'ตรวจสิทธิ์ไม่ได้ในตอนนี้ ลองใหม่อีกครั้ง' }, { status: 503 });
+  await assert.rejects(chat({ messages: [], on: () => {} }), (e) => e.reason === 'backend-unavailable' && e.status === 503);
+  globalThis.fetch = async () => Response.json({ error: 'rate', message: 'ถามติดกันเร็วเกินไป รอสักครู่แล้วลองใหม่', retryAfter: 30 }, { status: 429 });
+  await assert.rejects(chat({ messages: [], on: () => {} }), (e) => e.reason === 'rate' && e.retryAfter === 30);
+  assert.deepEqual(p.refused, ['pass'], 'a temporary error or a rate limit keeps the trial');
+});
+
+test('the microphone sends the code the same way', async () => {
+  const p = trialProvider();
+  setApiAuth(p.auth);
+  const seen = [];
+  globalThis.fetch = async (url, init) => { seen.push([url, init.headers]); return Response.json({ text: ' สวัสดี ' }); };
+  assert.equal(await transcribe(new Blob([new Uint8Array(64)], { type: 'audio/wav' })), 'สวัสดี');
+  assert.ok(seen[0][0].endsWith('/api/ai-transcribe'));
+  assert.equal(seen[0][1]['X-VetMock-Pass'], CODE);
+  assert.equal(seen[0][1].Authorization, undefined);
+});
+
+test('a trial visitor sees the live call, and the note says what the link opens', async () => {
+  assert.equal(TRIAL_NOTE, 'ลิงก์ทดลอง: ถามตอบและคุยด้วยเสียงได้ ไม่รวมคลังเอกสารของจุฬาฯ');
+  const { readFile } = await import('node:fs/promises');
+  const app = await readFile(new URL('../../src/App.jsx', import.meta.url), 'utf8');
+  assert.match(app, /onVoice=\{startVoice\}/, 'the composer offers the call to everyone the page is open for');
+  assert.match(app, /onVoiceHint=\{prefetchVoice\}/);
+  assert.doesNotMatch(app, /trial \? undefined|!trial &&/, 'nothing hides the call from a trial visitor');
+  assert.match(app, /className="voice-cta"/);
+  assert.match(app, /gate\.problem === 'trial-ended'\) setVoiceOn\(false\)/, 'a refused link ends an open call');
+  // every request a call makes (start, its tools, a photo) goes through the one helper that adds the code
+  const voice = await readFile(new URL('../../src/lib/voice.js', import.meta.url), 'utf8');
+  const posts = voice.match(/method: 'POST'/g) || [];
+  const helped = voice.match(/authorized\((VOICE_URL|API_URL), \{\s*method: 'POST'/g) || [];
+  assert.ok(posts.length >= 3, 'start, tools and photo');
+  assert.equal(helped.length, posts.length, 'no POST of the call builds its own request');
+});
+
+test('a call\'s start request carries the code like any other', async () => {
+  const p = trialProvider();
+  setApiAuth(p.auth);
+  const { authorized } = await import('../../src/lib/api.js');
+  const seen = [];
+  globalThis.fetch = async (url, init) => { seen.push(init.headers); return Response.json({ error: 'pass_invalid' }, { status: 401 }); };
+  const res = await authorized('/api/ai-voice', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{"action":"start"}' });
+  assert.equal(res.status, 401);
+  assert.equal(seen[0]['X-VetMock-Pass'], CODE);
+  assert.equal(seen[0].Authorization, undefined);
+  assert.deepEqual(p.refused, ['pass'], 'a refused code before a call ends the trial as a chat request does');
+  setApiAuth(null);
+});
+
+test('the page and the route together: a refused code moves the page to the sign-in card', async () => {
+  const { wall, store } = wallWith({ auth: fakeAuth().auth, store: holding(remember(true)) });
+  await wall.start();
+  setApiAuth(wall.apiAuth);
+  const seen = [];
+  globalThis.fetch = async (url, init) => {
+    seen.push(init.headers);
+    return Response.json({ error: 'pass_invalid', message: 'ลิงก์ทดลองนี้ใช้ไม่ได้แล้ว' }, { status: 401 });
+  };
+  await assert.rejects(chat({ messages: [], on: () => {} }), (e) => e.reason === 'pass_invalid');
+  assert.equal(seen[0]['X-VetMock-Pass'], CODE);
+  assert.equal(wall.get().gate, 'signin');
+  assert.equal(wall.get().problem, 'trial-ended');
+  assert.equal(store.getItem('vmx-ai-pass'), null);
+  setApiAuth(null);
 });

@@ -229,6 +229,14 @@
 .vw-table td { padding: 9px 12px; vertical-align: top; border-bottom: 1px solid var(--clr-border); }
 .vw-callout { margin: 0 0 14px; padding: 12px 16px; border-radius: 10px; background: var(--clr-surface-2); }
 .vw-source { margin-top: 6px; font-family: var(--vw-label); font-size: 14px; line-height: 1.55; color: var(--clr-ink-soft); }
+/* A section's sources, checks and report control, one folded row (5.226). */
+.vw-refs { margin-top: 8px; }
+.vw-refs > summary { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; cursor: pointer; font-family: var(--vw-label); font-size: 14px; color: var(--clr-ink-soft); list-style: none; }
+.vw-refs > summary::-webkit-details-marker { display: none; }
+.vw-refs > summary::after { content: '▸'; font-size: 12px; }
+.vw-refs[open] > summary::after { content: '▾'; }
+.vw-refs > summary:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; border-radius: 4px; }
+.vw-refs .vw-source { margin-top: 0; }
 
 /* The contents pill: bottom left, out from under the line being read. */
 .vw .vmx-wiki-toc-return { left: max(16px, env(safe-area-inset-left)); transform: none; animation-name: vmx-a2-fade-in; }
@@ -256,7 +264,8 @@
   .vmx-skip-link, .vmx-bottom-nav { display: none !important; }
   [data-theme='dark'] .vw {
     --clr-ink: #2b2419; --clr-ink-soft: #5c4f3d; --clr-border: #d8c9a8;
-    --clr-rose: #b05555; --clr-rose-text: #93454b; --clr-sage-text: #355a39; --clr-ocean-text: #386278; --clr-gold-text: #76511e;
+    --clr-rose: #b05555; --clr-rose-text: #6a2c34; --clr-sage-text: #355a39; --clr-ocean-text: #386278; --clr-gold-text: #76511e;
+    --clr-right-text: #355a39; --clr-part-text: #76511e;
     --clr-bg: #fff; --clr-surface: #fff; --clr-surface-2: #f6efe4; color: var(--clr-ink);
   }
 }
@@ -459,7 +468,7 @@
   .vw-grid.has-rail { display: grid; grid-template-columns: 208px minmax(0, 612px); column-gap: 32px; align-items: start; max-width: 852px; }
   .vw-rail {
     display: block; position: sticky; top: max(16px, env(safe-area-inset-top)); grid-column: 1; grid-row: 1;
-    max-height: calc(100vh - 32px); overflow-y: auto; padding: 4px 6px 16px 0; scrollbar-width: thin;
+    max-height: calc(100vh - 32px); max-height: calc(100dvh - 32px); overflow-y: auto; padding: 4px 6px 16px 0; scrollbar-width: thin;
   }
   .vw-grid.has-rail .vw-main { grid-column: 2; grid-row: 1; }
   .vw-grid.has-rail .vw-toc, .vw .vmx-wiki-toc-return { display: none; }
@@ -467,17 +476,10 @@
 @media (min-width: 1388px) {
   .vw-grid.has-rail { grid-template-columns: 208px minmax(0, 860px); max-width: 1100px; }
   .vw-grid { max-width: 860px; }
-  /* Header, contents, end and sources keep the 612 px column; the sections
-     reach into the margin, where their evidence stands as a sidenote. */
-  .vw-main > :not(.vmx-reading-effects), .vw-main .vmx-reading-tools { max-width: 612px; }
-  .vw-section { display: grid; grid-template-columns: minmax(0, 612px) 216px; column-gap: 32px; align-items: start; }
-  .vw-section-text, .vw-section-report { grid-column: 1; }
-  .vw-section > .vw-ev { grid-column: 2; grid-row: 1 / span 2; margin-top: 2px; padding-left: 14px; border-left: 1px solid var(--clr-border); }
-  .vw-ev-chips { flex-direction: column; align-items: flex-start; }
-  /* The drawer is wider than the margin: it hangs from the margin's right
-     edge over the text, which a tap asked to see. */
-  .vw-section > .vw-ev .vw-ev-drawer { position: absolute; right: 0; z-index: var(--z-raised); width: 380px; box-shadow: var(--shadow-md); }
-  .vw-section > .vw-ev { position: relative; }
+  /* Everything keeps the 612 px column. A section's evidence stood in the
+     margin as a sidenote until 5.226; it is in the section's folded
+     "แหล่งอ้างอิง" row now, the same at every width. */
+  .vw-main > :not(.vmx-reading-effects), .vw-main .vmx-reading-tools, .vw-section { max-width: 612px; }
 }
 
 /* ── Article: the rail ─────────────────────────────────────────── */
@@ -760,3 +762,64 @@
 .vw .vmx-related-docs.is-wiki .vmx-related-more { font-family: var(--vw-label); font-size: 14px; }
 .vw .vmx-related-docs.is-wiki .vmx-related-meta { color: var(--clr-ink-soft); }
 .vw .vmx-related-docs.is-wiki .vmx-related-more { padding: 0 4px; }
+
+/* ── กล่อง "ศัพท์เฉพาะทางในบทนี้" ท้ายบท (นำร่อง zoonoses) ── */
+.vw-glossary {
+  margin-top: 28px;
+  padding: 18px 20px;
+  border: 1px solid var(--clr-border);
+  border-radius: 14px;
+  background: var(--clr-surface);
+}
+.vw-glossary-title {
+  margin: 0 0 10px;
+  font-family: var(--vw-display);
+  font-size: 18px;
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: var(--clr-ink);
+}
+.vw-glossary-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.vw-glossary-table th,
+.vw-glossary-table td {
+  border-top: 1px solid var(--clr-border);
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+  font-family: var(--vw-body);
+  color: var(--clr-ink);
+  overflow-wrap: break-word;
+  min-width: 5.5em;
+}
+.vw-glossary-table thead th {
+  border-top: none;
+  color: var(--clr-ink-soft);
+}
+.vw-glossary-table tbody th[scope="row"] {
+  font-weight: 700;
+}
+/* A phone has no room for three columns: each word became its own line. Each term becomes one
+   entry instead (the term, its Thai, then the meaning), and the column heads stay for screen
+   readers only. The roles on the table in KnowledgeView keep it a table to assistive tech. */
+@media (max-width: 640px) {
+  .vw-glossary { padding: 16px; }
+  .vw-glossary-table thead {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+  }
+  .vw-glossary-table,
+  .vw-glossary-table tbody,
+  .vw-glossary-table tr,
+  .vw-glossary-table th,
+  .vw-glossary-table td { display: block; }
+  .vw-glossary-table tbody tr { border-top: 1px solid var(--clr-border); padding: 10px 0; }
+  .vw-glossary-table tbody tr:first-child { border-top: none; padding-top: 0; }
+  .vw-glossary-table th,
+  .vw-glossary-table td { border-top: none; padding: 0; min-width: 0; }
+  .vw-glossary-table tbody td:nth-of-type(1) { margin-top: 2px; color: var(--clr-ink-soft); }
+  .vw-glossary-table tbody td:nth-of-type(2) { margin-top: 4px; }
+}

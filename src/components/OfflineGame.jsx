@@ -633,7 +633,7 @@ export default function OfflineGame({ onClose }) {
             border: '1px solid var(--clr-gold, #b88940)',
           }}
         >
-          🎉 คะแนนสูงสุดใหม่ {bestCombo > 0 && <span style={{ fontWeight: 400, color: 'var(--clr-ink-soft)' }}>, ต่อเนื่องสูงสุด {bestCombo} ครั้ง</span>}
+          🎉 คะแนนสูงสุดใหม่{bestCombo > 0 && <span style={{ fontWeight: 400, color: 'var(--clr-ink-soft)' }}>, ต่อเนื่องสูงสุด {bestCombo} ครั้ง</span>}
         </div>
       )}
     </div>

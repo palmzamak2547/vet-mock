@@ -23,6 +23,9 @@
 // every page lies inside its edition, the structured cite agrees with the raw
 // text, and the number of page citations still held only as text shrinks.
 //
+// A document one subject owns can also be cited by another: `alsoSubjects` lists those
+// (the neonatal rows moved to Equine Repro on 15 Nov 2026 and still cite Equine Med & Surg decks).
+//
 // Adding a document: count its pages from the file, and give every edition
 // that questions cite its own id. The ids here are the page count, "44p".
 // ============================================================
@@ -146,7 +149,7 @@ export const SOURCE_DOCS = [
   },
   // Equine Med & Surg FINAL sources, 29 ต.ค. 2569: the 2569 library decks by their titles, and the seniors' files by fixed names.
   {
-    slug: 'equine-surgery-anesthesia-2569', subject: 'equine-medicine', title: "Equine surgery & anesthesia 5th year",
+    slug: 'equine-surgery-anesthesia-2569', subject: 'equine-medicine', alsoSubjects: ['equine-repro'], title: "Equine surgery & anesthesia 5th year",
     match: /Equine surgery & anesthesia 5th year/,
     editions: [{ id: '94p', pages: 94 }],
   },
@@ -161,9 +164,25 @@ export const SOURCE_DOCS = [
     editions: [{ id: '58p', pages: 58 }],
   },
   {
-    slug: 'equine-infectious-2569', subject: 'equine-medicine', title: "Eq Infectious Dz and Biosecurity",
+    slug: 'equine-infectious-2569', subject: 'equine-medicine', alsoSubjects: ['equine-repro'], title: "Eq Infectious Dz and Biosecurity",
     match: /Eq Infectious Dz and Biosecurity/,
     editions: [{ id: '83p', pages: 83 }],
+  },
+  {
+    slug: 'equine-dermatology-wound-2569', subject: 'equine-medicine', title: "Equine dermatology and wound management",
+    match: /Equine dermatology and wound management/,
+    editions: [{ id: '95p', pages: 95 }],
+  },
+  // The 2568 decks of the foot and tendon lectures, which the 2569 timetable does not teach again; page counts from the PDFs.
+  {
+    slug: 'equine-foot-2568', subject: 'equine-medicine', title: "Pathologic condition of equine foot",
+    match: /Pathologic condition of equine foot/,
+    editions: [{ id: '34p', pages: 34 }],
+  },
+  {
+    slug: 'equine-tendon-2568', subject: 'equine-medicine', title: "Tendon/Ligament injuries and treatment",
+    match: /Tendon\/Ligament injuries and treatment/,
+    editions: [{ id: '157p', pages: 157 }],
   },
   {
     slug: 'equine-parasites-2569', subject: 'equine-medicine', title: "Equine Parasites",
@@ -211,22 +230,22 @@ export const SOURCE_DOCS = [
     editions: [{ id: '97p', pages: 97 }],
   },
   {
-    slug: 'equine-final-compilation-krob', subject: 'equine-medicine', title: "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ",
+    slug: 'equine-final-compilation-krob', subject: 'equine-medicine', alsoSubjects: ['equine-repro'], title: "รวมข้อสอบปลายภาค Equine Med & Surg ฉบับครบ",
     match: /ฉบับครบ/,
     editions: [{ id: '13p', pages: 13 }],
   },
   {
-    slug: 'equine-final-summary-v84', subject: 'equine-medicine', title: "สรุปปลายภาค Equine Med Final",
+    slug: 'equine-final-summary-v84', subject: 'equine-medicine', alsoSubjects: ['equine-repro'], title: "สรุปปลายภาค Equine Med Final",
     match: /สรุปปลายภาค Equine Med Final/,
     editions: [{ id: '15p', pages: 15 }],
   },
   {
-    slug: 'equine-neonatal-key-v84', subject: 'equine-medicine', title: "เฉลยพิมพ์ neonatal ของ Vet 84",
+    slug: 'equine-neonatal-key-v84', subject: 'equine-medicine', alsoSubjects: ['equine-repro'], title: "เฉลยพิมพ์ neonatal ของ Vet 84",
     match: /เฉลยพิมพ์ neonatal ของ Vet 84/,
     editions: [{ id: '3p', pages: 3 }],
   },
   {
-    slug: 'equine-neonatal-photos-kku', subject: 'equine-medicine', title: "ภาพถ่ายข้อสอบ neonatal ฉบับพิมพ์",
+    slug: 'equine-neonatal-photos-kku', subject: 'equine-medicine', alsoSubjects: ['equine-repro'], title: "ภาพถ่ายข้อสอบ neonatal ฉบับพิมพ์",
     match: /ภาพถ่ายข้อสอบ neonatal ฉบับพิมพ์/,
     editions: [{ id: '15p', pages: 15 }],
   },
@@ -277,7 +296,7 @@ export const SOURCE_DOCS = [
     editions: [{ id: '4p', pages: 4 }],
   },
   {
-    slug: 'equine-final-recall-6p', subject: 'equine-medicine', title: "บันทึกหลังสอบ Equine Med final ฉบับ 6 หน้า",
+    slug: 'equine-final-recall-6p', subject: 'equine-medicine', alsoSubjects: ['equine-repro'], title: "บันทึกหลังสอบ Equine Med final ฉบับ 6 หน้า",
     match: /บันทึกหลังสอบ Equine Med final ฉบับ 6 หน้า/,
     editions: [{ id: '6p', pages: 6 }],
   },
@@ -291,10 +310,21 @@ export const SOURCE_DOCS = [
     match: /สรุป Ekwai \(quine\) ของ Vet 85/,
     editions: [{ id: '19p', pages: 19 }],
   },
+  // The midterm summary in the Vet 84 folder (a Vet 83 sheet with Vet 84's notes), 8 pages by the PDF.
+  {
+    slug: 'equine-mid-summary-v84', subject: 'equine-medicine', title: "สรุปกลางภาค Equine Med ของ Vet 84 ฉบับ 8 หน้า",
+    match: /สรุปกลางภาค Equine Med ของ Vet 84 ฉบับ 8 หน้า/,
+    editions: [{ id: '8p', pages: 8 }],
+  },
   {
     slug: 'com5-final86', subject: 'com5', title: 'COM V FINAL 86',
     match: /\bCOM V FINAL 86\b/,
     editions: [{ id: '34p', pages: 34 }],
+  },
+  {
+    slug: 'oh-import-risk-2569', subject: 'one-health', title: "Import Risk Assessment (Present)",
+    match: /Import Risk Assessment \(Present\)/,
+    editions: [{ id: '47p', pages: 47 }],
   },
   {
     slug: 'kimchii85-final', subject: 'repro-lect', title: 'Kimchii85 final',
@@ -422,6 +452,18 @@ export const SOURCE_DOCS = [
     slug: 'swine-greasypig-mindmaps', subject: 'swine-clinic', title: 'Greasy Pig, ฝีดาษ, พยาธิเม็ดเลือด',
     match: /ไฟล์ Greasy Pig, ฝีดาษ, พยาธิเม็ดเลือด/,
     editions: [{ id: '3p', pages: 3 }],
+  },
+  // อ.สุพจน์'s 2569 trichinosis and trypanosomiasis deck (library, 15 pages).
+  {
+    slug: 'swine-trichinosis-2569', subject: 'swine-clinic', title: 'โรคทริคิโนซิส (Trichinosis)',
+    match: /โรคทริคิโนซิส \(Trichinosis\)/,
+    editions: [{ id: '15p', pages: 15 }],
+  },
+  // The 2024 Swine Medicine lecture note in the library (335 pages); the 9 Oct 2026 control and diagnosis class teaches from it.
+  {
+    slug: 'swine-lecture-note-2024', subject: 'swine-clinic', title: 'Lecture note: Swine Medicine 2024',
+    match: /Lecture note:? Swine Medicine 2024/i,
+    editions: [{ id: '335p', pages: 335 }],
   },
   // Kimchii #85 notes; 18 of its pages are pages of Aqua Med Mid 86.
   {
@@ -690,6 +732,12 @@ export const SOURCE_DOCS = [
     slug: 'aqua-aquarium-mgmt-2569', subject: 'aquatic-clinic', title: "Aquarium Management สรุปภาษาไทย (20 ต.ค. 69)",
     match: /Aquarium Management สรุปภาษาไทย \(20 ต\.ค\. 69\)/i,
     editions: [{ id: '57p', pages: 57 }],
+  },
+  // อ.วรญาณี's 3 Nov 2026 aquatic toxicology deck (library, 47 pages).
+  {
+    slug: 'aqua-toxicology-2569', subject: 'aquatic-clinic', title: 'Aquatic toxicology (3 พ.ย. 69)',
+    match: /Aquatic toxicology \(3 พ\.ย\. 69\)/i,
+    editions: [{ id: '47p', pages: 47 }],
   },
   {
     slug: 'aqua-marine-mammals-2569', subject: 'aquatic-clinic', title: "Conservation Aquatic Animal Management & Medicine: marine mammals (2026)",

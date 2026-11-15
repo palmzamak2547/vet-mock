@@ -1,6 +1,9 @@
 import Mochi from '../components/Mochi.jsx';
+import { shownName, shownPicture } from '../lib/public-display.js';
+import BoardPresenceNotice from '../components/BoardPresenceNotice.jsx';
 import { useState, useEffect, useRef } from 'react';
-import { getGroupMembers, getSharedQuestions, getGroupLeaderboard, deleteSharedQuestion } from '../lib/api.js';
+import { getGroupMembers, getGroupLeaderboard, leaveGroup, deleteGroup } from '../lib/api.js';
+import { leaveRule } from '../lib/group-membership.js';
 import { qualifiesForLeaderboard } from '../lib/leaderboard-gate.js';
 import { copyText } from '../lib/clipboard.js';
 import { SUBJECTS } from '../data/questions.js';
@@ -8,15 +11,15 @@ import { confirmDialog, alertDialog } from '../lib/dialog.js';
 import { thaiError } from '../lib/errors.js';
 import StatePanel from '../components/StatePanel.jsx';
 
-// A group page is three independent requests, one per tab.
-const SECTIONS = ['members', 'questions', 'leaderboard'];
-const ALL_PENDING = { members: true, questions: true, leaderboard: true };
-const NONE_FAILED = { members: '', questions: '', leaderboard: '' };
+// A group page is two independent requests, one per tab. (A third tab for
+// shared questions was removed: the app never had a way to share one.)
+const SECTIONS = ['members', 'leaderboard'];
+const ALL_PENDING = { members: true, leaderboard: true };
+const NONE_FAILED = { members: '', leaderboard: '' };
 
-export default function GroupDetailView({ group, user, goBack }) {
-  const [tab, setTab] = useState('leaderboard'); // 'leaderboard' | 'questions' | 'members'
+export default function GroupDetailView({ group, user, goBack, onEditIdentity = null }) {
+  const [tab, setTab] = useState('leaderboard'); // 'leaderboard' | 'members'
   const [members, setMembers] = useState([]);
-  const [questions, setQuestions] = useState([]);
   const [leaderboard, setLeaderboard] = useState([]);
   // Each section loads, fails and retries on its own. One Promise.allSettled
   // behind one spinner made the tab on screen wait for the slowest hidden
@@ -24,17 +27,17 @@ export default function GroupDetailView({ group, user, goBack }) {
   // empty list, as though the group had no members or nobody had scored.
   const [pending, setPending] = useState(ALL_PENDING);
   const [failed, setFailed] = useState(NONE_FAILED);
-  // Errors from an action the student took (delete), separate from a load
-  // failure, which replaces its own section with a panel.
+  // Errors from an action the student took (leave, delete), separate from a
+  // load failure, which replaces its own section with a panel.
   const [actionError, setActionError] = useState('');
+  const [leaving, setLeaving] = useState(false);
   // The newest request per section. An answer to an older one (a reload
   // overtook it, or the page left this group) is dropped rather than drawn
   // over the newer answer.
-  const latest = useRef({ members: 0, questions: 0, leaderboard: 0 });
+  const latest = useRef({ members: 0, leaderboard: 0 });
 
   const show = {
     members: setMembers,
-    questions: setQuestions,
     // Same min-questions gate as the global board — a 2-question
     // sprint topping a group board is the same luck problem.
     leaderboard: (rows) => setLeaderboard((Array.isArray(rows) ? rows : []).filter(qualifiesForLeaderboard)),
@@ -43,7 +46,7 @@ export default function GroupDetailView({ group, user, goBack }) {
   // Resolves once every requested section has settled, each having painted
   // the moment its own answer arrived.
   const load = (keys = SECTIONS) => {
-    const request = { members: getGroupMembers, questions: getSharedQuestions, leaderboard: getGroupLeaderboard };
+    const request = { members: getGroupMembers, leaderboard: getGroupLeaderboard };
     const all = (value) => Object.fromEntries(keys.map((key) => [key, value]));
     setPending((p) => ({ ...p, ...all(true) }));
     setFailed((f) => ({ ...f, ...all('') }));
@@ -88,8 +91,32 @@ export default function GroupDetailView({ group, user, goBack }) {
       alertDialog(`คัดลอกรหัส ${group.code} แล้ว ส่งให้เพื่อนได้เลย!`);
     } else {
       // Surface the code so the user can long-press to copy manually
-      alertDialog(`คัดลอกอัตโนมัติไม่ได้บนเบราว์เซอร์นี้ — กดค้าง code นี้แล้วเลือก Copy:\n\n${group.code}`);
+      alertDialog(`คัดลอกอัตโนมัติไม่ได้บนเบราว์เซอร์นี้ กดค้างที่รหัสนี้แล้วเลือกคัดลอก:\n\n${group.code}`);
     }
+  };
+
+  // Leaving sits at the foot of the page, away from the tabs, and always asks
+  // first. The last admin cannot leave (the group would have nobody to look
+  // after it); they may delete the group instead. Until the member list has
+  // loaded nobody is offered either, since the rule reads it.
+  const rule = pending.members || failed.members ? null : leaveRule(members, user.id);
+  const leave = async () => {
+    if (leaving || !rule?.canLeave) return;
+    if (!(await confirmDialog({ title: 'ออกจากกลุ่มนี้?', body: 'กลับเข้ามาใหม่ได้ด้วยรหัสกลุ่ม', confirmLabel: 'ออกจากกลุ่ม', tone: 'danger' }))) return;
+    setActionError('');
+    setLeaving(true);
+    try { await leaveGroup(group.id, user.id); goBack(); }
+    catch (e) { setActionError(thaiError(e, 'ออกจากกลุ่มไม่สำเร็จ ลองใหม่อีกครั้ง')); }
+    finally { setLeaving(false); }
+  };
+  const removeGroup = async () => {
+    if (leaving || !rule?.canDelete) return;
+    if (!(await confirmDialog({ title: 'ลบกลุ่มนี้?', body: 'คุณเป็นผู้ดูแลคนเดียวของกลุ่มนี้ จึงออกจากกลุ่มไม่ได้ ลบกลุ่มแล้วสมาชิกทุกคนจะออกจากกลุ่ม และรหัสนี้จะใช้ไม่ได้อีก ย้อนกลับไม่ได้', confirmLabel: 'ลบกลุ่ม', tone: 'danger' }))) return;
+    setActionError('');
+    setLeaving(true);
+    try { await deleteGroup(group.id); goBack(); }
+    catch (e) { setActionError(thaiError(e, 'ลบกลุ่มไม่สำเร็จ ลองใหม่อีกครั้ง')); }
+    finally { setLeaving(false); }
   };
 
   if (foreign) return null;
@@ -100,7 +127,7 @@ export default function GroupDetailView({ group, user, goBack }) {
         <Mochi state="hearts" size={44} slot="page-intro" className="vmx-hero-mochi" />
         <h1><em>{group.name}</em></h1>
         <p>
-          Code: <strong style={{ color: 'var(--clr-gold-text)', fontFamily: 'var(--vmx-mono)' }}>{group.code}</strong>
+          รหัสกลุ่ม <strong style={{ color: 'var(--clr-gold-text)', fontFamily: 'var(--vmx-mono)' }}>{group.code}</strong>
           {', '}<button type="button" className="vmx-footer-link" onClick={copyCode} style={{ border: 0, background: 'transparent', padding: 0, color: 'inherit', font: 'inherit', textDecoration: 'underline' }}>คัดลอก</button>
           {', '}สมาชิก {members.length} คน
         </p>
@@ -108,7 +135,6 @@ export default function GroupDetailView({ group, user, goBack }) {
 
       <div className="vmx-nav" style={{ marginBottom: 24 }}>
         <button className={`vmx-nav-btn ${tab === 'leaderboard' ? 'active' : ''}`} onClick={() => setTab('leaderboard')}>อันดับคะแนน</button>
-        <button className={`vmx-nav-btn ${tab === 'questions' ? 'active' : ''}`} onClick={() => setTab('questions')}>ข้อที่แชร์ ({questions.length})</button>
         <button className={`vmx-nav-btn ${tab === 'members' ? 'active' : ''}`} onClick={() => setTab('members')}>👤 สมาชิก ({members.length})</button>
       </div>
 
@@ -129,6 +155,7 @@ export default function GroupDetailView({ group, user, goBack }) {
           <div style={{ marginBottom: 12, fontSize: 14, color: 'var(--clr-ink-soft)' }}>
             อันดับจากผลดีที่สุดของสมาชิกแต่ละคนที่ระบบตรวจคะแนนแล้ว (อย่างน้อย 5 ข้อ) สมาชิกที่ปิดการแสดงบนอันดับจะไม่ปรากฏ
           </div>
+          <BoardPresenceNotice user={user} rows={leaderboard} scope="group" onEdit={onEditIdentity} />
           {leaderboard.length === 0 ? (
             <div className="vmx-empty">ยังไม่มีใครทำข้อสอบในกลุ่มนี้ — ลองเป็นคนแรกกันเถอะ 💪</div>
           ) : (
@@ -140,7 +167,7 @@ export default function GroupDetailView({ group, user, goBack }) {
                   </div>
                   <div style={{ flex: 1 }}>
                     <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16 }}>
-                      {r.profiles?.avatar_emoji || '🐾'} {r.profiles?.username || 'ไม่ระบุชื่อ'}
+                      {shownPicture(r.profiles?.avatar_emoji)} {shownName(r.profiles?.username, 'ไม่ระบุชื่อ')}
                       {r.user_id === user.id && <span style={{ marginLeft: 8, fontSize: 14, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</span>}
                     </div>
                     <div style={{ fontSize: 12, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)', marginTop: 2 }}>
@@ -148,54 +175,10 @@ export default function GroupDetailView({ group, user, goBack }) {
                     </div>
                   </div>
                   <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 22, color: r.pct >= 80 ? 'var(--clr-sage-text)' : r.pct >= 60 ? 'var(--clr-gold-text)' : 'var(--clr-rose-text)' }}>{r.pct}%</div>
+                    <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 700, fontSize: 22, color: r.pct >= 80 ? 'var(--clr-right-text)' : r.pct >= 60 ? 'var(--clr-part-text)' : 'var(--clr-rose-text)' }}>{r.pct}%</div>
                     <div style={{ fontSize: 11, color: 'var(--clr-ink-soft)', fontFamily: 'var(--vmx-mono)' }}>{r.correct}/{r.total}</div>
                   </div>
                 </div>
-              </div>
-            ))
-          )}
-        </div>
-      )}
-
-      {status === 'ready' && tab === 'questions' && (
-        <div>
-          <div style={{ marginBottom: 20, fontSize: 14, color: 'var(--clr-ink-soft)' }}>
-            ข้อสอบที่สมาชิกในกลุ่มแชร์ไว้<br/>
-            <em>ตอนนี้ยังแชร์ข้อสอบเข้ากลุ่มไม่ได้</em>
-          </div>
-          {questions.length === 0 ? (
-            <div className="vmx-empty">ยังไม่มีข้อสอบที่แชร์</div>
-          ) : (
-            questions.map((q) => (
-              <div key={q.id} className="vmx-review-item">
-                <div className="vmx-review-head">
-                  <span>โดย {q.author_name || 'ไม่ระบุชื่อ'}{!q.invalid && q.data.subject ? `, ${SUBJECTS.find((s) => s.id === q.data.subject)?.name || q.data.subject}` : ''}</span>
-                  {q.author_id === user.id && (
-                    <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={async () => {
-                      if (!(await confirmDialog({ title: 'ลบข้อนี้ออกจากกลุ่ม?', confirmLabel: 'ลบ', tone: 'danger' }))) return;
-                      // deleteSharedQuestion throws on any PostgREST or network
-                      // error. Unhandled, the row just stayed in the list with
-                      // nothing said — the student could not tell a failed
-                      // delete from one that had not happened yet.
-                      setActionError('');
-                      try { await deleteSharedQuestion(q.id); await load(); }
-                      catch (e) { setActionError(thaiError(e, 'ลบไม่สำเร็จ ลองใหม่อีกครั้ง')); }
-                    }}>🗑</button>
-                  )}
-                </div>
-                {/* getSharedQuestions flags a row whose question cannot be
-                    read; it stays in the list so its author can delete it. */}
-                {q.invalid ? (
-                  <div className="vmx-review-q" style={{ color: 'var(--clr-ink-soft)' }}>แสดงข้อนี้ไม่ได้ เพราะข้อมูลของข้อไม่ครบ</div>
-                ) : (
-                  <>
-                    <div className="vmx-review-q">{q.data.q}</div>
-                    {Array.isArray(q.data.tags) && q.data.tags.length > 0 && (
-                      <div>{q.data.tags.map((t) => <span key={t} className="vmx-tag-pill">#{t}</span>)}</div>
-                    )}
-                  </>
-                )}
               </div>
             ))
           )}
@@ -206,12 +189,12 @@ export default function GroupDetailView({ group, user, goBack }) {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 12 }}>
           {members.map((m) => (
             <div key={m.id} className="vmx-dash-card" style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 40, marginBottom: 8 }}>{m.avatar_emoji || '🐾'}</div>
+              <div style={{ fontSize: 40, marginBottom: 8 }}>{shownPicture(m.avatar_emoji)}</div>
               <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16 }}>
-                {m.username}
+                {shownName(m.username)}
                 {m.id === user.id && <div style={{ fontSize: 14, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</div>}
               </div>
-              {m.role === 'admin' && <div style={{ fontSize: 11, color: 'var(--clr-gold-text)', marginTop: 4 }}>👑 Admin</div>}
+              {m.role === 'admin' && <div style={{ fontSize: 14, color: 'var(--clr-gold-text)', marginTop: 4 }}>👑 ผู้ดูแล</div>}
             </div>
           ))}
         </div>
@@ -220,6 +203,16 @@ export default function GroupDetailView({ group, user, goBack }) {
       <div className="vmx-btn-row" style={{ marginTop: 30 }}>
         <button className="vmx-btn vmx-btn-ghost" onClick={goBack}>← กลับกลุ่มทั้งหมด</button>
       </div>
+
+      {rule && (
+        <section aria-label="ออกจากกลุ่ม" style={{ marginTop: 40, paddingTop: 16, borderTop: '1px solid var(--clr-border)' }}>
+          {rule.canLeave ? (
+            <button type="button" className="vmx-btn vmx-btn-ghost" onClick={leave} disabled={leaving}>ออกจากกลุ่ม</button>
+          ) : (
+            <button type="button" className="vmx-btn vmx-btn-ghost" onClick={removeGroup} disabled={leaving}>ลบกลุ่ม</button>
+          )}
+        </section>
+      )}
     </>
   );
 }

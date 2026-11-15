@@ -42,7 +42,7 @@ export default class ErrorBoundary extends Component {
   }
 
   componentDidCatch(error, info) {
-    try { window.dispatchEvent(new CustomEvent('vmx-render-error', { detail: { name: error?.name } })); } catch {}
+    try { window.dispatchEvent(new CustomEvent('vmx-render-error', { detail: { name: error?.name, message: error?.message, stack: error?.stack } })); } catch {}
     // Log to console in dev; could ship to an error service later.
     console.error('[ErrorBoundary]', error, info);
     this.props.onError?.(error);
@@ -80,7 +80,7 @@ export default class ErrorBoundary extends Component {
               ? (online
                 ? 'ต่ออินเทอร์เน็ตแล้ว กดโหลดใหม่เพื่อเปิดหน้านี้ งานที่ยังไม่ได้บันทึกในหน้านี้อาจหายไป'
                 : 'ยังไม่ได้ต่ออินเทอร์เน็ต หน้านี้ยังไม่เคยเปิดในเครื่องนี้ จึงเปิดแบบออฟไลน์ไม่ได้ ต่ออินเทอร์เน็ตแล้วกดโหลดใหม่')
-              : <>มีบางอย่างผิดพลาดในหน้านี้ — ลองกลับหน้าแรกแล้วเข้าใหม่<br/>ถ้าเจอบ่อย ช่วย <strong>แจ้งปัญหา</strong> ให้รู้ได้นะ</>}
+              : <>มีบางอย่างผิดพลาดในหน้านี้: ลองกลับหน้าแรกแล้วเข้าใหม่<br/>ถ้าเจอบ่อย ช่วย <strong>แจ้งปัญหา</strong> ให้รู้ได้นะ</>}
           </p>
           {!chunkFailed && <details style={{ marginTop: 12, fontSize: 14, color: 'var(--clr-ink-soft, #6b6357)', textAlign: 'left' }}>
             <summary style={{ cursor: 'pointer' }}>ข้อความผิดพลาด (แนบตอนแจ้งปัญหา)</summary>

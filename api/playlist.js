@@ -52,8 +52,7 @@ export default async function handler(req, res) {
   const rl = await rateLimit(`playlist:${ip}`, 120, 60_000);
   if (!rl.ok) return sendRateLimitFailure(res, rl);
 
-  const rawId = Array.isArray(req.query?.id) ? req.query.id[0] : req.query?.id;
-  const id = String(rawId || '').trim();
+  const id = playlistId(req);
   if (!id || !/^[A-Za-z0-9_-]{10,40}$/.test(id)) {
     res.setHeader('Cache-Control', 'no-store');
     return res.status(400).json({ error: 'invalid playlist id', reason: 'bad_id' });
@@ -119,7 +118,22 @@ export default async function handler(req, res) {
     }
     console.error('playlist fetch error:', err);
     res.setHeader('Cache-Control', 'no-store');
-    return res.status(502).json({ error: err.message || 'fetch failed', reason: 'upstream_unreachable' });
+    return res.status(502).json({ error: 'fetch failed', reason: 'upstream_unreachable' });
+  }
+}
+
+// ─── Helper: the playlist id, from the request line ───
+// Parsed with the WHATWG URL parser against a fixed base, so a Host header (or
+// none) decides nothing, and the first `id` wins as it always did. The route
+// does not read `req.query`: that is the platform's lazy getter, and the
+// builder versions that filled it with Node's legacy url.parse() logged
+// DEP0169 here once per instance. A request line that cannot be parsed
+// carries no id, which the handler answers 400.
+function playlistId(req) {
+  try {
+    return (new URL(String(req.url ?? ''), 'http://localhost').searchParams.get('id') || '').trim();
+  } catch {
+    return '';
   }
 }
 

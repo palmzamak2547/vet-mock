@@ -7,8 +7,10 @@ import { flushSync } from 'react-dom';
 // after first paint) and gates exam-start paths on the populated QB.
 import { QB, loadQB, loadQBForYear, isQBLoaded, isQBYearLoaded, isQBFullyLoaded, onQBMerged } from './data/questions.js';
 import { THEME_SYSTEM, effectiveTheme, systemPrefersDark, useSystemDark } from './lib/theme-pref.js';
+import { CHOSEN_ATTR, dropVisit, visitPrefs } from './lib/family/family.js';
 import { SUBJECTS, YEARS, CURRENT_YEAR, yearForSubject } from './data/curriculum.js';
 import { stillWrong } from './lib/wrong-pool.js';
+import { GATE_PUBLIC_VIEWS } from './lib/gate-public-views.js';
 
 // A tag only counts as weak below this accuracy — the same line the accuracy
 // chart on the dashboard already draws.
@@ -25,6 +27,7 @@ import { useLocalStorage } from './hooks/useStorage.js';
 import { useSelectedPhase } from './hooks/useSelectedPhase.js';
 import { contentPhase } from './lib/current-phase.js';
 import { inflightExamKey, isOwnedExam, readOwnedExam, readUnclaimedExam, claimLegacyExam, markExamDetailsSaved } from './lib/exam-recovery.js';
+import { createSingleFlight, parkedStillCurrent, resumeParkedSet } from './lib/parked-resume.js';
 import { useAuth } from './hooks/useAuth.js';
 import { useWakeLock } from './hooks/useWakeLock.js';
 import { useOnlineCount } from './hooks/useOnlineCount.js';
@@ -88,6 +91,10 @@ import { loadQuestionDifficulty } from './lib/question-difficulty.js';
 // Eager — needed for first paint
 import ErrorBoundary from './components/ErrorBoundary.jsx';
 import OptionalFeature from './components/OptionalFeature.jsx';
+// The search box shown while the palette's chunk downloads (and when it fails).
+import PaletteFrame from './components/PaletteFrame.jsx';
+import PaletteShell from './components/PaletteShell.jsx';
+import { clearPaletteHandoff } from './lib/palette-handoff.js';
 
 // Lazy: every screen and heavy modal loads as its own chunk. The
 // declarations, and the idle prefetch of the likely next views, live in
@@ -103,7 +110,7 @@ import {
   FeedbackView, IgCardStudioView, YearSelectView, LandingView,
   PhaseSelectView, TopicSelectView, NotesView, LibraryView, ChulaGateView, ChulaGateExit,
   KnowledgeView, ReadingChecklistView, FacultyView, PrivacyView,
-  AccountSettingsView, ProfileView, OfflineGameView, MochiView, PomodoroView,
+  AccountSettingsView, ProfileView, IdentityStep, OfflineGameView, MochiView, PomodoroView,
   RaceView, PdfAnnotateView, ImageOcclusionView, PhaseWrappedView,
   useIdlePrefetch,
 } from './app/lazy-views.js';
@@ -216,7 +223,13 @@ import TopLoadingBar, { ViewFallback, OverlayPending } from './components/TopLoa
 import { MochiProvider } from './components/MochiContext.jsx';
 import DialogHost from './components/DialogHost.jsx';
 import { confirmDialog, alertDialog } from './lib/dialog.js';
+import { exitSetDialog } from './lib/exit-set.js';
+import { deadlineOnWall } from './lib/exam-clock.js';
+
 import { clearNoteRetryTarget, readNoteRetryTarget } from './lib/note-retry.js';
+
+// What the exam says when its own record cannot be written (storage full or blocked).
+const INFLIGHT_SAVE_FAILED = 'บันทึกคำตอบลงเครื่องไม่ได้ (พื้นที่อาจเต็ม) อย่าปิดหน้านี้จนกว่าจะส่งชุด';
 
 // Vercel Analytics + Speed Insights — lazy-loaded so the home page
 // payload doesn't grow on existing users. Skipped on local hosts: `vite
@@ -251,9 +264,6 @@ const WIDE_VIEWS = new Set([
 // the footer prevents keyboard/scroll users from leaving an active exam
 // without going through ExamView's confirmation flow.
 const FOCUS_VIEWS = new Set(['exam', 'results', 'review', 'auth', 'year-select', 'phase-select', 'config', 'atlas']);
-// Open before sign-in while the Chula wall is on: the public front door and
-// the privacy terms a student reads before agreeing (docs/CHULA-SIGNIN.md).
-const GATE_PUBLIC_VIEWS = new Set(['landing', 'privacy']);
 // Marketing/ecosystem links belong on destination pages, not after every
 // internal workflow. Keeping the footer off topic, notes, schedule and tool
 // views shortens those tasks without removing any top-level navigation.
@@ -325,7 +335,7 @@ function ViewEntry({ view, returnScrollRef }) {
 const READER_ORIGINS = new Set(['topic-select', 'wrapup', 'knowledge', 'wiki']);
 
 export default function App() {
-  const { user, profile, loading: authLoading } = useAuth();
+  const { user, profile, setProfile, loading: authLoading } = useAuth();
   // The Chula sign-in wall: until it opens, the app below renders nothing.
   const wall = useChulaWall({ user, loading: authLoading });
 
@@ -944,10 +954,9 @@ export default function App() {
             '',
           );
         } catch {}
+        // The X button's dialog, word for word (lib/exit-set.js).
         confirmDialog({
-          title: 'ออกจากชุดนี้?',
-          body: 'ความคืบหน้าจะถูกเก็บไว้ให้กลับมาทำต่อได้',
-          confirmLabel: 'ออกจากชุด',
+          ...exitSetDialog({ questions: sessionRef.current?.questions, answers: sessionRef.current?.answers, timed: useTimerRef.current }),
           scope: 'exam',
         }).then((leave) => {
           if (!leave) return;
@@ -1117,6 +1126,15 @@ export default function App() {
   // API). Auto-releases when leaving exam view or component unmount.
   useWakeLock(view === 'exam');
 
+  // The view, for code outside React that must keep off the exam screen (origin-move.js holds its
+  // give-up notice while a session is on screen, as SyncStatusNotice is held on view 'exam').
+  useEffect(() => {
+    window.__vmxView = view;
+    try { window.dispatchEvent(new CustomEvent('vmx-view', { detail: view })); } catch {
+      // an old browser without CustomEvent
+    }
+  }, [view]);
+
   // Pre-warm the post-exam chunks (ResultsView + ReviewView) the
   // moment the exam starts. Reason: those views are lazy-loaded, so
   // their chunks (e.g. ResultsView-XXXXXXXX.js) are fetched only
@@ -1158,6 +1176,9 @@ export default function App() {
   // useTimer + timePerQ at construction time.
   const [numQuestions, setNumQuestions] = useState(10);
   const [useTimer, setUseTimer] = useState(true);
+  // For the Back guard's exit dialog, which lives in a listener set up once.
+  const useTimerRef = useRef(useTimer);
+  useTimerRef.current = useTimer;
   const [timePerQ, setTimePerQ] = useState(60);
   // 'all' (default) | 'mcq' (auto-graded only) | 'writing' (essay+short only)
   const [questionCategory, setQuestionCategory] = useState('all');
@@ -1258,6 +1279,10 @@ export default function App() {
   // was detected. Lives in App so HomeView (and any future entry points)
   // can read + handle resume/dismiss without re-querying localStorage.
   const [pendingResume, setPendingResume] = useState(null);
+  // The first-run identity sheet, once closed, stays closed for this page.
+  const [identityClosed, setIdentityClosed] = useState(false);
+  // The first-run step, once on screen, stays until it closes itself (IdentityStep.jsx).
+  const [identityShown, setIdentityShown] = useState(null);
   // 'redo' for a round of the questions whose key the results page just
   // showed. It is review, not a run: no leaderboard row, no personal best.
   const [sessionKind, setSessionKind] = useState('normal');
@@ -1270,32 +1295,51 @@ export default function App() {
   // phone, live, as index.html paints it first (lib/theme-pref.js).
   const [themePref, setThemePref] = useLocalStorage('vmx-theme', THEME_SYSTEM);
   const systemDark = useSystemDark();
-  const theme = effectiveTheme(themePref, systemDark);
+  // A theme or language that arrived from another VetMock site shows for this visit only and
+  // never touches the saved choice; a pick made here replaces it (lib/family/family.js).
+  const [visit, setVisit] = useState(visitPrefs);
+  const visitRef = useRef(visit);
+  visitRef.current = visit;
+  const theme = visit.theme || effectiveTheme(themePref, systemDark);
   // A function receives the theme on screen, so a toggle flips what the
   // student sees even while the setting is 'system'.
-  const setTheme = useCallback((next) => setThemePref((prev) => (
-    typeof next === 'function' ? next(effectiveTheme(prev, systemPrefersDark())) : next
-  )), [setThemePref]);
+  const setTheme = useCallback((next) => {
+    const shown = visitRef.current.theme;
+    if (shown) { dropVisit('theme'); setVisit((v) => ({ ...v, theme: null })); }
+    setThemePref((prev) => (
+      typeof next === 'function' ? next(shown || effectiveTheme(prev, systemPrefersDark())) : next
+    ));
+  }, [setThemePref]);
   // Landing page: language (landing-local; the app itself is Thai-first
   // with no i18n framework) + cookie consent. Consent gates the optional
   // analytics mount below — 'ask' | 'all' | 'essential' | 'custom'.
   // Thai by default — the audience is Thai veterinary students and the whole
   // app behind the landing is Thai. (An EN/ไทย toggle stays in the header for
   // exchange students and for sharing the page abroad.)
-  const [landingLang, setLandingLang] = useLocalStorage('vmx-landing-lang', 'th');
+  const [savedLandingLang, saveLandingLang] = useLocalStorage('vmx-landing-lang', 'th');
+  const landingLang = visit.lang || savedLandingLang;
+  const setLandingLang = useCallback((l) => {
+    if (visitRef.current.lang) { dropVisit('lang'); setVisit((v) => ({ ...v, lang: null })); }
+    saveLandingLang(l);
+  }, [saveLandingLang]);
   const [consent, setConsent] = useLocalStorage('vmx-consent', 'ask');
   const [consentPrefs, setConsentPrefs] = useLocalStorage('vmx-consent-prefs', { analytics: true, personal: true });
   const analyticsAllowed = consent === 'all' || (consent === 'custom' && !!consentPrefs.analytics);
   const diagnosticView = useRef(view);
   diagnosticView.current = view;
+  // Failure counts are not analytics: no identity, the message scrubbed, so
+  // they run for every visitor (log, do not prompt). A failure nobody records
+  // is one nobody fixes.
   useEffect(() => {
-    if (!analyticsAllowed || IS_LOCAL_HOST) return;
+    if (IS_LOCAL_HOST) return;
     let active = true, stop;
     import('./lib/client-diagnostics.js').then(({ installClientDiagnostics }) => {
       if (active) stop = installClientDiagnostics({ getView: () => diagnosticView.current });
+      // A catch with nothing in it on purpose: the module itself failed to
+      // load, so nothing is left to report with.
     }).catch(() => {});
     return () => { active = false; stop?.(); };
-  }, [analyticsAllowed]);
+  }, []);
   // Color palette — overlays on top of theme to recolor accent vars
   // (sage / gold). 'default' uses the original sage+gold; alternatives:
   // ocean / plum / cherry / mono / forest. Stored in localStorage so
@@ -1387,12 +1431,15 @@ export default function App() {
   useEffect(() => {
     const d = document.documentElement;
     d.setAttribute('data-theme', theme);
+    // Only a theme the student chose (or arrived with) travels to another VetMock site.
+    const chosen = visit.theme || (themePref === 'light' || themePref === 'dark' ? themePref : null);
+    if (chosen) d.setAttribute(CHOSEN_ATTR, chosen); else d.removeAttribute(CHOSEN_ATTR);
     // Keep the html-level base bg + color-scheme in sync with the toggle
     // (the anti-FOUC inline script in index.html sets them for first paint;
     // this keeps the overscroll/landing area correct after a theme switch).
     d.style.colorScheme = theme;
     d.style.background = theme === 'dark' ? '#1a1612' : '#f6efe4';
-  }, [theme]);
+  }, [theme, visit.theme, themePref]);
   useEffect(() => {
     if (palette && palette !== 'default') {
       document.documentElement.setAttribute('data-palette', palette);
@@ -1449,13 +1496,23 @@ export default function App() {
   const inflightRef = useRef(null);
   const inflightWrittenAtRef = useRef(0);
   const writeInflightRef = useRef(null);
+  const [inflightSaveFailed, setInflightSaveFailed] = useState(false);
   const writeInflight = useCallback(() => {
     const snap = inflightRef.current;
     if (!snap) return;
     try {
-      window.localStorage?.setItem(inflightExamKey(snap.ownerId), JSON.stringify({ ...snap, questionTimes: getQuestionTimes(), savedAt: Date.now() }));
+      // The deadline is kept in the exam's own time (lib/exam-clock.js); the
+      // record stores it on the wall clock, beside savedAt, so a resumed set
+      // gets back exactly what it had left.
+      window.localStorage?.setItem(inflightExamKey(snap.ownerId), JSON.stringify({ ...snap, questionDeadline: deadlineOnWall(snap.questionDeadline), questionTimes: getQuestionTimes(), savedAt: Date.now() }));
       inflightWrittenAtRef.current = Date.now();
-    } catch {}
+      setInflightSaveFailed(false);
+    } catch {
+      // A full or blocked storage drops the set's record: the answers on screen
+      // would not survive the tab being closed. Say so once, where the app says
+      // a local write failed (SyncStatusNotice), until a write succeeds again.
+      setInflightSaveFailed(true);
+    }
   }, [getQuestionTimes]);
   writeInflightRef.current = writeInflight;
   useEffect(() => {
@@ -1482,7 +1539,12 @@ export default function App() {
     // is due it goes just after that paint (rAF runs before it, the timeout
     // after); otherwise half a second later, as before. pagehide and
     // visibilitychange still flush at once.
-    if (Date.now() - inflightWrittenAtRef.current >= 3000) {
+    // In a timed exam every tap is written, not one write in three seconds: a
+    // tab the phone killed half a second after an answer lost that answer
+    // (pagehide never fires on a kill). A typed answer (short, essay, fill)
+    // keeps the throttle, so an essay is not written on every keystroke.
+    const typing = ['short', 'essay', 'fill'].includes(questions[currentIdx]?.type);
+    if ((mode === 'exam' && !typing) || Date.now() - inflightWrittenAtRef.current >= 3000) {
       let soon = 0;
       const frame = requestAnimationFrame(() => { soon = setTimeout(writeInflight, 0); });
       return () => { cancelAnimationFrame(frame); clearTimeout(soon); };
@@ -1554,36 +1616,54 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [view, user?.id, authLoading]);
 
-  // Handler triggered by the resume banner on HomeView.
-  const resumePendingExam = useCallback(async () => {
+  // Handler triggered by the resume banner on HomeView. One resume runs at a time and the card shows
+  // it as busy; after the wait for the banks it carries on only if the student is still on Home with
+  // the same parked record (src/lib/parked-resume.js).
+  const resumeFlightRef = useRef(null);
+  if (!resumeFlightRef.current) resumeFlightRef.current = createSingleFlight();
+  const [resumeBusy, setResumeBusy] = useState(false);
+  const resumePendingExam = useCallback(() => resumeFlightRef.current(async () => {
     const owner = user?.id ?? null;
-    let saved;
-    try {
-      saved = readOwnedExam(window.localStorage, owner);
-      if (!saved && readUnclaimedExam(window.localStorage)) {
-        if (!(await confirmDialog({ title: 'ชุดที่ค้างไว้นี้เป็นของคุณหรือไม่?',
-          body: 'ชุดที่ค้างจากเวอร์ชันก่อนยังไม่ระบุเจ้าของ กู้คืนเฉพาะเมื่อเป็นคำตอบของคุณ ข้อมูลจะผูกกับบัญชีหรือโหมดผู้เยี่ยมชมที่เปิดอยู่นี้',
-          confirmLabel: 'เป็นของฉัน กู้คืน', cancelLabel: 'ยังไม่กู้คืน' }))) return;
-        if (eventContextRef.current.owner !== owner) return;
-        saved = claimLegacyExam(window.localStorage, owner);
-      }
-    } catch { alertDialog('ยังเก็บการกู้คืนไม่ได้ กรุณาลองใหม่'); return; }
-    if (authLoading || !saved || !session.primeFromSaved(saved)) { setPendingResume(null); return; }
-    // Put the session back the way it was graded, not the way the app boots.
-    // Older records predate these fields; defaulting to 'exam' would be wrong
-    // for a practice set, so only restore what was actually saved.
-    if (saved.mode) setMode(saved.mode);
-    if (saved.practiceMode) setPracticeModeRaw(saved.practiceMode);
-    if (Number.isFinite(saved.selectedYear)) setSelectedYear(saved.selectedYear);
-    // null means nothing was narrowed then; it must not erase the kept pick.
-    if (saved.selectedPhase) setSelectedPhase(saved.selectedPhase);
-    if (typeof saved.useTimer === 'boolean') setUseTimer(saved.useTimer);
-    if (Number.isFinite(saved.timePerQ)) setTimePerQ(saved.timePerQ);
-    setSessionKind(saved.sessionKind === 'redo' ? 'redo' : 'normal');
-    setPendingResume(null);
-    finishingRef.current = false; // arm the finish latch for the resumed session
-    setView(saved.submitted ? 'results' : 'exam');
-  }, [user?.id, authLoading, session.primeFromSaved]);
+    const outcome = await resumeParkedSet({
+      read: async () => {
+        try {
+          let saved = readOwnedExam(window.localStorage, owner);
+          if (!saved && readUnclaimedExam(window.localStorage)) {
+            if (!(await confirmDialog({ title: 'ชุดที่ค้างไว้นี้เป็นของคุณหรือไม่?',
+              body: 'ชุดที่ค้างจากเวอร์ชันก่อนยังไม่ระบุเจ้าของ กู้คืนเฉพาะเมื่อเป็นคำตอบของคุณ ข้อมูลจะผูกกับบัญชีหรือโหมดผู้เยี่ยมชมที่เปิดอยู่นี้',
+              confirmLabel: 'เป็นของฉัน กู้คืน', cancelLabel: 'ยังไม่กู้คืน' }))) return null;
+            if (eventContextRef.current.owner !== owner) return null;
+            saved = claimLegacyExam(window.localStorage, owner);
+          }
+          if (!saved) setPendingResume(null);
+          return saved;
+        } catch { alertDialog('ยังเก็บการกู้คืนไม่ได้ กรุณาลองใหม่'); return null; }
+      },
+      loadYear: (year) => loadQBForYear(year),
+      bank: () => QB,
+      stillCurrent: (saved) => eventContextRef.current.owner === owner && viewRef.current === 'home'
+        && parkedStillCurrent(window.localStorage, owner, saved),
+      prime: (saved) => !authLoading && session.primeFromSaved(saved),
+      apply: (saved) => {
+        // Put the session back the way it was graded, not the way the app boots.
+        // Older records predate these fields; defaulting to 'exam' would be wrong
+        // for a practice set, so only restore what was actually saved.
+        if (saved.mode) setMode(saved.mode);
+        if (saved.practiceMode) setPracticeModeRaw(saved.practiceMode);
+        if (Number.isFinite(saved.selectedYear)) setSelectedYear(saved.selectedYear);
+        // null means nothing was narrowed then; it must not erase the kept pick.
+        if (saved.selectedPhase) setSelectedPhase(saved.selectedPhase);
+        if (typeof saved.useTimer === 'boolean') setUseTimer(saved.useTimer);
+        if (Number.isFinite(saved.timePerQ)) setTimePerQ(saved.timePerQ);
+        setSessionKind(saved.sessionKind === 'redo' ? 'redo' : 'normal');
+        setPendingResume(null);
+        finishingRef.current = false; // arm the finish latch for the resumed session
+        setView(saved.submitted ? 'results' : 'exam');
+      },
+      onBusy: setResumeBusy,
+    });
+    if (outcome === 'refused') setPendingResume(null);
+  }), [user?.id, authLoading, session.primeFromSaved]);
 
   const dismissPendingExam = useCallback(() => {
     try { window.localStorage?.removeItem(inflightExamKey(user?.id ?? null)); } catch {}
@@ -1614,6 +1694,9 @@ export default function App() {
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
   }, [view]);
+  // A frame closed by any path (Ctrl+K again, a view change) leaves no
+  // typed text for the next open.
+  useEffect(() => { if (!paletteOpen) clearPaletteHandoff(); }, [paletteOpen]);
 
   useEffect(() => {
     const handleKey = (e) => {
@@ -1658,11 +1741,14 @@ export default function App() {
       // finishing the exam (a stray keypress must not end a session).
       if (e.key === ' ' || e.key === 'Enter') {
         e.preventDefault();
+        // A held key repeats: it moved on, opened the submit dialog and then
+        // confirmed it. Only a fresh press moves on or submits.
+        if (e.repeat) return;
         if (currentIdx < questions.length - 1) nextQ();
         else window.dispatchEvent(new CustomEvent('vmx-exam-submit-request'));
       }
       if (e.key === 'ArrowLeft') prevQ();
-      if (e.key === 'ArrowRight') { if (currentIdx < questions.length - 1) nextQ(); }
+      if (e.key === 'ArrowRight' && !e.repeat) { if (currentIdx < questions.length - 1) nextQ(); }
       if (e.key === 'b' || e.key === 'B') toggleBookmark(q.id);
     };
     window.addEventListener('keydown', handleKey);
@@ -1719,6 +1805,7 @@ export default function App() {
       }
       if (k === 'j' || k === 'J') {
         e.preventDefault();
+        if (e.repeat) return; // a held key must not move on, then submit
         if (currentIdx < questions.length - 1) nextQ(); else window.dispatchEvent(new CustomEvent('vmx-exam-submit-request'));
         return;
       }
@@ -2415,7 +2502,7 @@ export default function App() {
     // hand (see ResultsView's `useEffect` cleanup).
     try {
       window.localStorage?.setItem(inflightExamKey(eventOwner), JSON.stringify({
-        questions, answers, currentIdx, questionDeadline, examStartTime, sessionId: examSessionId,
+        questions, answers, currentIdx, questionDeadline: deadlineOnWall(questionDeadline), examStartTime, sessionId: examSessionId,
         ownerId: eventOwner, questionTimes: getQuestionTimes(), mode, practiceMode, useTimer, timePerQ,
         selectedYear, selectedPhase, submitted: true, submittedAt: completedAt,
         localSaved: saved.accepted, detailsSaved: false, savedAt: Date.now(),
@@ -3210,6 +3297,17 @@ export default function App() {
       {wall.welcome && user && (
         <Suspense fallback={null}><ChulaGateExit user={user} onDone={wall.doneWelcome} /></Suspense>
       )}
+      {/* Once per account, on Home only: never over an exam, a set, a set
+          waiting to resume, the wall's welcome or the tour. This is the cheap
+          half of the gate, so the first load carries none of it; the step's
+          own chunk applies the whole rule (lib/identity-gate.js). */}
+      {((user && view === 'home' && !pendingResume && !wall.welcome && !tourOpen && !identityClosed
+        && profile?.id === user.id && profile?.created_at && !user.user_metadata?.identity_intro_done)
+        || (user && !identityClosed && identityShown === user.id)) && (
+        <Suspense fallback={null}>
+          <IdentityStep user={user} profile={profile} view={view} onSaved={(next) => setProfile(next)} onClose={() => setIdentityClosed(true)} onShown={() => setIdentityShown(user.id)} />
+        </Suspense>
+      )}
       {/* A pending decision belongs to the view and account that opened it. */}
       <DialogHost scope={view} owner={user?.id ?? null} />
       {/* `is-focus` = the bottom nav is not rendered for this view, so the
@@ -3246,6 +3344,14 @@ export default function App() {
               dedicated button so a stray tap on the banner text doesn't
               navigate accidentally (used to be a div-wide onClick which
               hijacked any tap, including swipe-to-scroll on iOS). */}
+          {view === 'exam' && inflightSaveFailed && !['LOCAL_READ_FAILED', 'LOCAL_WRITE_FAILED'].includes(userDataSync.error?.code) && (
+            <SyncStatusNotice
+              online={networkOnline}
+              justChanged={false}
+              signedIn={false}
+              sync={{ error: { code: 'LOCAL_WRITE_FAILED', message: INFLIGHT_SAVE_FAILED } }}
+            />
+          )}
           {view !== 'offline-game' && (view !== 'exam' || ['LOCAL_READ_FAILED', 'LOCAL_WRITE_FAILED'].includes(userDataSync.error?.code)) && (
             <SyncStatusNotice
               online={networkOnline}
@@ -3278,6 +3384,9 @@ export default function App() {
               setPracticeMode={setPracticeMode}
               setMode={setMode}
               streakData={streakData}
+              history={history}
+              srCards={srCards}
+              xpReady={Boolean(user) && ['synced', 'pending'].includes(userDataSync.phase)}
               user={user}
               profile={profile}
               handleSignOut={handleSignOut}
@@ -3327,6 +3436,8 @@ export default function App() {
               Skip-link below the header lets keyboard users do the same. */}
           <main
             id="main"
+            // Which view App is showing, for tests (tests/e2e/route-sweep.spec.js); nothing reads it.
+            data-view={view}
             tabIndex={-1}
             className={`vmx-main${WIDE_VIEWS.has(view) ? ' vmx-main--wide' : ''}`}
             style={{ outline: 'none' }}
@@ -3356,12 +3467,12 @@ export default function App() {
               {AUTH_REQUIRED_VIEWS.has(view) && !user && (
                 <AuthRequiredState page={viewTitle(view)} onSignIn={() => setView('auth')} onHome={goHome} />
               )}
-              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, srCards, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, phaseStatus, pendingResume, resumePendingExam, dismissPendingExam, history, streakData, setFeedbackPrefill, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true), onOpenTour: openTour, isAdmin }} onStartPanic={startPanicSession} onStartSubjectPanic={startSubjectPanic} onOpenWrapUp={openWrapUp} />}
+              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, srCards, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, phaseStatus, pendingResume: resumeBusy && pendingResume ? { ...pendingResume, busy: true } : pendingResume, resumePendingExam, dismissPendingExam, history, streakData, setFeedbackPrefill, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true), onOpenTour: openTour, isAdmin }} onStartPanic={startPanicSession} onStartSubjectPanic={startSubjectPanic} onOpenWrapUp={openWrapUp} />}
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} user={user} />}
               {view === 'auth' && !hasSupabase && <AuthUnavailableState onHome={goHome} />}
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}
-              {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups') }} />}
-              {view === 'leaderboard-global' && user && <LeaderboardView {...{ user, goHome, selectedYear }} />}
+              {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups'), onEditIdentity: () => setView('profile') }} />}
+              {view === 'leaderboard-global' && user && <LeaderboardView {...{ user, goHome, selectedYear, setView }} />}
               {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions, selectedYear, selectedPhase, qbReady, history }} />}
               {view === 'topic-select' && <TopicSelectView onOpenInstructor={setOpenInstructor} initialSection={topicSection} onSectionChange={setTopicSection} {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, timePerQ, setTimePerQ, practiceMode, setPracticeMode, customQuestions, readingChecklist, selectedYear, selectedPhase, paperPhase, onStartPanic: startSubjectPanic, onStartLecturer: startLecturerPractice, onOpenDoc: openLibraryReader, instantFeedback, setInstantFeedback, onOpenWrapUp: openWrapUp, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }) }} hasHistory={(history?.length || 0) > 0} />}
               {/* setSubject is what makes Back correct: NotesView already calls it when the
@@ -3374,6 +3485,7 @@ export default function App() {
                   goBack={() => setView('topic-select')}
                   onStartTopic={startLecturerPractice}
                   onOpenDoc={openLibraryReader}
+                  onOpenQuestion={openQuestionById}
                   selectedYear={selectedYear}
                   selectedPhase={paperPhase}
                 />
@@ -3386,7 +3498,7 @@ export default function App() {
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, useTimer, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions: replayWrongRound, challengeSender, sessionKind, examStartTime, completedAt: session.completedAt ?? completedAtRef.current, saveStatus: examSaveStatus }} />}
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes: notesView, setNote, user, selectedYear, selectedPhase, onOpenWiki: openWiki }} />}
               {view === 'sr-session' && <SRSessionView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady, qbRevision, loadAllYears, onOpenWiki: openWiki, history, startExam }} />}
-              {view === 'dashboard' && <DashboardView key={user?.id || 'guest'} ownerId={user?.id || null} recoveryArchive={userDataSync.recoveryArchive} {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, setSubject, setTopic, history, notes, srCards, streak: streakShown(streakData), streakData, customQuestions, selectedYear, selectedPhase, readingChecklist, restoreUserData: changeUserData }} />}
+              {view === 'dashboard' && <DashboardView key={user?.id || 'guest'} ownerId={user?.id || null} recoveryArchive={userDataSync.recoveryArchive} {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, setSubject, setTopic, history, notes, srCards, streak: streakShown(streakData), streakData, customQuestions, selectedYear, selectedPhase, readingChecklist, pendingExamResults, restoreUserData: changeUserData }} />}
               {view === 'question-manager' && <QuestionManagerView key={user?.id || 'guest'} appendQuestions={incoming => changeUserData((data, sync) => ({ customQuestions: appendCustomQuestions(data, incoming, sync?.takenCustomQuestionIds()) }))} {...{ customQuestions, setCustomQuestions, goHome, selectedYear }} />}
               {view === 'schedule' && <ScheduleView {...{ goHome, setSubject, setTopic, setMode, setView, setPracticeMode, selectedYear, selectedPhase, setSelectedPhase, customQuestions }} />}
               {view === 'scores' && <ScoresView {...{ goHome }} />}
@@ -3413,6 +3525,8 @@ export default function App() {
                   palette={palette}
                   setPalette={setPalette}
                   hasSupabase={hasSupabase}
+                  selectedYear={selectedYear}
+                  onIdentitySaved={(next) => setProfile(next)}
                   openSubject={(id) => { setSubject(id); setTopic(null); setPracticeMode('all'); setView('topic-select'); }}
                 />
               )}
@@ -3422,7 +3536,7 @@ export default function App() {
               {view === 'phase-select' && <PhaseSelectView {...{ goHome, selectedYear, selectedPhase, setSelectedPhase, setView, phaseStatus }} />}
               {view === 'reading-checklist' && <ReadingChecklistView {...{ selectedYear, selectedPhase, readingChecklist, setReadingChecklist, goHome, goBack: () => setView('home'), setSubject, setTopic, setView }} />}
               {view === 'faculty' && <FacultyView {...{ goHome }} />}
-              {view === 'account-settings' && user && <AccountSettingsView key={user.id} coreData={{ bookmarks, history, notes, srCards, streakData, customQuestions, readingChecklist }} {...{ user, goHome, setView, onSignedOut: goHome }} />}
+              {view === 'account-settings' && user && <AccountSettingsView key={user.id} coreData={{ bookmarks, history, notes, srCards, streakData, customQuestions, readingChecklist, pendingExamResults }} {...{ user, profile, goHome, setView, onSignedOut: goHome, selectedYear, onIdentitySaved: (next) => setProfile(next) }} />}
               {view === 'offline-game' && <OfflineGameView goBack={leaveRestTool} backToRest={restReturn} online={networkOnline} />}
               {view === 'mochi' && <MochiView goHome={goHome} onOpenFocus={() => setView('pomodoro')} onOpenGame={() => setView('offline-game')} />}
               {view === 'pomodoro' && <PomodoroView goHome={leaveRestTool} backToRest={restReturn} />}
@@ -3443,7 +3557,7 @@ export default function App() {
                   onOpenLibrary={openLibraryFromReader}
                 />
               )}
-              {view === 'pinboard' && <PinboardView {...{ goHome, setView, setSubject, setTopic, setPracticeMode, onOpenQuestion: openQuestionById, notes, selectedYear, selectedPhase }} />}
+              {view === 'pinboard' && <PinboardView {...{ goHome, setView, setSubject, setTopic, setPracticeMode, setMode, bookmarks, onOpenQuestion: openQuestionById, notes, selectedYear, selectedPhase }} />}
               {view === 'image-occlusion' && <ImageOcclusionView {...{ goHome, setView }} />}
               {view === 'phase-wrapped' && <PhaseWrappedView {...{ goHome, history, srCards, bookmarks, customQuestions, selectedYear }} />}
               {view === 'connect-apps' && <ConnectAppsView {...{ goHome, setView, user, history, selectedYear }} />}
@@ -3483,7 +3597,7 @@ export default function App() {
             />
           )}
           {sketchOpen && (
-            <OptionalFeature label="กระดานวาด" onClose={() => setSketchOpen(false)}>
+            <OptionalFeature label="กระดานวาด" onClose={() => setSketchOpen(false)} pending={<OverlayPending label="กำลังเปิดกระดานวาด" />}>
               <ImageAnnotator src={null} mode="sketch" onClose={() => setSketchOpen(false)} />
             </OptionalFeature>
           )}
@@ -3496,7 +3610,14 @@ export default function App() {
           closing fully unmounts the modal too (cleaner than leaving
           a hidden overlay in the tree). */}
       {paletteOpen && (
-        <OptionalFeature label="การค้นหา" onClose={() => setPaletteOpen(false)}>
+        <PaletteShell onClose={() => setPaletteOpen(false)}>
+        <OptionalFeature
+          label="การค้นหา"
+          onClose={() => setPaletteOpen(false)}
+          pending={<PaletteFrame onClose={() => setPaletteOpen(false)} />}
+          failed={(retry) => <PaletteFrame failed onRetry={retry} onClose={() => setPaletteOpen(false)} />}
+          onRetry={CommandPalette.retry}
+        >
           <CommandPalette
             open={paletteOpen}
             ownerId={user?.id || null}
@@ -3537,6 +3658,7 @@ export default function App() {
             isAdmin={isAdmin}
           />
         </OptionalFeature>
+        </PaletteShell>
       )}
 
       {openInstructor && (
@@ -3546,7 +3668,7 @@ export default function App() {
       )}
 
       {voiceSettingsOpen && (
-        <OptionalFeature label="การตั้งค่าเสียง" onClose={() => setVoiceSettingsOpen(false)}>
+        <OptionalFeature label="การตั้งค่าเสียง" onClose={() => setVoiceSettingsOpen(false)} pending={<OverlayPending label="กำลังเปิดการตั้งค่าเสียง" />}>
           <VoiceSettings onClose={() => setVoiceSettingsOpen(false)} />
         </OptionalFeature>
       )}
@@ -3554,7 +3676,7 @@ export default function App() {
       {/* ShortcutSheet — Linear-style "?" help. Mounted only when open
           (lazy chunk loads on first '?' press from exam/review). */}
       {shortcutSheetOpen && (
-        <OptionalFeature label="รายการปุ่มลัด" onClose={() => setShortcutSheetOpen(false)}>
+        <OptionalFeature label="รายการปุ่มลัด" onClose={() => setShortcutSheetOpen(false)} pending={<OverlayPending label="กำลังเปิดรายการปุ่มลัด" />}>
           <ShortcutSheet open={shortcutSheetOpen} onClose={() => setShortcutSheetOpen(false)} />
         </OptionalFeature>
       )}
@@ -3563,7 +3685,7 @@ export default function App() {
           fragment (outside .vmx-app) so it overlays any view, exactly like
           ShortcutSheet. */}
       {tourOpen && (
-        <OptionalFeature label="วิธีใช้" onClose={() => { setTourOpen(false); setTourStep(0); }}>
+        <OptionalFeature label="วิธีใช้" onClose={() => { setTourOpen(false); setTourStep(0); }} pending={<OverlayPending label="กำลังเปิดวิธีใช้" />}>
           <OnboardingTour
             step={tourStep}
             onNext={() => setTourStep((s) => s + 1)}

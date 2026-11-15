@@ -1,0 +1,253 @@
+/* ============================================================
+   Wrap-up: the revision deck (components/WrapDeck.jsx) and the slide under a
+   cited line (components/WrapSlide.jsx). Chunk-scoped: loaded with the
+   wrap-up page only, never on first load. Tokens only: docs/DESIGN_SYSTEM.md.
+   ============================================================ */
+
+/* The slide under the line that cites it (components/WrapSlide.jsx): the page
+   whole, at its own shape, so the image arriving moves nothing. Capped on a
+   wide screen so a slide never outweighs the line it explains. */
+.vmx-wrap-slide { margin: 6px 0 4px; max-width: 520px; }
+.vmx-wrap-slide .vmx-wrap-slide-frame { margin-top: 0; background: var(--clr-surface-2); }
+.vmx-wrap-slide[data-state="wait"] .vmx-wrap-slide-frame { background: var(--clr-surface-2); }
+.vmx-wrap-slide[data-state="failed"] .vmx-wrap-slide-frame, .vmx-wrap-slide[data-state="offline"] .vmx-wrap-slide-frame { cursor: pointer; color: var(--clr-ink-soft); }
+/* The overview folded to two lines (views/WrapUpView.jsx WrapIntro, lib/wrap-intro.js). */
+.vmx-wrap-intro-box { position: relative; margin: 0 0 8px; }
+.vmx-wrap-intro-box > .vmx-wrap-intro { margin: 0; }
+/* Folded: room below the second line so the 44 px target centred on it stays inside the box. */
+.vmx-wrap-intro-box.is-folded { padding-bottom: 11px; }
+.vmx-wrap-intro.is-folded { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; }
+/* "อ่านต่อ" at the end of the second line, over a band the height of that line that fades the cut text. */
+.vmx-wrap-intro-more { appearance: none; position: absolute; right: 0; bottom: 0; min-height: var(--touch-min); margin: 0; padding: 0 0 0 36px; border: 0; background: linear-gradient(90deg, transparent, var(--clr-bg) 30px) no-repeat 0 50% / 100% 24px; color: var(--clr-ink); font: inherit; font-size: 14px; line-height: 1.6; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.vmx-wrap-intro:focus { outline: none; }
+.vmx-wrap-intro:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; border-radius: var(--r-sm); }
+/* The key to the kinds of line, one tap away (WrapUpView): a 44 px summary, the rows inside unchanged. */
+.vmx-wrap-howto { margin: 0; }
+.vmx-wrap-howto > summary { display: inline-flex; align-items: center; gap: 6px; min-height: var(--touch-min); padding: 0; font-size: 14px; font-weight: 600; color: var(--clr-ink-soft); cursor: pointer; list-style: none; }
+.vmx-wrap-howto > summary::-webkit-details-marker { display: none; }
+.vmx-wrap-howto > summary::before { content: ''; width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(-45deg); transition: transform var(--vm-dur-control) var(--vm-ease-control); }
+.vmx-wrap-howto[open] > summary::before { transform: rotate(45deg); }
+.vmx-wrap-howto > summary:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; border-radius: var(--r-sm); }
+.vmx-wrap-howto[open] > .vmx-wrap-legend { margin-bottom: 6px; }
+@media (prefers-reduced-motion: reduce) { .vmx-wrap-howto > summary::before { transition: none; } }
+.vmx-wrap-intro-more:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; border-radius: var(--r-sm); }
+
+/* The revision deck (components/WrapDeck.jsx): one card per screen, the
+   controls under the thumb, the progress where the eye returns. */
+.vmx-deck-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin: 0 0 8px; }
+.vmx-deck-bar .vmx-wrap-mode { margin: 0; }
+.vmx-deck-pile-btn { appearance: none; min-height: var(--touch-min); display: inline-flex; align-items: center; gap: 6px; padding: 0 14px; border: 1px solid var(--clr-border); border-radius: var(--r-pill); background: var(--clr-surface); color: var(--clr-ink); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+.vmx-deck-pile-btn b { font-variant-numeric: tabular-nums; }
+/* The pile with nothing in it: a quiet line in the place of the button, not pressable. */
+.vmx-deck-pile-empty { display: inline-flex; align-items: center; min-height: var(--touch-min); font-size: 14px; color: var(--clr-ink-soft); }
+.vmx-deck-pile-btn:hover { border-color: var(--clr-ink); }
+.vmx-deck-pile-btn:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
+.vmx-deck-progress { position: sticky; top: 0; z-index: 2; padding: 6px 0 8px; margin: 0 0 10px; background: var(--clr-bg); }
+.vmx-deck-segs { display: flex; gap: 2px; height: 6px; }
+.vmx-deck-segs i { flex: 1 1 0; min-width: 2px; border-radius: 2px; background: var(--clr-border); }
+.vmx-deck-segs i.is-known { background: var(--clr-sage); }
+.vmx-deck-segs i.is-again { background: var(--clr-gold); }
+.vmx-deck-segs i.is-now { background: var(--clr-ink); }
+.vmx-deck-where { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 12px; margin-top: 6px; font-size: 14px; line-height: 1.4; color: var(--clr-ink); font-variant-numeric: tabular-nums; }
+.vmx-deck-where > span:first-child { font-weight: 700; }
+.vmx-deck-lect { color: var(--clr-ink-soft); }
+.vmx-deck-card { border: 1px solid var(--clr-border); border-radius: var(--r-lg); background: var(--clr-surface); padding: 14px; }
+.vmx-deck-head { display: flex; align-items: flex-start; gap: 10px; margin: 0 0 12px; }
+.vmx-deck-head h2 { margin: 2px 0; font-size: 20px; line-height: 1.2; letter-spacing: 0; font-weight: 700; color: var(--clr-ink); text-wrap: balance; }
+.vmx-deck-head h2:focus { outline: none; }
+.vmx-deck-head h2:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
+.vmx-deck-facets { display: grid; gap: 8px; }
+.vmx-deck-facet { border: 1px solid var(--clr-border); border-radius: var(--r-sm); background: var(--clr-bg); }
+.vmx-deck-facet.is-open { background: var(--clr-surface); }
+.vmx-deck-facet-h { appearance: none; width: 100%; min-height: var(--touch-min); display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 6px 12px; border: 0; background: none; color: var(--clr-ink); font: inherit; font-size: 14px; text-align: left; cursor: pointer; border-radius: var(--r-sm); }
+.vmx-deck-facet-h:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: -2px; }
+.vmx-deck-facet-h .vmx-wrap-list-label { margin: 0; color: var(--clr-ink); font-weight: 700; }
+.vmx-deck-facet-l { font-weight: 700; }
+.vmx-deck-facet-h b { margin-left: 6px; font-weight: 600; color: var(--clr-ink-soft); font-variant-numeric: tabular-nums; }
+.vmx-deck-cover { flex: 0 0 auto; padding: 3px 10px; border-radius: var(--r-pill); background: var(--clr-surface-2); color: var(--clr-ink-soft); font-size: 14px; font-weight: 600; }
+.vmx-deck-facet.is-open .vmx-deck-cover { background: none; }
+.vmx-deck-facet-b { padding: 0 12px 10px; }
+.vmx-deck-facet-b .vmx-wrap-keylist { margin: 0; }
+.vmx-deck-text { margin: 0; font-size: 15px; line-height: 1.55; color: var(--clr-ink); }
+.vmx-deck-lines { margin: 0; padding-left: 18px; }
+.vmx-deck-lines li { font-size: 14px; line-height: 1.55; color: var(--clr-ink); margin: 0 0 8px; }
+.vmx-deck-aside { margin-top: 12px; }
+.vmx-deck-aside-l { margin: 0 0 6px; font-size: 14px; font-weight: 700; color: var(--clr-gold-text); }
+.vmx-deck-aside-l span { font-weight: 400; color: var(--clr-ink-soft); }
+.vmx-deck-aside .vmx-wrap-slide { max-width: none; margin: 0; }
+/* The quick round: nothing covered, the two things that decide a question, larger. */
+.vmx-deck[data-pace="quick"] .vmx-wrap-keylist li { font-size: 17px; line-height: 1.5; padding-top: 8px; padding-bottom: 8px; }
+.vmx-deck[data-pace="quick"] .vmx-wrap-pitfall { font-size: 16px; }
+/* The controls stay under the thumb as the card scrolls. */
+.vmx-deck-foot { position: sticky; bottom: calc(var(--vmx-bottom-nav-h, 0px) + env(safe-area-inset-bottom, 0px)); z-index: 2; display: grid; gap: 6px; padding: 10px 0; margin-top: 10px; background: var(--clr-bg); border-top: 1px solid var(--clr-border); }
+.vmx-deck-hint { margin: 0; text-align: center; font-size: 14px; color: var(--clr-ink-soft); }
+.vmx-deck-rate { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.vmx-deck-btn { appearance: none; min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 0 16px; border: 1px solid var(--clr-border); border-radius: var(--r-sm); background: var(--clr-surface); color: var(--clr-ink); font: inherit; font-size: 15px; font-weight: 700; text-align: center; cursor: pointer; }
+.vmx-deck-btn.is-primary { background: var(--clr-sage); border-color: var(--clr-sage); color: var(--clr-sage-on); }
+.vmx-deck-btn.is-again { border-color: var(--clr-ink); }
+.vmx-deck-btn.is-quiet { border-color: transparent; background: none; color: var(--clr-sage-text); }
+.vmx-deck-btn.is-wide { width: 100%; }
+.vmx-deck-btn:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
+.vmx-deck-keys { display: none; margin: 0; text-align: center; font-size: 14px; color: var(--clr-ink-soft); }
+.vmx-deck-keys kbd { display: inline-block; min-width: 22px; margin: 0 2px 0 8px; padding: 0 5px; border: 1px solid var(--clr-border); border-radius: 4px; background: var(--clr-surface); font-family: var(--vmx-sans); font-size: 12px; line-height: 20px; }
+.vmx-deck-keys kbd + kbd { margin-left: 0; }
+@media (hover: hover) and (pointer: fine) and (min-width: 641px) { .vmx-deck-keys { display: block; } }
+/* What is left to revise: inline at the end of the deck, or as a sheet over it. */
+.vmx-deck-sum h2 { margin: 0 0 4px; font-size: 20px; line-height: 1.2; letter-spacing: 0; font-weight: 700; color: var(--clr-ink); }
+.vmx-deck-sum h2:focus { outline: none; }
+.vmx-deck-sum-line { margin: 0 0 12px; font-size: 14px; color: var(--clr-ink-soft); }
+.vmx-deck-sum-line b { color: var(--clr-ink); font-variant-numeric: tabular-nums; }
+.vmx-deck-pile { margin: 0 0 12px; padding: 0; list-style: none; display: grid; gap: 0; }
+.vmx-deck-pile li { border-top: 1px solid var(--clr-border); }
+.vmx-deck-pile button { appearance: none; width: 100%; min-height: var(--touch-min); display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border: 0; background: none; color: var(--clr-ink); font: inherit; text-align: left; cursor: pointer; }
+.vmx-deck-pile button:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
+.vmx-deck-pile-text { display: grid; gap: 2px; min-width: 0; font-size: 14px; line-height: 1.45; }
+.vmx-deck-pile-text b { font-size: 15px; }
+.vmx-deck-pile-text span { color: var(--clr-ink-soft); overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.vmx-deck-sum-actions { display: grid; gap: 8px; }
+.vmx-deck > .vmx-deck-sum { border: 1px solid var(--clr-border); border-radius: var(--r-lg); background: var(--clr-surface); padding: 16px; }
+/* The app's own neutral modal scrim (.vmx-modal-overlay): --clr-ink is cream in dark mode and laid a pale veil over a dark page. */
+.vmx-deck-scrim { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: flex-end; justify-content: center; background: rgba(0, 0, 0, 0.45); }
+.vmx-deck-sheet { position: relative; width: min(560px, 100%); max-height: 86vh; max-height: 86dvh; overflow: auto; padding: 20px 16px calc(16px + env(safe-area-inset-bottom)); border-radius: var(--r-lg) var(--r-lg) 0 0; background: var(--clr-surface); color: var(--clr-ink); }
+.vmx-deck-sheet:focus { outline: none; }
+.vmx-deck-sheet-x { position: absolute; top: 6px; right: 6px; width: var(--touch-min); height: var(--touch-min); border: 0; border-radius: 999px; background: none; color: var(--clr-ink-soft); font-size: 24px; line-height: 1; cursor: pointer; }
+.vmx-deck-sheet-x:focus-visible { outline: 2px solid var(--clr-ink); }
+.vmx-deck-sheet .vmx-deck-sum h2 { padding-right: 44px; }
+@media (min-width: 720px) {
+  .vmx-deck-scrim { align-items: center; }
+  .vmx-deck-sheet { border-radius: var(--r-lg); }
+}
+/* A wide screen: the card on the left, the slide it cites beside it. */
+@media (min-width: 960px) {
+  .vmx-deck-card.has-slide { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+  .vmx-deck-card.has-slide .vmx-deck-aside { margin-top: 0; position: sticky; top: 64px; }
+  .vmx-deck-rate { max-width: 520px; margin: 0 auto; width: 100%; }
+  .vmx-deck-foot > .vmx-deck-btn.is-wide { max-width: 520px; margin: 0 auto; }
+}
+/* Motion that explains, from one spring system: three damped springs (mass 1,
+   k = (2 pi / response)^2, c = 4 pi zeta / response) integrated in 1/240 s steps
+   and baked into linear() curves, the same ones the deck's prototype was played
+   with. Control: the next card rises from where the deck is. Sheet: the pile
+   comes up from below. Chip: the pile's count pops when a card lands on it.
+   Each is its own choice under reduced motion, and none moves layout. */
+@media (prefers-reduced-motion: no-preference) {
+  .vmx-deck-card { animation: vmx-deck-in 480ms linear(0,0.0313,0.1078,0.209,0.3202,0.4313,0.5358,0.6301,0.7123,0.7819,0.8394,0.8857,0.9221,0.9501,0.971,0.9861,0.9966,1.0036,1.0079,1.0102,1.011,1.011,1.0103,1.0092,1.008,1.0068,1.0056,1.0045,1.0035,1.0027,1.002,1.0015,1) both; }
+  .vmx-deck-sheet { animation: vmx-deck-sheet-in 661ms linear(0,0.0344,0.1143,0.2148,0.3206,0.4226,0.5162,0.5991,0.6708,0.7318,0.7829,0.8252,0.8599,0.8882,0.9112,0.9296,0.9444,0.9562,0.9656,0.973,0.9788,0.9835,0.9871,0.99,0.9922,0.9939,0.9953,0.9964,0.9972,0.9978,0.9983,0.9987,1) both; }
+  .vmx-deck-pile-btn b.is-new { display: inline-block; animation: vmx-deck-pop 491ms linear(0,0.0443,0.1514,0.2896,0.4364,0.5764,0.7006,0.8045,0.8869,0.9488,0.9924,1.0209,1.0373,1.0447,1.0458,1.0427,1.0371,1.0306,1.0239,1.0176,1.0122,1.0077,1.0042,1.0016,0.9999,0.9988,0.9981,0.9979,0.9979,0.9981,0.9984,0.9987,1) both; }
+  .vmx-deck-segs i { transition: background-color 160ms var(--ease-out); }
+}
+@keyframes vmx-deck-in { from { opacity: 0; transform: translate3d(0, 16px, 0) scale(0.98); } to { opacity: 1; transform: none; } }
+@keyframes vmx-deck-sheet-in { from { transform: translate3d(0, 40px, 0); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes vmx-deck-pop { from { transform: scale(1.5); } to { transform: none; } }
+
+/* The slide frame while its picture comes (components/WrapSlide.jsx): the
+   page's skeleton tone, never a white box. The image paints white only once
+   it has pixels. */
+.vmx-wrap-slide[data-state="wait"] .vmx-wrap-slide-frame { background: linear-gradient(90deg, var(--clr-surface-2) 0%, var(--clr-surface) 50%, var(--clr-surface-2) 100%); background-size: 200% 100%; }
+.vmx-wrap-slide[data-state="wait"] .vmx-evi-page img { background: transparent; }
+@media (prefers-reduced-motion: no-preference) {
+  .vmx-wrap-slide[data-state="wait"] .vmx-wrap-slide-frame { animation: vmx-shimmer 1.4s ease-in-out infinite; }
+}
+/* The full view opens on the whole page; on a phone a landscape page can be magnified on request. */
+.vmx-image-lightbox__hint .vmx-wrap-slide-zoom { pointer-events: auto; display: block; margin: 8px auto 0; min-height: var(--touch-min); padding: 0 18px; border: 1px solid color-mix(in srgb, var(--clr-surface) 55%, transparent); border-radius: var(--r-pill); background: color-mix(in srgb, var(--clr-ink) 80%, transparent); color: var(--clr-surface); font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
+.vmx-image-lightbox__hint .vmx-wrap-slide-zoom:focus-visible { outline: 3px solid var(--clr-surface); outline-offset: 2px; }
+
+/* While the page loads: its shape, in the skeleton tone. */
+.vmx-wrap-skel { display: grid; gap: 10px; padding-top: 8px; }
+.vmx-wrap-skel .vmx-skeleton-line, .vmx-wrap-skel .vmx-skeleton-card { margin: 0; }
+
+/* A question a line cites, named by its paper (components/WrapParts.jsx). */
+.vmx-wrap-q { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0 4px; }
+.vmx-wrap-q-name { margin-right: 2px; }
+.vmx-wrap-q-open { appearance: none; min-height: var(--touch-min); min-width: var(--touch-min); display: inline-flex; align-items: center; justify-content: center; padding: 0; border: 0; background: none; color: var(--clr-sage-text); font: inherit; font-size: 14px; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; cursor: pointer; }
+.vmx-wrap-q-open:hover { text-decoration-thickness: 2px; }
+.vmx-wrap-q-open:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: -4px; border-radius: 4px; }
+
+/* The deck under way on a phone: only the mode switch and the deck's own bar
+   stay above the card, so the card starts in the upper half of the screen. */
+@media (max-width: 640px) {
+  .vmx-wrap[data-deck-started="yes"] .vmx-wrap-hero > :not(.vmx-wrap-mode):not(.vmx-old-content) { display: none; }
+  .vmx-wrap[data-deck-started="yes"] .vmx-wrap-hero { padding: 0 0 4px; margin-bottom: 8px; border-bottom: 0; }
+  .vmx-wrap[data-deck-started="yes"] .vmx-wrap-hero .vmx-wrap-mode { margin: 0; }
+}
+
+/* The differential board (components/WrapBoard.jsx): a step per question
+   asked of the farm, each clue on the left pointing to what it suggests. */
+.vmx-board-head { margin: 0 0 14px; }
+/* Each phrase of the title stays whole where it fits (inline-block wraps inside only when it must). */
+.vmx-board-phrase { display: inline-block; }
+.vmx-board-head h2 { margin: 0 0 6px; font-family: var(--vmx-display); font-size: clamp(22px, 3.4vw, 28px); line-height: 1.2; letter-spacing: 0; font-weight: 700; color: var(--clr-ink); text-wrap: balance; }
+.vmx-board-lede { margin: 0 0 10px; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
+.vmx-board-hide { appearance: none; min-height: var(--touch-min); display: inline-flex; align-items: center; gap: 8px; padding: 0 16px; border: 1px solid var(--clr-border); border-radius: var(--r-pill); background: var(--clr-surface); color: var(--clr-ink); font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
+.vmx-board-hide[aria-pressed="true"] { background: var(--clr-ink); border-color: var(--clr-ink); color: var(--clr-bg); }
+.vmx-board-hide:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
+.vmx-board-hint { margin: 8px 0 0; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
+.vmx-board-steps { margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; }
+.vmx-board-step { position: relative; border: 1px solid var(--clr-border); border-radius: var(--r-lg); background: var(--clr-surface); padding: 14px; }
+/* The steps are one path: a short line joins each to the next. */
+.vmx-board-step + .vmx-board-step::before { content: ""; position: absolute; left: 27px; top: -15px; width: 2px; height: 14px; background: var(--clr-border); }
+.vmx-board-step-h { display: flex; align-items: center; gap: 10px; margin: 0 0 4px; font-size: 18px; line-height: 1.2; letter-spacing: 0; font-weight: 700; color: var(--clr-ink); }
+.vmx-board-stepn { flex: 0 0 auto; width: 28px; height: 28px; display: grid; place-items: center; border-radius: 999px; background: var(--clr-ink); color: var(--clr-bg); font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.vmx-board-rows { margin: 0; padding: 0; list-style: none; }
+.vmx-board-row { display: grid; grid-template-columns: minmax(0, 0.85fr) 14px minmax(0, 1.15fr); gap: 8px; align-items: start; padding: 10px 0; border-top: 1px solid var(--clr-border); }
+.vmx-board-row:first-child { border-top: 0; }
+.vmx-board-clue { padding: 9px 10px; border-radius: var(--r-sm); background: var(--clr-surface-2); font-size: 15px; line-height: 1.4; color: var(--clr-ink); overflow-wrap: break-word; }
+.vmx-board-arrow { padding-top: 10px; font-size: 15px; line-height: 1.4; color: var(--clr-ink-soft); text-align: center; }
+.vmx-board-to { display: grid; gap: 6px; min-width: 0; }
+.vmx-board-note { margin: 0; font-size: 14px; line-height: 1.45; color: var(--clr-ink-soft); }
+.vmx-board-result { padding: 9px 0; font-size: 15px; line-height: 1.4; font-weight: 700; color: var(--clr-ink); overflow-wrap: break-word; }
+.vmx-board-node { appearance: none; width: 100%; min-height: var(--touch-min); display: flex; align-items: flex-start; gap: 8px; padding: 8px 10px; border: 1px solid var(--clr-ink-soft); border-radius: var(--r-sm); background: var(--clr-bg); color: var(--clr-ink); font: inherit; text-align: left; cursor: pointer; }
+.vmx-board-node:hover { border-color: var(--clr-ink); }
+.vmx-board-node:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
+.vmx-board-node.is-picked { background: var(--clr-gold-soft); border-color: var(--clr-gold); }
+.vmx-board-node .vmx-wrap-n { width: 24px; height: 24px; font-size: 12px; }
+.vmx-board-node-text { display: grid; gap: 2px; min-width: 0; }
+.vmx-board-node-text b { font-size: 15px; line-height: 1.35; overflow-wrap: break-word; }
+.vmx-board-node-text span { font-size: 14px; line-height: 1.4; color: var(--clr-ink-soft); overflow-wrap: break-word; }
+.vmx-board-node.is-picked .vmx-board-node-text span { color: var(--clr-ink); }
+.vmx-board-cover { appearance: none; width: 100%; min-height: var(--touch-min); display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 10px; border: 1.5px dashed var(--clr-ink-soft); border-radius: var(--r-sm); background: none; color: var(--clr-ink-soft); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+.vmx-board-cover:hover { color: var(--clr-ink); border-color: var(--clr-ink); }
+.vmx-board-cover:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
+/* A phone: the clue on its own line and what it points to under it, so a
+   disease's name and notes get the card's width instead of a third of it. */
+@media (max-width: 559px) {
+  .vmx-board-row { grid-template-columns: 18px minmax(0, 1fr); gap: 6px 4px; }
+  .vmx-board-clue { grid-column: 1 / -1; justify-self: start; max-width: 100%; }
+  .vmx-board-arrow { padding-top: 9px; text-align: left; }
+}
+.vmx-board-cite { display: flex; gap: 8px; align-items: flex-start; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--clr-border); font-size: 14px; color: var(--clr-ink-soft); }
+.vmx-board-cite-l { flex: 0 0 auto; font-weight: 700; color: var(--clr-ink); line-height: 1.5; }
+.vmx-board-cite ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 2px; min-width: 0; }
+.vmx-board-cite li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 6px; line-height: 1.5; }
+.vmx-board-cite-n { font-weight: 600; color: var(--clr-ink); }
+.vmx-board-cite .vmx-wrap-src { display: inline-flex; flex-flow: row wrap; align-items: center; gap: 0 6px; }
+/* One disease's card: in the sheet on a phone, in the pane on a wide screen. */
+.vmx-board-detail-head { display: flex; align-items: flex-start; gap: 10px; margin: 0 0 8px; padding-right: 40px; }
+.vmx-board-detail-head h3 { margin: 2px 0; font-size: 20px; line-height: 1.2; letter-spacing: 0; font-weight: 700; color: var(--clr-ink); }
+.vmx-board-detail-head h3:focus { outline: none; }
+.vmx-board-detail-head h3:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
+.vmx-board-agent { margin: 0 0 10px; font-size: 14px; line-height: 1.5; color: var(--clr-ink); }
+.vmx-board-slide { margin: 0 0 10px; }
+.vmx-board-slide figcaption { margin: 0 0 4px; font-size: 14px; font-weight: 700; color: var(--clr-gold-text); }
+.vmx-board-slide figcaption span { font-weight: 400; color: var(--clr-ink-soft); }
+.vmx-board-slide .vmx-wrap-slide { max-width: none; margin: 0; }
+.vmx-board-sub { margin: 12px 0 2px; font-size: 14px; font-weight: 700; color: var(--clr-ink); }
+.vmx-board-sub b { margin-left: 4px; font-weight: 600; color: var(--clr-ink-soft); }
+.vmx-board-keys .vmx-wrap-keylist { margin: 0; }
+.vmx-board-detail .vmx-wrap-list { margin-top: 12px; }
+.vmx-board-read { width: 100%; margin-top: 12px; }
+.vmx-board-pane-empty { margin: 0; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
+/* A wide screen: the board and, beside it, the disease picked on it. */
+@media (min-width: 1024px) {
+  /* The board takes the width the screen has, not the reading measure (the
+     shell's main column is 820 px for reading views). A browser without :has
+     keeps the reading column, where the board still fits beside its pane. */
+  .vmx-main:has(.vmx-wrap[data-mode="board"]) { max-width: 1100px; }
+  .vmx-wrap[data-mode="board"] { max-width: none; }
+  .vmx-board-body.is-wide { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 0.5fr); gap: 20px; align-items: start; }
+  .vmx-board-pane { position: sticky; top: 72px; max-height: calc(100vh - 88px); overflow: auto; overscroll-behavior: contain; border: 1px solid var(--clr-border); border-radius: var(--r-lg); background: var(--clr-surface); padding: 16px; }
+  .vmx-board-pane .vmx-board-detail-head { padding-right: 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .vmx-board-node { transition: background-color 160ms var(--ease-out), border-color 160ms var(--ease-out); }
+}

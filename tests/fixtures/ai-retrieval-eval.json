@@ -172,7 +172,7 @@
         "vaccination"
       ]
     },
-    "expect": "PRRS"
+    "expect": "PRRS|swine-control-dx"
   },
   {
     "q": "ไข้เห็บในสุนัขรักษาด้วยยาอะไร",

@@ -41,6 +41,7 @@ import {
   filterIndexed,
   formatBytes,
   getLibraryCatalogFast,
+  forgetLibraryRefusals,
   groupByYearSubject,
   indexDocs,
   displayDocTitle,
@@ -759,7 +760,7 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
       {error && (
         <div role="alert" style={{
           border: '1px solid var(--clr-rose)', background: 'var(--clr-rose-soft)',
-          color: 'var(--clr-rose-text)', borderRadius: 8, padding: '10px 14px',
+          color: 'var(--clr-rose-soft-text)', borderRadius: 8, padding: '10px 14px',
           fontSize: 14, marginBottom: 14,
           display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap',
         }}>
@@ -768,7 +769,7 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
             <button
               type="button"
               className="vmx-btn vmx-btn-sm"
-              onClick={() => { setError(null); setLoading(true); setReloadKey((k) => k + 1); }}
+              onClick={() => { forgetLibraryRefusals(); setError(null); setLoading(true); setReloadKey((k) => k + 1); }}
             >
               ลองใหม่
             </button>
@@ -791,7 +792,7 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
           <button
             type="button"
             className="vmx-btn vmx-btn-sm"
-            onClick={() => { setError(null); setLoading(true); setReloadKey((k) => k + 1); }}
+            onClick={() => { forgetLibraryRefusals(); setError(null); setLoading(true); setReloadKey((k) => k + 1); }}
           >
             ลองใหม่
           </button>

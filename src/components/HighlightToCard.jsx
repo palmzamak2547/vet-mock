@@ -358,7 +358,7 @@ export default function HighlightToCard() {
                       border: '1px solid var(--clr-border)',
                       background: 'var(--clr-surface-2, #f7f6f1)',
                       color: 'var(--clr-ink)',
-                      fontSize: 15,
+                      fontSize: 16,
                       fontFamily: 'inherit',
                       lineHeight: 1.5,
                       resize: 'vertical',
@@ -385,7 +385,7 @@ export default function HighlightToCard() {
                       border: '1px solid var(--clr-border)',
                       background: 'var(--clr-surface-2, #f7f6f1)',
                       color: 'var(--clr-ink)',
-                      fontSize: 15,
+                      fontSize: 16,
                       fontFamily: 'inherit',
                       lineHeight: 1.5,
                       resize: 'vertical',
@@ -409,7 +409,7 @@ export default function HighlightToCard() {
                       border: '1px solid var(--clr-border)',
                       background: 'var(--clr-surface, #fff)',
                       color: 'var(--clr-ink)',
-                      fontSize: 15,
+                      fontSize: 16,
                       fontFamily: 'inherit',
                       boxSizing: 'border-box',
                     }}
@@ -423,7 +423,7 @@ export default function HighlightToCard() {
                   </select>
                 </label>
 
-                <div className="vmx-btn-row" style={{ display: 'flex', gap: 10, justifyContent: 'flex-end', marginTop: 4 }}>
+                <div className="vmx-btn-row" style={{ marginTop: 4 }}>
                   <button
                     type="button"
                     className="vmx-btn vmx-btn-ghost"

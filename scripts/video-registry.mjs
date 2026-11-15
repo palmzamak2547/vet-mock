@@ -20,7 +20,7 @@ import { fileURLToPath } from 'node:url';
 import { takenVideos } from './video-media.mjs';
 import { SUBJECTS_BY_YEAR } from '../src/data/curriculum.js';
 import { allLecturerSets } from '../src/data/lecturer-sets.js';
-import { overlap } from '../src/lib/video-summary-check.js';
+import { overlap, thaiFold } from '../src/lib/video-summary-check.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DATA = process.env.VIDEO_DATA_DIR || 'C:/dev/vetmock-video-data';
@@ -106,6 +106,18 @@ export function readSpaced(run, count = lectureWords) {
 
 /** A deck heading as a chapter title: "CONTAMINATION" -> "Contamination", "Treatment : Goals" -> "Treatment: Goals"; null when it cannot be read. */
 export function tidyHeading(title, count = lectureWords) {
+  // What a slide's text layer adds to a heading (15 Nov, the 2569 decks): a bullet glyph before it
+  // ("o โรคนิวคาสเซิล", "û Intro to zoonoses"), the bullets of the lines after it ("อาการ #IBD o ซึม"),
+  // a source URL, and sara am split off by a space ("การน ำไปใช้").
+  const cleaned = thaiFold(String(title ?? ''))
+    .replace(/^(?:[oûü•▪◦●■§Ø*-]\s+)+/, '')
+    .split(/\s+[oûü•▪◦●■§Ø]\s+/)[0]
+    .replace(/\s*https?:\/\/\S+/g, '')
+    .replace(/\s+ำ/g, 'ำ');
+  title = cleaned;
+  // Some decks' fonts map every sara aa to sara am ("หลังจำกทำลำยสัตว์", "อำกำร"): two or more
+  // sara am and not one sara aa is that corruption, never Thai as written, so it is no title.
+  if ((title.match(/ำ/g) || []).length >= 2 && !/า/.test(title)) return null;
   const spaced = SPACED.test(String(title));
   let unread = false;
   let t = tidyText(title).replace(new RegExp(SPACED.source, 'g'), (run) => readSpaced(run, count) ?? ((unread = true), run))
@@ -135,11 +147,12 @@ export function wholeHeading(title, pageText = '') {
 }
 
 const DATE_TITLE = /^\d{1,2}[/.-]\d{1,2}[/.-]\d{2,4}(?:\s+[A-Za-z])?$/;
-const INSTITUTION = /ภาควิชา|คณะสัตวแพทยศาสตร์|จุฬาลงกรณ์มหาวิทยาลัย|chulalongkorn university|faculty of veterinary/i;
+// The faculty's name, or a course's title slide with its seven-digit code ("วิชา Avian Medicine (3107510)").
+const INSTITUTION = /ภาควิชา|คณะสัตวแพทยศาสตร์|จุฬาลงกรณ์มหาวิทยาลัย|chulalongkorn university|faculty of veterinary|\(\d{7}\)/i;
 const CLOSING = /^(?:thank(?:s| you)?|the end|q\s*&\s*a|questions?)$/i;
 // A deck's running header ("Equine" on every slide), a stray letter ("o") or a figure's label
 // ("Figure 1", the Year-5 shrimp deck) names no stretch.
-const NO_NAME = /^(?:[A-Za-z]|(?:equine|mare|stallion|horse|swine|porcine|bovine|cattle|canine|feline|avian|poultry|ruminant|animal|dog|cat)s?|(?:fig(?:ure)?\.?|table|ตาราง|ภาพที่?)\s*\d+[a-z]?)$/i;
+const NO_NAME = /^(?:[A-Za-z]|(?:equine|mare|stallion|horse|swine|porcine|bovine|cattle|canine|feline|avian|poultry|ruminant|animal|dog|cat)s?|(?:fig(?:ure)?\.?|table|ตาราง|ภาพที่?|หน้า(?:ที่)?|page|slide)\s*\d+[a-z]?)$/i;
 /**
  * The chapter panel's titles, in order. A title is a slide's heading; null (a
  * stretch with no slides, titled by two words it heard), a date, the faculty's

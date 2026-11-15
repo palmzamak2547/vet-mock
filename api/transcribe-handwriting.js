@@ -19,7 +19,8 @@
 // button degrades instead of breaking.
 // ============================================================
 
-import { sendRateLimitFailure, rateLimit, clientIP, allowedOrigin } from './_lib/rate-limit.js';
+import { sendRateLimitFailure, rateLimit, allowedOrigin, limitCaller } from './_lib/rate-limit.js';
+import { readJsonBody, sendBadBody } from './_lib/body.js';
 import { visionJSON, extractJSON, llmConfigured, LLM_DAILY_BUDGET, ANTHROPIC_MODEL } from './_lib/llm.js';
 import { requireChula } from './_lib/chula-gate.js';
 
@@ -77,15 +78,15 @@ export default async function handler(req, res) {
   const gate = await requireChula(req, res);
   if (!gate) return undefined;
 
-  const ip = clientIP(req);
-  const rl = await rateLimit(`handwriting:${ip}`, 40, 60 * 60 * 1000);
+  const rl = await limitCaller(req, gate, 'handwriting', 40, 60 * 60 * 1000);
   if (!rl.ok) return sendRateLimitFailure(res, rl);
 
   if (!llmConfigured()) {
     return res.status(503).json({ error: 'handwriting not configured', hint: 'No model key is set. Typing and dictation still work.' });
   }
 
-  const body = req.body || {};
+  const body = readJsonBody(req);
+  if (!body) return sendBadBody(res);
   const mime = String(body.mime || '');
   const image = String(body.image || '');
   if (!MIME.has(mime)) return res.status(400).json({ error: 'mime must be image/png, image/jpeg or image/webp' });

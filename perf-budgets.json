@@ -1,6 +1,15 @@
 {
   "about": "The performance budgets CI fails on. A budget is an alarm, not a target: it sits at the size measured when it was set plus a stated headroom, with the measured number beside it. Raise one only with a measured reason in the pull request (docs/GITFLOW.md section 1). tests/unit/perf-budget.test.mjs rejects a budget that is not exactly its measured value plus the rule, so a looser number cannot be typed in. bundle is rewritten by node scripts/perf-budget.mjs --write; firstLoad and cls by UPDATE_PERF_BUDGETS=1 npx playwright test tests/e2e/perf-budget.spec.js (one --project at a time, --workers=1).",
   "headroom": 0.03,
+  "lazyOnly": {
+    "about": "Source modules that load only when a boot or a tap needs them. Each must be its own dynamic chunk outside the route's static imports; perf:budget fails otherwise. tests/unit/first-load-lazy.test.mjs holds the same list against the source import graph.",
+    "route": "firstLoad",
+    "modules": [
+      "src/lib/origin-move.js",
+      "src/lib/native-app.js",
+      "src/components/MotionSettings.jsx"
+    ]
+  },
   "bundle": {
     "about": "gzip level 9, Node zlib, each file on its own, from dist/.vite/manifest.json (npm run perf:budget). A route is its manifest entries (a key, or a chunk name) with their static imports and CSS; `after` leaves out what that route already loaded, so a lazy view counts what opening it adds to a visit that has the first load.",
     "routes": {
@@ -10,12 +19,12 @@
           "index.html"
         ],
         "js": {
-          "measured": 221245,
-          "budget": 227900
+          "measured": 233690,
+          "budget": 240800
         },
         "css": {
-          "measured": 46504,
-          "budget": 47900
+          "measured": 49198,
+          "budget": 50700
         }
       },
       "atlas": {
@@ -24,12 +33,12 @@
           "atlas.html"
         ],
         "js": {
-          "measured": 90701,
-          "budget": 93500
+          "measured": 79008,
+          "budget": 81400
         },
         "css": {
-          "measured": 50369,
-          "budget": 51900
+          "measured": 52746,
+          "budget": 54400
         }
       },
       "atlasLabels": {
@@ -39,8 +48,8 @@
         ],
         "after": "atlas",
         "js": {
-          "measured": 2150,
-          "budget": 2300
+          "measured": 2261,
+          "budget": 2400
         },
         "css": {
           "measured": 399,
@@ -54,8 +63,8 @@
         ],
         "after": "firstLoad",
         "js": {
-          "measured": 87577,
-          "budget": 90300
+          "measured": 88366,
+          "budget": 91100
         },
         "css": {
           "measured": 0,
@@ -69,8 +78,8 @@
         ],
         "after": "firstLoad",
         "js": {
-          "measured": 151948,
-          "budget": 156600
+          "measured": 158674,
+          "budget": 163500
         },
         "css": {
           "measured": 0,
@@ -84,8 +93,8 @@
         ],
         "after": "firstLoad",
         "js": {
-          "measured": 25060,
-          "budget": 25900
+          "measured": 25600,
+          "budget": 26400
         },
         "css": {
           "measured": 0,
@@ -99,8 +108,8 @@
         ],
         "after": "firstLoad",
         "js": {
-          "measured": 46027,
-          "budget": 47500
+          "measured": 46293,
+          "budget": 47700
         },
         "css": {
           "measured": 0,
@@ -113,13 +122,14 @@
           "KnowledgeView"
         ],
         "after": "firstLoad",
+        "note": "5.221.0: js 126,626 B (5.218.0 measurement, 130,500 B budget) to 131,456 B (budget 135,400 B, the rule). The wiki registry data grew with the final-paper notes: Swine 8 topics and 64 sections, One Health 5 topics and 38 sections, Equine Medicine 2 new topics (equine-derm, equine-surgery-wound) with 163 sections written or rewritten; the wiki went from 235 topics and 1,897 sections on origin/main of 15 Nov to 249 and 2,099.",
         "js": {
-          "measured": 121269,
-          "budget": 125000
+          "measured": 132091,
+          "budget": 136100
         },
         "css": {
-          "measured": 11958,
-          "budget": 12400
+          "measured": 12076,
+          "budget": 12500
         }
       },
       "wikiArticle": {
@@ -132,12 +142,12 @@
         ],
         "after": "firstLoad",
         "js": {
-          "measured": 165129,
-          "budget": 170100
+          "measured": 176424,
+          "budget": 181800
         },
         "css": {
-          "measured": 11958,
-          "budget": 12400
+          "measured": 12076,
+          "budget": 12500
         }
       }
     }

@@ -83,10 +83,16 @@ test('guest mode is called โหมดผู้เยี่ยมชม whereve
   assert.ok(!auth.includes('single-player') && !auth.includes('ไม่ login'), 'the sign-in page still names guest mode another way');
 });
 
-test('a classmate with no username is นิสิต on the buddies list, the name presence publishes', () => {
-  assert.match(read('src/hooks/useStudyBuddies.js'), /\(shown && username\) \|\| 'นิสิต'/);
+// Since the multiplayer wave (Nov 2026) presence carries no name at all and
+// the server names who it may; a classmate it does not name is counted in
+// Thai ("และอีก N คน"), never called guest.
+test('a classmate the server does not name is counted in Thai on the buddies list, never guest', () => {
+  assert.doesNotMatch(read('src/hooks/useStudyBuddies.js'), /'guest'/);
   const panel = read('src/components/StudyBuddiesPanel.jsx');
-  assert.ok(panel.includes("b.username || 'นิสิต'"));
+  assert.ok(panel.includes('และอีก ${rest} คน'), 'unnamed classmates are counted');
+  // shownName (public-display.js) draws a blank name as นิสิต.
+  assert.ok(panel.includes("shownName(b.username)"));
+  assert.match(read('src/lib/public-display.js'), /export const STAND_IN = 'นิสิต';/);
   assert.ok(!panel.includes("|| 'guest'"), 'the panel still falls back to guest');
 });
 

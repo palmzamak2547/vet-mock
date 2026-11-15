@@ -1554,7 +1554,7 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
                     placeholder="ค้นหา (กด /)"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    style={{ padding: '6px 10px', fontSize: 14, borderRadius: 6, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontFamily: 'inherit' }}
+                    style={{ padding: '6px 10px', fontSize: 16, borderRadius: 6, border: '1px solid var(--clr-border)', background: 'var(--clr-bg)', color: 'var(--clr-ink)', fontFamily: 'inherit' }}
                   />
                 )}
               </div>

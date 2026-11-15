@@ -447,7 +447,7 @@ async function find(subject) {
   const docs = loadDocs(subject);
   const index = pageIndex(docs);
   const { questions, SOURCE_DOCS } = await finalPool(subject);
-  const sourceDocs = SOURCE_DOCS.filter((d) => d.subject === subject);
+  const sourceDocs = SOURCE_DOCS.filter((d) => d.subject === subject || (d.alsoSubjects ?? []).includes(subject));
   const byTopic = await topicDocs(subject, docs, questions, sourceDocs);
   const rows = [];
   let done = 0;

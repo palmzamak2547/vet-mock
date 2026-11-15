@@ -113,6 +113,9 @@ export const EXAM_ORIGINS = Object.freeze({
   "Equine Med & Surg final Vet 83 บันทึกหลังสอบ": { kind: 'paper', cohort: 83, paper: 'final' },
   "Equine Med & Surg final Vet 84": { kind: 'paper', cohort: 84, paper: 'final' },
   "Equine Med & Surg final Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: 85, paper: 'final' },
+  // The infectious part of the midterm Vet 84 sat (22 Aug 2567 on their timetable sheet, ticked as midterm): ten
+  // fill-in items a Vet 84 student wrote down on the cover page of the midterm summary. 2569 teaches the topic for the final.
+  "Equine Med & Surg midterm Vet 84 บันทึกหลังสอบ": { kind: 'paper', cohort: 84, paper: 'midterm' },
   "Swine Medicine final Vet 78, Vet 81 บันทึกหลังสอบ": { kind: 'paper', cohort: [78, 81], paper: 'final' },
   "Swine Medicine final Vet 78, Vet 81, Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: [78, 81, 85], paper: 'final' },
   "Swine Medicine final Vet 80, Vet 84 บันทึกหลังสอบ": { kind: 'paper', cohort: [80, 84], paper: 'final' },
@@ -307,6 +310,9 @@ export const EXAM_ORIGINS = Object.freeze({
   "Equine Sx concept (Vet 85) margin marks bandaging as a recurring VCA item": { kind: 'aligned' },
   "Equine Sx concept (Vet 85) margin marks this bandage as a recurring exam item": { kind: 'aligned' },
   "Equine Sx concept (Vet 85) margin notes Robert Jones as the usual VCA item": { kind: 'aligned' },
+  // Vet 85 drew a star beside single statements in their copy of the 2568 dermatology deck, and their final summary
+  // (p. 6) says the dermatology and surgery points were added in the starred slides. A mark, not a paper.
+  "Equine Dermatology (Vet 85) stars this point; their summary of the paper refers to the starred slides": { kind: 'aligned' },
 
   // ── source-doc: Names the document the question was written from ──
   // rows that carry a sourceType
@@ -317,6 +323,7 @@ export const EXAM_ORIGINS = Object.freeze({
   "เขียนขึ้นจากสรุปสถานการณ์ rabies ในเอกสาร Vet 85": { kind: 'source-doc' },
   "เขียนขึ้นจากสรุป bacterial zoonosis ในเอกสาร Vet 85": { kind: 'source-doc' },
   "เขียนขึ้นจากสรุป prion ในเอกสาร Vet 85": { kind: 'source-doc' },
+  "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง import risk assessment": { kind: 'source-doc' },
   "เขียนขึ้นจากสรุป SRRT ในเอกสาร Vet 85": { kind: 'source-doc' },
   "เขียนขึ้นจากสไลด์ angiostrongylosis (Vet 85)": { kind: 'source-doc' },
   "เขียนขึ้นจากสไลด์ animal rabies in Thailand (Vet 85)": { kind: 'source-doc' },
@@ -342,6 +349,15 @@ export const EXAM_ORIGINS = Object.freeze({
   "Avian Medicine final study notes (Vet 85 compilation)": { kind: 'source-doc' },
   "Equine Repro (Vet 85) study summary": { kind: 'source-doc' },
   "Equine Sx concept deck (Vet 85 annotated slides)": { kind: 'source-doc' },
+  "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2569 เรื่อง infectious diseases and biosecurity": { kind: 'source-doc' },
+  "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2569 เรื่อง pythiosis": { kind: 'source-doc' },
+  "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2568 เรื่อง pathological conditions of the equine foot": { kind: 'source-doc' },
+  "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2568 เรื่อง tendon and ligament injuries and treatment": { kind: 'source-doc' },
+  "เขียนขึ้นจากเลคเชอร์ Swine Medicine ปี 2569 เรื่อง trichinosis": { kind: 'source-doc' },
+  "เขียนขึ้นจากเลคเชอร์ Swine Medicine ปี 2569 เรื่อง trypanosomiasis": { kind: 'source-doc' },
+  "เขียนขึ้นจากเลคเชอร์ Swine Medicine ปี 2569 เรื่อง epidemic disease control and diagnostic approach": { kind: 'source-doc' },
+  "เขียนขึ้นจากเลคเชอร์ Aquatic Animal Medicine ปี 2569 เรื่อง aquatic toxicology": { kind: 'source-doc' },
+  "เขียนขึ้นจากเลคเชอร์ Aquatic Animal Medicine ปี 2569 เรื่อง aquarium management and medicine": { kind: 'source-doc' },
   "FIQC final study notes (Vet 85)": { kind: 'source-doc' },
   "Swine Medicine bacterial respiratory lecture slides (Vet 85 notes)": { kind: 'source-doc' },
   "Swine Medicine midterm study notes, author-added lesion list (Vet 85)": { kind: 'source-doc' },

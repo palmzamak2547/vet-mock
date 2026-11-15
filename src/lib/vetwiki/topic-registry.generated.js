@@ -78,6 +78,15 @@ export const VETWIKI_TOPICS = [
     "flagship": false
   },
   {
+    "id": "aquatic-clinic--aqua-toxicology",
+    "subject": "aquatic-clinic",
+    "topic": "aqua-toxicology",
+    "title": "Aquatic toxicology & aquatic animal impact",
+    "icon": "🧪",
+    "summary": "พิษวิทยาทางน้ำ: ความหมายและแหล่งมลพิษ, ระยะของผลพิษตั้งแต่ fate and exposure ถึงผลต่อระบบนิเวศ, ปัจจัย 4 กลุ่มที่ทำให้ความเป็นพิษต่างกัน (สารเคมี, การสัมผัส, น้ำรอบตัว, ตัวสัตว์), กรอบ Adverse Outcome Pathway พร้อมตัวอย่าง endocrine disruptor, สารเคมีตัวเดียวหลายเส้นทางและสารเคมีผสม, biochemical marker 6 กลุ่ม และกรณีศึกษา 2 เรื่อง ตารางสารพิษแต่ละชนิดอยู่ในสไลด์หน้า 24 ถึง 41 และไม่ได้สรุปไว้ในโน้ตนี้",
+    "flagship": false
+  },
+  {
     "id": "aquatic-clinic--aqua-disease-control",
     "subject": "aquatic-clinic",
     "topic": "aqua-disease-control",
@@ -771,6 +780,51 @@ export const VETWIKI_TOPICS = [
     "flagship": false
   },
   {
+    "id": "epidemiology--epidem-disease-frequency",
+    "subject": "epidemiology",
+    "topic": "epidem-disease-frequency",
+    "title": "Measurement of Disease Frequency และ Measurement of Association",
+    "icon": "📊",
+    "summary": "สรุปจากเด็ค Measurement of disease frequency, measurement of association, diagnostic test (สอน 10 ส.ค. 2569) ส่วน p.2-77 ครอบคลุม prevalence, incidence (cumulative incidence และ incidence rate), ดัชนีการตาย การป่วย case fatality และ attack rate แล้วต่อด้วย measurement of association ได้แก่ RR, PR, IRR, odds และ OR, การแปลผลด้วย 95%CI, confounder กับ Mantel-Haenszel และ attributable risk ทั้งระดับกลุ่มสัมผัสและระดับประชากร แบบฝึกหลายข้อในสไลด์ไม่มีเฉลย และมีตัวเลขบางจุดที่ไม่ตรงกันเอง ซึ่งทำเครื่องหมายไว้ตามหน้า",
+    "flagship": false
+  },
+  {
+    "id": "epidemiology--epidem-dx-screening",
+    "subject": "epidemiology",
+    "topic": "epidem-dx-screening",
+    "title": "Diagnostic and screening test",
+    "icon": "🩺",
+    "summary": "สรุปจากเด็ค Measurement of disease frequency, measurement of association, diagnostic test (สอน 10 ส.ค. 2569) ส่วน p.79-99 และ p.108-111 ครอบคลุม screening test กับ diagnostic test, accuracy กับ precision, sensitivity, specificity, accuracy, PPV, NPV, Bayes' theorem กับผลของ prevalence, rule-in กับ rule-out, serial กับ parallel testing, ROC curve กับ Youden J index และเกณฑ์เลือกเครื่องมือคัดกรอง likelihood ratio ปรากฏเพียงในรายชื่อหัวข้อศึกษาเพิ่มเติม (p.111) เด็คไม่ได้สอนเนื้อหา",
+    "flagship": false
+  },
+  {
+    "id": "epidemiology--epidem-test-agreement",
+    "subject": "epidemiology",
+    "topic": "epidem-test-agreement",
+    "title": "Agreement of test",
+    "icon": "🤝",
+    "summary": "สรุปจากเด็ค Measurement of disease frequency, measurement of association, diagnostic test (สอน 10 ส.ค. 2569) ส่วน p.100-107 และ p.111 ครอบคลุมความหมายของ agreement หรือ reliability ของ test, inter-rater กับ intra-rater reliability, Cohen's kappa พร้อมตารางแปลผล, weighted kappa สำหรับหลาย category และการเทียบ test ที่ให้ค่า continuous ด้วย scatter plot, Pearson's correlation coefficient และวิธีที่สไลด์แนะนำ สไลด์ไม่ได้คำนวณค่า kappa หรือค่า r ของตัวอย่างให้",
+    "flagship": false
+  },
+  {
+    "id": "epidemiology--epidem-observational-study",
+    "subject": "epidemiology",
+    "topic": "epidem-observational-study",
+    "title": "Study designs",
+    "icon": "👀",
+    "summary": "เลกเชอร์ Study Design (สอน 17 ส.ค. 2569) เดินตาม 4 ขั้น ตั้งคำถาม เลือกแบบ วัดผล ตรวจอคติ ครอบคลุม cross-sectional, cohort, case-control, ตาราง 2×2 กับ OR, RR, PR, AR, AF และ bias, confounding, interaction, mediator โดยใช้ตัวอย่างสุกร ลูกโค FMD และ Brucellosis เสริมด้วย Module 2 intro ส่วน objective, measurement, การเลือก design และ RR, OR, chi-square ซึ่งสไลด์ปิดของ Module 2 ระบุว่าตัวเลขตัวอย่างทุกตัวในเลกเชอร์นั้นเป็นข้อมูลสมมติเพื่อการสอน",
+    "flagship": false
+  },
+  {
+    "id": "epidemiology--epidem-sample-size",
+    "subject": "epidemiology",
+    "topic": "epidem-sample-size",
+    "title": "Sample size determination",
+    "icon": "🔢",
+    "summary": "เลกเชอร์ Sample size determination (สอน 17 ส.ค. 2569) เริ่มจาก sampling uncertainty และ 4 ปัจจัย คือ standard deviation, significance level, power และ effect size แล้วไล่สูตร mean เดี่ยว, สอง mean, paired, proportion, finite population correction, multi-stage, unmatched case-control, cohort และ RCT, และ dropout พร้อมตัวอย่างตัวเลขและภาพหน้าจอ OpenEpi หรือ Statulator เสริมด้วย Module 2 intro ส่วน sampling unit, วิธีสุ่ม, การปัดขึ้น, imperfect test และ freedom from infection (สไลด์ระบุว่าตัวเลขของ Module 2 เป็นข้อมูลสมมติเพื่อการสอน)",
+    "flagship": false
+  },
+  {
     "id": "epidemiology--epidem-surveillance",
     "subject": "epidemiology",
     "topic": "epidem-surveillance",
@@ -789,6 +843,60 @@ export const VETWIKI_TOPICS = [
     "flagship": false
   },
   {
+    "id": "epidemiology--epidem-control-prevention",
+    "subject": "epidemiology",
+    "topic": "epidem-control-prevention",
+    "title": "Principle of Disease prevention, control and eradication",
+    "icon": "🛡",
+    "summary": "หลักการควบคุม ป้องกัน และกำจัดโรค จากเด็ค 7 (นิยาม, ธรรมชาติของโรค, การป้องกัน 3 ระดับ, เป้าหมายและมาตรการ 14 ข้อ, กรณีศึกษาไข้หวัดนกในประเทศไทย) ต่อด้วยสิ่งที่ Intro. to Module 4 เพิ่ม (control เทียบ elimination เทียบ eradication, monitoring กับ surveillance, ความถี่ของการทำงาน, การประเมินผลโปรแกรม และผลทางเศรษฐกิจสังคม) ตัวเลขทุกตัวใน Module 4 เป็นตัวอย่างสมมติตามที่สไลด์ระบุ",
+    "flagship": false
+  },
+  {
+    "id": "epidemiology--epidem-govt-policy",
+    "subject": "epidemiology",
+    "topic": "epidem-govt-policy",
+    "title": "Government Policy and Practice on Disease prevention, control and eradication",
+    "icon": "🏛",
+    "summary": "นโยบายภาครัฐและการป้องกัน ควบคุม และกำจัดโรคระบาดสัตว์ ตั้งแต่ WOAH Terrestrial Animal Health Code และรายชื่อโรคของ WOAH, การจัดลำดับและแบ่งกลุ่มโรคของไทย, กฎหมายด้านการปศุสัตว์รวม พ.ร.บ.โรคระบาดสัตว์ พ.ศ. 2558, ไปจนถึง 10 กิจกรรมของแผนปฏิบัติการ (เฝ้าระวัง, ภูมิคุ้มกัน, ควบคุมเคลื่อนย้าย, ระบบป้องกันโรคในฟาร์ม, ควบคุมโรค, ฟาร์มและพื้นที่ปลอดโรค, ข้อมูลการผลิต, Televet, เตือนภัยและประชาสัมพันธ์, วิเคราะห์ความเสี่ยง) เด็คนี้ระบุเลขมาตราของ พ.ร.บ. ไว้เพียงมาตราเดียวคือมาตรา 7 (p.50)",
+    "flagship": false
+  },
+  {
+    "id": "epidemiology--epidem-applied-stats",
+    "subject": "epidemiology",
+    "topic": "epidem-applied-stats",
+    "title": "Applied statistic for Epidemiology",
+    "icon": "📐",
+    "summary": "ส่วน Applied statistics ของเด็ค Applied statistics & Data analysis for Epidemiology (สอน 7 ก.ย. 2569) หน้า 5-129 ไล่จากชนิดของข้อมูล, descriptive statistics (ตาราง กราฟ central tendency dispersion skewness), normal distribution และ central limit theorem, confidence interval, hypothesis testing กับ p-value, การเลือก test, parametric tests (Z-test, t-test, paired t-test, ANOVA), chi-squared กับ Fisher's exact test จนถึง correlation และ linear regression ตัวอย่างคำนวณทุกข้อใช้ตัวเลขของสไลด์ เด็คเป็นภาษาอังกฤษทั้งเล่ม",
+    "flagship": false
+  },
+  {
+    "id": "epidemiology--epidem-data-analysis",
+    "subject": "epidemiology",
+    "topic": "epidem-data-analysis",
+    "title": "Epidemiology data analysis",
+    "icon": "📈",
+    "summary": "ส่วนการวิเคราะห์ข้อมูลระบาดวิทยาของเด็ค Applied statistics & Data analysis for Epidemiology (สอน 7 ก.ย. 2569) ใช้สไลด์เปิดเรื่องขั้นตอนการวิเคราะห์ข้อมูล (p.2-4) และส่วน Analyses for Epidemiological data (p.130-163) ครอบคลุม measure of disease frequency (prevalence, cumulative incidence, incidence rate), measure of association (risk ratio, odds ratio และการเลือกตาม study design), logistic regression กับการอ่าน adjusted OR จากงานวิจัย FMD ในเชียงใหม่ และ survival time analysis, epidemic curve, temporal analysis, disease mapping, spatial scan statistics เด็คนี้ไม่มีสไลด์ที่อธิบายวิธี clean ข้อมูล และไม่มีสไลด์เรื่อง confounding หรือ interaction",
+    "flagship": false
+  },
+  {
+    "id": "epidemiology--epidem-software",
+    "subject": "epidemiology",
+    "topic": "epidem-software",
+    "title": "Intro to Module and Software",
+    "icon": "💻",
+    "summary": "ปี 2569 ไม่มีสไลด์ชุดไหนสอนวิธีใช้ซอฟต์แวร์โดยตรง สไลด์ intro ของ Module 1, 2, 4 และ Module 5 (The Future Veterinarian) พูดถึงซอฟต์แวร์แค่ว่าให้ทำแล็บใน Excel, R หรือโปรแกรมที่เลือกเอง ให้สูตรสำหรับ spreadsheet และอ้าง Epitools เป็น further reading หน้าที่แสดงโปรแกรมจริงพร้อมหน้าจออยู่ในเด็ค Sample size determination_TC (p.40-72) ได้แก่ OpenEpi, Statulator, Epitools ของ Ausvet และ G*Power โน้ตนี้รวบรวมเฉพาะส่วนนั้น ส่วน WinEpiscope และ SPSS ที่ตารางสอนเขียนไว้ ไม่พบบนสไลด์ที่ตรวจได้",
+    "flagship": false
+  },
+  {
+    "id": "epidemiology--epidem-current-research",
+    "subject": "epidemiology",
+    "topic": "epidem-current-research",
+    "title": "Epidemiology Application in Current Research",
+    "icon": "🔬",
+    "summary": "ปี 2569 หัวข้อนี้สอนด้วยสไลด์ Module 5 The Future Veterinarian: Epidemiology in the Age of Big Data, AI, One Health & AMR (19 หน้า) เนื้อหาคือการใช้หลักระบาดวิทยาอ่าน big data, ประเมิน AI, คิดแบบ One Health และดูแล AMR สไลด์ระบุเองว่าทุก scenario และตัวเลขเป็นตัวอย่างสมมติเพื่อการสอน งานจริงที่อ้างมีแค่ชื่อแหล่ง เช่น WOAH, PADI-web, Nature H5N1 in U.S. dairy cattle (2024) และ FAO RENOFARM โดยไม่มีชื่อผู้แต่งหรือผลการศึกษา",
+    "flagship": false
+  },
+  {
     "id": "equine-medicine--equine-intro",
     "subject": "equine-medicine",
     "topic": "equine-intro",
@@ -801,18 +909,18 @@ export const VETWIKI_TOPICS = [
     "id": "equine-medicine--equine-nutrition",
     "subject": "equine-medicine",
     "topic": "equine-nutrition",
-    "title": "Equine nutrition — Basic + What diet provides + Feeds",
+    "title": "Basic nutrition for equine practitioners",
     "icon": "🌾",
-    "summary": "นิยาม nutrition + Equine Well-being Triad (Genetic / Management / Nutrition) + BCS (1-9) + Topline Evaluation Score (TES) → BCS 5 ฝ้ายอ่อน, BCS 7-9 = obese. Same breed/age/sex/env ก็ต้องการอาหารต่างกันได้ (genetic + history + intrauterine).",
+    "summary": "โภชนาการพื้นฐานของม้าจากเด็ค Basic Nutrition for Equine Practitioners (6 ส.ค. 2569) ไล่จากธรรมชาติของม้า สิ่งที่อาหารต้องให้ (น้ำ โปรตีน พลังงาน แร่ธาตุ อิเล็กโทรไลต์ วิตามิน) การประเมิน BCS กับ TES อาหารหยาบและคุณภาพหญ้า อาหารข้น ไขมัน ธัญพืช ฉลากอาหาร เพดานแป้ง และการจัดและติดตามอาหาร เสริมด้วยตัวเลขและเหตุผลที่สอนในคาบเดียวกัน",
     "flagship": false
   },
   {
     "id": "equine-medicine--equine-infectious",
     "subject": "equine-medicine",
     "topic": "equine-infectious",
-    "title": "Equine infectious diseases & vaccination",
+    "title": "Equine infectious disease, vaccination and biosecurity",
     "icon": "🦠",
-    "summary": "Outline 4 หมวด: Virus (Rabies / AHS / EHV / EIA / EI / EE / JE), Bacteria (Strangles / Tetanus / Glanders / CEM), Protozoa (Trypanosomiasis / Equine piroplasmosis), Fungi (Pythiosis / Guttural pouch mycosis). เน้น viral disease ที่ \"เจอใน TH\".",
+    "summary": "โรคติดเชื้อในม้าจากเด็ค Eq Infectious Dz and Biosecurity (2569) กับบันทึกคาบ 15 ต.ค. 2569: ไวรัส (rabies, AHS, EHV, EIA, equine influenza, equine encephalomyelitis, JE), แบคทีเรีย (tetanus, strangles, glanders, CEM), โปรโตซัว (trypanosomiasis, piroplasmosis), เชื้อรา (guttural pouch mycosis; pythiosis อยู่ในหัวข้อ Equine pythiosis), ตารางวัคซีนลูกม้าและแม่ม้า และ biosecurity ทั้งในงานแข่งและที่คอก",
     "flagship": false
   },
   {
@@ -821,7 +929,7 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-parasites",
     "title": "Equine parasites in Thailand",
     "icon": "🪱",
-    "summary": "วัตถุประสงค์: อธิบายความสำคัญของโรคปรสิตในม้าใน TH + อธิบายความก่อโรคของปรสิตตามอวัยวะ. Outline 4 หมวด: GI parasite, Blood parasite, Skin disease, Eyes disease due to parasite.",
+    "summary": "ปรสิตในม้าเรียงตามอวัยวะจากเด็ค Equine Parasites in Thailand (ปีการศึกษา 2569) แบ่ง 4 กลุ่ม คือ GI parasite, blood parasite, skin disease และ eye disease แต่ละตัวมีสาเหตุ วงชีวิตกับ PPP การก่อโรค การวินิจฉัย และยากับโดสตามสไลด์ เสริมด้วยสิ่งที่สอนในคาบ 10 ก.ย. 2569 เรื่อง EPG, egg reappearance period, การดื้อยา และ refugia",
     "flagship": false
   },
   {
@@ -837,9 +945,9 @@ export const VETWIKI_TOPICS = [
     "id": "equine-medicine--equine-lameness",
     "subject": "equine-medicine",
     "topic": "equine-lameness",
-    "title": "Equine lameness — An introduction + Diagnostic analgesia",
+    "title": "Equine lameness: an introduction + Diagnostic analgesia",
     "icon": "🐎",
-    "summary": "Lameness = symptom (ไม่ใช่โรคต่อ); ต้อง \"Assume nothing and question everything\". Diagnostic analgesia = the most valuable tool to localize lameness. Approach: baseline (visual + palpation) → perineural / intra-articular / intra-bursal / specific site blocks.",
+    "summary": "การตรวจม้าขาเจ็บจากเด็ค Equine lameness: an introduction ปี 2026 (นิยาม, เป้าหมายการตรวจ, ประวัติ, การดูตอนยืน, conformation, เกรด 1-5, head nod และอาการขาหลัง, การคลำทีละส่วน, flexion test, imaging และการตรวจเสริม) ต่อด้วยเด็ค Diagnostic analgesia in horses ปี 2026 (ยาชา onset และ duration, กลยุทธ์ sequential หรือ targeted, บล็อกขาหน้าขาหลัง, แผนผังแปลผลบล็อกปลายขา, การแปลผล, ผลลบลวง ผลบวกลวง และกรณีที่ไม่ควรบล็อก) ส่วนกีบและเอ็นอยู่ในหัวข้อ Pathologic conditions of the equine foot และ Tendon/Ligament injuries and treatment",
     "flagship": false
   },
   {
@@ -848,25 +956,25 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-hoof",
     "title": "Pathologic conditions of the equine foot",
     "icon": "🐴",
-    "summary": "External anatomy + ground surface anatomy ก่อน → pathologic conditions (laminitis, navicular, abscess, canker, thrush, cracks). หมายเหตุ TC: \"ปัญหาที่ foot ~60% ของ lameness cases\".",
+    "summary": "กีบม้าจากเด็ค Pathologic condition of equine foot ฉบับที่ห้องสมุดมี (ไม่พิมพ์ปี): กายวิภาคภายนอกและภายใน, hoof balance 5 แบบ, DODs, โรคของ hoof capsule ภายนอก (laceration, avulsion, thrush, white line disease) และโครงสร้างภายใน (fracture, synovitis/OA, subsolar abscess) ไปจนถึง laminitis ทั้งนิยาม สาเหตุ 3 กลุ่ม ระยะ และการรักษาตามช่วงเวลา ต่อด้วยการดู conformation ของกีบและการใช้ hoof tester จากเด็ค Equine lameness ปี 2026",
     "flagship": false
   },
   {
     "id": "equine-medicine--equine-tendon",
     "subject": "equine-medicine",
     "topic": "equine-tendon",
-    "title": "Tendon / Ligament injuries and treatments",
+    "title": "Tendon/Ligament injuries and treatment",
     "icon": "💪",
-    "summary": "\"Bowed tendon\" / sprain เจอเยอะในม้าฝึก — incidence 18-48% (อาจถึง 80% in training). Recurrence สูงมาก 30-87.5%. Tendinopathies: SDFT (Fore >> Hind), Suspensory lig, Inferior check lig, DDFT (rare), others (biceps, ext, calcaneal).",
+    "summary": "การบาดเจ็บของ tendon และ ligament ในม้า จากเด็ค Tendon/Ligament injuries and treatment ฉบับที่ห้องสมุดมี (ไม่พิมพ์ปี) ไล่ตั้งแต่อุบัติการณ์ โครงสร้าง กลไกการบาดเจ็บและการหาย การตรวจ ultrasound ระยะ acute ถึง chronic, para-tendonitis, suspensory desmitis 3 แบบ, inferior check ligament ไปจนถึงการรักษาแบบ conservative, โปรแกรมออกกำลัง และการรักษาเสริมแต่ละแบบพร้อมระดับหลักฐานที่สไลด์ให้ ส่วนการคลำเอ็นและการทำ ultrasound มาจากเด็ค Equine lameness ปี 2026",
     "flagship": false
   },
   {
     "id": "equine-medicine--equine-anesthesia",
     "subject": "equine-medicine",
     "topic": "equine-anesthesia",
-    "title": "Equine anesthesia (2024)",
+    "title": "Equine anesthesia, analgesia and euthanasia",
     "icon": "💉",
-    "summary": "แบ่ง 2 ส่วน: full anesthesia (in-hospital, GA + recovery), field anesthesia (knock-them-down anes, AUS style).",
+    "summary": "การวางยาม้าจากเด็ค Equine surgery & anesthesia ปี 2026: ทำไมม้าต่างจากสัตว์อื่น, การประเมินก่อนวางยา (ประวัติ, tetanus, งดอาหาร, เลือด, ASA), เลือก standing หรือ general anesthesia, ยาซึม ยาลดปวด และยาชา, induction และ intubation, ท่านอน, maintenance (inhalant, MAC, TIVA, PIVA, triple drip), standing CRI, monitoring, inotropes vasopressors anticholinergics, multimodal analgesia และ NSAID, recovery และภาวะแทรกซ้อน, การวางยาภาคสนาม และการุณยฆาต",
     "flagship": false
   },
   {
@@ -875,34 +983,34 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-dentistry",
     "title": "Equine dentistry",
     "icon": "🦷",
-    "summary": "Intro: ทำไม dental สำคัญในม้า (มันบุญไม่ได้ → ต้องหา sign เอง), Dental morphology (anatomy + physiology), Dental nomenclature, Ageing change in dentition. Key concepts: hypsodont (high-crown) + reserve crown, anisognathism (upper arcade 30% wider than lower), infundibulum (incisors + upper cheek teeth only).",
+    "summary": "ทันตกรรมม้าจากเด็ค Eq Dentistry 2026, เอกสาร Equine Dentistry Handout และคลิปคาบ 20 ส.ค. 2569: โครงสร้างฟัน hypsodont, สูตรฟัน, ระบบเรียกชื่อฟัน 3 ระบบ, การคะเนอายุจากฟันตัดล่าง, ขั้นตอนตรวจช่องปาก, ความถี่การตรวจ และความผิดปกติที่พบบ่อย (sharp enamel point, malocclusion, periodontal disease, caries)",
     "flagship": false
   },
   {
     "id": "equine-medicine--equine-gi",
     "subject": "equine-medicine",
     "topic": "equine-gi",
-    "title": "Equine GI — Anatomy + Physiology + Exam + Medical mgmt",
+    "title": "Equine gastrointestinal system I + II",
     "icon": "🐴",
-    "summary": "Horse = grazing animal, non-ruminant herbivore, hindgut fermenter (cecum). Foregut: mouth, esophagus, stomach, SI. Hindgut: cecum, large colon, small colon, rectum. Exam: PE/auscultation, mouth/teeth, fecal, NGT, rectal palp, abdominocentesis, radiograph, endoscopy, blood. Mgmt classification by pathology: obstruction, strangulation, ulceration, enteritis & colitis, peritonitis, non-strangulation infarction.",
+    "summary": "ระบบทางเดินอาหารม้าจากเด็ค Equine GI I และ GI II ปี 2569: กายวิภาคและเส้นทางของอาหาร, การตรวจ (ฟัง gut sound 4 ตำแหน่ง, ultrasound แบบ FLASH, radiography, rectal palpation), choke และ equine gastric ulcer syndrome (EGUS) เสริมด้วยคลิปคาบ 27 ส.ค. 2569 ส่วนการประเมินและรักษา colic อยู่ในหัวข้อ Equine colic: evaluation and treatment choice",
     "flagship": false
   },
   {
     "id": "equine-medicine--equine-colic-bestfit",
     "subject": "equine-medicine",
     "topic": "equine-colic-bestfit",
-    "title": "Colic best-fit",
+    "title": "Equine colic: evaluation and treatment choice",
     "icon": "😣",
-    "summary": "การจัดการที่เหมาะสมสำหรับปัญหาโคลิกในม้า — colic = สาเหตุการตายอันดับ 1 ในม้า, ปวดท้องแบบ acute (ER). Lecture จาก KU (KSU large animal + wildlife clinical sciences).",
+    "summary": "การประเมินม้าโคลิกเพื่อเลือกทางรักษา จากเด็ค Equine GI I และ GI II ปี 2026 กับบันทึกคาบ 27 ส.ค. 2569: ความหมาย สาเหตุโน้มนำ อาการ ประวัติ, lactate, การอ่านผล NG tube, rectal palpation, Composite Colic Score (CCS) และเกณฑ์ตัดสิน, abdominocentesis, การรักษาทางยา (oral fluid, IV fluid, alpha-2, flunixin, phenylbutazone, Buscopan), common colic 5 แบบ และเกณฑ์พิจารณาการุณยฆาต ส่วนกายวิภาคทางเดินอาหาร การฟัง gut sound, ultrasound, radiography, choke และ EGUS อยู่ในหัวข้อ Equine gastrointestinal system",
     "flagship": false
   },
   {
     "id": "equine-medicine--equine-colic-surgery",
     "subject": "equine-medicine",
     "topic": "equine-colic-surgery",
-    "title": "Surgical colic + cases",
+    "title": "Surgical colic: when to refer and perioperative care",
     "icon": "🔪",
-    "summary": "Surgical colic = ผ่าตัดเปิดช่องท้องเพื่อแก้ obstruction/strangulation. Techniques: ventral midline celiotomy → manual exploratory → exteriorize → enterotomy (SI/cecum/large colon/small colon), pelvic flexure enterotomy (นิยม), resection & anastomosis, abdominal closure. Pre-op pic: ม้าเทกพ์ + dorsal recumbency + GA.",
+    "summary": "ม้าโคลิกที่ต้องไปทางผ่าตัด จากเด็ค Equine GI I, GI II และ Equine surgery & anesthesia ปี 2026 กับบันทึกคาบ GI วันที่ 27 ส.ค. 2569: เกณฑ์ที่ชี้ว่าต้องผ่าตัดหรือส่งต่อ, colic แต่ละแบบที่อาจต้องผ่า, การงดอาหารก่อนและหลังผ่าตัดช่องท้อง, การเตรียมผิวและท่านอน และสิ่งที่ต้องรู้เกี่ยวกับการผ่า colon การประเมิน CCS และการรักษาทางยาอยู่ในหัวข้อ Equine colic: evaluation and treatment choice",
     "flagship": false
   },
   {
@@ -945,18 +1053,18 @@ export const VETWIKI_TOPICS = [
     "id": "equine-medicine--equine-ortho",
     "subject": "equine-medicine",
     "topic": "equine-ortho",
-    "title": "Equine orthopedic",
-    "icon": "🦴",
-    "summary": "Orthopedic — case-based images (mandibular fracture repair: pre-op X-ray + post-op plate/screw fixation), wound healing ในม้าเทียบกับ pony, exuberant granulation tissue (EGT) และ bandage แต่ละชนิด.",
+    "title": "การจัดการบาดแผลและการพันขาม้า (wound management และ bandaging)",
+    "icon": "🩹",
+    "summary": "ชุดสไลด์ Wound Management ทั้งชุด ตั้งแต่ระยะการหายของแผล ความต่างระหว่างม้ากับ pony exuberant granulation tissue ไปจนถึงชนิดของ bandage ทุกแบบ Robert Jones splint stent abdominal และ head bandage ซึ่งเป็นส่วนที่ลายมือรุ่นพี่กำกับว่าออกสอบทุกปี",
     "flagship": false
   },
   {
     "id": "equine-medicine--equine-pythium",
     "subject": "equine-medicine",
     "topic": "equine-pythium",
-    "title": "Pythium / Equine pythiosis",
+    "title": "Equine pythiosis",
     "icon": "🦠",
-    "summary": "Pythium insidiosum (oomycete, ไม่ใช่เชื้อรา true fungus) แม้ในหัวข้อ equine infectious disease จะจัด pythiosis ไว้ในหมวด Fungi.",
+    "summary": "Equine pythiosis สอนปีนี้เป็นส่วนหนึ่งของ Equine infectious disease (เด็ค Eq Infectious Dz and Biosecurity p.66-71, บันทึกคาบ 15 ต.ค. 2569 [120:49-126:04]) ไม่มีชีทแยก: สาเหตุ Pythium insidiosum, ชื่อเรียก swamp cancer, แผล granulomatous ที่มี kunkers, 3 patterns, การวินิจฉัย และการรักษาด้วย surgery ร่วมกับ immunotherapy (PIA) และ wound management",
     "flagship": false
   },
   {
@@ -965,7 +1073,7 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-ophth",
     "title": "Equine ophthalmology",
     "icon": "👁",
-    "summary": "\"A horse is NOT a big dog\" — equine eye ≠ canine eye (เพิ่มเป็น comparative). Lecture guideline: (1) Normal ocular organs, (2) Each ocular organ — Normal function, Ophthalmic examinations, Common abnormalities.",
+    "summary": "จักษุวิทยาม้าจากเด็ค Equine Ophthalmology และคลิปคาบ 1 ต.ค. 2569 (เรียนออนไลน์) ไล่ตามอวัยวะ: orbit และการมองเห็น, เปลือกตา, conjunctiva, ท่อน้ำตา, กระจกตา (keratitis, keratomycosis, melting, IMMK, sub-palpebral lavage), squamous cell carcinoma, uvea และ ERU, เลนส์, glaucoma, retina และ fundus พร้อมเคสในเด็ค หลักตั้งต้นคือ A horse is NOT a big dog",
     "flagship": false
   },
   {
@@ -974,16 +1082,16 @@ export const VETWIKI_TOPICS = [
     "topic": "equine-respi",
     "title": "Equine respiratory diseases",
     "icon": "🫁",
-    "summary": "Outline 4 หัวข้อ: Sign of respiratory problems, Equine respiratory examination, Upper respiratory problems, Lower respiratory problems. Exam: PE + breathing sound (URT vs LRT) + auscultation (↑/↓/adventitious) + percussion + radiograph + ultrasound + CT/MRI.",
+    "summary": "โรคระบบทางเดินหายใจของม้า ตามเด็ค Eq Respi (80 หน้า) แบ่ง 4 เรื่อง: อาการ, การตรวจ, upper respiratory problems (sinus, guttural pouch, pharynx/larynx) และ lower respiratory problems (pneumonia, pulmonary edema, equine asthma, EIPH) เสริมด้วยคลิปคาบ 17 ก.ย. 2569 ซึ่งบันทึกได้ถึงนาทีที่ 58 (การตรวจและ sinusitis)",
     "flagship": false
   },
   {
     "id": "equine-medicine--equine-neonatal",
     "subject": "equine-medicine",
     "topic": "equine-neonatal",
-    "title": "Neonatal & Foal management",
+    "title": "Neonatal foal care and common abnormalities",
     "icon": "🐎",
-    "summary": "TOC 8 หัวข้อ: Parturition in the mare, Stage of labor, Newborn examination, Placental examination, Intensive care of neonatal foal, Foal's immune system, Neonatal disorder, Foal health care. Gestation length: 320-380 days (~11 months), pony 320-345d, Thoroughbred 320-360d, donkeys 360-380d.",
+    "summary": "การดูแลลูกม้าแรกเกิดจากเด็ค Equine pregnancy and neonatal care (2569) ส่วน Neonatal foal care & common abnormality (p.27-39) ต่อด้วยหน้าที่เกี่ยวกับลูกม้าในส่วนการตั้งท้องและการคลอด (นมน้ำเหลืองและการรับภูมิ, ระยะคลอด, อายุครรภ์): กฎ 1-2-3, milestones, ลูกม้ากำพร้า, วัคซีนและถ่ายพยาธิ, ความผิดปกติที่พบบ่อย และ neonatal isoerythrolysis ปีนี้วิชา Equine Medicine ไม่มีคาบหัวข้อนี้ เด็คนี้สอนในวิชา Equine Reproduction",
     "flagship": false
   },
   {
@@ -993,6 +1101,24 @@ export const VETWIKI_TOPICS = [
     "title": "POA equine (Practical / Objective Approach)",
     "icon": "🩺",
     "summary": "POA = Practical Objective Assessment-style station(s) เน้น lameness + infectious dz workup: history-taking (9-best-question approach), PE checklist (BCS, palpation), lameness scoring (5-grade), nerve block ladder (PD → abaxial → low 4 → high 4), hoof tester, radiograph diff-dx (navicular bone dz).",
+    "flagship": false
+  },
+  {
+    "id": "equine-medicine--equine-derm",
+    "subject": "equine-medicine",
+    "topic": "equine-derm",
+    "title": "Equine dermatology",
+    "icon": "🐾",
+    "summary": "โรคผิวหนังม้าจากครึ่งแรกของเด็ค Equine dermatology and wound management ปี 2026: ผิวและขนม้าที่ต่างจากสัตว์อื่น, การซักประวัติและตารางโรคตามพันธุ์ สี อายุ, การตรวจและการเก็บตัวอย่าง, อาการคันกับ PVAS แล้วไล่ตามกลุ่มอาการ คือ คัน (เหา, Chorioptes, Oxyuris, แมลงกัด, Culicoides hypersensitivity, atopic dermatitis), สะเก็ดและขุย (dermatophytosis, dermatophilosis), erosion (habronemiasis, coital exanthema), ขนร่วง (PPID) และเนื้องอก (sarcoid, papilloma, SCC, melanoma, eosinophilic granuloma) การจัดการบาดแผลอยู่ในหัวข้อ Concept of equine surgery and wound management",
+    "flagship": false
+  },
+  {
+    "id": "equine-medicine--equine-surgery-wound",
+    "subject": "equine-medicine",
+    "topic": "equine-surgery-wound",
+    "title": "Concept of equine surgery and wound management",
+    "icon": "🩹",
+    "summary": "สองส่วนจากปี 2026: แนวคิดการผ่าตัดม้า จากเด็ค Equine surgery & anesthesia (field เทียบ hospital surgery, การไหลของห้องผ่าตัด, surgical checklist, การตัดขน, ห้องผ่าตัด, การคลุมผ้าแบบนอนและแบบยืนในซอง) และการจัดการบาดแผล จากครึ่งหลังของเด็ค Equine dermatology and wound management (ระยะการหาย, ม้าเทียบ pony, ประเมิน เตรียม สำรวจ debride แผล, เลือกปิดแผล, ไหมและรูปแบบการเย็บ, drain, dressing, EGT, การพันแผลแต่ละตำแหน่ง, Robert Jones bandage และ splint) การวางยาสลบและท่านอนอยู่ในหัวข้อ Equine anesthesia, analgesia and euthanasia",
     "flagship": false
   },
   {
@@ -1035,36 +1161,63 @@ export const VETWIKI_TOPICS = [
     "id": "equine-repro--eqrepro-endometritis",
     "subject": "equine-repro",
     "topic": "eqrepro-endometritis",
-    "title": "Endometritis ในม้า: แยก 7 ภาวะของมดลูก และการรักษา 4 Goals",
-    "icon": "🦠",
-    "summary": "ตารางแยกโรค 7 ภาวะที่ทำให้ม้าผสมไม่ติด (endometrosis, bacterial/subclinical/chronic bacterial endometritis, metritis, pyometra, PBIE) ตามอาการ cytology ultrasound รังไข่ และการรักษา ต่อด้วยแนวทางรักษา endometritis แบบ 4 goals พร้อมตารางสเปกตรัมยาปฏิชีวนะ และเคสตัวอย่างที่รุ่นพี่บันทึกไว้",
+    "title": "Endometritis in mare",
+    "icon": "🔥",
+    "summary": "ภาวะเยื่อบุมดลูกอักเสบในแม่ม้า เริ่มจากหน้าที่ของมดลูกและ endometrium, contamination กับ infection, กลไกป้องกันของมดลูก และนิยามของ endometritis, metritis, perimetritis, parametritis, pyometra และ endometrosis จากนั้นไล่ชนิดของ endometritis รวม PBIE, ปัจจัยเสี่ยง, เชื้อที่เกี่ยวข้อง และผลต่อ fertility การวินิจฉัยด้วย ultrasound, cytology, culture และ biopsy พร้อม decision tree ส่วนการรักษาแบ่งเป็น 4 เป้าหมาย: ระบายสิ่งที่คั่งในมดลูก, คุมการติดเชื้อ, ลดการอักเสบ และป้องกันการกลับเป็นซ้ำ โดยมี pyometra เป็นหัวข้อแยก",
+    "flagship": false
+  },
+  {
+    "id": "equine-repro--eqrepro-male",
+    "subject": "equine-repro",
+    "topic": "eqrepro-male",
+    "title": "Male reproductive anatomy, function and clinical examination of the stallion",
+    "icon": "🐴",
+    "summary": "กายวิภาค การทำหน้าที่ และการตรวจระบบสืบพันธุ์พ่อม้า: penis แบบ vascular type กับ urethral process ที่เป็นจุด swab ของ CEM, prepuce, scrotum ในฐานะ thermoregulator, testicular descent กับเกณฑ์ cryptorchidism, spermatogenesis 57 วัน, epididymis, accessory sex glands กับ gel fraction และ ampullary obstruction ปิดด้วยพฤติกรรมของพ่อม้าและการผสมตามธรรมชาติ",
+    "flagship": false
+  },
+  {
+    "id": "equine-repro--eqrepro-ai",
+    "subject": "equine-repro",
+    "topic": "eqrepro-ai",
+    "title": "Semen collection and artificial insemination in the horse",
+    "icon": "💉",
+    "summary": "การเก็บน้ำเชื้อและการผสมเทียมในม้า: stallion selection กับโรคที่ติดทางการผสมพันธุ์, การรีดน้ำเชื้อด้วย artificial vagina ที่อุณหภูมิเป็นปัจจัยหลัก, semen evaluation, semen extender กับน้ำเชื้อ 3 ชนิด (สด แช่เย็น แช่แข็ง), insemination dose พร้อมตัวอย่างคำนวณ, การเตรียมแม่ม้าและเวลาผสม, เทคนิค intrauterine insemination และการติดตามหลังผสม",
     "flagship": false
   },
   {
     "id": "equine-repro--eqrepro-stallion-infect",
     "subject": "equine-repro",
     "topic": "eqrepro-stallion-infect",
-    "title": "โรคติดเชื้อทางระบบสืบพันธุ์และการติดต่อทางน้ำเชื้อ",
+    "title": "Infertility problems and infectious diseases in stallions",
     "icon": "🦠",
-    "summary": "แยก EHV type 1 กับ type 3 ให้ออก โรคที่ติดทางน้ำเชื้อและสำคัญต่อการขนส่งข้ามประเทศ และเชื้อที่ก่อ endometritis จากพ่อม้า",
+    "summary": "ปัญหา infertility และโรคติดเชื้อทางระบบสืบพันธุ์ของพ่อม้า: การอ่าน pregnancy rate ต่อครั้งผสม, ปัญหาพฤติกรรม, ejaculatory dysfunction, poor semen quality กับ algorithm ของ azoospermia และการใช้ alkaline phosphatase แยกการอุดตัน ครึ่งหลังเป็นโรคติดเชื้อ 4 โรค: contagious equine metritis, equine coital exanthema (EHV-3), equine viral arteritis ซึ่งเป็น persistent infection ที่ขึ้นกับ testosterone และ dourine",
+    "flagship": false
+  },
+  {
+    "id": "equine-repro--eqrepro-surgery",
+    "subject": "equine-repro",
+    "topic": "eqrepro-surgery",
+    "title": "Equine reproductive surgery",
+    "icon": "🔪",
+    "summary": "ศัลยกรรมระบบสืบพันธุ์ม้า เพศผู้: castration (standing กับ recumbent, ยาและ local block, open กับ closed technique, emasculator, การดูแลหลังผ่าตัดและ complication), cryptorchid, tumor ของ penis กับ reefing และ penile amputation เพศเมีย: Caslick's operation, perineal laceration 3 ระดับ, การตัด endometrial cyst ผ่านกล้อง และ caesarean section สไลด์ส่วนใหญ่เป็นรูป ขั้นตอนการทำจึงมาจากบันทึกคาบและระบุนาทีกำกับไว้",
     "flagship": false
   },
   {
     "id": "equine-repro--eqrepro-pregnancy",
     "subject": "equine-repro",
     "topic": "eqrepro-pregnancy",
-    "title": "การตั้งท้องและการคลอดในม้า",
-    "icon": "🤰",
-    "summary": "ไทม์ไลน์การตั้งท้องม้าตั้งแต่ fertilization ใน oviduct จนถึงคลอด ครอบคลุม maternal recognition, endometrial cup กับ eCG และ accessory CL, ตารางตรวจ ultrasound 4 รอบ, การดูแลและวัคซีนแม่ม้าท้อง, 3 stages of parturition, intrapartum conditions, red bag และ dystocia",
+    "title": "Equine pregnancy and parturition",
+    "icon": "🐎",
+    "summary": "การตั้งท้องและการคลอดของแม่ม้า: early pregnancy กับ PGE2, maternal recognition of pregnancy, endometrial cups กับ eCG และ accessory CL, mid กับ late pregnancy, placentation, ตารางตรวจท้องและการจัดการแฝด, การดูแลแม่ม้าท้อง, เต้านมกับ colostrum และสัญญาณใกล้คลอด จนถึง 3 stages of parturition สไลด์ให้เวลาของ teat waxing และ colostrum ไว้ 2 ชุดที่ไม่ตรงกัน ซึ่งเก็บไว้ทั้งคู่พร้อมเลขหน้า ภาวะผิดปกติระหว่างและหลังคลอดอยู่ในหัวข้อ Postpartum complications ส่วนการดูแลลูกม้าแยกเป็นหัวข้อ Neonatal foal care",
     "flagship": false
   },
   {
     "id": "equine-repro--eqrepro-postpartum",
     "subject": "equine-repro",
     "topic": "eqrepro-postpartum",
-    "title": "ลูกม้าแรกเกิด ภาวะผิดปกติที่พบบ่อย และการผสมหลังคลอด",
-    "icon": "🐴",
-    "summary": "กฎ 1-2-3 ของลูกม้าแรกเกิด การดูแลวันแรกและเกณฑ์ IgG, พฤติกรรมลูกม้าและ imprinting, ภาวะผิดปกติของลูกม้าแรกเกิดที่พบบ่อยรวมถึง neonatal isoerythrolysis, ภาวะผิดปกติของแม่ม้าหลังคลอด และคำแนะนำเรื่อง foal heat",
+    "title": "Postpartum complications",
+    "icon": "🩹",
+    "summary": "ความผิดปกติระหว่างคลอดและปัญหาหลังคลอดของแม่ม้า เริ่มจากสิ่งที่ต้องตรวจในแม่ม้าหลังคลอด (รก, นม, vulva, การยอมรับลูก) แล้วไล่ 9 ภาวะของ intrapartum conditions: red bag, abortion, uterine inertia, premature mammary development, placental insufficiency, post-partum hemorrhage, uterine torsion, retained fetal membrane และ hypocalcemia ต่อด้วย dystocia (เมื่อไรควรสงสัย, สาเหตุ, วิธีแก้) และ post partum breeding ที่ foal heat การตั้งท้องและ 3 stages ของการคลอดปกติอยู่ในหัวข้อ Pregnancy & parturition ส่วนการดูแลลูกม้าแยกเป็นหัวข้อ Neonatal foal care",
     "flagship": false
   },
   {
@@ -1323,9 +1476,9 @@ export const VETWIKI_TOPICS = [
     "id": "milk-meat-hygiene--milk-cleaning",
     "subject": "milk-meat-hygiene",
     "topic": "milk-cleaning",
-    "title": "Cleaning & disinfectants in MCC and milk processing",
+    "title": "Cleaning and disinfectants in milk collecting center and milk processing",
     "icon": "🧼",
-    "summary": "9 ข้อกำหนดพื้นฐาน — สถานประกอบการ + ควบคุมการปฏิบัติงาน + บำรุงรักษา/สุขาภิบาล + สุขลักษณะส่วนบุคคล + ขนส่ง + traceability + ฝึกอบรม + ส่งเสริมสมาชิก + ระบบเอกสาร.",
+    "summary": "การทำความสะอาดและการฆ่าเชื้อในศูนย์รวบรวมน้ำนมและโรงงานแปรรูปนม: กรอบมาตรฐาน GMP, วัตถุประสงค์การทำความสะอาด, ลำดับ CIP, คุณสมบัติสารฆ่าเชื้อและสารทำความสะอาดที่ดี, disinfectant 8 กลุ่ม, สารด่าง กรด และสารเสริมในโรงงาน, ขั้นตอนทำความสะอาดอุปกรณ์, phenol coefficient และเหตุที่ disinfectant ไม่ได้ผล",
     "flagship": false
   },
   {
@@ -1334,16 +1487,16 @@ export const VETWIKI_TOPICS = [
     "topic": "meat-hygiene-intro",
     "title": "Introduction to meat hygiene",
     "icon": "🥩",
-    "summary": "Meat = \"animal tissues suitable for food\", 4 categories: red meat / poultry / seafood / game meat, components: muscle (majority) + epithelial + nervous + connective + adipose.",
+    "summary": "บทนำสุขศาสตร์เนื้อสัตว์: นิยามและประเภทของเนื้อสัตว์ เนื้อเยื่อที่ประกอบเป็นเนื้อ ชนิดของ muscle fiber โปรตีนในกล้ามเนื้อ องค์ประกอบทางเคมีของเนื้อ (น้ำ โปรตีน ไขมัน คาร์โบไฮเดรต แร่ธาตุ วิตามิน) การใช้ dipeptide จำแนกชนิดเนื้อ และนิยามกับขอบเขตของ meat hygiene",
     "flagship": false
   },
   {
     "id": "milk-meat-hygiene--meat-seafood",
     "subject": "milk-meat-hygiene",
     "topic": "meat-seafood",
-    "title": "Seafood: quality changes, spoilage, toxins",
+    "title": "Seafood: quality changes & spoilage, seafood toxins",
     "icon": "🐟",
-    "summary": "Seafood = species variety สูง (chordata, mollusks, arthropod), composition water 60-81% / protein 16-25% / lipid 0.4-21% (range กว้าง), lean meat by default ยกเว้น salmon/อ้วน.",
+    "summary": "อาหารจากสัตว์น้ำ แบ่งเป็น 3 ส่วน คือองค์ประกอบทางเคมีของ seafood (water, protein, non-protein nitrogen compounds, lipid, องค์ประกอบย่อย, dark muscle กับ white muscle), การเปลี่ยนแปลงคุณภาพและการเน่าเสีย (ปัจจัยที่มีผล, rigor mortis, chemical, microbiological และ enzymatic changes, วิธีประเมินความสด 4 กลุ่ม) และ seafood toxins 8 ชนิด ตั้งแต่ ASP, DSP, AZP, PSP, CFP, NSP, puffer fish poisoning จนถึง scombroid fish poisoning พร้อมตารางสรุปท้ายสไลด์",
     "flagship": false
   },
   {
@@ -1352,25 +1505,25 @@ export const VETWIKI_TOPICS = [
     "topic": "meat-microbiology",
     "title": "Microbiology of meat & meat hygiene",
     "icon": "🦠",
-    "summary": "Contamination main เกิดที่ slaughter (evisceration) → storage → distribution, bacteria เป็นกลุ่มสำคัญสุด (spoilage + pathogenic), มี yeast/mold/virus/parasite/protozoa รอง.",
+    "summary": "จุลชีววิทยาของเนื้อสัตว์ในระดับสุขศาสตร์เนื้อสัตว์: แหล่งปนเปื้อน ปัจจัยที่มีผลต่อการโตของเชื้อ จำนวนเชื้อกับการเน่าเสีย แบคทีเรียที่ทำให้เสียและเชื้อก่อโรคที่พบบนเนื้อ ยีสต์และรา เชื้อในเนื้อที่เพิ่งชำแหละ เนื้อแช่เย็น และเนื้อบรรจุ การควบคุมการปนเปื้อน การตรวจทางจุลชีววิทยา indicator organism และมาตรฐานของกรมปศุสัตว์กับกรมวิทยาศาสตร์การแพทย์",
     "flagship": false
   },
   {
     "id": "milk-meat-hygiene--meat-storage",
     "subject": "milk-meat-hygiene",
     "topic": "meat-storage",
-    "title": "Storage of meat & meat products",
+    "title": "Storage of meat and meat products",
     "icon": "🧊",
-    "summary": "พิจารณา 6 มิติ: meat quality, safety, scientific approval, distribution & marketing, investment, application. ปัจจัยจุลินทรีย์ในเนื้อ = extrinsic + intrinsic.",
+    "summary": "การเก็บรักษาเนื้อสัตว์และผลิตภัณฑ์: เกณฑ์ของวิธีเก็บรักษา ปัจจัยภายนอกและภายในที่มีผลต่อจุลินทรีย์ในเนื้อ (อุณหภูมิ R.H. ออกซิเจน pH water activity สารอาหาร) หลักการถนอมเนื้อ 6 วิธี (แช่เย็น แช่แข็ง ปรุงสุก ทำให้แห้ง ฉายรังสี สารเคมี) สีของเนื้อ cured การบรรจุหีบห่อ และระยะเวลาเก็บเนื้อสดกับเนื้อปรุงสุกและเนื้อ cured",
     "flagship": false
   },
   {
     "id": "milk-meat-hygiene--meat-quality",
     "subject": "milk-meat-hygiene",
     "topic": "meat-quality",
-    "title": "Meat quality & wholesomeness",
+    "title": "Meat quality and wholesomeness",
     "icon": "✅",
-    "summary": "Fresh meat = ผ่าน chemical/physical change หลัง slaughter โดย minimal process, 4 properties หลัก: water-holding capacity, color, odor & taste, texture & tenderness.",
+    "summary": "คุณภาพเนื้อสัตว์และอนามัยเนื้อสัตว์ (wholesomeness) ไล่จากนิยามเนื้อสด, คุณภาพแบบ functional กับ conformance, postmortem changes และปัจจัยที่มีผล, คุณภาพเฉพาะของเนื้อวัวและเนื้อหมู (PSE, RFN, DFD, halothane gene, RN- gene), ความหมายของ wholesomeness กับ hazards 3 กลุ่ม, FAT-TOM และอุณหภูมิปรุงสุกของ USDA, คุณค่าต่อสุขภาพ, การตรวจเนื้อในสหรัฐอเมริกา, triangle of needs จนถึงการควบคุม hazards ตลอด food chain และ safe handling",
     "flagship": false
   },
   {
@@ -1379,7 +1532,7 @@ export const VETWIKI_TOPICS = [
     "topic": "meat-molecular",
     "title": "Application of molecular biology in meat science",
     "icon": "🧬",
-    "summary": "Molecular biology = molecular basis ของ DNA/RNA/protein, genomic techniques = ผสม molecular genetics + quantitative genetics + Mendelian genetics + bioinformatics → ใช้ระบุ species + meat authentication.",
+    "summary": "การใช้อณูชีววิทยาใน meat science มี 2 เรื่องใหญ่ เรื่องแรกคือการปรับปรุงคุณภาพเนื้อของสัตว์ในฟาร์มด้วย genomic technologies (QTL, candidate gene approach, genome scan approach, fine mapping และยีนสำคัญในโค ไก่ สุกร) เรื่องที่สองคือ halal authentication of raw meat ตั้งแต่ความหมายของ halal, halal meat supply chain กับ halal critical control points จนถึงเทคนิคตรวจหาเนื้อสุกร (PCR, ELISA, immunochromatographic assays, FTIR spectroscopy) และตารางสรุปเทคนิคท้ายสไลด์",
     "flagship": false
   },
   {
@@ -1388,7 +1541,7 @@ export const VETWIKI_TOPICS = [
     "topic": "meat-slaughter",
     "title": "Slaughterhouse: production facilities & sanitary practices",
     "icon": "🏭",
-    "summary": "Slaughterhouse design depends on: practice / technology / purpose / financial / capacity. Location ต้องมี proper water-electricity-sewerage + hot/cold water + standby generator + pollution-free + remote from urban area.",
+    "summary": "โรงฆ่าสัตว์ ปี 2569: ปัจจัยออกแบบโรง ที่ตั้ง โซนสะอาดและสกปรก พฤติกรรมสัตว์ การขนส่งและคอกพัก วิธีทำให้สลบ (กลไก ไฟฟ้า water bath แก๊ส) การปล่อยเลือด การลวก การควักเครื่องใน การลดอุณหภูมิซาก แล้วเดินตามแผนผังการปฏิบัติที่ดีของโรงฆ่าสุกร สัตว์ปีก และโค กระบือ ทีละขั้นพร้อมตัวเลข",
     "flagship": false
   },
   {
@@ -1397,7 +1550,7 @@ export const VETWIKI_TOPICS = [
     "topic": "meat-ante-post-mortem",
     "title": "Antemortem & postmortem inspection",
     "icon": "🔍",
-    "summary": "Objectives: ให้สัตว์ที่ดูสุขภาพดี/ปกติเข้าฆ่า + แยก abnormal animal ออก + แน่ใจว่าเนื้อปลอด disease/wholesome/ไม่เสี่ยงผู้บริโภค, AM ดูพฤติกรรม + BCS + cleanliness + signs, PM ตัดสินซาก + แยก localized/generalized + acute/chronic.",
+    "summary": "การตรวจสัตว์ก่อนฆ่า (AM) และการตรวจซากหลังฆ่า (PM) ปี 2569: วัตถุประสงค์ ผลการตัดสิน เอกสารและสิ่งที่ดูใน AM การตรวจหัว เครื่องใน ซาก และต่อมน้ำเหลืองใน PM แนวทางของสัตว์ปีก การแยกรอยโรค acute กับ chronic และ localized กับ generalized ภาวะทางพยาธิวิทยาทั่วไป และเกณฑ์ตัดสินซากของโรคจากไวรัส แบคทีเรีย พยาธิ โปรโตซัว และปรสิตสัตว์ขาปล้อง",
     "flagship": false
   },
   {
@@ -1413,9 +1566,9 @@ export const VETWIKI_TOPICS = [
     "id": "milk-meat-hygiene--meat-pest-control",
     "subject": "milk-meat-hygiene",
     "topic": "meat-pest-control",
-    "title": "Pest control in slaughterhouses",
+    "title": "Meat hygiene: pest control",
     "icon": "🪲",
-    "summary": "3 problem ที่ pest ทำให้เกิด: ทำลายผลิตภัณฑ์อาหาร + เป็น carrier ของ pathogen (foodborne disease + zoonosis) + ก่อให้ spoilage, pests = rodents + insects + birds.",
+    "summary": "การควบคุมสัตว์รังควาน (pest control) เริ่มจากปัญหาที่ pest ก่อ ชนิดของ pest (rodents, insects, birds) และหลักการควบคุม 4 ข้อ (no food, no habitat, destroy pest, prevention for the advent) แล้วไล่วิธีควบคุมหนู (proofing, baits, rodenticides, traps) การควบคุมแมลงสาบ (aerosols, baits, dusts, traps) จนถึงการควบคุมแมลงด้วย air curtain, strip door curtain, electrocutor, mesh screen และ insecticides",
     "flagship": false
   },
   {
@@ -1424,7 +1577,7 @@ export const VETWIKI_TOPICS = [
     "topic": "meat-egg-micro",
     "title": "Microbiology of the avian egg",
     "icon": "🥚",
-    "summary": "Microbial contamination → spoilage (economic) + foodborne disease (Salmonella หลัก, E. coli, Campylobacter รอง), egg shell = true shell + shell accessory, tough & flexible, protect embryogenesis.",
+    "summary": "จุลชีววิทยาของไข่ เริ่มจากความสำคัญของจุลินทรีย์กับไข่ โครงสร้างของเปลือกไข่ (true layer, pores, shell accessory material, shell membranes) การแบ่งส่วนภายในไข่ (compartmentalization) และการเสียสภาพที่ทำให้ไข่เน่า วิธีรักษาความสด เหตุที่ไข่ถือเป็น aseptically packaged food ทางที่แบคทีเรียเข้าสู่ไข่ 3 ทาง (trans-ovarian, oviducal, trans-shell) กลไกต้านจุลชีพทางกายภาพและเคมี ปัจจัยและการป้องกัน trans-shell transmission การติด Salmonella จนถึงหลักการล้างไข่ 10 ข้อ",
     "flagship": false
   },
   {
@@ -1479,6 +1632,51 @@ export const VETWIKI_TOPICS = [
     "title": "One Health กับโรคอาหารเป็นพิษ",
     "icon": "📘",
     "summary": "แนวทาง One Health ในความปลอดภัยอาหาร พร้อมกรณีศึกษา 4 เรื่อง คือ norovirus ในราสป์เบอร์รี STEC ในถั่วงอก BSE prion ในเนื้อ และ Listeria monocytogenes ในอาหารพร้อมบริโภค",
+    "flagship": false
+  },
+  {
+    "id": "one-health--oh-env-carcinogen",
+    "subject": "one-health",
+    "topic": "oh-env-carcinogen",
+    "title": "OH approach to address environmental health risks I: ปศุสัตว์แบบเข้มข้นกับสิ่งแวดล้อม",
+    "icon": "☠️",
+    "summary": "ความเสี่ยงต่อสุขภาพจากสิ่งแวดล้อมที่มาจากการผลิตปศุสัตว์แบบเข้มข้น จากเด็ค One Health Approach to Address Environmental Health Risks I (13 หน้า) และบันทึกคาบ 21 ต.ค. 2569 เริ่มจากคำศัพท์ (GHG, VOCs, PM) การปล่อยก๊าซเรือนกระจกต่อกิโลกรัมอาหาร farm-to-fork life cycle assessment แล้วไล่แผนผังผลกระทบของอาหารสัตว์ ฟาร์ม คุณภาพอากาศ และคุณภาพน้ำ ปิดด้วยกลยุทธ์ลดความเสี่ยง 3 แนวและกรอบการเปลี่ยนระบบปศุสัตว์",
+    "flagship": false
+  },
+  {
+    "id": "one-health--oh-env-mutagen",
+    "subject": "one-health",
+    "topic": "oh-env-mutagen",
+    "title": "OH approach to address environmental health risks II: สัตว์เลี้ยงเป็น sentinel",
+    "icon": "🧬",
+    "summary": "สัตว์เลี้ยงในฐานะ sentinel ของอันตรายจากสิ่งแวดล้อม และในฐานะแบบจำลองมะเร็งและความชราของคน จากเด็ค One Health Approach to Address Environmental Health Risks II (20 หน้า, สอน 28 ต.ค. 2569) ได้แก่ นิยาม sentinel, กรณีผู้ป่วยพิษปรอทที่แมวในบ้านตายก่อน, บทบาทสัตวแพทย์, สารพิษในบ้าน 6 ชนิดพร้อมแหล่ง ทางเข้า ระยะเวลา และอาการในสัตว์เทียบคน, และแนวคิด One Medicine – One Pathogenesis",
+    "flagship": false
+  },
+  {
+    "id": "one-health--oh-gmo",
+    "subject": "one-health",
+    "topic": "oh-gmo",
+    "title": "One Health perspective of food and feed GMOs",
+    "icon": "🌾",
+    "summary": "GMO ในอาหารคนและอาหารสัตว์มองผ่านสุขภาพคน สุขภาพสัตว์ และสุขภาพสิ่งแวดล้อม จากเด็ค One Health Perspective on Food and Feed GMOs (21 หน้า, สอน 4 พ.ย. 2569) ได้แก่ นิยามและตัวอย่าง GMO, ห่วงโซ่อาหาร, ผลโดยตรงและการประเมินความปลอดภัย 4 ด้าน, ผลทางอ้อมจากพืช HT และ Bt ต่อสารตกค้าง รายได้ และสิ่งแวดล้อม, มาตรการป้องกัน 3 ข้อ และสถานะในประเทศไทย หน้า 8-17 วิเคราะห์ฉากเดียวกันคือพืช GM ที่ทนสารกำจัดวัชพืชและต้านแมลงที่ขายในตลาด ผลทางอ้อม (หน้า 10-11, 16-17), ช่องว่างความรู้ (หน้า 18) และมาตรการป้องกัน (หน้า 19) อ้างอิงบทความ Noack et al. (2024)",
+    "flagship": false
+  },
+  {
+    "id": "one-health--oh-livestock-waste",
+    "subject": "one-health",
+    "topic": "oh-livestock-waste",
+    "title": "Application of OH approach for livestock waste management",
+    "icon": "🚜",
+    "summary": "การจัดการของเสียจากฟาร์มปศุสัตว์ในมุม One Health จากเด็ค One Health Approach for Livestock Waste Management ฉบับปี 2569 (56 หน้า) ได้แก่ ของเสียและปัญหาที่เกิด, หลัก 3 ประการ reduce, reuse, treatment, กระบวนการบำบัดทางกายภาพ เคมี และชีวภาพ, ระบบบ่อบำบัด 4 บ่อ, ระบบก๊าซชีวภาพ 3 แบบ, การเลือกระบบ และมาตรฐานน้ำทิ้งจากฟาร์มสุกร",
+    "flagship": false
+  },
+  {
+    "id": "one-health--oh-import-risk",
+    "subject": "one-health",
+    "topic": "oh-import-risk",
+    "title": "Import risk assessment: กุ้งและผลิตภัณฑ์กุ้ง",
+    "icon": "🚢",
+    "summary": "การประเมินความเสี่ยงการนำเข้าตามกรอบ WOAH (entry, exposure, consequence, risk estimation) สอนผ่านตัวอย่าง WSSV ในกุ้งนำเข้าเพื่อการบริโภคของออสเตรเลีย จากเด็ค Import Risk Assessment for Prawn and Prawn Products, เอกสารประกอบการอ่าน 4 หน้า และบันทึกคาบ 7 ต.ค. 2569 รายงานนี้ประเมินเชิงคุณภาพทั้งหมด จึงรวมระดับ likelihood กับ impact ด้วย matrix ไม่ใช่ด้วยการคำนวณ",
     "flagship": false
   },
   {
@@ -1779,6 +1977,15 @@ export const VETWIKI_TOPICS = [
     "flagship": false
   },
   {
+    "id": "swine-clinic--swine-ileitis-bacti",
+    "subject": "swine-clinic",
+    "topic": "swine-ileitis-bacti",
+    "title": "Swine enteric diseases: ileitis, Clostridium, Brachyspira, Yersinia, E. coli, Campylobacter, Salmonella",
+    "icon": "🦠",
+    "summary": "โรคทางเดินอาหารของสุกรจากแบคทีเรีย เรียงตามเดค Swine Enteric Diseases: แนวทางแยกสาเหตุ, proliferative enteropathy (ileitis), Clostridium, Brachyspira, Yersinia, MMA, colibacillosis กับ edema disease, Campylobacter, salmonellosis แล้วปิดด้วย coccidiosis, balantidiasis, yeast และ gastric ulcer",
+    "flagship": false
+  },
+  {
     "id": "swine-clinic--swine-fmd",
     "subject": "swine-clinic",
     "topic": "swine-fmd",
@@ -1797,12 +2004,66 @@ export const VETWIKI_TOPICS = [
     "flagship": false
   },
   {
+    "id": "swine-clinic--swine-trichinosis",
+    "subject": "swine-clinic",
+    "topic": "swine-trichinosis",
+    "title": "Trichinosis and trypanosomosis",
+    "icon": "🪱",
+    "summary": "โรคทริคิโนซิส (Trichinella spiralis) และโรคทริพพาโนโซโมซิส (Trypanosoma evansi) จากเดค \"โรคทริคิโนซิส (Trichinosis)\" ทริคิโนซิส: วงชีวิตที่ติดคนจากการกินเนื้อดิบ, กล้ามเนื้อที่พยาธิตัวอ่อนชอบฝังตัว, อาการในสุกรและในคน 3 ระยะ, การวินิจฉัย ยาไทอาเบนดาโซล และการระบาดในไทยตั้งแต่ปี 2505 ทริพพาโนโซโมซิส: อาการในสุกรและแม่สุกร การตรวจเลือด และยา Berenil®",
+    "flagship": false
+  },
+  {
+    "id": "swine-clinic--swine-csf",
+    "subject": "swine-clinic",
+    "topic": "swine-csf",
+    "title": "Classical Swine Fever (CSF)",
+    "icon": "🦠",
+    "summary": "อหิวาต์สุกร (Classical Swine Fever, CSF) จากเดค RK Slide ปี 2569 (p.58-87): กลุ่มอาการ atypical กับ typical, รอยโรคและ congenital CSF, การดำเนินโรค 5 แบบ (acute-lethal, acute-transient, chronic, late-onset, subclinical), pathogenesis, การกระจายของโรค, การตรวจหาไวรัสและแอนติบอดี และวัคซีน (MLV, การทำวัคซีนแม่, ระดับ SN titer กับ MDA, เหตุที่วัคซีนล้มเหลว, กรณีเกาะเชจู)",
+    "flagship": false
+  },
+  {
     "id": "swine-clinic--swine-asf",
     "subject": "swine-clinic",
     "topic": "swine-asf",
-    "title": "ASF และ CSF: หัวข้อข้อเขียนที่รุ่นพี่บันทึกไว้",
-    "icon": "🔬",
-    "summary": "ชุดข้อเขียนอีกชุดหนึ่งที่รุ่นพี่ Vet 85 จดไว้เป็นรายการคำถามล้วน ไม่มีคำตอบแนบมา ใช้เป็นแผนที่ขอบเขตการอ่านได้ดี แต่คำตอบต้องไปหาจากเลกเชอร์และตำราเอง",
+    "title": "African Swine Fever (ASF)",
+    "icon": "🐖",
+    "summary": "โรคอหิวาต์แอฟริกาในสุกร (African Swine Fever, ASF) จากเดค ASF ของ Swine Medicine 3107507: ภาพรวม prevent, detect, respond, ประวัติการแพร่และ ASF ในไทย, host, ตัวไวรัสและความทนทาน, clinical courses 4 แบบกับรอยโรค, pathogenesis, การแพร่ในฟาร์ม, การแพร่ในยุคปัจจุบัน, biosecurity, การตรวจหาเชื้อ และการตอบสนองด้วย depopulation, stamping out กับหลักเกณฑ์ฟาร์มปลอดโรค",
+    "flagship": false
+  },
+  {
+    "id": "swine-clinic--swine-greasypig",
+    "subject": "swine-clinic",
+    "topic": "swine-greasypig",
+    "title": "Greasy pig disease and Mycoplasma suis",
+    "icon": "🦠",
+    "summary": "Exudative epidermitis (greasy pig disease) และการติดเชื้อ Mycoplasma suis (eperythrozoonosis) ในสุกร greasy pig: staphylococci เป็น normal flora บนผิวสุกร, exfoliative toxin ทำให้ผิวหนังอักเสบแบบไม่คัน, ปัจจัยโน้มนำ, การเก็บตัวอย่าง และยาแรก M. suis: การติดต่อทางเข็มและเหา, กลไกทำลายเม็ดเลือดแดง, อาการตามกลุ่มอายุ และขนาดยา",
+    "flagship": false
+  },
+  {
+    "id": "swine-clinic--swine-repro",
+    "subject": "swine-clinic",
+    "topic": "swine-repro",
+    "title": "Reproductive diseases: PRRS, parvovirus, brucellosis, MMA",
+    "icon": "🐷",
+    "summary": "โรคและปัญหาระบบสืบพันธุ์ของแม่สุกร: สาเหตุของ reproductive failure, ตกขาว, น้ำนมแห้ง, production failure, porcine parvovirus, porcine brucellosis, กลุ่มอาการ MMA และ PRRS การควบคุมโรคระดับฟาร์มและการอ่านผล serology อยู่ในหัวข้อ Epidemic disease control and diagnostic approach",
+    "flagship": false
+  },
+  {
+    "id": "swine-clinic--swine-control-dx",
+    "subject": "swine-clinic",
+    "topic": "swine-control-dx",
+    "title": "Epidemic disease control and diagnostic approach",
+    "icon": "🛡️",
+    "summary": "การควบคุมโรคระบาดในฟาร์มสุกรด้วย biosecurity (ลดปริมาณเชื้อ และแยกกลุ่มสัตว์: AIAO, P0-1, batch production, multi-site), มาตรการหลัง ASF และการลงสุกรใหม่, การแยกกักและปรับสภาพสุกรทดแทน แล้วต่อด้วยแนวทางวินิจฉัยระดับฝูง (ผลแล็บ, serology S/P, farm pattern ตาม CPG ของไทย, PCR จาก tonsil และ oral fluid)",
+    "flagship": false
+  },
+  {
+    "id": "swine-clinic--swine-prv-je",
+    "subject": "swine-clinic",
+    "topic": "swine-prv-je",
+    "title": "Pseudorabies, Nipah and Japanese encephalitis",
+    "icon": "🧠",
+    "summary": "Japanese encephalitis (JE), Nipah virus disease (NiVD) และ pseudorabies (Aujeszky's disease) จากเดค RK Slide ปี 2569 JE: บทบาท amplification host กับ dead-end, อาการตามกลุ่มสุกร, การแยกโรคของ reproductive failure ในแม่สุกร และการตอบสนองของฟาร์ม Nipah: วงจรค้างคาว สุกร คน pseudorabies: gE กับ gB, latent infection และการใช้ marker vaccine คู่ ELISA แบบ DIVA ตัวเลขในกราฟอ่านจากรูป",
     "flagship": false
   },
   {

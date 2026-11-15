@@ -48,7 +48,7 @@ export const OG_COVERS = [
     cover: 'คลังโจทย์ ของเรา' },
   { id: 'groups', route: '/app/groups',
     title: 'กลุ่มติว',
-    description: 'แชร์ข้อสอบและอันดับคะแนนกลุ่ม',
+    description: 'อันดับคะแนนของกลุ่ม',
     cover: 'อ่านด้วยกัน ไปได้ไกลกว่า' },
   { id: 'leaderboard-global', route: '/app/leaderboard',
     title: 'อันดับคะแนน',
@@ -196,6 +196,14 @@ export const ogImageUrl = (origin, id) => `${origin}/og/${id}.png?v=${OG_IMAGE_V
  * OG_COVERS; scripts/lint-og.mjs checks each.
  */
 export const wikiCoverId = (subject) => `wiki-${subject}`;
+
+/**
+ * A set sent by a /s/ link previews with its subject's cover,
+ * public/og/set-<subject>.png (typographic, drawn by
+ * scripts/render-og-covers.mjs for every subject in SHARE_SUBJECTS). Read by
+ * api/s.js; scripts/lint-og.mjs checks each.
+ */
+export const setCoverId = (subject) => `set-${subject}`;
 
 export const OG_IMAGE_WIDTH = 1200;
 export const OG_IMAGE_HEIGHT = 630;

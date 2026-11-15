@@ -17,16 +17,16 @@ export function sweepInMemory(now = Date.now()) {
   }
 }
 
-function rateLimitInMemory(key, max, winMs) {
+function rateLimitInMemory(key, max, winMs, by = 1) {
   const now = Date.now();
   if (Math.random() < 0.01) sweepInMemory(now);
   let b = buckets.get(key);
   if (!b || now - b.first > winMs) {
-    b = { first: now, winMs, count: 1 };
+    b = { first: now, winMs, count: by };
     buckets.set(key, b);
-    return { ok: true, retryAfter: 0 };
+    return b.count > max ? { ok: false, retryAfter: Math.max(1, Math.ceil(winMs / 1000)) } : { ok: true, retryAfter: 0 };
   }
-  b.count++;
+  b.count += by;
   if (b.count > max) {
     // Never 0: a Retry-After of zero invites an immediate retry into the
     // same closed window.
@@ -44,7 +44,24 @@ const UPSTASH_TOKEN = (typeof process !== 'undefined' && process.env?.UPSTASH_RE
 const HAS_UPSTASH = !!(UPSTASH_URL && UPSTASH_TOKEN);
 let _loggedBackend = false;
 let lastFailureLog = 0;
-const SHARED_TIMEOUT_MS = 1800;
+// 3.5 s, not 1.8 s: any call can be the one that opens a new connection to the
+// store (two limits asked side by side, or the first call after a quiet
+// minute), and on 15 Nov 2026 a new connection took about 2 s from this
+// region. With 1.8 s the first chat of every fresh instance was refused, and
+// warming one connection (5.227.11) did not help the second one opened
+// beside it. A store that is really down still fails closed, 1.7 s later.
+const SHARED_TIMEOUT_MS = 3500;
+const SLOW_CALL_MS = 1200;
+let lastSlowLog = 0;
+// The first call of a fresh instance also pays the name lookup and the TLS
+// handshake to the store. On 15 Nov 2026 the first chat of every new
+// deployment was refused ("shared limiter unavailable") because that call
+// took longer than the 1.8 s a warm one is given. A cold call gets the room
+// it needs; a warm one keeps the short limit, so a store that is really down
+// still fails closed quickly.
+const COLD_TIMEOUT_MS = 6000;
+export const STORE_TIMEOUTS = Object.freeze({ warm: SHARED_TIMEOUT_MS, cold: COLD_TIMEOUT_MS });
+let storeWarm = false;
 
 function unavailable() {
   if (Date.now() - lastFailureLog > 60_000) {
@@ -66,9 +83,12 @@ export function sendRateLimitFailure(res, limit) {
 
 async function upstashPipeline(commands) {
   // Upstash REST pipeline: POST array of commands → array of results.
+  const cold = !storeWarm;
+  const started = Date.now();
   const res = await fetch(`${UPSTASH_URL}/pipeline`, {
+    redirect: 'error',
     method: 'POST',
-    signal: AbortSignal.timeout(SHARED_TIMEOUT_MS),
+    signal: AbortSignal.timeout(cold ? COLD_TIMEOUT_MS : SHARED_TIMEOUT_MS),
     headers: {
       'Authorization': `Bearer ${UPSTASH_TOKEN}`,
       'Content-Type': 'application/json',
@@ -76,10 +96,35 @@ async function upstashPipeline(commands) {
     body: JSON.stringify(commands),
   });
   if (!res.ok) throw new Error(`upstash ${res.status}`);
-  return res.json();
+  const body = await res.json();
+  const took = Date.now() - started;
+  if (!cold && took > SLOW_CALL_MS && Date.now() - lastSlowLog > 60_000) {
+    lastSlowLog = Date.now();
+    console.log('[rate-limit] slow store call on a warm instance:', took, 'ms');
+  }
+  if (cold && !storeWarm) {
+    storeWarm = true;
+    console.log('[rate-limit] first store call of this instance took', Date.now() - started, 'ms');
+  }
+  return body;
 }
 
-async function rateLimitUpstash(key, max, winMs) {
+let warming = false;
+/**
+ * Open the connection to the store as the instance starts, so the name lookup
+ * and the TLS handshake run while the caller does other work (the gate) and
+ * the first real limiter call finds the connection ready. One PING, never
+ * awaited, never counted against a limit, never able to fail a request; at
+ * most one in flight, and nothing once the store has answered or when it is
+ * not configured.
+ */
+export function warmStore() {
+  if (!HAS_UPSTASH || storeWarm || warming) return;
+  warming = true;
+  upstashPipeline([['PING']]).catch(() => {}).finally(() => { warming = false; });
+}
+
+async function rateLimitUpstash(key, max, winMs, by = 1) {
   const winSec = Math.ceil(winMs / 1000);
   const k = `rl:${key}`;
   try {
@@ -88,7 +133,7 @@ async function rateLimitUpstash(key, max, winMs) {
     // (NX = only set TTL if not already set — preserves the original
     //  window start across requests within the same window)
     const results = await upstashPipeline([
-      ['INCR', k],
+      by === 1 ? ['INCR', k] : ['INCRBY', k, String(by)],
       ['EXPIRE', k, String(winSec), 'NX'],
     ]);
     const count = Array.isArray(results) && results[0]?.result;
@@ -121,17 +166,56 @@ async function rateLimitUpstash(key, max, winMs) {
  * @param {string} key   — identifier (usually IP)
  * @param {number} max   — max requests in window
  * @param {number} winMs — window size (ms)
+ * @param {{ by?: number }} [opts] — how much this request counts (bytes, for a byte budget)
  * @returns {Promise<{ ok: boolean, retryAfter: number }>}
  */
-export async function rateLimit(key, max, winMs) {
+export async function rateLimit(key, max, winMs, { by = 1 } = {}) {
+  const step = Number.isSafeInteger(by) && by > 0 ? by : 1;
   const sharedRequired = process.env.VERCEL_ENV === 'production' || process.env.NODE_ENV === 'production';
   if (!_loggedBackend) {
     console.log(`[rate-limit] using ${HAS_UPSTASH ? 'upstash' : sharedRequired ? 'unconfigured' : 'in-memory'}`);
     _loggedBackend = true;
   }
-  if (HAS_UPSTASH) return rateLimitUpstash(key, max, winMs);
+  if (HAS_UPSTASH) return rateLimitUpstash(key, max, winMs, step);
   if (sharedRequired) return unavailable();
-  return rateLimitInMemory(key, max, winMs);
+  return rateLimitInMemory(key, max, winMs, step);
+}
+
+/**
+ * This instance's own counter, for a reading surface that stays open when the
+ * shared limiter cannot count (api/library-blob.js): a bound per instance
+ * instead of a refusal. Never a substitute for a shared spending ceiling.
+ */
+export function rateLimitLocal(key, max, winMs, { by = 1 } = {}) {
+  return rateLimitInMemory(`local:${key}`, max, winMs, Number.isSafeInteger(by) && by > 0 ? by : 1);
+}
+
+/**
+ * The one way a route behind the Chula gate counts its caller.
+ *
+ * - A Chula member (`gate.member === true`, decided by the database) is
+ *   counted on `<route>:user:<id>` at `max` and nowhere else: one limiter
+ *   call, and classmates on one campus address never share a quota or lock
+ *   each other out.
+ * - Anyone else (a guest, or a free account while the wall is off) is counted
+ *   by address at `max`, on the same `<route>:<ip>` key as before. A free
+ *   account gets no counter of its own, so throwaway accounts buy nothing.
+ * - `addressMax` (feedback only, since it sends mail): a member allowed by
+ *   their own counter is then counted on `<route>:addr:<ip>` too. The address
+ *   is never incremented by a request the account's counter refused.
+ *
+ * Fails closed like rateLimit(): an unavailable limiter comes back
+ * `{ ok: false, unavailable: true }`, which sendRateLimitFailure answers 503.
+ */
+export async function limitCaller(req, gate, route, max, windowMs, { addressMax = 0 } = {}) {
+  const ip = clientIP(req);
+  const uid = gate?.member === true && typeof gate.userId === 'string' && gate.userId ? gate.userId.slice(0, 64) : '';
+  if (!uid) return rateLimit(`${route}:${ip}`, max, windowMs);
+  const mine = await rateLimit(`${route}:user:${uid}`, max, windowMs);
+  if (!mine.ok || !addressMax) return mine;
+  const address = await rateLimit(`${route}:addr:${ip}`, addressMax, windowMs);
+  // Marked, so the caller can say it was the shared network, not this member.
+  return address.ok || address.unavailable ? address : { ...address, scope: 'address' };
 }
 
 /**
@@ -211,6 +295,8 @@ export function clientIP(req) {
  *   2) **Static allowlist fallback** — for cross-origin requests we
  *      genuinely want to support (e.g. local dev hitting prod API).
  */
+export const PREVIEW_ORIGIN_RE = /^https:\/\/vetmock-[a-z0-9-]+-palmzamak2547s-projects\.vercel\.app$/;
+
 export function allowedOrigin(req) {
   const origin = req.headers.origin;
   if (!origin) return null;
@@ -231,8 +317,11 @@ export function allowedOrigin(req) {
     'https://vetmock.com',
     'https://vetmock.vercel.app',                 // the old address, while learners move
     'https://vet-mock.vercel.app',
-    /^https:\/\/vetmock-[\w-]+\.vercel\.app$/,    // Preview deployments
-    /^https:\/\/vet-mock-[\w-]+\.vercel\.app$/,   // Legacy preview pattern
+    // Preview deployments of this team's projects (vetmock, vetmock-ai,
+    // vetmock-vca): Vercel names them <project>-<hash>-<team>.vercel.app and
+    // <project>-git-<branch>-<team>.vercel.app. A bare vetmock-*.vercel.app is
+    // a name any account can take, so the team suffix is required.
+    PREVIEW_ORIGIN_RE,
     'http://localhost:5173',
     'http://localhost:4173',
     'http://localhost:4174',

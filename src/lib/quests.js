@@ -17,6 +17,8 @@
 
 import { awardXp, XP_AWARDS } from './xp.js';
 import { SUBJECTS } from '../data/curriculum.js';
+import { dayKey, dayKeyBefore } from './study-day.js';
+import { reportFailure } from './report-failure.js';
 
 // Subject-locked quests only make sense for the year that owns the subject —
 // a ปี 3 student handed "ทำ 10 ข้อ COM III" (a year-4/5 subject) gets a daily
@@ -181,14 +183,10 @@ export function getQuestPoolSize() {
 }
 
 // ── Date helpers ──────────────────────────────────────────────────
-// The LOCAL day quests are credited under. Exported so anything that dedupes
+// The day quests are credited under: Bangkok's, the streak's (lib/study-day.js). Exported so anything that dedupes
 // per day before recording an event (NotesView's reading log) uses the same one.
 export function todayKey() {
-  const d = new Date();
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  return `${y}-${m}-${day}`;
+  return dayKey(Date.now());
 }
 
 function storageKeyFor(date) {
@@ -292,7 +290,10 @@ function persist(state) {
     const raw = JSON.stringify(state);
     window.localStorage?.setItem(storageKeyFor(state.date), raw);
     cache = { date: state.date, raw, state };
-  } catch {}
+  } catch (error) {
+    // The day's quests live on in memory for this page; the owner is told.
+    reportFailure('save', error);
+  }
 }
 
 function pruneOldKeys(currentDate) {
@@ -384,25 +385,29 @@ export function claimBonusReward() {
 }
 
 // ── Streak (consecutive days with ≥1 quest claimed) ───────────────
+// A stored null, a value of another shape or a corrupt one reads as no run:
+// "null" came back as null and Home's quest panel read `.lastDate` from it,
+// which put the page's error card up (stored-key sweep, 11 Nov 2026).
 function readStreak() {
+  const none = { streak: 0, lastDate: '' };
   try {
     const raw = window.localStorage?.getItem(STREAK_KEY);
-    if (!raw) return { streak: 0, lastDate: '' };
-    return JSON.parse(raw);
+    if (!raw) return none;
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return none;
+    return {
+      streak: Number.isFinite(parsed.streak) ? parsed.streak : 0,
+      lastDate: typeof parsed.lastDate === 'string' ? parsed.lastDate : '',
+    };
   } catch {
-    return { streak: 0, lastDate: '' };
+    return none;
   }
 }
 
 // The quest day before `date`, on the same calendar as todayKey. One
 // definition for the claim that extends a run and the read that shows it.
 function dayBefore(date) {
-  const yest = new Date(date + 'T00:00:00');
-  yest.setDate(yest.getDate() - 1);
-  const y = yest.getFullYear();
-  const m = String(yest.getMonth() + 1).padStart(2, '0');
-  const d = String(yest.getDate()).padStart(2, '0');
-  return `${y}-${m}-${d}`;
+  return dayKeyBefore(date);
 }
 
 function bumpQuestStreak(date) {
