@@ -32,3 +32,19 @@ export async function loadQuestionTranslations() {
   }
   return translationsCache;
 }
+
+// With EN chosen, the line that says Thai is shown instead, once a set: on the first
+// question of the set with no English when some have it, or at the start of a set
+// with none at all. Every other untranslated question simply shows Thai. The choice
+// is kept across sets, so on every subject but zoonoses the line had stood under
+// every stem.
+export const NO_ENGLISH_ITEM = 'ข้อนี้ยังไม่มีฉบับอังกฤษ จึงแสดงฉบับไทย';
+export const NO_ENGLISH_SET = 'ชุดนี้ยังไม่มีฉบับอังกฤษ จึงแสดงฉบับไทย';
+
+export function englishNoteFor(questions, idx, translationsById) {
+  if (!translationsById || !Array.isArray(questions) || !questions.length) return null;
+  const has = (q) => Boolean(q && translationsById[String(q.id)]);
+  if (!questions.some(has)) return idx === 0 ? NO_ENGLISH_SET : null;
+  const first = questions.findIndex((q) => !has(q));
+  return first >= 0 && idx === first ? NO_ENGLISH_ITEM : null;
+}

@@ -79,7 +79,7 @@ const TYPE_LABEL = {
 // set (ExamView renders the card without a key) and a set may be revisited.
 const FILL_CHECKED = new Set();
 
-export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote, revealAnswer, onOpenWiki, answerRun = 0, english = null, englishRequested = false }) {
+export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote, revealAnswer, onOpenWiki, answerRun = 0, english = null, englishNote = null }) {
   // A verdict is fresh when this visit to the question began unanswered: the
   // student answered it just now. Coming back to a question answered earlier
   // shows its verdict again, but Mochi does not react and the phone stays
@@ -481,7 +481,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   const contentBlock = (
     <div className="vmx-q-content-pane">
       <h2 ref={stemRef} className={`vmx-qtext${readWhat === 'q' && readKind === 'stem' ? ' is-reading' : ''}`}><TermLinkedRichText text={english?.q || shownStem} subject={currentQ.subject} /></h2>
-      {englishRequested && !english && <p className="vmx-en-missing">ข้อนี้ยังไม่มีฉบับอังกฤษ — แสดงฉบับไทย</p>}
+      {englishNote && !english && <p className="vmx-en-missing">{englishNote}</p>}
 
       {showNote && (
         <div className="vmx-note-panel">

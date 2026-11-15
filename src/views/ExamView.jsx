@@ -10,7 +10,7 @@ import { motionIsReduced } from '../lib/motion-preferences.js';
 import { correctRun } from '../lib/mochi-reactions.js';
 import { exitSetDialog } from '../lib/exit-set.js';
 import { preloadMochiRig } from '../components/MochiLive.jsx';
-import { readQuestionLang, writeQuestionLang, loadQuestionTranslations } from '../lib/question-language.js';
+import { readQuestionLang, writeQuestionLang, loadQuestionTranslations, englishNoteFor } from '../lib/question-language.js';
 
 export default function ExamView({ currentQ, currentIdx, questions, questionDeadline, timedOutIdx, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote, jumpToQ, answers, bookmarks, user, goHome, mode, instantFeedback, onOpenWiki }) {
   const [showNote, setShowNote] = useState(false);
@@ -166,7 +166,9 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
           // motivational "✓ n/m" chip. Writing types self-grade in Review,
           // so they stay out of the count entirely.
           const graded = questions.filter((q) => !isWritingType(q) && isAnswered(answers[q.id]));
-          if (!graded.length) return null;
+          // Its place is kept before the first answer, so the header does not grow and the
+          // card does not jump down when that answer lands.
+          if (!graded.length) return <div className="vmx-live-score is-empty" aria-hidden="true">✓ 0/0</div>;
           const ok = graded.filter((q) => isCorrect(q, answers[q.id])).length;
           return (
             <div className={`vmx-live-score ${ok / graded.length >= 0.6 ? '' : 'low'}`} title="คะแนนสดของชุดนี้ (เฉพาะข้อตรวจอัตโนมัติ)">
@@ -223,7 +225,7 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
         answerRun={answerRun}
         onOpenWiki={revealAnswer ? onOpenWiki : undefined}
         english={lang === 'en' && translationsById ? (translationsById[String(currentQ.id)] ?? null) : null}
-        englishRequested={lang === 'en' && Boolean(translationsById)}
+        englishNote={lang === 'en' ? englishNoteFor(questions, currentIdx, translationsById) : null}
       />
       </div>
 

@@ -5020,7 +5020,9 @@ html.vmx-read-open body::after { content: ''; display: block; height: var(--vmx-
   to { opacity: 1; transform: translateY(0); }
 }
 /* Running ✓ n/m chip in the exam header during practice */
-.vmx-live-score { font-family: var(--vmx-mono); font-variant-numeric: tabular-nums; font-size: 14px; font-weight: 700; color: var(--clr-sage-text); white-space: nowrap; }
+.vmx-live-score { font-family: var(--vmx-mono); font-variant-numeric: tabular-nums; font-size: 14px; font-weight: 700; color: var(--clr-sage-text); white-space: nowrap; min-width: 7ch; text-align: end; }
+/* Held in place before the first answer (ExamView), so the header keeps its rows when it fills. */
+.vmx-live-score.is-empty { visibility: hidden; }
 .vmx-live-score.low { color: var(--clr-ink); text-decoration: underline 2px var(--clr-rose); text-underline-offset: 3px; } /* over the header gradient no accent text colour reaches 4.5:1 on every palette (gold 4.3, rose 4.45), so the number keeps ink and the low state rides on a rose underline */
 
 /* ============================================================
@@ -9116,7 +9118,12 @@ body.vmx-fullscreen .vmx-tools-fab, body.vmx-fullscreen .vmx-tools-fab-wrap { di
   padding: 3px 10px;
   border-radius: 999px;
   cursor: pointer;
+  /* A 44 px target without a taller pill or header: 44 wide, and a hit area 7 px above
+     and below the 31 px pill. */
+  position: relative;
+  min-width: 44px;
 }
+.vmx-lang-btn::before { content: ''; position: absolute; inset: -7px 0; }
 .vmx-lang-btn.is-on {
   background: var(--clr-surface);
   border-color: var(--clr-sage);
