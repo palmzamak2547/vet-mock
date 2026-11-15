@@ -5,7 +5,7 @@
   "description": "VetMock VCA: practice for the veterinary competency assessment, served on vca.vetmock.com",
   "type": "module",
   "engines": {
-    "node": ">=20"
+    "node": "24.x"
   },
   "scripts": {
     "bank": "node scripts/build-bank.mjs",

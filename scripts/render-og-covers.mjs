@@ -28,6 +28,8 @@ const { wikiCoverId } = await import(pathToFileURL(path.join(ROOT, 'src/data/og-
 const { SHELF_SUBJECTS } = await import(pathToFileURL(path.join(ROOT, 'src/lib/vetwiki/shelf.generated.js')).href);
 const { SUBJECT_COVERS } = await import(pathToFileURL(path.join(ROOT, 'src/data/subject-covers.js')).href);
 const { SUBJECTS } = await import(pathToFileURL(path.join(ROOT, 'src/data/curriculum.js')).href);
+const { setCoverId } = await import(pathToFileURL(path.join(ROOT, 'src/data/og-covers.js')).href);
+const { SHARE_SUBJECTS } = await import(pathToFileURL(path.join(ROOT, 'src/lib/share-link.js')).href);
 
 // VetWiki's subjects, one cover each: the kicker, the subject's name as the
 // headline, and its bookplate (VetMock's own course print, a transparent
@@ -46,11 +48,26 @@ const WIKI_COVERS = Object.keys(SHELF_SUBJECTS).map((subject) => ({
   },
 }));
 
+// A set sent by a /s/ link, one cover per subject a link can name: type only.
+// The panel is ten answer bubbles drawn in CSS, the app's own mark for a set,
+// so no picture is printed whose source the repository cannot show.
+const SET_COVERS = SHARE_SUBJECTS.map((subject) => ({
+  id: setCoverId(subject),
+  route: '/s',
+  cover: SUBJECTS.find((s) => s.id === subject)?.name || subject,
+  set: {
+    plate: {
+      kicker: 'ชุดโจทย์จากเพื่อน',
+      colors: { paper: SUBJECT_COVERS[subject]?.paper || '#f6eedf', ink: '#2b2419', accent: '#355a39', soft: '#5c5246', artInk: '#2b2419', artPaper: '#ece3cf' },
+    },
+  },
+}));
+
 const args = process.argv.slice(2);
 const sheetAt = args.indexOf('--sheet');
 const sheet = sheetAt >= 0 ? args.splice(sheetAt, 2)[1] : null;
 const only = new Set(args);
-const covers = [...OG_COVERS, ...WIKI_COVERS].filter((c) => only.size === 0 || only.has(c.id));
+const covers = [...OG_COVERS, ...WIKI_COVERS, ...SET_COVERS].filter((c) => only.size === 0 || only.has(c.id));
 
 const b64 = (rel, type) => `data:${type};base64,${fs.readFileSync(path.join(ROOT, rel)).toString('base64')}`;
 const SERIF = b64('public/fonts/noto-serif-thai-var.woff2', 'font/woff2');
@@ -60,7 +77,7 @@ const LOGO = fs.readFileSync(path.join(ROOT, 'public/vetmock-logo.svg'), 'utf8')
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 function page(cover, index) {
-  const plate = cover.wiki?.plate || PLATES[cover.id];
+  const plate = cover.wiki?.plate || cover.set?.plate || PLATES[cover.id];
   if (!plate) throw new Error(`no plate for ${cover.id} in scripts/og/plates.mjs`);
   const p = plate.colors || PALETTES[plate.palette];
   const art = cover.wiki?.art || ART[cover.id] || null;
@@ -75,7 +92,10 @@ function page(cover, index) {
   const mochiData = art?.mochi
     ? `data:image/svg+xml;base64,${fs.readFileSync(path.join(ROOT, 'public', MOCHI_POSE_ASSETS[art.mochi])).toString('base64')}`
     : null;
-  const figure = mochiData
+  const bubbles = cover.set
+    ? `<figure class="art bubbles" aria-hidden="true">${Array.from({ length: 10 }, () => '<i></i>').join('')}</figure>`
+    : null;
+  const figure = bubbles || (mochiData
     ? `<figure class="art mochi"><img src="${mochiData}" alt=""></figure>`
     : art
     ? `<figure class="art ${art.treatment === 'colour' ? 'colour' : 'mask'}">
@@ -85,7 +105,7 @@ function page(cover, index) {
         ${(art.boxes || []).map(([x, y, w, h]) => `<i class="occl" style="left:${x * 100}%;top:${y * 100}%;width:${w * 100}%;height:${h * 100}%"></i>`).join('')}
         <figcaption>${esc(art.credit)}</figcaption>
       </figure>`
-    : `<figure class="art bare" aria-hidden="true"><span>${no}</span></figure>`;
+    : `<figure class="art bare" aria-hidden="true"><span>${no}</span></figure>`);
   return `<!doctype html><html lang="th"><head><meta charset="utf-8">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=IBM+Plex+Sans+Thai:wght@500;600&family=IBM+Plex+Mono:wght@500&display=block">
 <style>
@@ -114,6 +134,9 @@ body { width: ${W}px; height: ${H}px; overflow: hidden; background: ${p.paper}; 
 .art.mochi { display: grid; place-items: end center; background: radial-gradient(120% 70% at 50% 100%, color-mix(in srgb, ${p.accent} 14%, ${p.artPaper}) 0%, ${p.artPaper} 70%); }
 .art.mochi img { width: 88%; height: auto; margin-bottom: 28px; }
 .art.bare span { font: italic 400 400px/1 'Fraunces', serif; color: transparent; -webkit-text-stroke: 2px ${p.accent}; opacity: 0.55; transform: translateX(-12px); }
+.art.bubbles { display: grid; grid-template-columns: repeat(2, 84px); gap: 24px 44px; align-content: center; justify-content: center; background: ${p.artPaper}; }
+.art.bubbles i { width: 84px; height: 84px; border-radius: 50%; border: 4px solid ${p.accent}; opacity: 0.85; }
+${cover.set ? '.headline { line-height: 1.2; letter-spacing: 0; }' : ''}
 .mark { position: absolute; width: 18px; height: 18px; border-color: ${p.soft}; opacity: 0.6; }
 .mark.tl { left: 20px; top: 20px; border-left: 1.5px solid; border-top: 1.5px solid; }
 .mark.bl { left: 20px; bottom: 20px; border-left: 1.5px solid; border-bottom: 1.5px solid; }
@@ -137,7 +160,7 @@ body { width: ${W}px; height: ${H}px; overflow: hidden; background: ${p.paper}; 
     const h = document.querySelector('.headline');
     for (let size = 84; size >= 48; size -= 2) {
       h.style.fontSize = size + 'px';
-      const lines = Math.round(h.getBoundingClientRect().height / (size * 1.3));
+      const lines = Math.round(h.getBoundingClientRect().height / parseFloat(getComputedStyle(h).lineHeight));
       if (h.scrollWidth <= h.clientWidth + 1 && lines <= 3) return { size, lines };
     }
     return { size: 48, lines: -1 };
@@ -151,7 +174,8 @@ const ctx = await browser.newContext({ viewport: { width: W, height: H }, device
 const tab = await ctx.newPage();
 const shots = [];
 for (const cover of covers) {
-  const index = cover.wiki ? OG_COVERS.length + WIKI_COVERS.indexOf(cover) : OG_COVERS.indexOf(cover);
+  const index = cover.set ? OG_COVERS.length + WIKI_COVERS.length + SET_COVERS.indexOf(cover)
+    : cover.wiki ? OG_COVERS.length + WIKI_COVERS.indexOf(cover) : OG_COVERS.indexOf(cover);
   await tab.setContent(page(cover, index), { waitUntil: 'networkidle' });
   await tab.evaluate(() => document.fonts.ready);
   const fit = await tab.evaluate(() => window.fit());
@@ -187,6 +211,7 @@ for (const c of credited) {
 lines.push('## mochi.png, about.png', '', 'Mochi is VetMock\'s own mascot (public/motion/poses).', '');
 lines.push(`## ${WIKI_COVERS.map((c) => `${c.id}.png`).join(', ')}`, '',
   'Each prints its course\'s bookplate from the app: VetMock\'s own artwork, not a public-domain work. Nine are the Panic Mode drawings (public/panic-art, September 2026); the rest are the course-card bookplates (public/subject-art, October 2026). Printed in one ink on the cloth colour of the course\'s volume on the VetWiki shelves.', '');
+lines.push(`## set-*.png (${SET_COVERS.length} covers)`, '', 'The covers of sets sent by link: type and ten drawn answer circles only, no artwork.', '');
 lines.push('# Share-card plates', '', 'The friezes across the top of the share cards (src/data/art.js, CARD_PLATES): crops of one strip each, printed in the card\'s ink.', '');
 for (const a of Object.values(ART).filter((x) => x.out && x.source)) {
   lines.push(`## ${a.out.replace(/^public\//, '')}`, '', `${a.creator}, *${a.title}*, ${a.year}. ${a.institution}.`, `Source: ${a.source}`, `Licence: ${a.licence}.`, 'Cropped, printed in one colour.', '');
