@@ -58,9 +58,15 @@ test('the card shows nothing of the source, and no topic that gives the key away
       expect(said).not.toContain(r.topic);
       expect(said).toContain('หัวข้อแสดงหลังเฉลย');
     }
-    // Where the stem and the options sit, so the arrival can be shown to move nothing above it.
-    const stemTop = (await page.locator('.vmx-qtext').boundingBox()).y;
-    const optionsBox = await options.boundingBox();
+    // Where the stem and the options sit on the page, so the arrival can be shown to move nothing above
+    // it. On the page, not in the viewport: on a short phone the verdict is scrolled into view when it
+    // arrives, and that scroll is not the card moving.
+    const onPage = async (loc) => {
+      const [box, y] = await Promise.all([loc.boundingBox(), page.evaluate(() => window.scrollY)]);
+      return { ...box, y: box.y + y };
+    };
+    const stemTop = (await onPage(page.locator('.vmx-qtext'))).y;
+    const optionsBox = await onPage(options);
 
     // Answer with the bank's key, matched exactly against each option's text.
     const key = norm(r.q.options[r.q.answer]);
@@ -79,10 +85,10 @@ test('the card shows nothing of the source, and no topic that gives the key away
     console.log(`[${test.info().project.name}] ${r.q.subject}#${r.q.id} after: ${after}`);
     expect(after).toContain(r.after);
     expect(after).toContain('ดูเต็ม');
-    expect(Math.abs((await page.locator('.vmx-qtext').boundingBox()).y - stemTop)).toBeLessThanOrEqual(1);
-    const optionsNow = await options.boundingBox();
+    expect(Math.abs((await onPage(page.locator('.vmx-qtext'))).y - stemTop)).toBeLessThanOrEqual(1);
+    const optionsNow = await onPage(options);
     expect(Math.abs(optionsNow.y - optionsBox.y)).toBeLessThanOrEqual(1);
-    expect((await chip.boundingBox()).y).toBeGreaterThanOrEqual(optionsNow.y + optionsNow.height);
+    expect((await onPage(chip)).y).toBeGreaterThanOrEqual(optionsNow.y + optionsNow.height);
     expect(Math.abs((await meta.boundingBox()).height - metaHeight)).toBeLessThanOrEqual(1);
     if (r.topic) {
       const said = await meta.innerText();
