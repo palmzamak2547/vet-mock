@@ -575,29 +575,6 @@ export async function updateProfileMetadata(metadata) {
   return data;
 }
 
-// ─── Update username (in profiles table) ────────────────────────
-// Username uniqueness is enforced server-side via a unique index. If
-// another user grabs the name between availability check and update,
-// the error is surfaced in Thai.
-export async function updateUsername(newUsername) {
-  const supabase = await getSupabase();
-  if (!supabase) throw new Error('Supabase not configured');
-  const { data: sess } = await supabase.auth.getSession();
-  const userId = sess?.session?.user?.id;
-  if (!userId) throw new Error('ไม่ได้ login อยู่');
-  const { data, error } = await supabase
-    .from('profiles')
-    .update({ username: newUsername })
-    .eq('id', userId)
-    .select('id, username, avatar_emoji, created_at')
-    .single();
-  if (error) throw error;
-  // Mirror to user_metadata so HomeView / UserMenu pick it up without
-  // a profiles re-fetch round-trip.
-  await supabase.auth.updateUser({ data: { username: newUsername } });
-  return data;
-}
-
 // ─── LINE OAuth (Thailand-specific provider) ────────────────────
 // Requires Supabase Dashboard → Auth → Providers → LINE setup with a
 // LINE Developer app's channel ID + secret. Until that's configured,
