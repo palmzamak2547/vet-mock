@@ -146,13 +146,13 @@ export const BANK_REGISTRY = [
   { file: 'questions-y5-aquatic-0924.js', export: 'QB_Y5_AQUATIC_0924', year: 5, count: 66,
     subjects: ['aquatic-clinic'],
     load: () => import('./questions-y5-aquatic-0924.js').then((m) => m.QB_Y5_AQUATIC_0924) },
-  { file: 'questions-y5-aquatic-2026-b.js', export: 'QUESTIONS_Y5_AQUATIC_2026_B', year: 5, count: 79,
+  { file: 'questions-y5-aquatic-2026-b.js', export: 'QUESTIONS_Y5_AQUATIC_2026_B', year: 5, count: 93,
     subjects: ['aquatic-clinic'],
     load: () => import('./questions-y5-aquatic-2026-b.js').then((m) => m.QUESTIONS_Y5_AQUATIC_2026_B) },
   { file: 'questions-y5-aquatic-2026.js', export: 'QUESTIONS_Y5_AQUATIC_2026', year: 5, count: 69,
     subjects: ['aquatic-clinic'],
     load: () => import('./questions-y5-aquatic-2026.js').then((m) => m.QUESTIONS_Y5_AQUATIC_2026) },
-  { file: 'questions-y5-aquatic-final-recall.js', export: 'QUESTIONS_Y5_AQUATIC_FINAL_RECALL', year: 5, count: 106,
+  { file: 'questions-y5-aquatic-final-recall.js', export: 'QUESTIONS_Y5_AQUATIC_FINAL_RECALL', year: 5, count: 108,
     subjects: ['aquatic-clinic'],
     load: () => import('./questions-y5-aquatic-final-recall.js').then((m) => m.QUESTIONS_Y5_AQUATIC_FINAL_RECALL) },
   { file: 'questions-y5-aquatic-tj.js', export: 'QB_Y5_AQUATIC_TJ', year: 5, count: 21,
@@ -334,4 +334,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-11-15T21:31:33.132Z — 108 banks · 9182 Qs
+// Built: 2026-11-15T22:00:48.064Z — 108 banks · 9198 Qs

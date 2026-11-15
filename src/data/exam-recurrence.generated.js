@@ -10,7 +10,7 @@
 export const EXAM_RECURRENCE = {
   "aquatic-clinic": {
     "cohorts": [80, 83, 84, 85],
-    "items": 184,
+    "items": 186,
     "topics": {
       "aqua-amphibian": {
         "cohorts": [],
@@ -20,12 +20,27 @@ export const EXAM_RECURRENCE = {
         "sat": {},
         "unattributed": ["aquatic-clinic:202197"],
       },
-      "aqua-conservation": {
+      "aqua-aquarium-vet": {
         "cohorts": [85],
         "first": 85,
         "last": 85,
         "items": 1,
         "sat": {
+          "85": {
+            "final": ["aquatic-clinic:217701"],
+          },
+        },
+        "unattributed": [],
+      },
+      "aqua-conservation": {
+        "cohorts": [80, 85],
+        "first": 80,
+        "last": 85,
+        "items": 2,
+        "sat": {
+          "80": {
+            "midterm": ["aquatic-clinic:217700"],
+          },
           "85": {
             "final": ["aquatic-clinic:211098"],
           },

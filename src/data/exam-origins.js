@@ -95,6 +95,9 @@ export const EXAM_ORIGINS = Object.freeze({
   "Aquatic Med final Vet 83 บันทึกหลังสอบ": { kind: 'paper', cohort: 83, paper: 'final' },
   "Aquatic Med final Vet 84 บันทึกหลังสอบ": { kind: 'paper', cohort: 84, paper: 'final' },
   "Aquatic Med final Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: 85, paper: 'final' },
+  // Vet 80 wrote down their Aquatic Med midterm by lecturer (a 2-page sheet kept in the Vet 84 midterm folder); the
+  // marine-mammal part of that midterm is taught for the final in 2569, so the row sits in a final topic.
+  "Aquatic Med midterm Vet 80 บันทึกหลังสอบ": { kind: 'paper', cohort: 80, paper: 'midterm' },
   "One Health final Vet 82 บันทึกหลังสอบ": { kind: 'paper', cohort: 82, paper: 'final' },
   "One Health final Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: 85, paper: 'final' },
   "One Health final บันทึกหลังสอบ (ไม่ระบุรุ่น)": { kind: 'paper', cohort: null, paper: 'final' },

@@ -10,12 +10,12 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 8970;
-export const QB_SOURCE_TOTAL = 9182;
+export const QB_TOTAL = 8986;
+export const QB_SOURCE_TOTAL = 9198;
 export const QB_BLOCKED_TOTAL = 212;
 
 export const Q_COUNTS_BY_SUBJECT = {
-  'aquatic-clinic': 532,
+  'aquatic-clinic': 548,
   'avian-medicine': 581,
   'biochem-1': 271,
   'cliapprum': 136,
@@ -65,7 +65,7 @@ export const Q_COUNTS_BY_SUBJECT = {
 // HomeView SubjectGrid renders these for the per-card Q badges so
 // the page doesn't need to scan the full QB at render time.
 export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
-  'aquatic-clinic': 532,
+  'aquatic-clinic': 548,
   'avian-medicine': 581,
   'biochem-1': 271,
   'cliapprum': 134,
@@ -115,7 +115,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
 // A subject missing from this map has neither, and its Panic card falls
 // back to the whole subject.
 export const Q_PANIC_COUNTS_BY_SUBJECT = {
-  'aquatic-clinic': 408,
+  'aquatic-clinic': 421,
   'avian-medicine': 278,
   'biochem-1': 271,
   'cliapprum': 10,
@@ -199,7 +199,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'zoonoses': 321,
   },
   final: {
-    'aquatic-clinic': 191,
+    'aquatic-clinic': 204,
     'avian-medicine': 80,
     'biochem-1': 271,
     'cliapprum': 10,
@@ -266,7 +266,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'zoonoses': 382,
   },
   '1-final': {
-    'aquatic-clinic': 243,
+    'aquatic-clinic': 259,
     'avian-medicine': 109,
     'com1': 31,
     'com2': 39,
@@ -354,7 +354,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
     2: 104,
     3: 62,
     4: 302,
-    5: 3796,
+    5: 3812,
   },
   '2-mid': {
     1: 297,
@@ -641,12 +641,12 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
   },
   '1-final': {
     'aquatic-clinic': {
-      'aqua-aquarium-vet': 11,
-      'aqua-conservation': 12,
+      'aqua-aquarium-vet': 13,
+      'aqua-conservation': 20,
       'aqua-disease-control': 119,
-      'aqua-fish-diseases': 55,
-      'aqua-shrimp-diseases': 40,
-      'aqua-toxicology': 6,
+      'aqua-fish-diseases': 58,
+      'aqua-shrimp-diseases': 41,
+      'aqua-toxicology': 8,
     },
     'avian-medicine': {
       'avian-campy': 6,
@@ -1742,7 +1742,8 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
   },
   '1-final': {
     'aquatic-clinic': {
-      'aqua-conservation': 1,
+      'aqua-aquarium-vet': 1,
+      'aqua-conservation': 2,
       'aqua-disease-control': 110,
       'aqua-fish-diseases': 14,
       'aqua-shrimp-diseases': 12,
@@ -2402,7 +2403,7 @@ export const Q_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 2076,
-  5: 6391,
+  5: 6407,
 };
 
 // Visible per-year totals (hidden topics excluded). Every user-facing
@@ -2414,7 +2415,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 1981,
-  5: 6391,
+  5: 6407,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -2423,18 +2424,18 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
 export const Q_COUNTS_BY_TOPIC = {
   "aquatic-clinic": {
     "aqua-amphibian": 12,
-    "aqua-aquarium-vet": 11,
-    "aqua-conservation": 12,
+    "aqua-aquarium-vet": 13,
+    "aqua-conservation": 20,
     "aqua-disease-control": 119,
     "aqua-fish-biology": 45,
-    "aqua-fish-diseases": 55,
+    "aqua-fish-diseases": 58,
     "aqua-frog-diseases": 14,
     "aqua-intro-thailand": 99,
     "aqua-life-support": 10,
     "aqua-ornamental": 38,
-    "aqua-shrimp-diseases": 40,
+    "aqua-shrimp-diseases": 41,
     "aqua-shrimp-immunology": 26,
-    "aqua-toxicology": 6,
+    "aqua-toxicology": 8,
     "aqua-turtle": 15,
     "aqua-water-quality": 30,
   },
@@ -3150,7 +3151,8 @@ export const Q_COUNTS_BY_TOPIC = {
 export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
   "aquatic-clinic": {
     "aqua-amphibian": 1,
-    "aqua-conservation": 1,
+    "aqua-aquarium-vet": 1,
+    "aqua-conservation": 2,
     "aqua-disease-control": 110,
     "aqua-fish-biology": 9,
     "aqua-fish-diseases": 14,
@@ -3742,4 +3744,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-11-15T21:31:54.430Z
+// Built: 2026-11-15T22:01:10.473Z
