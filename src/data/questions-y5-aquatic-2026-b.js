@@ -2008,4 +2008,538 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
       }
     ]
   },
+  {
+    "id": 217710,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-conservation",
+    "year": 5,
+    "type": "mcq",
+    "q": "กล้ามเนื้อลายของสัตว์ทะเลเลี้ยงลูกด้วยนมมีสีแดงเข้ม ลักษณะนี้ช่วยการดำน้ำอย่างไร",
+    "options": [
+      "มีไขมันแทรกในกล้ามเนื้อมาก จึงช่วยให้ลอยตัวได้ขณะดำน้ำ",
+      "มีเส้นเลือดฝอยหนาแน่น จึงระบายความร้อนออกจากแกนลำตัวได้เร็ว",
+      "มี myoglobin สูง จึงเก็บออกซิเจนไว้ใช้ระหว่างดำน้ำได้มาก",
+      "มี hemoglobin อยู่ในเซลล์กล้ามเนื้อ จึงไม่ต้องอาศัยเลือดขนออกซิเจน"
+    ],
+    "answer": 2,
+    "explain": "สีแดงเข้มมาจาก myoglobin ที่มีมาก กล้ามเนื้อจึงเก็บออกซิเจนไว้ใช้เองระหว่างดำน้ำ ออกซิเจนส่วนใหญ่ของสัตว์กลุ่มนี้เก็บไว้ในเลือดและใน myoglobin ของกล้ามเนื้อ ไม่ได้เก็บในปอด\n\n❌ ทำไมข้ออื่นผิด\n- ไขมันแทรก: ฉนวนและแรงลอยตัวมาจาก blubber ใต้ผิวหนัง ไม่ได้มาจากกล้ามเนื้อ\n- เส้นเลือดฝอยระบายความร้อน: การระบายความร้อนทำผ่านครีบและหางด้วยระบบหลอดเลือดแบบไหลสวนทาง\n- hemoglobin ในเซลล์กล้ามเนื้อ: โปรตีนจับออกซิเจนในกล้ามเนื้อคือ myoglobin ส่วน hemoglobin อยู่ในเม็ดเลือดแดง",
+    "source": "Conservation Aquatic Animal Management & Medicine_ marine mammals (2026) หน้า 22 และ 41",
+    "verified": "จุดที่ติดสติกเกอร์ว่าออกสอบในสรุปปลายภาค Aquatic Med Vet 85 หน้า 18 และจุดที่ติดดาวในสมุดสรุปกลางภาค Aquatic Med ของ Vet 83 หน้า 4; เนื้อหาตรงกับConservation Aquatic Animal Management & Medicine_ marine mammals (2026) หน้า 22 (Dark red muscle, high myoglobin = more O2 for diving) และหน้า 41 และคาบวันที่ 27 ต.ค. 2569 คลิป EQnBE3-pL94 นาที 35:39",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบในโน้ต Aquatic Med",
+    "tags": [
+      "aqua-conservation",
+      "marine-mammals",
+      "diving-physiology",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-marine-mammals-2569",
+        "edition": "110p",
+        "page": 22
+      },
+      {
+        "doc": "aqua-marine-mammals-2569",
+        "edition": "110p",
+        "page": 41
+      },
+      {
+        "doc": "aqua-final-summary-vet85",
+        "edition": "23p",
+        "page": 18
+      }
+    ]
+  },
+  {
+    "id": 217711,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-conservation",
+    "year": 5,
+    "type": "mcq",
+    "q": "ข้อใดไม่ใช่ลักษณะร่วมของสัตว์ทะเลเลี้ยงลูกด้วยนม",
+    "options": [
+      "มีขนหรือเส้นขน แม้ในวาฬและโลมาจะเหลืออยู่น้อยมาก",
+      "มีต่อมน้ำนม และออกลูกเป็นตัวโดยมีรก",
+      "หลอดลมส่วนปลายมีกระดูกอ่อนหรือกล้ามเนื้อเสริมกันการแฟบ",
+      "อัณฑะอยู่ในถุงอัณฑะนอกช่องท้องเพื่อลดอุณหภูมิ"
+    ],
+    "answer": 3,
+    "explain": "สัตว์ทะเลเลี้ยงลูกด้วยนมมีอัณฑะอยู่ภายในร่างกาย (ascrotal testes) ไม่มีถุงอัณฑะห้อยออกมานอกลำตัว ซึ่งช่วยให้ลำตัวเพรียวและลดแรงต้านน้ำ\n\n❌ ทำไมข้ออื่นถูก\n- ขนหรือเส้นขน: เป็นลักษณะของสัตว์เลี้ยงลูกด้วยนม โลมาแรกเกิดมีเส้นขนที่ปากและหลุดไปเมื่อโตขึ้น\n- ต่อมน้ำนมและรก: เลี้ยงลูกด้วยนมและออกลูกเป็นตัวเหมือนสัตว์เลี้ยงลูกด้วยนมบนบก\n- หลอดลมเสริมกระดูกอ่อน: ทำให้ทางเดินหายใจไม่แฟบเมื่อดำน้ำลึกที่ความดันสูง",
+    "source": "Conservation Aquatic Animal Management & Medicine_ marine mammals (2026) หน้า 22",
+    "verified": "จุดที่ติดสติกเกอร์ว่าออกสอบในสรุปปลายภาค Aquatic Med Vet 85 หน้า 18 (mammal traits: fur or hair, mammary glands, viviparity, ascrotal testes) และจุดที่ติดดาวในสมุดสรุปกลางภาค Aquatic Med ของ Vet 83 หน้า 4 (Fur or hair); เนื้อหาตรงกับConservation Aquatic Animal Management & Medicine_ marine mammals (2026) หน้า 22",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบในโน้ต Aquatic Med",
+    "tags": [
+      "aqua-conservation",
+      "marine-mammals",
+      "mammal-traits",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-marine-mammals-2569",
+        "edition": "110p",
+        "page": 22
+      },
+      {
+        "doc": "aqua-final-summary-vet85",
+        "edition": "23p",
+        "page": 18
+      }
+    ]
+  },
+  {
+    "id": 217712,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-conservation",
+    "year": 5,
+    "type": "mcq",
+    "q": "ข้อใดถูกต้องเกี่ยวกับครีบอก (pectoral flipper) ของ cetacean",
+    "options": [
+      "มีกระดูกไหปลาร้า และข้อต่อไหล่หมุนได้รอบทิศเพื่อใช้พายน้ำ",
+      "ไม่มีกระดูกไหปลาร้า และข้อต่อ humero-scapular ขยับไม่ได้",
+      "ไม่มีกระดูกอยู่ภายใน มีเพียงเนื้อเยื่อเกี่ยวพันที่หนาแน่น",
+      "เป็นอวัยวะให้แรงว่ายหลัก ส่วนหางใช้เปลี่ยนทิศทางการว่าย"
+    ],
+    "answer": 1,
+    "explain": "ครีบอกของ cetacean ไม่มีกระดูกไหปลาร้า และข้อต่อระหว่างต้นแขนกับสะบัก (humero-scapular joint) เป็นข้อต่อที่ขยับไม่ได้ ครีบอกจึงใช้ปรับมุมของลำตัวขณะว่าย ไม่ได้ใช้พายน้ำ ภายในครีบอกยังมีกระดูกของขาหน้าอยู่ครบ\n\n❌ ทำไมข้ออื่นผิด\n- มีกระดูกไหปลาร้าและข้อไหล่หมุนได้: กลับด้านกับความจริงทั้งสองส่วน\n- ไม่มีกระดูกอยู่ภายใน: เป็นลักษณะของครีบหลังและแพนหาง ไม่ใช่ครีบอก\n- ครีบอกให้แรงว่ายหลัก: แรงขับมาจากกล้ามเนื้อหนาแน่นที่โคนหาง (peduncle) และแพนหาง",
+    "source": "Conservation Aquatic Animal Management & Medicine_ marine mammals (2026) หน้า 26, 27 และ 31",
+    "verified": "จุดที่ติดสติกเกอร์ว่าออกสอบในสรุปปลายภาค Aquatic Med Vet 85 หน้า 18 (no clavicle and a fixed humero-scapular joint) และจุดที่ทำเครื่องหมายในผังสรุปของ Vet 79 ในโฟลเดอร์กลางภาคของ Vet 84; เนื้อหาตรงกับConservation Aquatic Animal Management & Medicine_ marine mammals (2026) หน้า 26 (No clavicle, Fixed humero-scapular joint, peduncle ใช้ขับเคลื่อน) หน้า 27 (ครีบหลังไม่มีกระดูก) และหน้า 31 (กระดูกขาหน้าอยู่ในครีบอก)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบในโน้ต Aquatic Med",
+    "tags": [
+      "aqua-conservation",
+      "cetacean-anatomy",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-marine-mammals-2569",
+        "edition": "110p",
+        "page": 26
+      },
+      {
+        "doc": "aqua-marine-mammals-2569",
+        "edition": "110p",
+        "page": 27
+      },
+      {
+        "doc": "aqua-marine-mammals-2569",
+        "edition": "110p",
+        "page": 31
+      },
+      {
+        "doc": "aqua-final-summary-vet85",
+        "edition": "23p",
+        "page": 18
+      }
+    ]
+  },
+  {
+    "id": 217713,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-conservation",
+    "year": 5,
+    "type": "mcq",
+    "q": "ไตของ cetacean มีลักษณะใด",
+    "options": [
+      "เป็นไตแบบเรียบกลีบเดียว และทำให้ปัสสาวะเข้มข้นได้น้อย",
+      "เป็นไตแบบ multipyramidal เหมือนสุกร และปัสสาวะเจือจางมาก",
+      "เป็นไตแบบหลายกลีบ (reniculate) และทำให้ปัสสาวะเข้มข้นได้สูง",
+      "เป็นไตแบบหลายกลีบ แต่ไม่มีท่อไตและขับปัสสาวะทาง cloaca"
+    ],
+    "answer": 2,
+    "explain": "ไตของ cetacean แบ่งเป็นกลีบย่อยจำนวนมาก (multilobulated หรือ reniculate kidney) คล้ายไตของโค และทำให้ปัสสาวะเข้มข้นได้สูง ช่วยรักษาน้ำในร่างกายของสัตว์ที่อยู่ในน้ำทะเล ปัสสาวะไหลผ่านท่อไตแต่ละข้างลงสู่กระเพาะปัสสาวะ\n\n❌ ทำไมข้ออื่นผิด\n- ไตเรียบกลีบเดียว: ไม่ใช่รูปแบบของ cetacean และความสามารถทำปัสสาวะเข้มข้นกลับด้าน\n- multipyramidal และปัสสาวะเจือจาง: ปัสสาวะของ cetacean เข้มข้น ไม่ได้เจือจาง\n- ไม่มีท่อไต: cetacean มีท่อไตแยกสองข้างลงกระเพาะปัสสาวะ และไม่มี cloaca",
+    "source": "Conservation Aquatic Animal Management & Medicine_ marine mammals (2026) หน้า 37",
+    "verified": "จุดที่ติดสติกเกอร์ว่าออกสอบในสรุปปลายภาค Aquatic Med Vet 85 หน้า 19 และจุดที่ทำเครื่องหมาย ** ในสมุดสรุปกลางภาค Aquatic Med ของ Vet 83 หน้า 6 (Multilobulated kidneys); เนื้อหาตรงกับConservation Aquatic Animal Management & Medicine_ marine mammals (2026) หน้า 37 และคาบวันที่ 27 ต.ค. 2569 คลิป EQnBE3-pL94 นาที 64:06",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบในโน้ต Aquatic Med",
+    "tags": [
+      "aqua-conservation",
+      "cetacean-anatomy",
+      "kidney",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-marine-mammals-2569",
+        "edition": "110p",
+        "page": 37
+      },
+      {
+        "doc": "aqua-final-summary-vet85",
+        "edition": "23p",
+        "page": 19
+      }
+    ]
+  },
+  {
+    "id": 217714,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-conservation",
+    "year": 5,
+    "type": "mcq",
+    "q": "ข้อใดถูกต้องเกี่ยวกับวาฬมีบาลีน (suborder Mysticeti) ในน่านน้ำไทย",
+    "options": [
+      "พบ 22 ชนิด และวาฬบรูด้ากับวาฬโอมูระเป็นสัตว์ป่าคุ้มครอง",
+      "พบ 5 ชนิด และมีเพียงวาฬสีน้ำเงินที่เป็นสัตว์ป่าสงวน",
+      "พบ 16 ชนิด และวาฬบรูด้าเป็นชนิดเดียวที่เป็นสัตว์ป่าสงวน",
+      "พบ 5 ชนิด และวาฬบรูด้ากับวาฬโอมูระเป็นสัตว์ป่าสงวน"
+    ],
+    "answer": 3,
+    "explain": "วาฬมีบาลีนพบในน่านน้ำไทย 5 ชนิด จากทั้งหมด 16 ชนิดทั่วโลก และตามพระราชบัญญัติสงวนและคุ้มครองสัตว์ป่า พ.ศ. 2562 วาฬบรูด้า (Balaenoptera edeni) และวาฬโอมูระ (Balaenoptera omurai) เป็นสัตว์ป่าสงวน ร่วมกับพะยูน ฉลามวาฬ และเต่ามะเฟือง\n\n❌ ทำไมข้ออื่นผิด\n- 22 ชนิด: เป็นจำนวนวาฬมีฟัน (Odontoceti) ในน่านน้ำไทย และวาฬทั้งสองชนิดเป็นสัตว์ป่าสงวน ไม่ใช่เพียงสัตว์ป่าคุ้มครอง\n- มีเพียงวาฬสีน้ำเงิน: วาฬสีน้ำเงินไม่อยู่ในรายชื่อสัตว์ป่าสงวนทางทะเล\n- 16 ชนิด: เป็นจำนวนทั่วโลก และวาฬโอมูระก็เป็นสัตว์ป่าสงวนด้วย",
+    "source": "Conservation Aquatic Animal Management & Medicine_ marine mammals (2026) หน้า 3 และ 11",
+    "verified": "จุดที่ติดสติกเกอร์ว่าออกสอบในสรุปปลายภาค Aquatic Med Vet 85 หน้า 17 (baleen whales 5 species in Thai waters; Bryde's and Omura's protected) และบันทึกรายชื่อสัตว์สงวนในสรุปกลางภาค Aquatic Med ของ Vet 83; เนื้อหาตรงกับConservation Aquatic Animal Management & Medicine_ marine mammals (2026) หน้า 3 (สัตว์สงวนทางทะเล) และหน้า 11 (Mysticeti 5 species in Thai waters, 16 worldwide; Odontoceti 22 in Thai waters)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบในโน้ต Aquatic Med",
+    "tags": [
+      "aqua-conservation",
+      "cetacean-classification",
+      "reserved-species",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-marine-mammals-2569",
+        "edition": "110p",
+        "page": 3
+      },
+      {
+        "doc": "aqua-marine-mammals-2569",
+        "edition": "110p",
+        "page": 11
+      },
+      {
+        "doc": "aqua-final-summary-vet85",
+        "edition": "23p",
+        "page": 17
+      }
+    ]
+  },
+  {
+    "id": 217715,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-conservation",
+    "year": 5,
+    "type": "mcq",
+    "q": "ขณะช่วยเหลือโลมาเกยตื้นบนหาด ต้องใช้ผ้าเปียกคลุมตัวเพื่อรักษาความชุ่มชื้นของผิวหนัง ข้อใดถูกต้อง",
+    "options": [
+      "คลุมครีบและหางให้มิด เพราะเป็นส่วนที่เสียความร้อนมากจนตัวเย็น",
+      "ห้ามคลุมครีบและหาง เพราะเป็นอวัยวะระบายความร้อนออกจากร่างกาย",
+      "คลุมได้ทั้งตัวรวมรูหายใจ เพื่อกันแดดและลดความเครียดของสัตว์",
+      "ห้ามคลุมลำตัว เพราะความร้อนระบายออกทางผิวหนังส่วนลำตัวเป็นหลัก"
+    ],
+    "answer": 1,
+    "explain": "ครีบและแพนหางเป็นอวัยวะแลกเปลี่ยนความร้อน มีหลอดเลือดแดงล้อมด้วยหลอดเลือดดำแบบไหลสวนทาง ส่วนลำตัวหุ้มด้วย blubber ที่เป็นฉนวน ถ้าคลุมครีบและหาง สัตว์จะระบายความร้อนไม่ได้และร้อนเกินจนเป็นอันตราย การคลุมผ้าจึงคลุมเฉพาะลำตัว เว้นครีบ หาง และรูหายใจไว้เสมอ\n\n❌ ทำไมข้ออื่นผิด\n- คลุมครีบและหางให้มิด: ปัญหาของสัตว์เกยตื้นบนบกคือร้อนเกิน ไม่ใช่ตัวเย็น\n- คลุมรวมรูหายใจ: ปิด blowhole แล้วสัตว์หายใจไม่ได้\n- ห้ามคลุมลำตัว: ลำตัวมี blubber เป็นฉนวน ไม่ใช่ทางระบายความร้อนหลัก และผิวที่ตากแดดจะแห้งและไหม้",
+    "source": "Conservation Aquatic Animal Management & Medicine_ marine mammals (2026) หน้า 29 และ 59",
+    "verified": "จุดที่ติดดาวในสมุดสรุปกลางภาค Aquatic Med ของ Vet 83 (ห้ามคลุมครีบทั้งหมด) และจุดที่ทำเครื่องหมาย *** ในผังสรุปของ Vet 79 ในโฟลเดอร์กลางภาคของ Vet 84; สรุปปลายภาค Vet 85 บันทึกว่าเรื่องการช่วยเหลือสัตว์ทะเลออกในข้อสอบปลายภาคของรุ่นนั้น; เนื้อหาตรงกับConservation Aquatic Animal Management & Medicine_ marine mammals (2026) หน้า 29 (Fins and flukes act as heat exchangers) และหน้า 59 และคาบวันที่ 27 ต.ค. 2569 คลิป EQnBE3-pL94 นาที 49:06 และ 171:38",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบในโน้ต Aquatic Med",
+    "tags": [
+      "aqua-conservation",
+      "stranding",
+      "thermoregulation",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-marine-mammals-2569",
+        "edition": "110p",
+        "page": 29
+      },
+      {
+        "doc": "aqua-marine-mammals-2569",
+        "edition": "110p",
+        "page": 59
+      }
+    ]
+  },
+  {
+    "id": 217716,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-conservation",
+    "year": 5,
+    "type": "mcq",
+    "q": "ตำแหน่งเจาะเลือดของ cetacean และของพะยูน (sirenian) ตามลำดับคือข้อใด",
+    "options": [
+      "jugular vein ที่คอ และหลอดเลือดดำผิวตื้นที่ครีบหลัง",
+      "หลอดเลือดดำผิวตื้นที่ครีบหลัง ครีบอก หรือหาง และ brachial arteriovenous plexus ที่ครีบอก",
+      "brachial arteriovenous plexus ที่ครีบอก และ jugular vein ที่คอ",
+      "ventral coccygeal vein ที่โคนหาง และหลอดเลือดดำผิวตื้นที่ครีบหลัง ครีบอก หรือหาง"
+    ],
+    "answer": 1,
+    "explain": "ใน cetacean เจาะเลือดจากหลอดเลือดดำผิวตื้นได้ทั้งสองด้านของครีบหลัง ครีบอก และแพนหาง โดยแทงเข็มขนาด 21 ถึง 23 G ตั้งฉากกับหลอดเลือด ส่วนพะยูนเจาะที่ brachial arteriovenous plexus ของครีบอก เข้าทางด้านฝ่ามือด้านในหรือด้านข้างของครีบ และต้องมีทีมช่วยจับบังคับสัตว์\n\n❌ ทำไมข้ออื่นผิด\n- jugular vein ที่คอ: ไม่ใช่ตำแหน่งเจาะเลือดของสัตว์กลุ่มนี้ และพะยูนไม่ได้เจาะที่ครีบหลัง\n- สลับกัน: brachial plexus เป็นตำแหน่งของพะยูน ไม่ใช่ของ cetacean\n- ventral coccygeal vein: ไม่ใช่ตำแหน่งที่ใช้ และตำแหน่งที่ครีบหลังกับหางเป็นของ cetacean ไม่ใช่ของพะยูน",
+    "source": "Conservation Aquatic Animal Management & Medicine_ marine mammals (2026) หน้า 65 และ 66",
+    "verified": "จุดที่ทำเครื่องหมายถูกในสมุดสรุปกลางภาค Aquatic Med ของ Vet 83 ฉบับที่มีเครื่องหมาย (blood collection: dolphin at the tail and dorsal fin; dugong at the brachial plexus) และจุดที่ติดสติกเกอร์บนผังสรุปของ Vet 79; เนื้อหาตรงกับConservation Aquatic Animal Management & Medicine_ marine mammals (2026) หน้า 65 และ 66 และคาบวันที่ 27 ต.ค. 2569 คลิป EQnBE3-pL94 นาที 43:37",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบในโน้ต Aquatic Med",
+    "tags": [
+      "aqua-conservation",
+      "blood-collection",
+      "diagnostic-techniques",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-marine-mammals-2569",
+        "edition": "110p",
+        "page": 65
+      },
+      {
+        "doc": "aqua-marine-mammals-2569",
+        "edition": "110p",
+        "page": 66
+      }
+    ]
+  },
+  {
+    "id": 217717,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-fish-diseases",
+    "year": 5,
+    "type": "mcq",
+    "q": "การให้ยาปลาแบบ immersion dip ต่างจาก immersion bath อย่างไร",
+    "options": [
+      "dip ใช้ยาไม่เจือจางฉีดเข้าตัว ส่วน bath ใช้ยาเจือจางแช่นาน 1 ชั่วโมงขึ้นไป",
+      "dip แช่ยาเจือจางนาน 1 ชั่วโมงขึ้นไป ส่วน bath แช่เพียง 5 ถึง 30 วินาที",
+      "dip แช่ยาเจือจางเพียง 5 ถึง 30 วินาที ส่วน bath แช่นาน 1 ชั่วโมงขึ้นไป",
+      "dip ผสมยาในอาหารให้กินอย่างน้อย 1 สัปดาห์ ส่วน bath แช่ยาเพียง 5 ถึง 30 วินาที"
+    ],
+    "answer": 2,
+    "explain": "ทั้งสองวิธีเป็นการแช่ยาที่เจือจางแล้ว ต่างกันที่เวลา immersion dip แช่สั้นเพียง 5 ถึง 30 วินาที ส่วน immersion bath แช่นาน 1 ชั่วโมงขึ้นไป เช่น การจุ่มน้ำเกลือ 60 ถึง 70 กรัมต่อลิตรเป็นการ dip\n\n❌ ทำไมข้ออื่นผิด\n- dip คือการฉีด: การฉีดใช้ยาไม่เจือจางเข้าตัวปลาโดยตรง ไม่ใช่การแช่\n- สลับเวลา: เวลาของ dip กับ bath กลับด้านกัน\n- dip คือผสมอาหาร: การผสมอาหารอย่างน้อย 1 สัปดาห์คือการให้ยาทางปาก",
+    "source": "Disease in fish culture หน้า 72, 74 และ 129",
+    "verified": "จุดที่ติดดาวแดงในผังสรุปโรคปลาของชุดไฟล์ Vet 84 (คำอธิบายสัญลักษณ์บนหน้า: ดาวแดง = ออกสอบ 84) และที่ไฮไลต์ในเอกสาร Disease in Fish Culture ปี 2024 ของ Vet 84; เนื้อหาตรงกับDisease in fish culture หน้า 72 และ 129 (Immersion dip 5-30 second; Immersion bath 1 hr or longer) และ (salt 60-70 g/L immersion dip)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบในโน้ต Aquatic Med",
+    "tags": [
+      "aqua-fish-diseases",
+      "fish-drug-administration",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-fish-disease-2569",
+        "edition": "178p",
+        "page": 72
+      },
+      {
+        "doc": "aqua-fish-disease-2569",
+        "edition": "178p",
+        "page": 74
+      },
+      {
+        "doc": "aqua-fish-disease-2569",
+        "edition": "178p",
+        "page": 129
+      }
+    ]
+  },
+  {
+    "id": 217718,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-fish-diseases",
+    "year": 5,
+    "type": "mcq",
+    "q": "บ่อปลานิลวัยอ่อนช่วงหน้าฝน อากาศเย็นและออกซิเจนละลายน้ำต่ำ พบปลาเหงือกเน่าและมีรอยโรคคล้ายสำลีที่ผิว ตรวจพบแบคทีเรียแกรมลบรูปแท่งยาวเรียวที่เคลื่อนที่แบบเลื่อนไถล ข้อใดเป็นการจัดการที่เหมาะสม",
+    "options": [
+      "เก็บปลาตายและป่วยออก ลดอาหาร ฆ่าเชื้อน้ำ และให้ยาผสมอาหารกันติดเชื้อแทรก",
+      "เพิ่มอาหารให้ปลาฟื้นตัวเร็ว และแช่ฟอร์มาลินทั้งบ่อเพื่อฆ่าเชื้อแบคทีเรีย",
+      "ใช้วัคซีนแบบฉีดทั้งบ่อทันที และงดเปลี่ยนน้ำจนกว่าปลาจะหยุดตาย",
+      "เลี้ยงต่อไปโดยไม่ต้องจัดการ เพราะเป็นเชื้อฉวยโอกาสที่หายได้เองเมื่ออากาศอุ่น"
+    ],
+    "answer": 0,
+    "explain": "ลักษณะเข้ากับโรค columnaris จาก Flavobacterium columnare ซึ่งเป็นเชื้อฉวยโอกาสเมื่อปลาเครียด เช่น ออกซิเจนต่ำ น้ำเย็นกว่า 25 องศาเซลเซียส หรือช่วงฝนตก และมักเป็นในปลาวัยอ่อน การจัดการคือเก็บปลาตายและป่วยออก ลดการให้อาหาร ฆ่าเชื้อในน้ำ ใช้โพรไบโอติก และให้ยาปฏิชีวนะผสมอาหารเพื่อกันการติดเชื้อแทรก\n\n❌ ทำไมข้ออื่นผิด\n- เพิ่มอาหาร: อาหารเหลือทำให้คุณภาพน้ำแย่ลง ต้องลดอาหาร\n- ฉีดวัคซีนทั้งบ่อและงดเปลี่ยนน้ำ: วัคซีนไม่ใช่การรักษาปลาที่ป่วยอยู่ และน้ำที่แย่คือปัจจัยโน้มนำของโรค\n- ปล่อยไว้: แม้เป็นเชื้อฉวยโอกาส แต่ทำให้เหงือกถูกทำลายจนหายใจล้มเหลวและตายได้",
+    "source": "Disease in fish culture หน้า 90, 91 และ 93",
+    "verified": "จุดที่ติดดาวแดงในผังสรุปโรคปลาของชุดไฟล์ Vet 84 (ดาวแดง = ออกสอบ 84) และจุดที่ติดดาวในสรุปพิมพ์ Aquatic Med ของ Vet 83 (Flavobacterium: เก็บปลาตายและป่วยออก หยุดให้อาหาร จัดการคุณภาพน้ำ); เนื้อหาตรงกับDisease in fish culture หน้า 90 (opportunistic, low DO, juvenile fish, <25 oC, cool season, raining) หน้า 91 และหน้า 93 (Remove dead/sick fish, Reduce feed, Water disinfection, Probiotics, ABO with feed to prevent 2nd infection)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบในโน้ต Aquatic Med",
+    "tags": [
+      "aqua-fish-diseases",
+      "columnaris",
+      "flavobacterium",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-fish-disease-2569",
+        "edition": "178p",
+        "page": 90
+      },
+      {
+        "doc": "aqua-fish-disease-2569",
+        "edition": "178p",
+        "page": 91
+      },
+      {
+        "doc": "aqua-fish-disease-2569",
+        "edition": "178p",
+        "page": 93
+      }
+    ]
+  },
+  {
+    "id": 217719,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-fish-diseases",
+    "year": 5,
+    "type": "mcq",
+    "q": "ข้อใดถูกต้องเกี่ยวกับ Tilapia Lake Virus (TiLV)",
+    "options": [
+      "พบครั้งแรกในประเทศไทยปี 2552 และติดได้เฉพาะปลานิลเท่านั้น",
+      "พบครั้งแรกในอิสราเอลปี 2552 และพบในไทยแต่ในปลาที่แสดงอาการป่วย",
+      "พบครั้งแรกในอิสราเอลปี 2552 มีรายงานในไทยตั้งแต่ 2559 ถึง 2560 และตรวจพบในปลาปกติได้",
+      "พบครั้งแรกในไทยปี 2559 และไม่พบในปลาชนิดอื่นนอกจากปลานิลแดง"
+    ],
+    "answer": 2,
+    "explain": "TiLV อุบัติขึ้นครั้งแรกในอิสราเอลปี 2009 (พ.ศ. 2552) ทำให้เกิดตับอักเสบแบบ syncytial ในปลานิล มีรายงานในไทยตั้งแต่ปี 2016 ถึง 2017 (พ.ศ. 2559 ถึง 2560) และตรวจพบได้ทั้งในปลาที่ตายจำนวนมากและในปลาที่ดูปกติ นอกจากปลานิลยังตรวจพบในปลาชนิดอื่น เช่น ตะเพียนหางแดง ปลาแรด และปลากะพงขาว\n\n❌ ทำไมข้ออื่นผิด\n- พบครั้งแรกในไทย ปี 2552: ประเทศแรกคืออิสราเอล และเชื้อไม่ได้จำกัดเฉพาะปลานิล\n- พบเฉพาะปลาป่วย: ตรวจพบในปลาที่ดูปกติได้ด้วย ซึ่งทำให้ปลาพาหะกระจายโรคได้\n- เฉพาะปลานิลแดง: ตรวจพบในปลาหลายชนิด",
+    "source": "Disease in fish culture หน้า 161 และ 162",
+    "verified": "จุดที่ติดดาวแดงในผังสรุปโรคปลาของชุดไฟล์ Vet 84 (ดาวแดง = ออกสอบ 84) จุดที่ติดดาวในสรุปพิมพ์ Aquatic Med ของ Vet 83 และจุดที่ติ๊กไว้ในสรุป Aquatic Med ของ Vet 83; เนื้อหาตรงกับDisease in fish culture หน้า 161 (Emerge from Israel in 2009; Report in Thailand from 2016-17; Also report in healthy fish in Thailand) และ (tinfoil barb, giant gourami, seabass; detect in healthy fish)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบในโน้ต Aquatic Med",
+    "tags": [
+      "aqua-fish-diseases",
+      "tilv",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-fish-disease-2569",
+        "edition": "178p",
+        "page": 161
+      },
+      {
+        "doc": "aqua-fish-disease-2569",
+        "edition": "178p",
+        "page": 162
+      }
+    ]
+  },
+  {
+    "id": 217720,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-shrimp-diseases",
+    "year": 5,
+    "type": "mcq",
+    "q": "เชื้อไวรัสตัวแดงดวงขาว (WSSV) คงอยู่ในตะกอนพื้นบ่อที่ยังมีน้ำขังได้นานประมาณเท่าใด",
+    "options": [
+      "3 ถึง 4 วัน",
+      "21 วัน",
+      "30 วัน",
+      "40 วัน"
+    ],
+    "answer": 3,
+    "explain": "WSSV คงทนในสิ่งแวดล้อมนาน ในตะกอนพื้นบ่อที่ยังมีน้ำขังเชื้ออยู่ได้ราว 40 วัน การกำจัดเชื้อหลังจับกุ้งจึงต้องตากพื้นบ่อให้แห้งจริง ถ้าตากแดดจนแห้งใช้ราว 21 วัน แต่ถ้าตะกอนยังเปียกต้องเผื่อเวลานานกว่านั้นมาก\n\n❌ ทำไมข้ออื่นผิด\n- 3 ถึง 4 วัน: เป็นระยะที่เชื้ออยู่ในน้ำในบ่อ ไม่ใช่ในตะกอนที่มีน้ำขัง\n- 21 วัน: เป็นระยะของการตากบ่อให้แห้งด้วยแดด\n- 30 วัน: เป็นระยะที่เชื้ออยู่ในน้ำทะเลที่ 30 องศาเซลเซียส",
+    "source": "Diseases in shrimp culture หน้า 22",
+    "verified": "จุดที่ติดดาวแดงในผังสรุปโรคกุ้งของชุดไฟล์ Vet 84 (ดาวแดง = ออกสอบ 84: ตากบ่ออย่างน้อย 21 วัน ถ้ามีตะกอนต้อง 40 วันขึ้นไป); เนื้อหาตรงกับDiseases in shrimp culture หน้า 22 (Viable for at least 30 days at 30°C in seawater / 3-4 days in pond water; 21 days of sun-drying; 40 days in waterlogged pond sediment)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "จุดที่รุ่นพี่บันทึกว่าออกสอบในโน้ต Aquatic Med",
+    "tags": [
+      "aqua-shrimp-diseases",
+      "wssv",
+      "biosecurity",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-shrimp-diseases-2569",
+        "edition": "118p",
+        "page": 22
+      }
+    ]
+  },
+  {
+    "id": 217721,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-toxicology",
+    "year": 5,
+    "type": "mcq",
+    "q": "แหล่งน้ำบริเวณหนึ่งปนเปื้อนสาร polycyclic aromatic hydrocarbons (PAHs) และปิโตรเลียมในปริมาณสูง แหล่งมลพิษใดน่าจะเป็นต้นเหตุมากที่สุด",
+    "options": [
+      "น้ำทิ้งจากชุมชน เช่น บ้านเรือน โรงพยาบาล และโรงเรียน",
+      "ฟาร์มเกษตรและฟาร์มสัตว์ รวมถึงการเพาะเลี้ยงสัตว์น้ำ",
+      "การขนส่งทางน้ำ จากการรั่วไหลของน้ำมันและสารเคมี",
+      "โรงงานและเหมืองแร่ ที่ปล่อยโลหะหนักลงแหล่งน้ำ"
+    ],
+    "answer": 2,
+    "explain": "การขนส่งทางน้ำเป็นแหล่งของน้ำมันและสารเคมีที่รั่วไหล สารที่ตามมาคือปิโตรเลียมและ PAHs\n\n❌ ทำไมข้ออื่นผิด\n- น้ำทิ้งชุมชน: ให้ของเสียอินทรีย์ ไมโครและนาโนพลาสติก และยากับผลิตภัณฑ์ดูแลส่วนบุคคล (PPCPs)\n- ฟาร์มเกษตรและสัตว์: ให้มูลสัตว์ สารกำจัดศัตรูพืช ปุ๋ย และยาที่ใช้ในฟาร์ม\n- โรงงานและเหมือง: ให้สารพิษอินทรีย์และอนินทรีย์ เช่น โลหะหนัก และพลาสติกขนาดเล็ก",
+    "source": "Aquatic toxicology (3 พ.ย. 69) หน้า 3",
+    "verified": "Aquatic toxicology (3 พ.ย. 69) หน้า 3 ตาราง Sources of water pollution: Water transportation, Oil and chemical spill, Petroleum and polycyclic aromatic hydrocarbons (PAHs); คาบวันที่ 3 พ.ย. 2569 คลิป zYRQuoLlrWg นาที 13:04 สอนหน้านี้",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Aquatic Animal Medicine ปี 2569 เรื่อง aquatic toxicology",
+    "tags": [
+      "aqua-toxicology",
+      "water-pollution-sources"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-toxicology-2569",
+        "edition": "47p",
+        "page": 3
+      }
+    ]
+  },
+  {
+    "id": 217722,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-toxicology",
+    "year": 5,
+    "type": "mcq",
+    "q": "สารพิษชนิดเดียวกันที่ความเข้มข้นเท่ากันในบ่อสองบ่อ บ่อหนึ่งมีออกซิเจนละลายน้ำ (DO) ต่ำ ปลาในบ่อนั้นได้รับพิษรุนแรงกว่า กลไกที่อธิบายได้คือข้อใด",
+    "options": [
+      "DO ต่ำทำให้ปลาหายใจช้าลง สารพิษจึงค้างอยู่ที่เหงือกนานขึ้น",
+      "DO ต่ำทำให้สารพิษแตกตัวเป็นไอออนมากขึ้น จึงผ่านเหงือกได้ง่าย",
+      "DO ต่ำทำให้ปลาหายใจถี่ขึ้น จึงรับสารพิษผ่านเหงือกเข้าร่างกายมากขึ้น",
+      "DO ต่ำทำให้ความกระด้างของน้ำลดลง เหงือกจึงซึมผ่านโลหะหนักได้ง่าย"
+    ],
+    "answer": 2,
+    "explain": "เมื่อออกซิเจนละลายน้ำต่ำ ปลาต้องหายใจถี่ขึ้น น้ำผ่านเหงือกมากขึ้น สารพิษจึงถูกดูดซึมเข้าร่างกายมากขึ้นและความเป็นพิษสูงขึ้น\n\n❌ ทำไมข้ออื่นผิด\n- หายใจช้าลง: DO ต่ำทำให้อัตราการหายใจเพิ่มขึ้น ไม่ใช่ลดลง\n- แตกตัวเป็นไอออน: การแตกตัวของสารขึ้นกับ pH ของน้ำ ไม่ใช่ DO\n- ความกระด้างลดลง: ความกระด้างเป็นอีกปัจจัยหนึ่งที่ไม่ขึ้นกับ DO น้ำกระด้างต่ำทำให้เหงือกซึมผ่านโลหะหนักได้มากขึ้นจริง แต่ไม่ได้เกิดจาก DO",
+    "source": "Aquatic toxicology (3 พ.ย. 69) หน้า 8",
+    "verified": "Aquatic toxicology (3 พ.ย. 69) หน้า 8 Factors affecting toxicity, Surrounding medium: Dissolved oxygen, DO ลด อัตราการหายใจเพิ่ม การดูดซึมสารพิษเพิ่ม ความเป็นพิษเพิ่ม; pH มีผลต่อสารที่แตกตัวได้; water hardness ลด gill permeability และการดูดซึมโลหะหนักเพิ่ม",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Aquatic Animal Medicine ปี 2569 เรื่อง aquatic toxicology",
+    "tags": [
+      "aqua-toxicology",
+      "factors-affecting-toxicity"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-toxicology-2569",
+        "edition": "47p",
+        "page": 8
+      }
+    ]
+  },
+  {
+    "id": 217723,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-aquarium-vet",
+    "year": 5,
+    "type": "mcq",
+    "q": "แบคทีเรียก่อโรคชนิดใดพบบ่อยที่สุดในปลากระดูกอ่อน เช่น ฉลามในอควาเรียม ทำให้เยื่อหุ้มสมองอักเสบ และมักมีปรสิต Dermophthirius เป็นพาหะ",
+    "options": [
+      "Aeromonas salmonicida",
+      "Vibrio spp. (V. carchariae)",
+      "Flavobacterium spp.",
+      "Streptococcus iniae"
+    ],
+    "answer": 1,
+    "explain": "Vibrio spp. (เช่น V. carchariae) เป็นแบคทีเรียที่พบบ่อยที่สุดในปลากระดูกอ่อน ทำให้เยื่อหุ้มสมองอักเสบ (meningitis) ในฉลามหลายชนิด และมักมีปรสิต Dermophthirius ซึ่งเกาะผิวหนังเป็นพาหะ แผลที่ผิวหนังหรือแผลกดทับเมื่อฉลามป่วยแล้วนอนนิ่งก็เป็นทางให้ Vibrio ซ้ำเติมได้\n\n❌ ทำไมข้ออื่นผิด\n- Aeromonas salmonicida: มักก่อโรคในปลากระดูกแข็ง และในฉลามพบในกลุ่มฉลามครีบดำ ไม่ใช่เชื้อที่พบบ่อยที่สุด\n- Flavobacterium spp.: ทำให้เกิดอาการทางประสาทได้จากสารพิษของเชื้อ แต่ไม่ได้มี Dermophthirius เป็นพาหะ\n- Streptococcus iniae: เป็นเชื้อสำคัญในปลากระดูกแข็งที่เพาะเลี้ยง เช่น ปลากะพง",
+    "source": "ปัญหาของฉลามในอควาเรียม (Shark problems in Aquaria) หน้า 23",
+    "verified": "ปัญหาของฉลามในอควาเรียม (Shark problems in Aquaria) หน้า 23 (Vibrio spp. (V. carchariae) พบบ่อยสุดในปลากระดูกอ่อน ทำให้เกิด meningitis ในฉลามหลายชนิด โดยมักมีพยาธิ Dermophthirius sp. เป็นพาหะ; Aeromonas salmonicida มักก่อโรคในปลากระดูกแข็งและในกลุ่มฉลามครีบดำ; Flavobacterium ส่งผลต่อระบบประสาทจาก bacterial toxin) และคาบวันที่ 20 ต.ค. 2569 คลิป 8efJw7eJlBw นาที 59:47 ถึง 60:41",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Aquatic Animal Medicine ปี 2569 เรื่อง aquarium management and medicine",
+    "tags": [
+      "aqua-aquarium-vet",
+      "sharks",
+      "vibrio"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-shark-problems-2012",
+        "edition": "63p",
+        "page": 23
+      }
+    ]
+  },
 ];

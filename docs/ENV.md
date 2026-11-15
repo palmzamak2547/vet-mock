@@ -9,7 +9,7 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 - **optional**: a feature turns off or a default applies.
 - Runtime: *browser build* is baked in by Vite at build time (a change needs a rebuild); *function* is read by a Vercel function per request; *edge function* by a Supabase function; *script*, *test* and *build* run on a machine or in CI.
 
-130 names, 12 required; 10 more are set by the platform.
+131 names, 12 required; 10 more are set by the platform.
 
 ## Supabase
 
@@ -103,6 +103,7 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 | `CF_AI_TOKEN` | optional | function | `api/ai-transcribe.js` | Cloudflare token with Workers AI (secret) for Whisper transcription. Without it and IAPP_API_KEY, browsers without Web Speech show no microphone. |
 | `CF_AI_ACCOUNT_ID` | optional | function | `api/ai-transcribe.js` | Account for Workers AI; falls back to R2_ACCOUNT_ID, then CF_ACCOUNT_ID. |
 | `OPENROUTER_API_KEY` | optional | script | `scripts/tts-clips.mjs` | OpenRouter key for the Gemini clip generation in scripts/tts-clips.mjs. Scripts only. |
+| `PAXA_API_KEY` | optional | script | `scripts/tts-clips.mjs` | Paxa key (secret) for recorded question clips (scripts/tts-clips.mjs --gen p1). Without it that generation is off; the page never reads it. Scripts only. |
 | `TTS_KEYS_ENV` | optional | script | `scripts/tts-clips.mjs` | Path of a local env file scripts/tts-clips.mjs reads keys from. Scripts only. |
 
 ## Feedback

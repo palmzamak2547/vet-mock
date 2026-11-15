@@ -962,6 +962,28 @@ export const VIDEO_TOPIC_INDEX = {
    "conf": "medium"
   }
  ],
+ "equine-intro": [
+  {
+   "v": "jgGGQzDTm4E",
+   "s": 2700,
+   "e": 3900,
+   "conf": "high"
+  }
+ ],
+ "equine-nutrition": [
+  {
+   "v": "jgGGQzDTm4E",
+   "s": 9780,
+   "e": 12360,
+   "conf": "high"
+  },
+  {
+   "v": "jgGGQzDTm4E",
+   "s": 7080,
+   "e": 9300,
+   "conf": "high"
+  }
+ ],
  "oh-communication": [
   {
    "v": "R4k7-CbupPc",
