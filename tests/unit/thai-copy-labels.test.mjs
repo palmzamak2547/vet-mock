@@ -105,7 +105,7 @@ test('the spaced-repetition start and finish screens label their numbers in Thai
   // It is the due date of the scheduler that served the card (FSRS or SM-2).
   assert.equal(count(s, 'ถึงรอบ {fmtDate(dueAt(currentCard, scheduler))}'), 3);
   // Pinned by mochi-presence and motion-integration.
-  assert.ok(s.includes("'เริ่ม Session →'"));
+  assert.ok(s.includes("'เริ่มทบทวน'"));
   assert.ok(s.includes('แสดงคำตอบ (Space)'));
 });
 

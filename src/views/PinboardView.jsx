@@ -1,4 +1,5 @@
 import Mochi from '../components/Mochi.jsx';
+import '../styles-review.css';
 import NavIcon from '../components/NavIcon.jsx';
 // ============================================================
 // PinboardView — personal study workspace
@@ -86,7 +87,18 @@ export function emptyFilterMessage({ filter, label, yearScope, selectedYear, hid
     : `ยังไม่มี${label}ที่ปักหมุด เลือกหมวดอื่นที่มีตัวเลขได้เลย`;
 }
 
-export default function PinboardView({ goHome, setView, setSubject, setTopic, setPracticeMode, onOpenQuestion, notes, selectedYear = 4, selectedPhase }) {
+// The header's saved chip counts bookmarks, a different store from the pins this
+// board shows, so the two numbers could differ (1 saved in the header, 0 here)
+// with nothing saying why. The board names both: pins are its own, and the
+// bookmarked questions get a line with the way to practise them.
+export function savedQuestionsLine(count) {
+  const n = Number(count);
+  if (!Number.isFinite(n) || n <= 0) return '';
+  return `ข้อที่บันทึกไว้ ${n.toLocaleString('en-US')} ข้อ`;
+}
+
+export default function PinboardView({ goHome, setView, setSubject, setTopic, setPracticeMode, setMode, bookmarks, onOpenQuestion, notes, selectedYear = 4, selectedPhase }) {
+  const savedLine = savedQuestionsLine(Array.isArray(bookmarks) ? bookmarks.length : 0);
   const [pins, setPins] = useState(() => loadPins());
   const [filter, setFilter] = useState('all');
   // Year scope — 'current' shows only pins whose source subject lives in
@@ -232,6 +244,24 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
         )}
       </div>
 
+      {savedLine && (
+        <div className="vmx-pin-saved">
+          <span>{savedLine}</span>
+          <button
+            type="button"
+            className="vmx-btn vmx-btn-ghost vmx-btn-sm"
+            style={{ minHeight: 44 }}
+            onClick={() => {
+              if (typeof setPracticeMode === 'function') setPracticeMode('bookmarks');
+              if (typeof setMode === 'function') setMode('quick');
+              if (typeof setView === 'function') setView('config');
+            }}
+          >
+            ทำข้อที่บันทึกไว้
+          </button>
+        </div>
+      )}
+
       {/* Year-scope chips */}
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center', marginBottom: 10 }}>
         <span style={{ fontSize: 11, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', letterSpacing: '0.08em', textTransform: 'uppercase', display: 'inline-flex', alignItems: 'center' }}>
@@ -323,7 +353,7 @@ export default function PinboardView({ goHome, setView, setSubject, setTopic, se
         pins.length === 0 ? (
             <EmptyState
               art={EMPTY_ART.pinboard}
-              title="ไม่มีรายการบันทึก"
+              title="ยังไม่มีรายการที่ปักหมุด"
               body="กดปุ่มพินในข้อสอบหรือสรุปเพื่อบันทึกเนื้อหาเก็บไว้ทบทวน"
             />
         ) : (

@@ -404,7 +404,7 @@ async function startReview(page, cards) {
     sessionStorage.setItem('vmx-sr-plan-size', String(count));
   }, { srCards, count: cards.length });
   await page.goto('/app/review', { waitUntil: 'domcontentloaded' });
-  await page.getByRole('button', { name: 'เริ่ม Session →', exact: true }).click();
+  await page.getByRole('button', { name: 'เริ่มทบทวน', exact: true }).click();
 }
 
 for (const screen of [{ width: 375, height: 812 }, { width: 1280, height: 800 }]) {
