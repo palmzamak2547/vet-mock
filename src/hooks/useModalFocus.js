@@ -30,6 +30,12 @@ if (typeof document !== 'undefined') {
   document.addEventListener('keydown', () => { lastPointerLauncher = null; }, true);
 }
 
+/** The control the last tap landed on, without forgetting it. The search
+ *  frame (PaletteFrame) reads it to hand the palette its return target. */
+export function pointerLauncher() {
+  return lastPointerLauncher;
+}
+
 function isAvailable(element) {
   if (!(element instanceof HTMLElement)) return false;
   if (element.closest('[aria-hidden="true"], [inert]')) return false;
