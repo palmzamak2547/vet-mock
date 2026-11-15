@@ -5758,7 +5758,7 @@ body.vmx-reading .vmx-pdf-body {
 .vmx-result-mochi { display: flex; margin: -8px auto 0; }
 /* Under 360 px the score, a personal best and a failed-save notice leave no room for the companion: the
    first next step ended at 877 px of an 812 px screen at 320. It steps aside so the step stays in view. */
-@media (max-width: 359px) { .vmx-result-mochi { display: none; } }
+@media (max-width: 359px) { .vmx-mochi-live.vmx-result-mochi { display: none; } }
 .vmx-status-mochi { margin: -5px 5px -5px 0; }
 /* Mochi reacting for a moment (MochiLive): the rig plays over the still and
    hides it while it plays; the still is what stays. */
