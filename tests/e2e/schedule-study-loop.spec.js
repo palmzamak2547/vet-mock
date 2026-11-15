@@ -34,6 +34,53 @@ test('a final timetable entry launches its own paper despite the selected midter
   expect(saved.questions.every(question => question.subject === exam.subject && questionInScope(question, 'final'))).toBe(true);
 });
 
+// The config screen is drawn before the set has been counted. When the count
+// lands, ปรับเอง must stay where it was and keep a press made before it: on
+// 15 Nov a press made as the bank arrived was lost (main, chromium-desktop,
+// the test above).
+const anyBank = /(?:\/assets\/data-q-[^/]+\.js|\/src\/data\/questions-[^/]+\.js)(?:\?.*)?$/;
+for (const press of [false, true]) {
+  test(`ปรับเอง ${press ? 'keeps a press made' : 'holds still'} while the practice set is counted`, async ({ page }) => {
+    // Every bank of year 5 is held, and after the release they arrive four at a time.
+    test.setTimeout(90_000);
+    let release;
+    const held = new Promise(resolve => { release = resolve; });
+    await page.route(anyBank, async route => { await held; await route.continue(); });
+    try {
+      const exam = EXAM_SCHEDULE.y5.find(item => item.term === 'final'
+        && Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE['1-final'][item.subject] > 0);
+      await page.goto('/app/schedule');
+      const card = page.locator('.vmx-dash-card').filter({ has: page.getByRole('heading', { name: examTitle(exam) }) });
+      await card.getByRole('button', { name: 'ฝึกข้อสอบวิชานี้ →', exact: true }).click();
+      const summary = page.locator('#vmx-config-summary');
+      await expect(summary).toHaveText('กำลังตรวจจำนวนข้อ…');
+      const toggle = page.getByRole('button', { name: 'ปรับเอง', exact: true });
+      await page.evaluate(() => document.fonts.ready);
+      const before = await toggle.boundingBox();
+      // A press flips the rows whichever way they were drawn, and the count
+      // landing afterwards leaves them the way the press set them.
+      const pressed = press && (await toggle.getAttribute('aria-expanded')) !== 'true' ? 'true' : 'false';
+      if (press) {
+        await toggle.click();
+        await expect(toggle).toHaveAttribute('aria-expanded', pressed);
+      }
+      release();
+      await expect(summary).not.toHaveText('กำลังตรวจจำนวนข้อ…', { timeout: 60_000 });
+      await expect(page.locator('.vmx-config-start')).toContainText(/เริ่มฝึก \d/);
+      if (press) {
+        await expect(toggle).toHaveAttribute('aria-expanded', pressed);
+        const rows = page.getByRole('spinbutton', { name: /จำนวนข้อ.*กำหนดเอง/ });
+        await (pressed === 'true' ? expect(rows).toBeVisible() : expect(rows).toBeHidden());
+        return;
+      }
+      const after = await toggle.boundingBox();
+      test.info().annotations.push({ type: 'adjust-toggle-shift', description: `top ${(after.y - before.y).toFixed(2)} px, left ${(after.x - before.x).toFixed(2)} px` });
+      expect(Math.abs(after.y - before.y), 'ปรับเอง moved down or up').toBeLessThanOrEqual(0.5);
+      expect(Math.abs(after.x - before.x), 'ปรับเอง moved sideways').toBeLessThanOrEqual(0.5);
+    } finally { release(); }
+  });
+}
+
 // The suite's pinned day (25 Sep) is inside the midterm, when the timetable says classes are suspended,
 // so this one sets its own clock in a teaching week.
 test.describe('in a teaching week', () => {

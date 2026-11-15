@@ -18,6 +18,7 @@ import { ladderStep, ladderStepFor, ladderPreset, rememberLadderStep } from '../
 import { adjustOpen, decide, forget, recall, rememberRows, setAdjustOpen } from '../lib/decide.js';
 import { PRACTICE_SETUP } from '../lib/decisions/practice-setup.js';
 import { practiceSignals } from '../lib/decide-signals.js';
+import DecideLines from '../components/DecideLines.jsx';
 
 // ============================================================
 // ConfigView — ตั้งค่าก่อนเริ่มฝึก/สอบ
@@ -121,10 +122,12 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
   // A practice set decides for the student; an exam shows its rows (header).
   const compact = mode !== 'exam';
   // What the screen was on arrival, latched once the pool's count is known
-  // (below): whether the app had decided this set, and whether ปรับเอง starts
-  // open. Read once, so a row change never closes the region under the
-  // student and an exam that steps down a rung keeps its rows in view.
+  // (below): whether the app had decided this set. Whether ปรับเอง starts open
+  // is latched at the first draw. Read once, so a row change never closes the
+  // region under the student and an exam that steps down a rung keeps its rows
+  // in view.
   const arrivalRef = useRef(null);
+  const firstOpenRef = useRef(null); // whether ปรับเอง was drawn open (below)
   const [opened, setOpened] = useState(null); // the student's own toggle on this visit
   const [pickedRung, setPickedRung] = useState(false);
   // A row the student changes is theirs from now on, but only on a set the app
@@ -299,25 +302,31 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
   const plainPool = !panicPending && (practiceMode === 'all' || practiceMode === 'adaptive');
   // The app's own choice is the rung's preset (its clock, the answer after
   // every question), so seconds or feedback the student set never read as it.
+  // Until the bank has counted the pool, the line is drawn (hidden, DecideLines)
+  // for the set's own size: the line the count most likely brings.
+  const lineCount = knownAvailableCount ?? numQuestions;
   const decision = compact ? decide(PRACTICE_SETUP, practiceSignals({
-    subject, year: selectedYear, available: knownAvailableCount, timePerQ: undefined, instantFeedback: true, practiceMode, hasHistory,
+    subject, year: selectedYear, available: lineCount, timePerQ: undefined, instantFeedback: true, practiceMode, hasHistory,
   })) : null;
   const chosen = decision?.value;
   // The line may say the app chose only what the app did choose: a plain pool
   // with a count known and not empty, set exactly as the decision says.
-  const follows = Boolean(chosen) && plainPool && knownAvailableCount > 0
-    && servedCount === Math.min(chosen.numQuestions, knownAvailableCount)
+  const follows = Boolean(chosen) && plainPool && lineCount > 0
+    && servedCount === Math.min(chosen.numQuestions, lineCount)
     && useTimer === chosen.useTimer && (!useTimer || timePerQ === chosen.timePerQ)
     && Boolean(instantFeedback) === chosen.instantFeedback
     && (practiceMode === 'adaptive' ? 'adaptive' : 'random') === chosen.pick;
   if (arrivalRef.current === null && knownAvailableCount != null) {
     const decided = compact && follows;
-    arrivalRef.current = { decided, open: !decided || adjustOpen('config') };
+    arrivalRef.current = { decided };
   }
   const arrival = arrivalRef.current;
   // Rows are tucked only when the app decided the set; anything else (Panic, a
   // curated pool, a Home card's own settings, an empty pool) opens with them.
-  const adjusting = opened ?? (arrival ? arrival.open : adjustOpen('config'));
+  // Settled at the first draw, from the line as drawn: opening the rows when
+  // the count landed moved ปรับเอง up under the finger (15 Nov).
+  if (firstOpenRef.current === null) firstOpenRef.current = !(compact && follows) || adjustOpen('config');
+  const adjusting = opened ?? firstOpenRef.current;
   const toggleAdjust = () => { const next = !adjusting; setOpened(next); setAdjustOpen('config', next); };
   const rememberable = compact && Boolean(arrival?.decided) && plainPool;
   const rung = ladderStep(activeStep);
@@ -418,21 +427,21 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
 
       {compact && (
         <section className="vmx-decide" aria-label="ชุดที่จะเริ่ม">
-          <p className="vmx-decide-what" id="vmx-config-summary">
-            {knownAvailableCount == null ? 'กำลังตรวจจำนวนข้อ…'
-              : knownAvailableCount === 0 ? 'ยังไม่มีข้อที่พร้อมใช้ในชุดนี้ เปลี่ยนได้ใน "ปรับเอง"'
-                : <><strong>{lead}:</strong> {summary}</>}
-          </p>
-          {knownAvailableCount > 0 && why && (
-            <p className="vmx-decide-why">
-              {why}
-              {showRestore && (
-                <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm vmx-decide-reset" onClick={restoreChosen}>
-                  กลับไปใช้ค่าที่จัดให้
-                </button>
-              )}
-            </p>
-          )}
+          <DecideLines
+            id="vmx-config-summary"
+            pending={knownAvailableCount == null ? 'กำลังตรวจจำนวนข้อ…' : null}
+            what={knownAvailableCount === 0 ? 'ยังไม่มีข้อที่พร้อมใช้ในชุดนี้ เปลี่ยนได้ใน "ปรับเอง"' : <><strong>{lead}:</strong> {summary}</>}
+            why={knownAvailableCount !== 0 && why ? (
+              <>
+                {why}
+                {showRestore && (
+                  <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm vmx-decide-reset" onClick={restoreChosen}>
+                    กลับไปใช้ค่าที่จัดให้
+                  </button>
+                )}
+              </>
+            ) : null}
+          />
         </section>
       )}
 
