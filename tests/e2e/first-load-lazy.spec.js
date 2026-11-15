@@ -22,6 +22,9 @@ async function watch(page, pattern) {
 async function firstScreen(page) {
   await page.locator('#root > *').first().waitFor();
   await page.waitForLoadState('load');
+  // The top loading bar runs out and leaves the page once the first screen has loaded; it is read after it
+  // has gone, on either page (WebKit sometimes still held it, faded out, at the moment of the read).
+  await page.waitForFunction(() => !document.querySelector('#root [role="progressbar"]'), null, { timeout: 15_000 });
   // Both pages' clocks are then stopped at the same instant, so the live clocks (the countdown's seconds,
   // the landing card's timer) read the same in both.
   await page.clock.pauseAt(Date.parse(PINNED_NOW) + 20_000);
