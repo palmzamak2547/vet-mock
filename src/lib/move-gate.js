@@ -22,6 +22,8 @@
 // api/move-in.js clears the count, so a retried move gets its own tries.
 // ============================================================
 
+import { readStoredJson } from './stored-json.js';
+
 export const MOVE_INBOX = 'vmx-move-inbox';
 export const MOVE_INBOX_ATTEMPTS = 'vmx-move-inbox-attempts';
 export const MOVE_RECEIVED = 'vmx-move-received';
@@ -35,9 +37,9 @@ function context(win, now) {
   let storage = null;
   try { storage = win.localStorage; } catch { /* no storage: no job is due */ }
   const read = (key) => { try { return storage?.getItem(key) ?? null; } catch { return null; } };
-  let received = null;
-  try { received = JSON.parse(read(MOVE_RECEIVED)); } catch { /* unreadable: the module skips it too */ }
-  return { win, now, read, received: plain(received) ? received : null };
+  // Unreadable or not an object: the module skips it too.
+  const received = storage ? readStoredJson(MOVE_RECEIVED, null, { accept: plain, storage }) : null;
+  return { win, now, read, received };
 }
 
 const attempts = (value) => (Number.isSafeInteger(value) && value > 0 ? value : 0);
