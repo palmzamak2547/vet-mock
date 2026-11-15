@@ -2357,4 +2357,37 @@ export const QUESTIONS_Y5_ONE_HEALTH_FINAL_RECALL = [
       }
     ]
   },
+  {
+    "id": 210049,
+    "subject": "one-health",
+    "topic": "oh-gmo",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "If a gene is cut out of an organism and the same excised segment is then put back into its original position, the resulting organism is a genetically modified organism (GMO).",
+    "answer": false,
+    "explain": "GMO คือพืช สัตว์ หรือจุลินทรีย์ที่สารพันธุกรรม (DNA) ถูกเปลี่ยนไปด้วยเทคโนโลยีที่ดัดแปลง DNA อย่างจำเพาะ รวมถึงการถ่ายโอน DNA จากสิ่งมีชีวิตหนึ่งไปยังอีกสิ่งมีชีวิตหนึ่ง เช่น การใส่ยีน Bt จากแบคทีเรียในดินเข้าไปใน DNA ของข้าวโพด การตัดยีนออกแล้วใส่ท่อนเดิมกลับเข้าที่เดิมไม่ได้ทำให้ DNA ต่างไปจากเดิม จึงไม่เข้านิยาม GMO ข้อความนี้จึงผิด",
+    "source": "One Health perspective of food and feed GMOs (4 พ.ย. 69) หน้า 2",
+    "verified": "สรุปปลายภาค One Health ของรุ่นพี่ Vet 85 หน้า 6 (ส่วน GMO ข้อถูกผิดภาษาอังกฤษ ผู้บันทึกจำคำตอบได้ไม่แน่ใจ); เฉลยยืนยันจากนิยาม GMO ใน One Health perspective of food and feed GMOs (4 พ.ย. 69) หน้า 2 (DNA ต้องถูกเปลี่ยน); ข้อความเรียบเรียงจากบันทึก ไม่ใช่ถ้อยคำเดิมของข้อสอบ",
+    "sourceType": "past-paper",
+    "examOrigin": "One Health final Vet 85 บันทึกหลังสอบ",
+    "tags": [
+      "oh-gmo",
+      "gmo-definition",
+      "genetic-engineering",
+      "past-paper"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-gmo-2569",
+        "edition": "21p",
+        "page": 2
+      },
+      {
+        "doc": "onehealth-final85",
+        "edition": "16p",
+        "page": 6
+      }
+    ]
+  },
 ];

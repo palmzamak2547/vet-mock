@@ -533,6 +533,17 @@ export const SOURCE_DOCS = [
     editions: [{ id: '34p', pages: 34 }],
   },
   {
+    slug: 'oh-gmo-2569', subject: 'one-health', title: "One Health perspective of food and feed GMOs (4 พ.ย. 69)",
+    match: /One Health perspective of food and feed GMOs \(4 พ\.ย\. 69\)/i,
+    editions: [{ id: '21p', pages: 21 }],
+  },
+  // The 11 Nov 2569 livestock waste lecture; the library file is named OHVPH_SP_E4.
+  {
+    slug: 'oh-livestock-waste-2569', subject: 'one-health', title: "OHVPH_SP_E4 (livestock waste management, 11 พ.ย. 69)",
+    match: /OHVPH_SP_E4/,
+    editions: [{ id: '56p', pages: 56 }],
+  },
+  {
     slug: 'oh-foodborne-2024', subject: 'one-health', title: "One Health approach to combat foodborne diseases (deck 2024)",
     match: /One health approach to combat foodborne diseases deck 2024/i,
     editions: [{ id: '21p', pages: 21 }],
