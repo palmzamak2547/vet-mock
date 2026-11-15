@@ -16,7 +16,9 @@
 // Order matters: the two per-student windows are checked first (together,
 // one round trip), the shared budget only after both pass. Checked the other
 // way, one script hammering the endpoint would collect 429s while draining
-// the day's budget for every student. The limiter counts a call before it
+// the day's budget for every student. That order is the one dependency
+// between the three calls, so it stays; the two windows already go out
+// together. The limiter counts a call before it
 // compares, so a question refused for the burst gives its day count back.
 //
 // Fails closed, like mochi-voice: when the shared limiter is unreachable in
