@@ -1115,6 +1115,13 @@ export default function App() {
   // API). Auto-releases when leaving exam view or component unmount.
   useWakeLock(view === 'exam');
 
+  // The view, for code outside React that must keep off the exam screen (origin-move.js holds its
+  // give-up notice while a session is on screen, as SyncStatusNotice is held on view 'exam').
+  useEffect(() => {
+    window.__vmxView = view;
+    try { window.dispatchEvent(new CustomEvent('vmx-view', { detail: view })); } catch { /* old browser */ }
+  }, [view]);
+
   // Pre-warm the post-exam chunks (ResultsView + ReviewView) the
   // moment the exam starts. Reason: those views are lazy-loaded, so
   // their chunks (e.g. ResultsView-XXXXXXXX.js) are fetched only

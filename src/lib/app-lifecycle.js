@@ -3,6 +3,7 @@
 // so the importing view can offer its existing explicit retry; preventing the
 // Vite event would turn a rejected import into an undefined module instead.
 import { publishUpdateStatus } from './update-safety.js'
+import { IS_APP } from './native-detect.js'
 
 window.addEventListener('vite:preloadError', () => {
   if (navigator.onLine === false) return
@@ -68,7 +69,8 @@ window.addEventListener('pagehide', (event) => {
 window.addEventListener('load', () => {
   if (!('serviceWorker' in navigator)) return
   // The Android app serves its own copy of the build and updates it natively (src/lib/native-app.js).
-  if (window.VetMockApp) return
+  // IS_APP too: native-app.js is loaded with import() and may still be on its way at the load event.
+  if (window.VetMockApp || IS_APP) return
   if (import.meta.env?.MODE !== 'production') {
     // Dev mode — clear any stale SW so HMR flows freely
     navigator.serviceWorker.getRegistrations()
