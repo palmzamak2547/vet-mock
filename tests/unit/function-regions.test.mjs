@@ -22,7 +22,9 @@ const PINNED_SIN1 = ['ai-chat', 'ai-transcribe'];
 // were never measured as US-bound. Moving one to iad1 needs the measurement 5.180.0 describes.
 const DEFAULT_SIN1 = ['calendar', 'client-diagnostic', 'evidence-pass', 'external-connect', 'external-connect-callback',
   'external-connect-start', 'library-blob', 'library-file', 'list-external-files', 'mochi-voice', 'move-in',
-  'system-status', 'tts', 'tts-iapp', 'video-file'];
+  'system-status', 'tts', 'tts-iapp', 'video-file',
+  // A /s/ link's preview: no call to any service, so the region of the readers.
+  's'];
 
 test('functions default to sin1', () => {
   assert.deepEqual(config.regions, ['sin1']);

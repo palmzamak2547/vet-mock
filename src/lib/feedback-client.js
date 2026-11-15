@@ -22,6 +22,7 @@
 // ============================================================
 
 import { authHeader } from './api-auth.js';
+import { isOfflineAnswer } from './offline-answer.js';
 
 export const FEEDBACK_EMAIL = 'palmzamak2547@gmail.com';
 
@@ -116,6 +117,8 @@ export async function sendFeedback(payload, { fetch = globalThis.fetch, auth = a
   }
   const body = await res.json().catch(() => null);
   if (res.ok && body) return { ok: true, status: res.status, reason: null, messageTh: '' };
+  // The service worker's own offline answer is no server fault.
+  if (isOfflineAnswer(res, body)) return failure(0, 'offline');
   // A 429 has three causes: a burst clears in minutes; the sender's own day
   // and the platform's day clear only tomorrow.
   if (res.status === 429) {

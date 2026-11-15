@@ -503,3 +503,96 @@ test('a cache that throws on read is a miss: the request still waits for the net
   const res = await app.request('/public-data.json').response;
   assert.equal(await res.text(), 'bytes');
 });
+
+// ── Offline audit, 15 Nov 2026 ──────────────────────────────────────
+
+// A figure seen before the last worker release lives in the previous runtime,
+// which activate keeps for offline use; the image path read only the current
+// one, so every figure went blank offline the day after a release.
+test('an image cached under the previous worker still opens offline', async () => {
+  const app = worker({ network: offline });
+  await (await app.caches.open('vmx-runtime-previous')).put('/figures/q1.webp', response('figure bytes'));
+  const res = await app.request('/figures/q1.webp', { destination: 'image' }).response;
+  assert.equal(await res.text(), 'figure bytes');
+});
+
+// With no copy of the page and no home shell, a navigation drew the bare
+// English word "Offline" on a white page.
+test('an offline navigation with nothing cached reads in Thai with one action', async () => {
+  const app = worker({ network: offline });
+  const res = await app.request('/app/notes', { mode: 'navigate' }).response;
+  assert.equal(res.status, 503);
+  assert.match(res.headers.get('Content-Type'), /text\/html/);
+  assert.equal(res.headers.get('X-VMX-Offline'), '1');
+  const html = await res.text();
+  assert.match(html, /lang="th"/);
+  assert.match(html, /ยังไม่ได้ต่ออินเทอร์เน็ต/);
+  assert.match(html, /<button[^>]*>ลองอีกครั้ง<\/button>/);
+  assert.doesNotMatch(html, /·/, 'no middle dot');
+});
+
+test('a server error with no home shell is still passed through as sent', async () => {
+  const app = worker({ network: async () => response('bad gateway', { status: 502 }) });
+  const res = await app.request('/app/notes', { mode: 'navigate' }).response;
+  assert.equal(res.status, 502);
+  assert.equal(await res.text(), 'bad gateway');
+});
+
+test('the Atlas entry with no copy offline gets the same Thai page', async () => {
+  const app = worker({ network: offline });
+  const res = await app.request('/app/atlas', { mode: 'navigate' }).response;
+  assert.match(await res.text(), /ยังไม่ได้ต่ออินเทอร์เน็ต/);
+});
+
+// A page tells the worker's own offline answer from a server fault by one
+// header, whatever the body (src/lib/offline-answer.js).
+test('every answer the worker makes up offline carries the offline header', async () => {
+  const app = worker({ schedule: quickTimer, network: offline });
+  for (const path of ['/api/send-feedback', '/public-data.json', '/atlas/equine-skull-0123456789ab.glb']) {
+    const res = await app.request(path).response;
+    assert.equal(res.status, 503, path);
+    assert.equal(res.headers.get('X-VMX-Offline'), '1', path);
+  }
+});
+
+test('a hashed chunk whose cache read throws still gets the Atlas shell copy', async () => {
+  const app = worker({ network: offline });
+  await (await app.caches.open('vmx-atlas-shell-v1')).put('/assets/AtlasView-abc.js', response('atlas chunk'));
+  app.setReadHook(name => { if (name === assetCache) throw new Error('cache read failed'); });
+  const res = await app.request('/assets/AtlasView-abc.js').response;
+  assert.equal(await res.text(), 'atlas chunk');
+});
+
+// The first visit's files load before the worker controls the page. The page
+// names them once it is controlled; the worker keeps the app's own files and
+// nothing else, and never fetches one it already holds.
+test('files the first visit loaded are kept for the next offline visit', async () => {
+  const fetched = [];
+  const app = worker({ network: async (request) => { fetched.push(new URL(request.url ?? request).pathname); return response(`bytes of ${new URL(request.url ?? request).pathname}`); } });
+  await (await app.caches.open(assetCache)).put('/assets/already-1.js', response('kept before'));
+  const message = app.message({ type: 'CACHE_LOADED', urls: [
+    `${ORIGIN}/assets/main-1.js`, `${ORIGIN}/assets/main-1.css`, `${ORIGIN}/fonts/sarabun-400.woff2`,
+    `${ORIGIN}/assets/already-1.js`, `${ORIGIN}/api/me`, 'https://elsewhere.test/assets/x.js',
+    `${ORIGIN}/assets/q.js?retry=1`, `${ORIGIN}/figures/q1.webp`, 'not a url at all ::',
+  ] });
+  await message.settled();
+  assert.deepEqual(fetched.sort(), ['/assets/main-1.css', '/assets/main-1.js', '/fonts/sarabun-400.woff2']);
+  const assets = await app.caches.open(assetCache);
+  assert.equal(await (await assets.match('/assets/main-1.js')).text(), 'bytes of /assets/main-1.js');
+  assert.equal(await (await assets.match('/assets/already-1.js')).text(), 'kept before');
+  assert.equal(await (await (await app.caches.open(runtime)).match('/fonts/sarabun-400.woff2')).text(), 'bytes of /fonts/sarabun-400.woff2');
+  app.setNetwork(offline);
+  assert.equal(await (await app.request('/assets/main-1.js').response).text(), 'bytes of /assets/main-1.js');
+});
+
+// The preview server (and any host) may answer "Vary: Origin". Kept as is, the
+// page's module request, which carries an Origin header, missed the copy
+// offline, and a put replaced the page's own good copy (CI, 15 Nov).
+test('a first-visit file is kept without its Vary header', async () => {
+  const app = worker({ network: async () => response('chunk', { headers: { Vary: 'Origin', 'Content-Type': 'text/javascript' } }) });
+  await app.message({ type: 'CACHE_LOADED', urls: [`${ORIGIN}/assets/main-9.js`] }).settled();
+  const kept = await (await app.caches.open(assetCache)).match('/assets/main-9.js');
+  assert.equal(await kept.text(), 'chunk');
+  assert.equal(kept.headers.get('Vary'), null);
+  assert.equal(kept.headers.get('Content-Type'), 'text/javascript');
+});
