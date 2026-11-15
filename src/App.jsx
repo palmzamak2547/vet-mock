@@ -90,6 +90,9 @@ import { loadQuestionDifficulty } from './lib/question-difficulty.js';
 // Eager — needed for first paint
 import ErrorBoundary from './components/ErrorBoundary.jsx';
 import OptionalFeature from './components/OptionalFeature.jsx';
+// The search box shown while the palette's chunk downloads (and when it fails).
+import PaletteFrame from './components/PaletteFrame.jsx';
+import { clearPaletteHandoff } from './lib/palette-handoff.js';
 
 // Lazy: every screen and heavy modal loads as its own chunk. The
 // declarations, and the idle prefetch of the likely next views, live in
@@ -1630,6 +1633,9 @@ export default function App() {
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
   }, [view]);
+  // A frame closed by any path (Ctrl+K again, a view change) leaves no
+  // typed text for the next open.
+  useEffect(() => { if (!paletteOpen) clearPaletteHandoff(); }, [paletteOpen]);
 
   useEffect(() => {
     const handleKey = (e) => {
@@ -3502,7 +3508,7 @@ export default function App() {
             />
           )}
           {sketchOpen && (
-            <OptionalFeature label="กระดานวาด" onClose={() => setSketchOpen(false)}>
+            <OptionalFeature label="กระดานวาด" onClose={() => setSketchOpen(false)} pending={<OverlayPending label="กำลังเปิดกระดานวาด" />}>
               <ImageAnnotator src={null} mode="sketch" onClose={() => setSketchOpen(false)} />
             </OptionalFeature>
           )}
@@ -3515,7 +3521,13 @@ export default function App() {
           closing fully unmounts the modal too (cleaner than leaving
           a hidden overlay in the tree). */}
       {paletteOpen && (
-        <OptionalFeature label="การค้นหา" onClose={() => setPaletteOpen(false)}>
+        <OptionalFeature
+          label="การค้นหา"
+          onClose={() => setPaletteOpen(false)}
+          pending={<PaletteFrame onClose={() => setPaletteOpen(false)} />}
+          failed={(retry) => <PaletteFrame failed onRetry={retry} onClose={() => setPaletteOpen(false)} />}
+          onRetry={CommandPalette.retry}
+        >
           <CommandPalette
             open={paletteOpen}
             ownerId={user?.id || null}
@@ -3565,7 +3577,7 @@ export default function App() {
       )}
 
       {voiceSettingsOpen && (
-        <OptionalFeature label="การตั้งค่าเสียง" onClose={() => setVoiceSettingsOpen(false)}>
+        <OptionalFeature label="การตั้งค่าเสียง" onClose={() => setVoiceSettingsOpen(false)} pending={<OverlayPending label="กำลังเปิดการตั้งค่าเสียง" />}>
           <VoiceSettings onClose={() => setVoiceSettingsOpen(false)} />
         </OptionalFeature>
       )}
@@ -3573,7 +3585,7 @@ export default function App() {
       {/* ShortcutSheet — Linear-style "?" help. Mounted only when open
           (lazy chunk loads on first '?' press from exam/review). */}
       {shortcutSheetOpen && (
-        <OptionalFeature label="รายการปุ่มลัด" onClose={() => setShortcutSheetOpen(false)}>
+        <OptionalFeature label="รายการปุ่มลัด" onClose={() => setShortcutSheetOpen(false)} pending={<OverlayPending label="กำลังเปิดรายการปุ่มลัด" />}>
           <ShortcutSheet open={shortcutSheetOpen} onClose={() => setShortcutSheetOpen(false)} />
         </OptionalFeature>
       )}
@@ -3582,7 +3594,7 @@ export default function App() {
           fragment (outside .vmx-app) so it overlays any view, exactly like
           ShortcutSheet. */}
       {tourOpen && (
-        <OptionalFeature label="วิธีใช้" onClose={() => { setTourOpen(false); setTourStep(0); }}>
+        <OptionalFeature label="วิธีใช้" onClose={() => { setTourOpen(false); setTourStep(0); }} pending={<OverlayPending label="กำลังเปิดวิธีใช้" />}>
           <OnboardingTour
             step={tourStep}
             onNext={() => setTourStep((s) => s + 1)}

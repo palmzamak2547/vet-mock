@@ -384,13 +384,22 @@ export function claimBonusReward() {
 }
 
 // ── Streak (consecutive days with ≥1 quest claimed) ───────────────
+// A stored null, a value of another shape or a corrupt one reads as no run:
+// "null" came back as null and Home's quest panel read `.lastDate` from it,
+// which put the page's error card up (stored-key sweep, 11 Nov 2026).
 function readStreak() {
+  const none = { streak: 0, lastDate: '' };
   try {
     const raw = window.localStorage?.getItem(STREAK_KEY);
-    if (!raw) return { streak: 0, lastDate: '' };
-    return JSON.parse(raw);
+    if (!raw) return none;
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return none;
+    return {
+      streak: Number.isFinite(parsed.streak) ? parsed.streak : 0,
+      lastDate: typeof parsed.lastDate === 'string' ? parsed.lastDate : '',
+    };
   } catch {
-    return { streak: 0, lastDate: '' };
+    return none;
   }
 }
 
