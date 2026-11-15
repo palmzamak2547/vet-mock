@@ -36,8 +36,8 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 | Name | Need | Runtime | Read in | Without it / what it does |
 |---|---|---|---|---|
 | `VITE_LIBRARY_CDN_BASE` | optional | browser build | `src/lib/library.js` | Public CDN origin of R2 library files (absolute https, no trailing slash). Without it no CDN link is built and files open through signed links. A new host also needs connect-src in vercel.json and CORS on the bucket. |
-| `CLOUDFLARE_API_TOKEN` | required | function, script | `api/_lib/blob-token.js`, `api/_lib/open-ticket.js`, `api/_lib/r2.js` +6 | Cloudflare token (secret) for R2 temporary credentials; also keys library links and open tickets. Without it library files do not open. |
-| `R2_ACCOUNT_ID` | required | function, script | `api/_lib/r2.js`, `api/_lib/system-status.js`, `api/ai-transcribe.js` +4 | Cloudflare account id of the R2 buckets. Without it library files do not open. |
+| `CLOUDFLARE_API_TOKEN` | required | function, script | `api/_lib/blob-token.js`, `api/_lib/open-ticket.js`, `api/_lib/r2.js` +7 | Cloudflare token (secret) for R2 temporary credentials; also keys library links and open tickets. Without it library files do not open. |
+| `R2_ACCOUNT_ID` | required | function, script | `api/_lib/r2.js`, `api/_lib/system-status.js`, `api/ai-transcribe.js` +5 | Cloudflare account id of the R2 buckets. Without it library files do not open. |
 | `CF_ACCOUNT_ID` | optional | function | `api/_lib/r2.js`, `api/_lib/system-status.js`, `api/ai-transcribe.js` +1 | Same account id under an older name; read when R2_ACCOUNT_ID is unset. |
 | `R2_ACCESS_KEY_ID` | optional | function | `api/_lib/r2.js` | Permanent R2 key id; when set with R2_SECRET_ACCESS_KEY it is used instead of temporary credentials. |
 | `R2_SECRET_ACCESS_KEY` | optional | function | `api/_lib/r2.js` | Permanent R2 secret (secret). See R2_ACCESS_KEY_ID. |
@@ -139,9 +139,9 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 
 | Name | Need | Runtime | Read in | Without it / what it does |
 |---|---|---|---|---|
-| `VMX_EVIDENCE_DATA` | optional | script | `scripts/evidence/build.mjs` | Answer-evidence data root outside the checkout. Scripts only. |
+| `VMX_EVIDENCE_DATA` | optional | script | `scripts/evidence/build.mjs`, `scripts/instructor-portraits.mjs` | Answer-evidence data root outside the checkout. Scripts only. |
 | `VMX_EVIDENCE_FLOOR_CNY` | optional | script | `scripts/evidence/build.mjs`, `scripts/evidence/pages.py` | DeepSeek balance the evidence build keeps; default 40. Scripts only. |
-| `VMX_EVIDENCE_FOLDER` | optional | script | `scripts/evidence/build.mjs` | Evidence image folder (the grant); default read from the data root. Scripts only. |
+| `VMX_EVIDENCE_FOLDER` | optional | script | `scripts/evidence/build.mjs`, `scripts/instructor-portraits.mjs` | Evidence image folder (the grant); default read from the data root. Scripts only. |
 | `VMX_EVIDENCE_POINTER` | optional | script | `scripts/evidence/build.mjs` | Model that points at slide lines. Scripts only. |
 | `VMX_EVIDENCE_READER` | optional | script | `scripts/evidence/build.mjs` | Model that reads those lines without the key. Scripts only. |
 | `VMX_PROVENANCE_DATA` | optional | script | `scripts/provenance/build.mjs`, `scripts/provenance/crops.py` | Provenance data root outside the checkout. Scripts only. |
