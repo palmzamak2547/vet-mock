@@ -1327,14 +1327,19 @@ export default function App() {
   const analyticsAllowed = consent === 'all' || (consent === 'custom' && !!consentPrefs.analytics);
   const diagnosticView = useRef(view);
   diagnosticView.current = view;
+  // Failure counts are not analytics: no identity, the message scrubbed, so
+  // they run for every visitor (log, do not prompt). A failure nobody records
+  // is one nobody fixes.
   useEffect(() => {
-    if (!analyticsAllowed || IS_LOCAL_HOST) return;
+    if (IS_LOCAL_HOST) return;
     let active = true, stop;
     import('./lib/client-diagnostics.js').then(({ installClientDiagnostics }) => {
       if (active) stop = installClientDiagnostics({ getView: () => diagnosticView.current });
+      // A catch with nothing in it on purpose: the module itself failed to
+      // load, so nothing is left to report with.
     }).catch(() => {});
     return () => { active = false; stop?.(); };
-  }, [analyticsAllowed]);
+  }, []);
   // Color palette — overlays on top of theme to recolor accent vars
   // (sage / gold). 'default' uses the original sage+gold; alternatives:
   // ocean / plum / cherry / mono / forest. Stored in localStorage so

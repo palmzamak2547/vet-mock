@@ -10,6 +10,7 @@
 // The list of notebooks (title, paper, page count) lives in this browser.
 
 import { keepDeviceWork } from './persist-storage.js';
+import { reportFailure } from './report-failure.js';
 
 const KEY = 'vmx-notebooks-v1';
 export const NOTEBOOK_MAX_PAGES = 200;
@@ -33,8 +34,11 @@ const read = () => {
     return Array.isArray(v) ? v.filter((n) => n && typeof n.id === 'string') : [];
   } catch { return []; }
 };
+// False when the browser refused (storage full or blocked). Every caller
+// treats that as "not done" and says so: a notebook that exists only until
+// the next reload is worse than one that was never made.
 const write = (list) => {
-  try { localStorage.setItem(KEY, JSON.stringify(list)); return true; } catch { return false; }
+  try { localStorage.setItem(KEY, JSON.stringify(list)); return true; } catch (error) { reportFailure('save', error); return false; }
 };
 
 export function listNotebooks() {
@@ -51,7 +55,8 @@ export function createNotebook({ title, paper = 'lined', pages = 4, now = Date.n
     updatedAt: now,
   };
   // A notebook's list lives only in this browser: ask once that it be kept.
-  if (write([nb, ...read()])) keepDeviceWork();
+  if (!write([nb, ...read()])) return null;
+  keepDeviceWork();
   return nb;
 }
 
@@ -68,15 +73,15 @@ export function updateNotebook(id, patch, now = Date.now()) {
     updatedAt: now,
   };
   list[i] = next;
-  write(list);
-  return next;
+  return write(list) ? next : null;
 }
 
 export function removeNotebook(id) {
   const list = read();
   const next = list.filter((n) => n.id !== id);
-  write(next);
-  return next.length !== list.length;
+  // Already gone (removed in another tab): that is the outcome asked for.
+  if (next.length === list.length) return true;
+  return write(next);
 }
 
 export const notebookKey = (id) => `nb:${id}`;

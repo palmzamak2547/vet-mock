@@ -81,6 +81,8 @@ export default function App() {
   const [specimen, setSpecimen] = useState(null);
   const [canSpeak, setCanSpeak] = useState(false);
   const [online, setOnline] = useState(() => navigator.onLine !== false);
+  // What the last save of the chat list did: 'trimmed' or 'failed' is said under the composer.
+  const [kept, setKept] = useState('ok');
   const [away, setAway] = useState(false);
   const [beat, setBeat] = useState(-1); // -1: at rest
   const typing = useRef(false);
@@ -437,7 +439,7 @@ export default function App() {
 
   // persist after each finished turn
   useEffect(() => {
-    if (!busy && chat.messages.length) { saveChat(chat); setChats(listChats()); }
+    if (!busy && chat.messages.length) { setKept(saveChat(chat)); setChats(listChats()); }
   }, [busy]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const send = useCallback((text, image) => {
@@ -525,7 +527,7 @@ export default function App() {
       setChat((c) => {
         const first = messages.find((m) => m.role === 'user')?.content || 'คุยด้วยเสียง';
         const next = { ...c, title: c.title || titleFor(first), messages: [...c.messages, ...messages] };
-        queueMicrotask(() => { saveChat(next); setChats(listChats()); });
+        queueMicrotask(() => { setKept(saveChat(next)); setChats(listChats()); });
         return next;
       });
       requestAnimationFrame(() => requestAnimationFrame(() => anchorTurn(messages[0].id, false)));
@@ -638,6 +640,8 @@ export default function App() {
               voiceOff={voiceAvail?.available === false}
             />
             {!online && <p className="dock-note" role="status">ออฟไลน์อยู่ ต่ออินเทอร์เน็ตแล้วถามต่อได้</p>}
+            {kept === 'failed' && <p className="dock-note" role="alert">เบราว์เซอร์นี้เก็บแชตไว้ไม่ได้ ถ้าปิดหน้านี้ แชตนี้จะหาย</p>}
+            {kept === 'trimmed' && <p className="dock-note" role="status">พื้นที่เก็บในเครื่องเต็ม แชตเก่าที่สุดจึงถูกลบเพื่อเก็บแชตนี้ไว้ ลบแชตที่ไม่ใช้แล้วจากรายการเพื่อเพิ่มที่</p>}
             {mode === 'landing' && (
               <>
                 <button type="button" className="voice-cta" onClick={startVoice} onPointerEnter={prefetchVoice} onFocus={prefetchVoice} onTouchStart={prefetchVoice} disabled={!online}>
@@ -671,7 +675,7 @@ export default function App() {
         currentId={chat.id}
         onClose={() => setHistoryOpen(false)}
         onOpen={openChat}
-        onDelete={(id) => { deleteChat(id); setChats(listChats()); if (id === chat.id) setChat(blank()); }}
+        onDelete={(id) => { setKept(deleteChat(id)); setChats(listChats()); if (id === chat.id) setChat(blank()); }}
         onClear={() => { clearChats(); setChats([]); setChat(blank()); setHistoryOpen(false); }}
         account={gate.configured && gate.user ? { email: gate.email, onSignOut: () => { setHistoryOpen(false); wall.signOut(); } } : null}
       />
