@@ -40,8 +40,12 @@ test('one online visit is enough to reopen Home with no connection', async ({ pa
       return files.length > 0 && held.every(Boolean);
     }), { timeout: 30000 }).toBe(true);
     connected = false;
+    const failed = [];
+    page.on('requestfailed', r => failed.push(`${new URL(r.url()).pathname} ${r.failure()?.errorText || ''}`));
     await page.reload({ waitUntil: 'domcontentloaded' });
-    await expect(page.locator('#main')).toHaveAttribute('data-view', 'home', { timeout: 30000 });
+    await expect(page.locator('#main')).toHaveAttribute('data-view', 'home', { timeout: 30000 })
+      .catch(error => { throw new Error(`${error.message}
+requests that failed offline: ${failed.join(', ')}`); });
     await expect(page.locator('#main')).not.toHaveText(/^\s*$/);
     await expect(page.getByRole('heading', { name: 'หน้านี้ขัดข้อง' })).toHaveCount(0);
   } finally {

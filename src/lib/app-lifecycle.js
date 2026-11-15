@@ -61,19 +61,35 @@ const announceWaitingWorker = (worker) => {
 // worker never saw them and an offline reload of that visit drew a blank page.
 // Once a worker takes control, name the app files this page already loaded so
 // the worker keeps them (sw.js CACHE_LOADED).
+// The browser keeps 250 timing entries by default; Home's pictures alone can
+// fill that before a lazy chunk is listed.
+try { window.performance?.setResourceTimingBufferSize?.(1000) } catch { /* optional */ }
+const appFile = (name) => {
+  try {
+    const url = new URL(name)
+    return url.origin === window.location.origin && /^\/(?:assets|fonts)\//.test(url.pathname) ? url.href : null
+  } catch { return null }
+}
 let loadedFilesReported = false
 const reportLoadedFiles = () => {
   const worker = navigator.serviceWorker.controller
-  if (loadedFilesReported || !worker || typeof window.performance?.getEntriesByType !== 'function') return
-  const urls = new Set()
-  for (const entry of window.performance.getEntriesByType('resource')) {
-    try {
-      const url = new URL(entry.name)
-      if (url.origin === window.location.origin && /^\/(?:assets|fonts)\//.test(url.pathname)) urls.add(url.href)
-    } catch { /* not a URL */ }
-  }
+  const perf = window.performance
+  if (loadedFilesReported || !worker || typeof perf?.getEntriesByType !== 'function') return
   loadedFilesReported = true
-  if (urls.size) worker.postMessage({ type: 'CACHE_LOADED', urls: [...urls] })
+  const send = (entries) => {
+    const urls = new Set(entries.map((entry) => appFile(entry.name)).filter(Boolean))
+    if (urls.size) worker.postMessage({ type: 'CACHE_LOADED', urls: [...urls] })
+  }
+  send(perf.getEntriesByType('resource'))
+  // A file still downloading at the takeover finishes outside the worker as
+  // well: name those too as they complete (the worker skips what it holds).
+  if (typeof window.PerformanceObserver === 'function') {
+    try {
+      const observer = new window.PerformanceObserver((list) => send(list.getEntries()))
+      observer.observe({ type: 'resource' })
+      setTimeout(() => observer.disconnect(), 30000)
+    } catch { /* the first list is what is kept */ }
+  }
 }
 
 window.addEventListener('pagehide', (event) => {

@@ -5,7 +5,7 @@ import vm from 'node:vm';
 import { publishUpdateStatus } from '../../src/lib/update-safety.js';
 import { APP_VIEW_ROUTES } from '../../src/lib/view-route.js';
 
-function harness({ view = 'home', online = true, waiting = true, controlled = true, resources = [] } = {}) {
+function harness({ view = 'home', online = true, waiting = true, controlled = true, resources = [], observer = null } = {}) {
   const listeners = new Map(), docListeners = new Map(), swListeners = new Map();
   const events = [], messages = [], timers = [], intervals = [];
   let reloads = 0, checks = 0, updateResult = Promise.resolve();
@@ -16,6 +16,7 @@ function harness({ view = 'home', online = true, waiting = true, controlled = tr
   const window = {
     document, CustomEvent, history: { state: { vmxView: view } },
     location: { origin: 'https://vetmock.test', reload() { reloads++; } }, addEventListener: on(listeners),
+    PerformanceObserver: observer,
     performance: { getEntriesByType: type => (type === 'resource' ? resources.map(name => ({ name })) : []) },
     dispatchEvent(event) { events.push(event); void fire(listeners, event.type, event); },
   };
@@ -131,4 +132,15 @@ test('a page that opened already controlled sends no list: its files went throug
   await app.fire('load');
   await app.controllerChange();
   assert.ok(!app.messages.some(m => m?.type === 'CACHE_LOADED'));
+});
+
+test('files still downloading at the takeover are named as they finish', async () => {
+  let deliver;
+  class FakeObserver { constructor(callback) { deliver = callback; } observe() {} disconnect() {} }
+  const app = harness({ controlled: false, waiting: false, observer: FakeObserver, resources: ['https://vetmock.test/assets/main-1.js'] });
+  await app.fire('load');
+  await app.takeControl();
+  deliver({ getEntries: () => [{ name: 'https://vetmock.test/assets/HomeView-2.js' }, { name: 'https://vetmock.test/subject-art/a.webp' }] });
+  assert.equal(app.messages.length, 2);
+  assert.deepEqual([...app.messages[1].urls], ['https://vetmock.test/assets/HomeView-2.js']);
 });
