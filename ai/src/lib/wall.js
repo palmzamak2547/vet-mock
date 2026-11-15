@@ -7,6 +7,12 @@
 // its answers on the device (rememberAnswer), so a saved member session opens
 // with no network, and it never signs anyone out because a check failed.
 //
+// A trial link (lib/pass.js) opens the page for a device with no account: where
+// the answer would be the sign-in card, a held code makes it 'open' with `trial`
+// true, and the server judges the code on every request. The code is dropped
+// when the server refuses it and when an account leaves this device, so a
+// sign-out or an ended session still lands on the sign-in card.
+//
 // createWall() takes everything it touches (the account, storage, fetch, the
 // address bar), so tests/unit/wall.test.mjs drives it with fakes; account.js
 // makes the page's one instance.
@@ -16,6 +22,7 @@ import {
   CHULA_HD, fetchAccessState, gateState, rememberAnswer, rememberedEnforce, rememberedMember,
   signInProblem, takeAuthErrorFromUrl,
 } from './chula.js';
+import { clearPass, getPass, takePassFromUrl } from './pass.js';
 
 /** What each problem says to the student (docs/CHULA-SIGNIN.md, the same words on every VetMock origin). */
 export const PROBLEM_TEXT = Object.freeze({
@@ -27,7 +34,12 @@ export const PROBLEM_TEXT = Object.freeze({
   // linking on the link screen
   'identity-taken': 'บัญชีจุฬานี้มีบัญชี VetMock ของตัวเองอยู่แล้ว เข้าบัญชีจุฬานั้นแทนได้เลย ความคืบหน้าในบัญชีนี้ยังอยู่',
   'linking-off': 'ตอนนี้ยังเชื่อมบัญชีไม่ได้ ลองใหม่อีกครั้ง',
+  // the server refused the trial link's code (lib/pass.js)
+  'trial-ended': 'ลิงก์ทดลองหมดอายุแล้ว เข้าสู่ระบบด้วยอีเมลจุฬาเพื่อใช้ต่อ',
 });
+
+/** The one line a visitor on a trial link reads under the composer. */
+export const TRIAL_NOTE = 'ลิงก์ทดลอง: ถามตอบได้ ไม่รวมคลังเอกสารของจุฬาฯ';
 
 /** The words for a problem; one this table does not name reads as unknown. */
 export const problemText = (kind) => (kind ? PROBLEM_TEXT[kind] || PROBLEM_TEXT.unknown : '');
@@ -57,6 +69,8 @@ export function createWall({
   const boot = configured ? auth.stored() : null;
   // An OAuth error is read from the address once, before the client could see it.
   const returned = configured ? takeAuthErrorFromUrl(location, history) : null;
+  // A trial link's code leaves the address for the device (lib/pass.js).
+  if (configured) takePassFromUrl(location, history, store);
   let leftOnPurpose = false;
   let started = false;
   let subscribed = false;
@@ -75,6 +89,8 @@ export function createWall({
     problem: returned ? signInProblem(returned, { online: online() }) || 'unknown' : null,
     forced: false,
     busy: null,
+    // this device holds a trial link's code (only that it does: the code stays in lib/pass.js)
+    pass: configured && Boolean(getPass(store)),
   };
 
   const derive = (s) => {
@@ -84,8 +100,11 @@ export function createWall({
     let gate = gateState({ configured, enforce: s.enforce, loading: s.loading, user: s.user, verdict, remembered });
     // the API refused this token even after a refresh: ask for a sign-in again (until the switch goes off)
     if (configured && s.forced && s.enforce !== false) gate = 'signin';
+    // A trial link stands where the sign-in card would: nobody signed in, the wall on, a code held.
+    const trial = gate === 'signin' && !s.user && s.pass;
+    if (trial) gate = 'open';
     const email = s.user ? s.user.email || s.user.user_metadata?.email || '' : '';
-    return Object.freeze({ ...s, configured, verdict, remembered, gate, email });
+    return Object.freeze({ ...s, configured, verdict, remembered, gate, email, trial });
   };
   let snapshot = derive(raw);
 
@@ -93,6 +112,12 @@ export function createWall({
     raw = { ...raw, ...patch };
     snapshot = derive(raw);
     for (const listener of listeners) listener();
+  };
+
+  /** The patch that forgets a trial link's code: the server refused it, or an account left this device. */
+  const noPass = () => {
+    if (raw.pass) clearPass(store);
+    return { pass: false };
   };
 
   /** Ask the database where the switch is and what it says about this account. */
@@ -117,7 +142,7 @@ export function createWall({
 
   function onAuthEvent(event, session) {
     if (event === 'SIGNED_OUT') {
-      set({ user: null, token: null, forced: false, answer: NO_ANSWER, problem: leftOnPurpose ? null : raw.problem || 'expired' });
+      set({ user: null, token: null, forced: false, answer: NO_ANSWER, problem: leftOnPurpose ? null : raw.problem || 'expired', ...noPass() });
       check();
       return;
     }
@@ -156,7 +181,7 @@ export function createWall({
           const problem = raw.problem
             || (landing && error ? signInProblem(error, { online: online() }) || 'unknown' : null)
             || (boot && !leftOnPurpose ? 'expired' : null);
-          set({ user: null, token: null, loading: false, problem });
+          set({ user: null, token: null, loading: false, problem, ...noPass() });
         }
       } catch {
         // the client could not load (offline, a chunk gone after a deploy): the stored account stands
@@ -243,7 +268,7 @@ export function createWall({
     clearTimeout(safety);
     set({ busy: 'signout', problem: null });
     try { await auth.signOut(); } catch { /* the local session is gone either way */ }
-    set({ busy: null, user: null, token: null, forced: false, answer: NO_ANSWER });
+    set({ busy: null, user: null, token: null, forced: false, answer: NO_ANSWER, ...noPass() });
     check();
   }
 
@@ -261,9 +286,16 @@ export function createWall({
       if (!configured) return null;
       try { return (await auth.refresh()) || null; } catch { return null; }
     },
-    /** 'signin': no token or one the server refused after a refresh. 'link': signed in, not a member. */
+    /** The trial link's code, only while the page is open on it: a request with a session never carries it. */
+    pass: () => (snapshot.trial ? getPass(store) : null),
+    /** 'signin': no token or one the server refused after a refresh. 'link': signed in, not a member.
+     *  'pass': the server refused the trial link's code, so the sign-in card is next. */
     refused(kind) {
       if (!configured) return;
+      if (kind === 'pass') {
+        set({ problem: 'trial-ended', ...noPass() });
+        return;
+      }
       const uid = raw.user?.id ?? null;
       if (kind === 'link' && uid) {
         rememberAnswer({ enforce: true, uid, member: false }, store);
