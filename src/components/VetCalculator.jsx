@@ -90,7 +90,7 @@ function FluidTab() {
         Deficit = BW × %dehyd × 10 ให้ภายในเวลาที่เลือก, Maintenance = 60 mL/kg/day (kitten/puppy 80-100)
         และ ongoing loss เป็นปริมาณต่อวัน จึงหารด้วย 24 เสมอ.
         <br />
-        Shock bolus (90 mL/kg dog, 60 mL/kg cat) แยก — ให้บางส่วนแล้ว reassess.
+        Shock bolus (90 mL/kg dog, 60 mL/kg cat) แยก, ให้บางส่วนแล้ว reassess.
       </Note>
     </div>
   );
@@ -117,7 +117,7 @@ function DrugTab() {
         ตัวอย่าง: Cefazolin 22 mg/kg, 20 kg dog → 440 mg, vial 100 mg/mL → 4.4 mL.
         <br />
         ระวัง: per-kg dose จากตำราเป็น <em>active drug</em>, concentration ใน vial บางครั้ง
-        เป็น <em>salt form</em> (e.g., enrofloxacin base vs HCl) — เช็กหน้า prescribing info.
+        เป็น <em>salt form</em> (e.g., enrofloxacin base vs HCl), เช็กหน้า prescribing info.
       </Note>
     </div>
   );
@@ -228,7 +228,7 @@ function CRITab() {
         ตัวอย่าง {CRI_EXAMPLE.drug} {CRI_EXAMPLE.target} µg/kg/min, dog {CRI_EXAMPLE.bw} kg, stock {CRI_EXAMPLE.stock} mg/mL, bag {CRI_EXAMPLE.bag} mL, pump {CRI_EXAMPLE.rate} mL/hr
         → ดูดยา ≈ {example.drugMl} mL ใส่ถุง.
         <br />
-        เช็กผลซ้ำเสมอ: หมุนกลับ — concentration × pump rate ÷ BW × 1000/60 ควรได้ใกล้ target.
+        เช็กผลซ้ำเสมอ: หมุนกลับจาก concentration × pump rate ÷ BW × 1000/60 ควรได้ใกล้ target.
       </Note>
     </div>
   );
@@ -262,7 +262,7 @@ function BSATab() {
       <Note>
         BSA = K × BW<sup>(2/3)</sup> / 100. Used for chemo (e.g., doxorubicin 30 mg/m²).
         <br />
-        Cats &lt; 10 kg: capped doxorubicin to 1 mg/kg (BSA over-doses small cats — known
+        Cats &lt; 10 kg: capped doxorubicin to 1 mg/kg (BSA over-doses small cats; known
         weakness of the formula).
       </Note>
     </div>
@@ -439,7 +439,7 @@ function DrugDBTab() {
       <div style={{ maxHeight: 360, overflowY: 'auto', WebkitOverflowScrolling: 'touch', margin: '0 -8px', padding: '0 8px' }}>
         {filtered.length === 0 && (
           <div style={{ textAlign: 'center', padding: 24, color: 'var(--clr-ink-soft)', fontSize: 14 }}>
-            ไม่พบยา — ลองเปลี่ยนคำค้นหรือ filter
+            ไม่พบยา: ลองเปลี่ยนคำค้นหรือ filter
           </div>
         )}
         {filtered.map((drug) => {
@@ -499,7 +499,7 @@ function DrugDBTab() {
                 <div style={{ marginTop: 16, paddingTop: 16, borderTop: '1px solid var(--clr-border)' }}>
                   <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginBottom: 12, lineHeight: 1.6 }}>
                     <strong>ข้อบ่งใช้:</strong> {drug.indication}<br />
-                    <strong>Route:</strong> {drug.route} — <strong>Frequency:</strong> {drug.freq}<br />
+                    <strong>Route:</strong> {drug.route}, <strong>Frequency:</strong> {drug.freq}<br />
                     <strong>Brands:</strong> {drug.brand}
                   </div>
 
@@ -515,7 +515,7 @@ function DrugDBTab() {
                     />
                     {dd.cappedFor && (
                       <div style={{ fontSize: 14, marginTop: 6, color: 'var(--clr-rose-text)', fontWeight: 600 }}>
-                        ⚠️ จำกัดที่ {dd.cap} {drug.unit} สำหรับ{dd.cappedFor === 'cat' ? 'แมว' : 'สุนัข'} — ช่วงยาเต็มคือ {drug.doseLo}-{drug.doseHi} {drug.unit}
+                        ⚠️ จำกัดที่ {dd.cap} {drug.unit} สำหรับ{dd.cappedFor === 'cat' ? 'แมว' : 'สุนัข'}: ช่วงยาเต็มคือ {drug.doseLo}-{drug.doseHi} {drug.unit}
                       </div>
                     )}
                     </>
@@ -537,10 +537,10 @@ function DrugDBTab() {
 
       <Note>
         💊 Drug database รวบรวมจาก Plumb's Veterinary Drug Handbook, BSAVA Small Animal
-        Formulary, MSD และ FECAVA/WSAVA guidelines. Dose เป็น reference range — ตรวจสอบ
+        Formulary, MSD และ FECAVA/WSAVA guidelines. Dose เป็น reference range, ตรวจสอบ
         กับ prescribing information + patient factors ก่อนใช้จริงเสมอ.
         <br />
-        ⚠️ อ่านหมายเหตุของแต่ละยา — มีคำเตือนเฉพาะ (species-specific, breed sensitivity,
+        ⚠️ อ่านหมายเหตุของแต่ละยา: มีคำเตือนเฉพาะ (species-specific, breed sensitivity,
         organ impairment, drug interactions).
       </Note>
     </div>

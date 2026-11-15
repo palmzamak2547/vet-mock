@@ -6,6 +6,8 @@
 // Server-Sent Events over a POST (EventSource cannot POST), read here with a
 // stream reader; each event is handed to `on(name, data)` as it lands.
 
+import { PASS_HEADER } from './pass.js';
+
 const PROD = 'https://vetmock.com/api/ai-chat';
 // Vite inlines import.meta.env; under node --test it is undefined
 const ENV = import.meta.env || {};
@@ -29,9 +31,12 @@ export class ChatError extends Error {
 // (lib/account.js) hands over how to get a token, how to refresh it once, and
 // where a refusal goes; with no wall (a build without a database) requests go
 // out as before.
+// A visitor on a trial link (lib/pass.js) has no session: their request carries
+// the link's code in X-VetMock-Pass instead, and a 401 pass_invalid ends the
+// trial on this device. A request with a token never carries the code.
 let auth = null;
 
-/** @param {{ token: () => Promise<string|null>, refresh: () => Promise<string|null>, refused: (kind: 'signin'|'link') => void } | null} provider */
+/** @param {{ token: () => Promise<string|null>, refresh: () => Promise<string|null>, refused: (kind: 'signin'|'link'|'pass') => void, pass?: () => string|null } | null} provider */
 export function setApiAuth(provider) {
   auth = provider;
 }
@@ -43,6 +48,13 @@ export async function authorized(url, init) {
   const send = (token) => fetch(url, token ? { ...init, headers: { ...init.headers, Authorization: `Bearer ${token}` } } : init);
   if (!auth) return send(null);
   const token = await auth.token().catch(() => null);
+  const pass = token ? null : auth.pass?.() || null;
+  if (pass) {
+    // no session to refresh: the server's answer about the code is final
+    const res = await fetch(url, { ...init, headers: { ...init.headers, [PASS_HEADER]: pass } });
+    if (res.status === 401 && (await errorOf(res)) === 'pass_invalid') auth.refused('pass');
+    return res;
+  }
   let res = await send(token);
   if (res.status === 401) {
     const fresh = await auth.refresh().catch(() => null);

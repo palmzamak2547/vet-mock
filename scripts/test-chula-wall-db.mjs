@@ -10,8 +10,9 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
-// Applied in order, as production has them.
-const MIGRATIONS = ['20261101170000_chula_wall.sql', '20261102190000_chula_hook_wording.sql']
+// Applied in order, as production has them. The last one adds the trial pass for the assistant
+// (docs/CHULA-SIGNIN.md, "Trial links") and re-creates the pre-request with one more public call.
+const MIGRATIONS = ['20261101170000_chula_wall.sql', '20261102190000_chula_hook_wording.sql', '20261115080000_ai_guest_pass.sql']
   .map((name) => path.join(ROOT, 'supabase/migrations', name));
 const backend = process.argv.find((a) => a.startsWith('--backend='))?.slice(10) || 'pglite';
 assert(['pglite', 'postgres'].includes(backend));
@@ -225,7 +226,7 @@ try {
     await run(`${insert('new2@student.chula.ac.th', null)};`);
   });
 
-  await check('the pre-request lets in members, the admin, service_role and four public calls', async () => {
+  await check('the pre-request lets in members, the admin, service_role and five public calls', async () => {
     await rejects(as('anon', null, `select public.chula_pre_request()`), /chula_member_required/);
     await rejects(as('authenticated', U.gmail, `select public.chula_pre_request()`), /chula_member_required/);
     await rejects(as('authenticated', U.pwChula, `select public.chula_pre_request()`), /chula_member_required/);
@@ -235,10 +236,70 @@ try {
     await run(as('authenticated', U.staff, `select public.chula_pre_request()`));
     await run(as('authenticated', U.admin, `select public.chula_pre_request()`));
     await run(as('service_role', null, `select public.chula_pre_request()`));
-    for (const open of ['/rpc/chula_access_state', '/rpc/seeside_public_stats', '/rpc/record_client_diagnostic', '/rpc/library_doc_for_signing']) {
+    for (const open of ['/rpc/chula_access_state', '/rpc/seeside_public_stats', '/rpc/record_client_diagnostic', '/rpc/library_doc_for_signing', '/rpc/ai_guest_pass_use']) {
       await run(as('anon', null, `select public.chula_pre_request()`, open));
     }
     await rejects(as('anon', null, `select public.chula_pre_request()`, '/rpc/chula_access_state/../notes'), /chula_member_required/);
+    await rejects(as('anon', null, `select public.chula_pre_request()`, '/rpc/ai_guest_pass_use/../notes'), /chula_member_required/);
+    await rejects(as('anon', null, `select public.chula_pre_request()`, '/rpc/library_search'), /chula_member_required/);
+  });
+
+  // The wall is on from here: a trial pass (20261115080000_ai_guest_pass.sql) is asked about by the
+  // public key, as the Vercel API asks (api/_lib/guest-pass.js).
+  await check('a trial pass: only its hash is kept, each use counts once up to the cap, every refusal has its reason', async () => {
+    const code = 'harness-code_not-a-pass-000001';
+    const hash = crypto.createHash('sha256').update(code).digest('hex');
+    const use = async (c, count = true, role = 'anon', sub = null) =>
+      JSON.parse(await value(as(role, sub, `select public.ai_guest_pass_use(${c === null ? 'null' : q(c)}, ${count ? 'true' : 'false'})::text`, '/rpc/ai_guest_pass_use')));
+    const row = (column) => value(`select ${column}::text from private.ai_guest_pass where code_sha256 = ${q(hash)}`);
+    const invalid = { ok: false, reason: 'invalid' };
+
+    assert.deepEqual(await use(code), invalid, 'no pass exists until one is inserted');
+    // the way the docs make one: the hash is computed outside the database, so the code is never in a statement
+    await run(`insert into private.ai_guest_pass (code_sha256, note, expires_at, max_messages) values (${q(hash)}, 'harness', now() + interval '1 day', 2);`);
+
+    const peek = await use(code, false);
+    assert.equal(peek.ok, true);
+    assert.equal(peek.left, 2);
+    assert.ok(Date.parse(peek.expires_at) > Date.now());
+    assert.equal((await use(code, false)).left, 2, 'a check without counting uses nothing');
+    assert.equal((await use(code)).left, 1);
+    assert.equal(JSON.parse(await value(as('anon', null, `select public.ai_guest_pass_use(${q(code)})::text`, '/rpc/ai_guest_pass_use'))).left, 0, 'counting is the default');
+    assert.deepEqual(await use(code), { ok: false, reason: 'spent' });
+    assert.deepEqual(await use(code, false), { ok: false, reason: 'spent' });
+    assert.equal(await row('used_messages'), '2', 'never past the cap');
+
+    for (const bad of ['harness-code_not-a-pass-000002', 'short', 'a'.repeat(21), 'a'.repeat(65), `${'a'.repeat(21)}%`, `${'a'.repeat(22)}\n`,
+      `${'a'.repeat(22)}'; delete from private.ai_guest_pass; --`, hash, '', null]) {
+      assert.deepEqual(await use(bad), invalid, String(bad).slice(0, 30));
+      assert.deepEqual(await use(bad, false), invalid, String(bad).slice(0, 30));
+    }
+
+    await run(`update private.ai_guest_pass set used_messages = 0, expires_at = now() - interval '1 second' where code_sha256 = ${q(hash)};`);
+    assert.deepEqual(await use(code), { ok: false, reason: 'expired' });
+    assert.deepEqual(await use(code, false), { ok: false, reason: 'expired' });
+    await run(`update private.ai_guest_pass set expires_at = now() + interval '1 day', revoked_at = now() where code_sha256 = ${q(hash)};`);
+    assert.deepEqual(await use(code), invalid, 'a revoked pass reads as an unknown one');
+    assert.deepEqual(await use(code, false), invalid);
+    assert.equal(await row('used_messages'), '0', 'a refused use counts nothing');
+    await run(`update private.ai_guest_pass set revoked_at = null where code_sha256 = ${q(hash)};`);
+    assert.equal((await use(code, true, 'authenticated', U.gmail)).left, 1, 'the answer is about the code, whoever asks');
+
+    // the code is in no column, and a value that is not a hash cannot be stored
+    assert.equal(await value(`select count(*) from private.ai_guest_pass p where to_jsonb(p)::text like ${q(`%${code}%`)}`), '0');
+    await rejects(`insert into private.ai_guest_pass (code_sha256, expires_at) values (${q(code)}, now() + interval '1 day')`, /check constraint/);
+    await rejects(`insert into private.ai_guest_pass (code_sha256, expires_at, max_messages) values (${q('0'.repeat(64))}, now() + interval '1 day', 0)`, /check constraint/);
+    await rejects(`insert into private.ai_guest_pass (code_sha256, expires_at) values (${q(hash)}, now() + interval '1 day')`, /duplicate key/);
+
+    // browser roles reach the function and nothing under it
+    for (const sql of [`select count(*) from private.ai_guest_pass`, `update private.ai_guest_pass set max_messages = 100000`,
+      `insert into private.ai_guest_pass (code_sha256, expires_at) values (${q('1'.repeat(64))}, now() + interval '1 day')`]) {
+      await rejects(as('anon', null, sql, '/rpc/ai_guest_pass_use'), /permission denied/);
+      await rejects(as('authenticated', U.member, sql), /permission denied/);
+    }
+    // a pass opens no row: the caller is still nobody to every policy
+    assert.equal(await value(as('anon', null, `select count(*) from public.notes`, '/rpc/ai_guest_pass_use')), '0');
+    assert.equal(await value(`select public.chula_wall_enforced()::text`), 'true', 'the switch is as it was');
   });
 
   await check('row security: non-members read and write nothing, members keep their own rows', async () => {

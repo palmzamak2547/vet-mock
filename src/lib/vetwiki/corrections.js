@@ -1348,7 +1348,7 @@ export const CORRECTIONS = {
       "sourceRef": "PMID 30002421 (DOI 10.1038/s41572-018-0005-8)"
     }
   ],
-  "milk-meat-hygiene--meat-microbiology--introduction-where-contamination-starts": [
+  "milk-meat-hygiene--meat-microbiology--เนื้อสัตว์ปนเปื้อนจากไหน-และเชื้อกลุ่มใดสำคัญ": [
     {
       "severity": "narrows",
       "lectureSays": "Meat from a healthy animal ควรปราศจาก bacteria หรือสิ่งปนเปื้อนอื่น และการปนเปื้อนเกิดหลักที่ slaughter, storage และ distribution",
@@ -1357,7 +1357,7 @@ export const CORRECTIONS = {
       "sourceRef": "PMID 26125489"
     }
   ],
-  "milk-meat-hygiene--meat-molecular--genomic-techniques-combination-of-4-sub-disciplines": [
+  "milk-meat-hygiene--meat-molecular--molecular-biology-genomic-techniques-และการปรับปรุงคุณภาพเนื้อ": [
     {
       "severity": "narrows",
       "lectureSays": "Genomic techniques คือการรวมกันของ 4 sub-disciplines แต่ในสไลด์ไล่รายชื่อมา 5 ข้อ คือ Genetics, Molecular genetics, Quantitative genetics, Mendelian genetics และ Bioinformatics",
@@ -1366,7 +1366,7 @@ export const CORRECTIONS = {
       "sourceRef": "PMID 32331872"
     }
   ],
-  "milk-meat-hygiene--meat-quality--definition-of-fresh-meat": [
+  "milk-meat-hygiene--meat-quality--เนื้อสดและคุณภาพเนื้อสัตว์": [
     {
       "severity": "narrows",
       "lectureSays": "Fresh meat คือเนื้อที่ผ่าน chemical และ physical change หลัง slaughter แต่ผ่าน minimal process เท่านั้น เช่น การตัดแต่งเป็น retail cuts, cubing, grinding, marination และ freezing",
@@ -2039,6 +2039,15 @@ export const CORRECTIONS = {
       "evidenceSays": "ลักษณะ colony ของ yeast ขึ้นกับชนิดอาหารเลี้ยงเชื้อที่ใช้ เช่น yeast ที่แยกได้จากเลือดขึ้นเป็น colony สีชมพูจางบน CHROMagar Candida และเมื่อเลี้ยงบน cornmeal agar แล้วดูด้วยกล้องจุลทรรศน์เห็นเป็น oval budding yeast cells ปนกับ rudimentary pseudohyphae เป็นบางส่วน ไม่พบแหล่งที่ระบุคำบรรยาย กลม นูน เรียบ บน blood agar โดยตรง (PMID 31471347)",
       "examAdvice": "ตอบ กลม นูน เรียบ ตามสไลด์ได้ แต่ถ้าโจทย์ระบุ media มาให้ ให้ตอบตาม media นั้น",
       "sourceRef": "PMID 31471347"
+    }
+  ],
+  "zoonoses--zoo-prion--prion-biology-cjd-vcjd-bse-และ-scrapie": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "สไลด์ Prion p.5 เขียนว่า PrP^SC พบตามปกติใน cells ในปริมาณน้อยมาก (mainly in the central nervous system)",
+      "evidenceSays": "PrP^Sc คือ abnormal isoform ของ cellular prion protein (PrP^C) และโรคกลุ่ม prion มีลักษณะเด่นคือการสะสมของ PrP^Sc ใน brain: \"Prion diseases or transmissible spongiform encephalopathies (TSEs) are characterized by the accumulation of an abnormal isoform (PrPSc) of the host-encoded cellular prion protein (PrPC) in the brain.\" รูปที่พบตามปกติในเซลล์จึงเป็น PrP^C ส่วน PrP^Sc เป็นรูปที่สัมพันธ์กับโรค",
+      "examAdvice": "แยกให้ขาด: PrP^C คือรูปปกติในเซลล์ (alpha helix, ละลายได้, ถูก protease ย่อย) ส่วน PrP^Sc คือรูปผิดปกติที่สะสมเมื่อเป็นโรค (beta sheet, ไม่ละลาย, ทน protease) ถ้าโจทย์ยกข้อความของสไลด์มาถามตรงตัว ให้รู้ว่าข้อความนั้นมาจาก p.5",
+      "sourceRef": "PMID 9753605 (DOI 10.1006/bbrc.1998.9169)"
     }
   ],
   "zoonoses--zoo-rabies--diagnostic-methods-woah-cdc": [

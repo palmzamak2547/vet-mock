@@ -9,6 +9,7 @@
 // saw the wall off: the AI costs money and the rows are private.
 import { createHash } from 'node:crypto';
 import { backendConfig } from './app-backend.js';
+import { signatureVerdict, resetSessionKeys } from './session-keys.js';
 
 // Before any database call a token is read locally, and refused only when it
 // is certainly not a session: not three dot-separated parts, a payload that is
@@ -23,8 +24,10 @@ import { backendConfig } from './app-backend.js';
 // between previews and production, another sign-in path of the same project)
 // would turn every member into a guest at once. A mismatch is only logged,
 // without the token.
-// Known limit: a well-formed token with a bad signature still costs one
-// database call, as before; verifying the signature here would end that.
+// The signature is checked next, against the project's published keys
+// (session-keys.js): a token that names one of them and is not signed by it
+// is a forgery, and is no token either. A token that names no published key
+// still goes to the database, which is the only judge of it.
 export const EXPIRY_MARGIN_S = 60;
 let lastIssuerLog = 0;
 
@@ -65,6 +68,13 @@ const MEMBER_TTL_MS = 60_000;
 let lastSwitch = null; // { enforce, at }
 const members = new Map(); // sha256(token) -> { uid, until }
 
+// The length cap is what a real session needs, with room. A token carries the
+// account's profile, so its length follows the profile: the longest among this
+// project's accounts was about 1,500 characters on 15 Nov 2026, and the fullest
+// profile the app lets a student write (a 140-character Thai bio, Thai names, a
+// linked LINE account) comes to about 3,100. A bearer over the cap is no token
+// at all, and the student is asked to sign in again with no reason shown, so
+// the cap stays clear of that (tests/unit/session-signature.test.mjs).
 export function bearerOf(req) {
   const token = String(req?.headers?.authorization || '').replace(/^Bearer\s+/i, '').trim();
   return /^[A-Za-z0-9._~-]{20,4096}$/.test(token) ? token : '';
@@ -105,6 +115,8 @@ export async function chulaGate(req, { env = process.env, fetchImpl = fetch, now
   const key = token ? createHash('sha256').update(token).digest('hex') : '';
   const remembered = key && members.get(key);
   if (remembered && remembered.until > now()) return { ok: true, userId: remembered.uid, token, member: true };
+  // Only where the database would be asked next. Anything but 'forged' goes on to it.
+  if (token && cfg.url && cfg.key && await signatureVerdict(token, cfg.url, { fetchImpl, now }) === 'forged') token = '';
 
   // A guest needs only the switch, which a warm instance already holds.
   if (!token && lastSwitch && now() - lastSwitch.at < SWITCH_TTL_MS) {
@@ -157,4 +169,5 @@ export async function requireChula(req, res, options) {
 export function resetChulaGate() {
   lastSwitch = null;
   members.clear();
+  resetSessionKeys();
 }

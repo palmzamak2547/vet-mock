@@ -9,6 +9,7 @@ import { IconDown, IconWave } from './components/icons.jsx';
 import { Toasts, toast } from './components/ShareMenu.jsx';
 import { chat as callChat, health, warm } from './lib/api.js';
 import { useWall, wall } from './lib/account.js';
+import { TRIAL_NOTE } from './lib/wall.js';
 import { listChats, saveChat, deleteChat, clearChats, newId, titleFor, getPref, setPref } from './lib/store.js';
 import { hasThaiVoice } from './lib/speech.js';
 import { reducedMotion } from './lib/env.js';
@@ -91,6 +92,8 @@ export default function App() {
   // The Chula wall (lib/wall.js): until it opens, a sign-in card over the sea instead of the assistant.
   const gate = useWall();
   const open = gate.gate === 'open';
+  // a visitor on a trial link (lib/pass.js): questions, the microphone and the call, no Chula library
+  const trial = gate.trial;
   const wallRef = useRef(null);
   const openRef = useRef(open);
   openRef.current = open;
@@ -508,6 +511,11 @@ export default function App() {
     prefetchVoice();
     setVoiceOn(true);
   }, [busy, voiceOn, voiceAvail]);
+  // A trial link the server refused during a call (lib/api.js clears it) ends the call: the sign-in card is next,
+  // as after a refused chat request.
+  useEffect(() => {
+    if (!open && gate.problem === 'trial-ended') setVoiceOn(false);
+  }, [open, gate.problem]);
 
   // The call's transcript joins the chat on screen (or starts one), saved like any turn.
   const onVoiceDone = useCallback((messages, info) => {
@@ -643,6 +651,7 @@ export default function App() {
                   ))}
                 </ul>
                 <p className="dock-note">ทดลองใช้ ตรวจสอบก่อนนำไปใช้กับสัตว์จริง</p>
+                {trial && <p className="dock-note">{TRIAL_NOTE}</p>}
               </>
             )}
           </div>
