@@ -7,6 +7,7 @@ import { flushSync } from 'react-dom';
 // after first paint) and gates exam-start paths on the populated QB.
 import { QB, loadQB, loadQBForYear, isQBLoaded, isQBYearLoaded, isQBFullyLoaded, onQBMerged } from './data/questions.js';
 import { THEME_SYSTEM, effectiveTheme, systemPrefersDark, useSystemDark } from './lib/theme-pref.js';
+import { CHOSEN_ATTR, dropVisit, visitPrefs } from './lib/family/family.js';
 import { SUBJECTS, YEARS, CURRENT_YEAR, yearForSubject } from './data/curriculum.js';
 import { stillWrong } from './lib/wrong-pool.js';
 import { GATE_PUBLIC_VIEWS } from './lib/gate-public-views.js';
@@ -89,6 +90,9 @@ import { loadQuestionDifficulty } from './lib/question-difficulty.js';
 // Eager — needed for first paint
 import ErrorBoundary from './components/ErrorBoundary.jsx';
 import OptionalFeature from './components/OptionalFeature.jsx';
+// The search box shown while the palette's chunk downloads (and when it fails).
+import PaletteFrame from './components/PaletteFrame.jsx';
+import { clearPaletteHandoff } from './lib/palette-handoff.js';
 
 // Lazy: every screen and heavy modal loads as its own chunk. The
 // declarations, and the idle prefetch of the likely next views, live in
@@ -1268,19 +1272,33 @@ export default function App() {
   // phone, live, as index.html paints it first (lib/theme-pref.js).
   const [themePref, setThemePref] = useLocalStorage('vmx-theme', THEME_SYSTEM);
   const systemDark = useSystemDark();
-  const theme = effectiveTheme(themePref, systemDark);
+  // A theme or language that arrived from another VetMock site shows for this visit only and
+  // never touches the saved choice; a pick made here replaces it (lib/family/family.js).
+  const [visit, setVisit] = useState(visitPrefs);
+  const visitRef = useRef(visit);
+  visitRef.current = visit;
+  const theme = visit.theme || effectiveTheme(themePref, systemDark);
   // A function receives the theme on screen, so a toggle flips what the
   // student sees even while the setting is 'system'.
-  const setTheme = useCallback((next) => setThemePref((prev) => (
-    typeof next === 'function' ? next(effectiveTheme(prev, systemPrefersDark())) : next
-  )), [setThemePref]);
+  const setTheme = useCallback((next) => {
+    const shown = visitRef.current.theme;
+    if (shown) { dropVisit('theme'); setVisit((v) => ({ ...v, theme: null })); }
+    setThemePref((prev) => (
+      typeof next === 'function' ? next(shown || effectiveTheme(prev, systemPrefersDark())) : next
+    ));
+  }, [setThemePref]);
   // Landing page: language (landing-local; the app itself is Thai-first
   // with no i18n framework) + cookie consent. Consent gates the optional
   // analytics mount below — 'ask' | 'all' | 'essential' | 'custom'.
   // Thai by default — the audience is Thai veterinary students and the whole
   // app behind the landing is Thai. (An EN/ไทย toggle stays in the header for
   // exchange students and for sharing the page abroad.)
-  const [landingLang, setLandingLang] = useLocalStorage('vmx-landing-lang', 'th');
+  const [savedLandingLang, saveLandingLang] = useLocalStorage('vmx-landing-lang', 'th');
+  const landingLang = visit.lang || savedLandingLang;
+  const setLandingLang = useCallback((l) => {
+    if (visitRef.current.lang) { dropVisit('lang'); setVisit((v) => ({ ...v, lang: null })); }
+    saveLandingLang(l);
+  }, [saveLandingLang]);
   const [consent, setConsent] = useLocalStorage('vmx-consent', 'ask');
   const [consentPrefs, setConsentPrefs] = useLocalStorage('vmx-consent-prefs', { analytics: true, personal: true });
   const analyticsAllowed = consent === 'all' || (consent === 'custom' && !!consentPrefs.analytics);
@@ -1385,12 +1403,15 @@ export default function App() {
   useEffect(() => {
     const d = document.documentElement;
     d.setAttribute('data-theme', theme);
+    // Only a theme the student chose (or arrived with) travels to another VetMock site.
+    const chosen = visit.theme || (themePref === 'light' || themePref === 'dark' ? themePref : null);
+    if (chosen) d.setAttribute(CHOSEN_ATTR, chosen); else d.removeAttribute(CHOSEN_ATTR);
     // Keep the html-level base bg + color-scheme in sync with the toggle
     // (the anti-FOUC inline script in index.html sets them for first paint;
     // this keeps the overscroll/landing area correct after a theme switch).
     d.style.colorScheme = theme;
     d.style.background = theme === 'dark' ? '#1a1612' : '#f6efe4';
-  }, [theme]);
+  }, [theme, visit.theme, themePref]);
   useEffect(() => {
     if (palette && palette !== 'default') {
       document.documentElement.setAttribute('data-palette', palette);
@@ -1612,6 +1633,9 @@ export default function App() {
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
   }, [view]);
+  // A frame closed by any path (Ctrl+K again, a view change) leaves no
+  // typed text for the next open.
+  useEffect(() => { if (!paletteOpen) clearPaletteHandoff(); }, [paletteOpen]);
 
   useEffect(() => {
     const handleKey = (e) => {
@@ -3484,7 +3508,7 @@ export default function App() {
             />
           )}
           {sketchOpen && (
-            <OptionalFeature label="กระดานวาด" onClose={() => setSketchOpen(false)}>
+            <OptionalFeature label="กระดานวาด" onClose={() => setSketchOpen(false)} pending={<OverlayPending label="กำลังเปิดกระดานวาด" />}>
               <ImageAnnotator src={null} mode="sketch" onClose={() => setSketchOpen(false)} />
             </OptionalFeature>
           )}
@@ -3497,7 +3521,13 @@ export default function App() {
           closing fully unmounts the modal too (cleaner than leaving
           a hidden overlay in the tree). */}
       {paletteOpen && (
-        <OptionalFeature label="การค้นหา" onClose={() => setPaletteOpen(false)}>
+        <OptionalFeature
+          label="การค้นหา"
+          onClose={() => setPaletteOpen(false)}
+          pending={<PaletteFrame onClose={() => setPaletteOpen(false)} />}
+          failed={(retry) => <PaletteFrame failed onRetry={retry} onClose={() => setPaletteOpen(false)} />}
+          onRetry={CommandPalette.retry}
+        >
           <CommandPalette
             open={paletteOpen}
             ownerId={user?.id || null}
@@ -3547,7 +3577,7 @@ export default function App() {
       )}
 
       {voiceSettingsOpen && (
-        <OptionalFeature label="การตั้งค่าเสียง" onClose={() => setVoiceSettingsOpen(false)}>
+        <OptionalFeature label="การตั้งค่าเสียง" onClose={() => setVoiceSettingsOpen(false)} pending={<OverlayPending label="กำลังเปิดการตั้งค่าเสียง" />}>
           <VoiceSettings onClose={() => setVoiceSettingsOpen(false)} />
         </OptionalFeature>
       )}
@@ -3555,7 +3585,7 @@ export default function App() {
       {/* ShortcutSheet — Linear-style "?" help. Mounted only when open
           (lazy chunk loads on first '?' press from exam/review). */}
       {shortcutSheetOpen && (
-        <OptionalFeature label="รายการปุ่มลัด" onClose={() => setShortcutSheetOpen(false)}>
+        <OptionalFeature label="รายการปุ่มลัด" onClose={() => setShortcutSheetOpen(false)} pending={<OverlayPending label="กำลังเปิดรายการปุ่มลัด" />}>
           <ShortcutSheet open={shortcutSheetOpen} onClose={() => setShortcutSheetOpen(false)} />
         </OptionalFeature>
       )}
@@ -3564,7 +3594,7 @@ export default function App() {
           fragment (outside .vmx-app) so it overlays any view, exactly like
           ShortcutSheet. */}
       {tourOpen && (
-        <OptionalFeature label="วิธีใช้" onClose={() => { setTourOpen(false); setTourStep(0); }}>
+        <OptionalFeature label="วิธีใช้" onClose={() => { setTourOpen(false); setTourStep(0); }} pending={<OverlayPending label="กำลังเปิดวิธีใช้" />}>
           <OnboardingTour
             step={tourStep}
             onNext={() => setTourStep((s) => s + 1)}
