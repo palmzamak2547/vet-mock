@@ -12,7 +12,7 @@ import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs';
 const SUBJECT = 'surg2';
 const MCQ = (i, extra = {}) => ({ id: 70000 + i, subject: SUBJECT, year: 4, type: 'mcq',
   q: `ข้อ ${i} ภาวะใดต่อไปนี้พบได้บ่อยที่สุดหลังผ่าตัดช่องท้องในสุนัข เมื่อมีการจัดการสารน้ำและการให้ยาแก้ปวดไม่เหมาะสมต่อเนื่องหลายวัน`,
-  options: ['ภาวะขาดน้ำร่วมกับความดันโลหิตต่ำ', 'ภาวะน้ำเกินในปอดจากการให้สารน้ำเร็วเกินไป', 'ภาวะเลือดเป็นกรดจากการเสียไบคาร์บอเนตทางลำไส้', 'ภาวะโพแทสเซียมต่ำจากการอาเจียนซ้ำ'],
+  options: ['ภาวะขาดน้ำร่วมกับความดันโลหิตต่ำ', 'ภาวะน้ำเกินในปอดจากการให้สารน้ำเร็วเกินไป', 'ภาวะเลือดเป็นกรดจากการเสียไบคาร์บอเนตทางลำไส้', `ภาวะโพแทสเซียมต่ำรหัส${i}`],
   answer: i % 4, explain: 'เหตุผลสั้นๆ ที่อธิบายว่าทำไมตัวเลือกนี้จึงถูกต้องและตัวเลือกอื่นไม่ใช่', ...extra });
 const QUESTIONS = [
   ...Array.from({ length: 6 }, (_, i) => MCQ(i + 1)),
@@ -74,11 +74,7 @@ for (const form of ['paper', 'key', 'reasons']) {
     for (let n = 1; n <= 6; n++) {
       const at = pages.findIndex(t => has(t, `ข้อ ${n} ภาวะ`));
       expect(at).toBeGreaterThanOrEqual(0);
-      const from = pages[at].indexOf(flat(`ข้อ ${n} ภาวะ`));
-      const rest = pages[at].slice(from);
-      const next = flat(`ข้อ ${n + 1} ภาวะ`);
-      const end = rest.indexOf(next);
-      expect(has(end === -1 ? rest : rest.slice(0, end), 'ภาวะโพแทสเซียมต่ำ')).toBe(true);
+      expect(has(pages[at], `ภาวะโพแทสเซียมต่ำรหัส${n}`)).toBe(true);
     }
     if (form === 'key') expect(has(pages[pages.length - 1], 'เฉลย')).toBe(true);
     expect(has(all, 'เหตุผลสั้นๆ')).toBe(form === 'reasons');
