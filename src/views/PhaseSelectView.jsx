@@ -49,7 +49,7 @@ export default function PhaseSelectView({ goHome, selectedYear, selectedPhase, s
       <div className="vmx-hero">
         <Mochi state="curious" size={56} animate slot="welcome" className="vmx-hero-mochi" />
         <h1>เลือก <em>ช่วงสอบ</em></h1>
-        <p>{yearMeta?.label || `ปี ${selectedYear}`}, {yearMeta?.desc || ''} — เลือกช่วงที่จะดูเนื้อหา</p>
+        <p>{yearMeta?.label || `ปี ${selectedYear}`}, {yearMeta?.desc || ''}: เลือกช่วงที่จะดูเนื้อหา</p>
       </div>
 
       <div className="vmx-mode-grid">

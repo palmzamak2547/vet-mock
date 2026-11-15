@@ -185,7 +185,7 @@ export default function ZoomableImage({
                 {credit}
                 {officialSourceUrl && (
                   <>
-                    {credit ? ' — ' : ''}
+                    {credit ? ' / ' : ''}
                     <a href={officialSourceUrl} target="_blank" rel="noreferrer">เปิดแหล่งที่มา</a>
                   </>
                 )}

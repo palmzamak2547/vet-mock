@@ -26,13 +26,13 @@ import { getSupabase } from './supabase.js';
 // BEFORE submitting. Keeps the same banned-word list as the
 // scripts/lint-academic-safety.mjs subset that's most impactful.
 const BANNED_PATTERNS = [
-  { pattern: /โพย/g, rule: 'academic_safety', label: 'คำว่า "โพย" — เลี่ยงใช้ "สรุป" แทน' },
-  { pattern: /ออกตามนี้/gi, rule: 'academic_safety', label: '"ออกตามนี้" — ใช้ "อิงแนวสอบ" แทน' },
-  { pattern: /ตรงข้อสอบ/gi, rule: 'academic_safety', label: '"ตรงข้อสอบ" — ใช้ "ตรงตามแนวสอบ" แทน' },
-  { pattern: /ตรงเป๊ะ/gi, rule: 'academic_safety', label: '"ตรงเป๊ะ" — ใช้ "ใกล้เคียง" แทน' },
-  { pattern: /ข้อสอบรั่ว|ข้อสอบหลุด/gi, rule: 'academic_safety', label: 'คำส่อนัยรั่วสอบ — ใช้ "เอกสารบันทึกหลังสอบ"' },
-  { pattern: /leaked exam/gi, rule: 'academic_safety', label: '"leaked exam" — ใช้ "past-paper note"' },
-  { pattern: /ซซดาวที่ออก/gi, rule: 'academic_safety', label: 'sr-attribution — ใช้ "ซซดาวบันทึก"' },
+  { pattern: /โพย/g, rule: 'academic_safety', label: 'คำว่า "โพย": เลี่ยงใช้ "สรุป" แทน' },
+  { pattern: /ออกตามนี้/gi, rule: 'academic_safety', label: '"ออกตามนี้": ใช้ "อิงแนวสอบ" แทน' },
+  { pattern: /ตรงข้อสอบ/gi, rule: 'academic_safety', label: '"ตรงข้อสอบ": ใช้ "ตรงตามแนวสอบ" แทน' },
+  { pattern: /ตรงเป๊ะ/gi, rule: 'academic_safety', label: '"ตรงเป๊ะ": ใช้ "ใกล้เคียง" แทน' },
+  { pattern: /ข้อสอบรั่ว|ข้อสอบหลุด/gi, rule: 'academic_safety', label: 'คำส่อนัยรั่วสอบ: ใช้ "เอกสารบันทึกหลังสอบ"' },
+  { pattern: /leaked exam/gi, rule: 'academic_safety', label: '"leaked exam": ใช้ "past-paper note"' },
+  { pattern: /ซซดาวที่ออก/gi, rule: 'academic_safety', label: 'sr-attribution: ใช้ "ซซดาวบันทึก"' },
 ];
 
 const SOURCE_TYPES = [
@@ -61,11 +61,11 @@ export function validateSubmission(p) {
       if (!o || !o.trim()) errors.push({ field: `options[${i}]`, msg: `ตัวเลือก ${i + 1} ว่าง` });
       // Length-bias check (warning, not blocker)
       if (i > 0 && p.options[0] && o && Math.abs(o.length - p.options[0].length) > 50) {
-        warnings.push({ field: `options[${i}]`, msg: `ตัวเลือก ${i + 1} ยาว/สั้นกว่าตัวเลือกอื่นมาก — อาจเป็น length-bias` });
+        warnings.push({ field: `options[${i}]`, msg: `ตัวเลือก ${i + 1} ยาว/สั้นกว่าตัวเลือกอื่นมาก อาจเป็น length-bias` });
       }
       // ★ + bold strip (info)
       if (o && /★|\*\*[^*]+\*\*|__[^_]+__/.test(o)) {
-        warnings.push({ field: `options[${i}]`, msg: `ตัวเลือก ${i + 1} มี ★ หรือ markdown bold — จะถูก strip` });
+        warnings.push({ field: `options[${i}]`, msg: `ตัวเลือก ${i + 1} มี ★ หรือ markdown bold จะถูก strip` });
       }
     });
   }
