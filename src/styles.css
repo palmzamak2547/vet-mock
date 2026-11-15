@@ -4873,6 +4873,11 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
   border-left: 4px solid var(--clr-rose);
   background: var(--clr-surface);
 }
+/* A fill-in item partly right: its own mark (◐) and the partly-right colour, not wrong's. */
+.vmx-instant-feedback.is-part {
+  border-left: 4px solid var(--clr-part);
+  background: var(--clr-surface);
+}
 .vmx-feedback-header {
   display: flex;
   align-items: flex-start;
