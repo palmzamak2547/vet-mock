@@ -63,15 +63,16 @@ export default function ReadAloudBar({ jobPrefix, engine, optionLetter = (i) => 
 
   if (!mine || typeof document === 'undefined') return null;
   const busy = st.status === 'playing' || st.status === 'loading';
-  const clipControls = Boolean(engine) && !st.device;
+  // Clips and the live voices have the same controls: pause, resume, points, speed.
+  const clipControls = Boolean(engine);
   const byPoint = st.points > 1;
   const where = st.job.what === 'q'
     ? (st.kind === 'stem' ? st.job.stemLabel || 'โจทย์' : st.option >= 0 ? `ตัวเลือก ${optionLetter(st.option)}` : '')
     : '';
   const say = st.status === 'error' ? st.note
-    : st.device ? 'เสียงอ่านของเครื่อง'
     : st.status === 'loading' ? 'กำลังโหลดเสียง'
     : st.status === 'paused' ? 'หยุดชั่วคราว'
+    : st.device ? 'เสียงอ่านของเครื่อง'
     : '';
   const shown = drag ?? st.time;
   const commit = () => { if (drag != null) { engine?.seek(drag); setDrag(null); } };
@@ -86,11 +87,11 @@ export default function ReadAloudBar({ jobPrefix, engine, optionLetter = (i) => 
           <NavIcon name="skip-back" size={20} />
         </button>
         <button type="button" className="vmx-read-btn vmx-read-main"
-          aria-label={st.device ? 'หยุดอ่าน' : busy ? 'หยุดชั่วคราว' : 'เล่นต่อ'} title={st.device ? 'หยุดอ่าน' : busy ? 'หยุดชั่วคราว' : 'เล่นต่อ'}
-          onClick={() => (st.device ? engine?.stop() : engine?.toggle())}>
-          {st.status === 'loading' && !st.device
+          aria-label={busy ? 'หยุดชั่วคราว' : 'เล่นต่อ'} title={busy ? 'หยุดชั่วคราว' : 'เล่นต่อ'}
+          onClick={() => engine?.toggle()}>
+          {st.status === 'loading'
             ? <span className="vmx-read-spin" aria-hidden="true" />
-            : <NavIcon name={st.device ? 'speaker-off' : busy ? 'pause' : 'play'} size={22} />}
+            : <NavIcon name={busy ? 'pause' : 'play'} size={22} />}
         </button>
         <button type="button" className="vmx-read-btn" disabled={!clipControls}
           aria-label={byPoint ? 'ข้ามไปจุดถัดไป' : 'ข้ามไป 10 วินาที'} title={byPoint ? 'จุดถัดไป' : 'ข้าม 10 วินาที'}

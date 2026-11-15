@@ -426,9 +426,22 @@ const pageOf = (doc, rows, k, total) => ({ ...doc, rows, kicker: `${doc.kicker},
 function paginate(doc, notes, bodyOf, settings, scale) {
   const last = settings.length - 1;
   // The kicker's "หน้า 1 จาก 9" sets as wide as the final count's.
+  // The same rows on the same page number at the same setting come out the
+  // same, and the searches below ask for them again and again (the clean pass
+  // and the loose one, the midterm split and the plain fill share their first
+  // pages): each is set once. Rows are always a run of doc.rows, so its start
+  // and length name it. The result kept is only what the searches read.
+  const memo = new Map();
   const trial = (rows, k, o) => {
-    const d = pageOf(doc, rows, k, 9);
-    return attempt(d, notes, bodyOf(d), o, { dry: true, scale });
+    const key = `${doc.rows.indexOf(rows[0])}:${rows.length}:${k}:${settings.indexOf(o)}`;
+    let t = memo.get(key);
+    if (!t) {
+      const d = pageOf(doc, rows, k, 9);
+      const { cut, over } = attempt(d, notes, bodyOf(d), o, { dry: true, scale });
+      t = { cut, over };
+      memo.set(key, t);
+    }
+    return t;
   };
   // Page after page from page k0, each taking the most rows it holds (a page
   // that holds m rows holds fewer, so a binary search finds it). `clean`:
@@ -495,7 +508,12 @@ function renderPages(parts, notes, bodyOf, o, scale, setting) {
 export async function drawTeaching(doc, { scale = SCALE } = {}) {
   const notes = [...doc.notes, doc.source];
   const bodyOf = (d) => (card, y, o) => teachingBody(card, d, d.rows, y, o);
-  const one = fitting(doc, notes, bodyOf(doc), TEACHING_SETTINGS, scale);
+  // The last setting is the tightest: a table that does not fit one page at
+  // it fits at none, so the roomier ones are not tried (each is a full trial
+  // of every row, the slowest part of a long course on a phone).
+  const tightest = TEACHING_SETTINGS.length - 1;
+  const fitsOne = attempt(doc, notes, bodyOf(doc), TEACHING_SETTINGS[tightest], { dry: true, scale }).cut.length === 0;
+  const one = fitsOne ? fitting(doc, notes, bodyOf(doc), TEACHING_SETTINGS, scale) : -1;
   if (one >= 0) {
     const { card, problems, slack } = render(doc, notes, bodyOf(doc), TEACHING_SETTINGS[one], scale);
     return { card, cards: [card], problems, slack, setting: one };
