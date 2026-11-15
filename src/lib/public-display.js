@@ -4,7 +4,7 @@
 // The database takes almost anything through the API today (a blank name,
 // zero-width or bidi characters, a 10-digit number; any 32 characters as the
 // "avatar", so "อาจารย์" could stand in front of a name). Until the
-// migration in docs/releases/pending/student-profile.md lands, every
+// migration in docs/releases/5.227.0.md lands, every
 // surface that shows a member draws them through these two functions:
 // header, boards, groups, comments, the reading-now list, races.
 // tests/unit/student-identity.test.mjs walks the source tree so a new
