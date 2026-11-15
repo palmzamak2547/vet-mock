@@ -220,11 +220,11 @@ test('the failure-record migration keeps no identity and never refuses a sign-up
   assert.match(src('.github/workflows/smoke-e2e.yml'), /node scripts\/test-failure-record-db\.mjs --backend=postgres/);
 });
 
-test('a red automation reaches someone: an issue for every scheduled workflow and for Build on main', () => {
+test('a red automation reaches someone: an issue for every scheduled workflow and for the build on main', () => {
   const red = src('.github/workflows/scheduled-red.yml');
   const names = red.match(/workflows: \[([^\]]+)\]/)[1].split(',').map((s) => s.trim().replace(/^'|'$/g, ''));
   const declared = new Map();
-  for (const file of ['production-watch.yml', 'dependency-updates.yml', 'android.yml', 'build.yml']) {
+  for (const file of ['production-watch.yml', 'dependency-updates.yml', 'android.yml']) {
     const wf = src(`.github/workflows/${file}`);
     declared.set(file, wf.match(/^name: (.+)$/m)[1].trim());
   }
@@ -232,6 +232,19 @@ test('a red automation reaches someone: an issue for every scheduled workflow an
   for (const file of ['production-watch.yml', 'dependency-updates.yml', 'android.yml']) {
     assert.match(src(`.github/workflows/${file}`), /schedule:\n\s+- cron:/, `${file} runs on a schedule, so its silence would go unseen`);
   }
+  // The build job lives in Smoke e2e (build.yml is gone): a red build on a main push is rerun once,
+  // then main-rerun-once.yml opens or comments on an issue, so a red main still reaches someone.
+  const smoke = src('.github/workflows/smoke-e2e.yml');
+  const smokeName = smoke.match(/^name: (.+)$/m)[1].trim();
+  assert.match(smoke, /^on:\s*\n\s+push:\s*\n\s+branches: \[main\]/m, 'Smoke e2e runs on a main push');
+  assert.match(smoke, /^ {2}build:\s*$/m, 'the build job is in Smoke e2e');
+  const rerun = src('.github/workflows/main-rerun-once.yml');
+  const rerunNames = rerun.match(/workflows: \[([^\]]+)\]/)[1].split(',').map((s) => s.trim().replace(/^'|'$/g, ''));
+  assert.ok(rerunNames.includes(smokeName), `main-rerun-once.yml watches "${smokeName}"`);
+  assert.match(rerun, /branches: \[main\]/, 'it acts on main');
+  assert.match(rerun, /run_attempt >= 2/, 'a second red attempt is reported, not rerun again');
+  assert.match(rerun, /gh issue create --title "\$title"/, 'the report is an issue');
+  assert.match(rerun, /gh issue comment "\$number"/, 'an open report gets a comment, not a second issue');
 });
 
 test('the dependency merge step fails its run when a merge did not happen', () => {

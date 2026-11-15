@@ -41,13 +41,18 @@ export function clockWindows(now = new Date()) {
   };
 }
 
-/** Failed test cases from a JUnit report: [{ file, name }]. */
+/**
+ * Failed test cases from a JUnit report: [{ file, name }]. A `todo` case that fails is reported with
+ * both <skipped type="todo"> and <failure>; `node --test` (and so `npm run test:unit`) does not fail on
+ * it, so neither does this.
+ */
 export function failuresFromJunit(xml) {
   const out = [];
   const re = /<testcase\b([^>]*?)(\/>|>([\s\S]*?)<\/testcase>)/g;
   for (const m of xml.matchAll(re)) {
     const body = m[3] || '';
     if (!/<failure\b/.test(body)) continue;
+    if (/<skipped\b[^>]*\btype="todo"/.test(body)) continue;
     const attr = (k) => (new RegExp(`\\b${k}="([^"]*)"`).exec(m[1]) || [])[1] || '';
     const unesc = (s) => s.replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
     out.push({ file: unesc(attr('file') || attr('classname')), name: unesc(attr('name')) });

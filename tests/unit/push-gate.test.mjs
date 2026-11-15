@@ -118,11 +118,14 @@ test('the clock windows sit where a test that reads the real clock breaks', () =
   assert.equal(clockWindows(new Date('2028-03-01T00:00:00Z'))['leap-day'], '2032-02-29T16:30:00.000Z');
   const xml = '<testsuites><testcase name="ok" classname="a" file="t/a.test.mjs"/><testcase name="today &amp; now" classname="b" file="t/b.test.mjs"><failure message="x">boom</failure></testcase></testsuites>';
   assert.deepEqual(failuresFromJunit(xml), [{ file: 't/b.test.mjs', name: 'today & now' }]);
+  // A failing todo case does not fail `node --test`, so it does not fail a window either.
+  const todo = '<testsuites><testcase name="weak" classname="c" file="t/c.test.mjs" failure="no"><skipped type="todo" message="weak on 2026-10-28"/><failure type="testCodeFailure" message="no">x</failure></testcase></testsuites>';
+  assert.deepEqual(failuresFromJunit(todo), []);
 });
 
 test('the moved clock reads the window, keeps running, and a test that sets its own clock still wins', () => {
   const shim = path.join(repo, 'tests/unit/clock-shift.mjs');
-  const code = "const a=Date.now();const d=new Date();const vm=await import('node:vm');const c=vm.createContext({});const inner=vm.runInContext('Date.now()',c);Date.now=()=>5;console.log(JSON.stringify({a,iso:d.toISOString(),inner,fixed:new Date().getTime(),inst:d instanceof Date,str:typeof Date()}))";
+  const code = "const a=Date.now();const d=new Date();const vm=await import('node:vm');const c=vm.createContext({});const inner=vm.runInContext('Date.now()',c);const own=vm.runInContext('Date.now()',vm.createContext({Date:{now:()=>7}}));const fs=await import('node:fs');const os=await import('node:os');const p=os.tmpdir()+'/vetmock-clock-shift-'+process.pid;fs.writeFileSync(p,'x');const age=Date.now()-fs.statSync(p).mtimeMs;const old=new Date(Date.now()-120000);fs.utimesSync(p,old,old);const oldAge=Date.now()-(await fs.promises.stat(p)).mtimeMs;fs.rmSync(p);Date.now=()=>5;console.log(JSON.stringify({a,iso:d.toISOString(),inner,own,age,oldAge,fixed:new Date().getTime(),inst:d instanceof Date,str:typeof Date()}))";
   const out = spawnSync(process.execPath, ['--import', `file://${shim.replace(/\\/g, '/').replace(/^([A-Za-z]):/, '/$1:')}`, '--input-type=module', '-e', code],
     { encoding: 'utf8', env: { ...process.env, VMX_CLOCK_AT: '2026-11-30T17:30:00Z' } });
   assert.equal(out.status, 0, out.stderr);
@@ -132,6 +135,9 @@ test('the moved clock reads the window, keeps running, and a test that sets its 
   assert.ok(r.iso.startsWith('2026-11-30T17:3'), 'new Date() reads the window');
   assert.ok(Math.abs(r.inner - at) < 5000, 'a node:vm context reads the same clock');
   assert.equal(r.fixed, 5, 'a Date.now set by the test wins');
+  assert.equal(r.own, 7, 'a node:vm sandbox handed its own Date keeps it');
+  assert.ok(Math.abs(r.age) < 5000, 'a file written now reads as written now');
+  assert.ok(Math.abs(r.oldAge - 120000) < 5000, 'a file time set two minutes back reads two minutes old');
   assert.equal(r.inst, true);
   assert.equal(r.str, 'string');
 });
