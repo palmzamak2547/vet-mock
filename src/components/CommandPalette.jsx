@@ -17,7 +17,9 @@ import Mochi from './Mochi.jsx';
 // the user is NOT typing in an input/textarea/contenteditable.
 // ============================================================
 
-import { useState, useEffect, useMemo, useRef, useId } from 'react';
+import { useState, useEffect, useLayoutEffect, useMemo, useRef, useId } from 'react';
+// What the student typed into the frame shown while this chunk downloaded.
+import { peekPaletteHandoff, clearPaletteHandoff } from '../lib/palette-handoff.js';
 import { SUBJECTS, yearForSubject } from '../data/curriculum.js';
 import { getUpcomingExams, fmtThaiDate } from '../data/schedule.js';
 // CommandPalette only needs {title, subject, instructor} for search —
@@ -45,21 +47,21 @@ import { loadUserFlashcards } from '../lib/user-flashcards.js';
 import { FEATURES, visibleFeatures, FEATURE_FLAGS, rememberViewIntent } from '../lib/feature-registry.js';
 import { listTopics } from '../lib/vetwiki/registry.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
-import { alertDialog } from '../lib/dialog.js';
+import { alertDialog, confirmDialog } from '../lib/dialog.js';
 import ErrorBoundary from './ErrorBoundary.jsx';
 // Async sources (library shelf, drug DB) + deterministic intent cards —
 // the pieces that turn the palette into the app's AI search surface.
 import { OMNI_SOURCES } from '../lib/omni-sources.js';
 import { detectIntents, detectStudyIntent, studyActions } from '../lib/omni-intents.js';
-import { openDocInTab } from '../lib/library.js';
 // What a knowledge-base reply means for the student, and where to go when
 // there is no answer: pure, so every state is unit-tested (omni-ask.test).
 import {
   ASK_COPY, classifyAskResponse, shouldAutoRetry, AUTO_RETRY_DELAY_MS, isEmptyAnswer,
   relatedSections, relatedTopicsFor, librarySuggestion, unmatchedLine,
 } from '../lib/omni-ask.js';
-import { docOpenMode, readerPayload, recordRecentDoc, resolveDocUrl } from '../lib/library.js';
+import { displayDocTitle, docOpenMode, openDocOrOffer, readerPayload, recordRecentDoc, resolveDocUrl } from '../lib/library.js';
 import { authHeader } from '../lib/api-auth.js';
+import { crossingHref, chosenTheme } from '../lib/family/family.js';
 
 // localStorage keys for user-authored content surfaced in the palette.
 // Keeping the literals here mirrors the convention used by NotesView
@@ -345,7 +347,7 @@ function runItem(item, handlers) {
         case 'panic':     onPanic?.(inv.timeKey || '30'); return;
         case 'event':     try { window.dispatchEvent(new Event(inv.event)); } catch { /* no-op */ } return;
         case 'sketch':    onSketch?.(); return;
-        case 'external':  if (inv.url) window.location.assign(inv.url); return;
+        case 'external':  if (inv.url) window.location.assign(crossingHref(inv.url, { theme: chosenTheme() })); return;
         // voice-settings opens an overlay instead of navigating — keeps
         // the user on the current Q if they triggered from ExamView.
         case 'voice':     openVoiceSettings?.(); return;
@@ -942,8 +944,12 @@ export default function CommandPalette({
   isAdmin = false,
   ...handlers
 }) {
-  const [query, setQuery] = useState('');
-  const [debouncedQuery, setDebouncedQuery] = useState('');
+  // The frame (PaletteFrame) held the box while this chunk downloaded: its
+  // text is the first query, and focus goes back where the frame found it.
+  const [handoff] = useState(() => peekPaletteHandoff());
+  const [query, setQuery] = useState(() => handoff?.text || '');
+  const [debouncedQuery, setDebouncedQuery] = useState(() => handoff?.text || '');
+  const handoffReturnRef = useRef(handoff?.returnTarget || null);
   const [activeIdx, setActiveIdx] = useState(0);
   const [expandedGroups, setExpandedGroups] = useState(() => new Map());
   const [placeholderIdx, setPlaceholderIdx] = useState(0);
@@ -1033,7 +1039,21 @@ export default function CommandPalette({
     try { rec.start(); } catch { recRef.current = null; setVoice('error'); }
   };
   useEffect(() => () => { try { recRef.current?.stop(); } catch { /* unmount race */ } }, []);
-  const dialogRef = useModalFocus({ active: open, onClose, initialFocusRef: inputRef });
+  const dialogRef = useModalFocus({
+    active: open, onClose, initialFocusRef: inputRef,
+    returnFocusRef: handoff?.returnTarget ? handoffReturnRef : undefined,
+  });
+  // Taking over from the frame: focus the box in this commit, caret at the
+  // end, so typing goes on without a key lost to the swap.
+  useLayoutEffect(() => {
+    clearPaletteHandoff();
+    if (!handoff) return;
+    const input = inputRef.current;
+    if (!input) return;
+    input.focus({ preventScroll: true });
+    const end = input.value.length;
+    try { input.setSelectionRange(end, end); } catch { /* not a text box */ }
+  }, []);
   const listRef = useRef(null);
 
   const notesOwner = notes === undefined ? safeReadLS('vmx-user-sync-owner-v1', null) : ownerId;
@@ -1296,9 +1316,22 @@ export default function CommandPalette({
         handlersRef.current.onOpenLibraryDoc?.(readerPayload(doc));
         return;
       }
-      // openDocInTab opens the tab inside this click, before the mint.
-      openDocInTab(() => resolveDocUrl(doc)).catch(() => {
-        handlersRef.current.goView?.('library'); // resolution failed → land on the shelf, which shows its own error UI
+      // The tab opens inside this click, before the mint. A failed lookup
+      // used to land on the shelf without a word (with a blocked tab, nothing
+      // at all): now it says so, offers a retry, or the shelf with this
+      // document searched, so the student ends with the file or its card.
+      void openDocOrOffer(() => resolveDocUrl(doc), {
+        title: displayDocTitle(doc?.title || ''),
+        ask: (title) => confirmDialog({
+          title: 'เปิดเอกสารไม่สำเร็จ',
+          body: title ? `ยังเปิด "${title}" ไม่ได้ ลองอีกครั้ง หรือไปเปิดจากชั้นเอกสาร` : 'ยังเปิดเอกสารนี้ไม่ได้ ลองอีกครั้ง หรือไปเปิดจากชั้นเอกสาร',
+          confirmLabel: 'ลองอีกครั้ง',
+          cancelLabel: 'ไปที่ชั้นเอกสาร',
+        }),
+        toShelf: (title) => {
+          try { if (title) sessionStorage.setItem('vmx-library-q', title); } catch { /* the shelf still opens */ }
+          handlersRef.current.goView?.('library');
+        },
       });
       return;
     }

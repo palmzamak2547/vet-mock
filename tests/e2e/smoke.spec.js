@@ -439,9 +439,10 @@ test.describe('VetMock smoke flow', () => {
     await expect(page.getByText('ฉบับร่าง')).toHaveCount(0);
 
     // A section cross-checked against an external reference says so, with
-    // its sources as numbered chips.
-    await expect(page.locator('.vw-ev-head').first()).toHaveText('ตรวจทานกับ');
-    await expect(page.locator('.vw-chip').first()).toBeVisible();
+    // its sources as numbered chips, inside its folded "แหล่งอ้างอิง" row.
+    await page.locator('#com5--rabies--overview .vw-refs > summary').click();
+    await expect(page.locator('#com5--rabies--overview .vw-ev-head')).toHaveText('ตรวจทานกับ');
+    await expect(page.locator('#com5--rabies--overview .vw-chip').first()).toBeVisible();
 
     // Provenance panel opens and cites a REAL source (never fabricated).
     await page.getByRole('button', { name: /VetMock รู้เรื่องนี้ได้อย่างไร/ }).click();
@@ -480,6 +481,7 @@ test.describe('VetMock smoke flow', () => {
   test('a VetWiki source chip opens its citation, and the list keeps its number', async ({ page }) => {
     await page.goto('/wiki/com5/rabies');
     await expect(page.getByRole('heading', { level: 1, name: /Rabies/i })).toBeVisible({ timeout: 10_000 });
+    await page.locator('#com5--rabies--overview .vw-refs > summary').click();
     const chip = page.locator('#com5--rabies--overview .vw-chip').first();
     await expect(chip).toContainText('WOAH');
     expect((await chip.boundingBox()).height).toBeGreaterThanOrEqual(44);
@@ -517,8 +519,7 @@ test.describe('VetMock smoke flow', () => {
   });
 
   // Where the main area has room (a 1,440 px window), the contents stand
-  // beside the article and follow the reading, and a section's sources sit
-  // in the margin beside it.
+  // beside the article and follow the reading.
   test('on a wide screen the VetWiki contents follow the reading', async ({ page }, testInfo) => {
     test.skip(testInfo.project.name.includes('mobile'), 'the rail needs a wide window');
     await page.setViewportSize({ width: 1440, height: 900 });
@@ -527,9 +528,6 @@ test.describe('VetMock smoke flow', () => {
     await expect(rail).toBeVisible({ timeout: 10_000 });
     await expect(page.locator('.vw-toc')).toBeHidden();
     await expect(rail.locator('[aria-current="location"]')).toHaveText('Overview');
-    const ev = await page.locator('#com5--rabies--overview > .vw-ev').boundingBox();
-    const text = await page.locator('#com5--rabies--overview > .vw-section-text').boundingBox();
-    expect(ev.x).toBeGreaterThanOrEqual(text.x + text.width);
     // A rail entry goes to its section and hands it focus.
     await rail.getByRole('link', { name: 'Diagnosis' }).click();
     await expect(page.locator('#com5--rabies--diagnosis .vw-h2')).toBeFocused();
