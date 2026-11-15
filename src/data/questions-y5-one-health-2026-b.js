@@ -528,7 +528,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
       "Bacillus-thuringiensis"
     ],
     "subject": "one-health",
-    "topic": "oh-concept",
+    "topic": "oh-gmo",
     "year": 5,
     "type": "mcq",
     "q": "Bt corn ได้รับการดัดแปลงพันธุกรรมด้วยยีนจากสิ่งมีชีวิตใด และเพื่อวัตถุประสงค์ใด",
@@ -553,7 +553,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
       "อิงแนวข้อสอบ"
     ],
     "subject": "one-health",
-    "topic": "oh-concept",
+    "topic": "oh-gmo",
     "year": 5,
     "type": "mcq",
     "q": "แนวคิด substantial equivalence ในการประเมินความปลอดภัยของพืชดัดแปลงพันธุกรรม หมายถึงอะไร",
@@ -578,7 +578,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
       "อิงแนวข้อสอบ"
     ],
     "subject": "one-health",
-    "topic": "oh-concept",
+    "topic": "oh-gmo",
     "year": 5,
     "type": "mcq",
     "q": "การทำ food safety assessment อาหาร GM ของ FDA ประกอบด้วยการประเมินใดบ้าง",
@@ -602,7 +602,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
       "import-regulation"
     ],
     "subject": "one-health",
-    "topic": "oh-concept",
+    "topic": "oh-gmo",
     "year": 5,
     "type": "mcq",
     "q": "นโยบายของประเทศไทยต่อพืชดัดแปลงพันธุกรรม คือข้อใด",
@@ -626,7 +626,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
       "ammonia"
     ],
     "subject": "one-health",
-    "topic": "oh-concept",
+    "topic": "oh-env-carcinogen",
     "year": 5,
     "type": "mcq",
     "q": "เหตุใดแอมโมเนียจึงไม่ถูกจัดเป็น volatile organic compound (VOC)",
@@ -650,7 +650,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
       "global-warming-potential"
     ],
     "subject": "one-health",
-    "topic": "oh-concept",
+    "topic": "oh-env-carcinogen",
     "year": 5,
     "type": "mcq",
     "q": "ลักษณะเด่นของ fluorinated gases คือข้อใด",
@@ -698,7 +698,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
       "sustainable-food-system"
     ],
     "subject": "one-health",
-    "topic": "oh-concept",
+    "topic": "oh-env-carcinogen",
     "year": 5,
     "type": "mcq",
     "q": "กลยุทธ์ agroecology มีสาระสำคัญคือข้อใด",
@@ -722,7 +722,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
       "household-toxicant"
     ],
     "subject": "one-health",
-    "topic": "oh-vet-role",
+    "topic": "oh-env-mutagen",
     "year": 5,
     "type": "mcq",
     "q": "เหตุผลที่ใช้สัตว์เลี้ยงเป็น sentinel ของสารพิษภายในบ้าน คือข้อใด",
@@ -771,7 +771,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
       "ARDS"
     ],
     "subject": "one-health",
-    "topic": "oh-vet-role",
+    "topic": "oh-env-mutagen",
     "year": 5,
     "type": "mcq",
     "q": "ปรอทในรูป elemental mercury เข้าสู่ร่างกายทางใดเป็นหลัก และทำให้เกิดอะไรในสัตว์",
@@ -796,7 +796,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
       "bioaccumulation"
     ],
     "subject": "one-health",
-    "topic": "oh-vet-role",
+    "topic": "oh-env-mutagen",
     "year": 5,
     "type": "mcq",
     "q": "methylmercury ซึ่งเป็น organic mercury มีลักษณะสำคัญ คือข้อใด",
@@ -821,7 +821,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
       "อิงแนวข้อสอบ"
     ],
     "subject": "one-health",
-    "topic": "oh-vet-role",
+    "topic": "oh-env-mutagen",
     "year": 5,
     "type": "mcq",
     "q": "การสูดดมสารใดเรื้อรังทำให้เกิดมะเร็งเยื่อหุ้มปอด (mesothelioma) ได้ทั้งในคนและสัตว์",
@@ -845,7 +845,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
       "lymphoma"
     ],
     "subject": "one-health",
-    "topic": "oh-vet-role",
+    "topic": "oh-env-mutagen",
     "year": 5,
     "type": "mcq",
     "q": "การได้รับสาร 2,4-D แบบเรื้อรังโดยการสูดดม มีแนวโน้มสัมพันธ์กับโรคใด",
@@ -869,7 +869,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
       "household-toxicant"
     ],
     "subject": "one-health",
-    "topic": "oh-vet-role",
+    "topic": "oh-env-mutagen",
     "year": 5,
     "type": "mcq",
     "q": "เมื่อสัตวแพทย์พบความผิดปกติในสัตว์เลี้ยงที่สงสัยว่าเกิดจากสารพิษในบ้าน ควรทำอย่างไร",
@@ -894,7 +894,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
       "canine-lifespan"
     ],
     "subject": "one-health",
-    "topic": "oh-vet-role",
+    "topic": "oh-env-mutagen",
     "year": 5,
     "type": "mcq",
     "q": "ตาม Dog Aging Project ยีน IGF-1 ในสุนัขพันธุ์ใหญ่เกี่ยวข้องกับอายุขัยอย่างไร",
@@ -918,7 +918,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
       "neutering"
     ],
     "subject": "one-health",
-    "topic": "oh-vet-role",
+    "topic": "oh-env-mutagen",
     "year": 5,
     "type": "mcq",
     "q": "ข้อกังวลของการใช้สุนัขเป็นแบบจำลองศึกษามะเร็งสำหรับคน คือข้อใด",
@@ -942,7 +942,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
       "waste-treatment"
     ],
     "subject": "one-health",
-    "topic": "oh-collaboration",
+    "topic": "oh-livestock-waste",
     "year": 5,
     "type": "mcq",
     "q": "หลักการจัดการของเสียจากฟาร์มปศุสัตว์ 3 ประการ คือข้อใด",
@@ -966,7 +966,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
       "stabilization-pond"
     ],
     "subject": "one-health",
-    "topic": "oh-collaboration",
+    "topic": "oh-livestock-waste",
     "year": 5,
     "type": "mcq",
     "q": "เมื่อเทียบระบบบ่อบำบัดกับระบบก๊าซชีวภาพ ข้อใดถูกต้อง",
@@ -991,7 +991,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
       "อิงแนวข้อสอบ"
     ],
     "subject": "one-health",
-    "topic": "oh-collaboration",
+    "topic": "oh-livestock-waste",
     "year": 5,
     "type": "mcq",
     "q": "พารามิเตอร์ที่ใช้ควบคุมมาตรฐานน้ำทิ้งจากฟาร์มสุกร คือข้อใด",
@@ -1063,7 +1063,7 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_B = [
       "microplastics"
     ],
     "subject": "one-health",
-    "topic": "oh-collaboration",
+    "topic": "oh-livestock-waste",
     "year": 5,
     "type": "mcq",
     "q": "สิ่งปนเปื้อนในน้ำที่เกิดจากกิจกรรมของมนุษย์ ประกอบด้วยข้อใด",

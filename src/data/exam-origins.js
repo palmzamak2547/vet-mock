@@ -276,6 +276,9 @@ export const EXAM_ORIGINS = Object.freeze({
   "ควิซในคาบ Aquatic Med ของ Vet 83": { kind: 'aligned' },
   "ควิซทบทวนที่ Vet 83 แต่งเอง": { kind: 'aligned' },
   "ควิซวิชาอื่นที่รุ่นพี่แปะไว้ในสรุปปลายภาค One Health": { kind: 'aligned' },
+  // Points a senior starred or wrote "ออก" beside in their own One Health final summary or slide copy (Vet 85, the
+  // Vet 83 summary and Vet 82 review kept by Vet 84, Vet 84's starred 2567 waste deck). A mark, not a paper.
+  "One Health final: จุดที่รุ่นพี่ติดดาวหรือเขียนว่าออกในสรุปและสไลด์ของตน": { kind: 'aligned' },
   "Equine Med & Surg POA practice case (Vet 84 class session)": { kind: 'aligned' },
   "Swine Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก": { kind: 'aligned' },
   "Swine Medicine final จุดที่รุ่นพี่มาร์คในสไลด์": { kind: 'aligned' },
