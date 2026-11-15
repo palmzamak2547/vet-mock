@@ -27,10 +27,10 @@ Consistency: source banks **9095**, learner-ready **8884**, fail-closed **211**,
 
 | | |
 |---|---|
-| Note files | 38 |
-| Topics | 424 |
-| Sections | 4424 |
-| Sections carrying a source locator | 4424 (100%) |
+| Note files | 39 |
+| Topics | 431 |
+| Sections | 4605 |
+| Sections carrying a source locator | 4605 (100%) |
 
 ## Video summaries
 
@@ -44,11 +44,11 @@ Consistency: source banks **9095**, learner-ready **8884**, fail-closed **211**,
 
 | | |
 |---|---|
-| Governed topics | 250 |
-| Governed sections | 2114 |
-| Claims verified against an external source | 3493 |
-| Distinct external sources cited | 2247 |
-| Share of note sections governed | 47.8% |
+| Governed topics | 253 |
+| Governed sections | 2279 |
+| Claims verified against an external source | 3578 |
+| Distinct external sources cited | 2251 |
+| Share of note sections governed | 49.5% |
 
 ## VetWiki coverage of questions
 
@@ -70,7 +70,7 @@ Learner-ready questions that open an article, through their own topic or a judge
 | engprof1 | 30 | 0 | 0 | 0.0% |
 | epidemiology | 372 | 355 | 0 | 95.4% |
 | equine-medicine | 559 | 559 | 0 | 100.0% |
-| equine-repro | 242 | 207 | 7 | 85.5% |
+| equine-repro | 242 | 237 | 0 | 97.9% |
 | exotic | 151 | 101 | 0 | 66.9% |
 | food-industry | 300 | 61 | 0 | 20.3% |
 | food-safety-y4 | 31 | 0 | 0 | 0.0% |
@@ -99,4 +99,4 @@ Learner-ready questions that open an article, through their own topic or a judge
 | vet-neuroanat | 40 | 40 | 0 | 100.0% |
 | vet-pharm-2 | 62 | 0 | 0 | 0.0% |
 | zoonoses | 470 | 458 | 0 | 97.4% |
-| **All** | 8884 | 5708 | 331 | 64.3% |
+| **All** | 8884 | 5738 | 324 | 64.6% |
