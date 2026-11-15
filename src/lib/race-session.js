@@ -1,13 +1,24 @@
 import { questionRevision } from './study-events.js';
 import { getShuffledOptions } from './option-shuffle.js';
+// The room's questions are not the ones this copy of the app holds: a release
+// landed after the page was loaded, so the bank here is older (or newer) than
+// the host's. Only a fresh page can fix it, so it is never a connection problem.
+export class RaceBuildMismatch extends Error {
+  constructor(message) { super(message); this.name = 'RaceBuildMismatch'; this.stale = true; }
+}
+
 export async function resolveRaceQuestions(snapshot, bank, loadYear) {
   if (!snapshot.started_at) return [];
   const qIds = snapshot.question_ids;
   if (!Array.isArray(qIds) || qIds.length < 5 || qIds.length > 50 || new Set(qIds).size !== qIds.length) throw new Error('ชุดแข่งไม่ถูกต้อง');
   await loadYear(snapshot.year);
   const qs = qIds.map(id => bank.find(q => q.id === id && q.subject === snapshot.subject && q.type === 'mcq'));
-  if (qs.filter(Boolean).length !== qIds.length) throw new Error('โหลดข้อสอบไม่ครบ กรุณาลองเชื่อมต่อใหม่');
-  if (qs.some(q => snapshot.question_versions?.[q.id] !== questionRevision(q))) throw new Error('ข้อสอบในเครื่องเป็นคนละรุ่นกับห้องนี้ กรุณารีเฟรชก่อนเข้าห้อง');
+  // The year's bank is whole by now (loadYear resolves after every chunk of
+  // the year is merged, and a chunk that fails rejects above), so a question
+  // that is still missing is one this copy of the app does not hold: another
+  // build, like a revision that differs. The view asks for a fresh page.
+  if (qs.filter(Boolean).length !== qIds.length) throw Object.assign(new Error('โหลดข้อสอบไม่ครบ กรุณาลองเชื่อมต่อใหม่'), { missing: true });
+  if (qs.some(q => snapshot.question_versions?.[q.id] !== questionRevision(q))) throw new RaceBuildMismatch('ข้อสอบในเครื่องนี้เป็นคนละรุ่นกับห้องนี้');
   return qs;
 }
 

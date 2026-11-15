@@ -154,8 +154,6 @@ export const SURFACES = Object.freeze([
   { id: 'group-members', label: 'สมาชิกกลุ่มที่คุณเข้า', shows: 'ชื่อและรูป', followsChoice: false },
   // RaceView puts the name of everyone in a room on its board.
   { id: 'race', label: 'ห้องแข่งที่คุณเข้าเอง', shows: 'ชื่อและคะแนนในห้องนั้น', followsChoice: false },
-  // shared_questions.author_name is written once, when a question is shared.
-  { id: 'shared', label: 'ข้อที่คุณเคยแชร์ในกลุ่ม', shows: 'ชื่อตอนที่แชร์ ไม่เปลี่ยนตามชื่อใหม่', followsChoice: false },
 ]);
 
 /** "Vet 86" for a year, from the semester's own note ("Vet 86 = ชั้นปีที่ 5"). */
