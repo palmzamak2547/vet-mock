@@ -20,7 +20,7 @@ test('a final timetable entry launches its own paper despite the selected midter
   expect(exam).toBeTruthy();
   await page.goto('/app/schedule');
   const card = page.locator('.vmx-dash-card').filter({ has: page.getByRole('heading', { name: examTitle(exam) }) });
-  await card.getByRole('button', { name: 'ฝึกข้อสอบวิชานี้ →', exact: true }).click();
+  await card.getByRole('button', { name: 'ฝึกข้อสอบวิชานี้', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'ตั้งค่า การฝึก', exact: true })).toBeVisible();
   await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('vmx-selected-phase')))).toBe('1-final');
   await openAdjust(page);
@@ -45,18 +45,24 @@ for (const press of [false, true]) {
     test.setTimeout(90_000);
     let release;
     const held = new Promise(resolve => { release = resolve; });
-    await page.route(anyBank, async route => { await held; await route.continue(); });
+    // A request that was dropped while it waited (the page moved on) must not fail the check.
+    await page.route(anyBank, async route => { await held; await route.continue().catch(() => {}); });
     try {
       const exam = EXAM_SCHEDULE.y5.find(item => item.term === 'final'
         && Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE['1-final'][item.subject] > 0);
-      // The page's load event waits for the held banks on Firefox.
-      await page.goto('/app/schedule', { waitUntil: 'domcontentloaded' });
+      // The load event waits for the held banks on Firefox, and on WebKit the
+      // held requests can keep the document-ready event (and the font file)
+      // waiting behind them, so the visit counts as arrived once the document
+      // has been answered and the checks below wait for what they need.
+      await page.goto('/app/schedule', { waitUntil: 'commit' });
       const card = page.locator('.vmx-dash-card').filter({ has: page.getByRole('heading', { name: examTitle(exam) }) });
-      await card.getByRole('button', { name: 'ฝึกข้อสอบวิชานี้ →', exact: true }).click();
+      await card.getByRole('button', { name: 'ฝึกข้อสอบวิชานี้', exact: true }).click();
       const summary = page.locator('#vmx-config-summary');
       await expect(summary).toHaveText('กำลังตรวจจำนวนข้อ…');
       const toggle = page.getByRole('button', { name: 'ปรับเอง', exact: true });
-      await page.evaluate(() => document.fonts.ready);
+      // Fonts can queue behind the held banks; wait for them for a few seconds only, and again after the release.
+      const fontsReady = () => page.evaluate(() => Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 5000))]));
+      await fontsReady();
       const before = await toggle.boundingBox();
       // A press flips the rows whichever way they were drawn, and the count
       // landing afterwards leaves them the way the press set them.
@@ -74,6 +80,7 @@ for (const press of [false, true]) {
         await (pressed === 'true' ? expect(rows).toBeVisible() : expect(rows).toBeHidden());
         return;
       }
+      await fontsReady();
       const after = await toggle.boundingBox();
       test.info().annotations.push({ type: 'adjust-toggle-shift', description: `top ${(after.y - before.y).toFixed(2)} px, left ${(after.x - before.x).toFixed(2)} px` });
       expect(Math.abs(after.y - before.y), 'ปรับเอง moved down or up').toBeLessThanOrEqual(0.5);
@@ -92,7 +99,10 @@ test('a timetable class with notes and no current-paper practice opens reading a
     && !Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE['1-mid'][item.subject]);
   expect(lesson).toBeTruthy();
   await page.goto('/app/schedule');
-  await page.getByRole('button', { name: new RegExp(lesson.title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')) }).first().click();
+  // The page opens on one day's classes; the five days, each class a link, are behind "ทั้งสัปดาห์".
+  await page.getByRole('button', { name: 'ทั้งสัปดาห์', exact: true }).click();
+  // A class is called by its course's own name, the one the exam rows use.
+  await page.getByRole('button', { name: new RegExp(examTitle(lesson).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')) }).first().click();
   await expect(page.locator('.vmx-notes-grid')).toBeVisible();
   await expect(page.locator('[data-reading-content]')).toBeVisible();
   await expect(page.locator('[data-reading-content]')).not.toBeEmpty();

@@ -2,8 +2,11 @@
 // useStudyBuddies — who else is online + what they're studying
 // ============================================================
 // Adds a richer presence channel on top of useOnlineCount: each
-// participant tracks { username, avatar, subject, view } so the
-// HomeView panel can render "🐕 5 คนกำลังเรียน COM V อยู่" links.
+// participant tracks { subject, view, qKey } so the HomeView panel can
+// render "5 คนกำลังเรียน COM V อยู่" links. A phone never sends a name:
+// names come from the server's profile of each account (buddy_profiles,
+// migration 20261115120300), and a student who turned the leaderboard off
+// is not published (the channel is joined to listen only).
 //
 // Uses a separate channel ('vet-mock-buddies') so the original count
 // channel stays unchanged. Anonymous users (no Supabase login) DON'T
@@ -33,6 +36,15 @@ let panel = NO_BUDDIES; // user id -> the fields StudyBuddiesPanel prints
 let panelKey = '';
 const listeners = new Set();
 
+// Names, by presence key, as the server's profiles give them. Whatever name
+// or emoji a payload carries is never read: anyone signed in can put any
+// text in their own presence, so a name from there could be anyone's.
+// A key the server does not name (hidden, or no profile) stays nameless.
+const NAME_TTL_MS = 10 * 60 * 1000;
+let names = new Map(); // key -> { username, avatar, at }
+let namesUnavailable = false; // buddy_profiles is not on this database yet
+const asking = new Set();
+
 function publishPresence(next) {
   presence = next;
   // The panel prints a name, an avatar and a subject per student, so its
@@ -40,7 +52,8 @@ function publishPresence(next) {
   // A new question or view is most of the traffic and changes none of them.
   const fields = {};
   for (const [k, b] of Object.entries(next)) {
-    fields[k] = { username: b?.username ?? null, avatar: b?.avatar ?? null, subject: b?.subject ?? null };
+    const named = names.get(k);
+    fields[k] = { username: named?.username ?? null, avatar: named?.avatar ?? null, subject: b?.subject ?? null };
   }
   const key = JSON.stringify(fields);
   if (key !== panelKey) {
@@ -81,11 +94,12 @@ const RETRACK_DELAY_MS = 1500;
 // the channel is joined, so only a signed-in account can read or publish
 // presence here. A public join of the same name lands on a separate topic
 // and sees none of it. Every signed-in classmate still reads what is
-// published, so the payload keeps the two older measures: it carries no
-// auth id (the presence key is a digest of it, see presenceKeyFor), and a
-// student who turned the leaderboard off is not published at all: no entry,
-// not in "N คนกำลังทำข้อนี้", no key a classmate could match to them. They
-// still see who else is reading (the channel is joined to listen).
+// published, so the payload carries no auth id (the presence key is a digest
+// of it, see presenceKeyFor) and no name or avatar at all. A student who
+// turned the leaderboard off is not published at all: no entry, not in
+// "N คนกำลังทำข้อนี้", no key a classmate could match to them. They still
+// see who else is reading (the channel is joined to listen). The server's
+// name lookup also leaves out anyone who turned off the leaderboard.
 const SHOWN_VALUES = new Set(['true', 't', 'yes', 'y', 'on', '1']);
 function showsOnLeaderboard(user) {
   const flag = user?.user_metadata?.show_on_leaderboard;
@@ -93,34 +107,97 @@ function showsOnLeaderboard(user) {
   return SHOWN_VALUES.has(String(flag).trim().toLowerCase());
 }
 
-// A 64-bit digest of the id: the same in every tab of one account (so two
-// tabs stay one person) and far too short to carry the 122 random bits of the
-// id itself. Synchronous on purpose, so joining the channel takes no longer
-// than it did.
-function presenceKeyFor(userId) {
-  const text = `vet-mock-buddies:${userId}`;
-  let h1 = 0xdeadbeef;
-  let h2 = 0x41c6ce57;
-  for (let i = 0; i < text.length; i++) {
-    const c = text.charCodeAt(i);
-    h1 = Math.imul(h1 ^ c, 2654435761);
-    h2 = Math.imul(h2 ^ c, 1597334677);
+// SHA-256, synchronous, for the presence key below (the browser's own digest
+// is asynchronous, and joining the channel should take no longer than it did).
+function sha256Hex(text) {
+  const bytes = new TextEncoder().encode(text);
+  const K = [
+    0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+    0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+    0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+    0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+    0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+    0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+    0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+    0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2,
+  ];
+  const H = [0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, 0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19];
+  const padded = new Uint8Array(Math.ceil((bytes.length + 9) / 64) * 64);
+  padded.set(bytes);
+  padded[bytes.length] = 0x80;
+  const bits = bytes.length * 8;
+  const view = new DataView(padded.buffer);
+  view.setUint32(padded.length - 8, Math.floor(bits / 0x100000000));
+  view.setUint32(padded.length - 4, bits >>> 0);
+  const w = new Uint32Array(64);
+  const rotr = (x, n) => (x >>> n) | (x << (32 - n));
+  for (let off = 0; off < padded.length; off += 64) {
+    for (let i = 0; i < 16; i++) w[i] = view.getUint32(off + i * 4);
+    for (let i = 16; i < 64; i++) {
+      const s0 = rotr(w[i - 15], 7) ^ rotr(w[i - 15], 18) ^ (w[i - 15] >>> 3);
+      const s1 = rotr(w[i - 2], 17) ^ rotr(w[i - 2], 19) ^ (w[i - 2] >>> 10);
+      w[i] = (w[i - 16] + s0 + w[i - 7] + s1) >>> 0;
+    }
+    let [a, b, c, d, e, f, g, h] = H;
+    for (let i = 0; i < 64; i++) {
+      const t1 = (h + (rotr(e, 6) ^ rotr(e, 11) ^ rotr(e, 25)) + ((e & f) ^ (~e & g)) + K[i] + w[i]) >>> 0;
+      const t2 = ((rotr(a, 2) ^ rotr(a, 13) ^ rotr(a, 22)) + ((a & b) ^ (a & c) ^ (b & c))) >>> 0;
+      h = g; g = f; f = e; e = (d + t1) >>> 0; d = c; c = b; b = a; a = (t1 + t2) >>> 0;
+    }
+    H[0] = (H[0] + a) >>> 0; H[1] = (H[1] + b) >>> 0; H[2] = (H[2] + c) >>> 0; H[3] = (H[3] + d) >>> 0;
+    H[4] = (H[4] + e) >>> 0; H[5] = (H[5] + f) >>> 0; H[6] = (H[6] + g) >>> 0; H[7] = (H[7] + h) >>> 0;
   }
-  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
-  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
-  return `b-${(h2 >>> 0).toString(16).padStart(8, '0')}${(h1 >>> 0).toString(16).padStart(8, '0')}`;
+  return H.map((x) => x.toString(16).padStart(8, '0')).join('');
 }
 
-function presencePayload({ user, username, avatar, subject, view, qKey, joinedAt }) {
-  const shown = showsOnLeaderboard(user);
+// A 64-bit digest of the id: the same in every tab of one account (so two
+// tabs stay one person) and far too short to carry the 122 random bits of the
+// id itself. The server computes the same digest to find the profile behind a
+// key (buddy_profiles): 'b-' and the first 16 hex digits of
+// sha256('vet-mock-buddies:' || id).
+export function presenceKeyFor(userId) {
+  return `b-${sha256Hex(`vet-mock-buddies:${userId}`).slice(0, 16)}`;
+}
+
+function presencePayload({ subject, view, qKey, joinedAt }) {
   return {
-    username: (shown && username) || 'นิสิต',
-    avatar: (shown && avatar) || '🐾',
     subject: subject || null,
     view: view || 'home',
     qKey: qKey || null,
     joined_at: joinedAt,
   };
+}
+
+// Asks the server for the names behind keys it has not named yet (or named
+// over ten minutes ago), then redraws the panel. A database without
+// buddy_profiles answers with an error once, and the panel then shows
+// counts without names for the rest of the page's life.
+async function resolveNames(supabase, keys) {
+  if (namesUnavailable || typeof supabase?.rpc !== 'function') return;
+  const now = Date.now();
+  const wanted = keys.filter((k) => !asking.has(k) && !(names.has(k) && now - names.get(k).at < NAME_TTL_MS)).slice(0, 200);
+  if (!wanted.length) return;
+  for (const k of wanted) asking.add(k);
+  try {
+    const { data, error, status } = await supabase.rpc('buddy_profiles', { p_keys: wanted });
+    // Only a database without the function stops asking; a dropped request
+    // or an expired token (handed back as an error value, not thrown) is
+    // asked again on the next sync.
+    if (error) { if (status === 404 || error.code === 'PGRST202') namesUnavailable = true; return; }
+    const next = new Map(names);
+    for (const k of wanted) next.set(k, { username: null, avatar: null, at: now });
+    for (const row of Array.isArray(data) ? data : []) {
+      if (typeof row?.key === 'string' && wanted.includes(row.key)) {
+        next.set(row.key, { username: row.username || null, avatar: row.avatar_emoji || null, at: now });
+      }
+    }
+    names = next;
+    publishPresence(presence);
+  } catch {
+    // A dropped request names nobody now; the next sync asks again.
+  } finally {
+    for (const k of wanted) asking.delete(k);
+  }
 }
 
 // Owns the channel and publishes into the store above. Returns nothing:
@@ -134,6 +211,8 @@ export function useStudyBuddies({ user, profile, subject, view, qKey }) {
   // them. Only the fields the panel shows take part — the profile object's
   // identity is irrelevant.
   const latestRef = useRef({});
+  // The payload carries neither of these; they are kept so an edited profile
+  // re-runs the update effect, which sends nothing when the payload is the same.
   const username = profile?.username || null;
   const avatar = profile?.avatar_emoji || null;
   latestRef.current = { user, username, avatar, subject, view, qKey };
@@ -193,6 +272,7 @@ export function useStudyBuddies({ user, profile, subject, view, qKey }) {
           merged[k === selfKey ? user.id : k] = meta;
         }
         publishPresence(merged);
+        resolveNames(supabase, Object.keys(state).filter((k) => k !== selfKey));
       });
       channelRef.current = channel;
       await channel.subscribe((status) => {

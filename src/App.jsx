@@ -3489,7 +3489,7 @@ export default function App() {
                   onOpenLibrary={openLibraryFromReader}
                 />
               )}
-              {view === 'pinboard' && <PinboardView {...{ goHome, setView, setSubject, setTopic, setPracticeMode, onOpenQuestion: openQuestionById, notes, selectedYear, selectedPhase }} />}
+              {view === 'pinboard' && <PinboardView {...{ goHome, setView, setSubject, setTopic, setPracticeMode, setMode, bookmarks, onOpenQuestion: openQuestionById, notes, selectedYear, selectedPhase }} />}
               {view === 'image-occlusion' && <ImageOcclusionView {...{ goHome, setView }} />}
               {view === 'phase-wrapped' && <PhaseWrappedView {...{ goHome, history, srCards, bookmarks, customQuestions, selectedYear }} />}
               {view === 'connect-apps' && <ConnectAppsView {...{ goHome, setView, user, history, selectedYear }} />}

@@ -34,7 +34,7 @@ async function seed(page, cards, { start = true, planned = true } = {}) {
     localStorage.setItem('vmx-custom-q', JSON.stringify([unsafe]));
   }, { srCards, unsafe, count: cards.length, planned });
   await page.goto('/app/review', { waitUntil: 'domcontentloaded' });
-  if (start) await page.getByRole('button', { name: 'เริ่ม Session →', exact: true }).click();
+  if (start) await page.getByRole('button', { name: 'เริ่มทบทวน', exact: true }).click();
 }
 
 const bankChunk = /(?:\/assets\/data-q-com3-(?!special-)[^/]+\.js|\/src\/data\/questions-com3\.js)(?:\?.*)?$/;
@@ -123,7 +123,7 @@ test('SR waits for a held native bank before freezing its complete ordered queue
   try {
     await seed(page, [figure, unsafe], { start: false });
     await bank.requested;
-    const start = page.getByRole('button', { name: 'เริ่ม Session →', exact: true });
+    const start = page.getByRole('button', { name: 'เริ่มทบทวน', exact: true });
     await start.evaluate(button => { button.click(); button.click(); });
     await expect(page.getByRole('button', { name: 'กำลังโหลดคลังข้อสอบ…', exact: true })).toBeDisabled();
     await expect(page.locator('.vmx-flashcard')).toHaveCount(0);
@@ -148,16 +148,19 @@ for (const planned of [true, false]) {
       await seed(page, [figure, unsafe], { start: false, planned });
       await bank.requested;
       const summary = page.locator('#vmx-srs-summary');
-      const start = page.getByRole('button', { name: 'เริ่ม Session →', exact: true });
+      const start = page.getByRole('button', { name: 'เริ่มทบทวน', exact: true });
       await expect(summary).toContainText('กำลังนับใบที่ถึงรอบ…');
       await expect(start).toBeEnabled();
-      await page.evaluate(() => document.fonts.ready);
+      // WebKit keeps document.fonts.ready waiting while the held bank request is out: wait a few seconds only, and again after the release.
+      const fontsReady = () => page.evaluate(() => Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 5000))]));
+      await fontsReady();
       const before = await start.boundingBox();
       bank.release();
       await expect(summary).toContainText(planned ? 'ตั้งไว้แล้ว:' : 'จัดให้แล้ว:');
       const why = page.locator('.vmx-decide-why');
       await expect(why).toContainText(planned ? 'ตามที่คุณตั้งไว้' : 'ใบที่ค้างนานสุดมาก่อน');
       await expect(why.getByRole('button', { name: 'กลับไปใช้ค่าที่จัดให้', exact: true })).toHaveCount(planned ? 1 : 0);
+      await fontsReady();
       const after = await start.boundingBox();
       test.info().annotations.push({ type: 'start-button-shift', description: `top ${(after.y - before.y).toFixed(2)} px, left ${(after.x - before.x).toFixed(2)} px` });
       expect(Math.abs(after.y - before.y), 'the start button moved down or up').toBeLessThanOrEqual(0.5);
@@ -169,7 +172,7 @@ for (const planned of [true, false]) {
 test('SR keeps failed-bank planning and retries before explicit available-card review', async ({ page }) => {
   await page.route(bankChunk, route => route.abort());
   await seed(page, [figure, unsafe], { start: false });
-  await page.getByRole('button', { name: 'เริ่ม Session →', exact: true }).click();
+  await page.getByRole('button', { name: 'เริ่มทบทวน', exact: true }).click();
   await expect(page.getByRole('alert')).toContainText('ยังโหลดคลังข้อสอบไม่ครบ');
   await expect(page.locator('.vmx-flashcard')).toHaveCount(0);
   await page.getByRole('button', { name: 'ลองโหลดคลังอีกครั้ง', exact: true }).click();
@@ -189,14 +192,14 @@ test('a changed SR year scope withdraws a pending start before its bank finishes
   try {
     await seed(page, [figure, unsafe], { start: false });
     await bank.requested;
-    await page.getByRole('button', { name: 'เริ่ม Session →', exact: true }).click();
+    await page.getByRole('button', { name: 'เริ่มทบทวน', exact: true }).click();
     await expect(page.getByRole('button', { name: 'กำลังโหลดคลังข้อสอบ…', exact: true })).toBeDisabled();
     await openAdjust(page);
     await page.getByRole('button', { name: '🌐 ทุกปี', exact: true }).click();
     bank.release();
     await expect(page.getByText('Due ทบทวน', { exact: true }).locator('..').locator('div').last()).toHaveText('2ใบ');
     await expect(page.locator('.vmx-flashcard')).toHaveCount(0);
-    await page.getByRole('button', { name: 'เริ่ม Session →', exact: true }).click();
+    await page.getByRole('button', { name: 'เริ่มทบทวน', exact: true }).click();
     await expect(page.locator('.vmx-flashcard .front')).toContainText(figure.q);
     await expect(page.locator('.vmx-progress')).toContainText('1 / 2');
   } finally { bank.release(); }
@@ -220,7 +223,7 @@ test('a foreground bank recovery refreshes planning counts and native subject re
   await openAdjust(page);
   const dueCount = page.getByText('Due ทบทวน', { exact: true }).locator('..').locator('div').last();
   await expect(dueCount).toHaveText('1ใบ');
-  await page.getByRole('button', { name: 'เริ่ม Session →', exact: true }).click();
+  await page.getByRole('button', { name: 'เริ่มทบทวน', exact: true }).click();
   await expect(page.locator('.vmx-flashcard .front')).toContainText(figure.q);
   await expect(page.locator('.vmx-progress')).toContainText('1 / 3');
   await page.getByRole('button', { name: '← เปลี่ยนการตั้งค่า', exact: true }).click();
@@ -228,6 +231,6 @@ test('a foreground bank recovery refreshes planning counts and native subject re
   const subjects = page.getByRole('combobox', { name: 'วิชา', exact: true });
   await expect(subjects.locator('option[value="engprof"]')).toHaveCount(1);
   await subjects.selectOption('engprof');
-  await page.getByRole('button', { name: 'เริ่ม Session →', exact: true }).click();
+  await page.getByRole('button', { name: 'เริ่มทบทวน', exact: true }).click();
   await expect(page.locator('.vmx-flashcard .front')).toContainText(nativeEnglish.q);
 });

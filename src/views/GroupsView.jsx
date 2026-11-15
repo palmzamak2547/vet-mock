@@ -1,8 +1,8 @@
 import Mochi from '../components/Mochi.jsx';
 import { useState, useEffect, useRef } from 'react';
 import { thaiError } from '../lib/errors.js';
-import { createGroup, joinGroupByCode, getMyGroups, leaveGroup } from '../lib/api.js';
-import { confirmDialog, alertDialog } from '../lib/dialog.js';
+import { createGroup, joinGroupByCode, getMyGroups } from '../lib/api.js';
+import { alertDialog } from '../lib/dialog.js';
 import StatePanel from '../components/StatePanel.jsx';
 import { EMPTY_ART } from '../data/art.js';
 
@@ -96,14 +96,9 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
 
   // The group page is told which account opened it, so it can refuse to draw
   // this group (name, invite code) if the session has moved on by then.
+  // Leaving a group lives on the group's own page, at its foot and behind a
+  // question, never beside the button that opens it.
   const openGroup = (g) => { setActiveGroup({ ...g, openedBy: user.id }); setView('group-detail'); };
-
-  const handleLeave = async (groupId) => {
-    if (!(await confirmDialog({ title: 'ออกจากกลุ่มนี้?', confirmLabel: 'ออกจากกลุ่ม', tone: 'danger' }))) return;
-    const owner = user.id;
-    try { await leaveGroup(groupId, owner); if (stillFor(owner)) await load(); }
-    catch (e) { if (stillFor(owner)) setError(thaiError(e, 'ทำรายการไม่สำเร็จ ลองใหม่อีกครั้ง')); }
-  };
 
   return (
     <>
@@ -138,7 +133,7 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
           <form onSubmit={handleJoin}>
             <div className="vmx-form-group">
               <label htmlFor="vmx-group-code">รหัสกลุ่ม (6 ตัวอักษร)</label>
-              <input id="vmx-group-code" value={joinCode} onChange={(e) => setJoinCode(e.target.value.toUpperCase())} placeholder="ABC123" maxLength={6} required autoFocus style={{ fontFamily: 'var(--vmx-mono)', fontSize: 18, letterSpacing: '0.2em', textAlign: 'center' }} />
+              <input id="vmx-group-code" value={joinCode} onChange={(e) => setJoinCode(e.target.value.toUpperCase())} placeholder="K7M2QX" maxLength={6} required autoFocus style={{ fontFamily: 'var(--vmx-mono)', fontSize: 18, letterSpacing: '0.2em', textAlign: 'center' }} />
             </div>
             <div className="vmx-btn-row">
               <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setShowJoin(false)}>ยกเลิก</button>
@@ -175,10 +170,7 @@ export default function GroupsView({ user, profile, goHome, setActiveGroup, setV
                     รหัส: <strong style={{ color: 'var(--clr-gold-text)' }}>{g.code}</strong>, {g.role === 'admin' ? '👑 ผู้ดูแล' : 'สมาชิก'}
                   </div>
                 </button>
-                <div style={{ display: 'flex', gap: 6 }}>
-                  <button className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={() => openGroup(g)}>เปิด →</button>
-                  <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => handleLeave(g.id)}>ออก</button>
-                </div>
+                <button className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={() => openGroup(g)}>เปิด →</button>
               </div>
             </div>
           ))}

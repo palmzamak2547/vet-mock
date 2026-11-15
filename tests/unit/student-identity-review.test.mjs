@@ -114,8 +114,10 @@ test('a hidden student is not published, and the sentence names where the name s
   assert.match(src, /if \(!showsOnLeaderboard\(latestRef\.current\.user\)\) \{/);
   const editor = read('src/components/IdentityEditor.jsx');
   const line = editor.match(/'(ไม่ขึ้นกระดาน[^']+)'/)[1];
-  for (const where of ['ความเห็น', 'ห้องแข่ง', 'สมาชิกกลุ่ม', 'ข้อที่คุณเคยแชร์', 'รายชื่อคนที่กำลังอ่าน']) assert.ok(line.includes(where), where);
-  for (const id of ['race', 'shared']) assert.equal(SURFACES.find((s) => s.id === id)?.followsChoice, false, id);
+  for (const where of ['ความเห็น', 'ห้องแข่ง', 'สมาชิกกลุ่ม', 'รายชื่อคนที่กำลังอ่าน']) assert.ok(line.includes(where), where);
+  assert.equal(SURFACES.find((s) => s.id === 'race')?.followsChoice, false, 'race');
+  // Groups no longer show shared questions, so that place is gone from the list and the sentence.
+  assert.ok(!line.includes('แชร์') && !SURFACES.some((s) => s.id === 'shared'));
 });
 
 // ── 3. Names the database made from the Google name ────────────────
@@ -163,10 +165,13 @@ test('every read of a member name or picture in src is drawn through public-disp
   // listed with its reason, so a new surface that skips the helper fails.
   const EXEMPT = {
     'src/components/IdentityEditor.jsx: profile?.username': 'the student\'s own name, put into the input to edit; the preview draws it through shownName',
-    'src/hooks/useStudyBuddies.js: b?.username': 'copies the presence payload into the panel store; StudyBuddiesPanel draws it with shownName',
-    'src/hooks/useStudyBuddies.js: b?.avatar': 'same store copy; drawn with shownPicture',
-    'src/hooks/useStudyBuddies.js: profile?.username': 'the student\'s own name, published to presence; drawn by others through shownName',
-    'src/hooks/useStudyBuddies.js: profile?.avatar_emoji': 'the student\'s own picture, published to presence; drawn through shownPicture',
+    'src/components/StudyBuddiesPanel.jsx: b?.username': 'only picks who has a name; namesLine draws it through shownName',
+    'src/hooks/useStudyBuddies.js: named?.username': 'copies the server\'s name into the panel store; StudyBuddiesPanel draws it with shownName',
+    'src/hooks/useStudyBuddies.js: named?.avatar': 'same store copy; drawn with shownPicture',
+    'src/hooks/useStudyBuddies.js: row.username': 'the buddy_profiles answer, kept for the panel; drawn through shownName',
+    'src/hooks/useStudyBuddies.js: row.avatar_emoji': 'the buddy_profiles answer, kept for the panel; drawn through shownPicture',
+    'src/hooks/useStudyBuddies.js: profile?.username': 'the student\'s own name, never published; it only re-runs the update effect',
+    'src/hooks/useStudyBuddies.js: profile?.avatar_emoji': 'the student\'s own picture, never published; it only re-runs the update effect',
     'src/lib/identity-gate.js: md.username': 'compared, never drawn',
     'src/lib/identity-gate.js: profile.username': 'compared, never drawn',
     'src/lib/identity-write.js: patch.username': 'the write path',
