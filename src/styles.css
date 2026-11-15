@@ -7441,6 +7441,12 @@ button.vmx-ladder-step:focus-visible { outline: 2px solid var(--clr-ink); outlin
 .vmx-decide-toggle:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
 .vmx-decide-region { margin-top: var(--space-3); }
 .vmx-decide-reset { margin-left: var(--space-2); vertical-align: middle; }
+/* While the count is on its way (DecideLines): the counting words and the line
+   they will become share one cell, the second hidden, so the cell is already
+   the counted line's height for this width. */
+.vmx-decide-pending { display: grid; }
+.vmx-decide-pending > * { grid-area: 1 / 1; }
+.vmx-decide-ghost { visibility: hidden; }
 .vmx-mode-why { margin: var(--space-2) 0 var(--space-2); }
 @media (prefers-reduced-motion: reduce) { .vmx-decide-toggle::after { transition: none; } }
 

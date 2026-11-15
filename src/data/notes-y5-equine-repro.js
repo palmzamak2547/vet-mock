@@ -2462,7 +2462,7 @@ export const NOTES_Y5_EQUINE_REPRO = {
             ]
           },
           {
-            "callout": "สไลด์ p.32 เขียนว่า genus Arteriviridae แต่ Arteriviridae เป็นชื่อ family (EAV อยู่ใน family Arteriviridae) ให้ตอบตามสไลด์ได้แต่ระวังคำว่า genus",
+            "callout": "สไลด์ p.32 เขียนว่า genus Arteriviridae แต่ Arteriviridae เป็นชื่อ family (EAV อยู่ใน family Arteriviridae)",
             "kind": "flag"
           },
           {
