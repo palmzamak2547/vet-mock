@@ -44,8 +44,10 @@ test('XP earned yesterday is not announced as today', async () => {
 test('XP earned today still counts as today', async () => {
   const map = installStorage();
   const { getXpState } = await import('../../src/lib/xp.js?xp2');
-  const d = new Date();
-  const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  // The product counts study days in Bangkok (src/lib/study-day.js), never the device's: a key built from the
+  // runner's own date is yesterday's for seven hours of every day on a UTC runner.
+  const { dayKey } = await import('../../src/lib/study-day.js');
+  const key = dayKey(Date.now());
   map.set('vmx-xp', JSON.stringify({ totalXp: 90, lifetimeQs: 3, todayDate: key, todayXp: 45 }));
   assert.equal(getXpState().todayXp, 45);
   clearStorage();
