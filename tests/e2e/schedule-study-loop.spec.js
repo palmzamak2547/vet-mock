@@ -52,7 +52,7 @@ for (const press of [false, true]) {
       // The page's load event waits for the held banks on Firefox.
       await page.goto('/app/schedule', { waitUntil: 'domcontentloaded' });
       const card = page.locator('.vmx-dash-card').filter({ has: page.getByRole('heading', { name: examTitle(exam) }) });
-      await card.getByRole('button', { name: 'ฝึกข้อสอบวิชานี้ →', exact: true }).click();
+      await card.getByRole('button', { name: 'ฝึกข้อสอบวิชานี้', exact: true }).click();
       const summary = page.locator('#vmx-config-summary');
       await expect(summary).toHaveText('กำลังตรวจจำนวนข้อ…');
       const toggle = page.getByRole('button', { name: 'ปรับเอง', exact: true });
