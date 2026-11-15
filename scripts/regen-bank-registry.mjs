@@ -32,6 +32,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 // the next checkout. A check that is red for reasons unrelated to its
 // subject teaches people to ignore it. One helper serves every generator.
 import { sameGenerated } from './lib/same-generated.mjs';
+import { compareRegistryEntries, renderBankRegistry } from './lib/bank-registry-text.mjs';
 
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -101,40 +102,14 @@ for (const file of files) {
 // [lect2, lect3, lect4, lect] while CI sorts [lect, lect2, lect3, lect4].
 // The committed registry then looked STALE on every CI run (red build on every
 // push) even though its content was identical. Byte order is stable everywhere.
-entries.sort((a, b) => {
-  const ay = a.year ?? 99, by = b.year ?? 99;
-  if (ay !== by) return ay - by;
-  return a.file < b.file ? -1 : a.file > b.file ? 1 : 0;
-});
+entries.sort(compareRegistryEntries);
 
 const total = entries.reduce((s, e) => s + e.count, 0);
 
-const L = [];
-L.push('// ============================================================');
-L.push('// bank-registry.generated.js — AUTO-GENERATED, do NOT hand-edit');
-L.push('// ============================================================');
-L.push('// Run `npm run regen:registry` after adding/removing a questions-*.js');
-L.push('// bank or changing its export name / per-question year. Consumed by');
-L.push('// data/questions.js to build the lazy LOADERS. Literal import() strings');
-L.push('// below keep Vite per-bank chunk-splitting intact.');
-L.push('// ============================================================');
-L.push('');
-L.push('export const BANK_REGISTRY = [');
-for (const e of entries) {
-  const subj = e.subjects.map((s) => `'${s}'`).join(', ');
-  L.push(`  { file: '${e.file}', export: '${e.export}', year: ${e.year === null ? 'null' : e.year}, count: ${e.count},`);
-  L.push(`    subjects: [${subj}],`);
-  L.push(`    load: () => import('./${e.file}').then((m) => m.${e.export}) },`);
-}
-L.push('];');
-L.push('');
-L.push(`// Built: ${new Date().toISOString()} — ${entries.length} banks · ${total} Qs`);
-L.push('');
-const content = L.join('\n');
+const content = renderBankRegistry(entries);
 
 if (checkMode) {
   const cur = fs.existsSync(outPath) ? fs.readFileSync(outPath, 'utf8') : '';
-  // sameGenerated ignores the volatile "Built:" timestamp line.
   if (!sameGenerated(cur, content)) {
     console.error('❌ bank-registry.generated.js is STALE → run: npm run regen:registry');
     process.exit(1);

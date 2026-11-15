@@ -13,6 +13,14 @@
 // entries and docs (1700+ / 2650 / 2956 / 2948 all appear somewhere for the
 // same thing). The checked generated inventory is the durable source for
 // documentation; `stats:check` prevents it silently drifting again.
+//
+// Question counts are printed, never written. Every pull request that adds
+// questions moved the same total lines in README.md and the inventory, so two
+// such pull requests always conflicted there, or merged cleanly and left the
+// numbers stale on main. The written files therefore hold only what a bank
+// change does not move; the question sections (totals, banks, years, the
+// consistency line and VetWiki coverage per subject) are printed by
+// `npm run stats`, and the consistency check still fails the run.
 // ============================================================
 
 import fs from 'node:fs';
@@ -126,7 +134,7 @@ const fmt = (n) => n.toLocaleString('en-US');
 const sourcedPercent = noteSections ? Math.round((noteSourced / noteSections) * 100) : 0;
 const governedPercent = noteSections ? ((govSections / noteSections) * 100).toFixed(1) : '0.0';
 
-const lines = [];
+let lines = [];
 const L = (s = '') => lines.push(s);
 L('# Content inventory');
 L();
@@ -135,6 +143,13 @@ L('> number here is counted from the source files, so it cannot drift.');
 L();
 L(`Generated from the working tree at the time of the run.`);
 L();
+L('Question counts are not stored here: every pull request that adds questions');
+L('would change the same lines. `npm run stats` prints them (questions ready for');
+L('learners, held back, banks, years, the consistency check and VetWiki coverage');
+L('per subject), counted from the banks at the time of the run.');
+L();
+const writtenHead = lines;
+lines = [];
 L('## Questions');
 L();
 L('| | |');
@@ -145,10 +160,12 @@ L(`| Total questions in source banks | ${fmt(qTotal)} |`);
 L(`| Question banks (files) | ${qFiles.length} |`);
 L(`| Subjects with questions | ${Object.keys(qc.Q_COUNTS_BY_SUBJECT).length} |`);
 L(`| Years covered | ${years.join(', ')} |`);
-for (const [y, n] of Object.entries(qc.Q_COUNTS_BY_YEAR)) L(`| — year ${y} | ${fmt(n)} |`);
+for (const [y, n] of Object.entries(qc.Q_COUNTS_BY_YEAR)) L(`| Year ${y} | ${fmt(n)} |`);
 L();
 L(`Consistency: source banks **${qTotal}**, learner-ready **${deliverableTotal}**, fail-closed **${blockedTotal}**, registry sums to **${registryTotal}**, files missing from the registry: **${notInRegistry.length}** → ${consistent ? '✅ consistent' : '❌ DRIFT'}`);
 L();
+const printedQuestions = lines;
+lines = [];
 L('## Study notes');
 L();
 L('| | |');
@@ -176,6 +193,8 @@ L(`| Claims verified against an external source | ${govVerified} |`);
 L(`| Distinct external sources cited | ${govSources.size} |`);
 L(`| Share of note sections governed | ${governedPercent}% |`);
 L();
+const writtenTail = lines;
+lines = [];
 L('## VetWiki coverage of questions');
 L();
 L('Learner-ready questions that open an article, through their own topic or a judged link.');
@@ -190,17 +209,16 @@ for (const [subject, c] of [...wikiCoverage].sort(([a], [b]) => String(a).locale
 L(`| **All** | ${coverageTotal.n} | ${coverageTotal.reach} | ${coverageTotal.linked} | ${((100 * coverageTotal.reach) / (coverageTotal.n || 1)).toFixed(1)}% |`);
 L();
 
-const md = lines.join('\n');
-const yearSummary = Object.entries(qc.Q_COUNTS_BY_YEAR)
-  .map(([year, count]) => `ปี ${year} (${fmt(count)})`)
-  .join(', ');
+const printedCoverage = lines;
+// The tracked file: everything a bank change does not move.
+const md = [...writtenHead, ...writtenTail].join('\n');
+// What a run prints: the whole inventory, question parts included.
+const printed = [...writtenHead, ...printedQuestions, ...writtenTail, ...printedCoverage].join('\n');
 const readmeStats = [
   README_STATS_START,
   '| | |',
   '|---|---|',
-  `| ข้อสอบพร้อมฝึก | **${fmt(deliverableTotal)} ข้อ** ใน ${qFiles.length} bank files, ${Object.keys(qc.Q_COUNTS_BY_SUBJECT).length} วิชา |`,
-  `| พักไว้เพื่อความถูกต้อง | ${fmt(blockedTotal)} ข้อรอตรวจเฉลย ขอบเขต หรือภาพประกอบ (เก็บใน source bank แต่ไม่ส่งให้ผู้เรียน) |`,
-  `| ชั้นปีที่มีเนื้อหา | ${yearSummary} |`,
+  '| ข้อสอบ | จำนวนข้อพร้อมฝึก ข้อที่พักไว้ตรวจ และรายชั้นปี นับใหม่จาก bank ทุกครั้งด้วย `npm run stats` (ไม่เก็บตัวเลขไว้ในไฟล์นี้ เพราะทุก pull request ที่เพิ่มข้อสอบจะแก้บรรทัดเดียวกัน) |',
   `| สรุปโน้ต | ${nFiles.length} ไฟล์, ${fmt(noteTopics)} หัวข้อ, ${fmt(noteSections)} sections, อ้างอิงแหล่งที่มาครบ ${sourcedPercent}% |`,
   `| สรุปคลิป | ${fmt(videos)} คลิป ใน ${vFiles.length} ไฟล์ |`,
   `| VetWiki (governed) | ${fmt(govTopics.length)} หัวข้อ, ${fmt(govSections)} sections = ${governedPercent}% ของ note sections |`,
@@ -246,7 +264,7 @@ if (CHECK) {
     console.log('\n✓ generated stats are current');
   }
 }
-console.log(md);
+console.log(printed);
 if (!consistent) {
   console.error('\n❌ content stats are INCONSISTENT — run `npm run regen:q-counts` and `npm run regen:registry`');
 }

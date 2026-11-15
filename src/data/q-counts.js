@@ -8,3738 +8,2102 @@
 // Consumers (HomeView/YearSelectView/ScheduleView/etc.) import
 // from here INSTEAD of QB so the count-only render path doesn't
 // drag the full Q-bank into the home-screen load graph.
+//
+// Layout: one leaf per line, between a header and a footer line naming it, so
+// two pull requests that change different leaves merge without a conflict and
+// the merge equals a regeneration. Nothing here is a total: the totals are
+// computed from the leaves when this module loads (scripts/lib/merge-friendly.mjs).
+// The fields of a leaf are described in src/lib/q-count-tables.js.
 // ============================================================
 
-export const QB_TOTAL = 8893;
-export const QB_SOURCE_TOTAL = 9105;
-export const QB_BLOCKED_TOTAL = 212;
+import { countTables } from '../lib/q-count-tables.js';
 
-export const Q_COUNTS_BY_SUBJECT = {
-  'aquatic-clinic': 532,
-  'avian-medicine': 581,
-  'biochem-1': 271,
-  'cliapprum': 136,
-  'com1': 31,
-  'com2': 42,
-  'com3': 359,
-  'com4': 291,
-  'com5': 129,
-  'comp-repro-clinic': 48,
-  'engprof': 70,
-  'engprof1': 30,
-  'epidemiology': 372,
-  'equine-medicine': 569,
-  'equine-repro': 242,
-  'exotic': 151,
-  'food-industry': 300,
-  'food-safety-y4': 31,
-  'herd-health-rum': 39,
-  'livestock-pathology': 67,
-  'milk-meat-hygiene': 1192,
-  'one-health': 242,
-  'poa-clinical': 71,
-  'poultry': 178,
-  'practrum': 117,
-  'rec-adv-bioscience': 4,
-  'repro': 31,
-  'repro-lect': 208,
-  'ruminant-clinical': 15,
-  'surg1': 29,
-  'surg2': 18,
-  'surg3': 40,
-  'swine-clinic': 268,
-  'swine-herd': 36,
-  'swine-repro': 29,
-  'vca': 1341,
-  'vet-dev-anat': 26,
-  'vet-histo': 104,
-  'vet-imaging': 35,
-  'vet-juris': 46,
-  'vet-neuroanat': 40,
-  'vet-pharm-2': 62,
-  'zoonoses': 470,
+// The semester each subject is taught in (curriculum.js), for the phase tables.
+const SUBJECT_TERMS = {
+  // ["aquatic-clinic"]
+  "aquatic-clinic": 1,
+  // end ["aquatic-clinic"]
+  // ["avian-medicine"]
+  "avian-medicine": 1,
+  // end ["avian-medicine"]
+  // ["biochem-1"]
+  "biochem-1": 2,
+  // end ["biochem-1"]
+  // ["cliapprum"]
+  "cliapprum": 2,
+  // end ["cliapprum"]
+  // ["com1"]
+  "com1": 1,
+  // end ["com1"]
+  // ["com2"]
+  "com2": 1,
+  // end ["com2"]
+  // ["com3"]
+  "com3": 2,
+  // end ["com3"]
+  // ["com4"]
+  "com4": 2,
+  // end ["com4"]
+  // ["com5"]
+  "com5": 2,
+  // end ["com5"]
+  // ["comp-repro-clinic"]
+  "comp-repro-clinic": 2,
+  // end ["comp-repro-clinic"]
+  // ["engprof"]
+  "engprof": 2,
+  // end ["engprof"]
+  // ["engprof1"]
+  "engprof1": 1,
+  // end ["engprof1"]
+  // ["epidemiology"]
+  "epidemiology": 1,
+  // end ["epidemiology"]
+  // ["equine-medicine"]
+  "equine-medicine": 1,
+  // end ["equine-medicine"]
+  // ["equine-repro"]
+  "equine-repro": 1,
+  // end ["equine-repro"]
+  // ["exotic"]
+  "exotic": 2,
+  // end ["exotic"]
+  // ["food-industry"]
+  "food-industry": 1,
+  // end ["food-industry"]
+  // ["food-safety-y4"]
+  "food-safety-y4": 1,
+  // end ["food-safety-y4"]
+  // ["herd-health-rum"]
+  "herd-health-rum": 1,
+  // end ["herd-health-rum"]
+  // ["livestock-pathology"]
+  "livestock-pathology": 2,
+  // end ["livestock-pathology"]
+  // ["milk-meat-hygiene"]
+  "milk-meat-hygiene": 1,
+  // end ["milk-meat-hygiene"]
+  // ["one-health"]
+  "one-health": 1,
+  // end ["one-health"]
+  // ["poa-clinical"]
+  "poa-clinical": 1,
+  // end ["poa-clinical"]
+  // ["poultry"]
+  "poultry": 2,
+  // end ["poultry"]
+  // ["practrum"]
+  "practrum": 2,
+  // end ["practrum"]
+  // ["rec-adv-bioscience"]
+  "rec-adv-bioscience": 2,
+  // end ["rec-adv-bioscience"]
+  // ["repro"]
+  "repro": 2,
+  // end ["repro"]
+  // ["repro-lect"]
+  "repro-lect": 2,
+  // end ["repro-lect"]
+  // ["ruminant-clinical"]
+  "ruminant-clinical": 2,
+  // end ["ruminant-clinical"]
+  // ["surg1"]
+  "surg1": 1,
+  // end ["surg1"]
+  // ["surg2"]
+  "surg2": 2,
+  // end ["surg2"]
+  // ["surg3"]
+  "surg3": 2,
+  // end ["surg3"]
+  // ["swine-clinic"]
+  "swine-clinic": 1,
+  // end ["swine-clinic"]
+  // ["swine-herd"]
+  "swine-herd": 1,
+  // end ["swine-herd"]
+  // ["swine-repro"]
+  "swine-repro": 1,
+  // end ["swine-repro"]
+  // ["vca"]
+  "vca": 0,
+  // end ["vca"]
+  // ["vet-dev-anat"]
+  "vet-dev-anat": 2,
+  // end ["vet-dev-anat"]
+  // ["vet-histo"]
+  "vet-histo": 1,
+  // end ["vet-histo"]
+  // ["vet-imaging"]
+  "vet-imaging": 1,
+  // end ["vet-imaging"]
+  // ["vet-juris"]
+  "vet-juris": 1,
+  // end ["vet-juris"]
+  // ["vet-neuroanat"]
+  "vet-neuroanat": 2,
+  // end ["vet-neuroanat"]
+  // ["vet-pharm-2"]
+  "vet-pharm-2": 2,
+  // end ["vet-pharm-2"]
+  // ["zoonoses"]
+  "zoonoses": 1,
+  // end ["zoonoses"]
 };
 
-// Visible counts exclude hidden-topic Qs (midterm leftovers,
-// uncertain-scope items flagged via topic.hidden in curriculum.js).
-// HomeView SubjectGrid renders these for the per-card Q badges so
-// the page doesn't need to scan the full QB at render time.
-export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
-  'aquatic-clinic': 532,
-  'avian-medicine': 581,
-  'biochem-1': 271,
-  'cliapprum': 134,
-  'com1': 31,
-  'com2': 42,
-  'com3': 359,
-  'com4': 291,
-  'com5': 129,
-  'comp-repro-clinic': 48,
-  'engprof': 70,
-  'engprof1': 30,
-  'epidemiology': 372,
-  'equine-medicine': 569,
-  'equine-repro': 242,
-  'exotic': 108,
-  'food-industry': 300,
-  'food-safety-y4': 31,
-  'herd-health-rum': 39,
-  'livestock-pathology': 67,
-  'milk-meat-hygiene': 1192,
-  'one-health': 242,
-  'poa-clinical': 71,
-  'poultry': 132,
-  'practrum': 113,
-  'rec-adv-bioscience': 4,
-  'repro': 31,
-  'repro-lect': 208,
-  'ruminant-clinical': 15,
-  'surg1': 29,
-  'surg2': 18,
-  'surg3': 40,
-  'swine-clinic': 268,
-  'swine-herd': 36,
-  'swine-repro': 29,
-  'vca': 1341,
-  'vet-dev-anat': 26,
-  'vet-histo': 104,
-  'vet-imaging': 35,
-  'vet-juris': 46,
-  'vet-neuroanat': 40,
-  'vet-pharm-2': 62,
-  'zoonoses': 470,
-};
+// [subject, topic, held back by the delivery gate, cells]
+const LEAVES = [
+  // ["aquatic-clinic","aqua-amphibian"]
+  ["aquatic-clinic","aqua-amphibian",0,[[11,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]],
+  // end ["aquatic-clinic","aqua-amphibian"]
+  // ["aquatic-clinic","aqua-aquarium-vet"]
+  ["aquatic-clinic","aqua-aquarium-vet",0,[[11,5,1,0,2,0,0,0]]],
+  // end ["aquatic-clinic","aqua-aquarium-vet"]
+  // ["aquatic-clinic","aqua-conservation"]
+  ["aquatic-clinic","aqua-conservation",0,[[7,5,1,0,2,0,0,0],[4,5,1,0,2,1,0,0],[1,5,1,1,2,1,0,0]]],
+  // end ["aquatic-clinic","aqua-conservation"]
+  // ["aquatic-clinic","aqua-disease-control"]
+  ["aquatic-clinic","aqua-disease-control",0,[[8,5,1,0,2,0,0,0],[1,5,1,0,2,1,0,0],[110,5,1,1,2,1,0,0]]],
+  // end ["aquatic-clinic","aqua-disease-control"]
+  // ["aquatic-clinic","aqua-fish-biology"]
+  ["aquatic-clinic","aqua-fish-biology",0,[[18,5,1,0,1,0,0,0],[18,5,1,0,1,1,0,0],[9,5,1,1,1,1,0,0]]],
+  // end ["aquatic-clinic","aqua-fish-biology"]
+  // ["aquatic-clinic","aqua-fish-diseases"]
+  ["aquatic-clinic","aqua-fish-diseases",0,[[10,5,1,0,2,0,0,0],[31,5,1,0,2,1,0,0],[14,5,1,1,2,1,0,0]]],
+  // end ["aquatic-clinic","aqua-fish-diseases"]
+  // ["aquatic-clinic","aqua-frog-diseases"]
+  ["aquatic-clinic","aqua-frog-diseases",0,[[13,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]],
+  // end ["aquatic-clinic","aqua-frog-diseases"]
+  // ["aquatic-clinic","aqua-intro-thailand"]
+  ["aquatic-clinic","aqua-intro-thailand",0,[[43,5,1,0,1,0,0,0],[44,5,1,0,1,1,0,0],[12,5,1,1,1,1,0,0]]],
+  // end ["aquatic-clinic","aqua-intro-thailand"]
+  // ["aquatic-clinic","aqua-life-support"]
+  ["aquatic-clinic","aqua-life-support",0,[[3,5,1,0,1,0,0,0],[5,5,1,0,1,1,0,0],[2,5,1,1,1,1,0,0]]],
+  // end ["aquatic-clinic","aqua-life-support"]
+  // ["aquatic-clinic","aqua-ornamental"]
+  ["aquatic-clinic","aqua-ornamental",0,[[32,5,1,0,1,1,0,0],[6,5,1,1,1,1,0,0]]],
+  // end ["aquatic-clinic","aqua-ornamental"]
+  // ["aquatic-clinic","aqua-shrimp-diseases"]
+  ["aquatic-clinic","aqua-shrimp-diseases",0,[[10,5,1,0,2,0,0,0],[18,5,1,0,2,1,0,0],[12,5,1,1,2,1,0,0]]],
+  // end ["aquatic-clinic","aqua-shrimp-diseases"]
+  // ["aquatic-clinic","aqua-shrimp-immunology"]
+  ["aquatic-clinic","aqua-shrimp-immunology",0,[[19,5,1,0,1,1,0,0],[7,5,1,1,1,1,0,0]]],
+  // end ["aquatic-clinic","aqua-shrimp-immunology"]
+  // ["aquatic-clinic","aqua-toxicology"]
+  ["aquatic-clinic","aqua-toxicology",0,[[6,5,1,0,2,0,0,0]]],
+  // end ["aquatic-clinic","aqua-toxicology"]
+  // ["aquatic-clinic","aqua-turtle"]
+  ["aquatic-clinic","aqua-turtle",0,[[9,5,1,0,1,1,0,0],[6,5,1,1,1,1,0,0]]],
+  // end ["aquatic-clinic","aqua-turtle"]
+  // ["aquatic-clinic","aqua-water-quality"]
+  ["aquatic-clinic","aqua-water-quality",0,[[8,5,1,0,1,0,0,0],[19,5,1,0,1,1,0,0],[3,5,1,1,1,1,0,0]]],
+  // end ["aquatic-clinic","aqua-water-quality"]
+  // ["avian-medicine","avian-adeno"]
+  ["avian-medicine","avian-adeno",0,[[13,5,1,0,1,0,0,0],[10,5,1,0,1,0,["2569-1","midterm"],0],[4,5,1,0,1,1,0,0]]],
+  // end ["avian-medicine","avian-adeno"]
+  // ["avian-medicine","avian-ae"]
+  ["avian-medicine","avian-ae",0,[[6,5,1,0,1,0,0,0],[8,5,1,0,1,0,["2569-1","midterm"],0],[3,5,1,0,1,1,0,0],[3,5,1,1,1,1,0,0]]],
+  // end ["avian-medicine","avian-ae"]
+  // ["avian-medicine","avian-ahra-set"]
+  ["avian-medicine","avian-ahra-set",0,[[17,5,1,0,1,0,0,0],[10,5,1,0,1,0,["2569-1","midterm"],0],[6,5,1,0,1,1,0,0]]],
+  // end ["avian-medicine","avian-ahra-set"]
+  // ["avian-medicine","avian-ai"]
+  ["avian-medicine","avian-ai",0,[[17,5,1,0,1,1,0,0],[7,5,1,1,1,1,0,0]]],
+  // end ["avian-medicine","avian-ai"]
+  // ["avian-medicine","avian-campy"]
+  ["avian-medicine","avian-campy",0,[[2,5,1,0,2,0,0,0],[1,5,1,0,2,1,0,0],[3,5,1,1,2,1,0,0]]],
+  // end ["avian-medicine","avian-campy"]
+  // ["avian-medicine","avian-cia"]
+  ["avian-medicine","avian-cia",0,[[2,5,1,0,1,0,0,0],[8,5,1,0,1,0,["2569-1","midterm"],0],[2,5,1,0,1,1,0,0],[2,5,1,1,1,1,0,0]]],
+  // end ["avian-medicine","avian-cia"]
+  // ["avian-medicine","avian-cocci"]
+  ["avian-medicine","avian-cocci",0,[[3,5,1,0,1,0,0,0],[10,5,1,0,1,0,["2569-1","midterm"],0],[7,5,1,0,1,1,0,0],[8,5,1,1,1,1,0,0]]],
+  // end ["avian-medicine","avian-cocci"]
+  // ["avian-medicine","avian-coli"]
+  ["avian-medicine","avian-coli",0,[[5,5,1,0,1,0,0,0],[9,5,1,0,1,1,0,0],[9,5,1,1,1,1,0,0]]],
+  // end ["avian-medicine","avian-coli"]
+  // ["avian-medicine","avian-coryza"]
+  ["avian-medicine","avian-coryza",0,[[5,5,1,0,1,0,0,0],[13,5,1,0,1,1,0,0]]],
+  // end ["avian-medicine","avian-coryza"]
+  // ["avian-medicine","avian-duck-flavi"]
+  ["avian-medicine","avian-duck-flavi",0,[[1,5,1,0,2,0,0,0],[1,5,1,1,2,1,0,0]]],
+  // end ["avian-medicine","avian-duck-flavi"]
+  // ["avian-medicine","avian-duck-plague"]
+  ["avian-medicine","avian-duck-plague",0,[[1,5,1,0,2,0,0,0],[4,5,1,1,2,1,0,0]]],
+  // end ["avian-medicine","avian-duck-plague"]
+  // ["avian-medicine","avian-dvh"]
+  ["avian-medicine","avian-dvh",0,[[1,5,1,0,2,0,0,0],[10,5,1,1,2,1,0,0]]],
+  // end ["avian-medicine","avian-dvh"]
+  // ["avian-medicine","avian-egg-breakout"]
+  ["avian-medicine","avian-egg-breakout",0,[[1,5,1,0,1,0,0,0]]],
+  // end ["avian-medicine","avian-egg-breakout"]
+  // ["avian-medicine","avian-fowl-cholera"]
+  ["avian-medicine","avian-fowl-cholera",0,[[3,5,1,0,1,0,0,0],[14,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]],
+  // end ["avian-medicine","avian-fowl-cholera"]
+  // ["avian-medicine","avian-goose-parvo"]
+  ["avian-medicine","avian-goose-parvo",0,[[1,5,1,0,2,0,0,0],[6,5,1,1,2,1,0,0]]],
+  // end ["avian-medicine","avian-goose-parvo"]
+  // ["avian-medicine","avian-histomoniasis"]
+  ["avian-medicine","avian-histomoniasis",0,[[2,5,1,0,2,0,0,0]]],
+  // end ["avian-medicine","avian-histomoniasis"]
+  // ["avian-medicine","avian-ib"]
+  ["avian-medicine","avian-ib",0,[[16,5,1,0,1,0,0,0],[3,5,1,0,1,1,0,0]]],
+  // end ["avian-medicine","avian-ib"]
+  // ["avian-medicine","avian-ibd"]
+  ["avian-medicine","avian-ibd",0,[[4,5,1,0,1,0,0,0],[8,5,1,0,1,0,["2569-1","midterm"],0],[4,5,1,0,1,1,0,0],[4,5,1,1,1,1,0,0]]],
+  // end ["avian-medicine","avian-ibd"]
+  // ["avian-medicine","avian-intro"]
+  ["avian-medicine","avian-intro",0,[[3,5,1,0,1,0,0,0],[2,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]],
+  // end ["avian-medicine","avian-intro"]
+  // ["avian-medicine","avian-leuko"]
+  ["avian-medicine","avian-leuko",0,[[2,5,1,0,1,0,0,0],[8,5,1,0,1,0,["2569-1","midterm"],0],[2,5,1,0,1,1,0,0],[2,5,1,1,1,1,0,0]]],
+  // end ["avian-medicine","avian-leuko"]
+  // ["avian-medicine","avian-listeria"]
+  ["avian-medicine","avian-listeria",0,[[1,5,1,0,2,0,0,0],[2,5,1,1,2,1,0,0]]],
+  // end ["avian-medicine","avian-listeria"]
+  // ["avian-medicine","avian-lt"]
+  ["avian-medicine","avian-lt",0,[[14,5,1,0,1,0,0,0],[2,5,1,0,1,1,0,0]]],
+  // end ["avian-medicine","avian-lt"]
+  // ["avian-medicine","avian-malaria"]
+  ["avian-medicine","avian-malaria",0,[[1,5,1,0,1,0,0,0],[8,5,1,0,1,0,["2569-1","midterm"],0],[1,5,1,1,1,1,0,0]]],
+  // end ["avian-medicine","avian-malaria"]
+  // ["avian-medicine","avian-marek"]
+  ["avian-medicine","avian-marek",0,[[1,5,1,0,1,0,0,0],[8,5,1,0,1,0,["2569-1","midterm"],0],[7,5,1,0,1,1,0,0],[10,5,1,1,1,1,0,0]]],
+  // end ["avian-medicine","avian-marek"]
+  // ["avian-medicine","avian-mpv"]
+  ["avian-medicine","avian-mpv",0,[[12,5,1,0,1,0,0,0],[2,5,1,0,1,1,0,0]]],
+  // end ["avian-medicine","avian-mpv"]
+  // ["avian-medicine","avian-myco"]
+  ["avian-medicine","avian-myco",0,[[2,5,1,0,1,0,0,0],[30,5,1,0,1,1,0,0],[3,5,1,1,1,1,0,0]]],
+  // end ["avian-medicine","avian-myco"]
+  // ["avian-medicine","avian-mycosis"]
+  ["avian-medicine","avian-mycosis",0,[[9,5,1,0,2,0,0,0],[23,5,1,1,2,1,0,0]]],
+  // end ["avian-medicine","avian-mycosis"]
+  // ["avian-medicine","avian-nd"]
+  ["avian-medicine","avian-nd",0,[[22,5,1,0,1,0,0,0],[2,5,1,0,1,1,0,0]]],
+  // end ["avian-medicine","avian-nd"]
+  // ["avian-medicine","avian-nds"]
+  ["avian-medicine","avian-nds",0,[[1,5,1,0,2,0,0,0]]],
+  // end ["avian-medicine","avian-nds"]
+  // ["avian-medicine","avian-ne"]
+  ["avian-medicine","avian-ne",0,[[1,5,1,0,1,0,0,0],[9,5,1,0,1,0,["2569-1","midterm"],0],[2,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]],
+  // end ["avian-medicine","avian-ne"]
+  // ["avian-medicine","avian-ort"]
+  ["avian-medicine","avian-ort",0,[[2,5,1,0,2,0,0,0],[7,5,1,1,2,1,0,0]]],
+  // end ["avian-medicine","avian-ort"]
+  // ["avian-medicine","avian-pox"]
+  ["avian-medicine","avian-pox",0,[[13,5,1,0,1,0,0,0],[3,5,1,0,1,1,0,0],[2,5,1,1,1,1,0,0]]],
+  // end ["avian-medicine","avian-pox"]
+  // ["avian-medicine","avian-reo"]
+  ["avian-medicine","avian-reo",0,[[8,5,1,0,1,0,["2569-1","midterm"],0],[4,5,1,0,1,1,0,0],[2,5,1,1,1,1,0,0]]],
+  // end ["avian-medicine","avian-reo"]
+  // ["avian-medicine","avian-rss"]
+  ["avian-medicine","avian-rss",0,[[1,5,1,0,1,0,0,0],[8,5,1,0,1,0,["2569-1","midterm"],0],[1,5,1,0,1,1,0,0]]],
+  // end ["avian-medicine","avian-rss"]
+  // ["avian-medicine","avian-salmonella"]
+  ["avian-medicine","avian-salmonella",0,[[14,5,1,0,1,0,0,0],[10,5,1,0,1,0,["2569-1","midterm"],0],[3,5,1,0,1,1,0,0]]],
+  // end ["avian-medicine","avian-salmonella"]
+  // ["avian-medicine","avian-serology"]
+  ["avian-medicine","avian-serology",0,[[6,5,1,0,2,0,0,0],[2,5,1,0,2,1,0,0],[8,5,1,1,2,1,0,0]]],
+  // end ["avian-medicine","avian-serology"]
+  // ["avian-medicine","avian-vaccine-prog"]
+  ["avian-medicine","avian-vaccine-prog",0,[[2,5,1,0,2,0,0,0],[5,5,1,0,2,1,0,0],[8,5,1,1,2,1,0,0]]],
+  // end ["avian-medicine","avian-vaccine-prog"]
+  // ["biochem-1","lab-carbohydrate"]
+  ["biochem-1","lab-carbohydrate",0,[[7,1,1,1,3,1,0,0]]],
+  // end ["biochem-1","lab-carbohydrate"]
+  // ["biochem-1","lab-chromatography"]
+  ["biochem-1","lab-chromatography",1,[[9,1,1,1,3,1,0,0]]],
+  // end ["biochem-1","lab-chromatography"]
+  // ["biochem-1","lab-dna"]
+  ["biochem-1","lab-dna",0,[[6,1,1,1,3,1,0,0]]],
+  // end ["biochem-1","lab-dna"]
+  // ["biochem-1","lab-electrophoresis"]
+  ["biochem-1","lab-electrophoresis",0,[[12,1,1,1,3,1,0,0]]],
+  // end ["biochem-1","lab-electrophoresis"]
+  // ["biochem-1","lab-equipment"]
+  ["biochem-1","lab-equipment",0,[[5,1,1,1,3,1,0,0]]],
+  // end ["biochem-1","lab-equipment"]
+  // ["biochem-1","lab-lipid"]
+  ["biochem-1","lab-lipid",0,[[10,1,1,1,3,1,0,0]]],
+  // end ["biochem-1","lab-lipid"]
+  // ["biochem-1","lab-molecular"]
+  ["biochem-1","lab-molecular",0,[[16,1,1,1,3,1,0,0]]],
+  // end ["biochem-1","lab-molecular"]
+  // ["biochem-1","lab-ph-buffer"]
+  ["biochem-1","lab-ph-buffer",0,[[8,1,1,1,3,1,0,0]]],
+  // end ["biochem-1","lab-ph-buffer"]
+  // ["biochem-1","lab-protein"]
+  ["biochem-1","lab-protein",0,[[9,1,1,1,3,1,0,0]]],
+  // end ["biochem-1","lab-protein"]
+  // ["biochem-1","lab-spectrophotometry"]
+  ["biochem-1","lab-spectrophotometry",0,[[10,1,1,1,3,1,0,0]]],
+  // end ["biochem-1","lab-spectrophotometry"]
+  // ["biochem-1","lect-carbohydrate"]
+  ["biochem-1","lect-carbohydrate",0,[[12,1,1,1,3,1,0,0]]],
+  // end ["biochem-1","lect-carbohydrate"]
+  // ["biochem-1","lect-drug-delivery"]
+  ["biochem-1","lect-drug-delivery",0,[[11,1,1,1,3,1,0,0]]],
+  // end ["biochem-1","lect-drug-delivery"]
+  // ["biochem-1","lect-enzyme"]
+  ["biochem-1","lect-enzyme",0,[[24,1,1,1,3,1,0,0]]],
+  // end ["biochem-1","lect-enzyme"]
+  // ["biochem-1","lect-intro"]
+  ["biochem-1","lect-intro",0,[[13,1,1,1,3,1,0,0]]],
+  // end ["biochem-1","lect-intro"]
+  // ["biochem-1","lect-lipid"]
+  ["biochem-1","lect-lipid",0,[[17,1,1,1,3,1,0,0]]],
+  // end ["biochem-1","lect-lipid"]
+  // ["biochem-1","lect-membrane"]
+  ["biochem-1","lect-membrane",0,[[5,1,1,1,3,1,0,0]]],
+  // end ["biochem-1","lect-membrane"]
+  // ["biochem-1","lect-metabolism"]
+  ["biochem-1","lect-metabolism",0,[[9,1,1,1,3,1,0,0]]],
+  // end ["biochem-1","lect-metabolism"]
+  // ["biochem-1","lect-nucleic-acid"]
+  ["biochem-1","lect-nucleic-acid",0,[[61,1,1,1,3,1,0,0]]],
+  // end ["biochem-1","lect-nucleic-acid"]
+  // ["biochem-1","lect-protein"]
+  ["biochem-1","lect-protein",0,[[27,1,1,1,3,1,0,0]]],
+  // end ["biochem-1","lect-protein"]
+  // ["cliapprum","gi-surgery-sawita"]
+  ["cliapprum","gi-surgery-sawita",0,[[9,4,1,0,3,0,0,0],[3,4,1,1,3,1,0,0]]],
+  // end ["cliapprum","gi-surgery-sawita"]
+  // ["cliapprum","gi-vdtt"]
+  ["cliapprum","gi-vdtt",0,[[5,4,1,0,3,0,0,0],[1,4,1,1,3,1,0,0]]],
+  // end ["cliapprum","gi-vdtt"]
+  // ["cliapprum","hoof-health-fleet"]
+  ["cliapprum","hoof-health-fleet",0,[[5,4,1,0,3,0,0,0],[4,4,1,1,3,1,0,0]]],
+  // end ["cliapprum","hoof-health-fleet"]
+  // ["cliapprum","mahahon-cliapprum-anes"]
+  ["cliapprum","mahahon-cliapprum-anes",0,[[13,4,1,0,3,0,0,0],[2,4,1,0,3,1,0,0]]],
+  // end ["cliapprum","mahahon-cliapprum-anes"]
+  // ["cliapprum","mahahon-cliapprum-givdtt"]
+  ["cliapprum","mahahon-cliapprum-givdtt",0,[[15,4,1,0,3,0,0,0]]],
+  // end ["cliapprum","mahahon-cliapprum-givdtt"]
+  // ["cliapprum","mahahon-cliapprum-piyanat-hoof"]
+  ["cliapprum","mahahon-cliapprum-piyanat-hoof",0,[[15,4,1,0,3,0,0,0]]],
+  // end ["cliapprum","mahahon-cliapprum-piyanat-hoof"]
+  // ["cliapprum","mahahon-cliapprum-sawita-gi"]
+  ["cliapprum","mahahon-cliapprum-sawita-gi",0,[[30,4,1,0,3,0,0,0]]],
+  // end ["cliapprum","mahahon-cliapprum-sawita-gi"]
+  // ["cliapprum","mahahon-cliapprum-sawita-respi"]
+  ["cliapprum","mahahon-cliapprum-sawita-respi",0,[[15,4,1,0,3,0,0,0]]],
+  // end ["cliapprum","mahahon-cliapprum-sawita-respi"]
+  // ["cliapprum","metabolism-nutrition"]
+  ["cliapprum","metabolism-nutrition",0,[[9,4,1,0,3,0,0,0]]],
+  // end ["cliapprum","metabolism-nutrition"]
+  // ["cliapprum","ruminant-anesthesia"]
+  ["cliapprum","ruminant-anesthesia",0,[[8,4,1,0,3,0,0,0]]],
+  // end ["cliapprum","ruminant-anesthesia"]
+  // ["cliapprum","uncertain-scope"]
+  ["cliapprum","uncertain-scope",0,[[2,4,0,1,0,0,0,0]]],
+  // end ["cliapprum","uncertain-scope"]
+  // ["com1","acute-chf-collapse"]
+  ["com1","acute-chf-collapse",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com1","acute-chf-collapse"]
+  // ["com1","aki-stages"]
+  ["com1","aki-stages",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com1","aki-stages"]
+  // ["com1","anemia-regen-vs-non"]
+  ["com1","anemia-regen-vs-non",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["com1","anemia-regen-vs-non"]
+  // ["com1","aspiration-pneumonia"]
+  ["com1","aspiration-pneumonia",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com1","aspiration-pneumonia"]
+  // ["com1","blood-transfusion"]
+  ["com1","blood-transfusion",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["com1","blood-transfusion"]
+  // ["com1","bone-marrow-biopsy"]
+  ["com1","bone-marrow-biopsy",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["com1","bone-marrow-biopsy"]
+  // ["com1","brachycephalic-syndrome"]
+  ["com1","brachycephalic-syndrome",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com1","brachycephalic-syndrome"]
+  // ["com1","cardiogenic-shock"]
+  ["com1","cardiogenic-shock",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com1","cardiogenic-shock"]
+  // ["com1","ckd-complications"]
+  ["com1","ckd-complications",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com1","ckd-complications"]
+  // ["com1","ckd-iris"]
+  ["com1","ckd-iris",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com1","ckd-iris"]
+  // ["com1","ckd-proteinuria-rx"]
+  ["com1","ckd-proteinuria-rx",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com1","ckd-proteinuria-rx"]
+  // ["com1","dcm-management"]
+  ["com1","dcm-management",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com1","dcm-management"]
+  // ["com1","echocardiography"]
+  ["com1","echocardiography",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com1","echocardiography"]
+  // ["com1","ectopic-ureter"]
+  ["com1","ectopic-ureter",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com1","ectopic-ureter"]
+  // ["com1","ekg-arrhythmia"]
+  ["com1","ekg-arrhythmia",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com1","ekg-arrhythmia"]
+  // ["com1","feline-asthma"]
+  ["com1","feline-asthma",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com1","feline-asthma"]
+  // ["com1","feline-flutd"]
+  ["com1","feline-flutd",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com1","feline-flutd"]
+  // ["com1","feline-hypertension"]
+  ["com1","feline-hypertension",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com1","feline-hypertension"]
+  // ["com1","hcm-feline"]
+  ["com1","hcm-feline",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com1","hcm-feline"]
+  // ["com1","laryngeal-paralysis"]
+  ["com1","laryngeal-paralysis",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com1","laryngeal-paralysis"]
+  // ["com1","left-sided-heart-failure"]
+  ["com1","left-sided-heart-failure",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com1","left-sided-heart-failure"]
+  // ["com1","mitral-valve-disease"]
+  ["com1","mitral-valve-disease",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com1","mitral-valve-disease"]
+  // ["com1","prerenal-azotemia"]
+  ["com1","prerenal-azotemia",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com1","prerenal-azotemia"]
+  // ["com1","pulmonary-thromboembolism"]
+  ["com1","pulmonary-thromboembolism",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com1","pulmonary-thromboembolism"]
+  // ["com1","respiratory-pattern"]
+  ["com1","respiratory-pattern",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com1","respiratory-pattern"]
+  // ["com1","splenectomy-indication"]
+  ["com1","splenectomy-indication",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["com1","splenectomy-indication"]
+  // ["com1","tetralogy-of-fallot"]
+  ["com1","tetralogy-of-fallot",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com1","tetralogy-of-fallot"]
+  // ["com1","tracheal-collapse"]
+  ["com1","tracheal-collapse",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com1","tracheal-collapse"]
+  // ["com1","urethral-obstruction"]
+  ["com1","urethral-obstruction",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com1","urethral-obstruction"]
+  // ["com1","urolith-types"]
+  ["com1","urolith-types",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com1","urolith-types"]
+  // ["com1","vsd-tricuspid"]
+  ["com1","vsd-tricuspid",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com1","vsd-tricuspid"]
+  // ["com2","arthrodesis"]
+  ["com2","arthrodesis",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com2","arthrodesis"]
+  // ["com2","ccl-conservative-tx"]
+  ["com2","ccl-conservative-tx",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com2","ccl-conservative-tx"]
+  // ["com2","ccl-surgery"]
+  ["com2","ccl-surgery",0,[[2,4,1,1,2,1,0,0]]],
+  // end ["com2","ccl-surgery"]
+  // ["com2","cranial-cruciate-ligament"]
+  ["com2","cranial-cruciate-ligament",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com2","cranial-cruciate-ligament"]
+  // ["com2","developmental-orthopedic-disease"]
+  ["com2","developmental-orthopedic-disease",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com2","developmental-orthopedic-disease"]
+  // ["com2","elbow-dysplasia"]
+  ["com2","elbow-dysplasia",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com2","elbow-dysplasia"]
+  // ["com2","fracture-classification"]
+  ["com2","fracture-classification",0,[[1,4,1,1,1,1,0,0]]],
+  // end ["com2","fracture-classification"]
+  // ["com2","fracture-management"]
+  ["com2","fracture-management",0,[[2,4,1,1,1,1,0,0]]],
+  // end ["com2","fracture-management"]
+  // ["com2","hip-dysplasia"]
+  ["com2","hip-dysplasia",0,[[3,4,1,1,2,1,0,0]]],
+  // end ["com2","hip-dysplasia"]
+  // ["com2","hip-imaging"]
+  ["com2","hip-imaging",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com2","hip-imaging"]
+  // ["com2","hip-luxation"]
+  ["com2","hip-luxation",0,[[2,4,1,1,2,1,0,0]]],
+  // end ["com2","hip-luxation"]
+  // ["com2","hip-surgery"]
+  ["com2","hip-surgery",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com2","hip-surgery"]
+  // ["com2","legg-calve-perthes"]
+  ["com2","legg-calve-perthes",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com2","legg-calve-perthes"]
+  // ["com2","limb-amputation"]
+  ["com2","limb-amputation",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com2","limb-amputation"]
+  // ["com2","meniscal-injury"]
+  ["com2","meniscal-injury",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com2","meniscal-injury"]
+  // ["com2","metabolic-orthopedic-disease"]
+  ["com2","metabolic-orthopedic-disease",0,[[2,4,1,1,2,1,0,0]]],
+  // end ["com2","metabolic-orthopedic-disease"]
+  // ["com2","oral-trauma"]
+  ["com2","oral-trauma",0,[[11,4,1,1,3,1,0,0]]],
+  // end ["com2","oral-trauma"]
+  // ["com2","osteochondrosis"]
+  ["com2","osteochondrosis",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com2","osteochondrosis"]
+  // ["com2","patellar-luxation"]
+  ["com2","patellar-luxation",0,[[2,4,1,1,2,1,0,0]]],
+  // end ["com2","patellar-luxation"]
+  // ["com2","rehabilitation"]
+  ["com2","rehabilitation",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com2","rehabilitation"]
+  // ["com2","shoulder-luxation"]
+  ["com2","shoulder-luxation",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com2","shoulder-luxation"]
+  // ["com2","spinal-imaging"]
+  ["com2","spinal-imaging",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com2","spinal-imaging"]
+  // ["com2","spinal-trauma"]
+  ["com2","spinal-trauma",0,[[2,4,1,1,2,1,0,0]]],
+  // end ["com2","spinal-trauma"]
+  // ["com2","stifle-exam"]
+  ["com2","stifle-exam",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["com2","stifle-exam"]
+  // ["com3","acute-abdomen"]
+  ["com3","acute-abdomen",0,[[10,4,1,0,3,0,0,0],[9,4,1,1,3,1,0,0]]],
+  // end ["com3","acute-abdomen"]
+  // ["com3","ai-vet"]
+  ["com3","ai-vet",0,[[8,4,1,0,3,0,0,0]]],
+  // end ["com3","ai-vet"]
+  // ["com3","ataxia-tremor"]
+  ["com3","ataxia-tremor",0,[[11,4,1,0,3,0,0,0],[12,4,1,1,3,1,0,0]]],
+  // end ["com3","ataxia-tremor"]
+  // ["com3","cataract"]
+  ["com3","cataract",0,[[2,4,1,0,3,0,0,0]]],
+  // end ["com3","cataract"]
+  // ["com3","cornea"]
+  ["com3","cornea",0,[[5,4,1,0,3,0,0,0]]],
+  // end ["com3","cornea"]
+  // ["com3","cpcr"]
+  ["com3","cpcr",0,[[12,4,1,0,3,0,0,0],[8,4,1,1,3,1,0,0]]],
+  // end ["com3","cpcr"]
+  // ["com3","ear"]
+  ["com3","ear",0,[[2,4,1,0,3,0,0,0]]],
+  // end ["com3","ear"]
+  // ["com3","er-anes"]
+  ["com3","er-anes",0,[[11,4,1,0,3,0,0,0],[6,4,1,1,3,1,0,0]]],
+  // end ["com3","er-anes"]
+  // ["com3","glaucoma"]
+  ["com3","glaucoma",0,[[3,4,1,0,3,0,0,0]]],
+  // end ["com3","glaucoma"]
+  // ["com3","imaging"]
+  ["com3","imaging",0,[[4,4,1,0,3,0,0,0]]],
+  // end ["com3","imaging"]
+  // ["com3","metabolic-er"]
+  ["com3","metabolic-er",0,[[12,4,1,0,3,0,0,0],[6,4,1,1,3,1,0,0]]],
+  // end ["com3","metabolic-er"]
+  // ["com3","neuro-er"]
+  ["com3","neuro-er",0,[[10,4,1,0,3,0,0,0],[6,4,1,1,3,1,0,0]]],
+  // end ["com3","neuro-er"]
+  // ["com3","neuro-exam"]
+  ["com3","neuro-exam",0,[[12,4,1,0,3,0,0,0]]],
+  // end ["com3","neuro-exam"]
+  // ["com3","nutrition"]
+  ["com3","nutrition",0,[[8,4,1,0,3,0,0,0],[11,4,1,1,3,1,0,0]]],
+  // end ["com3","nutrition"]
+  // ["com3","ophthal-exam"]
+  ["com3","ophthal-exam",0,[[3,4,1,0,3,0,0,0]]],
+  // end ["com3","ophthal-exam"]
+  // ["com3","resp-cv-er"]
+  ["com3","resp-cv-er",0,[[11,4,1,0,3,0,0,0],[12,4,1,1,3,1,0,0]]],
+  // end ["com3","resp-cv-er"]
+  // ["com3","retina"]
+  ["com3","retina",0,[[3,4,1,0,3,0,0,0]]],
+  // end ["com3","retina"]
+  // ["com3","seizure"]
+  ["com3","seizure",0,[[13,4,1,0,3,0,0,0],[10,4,1,1,3,1,0,0]]],
+  // end ["com3","seizure"]
+  // ["com3","shock"]
+  ["com3","shock",0,[[11,4,1,0,3,0,0,0],[11,4,1,1,3,1,0,0]]],
+  // end ["com3","shock"]
+  // ["com3","special-prep"]
+  ["com3","special-prep",0,[[68,4,1,1,3,1,0,0]]],
+  // end ["com3","special-prep"]
+  // ["com3","spinal"]
+  ["com3","spinal",0,[[12,4,1,0,3,0,0,0],[14,4,1,1,3,1,0,0]]],
+  // end ["com3","spinal"]
+  // ["com3","triage"]
+  ["com3","triage",0,[[10,4,1,0,3,0,0,0],[5,4,1,1,3,1,0,0]]],
+  // end ["com3","triage"]
+  // ["com3","uveitis"]
+  ["com3","uveitis",0,[[8,4,1,0,3,0,0,0]]],
+  // end ["com3","uveitis"]
+  // ["com4","__unassigned__"]
+  ["com4","__unassigned__",0,[[4,4,1,1,3,1,0,0]]],
+  // end ["com4","__unassigned__"]
+  // ["com4","derm-allergic"]
+  ["com4","derm-allergic",0,[[17,4,1,0,3,0,0,0],[1,4,1,1,3,1,0,0]]],
+  // end ["com4","derm-allergic"]
+  // ["com4","derm-autoimmune"]
+  ["com4","derm-autoimmune",0,[[18,4,1,0,3,0,0,0]]],
+  // end ["com4","derm-autoimmune"]
+  // ["com4","derm-bacterial"]
+  ["com4","derm-bacterial",0,[[16,4,1,0,3,0,0,0]]],
+  // end ["com4","derm-bacterial"]
+  // ["com4","derm-endocrine"]
+  ["com4","derm-endocrine",0,[[26,4,1,0,3,0,0,0]]],
+  // end ["com4","derm-endocrine"]
+  // ["com4","derm-fungal"]
+  ["com4","derm-fungal",0,[[16,4,1,0,3,0,0,0]]],
+  // end ["com4","derm-fungal"]
+  // ["com4","derm-intro"]
+  ["com4","derm-intro",0,[[9,4,1,0,3,0,0,0]]],
+  // end ["com4","derm-intro"]
+  // ["com4","derm-nutrition"]
+  ["com4","derm-nutrition",0,[[13,4,1,0,3,0,0,0]]],
+  // end ["com4","derm-nutrition"]
+  // ["com4","derm-parasitic"]
+  ["com4","derm-parasitic",0,[[14,4,1,0,3,0,0,0],[1,4,1,1,3,1,0,0]]],
+  // end ["com4","derm-parasitic"]
+  // ["com4","endo-addison"]
+  ["com4","endo-addison",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["com4","endo-addison"]
+  // ["com4","endo-cushing"]
+  ["com4","endo-cushing",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["com4","endo-cushing"]
+  // ["com4","endo-dm"]
+  ["com4","endo-dm",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["com4","endo-dm"]
+  // ["com4","ibd"]
+  ["com4","ibd",0,[[22,4,1,0,3,0,0,0],[5,4,1,1,3,1,0,0]]],
+  // end ["com4","ibd"]
+  // ["com4","imha"]
+  ["com4","imha",0,[[29,4,1,0,3,0,0,0],[4,4,1,1,3,1,0,0]]],
+  // end ["com4","imha"]
+  // ["com4","immune-drugs"]
+  ["com4","immune-drugs",0,[[15,4,1,0,3,0,0,0]]],
+  // end ["com4","immune-drugs"]
+  // ["com4","peds-geri"]
+  ["com4","peds-geri",0,[[41,4,1,0,3,0,0,0],[11,4,1,1,3,1,0,0]]],
+  // end ["com4","peds-geri"]
+  // ["com4","sle"]
+  ["com4","sle",0,[[22,4,1,0,3,0,0,0],[4,4,1,1,3,1,0,0]]],
+  // end ["com4","sle"]
+  // ["com5","cve"]
+  ["com5","cve",0,[[19,4,1,0,3,0,0,0],[3,4,1,1,3,1,0,0]]],
+  // end ["com5","cve"]
+  // ["com5","feline-uri"]
+  ["com5","feline-uri",0,[[20,4,1,0,3,0,0,0]]],
+  // end ["com5","feline-uri"]
+  // ["com5","gi-protozoa"]
+  ["com5","gi-protozoa",0,[[22,4,1,0,3,0,0,0],[1,4,1,1,3,1,0,0]]],
+  // end ["com5","gi-protozoa"]
+  // ["com5","rabies"]
+  ["com5","rabies",0,[[19,4,1,0,3,0,0,0]]],
+  // end ["com5","rabies"]
+  // ["com5","sporo-crypto"]
+  ["com5","sporo-crypto",0,[[18,4,1,0,3,0,0,0],[4,4,1,1,3,1,0,0]]],
+  // end ["com5","sporo-crypto"]
+  // ["com5","vaccine"]
+  ["com5","vaccine",0,[[21,4,1,0,3,0,0,0],[2,4,1,1,3,1,0,0]]],
+  // end ["com5","vaccine"]
+  // ["comp-repro-clinic","comp-repro-anatomy-cycle"]
+  ["comp-repro-clinic","comp-repro-anatomy-cycle",0,[[4,5,1,1,3,1,0,0]]],
+  // end ["comp-repro-clinic","comp-repro-anatomy-cycle"]
+  // ["comp-repro-clinic","comp-repro-art"]
+  ["comp-repro-clinic","comp-repro-art",0,[[1,5,1,1,3,1,0,0]]],
+  // end ["comp-repro-clinic","comp-repro-art"]
+  // ["comp-repro-clinic","comp-repro-cytology"]
+  ["comp-repro-clinic","comp-repro-cytology",0,[[6,5,1,1,3,1,0,0]]],
+  // end ["comp-repro-clinic","comp-repro-cytology"]
+  // ["comp-repro-clinic","comp-repro-infect"]
+  ["comp-repro-clinic","comp-repro-infect",0,[[1,5,1,1,3,1,0,0]]],
+  // end ["comp-repro-clinic","comp-repro-infect"]
+  // ["comp-repro-clinic","comp-repro-infertility"]
+  ["comp-repro-clinic","comp-repro-infertility",0,[[2,5,1,1,3,1,0,0]]],
+  // end ["comp-repro-clinic","comp-repro-infertility"]
+  // ["comp-repro-clinic","comp-repro-male"]
+  ["comp-repro-clinic","comp-repro-male",0,[[11,5,1,1,3,1,0,0]]],
+  // end ["comp-repro-clinic","comp-repro-male"]
+  // ["comp-repro-clinic","comp-repro-postpartum"]
+  ["comp-repro-clinic","comp-repro-postpartum",0,[[1,5,1,1,3,1,0,0]]],
+  // end ["comp-repro-clinic","comp-repro-postpartum"]
+  // ["comp-repro-clinic","comp-repro-pregnancy"]
+  ["comp-repro-clinic","comp-repro-pregnancy",0,[[7,5,1,1,3,1,0,0]]],
+  // end ["comp-repro-clinic","comp-repro-pregnancy"]
+  // ["comp-repro-clinic","comp-repro-surgery"]
+  ["comp-repro-clinic","comp-repro-surgery",0,[[15,5,1,1,3,1,0,0]]],
+  // end ["comp-repro-clinic","comp-repro-surgery"]
+  // ["engprof","academic-writing"]
+  ["engprof","academic-writing",0,[[3,4,1,0,3,0,0,0]]],
+  // end ["engprof","academic-writing"]
+  // ["engprof","paraphrasing"]
+  ["engprof","paraphrasing",0,[[4,4,1,0,3,0,0,0],[1,4,1,1,3,1,0,0]]],
+  // end ["engprof","paraphrasing"]
+  // ["engprof","research-design"]
+  ["engprof","research-design",0,[[10,4,1,0,3,0,0,0]]],
+  // end ["engprof","research-design"]
+  // ["engprof","research-paper-structure"]
+  ["engprof","research-paper-structure",0,[[45,4,1,0,3,0,0,0]]],
+  // end ["engprof","research-paper-structure"]
+  // ["engprof","summary-writing"]
+  ["engprof","summary-writing",0,[[7,4,1,0,3,0,0,0]]],
+  // end ["engprof","summary-writing"]
+  // ["engprof1","listening-therapy-dogs"]
+  ["engprof1","listening-therapy-dogs",0,[[5,4,1,0,2,0,0,0]]],
+  // end ["engprof1","listening-therapy-dogs"]
+  // ["engprof1","listening-vet-patient-consult"]
+  ["engprof1","listening-vet-patient-consult",0,[[3,4,1,0,2,0,0,0]]],
+  // end ["engprof1","listening-vet-patient-consult"]
+  // ["engprof1","listening-vet-shortage-news"]
+  ["engprof1","listening-vet-shortage-news",0,[[6,4,1,0,2,0,0,0]]],
+  // end ["engprof1","listening-vet-shortage-news"]
+  // ["engprof1","pronunciation-focus-meaning"]
+  ["engprof1","pronunciation-focus-meaning",0,[[1,4,1,0,2,0,0,0]]],
+  // end ["engprof1","pronunciation-focus-meaning"]
+  // ["engprof1","pronunciation-stress-function"]
+  ["engprof1","pronunciation-stress-function",0,[[3,4,1,0,2,0,0,0]]],
+  // end ["engprof1","pronunciation-stress-function"]
+  // ["engprof1","pronunciation-word-stress"]
+  ["engprof1","pronunciation-word-stress",0,[[2,4,1,0,2,0,0,0]]],
+  // end ["engprof1","pronunciation-word-stress"]
+  // ["engprof1","unit3-catnip-lecture"]
+  ["engprof1","unit3-catnip-lecture",0,[[1,4,1,0,2,0,0,0]]],
+  // end ["engprof1","unit3-catnip-lecture"]
+  // ["engprof1","unit3-cornell-method"]
+  ["engprof1","unit3-cornell-method",0,[[1,4,1,0,2,0,0,0]]],
+  // end ["engprof1","unit3-cornell-method"]
+  // ["engprof1","unit3-lecturing-styles"]
+  ["engprof1","unit3-lecturing-styles",0,[[1,4,1,0,2,0,0,0]]],
+  // end ["engprof1","unit3-lecturing-styles"]
+  // ["engprof1","unit3-note-taking-cues"]
+  ["engprof1","unit3-note-taking-cues",0,[[2,4,1,0,2,0,0,0]]],
+  // end ["engprof1","unit3-note-taking-cues"]
+  // ["engprof1","unit3-note-taking-symbols"]
+  ["engprof1","unit3-note-taking-symbols",0,[[1,4,1,0,2,0,0,0]]],
+  // end ["engprof1","unit3-note-taking-symbols"]
+  // ["engprof1","unit3-pain-medication-lecture"]
+  ["engprof1","unit3-pain-medication-lecture",0,[[2,4,1,0,2,0,0,0]]],
+  // end ["engprof1","unit3-pain-medication-lecture"]
+  // ["engprof1","unit3-sea-urchin-lecture"]
+  ["engprof1","unit3-sea-urchin-lecture",0,[[2,4,1,0,2,0,0,0]]],
+  // end ["engprof1","unit3-sea-urchin-lecture"]
+  // ["epidemiology","epidem-applied-stats"]
+  ["epidemiology","epidem-applied-stats",0,[[21,5,1,0,2,1,0,0],[5,5,1,1,2,1,0,0]]],
+  // end ["epidemiology","epidem-applied-stats"]
+  // ["epidemiology","epidem-basic-concepts"]
+  ["epidemiology","epidem-basic-concepts",0,[[9,5,1,0,2,0,0,0],[16,5,1,0,2,1,0,0]]],
+  // end ["epidemiology","epidem-basic-concepts"]
+  // ["epidemiology","epidem-causation"]
+  ["epidemiology","epidem-causation",0,[[7,5,1,0,2,0,0,0],[12,5,1,0,2,1,0,0],[4,5,1,1,2,1,0,0]]],
+  // end ["epidemiology","epidem-causation"]
+  // ["epidemiology","epidem-control-prevention"]
+  ["epidemiology","epidem-control-prevention",0,[[1,5,1,0,2,1,0,0],[10,5,1,1,2,1,0,0]]],
+  // end ["epidemiology","epidem-control-prevention"]
+  // ["epidemiology","epidem-data-analysis"]
+  ["epidemiology","epidem-data-analysis",0,[[11,5,1,0,2,1,0,0],[6,5,1,1,2,1,0,0]]],
+  // end ["epidemiology","epidem-data-analysis"]
+  // ["epidemiology","epidem-disease-frequency"]
+  ["epidemiology","epidem-disease-frequency",0,[[8,5,1,0,2,0,["2569-1","final"],0],[11,5,1,0,2,1,0,0],[1,5,1,0,2,1,["2569-1","final"],0],[7,5,1,1,2,1,0,0]]],
+  // end ["epidemiology","epidem-disease-frequency"]
+  // ["epidemiology","epidem-disease-transmission"]
+  ["epidemiology","epidem-disease-transmission",0,[[13,5,1,0,2,0,0,0],[13,5,1,0,2,1,0,0],[1,5,1,1,2,1,0,0]]],
+  // end ["epidemiology","epidem-disease-transmission"]
+  // ["epidemiology","epidem-dx-screening"]
+  ["epidemiology","epidem-dx-screening",0,[[6,5,1,0,2,0,["2569-1","final"],0],[16,5,1,0,2,1,0,0],[5,5,1,0,2,1,["2569-1","final"],0],[7,5,1,1,2,1,0,0]]],
+  // end ["epidemiology","epidem-dx-screening"]
+  // ["epidemiology","epidem-fmd-strategy"]
+  ["epidemiology","epidem-fmd-strategy",0,[[3,5,1,0,0,1,0,0]]],
+  // end ["epidemiology","epidem-fmd-strategy"]
+  // ["epidemiology","epidem-govt-policy"]
+  ["epidemiology","epidem-govt-policy",0,[[28,5,1,0,2,1,0,0]]],
+  // end ["epidemiology","epidem-govt-policy"]
+  // ["epidemiology","epidem-intro"]
+  ["epidemiology","epidem-intro",0,[[2,5,1,0,2,0,0,0],[5,5,1,0,2,1,0,0]]],
+  // end ["epidemiology","epidem-intro"]
+  // ["epidemiology","epidem-lumpy-skin"]
+  ["epidemiology","epidem-lumpy-skin",0,[[11,5,1,0,0,1,0,0]]],
+  // end ["epidemiology","epidem-lumpy-skin"]
+  // ["epidemiology","epidem-observational-study"]
+  ["epidemiology","epidem-observational-study",0,[[18,5,1,0,2,1,0,0],[13,5,1,1,2,1,0,0]]],
+  // end ["epidemiology","epidem-observational-study"]
+  // ["epidemiology","epidem-outbreak-investigation"]
+  ["epidemiology","epidem-outbreak-investigation",0,[[5,5,1,0,2,0,0,0],[28,5,1,0,2,1,0,0],[8,5,1,1,2,1,0,0]]],
+  // end ["epidemiology","epidem-outbreak-investigation"]
+  // ["epidemiology","epidem-ppp"]
+  ["epidemiology","epidem-ppp",0,[[3,5,1,0,0,1,0,0]]],
+  // end ["epidemiology","epidem-ppp"]
+  // ["epidemiology","epidem-sample-size"]
+  ["epidemiology","epidem-sample-size",0,[[11,5,1,0,2,0,["2569-1","final"],0],[2,5,1,0,2,1,["2569-1","final"],0],[1,5,1,1,2,1,0,0]]],
+  // end ["epidemiology","epidem-sample-size"]
+  // ["epidemiology","epidem-software"]
+  ["epidemiology","epidem-software",0,[[3,5,1,0,2,1,0,0]]],
+  // end ["epidemiology","epidem-software"]
+  // ["epidemiology","epidem-surveillance"]
+  ["epidemiology","epidem-surveillance",0,[[8,5,1,0,2,0,0,0],[20,5,1,0,2,1,0,0],[4,5,1,1,2,1,0,0]]],
+  // end ["epidemiology","epidem-surveillance"]
+  // ["epidemiology","epidem-test-agreement"]
+  ["epidemiology","epidem-test-agreement",0,[[6,5,1,0,2,0,["2569-1","final"],0],[2,5,1,0,2,1,0,0],[1,5,1,0,2,1,["2569-1","final"],0]]],
+  // end ["epidemiology","epidem-test-agreement"]
+  // ["equine-medicine","equine-anesthesia"]
+  ["equine-medicine","equine-anesthesia",0,[[6,5,1,0,2,0,0,0],[11,5,1,1,2,1,0,0]]],
+  // end ["equine-medicine","equine-anesthesia"]
+  // ["equine-medicine","equine-colic-bestfit"]
+  ["equine-medicine","equine-colic-bestfit",0,[[15,5,1,0,3,0,0,0],[14,5,1,0,3,0,["2569-1","both"],0],[6,5,1,0,3,1,0,0],[13,5,1,1,3,1,0,0]]],
+  // end ["equine-medicine","equine-colic-bestfit"]
+  // ["equine-medicine","equine-colic-surgery"]
+  ["equine-medicine","equine-colic-surgery",0,[[4,5,1,1,0,1,0,0]]],
+  // end ["equine-medicine","equine-colic-surgery"]
+  // ["equine-medicine","equine-dentistry"]
+  ["equine-medicine","equine-dentistry",0,[[7,5,1,0,3,0,0,0],[7,5,1,0,3,1,0,0],[26,5,1,1,3,1,0,0]]],
+  // end ["equine-medicine","equine-dentistry"]
+  // ["equine-medicine","equine-derm"]
+  ["equine-medicine","equine-derm",0,[[25,5,1,0,2,0,0,0],[4,5,1,0,2,1,0,0]]],
+  // end ["equine-medicine","equine-derm"]
+  // ["equine-medicine","equine-gi"]
+  ["equine-medicine","equine-gi",0,[[19,5,1,0,3,0,0,0],[8,5,1,0,3,0,["2569-1","both"],0],[6,5,1,0,3,1,0,0],[6,5,1,1,3,1,0,0]]],
+  // end ["equine-medicine","equine-gi"]
+  // ["equine-medicine","equine-hoof"]
+  ["equine-medicine","equine-hoof",0,[[5,5,1,0,2,0,0,0]]],
+  // end ["equine-medicine","equine-hoof"]
+  // ["equine-medicine","equine-infectious"]
+  ["equine-medicine","equine-infectious",0,[[5,5,1,0,2,0,0,0],[8,5,1,1,2,1,0,0]]],
+  // end ["equine-medicine","equine-infectious"]
+  // ["equine-medicine","equine-intro"]
+  ["equine-medicine","equine-intro",0,[[19,5,1,0,3,0,0,0],[8,5,1,0,3,0,["2569-1","both"],0],[29,5,1,0,3,1,0,0],[31,5,1,1,3,1,0,0]]],
+  // end ["equine-medicine","equine-intro"]
+  // ["equine-medicine","equine-lameness"]
+  ["equine-medicine","equine-lameness",0,[[18,5,1,1,2,1,0,0]]],
+  // end ["equine-medicine","equine-lameness"]
+  // ["equine-medicine","equine-nutrition"]
+  ["equine-medicine","equine-nutrition",0,[[31,5,1,0,3,0,0,0],[12,5,1,0,3,1,0,0],[14,5,1,1,3,1,0,0]]],
+  // end ["equine-medicine","equine-nutrition"]
+  // ["equine-medicine","equine-ophth"]
+  ["equine-medicine","equine-ophth",0,[[5,5,1,0,2,0,0,0],[17,5,1,1,2,1,0,0]]],
+  // end ["equine-medicine","equine-ophth"]
+  // ["equine-medicine","equine-parasites"]
+  ["equine-medicine","equine-parasites",0,[[32,5,1,0,3,0,0,0],[19,5,1,0,3,1,0,0],[24,5,1,1,3,1,0,0]]],
+  // end ["equine-medicine","equine-parasites"]
+  // ["equine-medicine","equine-poa"]
+  ["equine-medicine","equine-poa",0,[[3,5,1,0,2,0,0,0],[10,5,1,0,2,1,0,0],[22,5,1,1,2,1,0,0]]],
+  // end ["equine-medicine","equine-poa"]
+  // ["equine-medicine","equine-pythium"]
+  ["equine-medicine","equine-pythium",0,[[7,5,1,0,2,0,0,0]]],
+  // end ["equine-medicine","equine-pythium"]
+  // ["equine-medicine","equine-respi"]
+  ["equine-medicine","equine-respi",0,[[7,5,1,0,3,0,0,0],[25,5,1,0,3,1,0,0],[12,5,1,1,3,1,0,0]]],
+  // end ["equine-medicine","equine-respi"]
+  // ["equine-medicine","equine-surgery-wound"]
+  ["equine-medicine","equine-surgery-wound",0,[[19,5,1,0,2,0,0,0],[5,5,1,0,2,1,0,0]]],
+  // end ["equine-medicine","equine-surgery-wound"]
+  // ["equine-medicine","equine-tendon"]
+  ["equine-medicine","equine-tendon",0,[[5,5,1,0,2,0,0,0]]],
+  // end ["equine-medicine","equine-tendon"]
+  // ["equine-repro","eqrepro-ai"]
+  ["equine-repro","eqrepro-ai",0,[[11,5,1,1,2,1,0,0]]],
+  // end ["equine-repro","eqrepro-ai"]
+  // ["equine-repro","eqrepro-anatomy-cycle"]
+  ["equine-repro","eqrepro-anatomy-cycle",0,[[4,5,1,0,1,0,0,0],[11,5,1,1,1,1,0,0]]],
+  // end ["equine-repro","eqrepro-anatomy-cycle"]
+  // ["equine-repro","eqrepro-art-female"]
+  ["equine-repro","eqrepro-art-female",0,[[3,5,1,0,1,0,0,0],[13,5,1,1,1,1,0,0]]],
+  // end ["equine-repro","eqrepro-art-female"]
+  // ["equine-repro","eqrepro-endometritis"]
+  ["equine-repro","eqrepro-endometritis",0,[[7,5,1,0,2,0,0,0],[6,5,1,0,2,1,0,0],[3,5,1,1,2,1,0,0]]],
+  // end ["equine-repro","eqrepro-endometritis"]
+  // ["equine-repro","eqrepro-exam-mare"]
+  ["equine-repro","eqrepro-exam-mare",0,[[2,5,1,0,1,0,0,0],[6,5,1,0,1,1,0,0],[19,5,1,1,1,1,0,0]]],
+  // end ["equine-repro","eqrepro-exam-mare"]
+  // ["equine-repro","eqrepro-infertility"]
+  ["equine-repro","eqrepro-infertility",0,[[6,5,1,0,1,0,0,0],[12,5,1,1,1,1,0,0]]],
+  // end ["equine-repro","eqrepro-infertility"]
+  // ["equine-repro","eqrepro-male"]
+  ["equine-repro","eqrepro-male",0,[[18,5,1,1,2,1,0,0]]],
+  // end ["equine-repro","eqrepro-male"]
+  // ["equine-repro","eqrepro-mare-infect"]
+  ["equine-repro","eqrepro-mare-infect",0,[[2,5,1,0,1,0,0,0],[3,5,1,1,1,1,0,0]]],
+  // end ["equine-repro","eqrepro-mare-infect"]
+  // ["equine-repro","eqrepro-postpartum"]
+  ["equine-repro","eqrepro-postpartum",0,[[5,5,1,0,2,0,0,0],[6,5,1,1,2,1,0,0]]],
+  // end ["equine-repro","eqrepro-postpartum"]
+  // ["equine-repro","eqrepro-pregnancy"]
+  ["equine-repro","eqrepro-pregnancy",0,[[8,5,1,0,2,0,0,0],[1,5,1,0,2,1,0,0],[72,5,1,1,2,1,0,0]]],
+  // end ["equine-repro","eqrepro-pregnancy"]
+  // ["equine-repro","eqrepro-stallion-infect"]
+  ["equine-repro","eqrepro-stallion-infect",0,[[5,5,1,0,2,0,0,0],[11,5,1,1,2,1,0,0]]],
+  // end ["equine-repro","eqrepro-stallion-infect"]
+  // ["equine-repro","eqrepro-surgery"]
+  ["equine-repro","eqrepro-surgery",0,[[8,5,1,1,2,1,0,0]]],
+  // end ["equine-repro","eqrepro-surgery"]
+  // ["exotic","bird-infect"]
+  ["exotic","bird-infect",0,[[8,4,1,0,3,0,0,0],[16,4,1,1,3,1,0,0]]],
+  // end ["exotic","bird-infect"]
+  // ["exotic","bird-noninfect"]
+  ["exotic","bird-noninfect",0,[[17,4,1,0,3,0,0,0],[6,4,1,1,3,1,0,0]]],
+  // end ["exotic","bird-noninfect"]
+  // ["exotic","chicken"]
+  ["exotic","chicken",0,[[3,4,0,1,0,0,0,0]]],
+  // end ["exotic","chicken"]
+  // ["exotic","ferret"]
+  ["exotic","ferret",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["exotic","ferret"]
+  // ["exotic","field-vet"]
+  ["exotic","field-vet",0,[[23,4,1,0,3,0,0,0],[1,4,1,1,3,1,0,0]]],
+  // end ["exotic","field-vet"]
+  // ["exotic","hamster-gerbil"]
+  ["exotic","hamster-gerbil",0,[[6,4,0,1,0,0,0,0]]],
+  // end ["exotic","hamster-gerbil"]
+  // ["exotic","rabbit"]
+  ["exotic","rabbit",0,[[19,4,0,1,0,0,0,0]]],
+  // end ["exotic","rabbit"]
+  // ["exotic","reptile"]
+  ["exotic","reptile",0,[[6,4,1,1,3,1,0,0]]],
+  // end ["exotic","reptile"]
+  // ["exotic","sugar-glider-hedgehog"]
+  ["exotic","sugar-glider-hedgehog",0,[[15,4,0,1,0,0,0,0]]],
+  // end ["exotic","sugar-glider-hedgehog"]
+  // ["exotic","wildlife-career"]
+  ["exotic","wildlife-career",0,[[5,4,1,0,3,0,0,0],[1,4,1,1,3,1,0,0]]],
+  // end ["exotic","wildlife-career"]
+  // ["exotic","zoo-vet"]
+  ["exotic","zoo-vet",0,[[21,4,1,0,3,0,0,0],[3,4,1,1,3,1,0,0]]],
+  // end ["exotic","zoo-vet"]
+  // ["food-industry","fiqc-aquatic"]
+  ["food-industry","fiqc-aquatic",0,[[16,5,1,0,2,0,0,0]]],
+  // end ["food-industry","fiqc-aquatic"]
+  // ["food-industry","fiqc-feed-qc"]
+  ["food-industry","fiqc-feed-qc",0,[[18,5,1,0,1,0,0,0],[9,5,1,0,1,0,["2569-1","midterm"],0],[42,5,1,0,1,1,0,0],[2,5,1,1,1,1,0,0]]],
+  // end ["food-industry","fiqc-feed-qc"]
+  // ["food-industry","fiqc-haccp"]
+  ["food-industry","fiqc-haccp",0,[[8,5,1,0,2,0,0,0],[16,5,1,0,2,1,0,0]]],
+  // end ["food-industry","fiqc-haccp"]
+  // ["food-industry","fiqc-intro"]
+  ["food-industry","fiqc-intro",0,[[15,5,1,0,1,0,0,0],[9,5,1,0,1,0,["2569-1","midterm"],0],[1,5,1,0,1,1,0,0],[4,5,1,1,1,1,0,0]]],
+  // end ["food-industry","fiqc-intro"]
+  // ["food-industry","fiqc-livestock-qc"]
+  ["food-industry","fiqc-livestock-qc",0,[[23,5,1,0,1,0,0,0],[9,5,1,0,1,0,["2569-1","midterm"],0],[23,5,1,0,1,1,0,0],[11,5,1,1,1,1,0,0]]],
+  // end ["food-industry","fiqc-livestock-qc"]
+  // ["food-industry","fiqc-poultry-export"]
+  ["food-industry","fiqc-poultry-export",0,[[7,5,1,0,2,0,0,0],[13,5,1,0,2,1,0,0],[1,5,1,1,2,1,0,0]]],
+  // end ["food-industry","fiqc-poultry-export"]
+  // ["food-industry","fiqc-slaughter-qc"]
+  ["food-industry","fiqc-slaughter-qc",0,[[23,5,1,0,1,0,0,0],[9,5,1,0,1,0,["2569-1","midterm"],0],[39,5,1,0,1,1,0,0],[2,5,1,1,1,1,0,0]]],
+  // end ["food-industry","fiqc-slaughter-qc"]
+  // ["food-safety-y4","dose-response"]
+  ["food-safety-y4","dose-response",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["food-safety-y4","dose-response"]
+  // ["food-safety-y4","drug-residues"]
+  ["food-safety-y4","drug-residues",0,[[2,4,1,1,1,1,0,0]]],
+  // end ["food-safety-y4","drug-residues"]
+  // ["food-safety-y4","e-coli-stec"]
+  ["food-safety-y4","e-coli-stec",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["food-safety-y4","e-coli-stec"]
+  // ["food-safety-y4","food-additives"]
+  ["food-safety-y4","food-additives",0,[[5,4,1,1,1,1,0,0]]],
+  // end ["food-safety-y4","food-additives"]
+  // ["food-safety-y4","food-laws-thailand"]
+  ["food-safety-y4","food-laws-thailand",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["food-safety-y4","food-laws-thailand"]
+  // ["food-safety-y4","food-pathogens"]
+  ["food-safety-y4","food-pathogens",0,[[12,4,1,1,2,1,0,0]]],
+  // end ["food-safety-y4","food-pathogens"]
+  // ["food-safety-y4","food-spoilage"]
+  ["food-safety-y4","food-spoilage",0,[[1,4,1,1,1,1,0,0]]],
+  // end ["food-safety-y4","food-spoilage"]
+  // ["food-safety-y4","haccp"]
+  ["food-safety-y4","haccp",0,[[1,4,1,1,1,1,0,0]]],
+  // end ["food-safety-y4","haccp"]
+  // ["food-safety-y4","listeria"]
+  ["food-safety-y4","listeria",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["food-safety-y4","listeria"]
+  // ["food-safety-y4","milk-pasteurization"]
+  ["food-safety-y4","milk-pasteurization",0,[[1,4,1,1,1,1,0,0]]],
+  // end ["food-safety-y4","milk-pasteurization"]
+  // ["food-safety-y4","norovirus"]
+  ["food-safety-y4","norovirus",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["food-safety-y4","norovirus"]
+  // ["food-safety-y4","qmra-quantitative-microbial-risk"]
+  ["food-safety-y4","qmra-quantitative-microbial-risk",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["food-safety-y4","qmra-quantitative-microbial-risk"]
+  // ["food-safety-y4","risk-analysis-cac-framework"]
+  ["food-safety-y4","risk-analysis-cac-framework",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["food-safety-y4","risk-analysis-cac-framework"]
+  // ["food-safety-y4","risk-assessment-steps"]
+  ["food-safety-y4","risk-assessment-steps",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["food-safety-y4","risk-assessment-steps"]
+  // ["food-safety-y4","salmonella"]
+  ["food-safety-y4","salmonella",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["food-safety-y4","salmonella"]
+  // ["herd-health-rum","acute-ruminal-acidosis"]
+  ["herd-health-rum","acute-ruminal-acidosis",0,[[2,4,1,1,2,1,0,0]]],
+  // end ["herd-health-rum","acute-ruminal-acidosis"]
+  // ["herd-health-rum","anaplasmosis"]
+  ["herd-health-rum","anaplasmosis",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["herd-health-rum","anaplasmosis"]
+  // ["herd-health-rum","anthrax"]
+  ["herd-health-rum","anthrax",0,[[2,4,1,1,2,1,0,0]]],
+  // end ["herd-health-rum","anthrax"]
+  // ["herd-health-rum","babesiosis"]
+  ["herd-health-rum","babesiosis",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["herd-health-rum","babesiosis"]
+  // ["herd-health-rum","brdc"]
+  ["herd-health-rum","brdc",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["herd-health-rum","brdc"]
+  // ["herd-health-rum","brucellosis"]
+  ["herd-health-rum","brucellosis",0,[[2,4,1,1,3,1,0,0]]],
+  // end ["herd-health-rum","brucellosis"]
+  // ["herd-health-rum","bvd-persistent-infection"]
+  ["herd-health-rum","bvd-persistent-infection",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["herd-health-rum","bvd-persistent-infection"]
+  // ["herd-health-rum","enzootic-bovine-leukosis"]
+  ["herd-health-rum","enzootic-bovine-leukosis",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["herd-health-rum","enzootic-bovine-leukosis"]
+  // ["herd-health-rum","ephemeral-fever"]
+  ["herd-health-rum","ephemeral-fever",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["herd-health-rum","ephemeral-fever"]
+  // ["herd-health-rum","fec-anthelmintic-resistance"]
+  ["herd-health-rum","fec-anthelmintic-resistance",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["herd-health-rum","fec-anthelmintic-resistance"]
+  // ["herd-health-rum","fertility-kpi"]
+  ["herd-health-rum","fertility-kpi",0,[[1,4,1,1,1,1,0,0]]],
+  // end ["herd-health-rum","fertility-kpi"]
+  // ["herd-health-rum","fluid-therapy"]
+  ["herd-health-rum","fluid-therapy",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["herd-health-rum","fluid-therapy"]
+  // ["herd-health-rum","fmd"]
+  ["herd-health-rum","fmd",0,[[2,4,1,1,3,1,0,0]]],
+  // end ["herd-health-rum","fmd"]
+  // ["herd-health-rum","grass-tetany"]
+  ["herd-health-rum","grass-tetany",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["herd-health-rum","grass-tetany"]
+  // ["herd-health-rum","hemorrhagic-septicemia"]
+  ["herd-health-rum","hemorrhagic-septicemia",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["herd-health-rum","hemorrhagic-septicemia"]
+  // ["herd-health-rum","incidence-rate-calculation"]
+  ["herd-health-rum","incidence-rate-calculation",0,[[1,4,1,1,1,1,0,0]]],
+  // end ["herd-health-rum","incidence-rate-calculation"]
+  // ["herd-health-rum","ketosis"]
+  ["herd-health-rum","ketosis",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["herd-health-rum","ketosis"]
+  // ["herd-health-rum","lumpy-skin-disease"]
+  ["herd-health-rum","lumpy-skin-disease",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["herd-health-rum","lumpy-skin-disease"]
+  // ["herd-health-rum","malignant-catarrhal-fever"]
+  ["herd-health-rum","malignant-catarrhal-fever",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["herd-health-rum","malignant-catarrhal-fever"]
+  // ["herd-health-rum","mastitis-treatment-clinical"]
+  ["herd-health-rum","mastitis-treatment-clinical",0,[[1,4,1,0,3,0,0,0]]],
+  // end ["herd-health-rum","mastitis-treatment-clinical"]
+  // ["herd-health-rum","mastitis-treatment-drycow"]
+  ["herd-health-rum","mastitis-treatment-drycow",0,[[1,4,1,0,3,0,0,0]]],
+  // end ["herd-health-rum","mastitis-treatment-drycow"]
+  // ["herd-health-rum","milk-fever"]
+  ["herd-health-rum","milk-fever",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["herd-health-rum","milk-fever"]
+  // ["herd-health-rum","milk-quality-standard"]
+  ["herd-health-rum","milk-quality-standard",0,[[1,4,1,0,3,0,0,0]]],
+  // end ["herd-health-rum","milk-quality-standard"]
+  // ["herd-health-rum","on-farm-culture"]
+  ["herd-health-rum","on-farm-culture",0,[[1,4,1,0,3,0,0,0]]],
+  // end ["herd-health-rum","on-farm-culture"]
+  // ["herd-health-rum","paratuberculosis"]
+  ["herd-health-rum","paratuberculosis",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["herd-health-rum","paratuberculosis"]
+  // ["herd-health-rum","pregnancy-toxemia"]
+  ["herd-health-rum","pregnancy-toxemia",0,[[2,4,1,1,2,1,0,0]]],
+  // end ["herd-health-rum","pregnancy-toxemia"]
+  // ["herd-health-rum","responsible-amr"]
+  ["herd-health-rum","responsible-amr",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["herd-health-rum","responsible-amr"]
+  // ["herd-health-rum","subacute-ruminal-acidosis"]
+  ["herd-health-rum","subacute-ruminal-acidosis",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["herd-health-rum","subacute-ruminal-acidosis"]
+  // ["herd-health-rum","toxic-mastitis"]
+  ["herd-health-rum","toxic-mastitis",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["herd-health-rum","toxic-mastitis"]
+  // ["herd-health-rum","transition-cow-management"]
+  ["herd-health-rum","transition-cow-management",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["herd-health-rum","transition-cow-management"]
+  // ["herd-health-rum","tuberculosis-bovine"]
+  ["herd-health-rum","tuberculosis-bovine",0,[[2,4,1,1,3,1,0,0]]],
+  // end ["herd-health-rum","tuberculosis-bovine"]
+  // ["herd-health-rum","urinary-calculi"]
+  ["herd-health-rum","urinary-calculi",0,[[2,4,1,1,2,1,0,0]]],
+  // end ["herd-health-rum","urinary-calculi"]
+  // ["livestock-pathology","lpath-avian"]
+  ["livestock-pathology","lpath-avian",0,[[10,5,1,1,3,1,0,0]]],
+  // end ["livestock-pathology","lpath-avian"]
+  // ["livestock-pathology","lpath-slaughter"]
+  ["livestock-pathology","lpath-slaughter",0,[[3,5,1,1,3,1,0,0]]],
+  // end ["livestock-pathology","lpath-slaughter"]
+  // ["livestock-pathology","lpath-swine-systemic"]
+  ["livestock-pathology","lpath-swine-systemic",9,[[53,5,1,1,3,1,0,0]]],
+  // end ["livestock-pathology","lpath-swine-systemic"]
+  // ["livestock-pathology","lpath-systemic"]
+  ["livestock-pathology","lpath-systemic",1,[[1,5,1,1,3,1,0,0]]],
+  // end ["livestock-pathology","lpath-systemic"]
+  // ["milk-meat-hygiene","meat-ante-post-mortem"]
+  ["milk-meat-hygiene","meat-ante-post-mortem",0,[[41,5,1,0,2,1,0,0],[22,5,1,1,2,1,0,0]]],
+  // end ["milk-meat-hygiene","meat-ante-post-mortem"]
+  // ["milk-meat-hygiene","meat-cutting-grading"]
+  ["milk-meat-hygiene","meat-cutting-grading",0,[[29,5,1,0,2,1,0,0],[12,5,1,1,2,1,0,0]]],
+  // end ["milk-meat-hygiene","meat-cutting-grading"]
+  // ["milk-meat-hygiene","meat-egg-micro"]
+  ["milk-meat-hygiene","meat-egg-micro",0,[[3,5,1,0,2,1,0,0],[15,5,1,1,2,1,0,0]]],
+  // end ["milk-meat-hygiene","meat-egg-micro"]
+  // ["milk-meat-hygiene","meat-hygiene-intro"]
+  ["milk-meat-hygiene","meat-hygiene-intro",0,[[11,5,1,0,2,1,0,0],[7,5,1,1,2,1,0,0]]],
+  // end ["milk-meat-hygiene","meat-hygiene-intro"]
+  // ["milk-meat-hygiene","meat-microbiology"]
+  ["milk-meat-hygiene","meat-microbiology",0,[[38,5,1,0,2,1,0,0],[21,5,1,1,2,1,0,0]]],
+  // end ["milk-meat-hygiene","meat-microbiology"]
+  // ["milk-meat-hygiene","meat-molecular"]
+  ["milk-meat-hygiene","meat-molecular",0,[[5,5,1,0,2,1,0,0],[5,5,1,1,2,1,0,0]]],
+  // end ["milk-meat-hygiene","meat-molecular"]
+  // ["milk-meat-hygiene","meat-pest-control"]
+  ["milk-meat-hygiene","meat-pest-control",0,[[7,5,1,0,2,1,0,0],[18,5,1,1,2,1,0,0]]],
+  // end ["milk-meat-hygiene","meat-pest-control"]
+  // ["milk-meat-hygiene","meat-quality"]
+  ["milk-meat-hygiene","meat-quality",0,[[7,5,1,0,2,1,0,0],[3,5,1,1,2,1,0,0]]],
+  // end ["milk-meat-hygiene","meat-quality"]
+  // ["milk-meat-hygiene","meat-seafood"]
+  ["milk-meat-hygiene","meat-seafood",0,[[25,5,1,0,2,1,0,0],[14,5,1,1,2,1,0,0]]],
+  // end ["milk-meat-hygiene","meat-seafood"]
+  // ["milk-meat-hygiene","meat-slaughter"]
+  ["milk-meat-hygiene","meat-slaughter",0,[[23,5,1,0,2,1,0,0],[19,5,1,1,2,1,0,0]]],
+  // end ["milk-meat-hygiene","meat-slaughter"]
+  // ["milk-meat-hygiene","meat-storage"]
+  ["milk-meat-hygiene","meat-storage",0,[[11,5,1,0,2,1,0,0],[10,5,1,1,2,1,0,0]]],
+  // end ["milk-meat-hygiene","meat-storage"]
+  // ["milk-meat-hygiene","milk-biosec-dairy"]
+  ["milk-meat-hygiene","milk-biosec-dairy",0,[[8,5,1,0,1,0,0,0],[11,5,1,0,1,1,0,0],[13,5,1,1,1,1,0,0]]],
+  // end ["milk-meat-hygiene","milk-biosec-dairy"]
+  // ["milk-meat-hygiene","milk-borne-pathogens"]
+  ["milk-meat-hygiene","milk-borne-pathogens",0,[[29,5,1,0,1,0,0,0],[10,5,1,0,1,1,0,0],[5,5,1,1,1,1,0,0]]],
+  // end ["milk-meat-hygiene","milk-borne-pathogens"]
+  // ["milk-meat-hygiene","milk-cleaning"]
+  ["milk-meat-hygiene","milk-cleaning",0,[[5,5,1,0,3,0,0,0],[52,5,1,0,3,1,0,0],[14,5,1,1,3,1,0,0]]],
+  // end ["milk-meat-hygiene","milk-cleaning"]
+  // ["milk-meat-hygiene","milk-industry-std"]
+  ["milk-meat-hygiene","milk-industry-std",0,[[27,5,1,0,1,0,0,0],[14,5,1,0,1,1,0,0],[22,5,1,1,1,1,0,0]]],
+  // end ["milk-meat-hygiene","milk-industry-std"]
+  // ["milk-meat-hygiene","milk-mastitis"]
+  ["milk-meat-hygiene","milk-mastitis",0,[[32,5,1,0,1,0,0,0],[43,5,1,0,1,1,0,0],[14,5,1,1,1,1,0,0]]],
+  // end ["milk-meat-hygiene","milk-mastitis"]
+  // ["milk-meat-hygiene","milk-microbiology"]
+  ["milk-meat-hygiene","milk-microbiology",0,[[20,5,1,0,1,0,0,0],[52,5,1,0,1,1,0,0],[7,5,1,1,1,1,0,0]]],
+  // end ["milk-meat-hygiene","milk-microbiology"]
+  // ["milk-meat-hygiene","milk-overview"]
+  ["milk-meat-hygiene","milk-overview",0,[[14,5,1,0,1,0,0,0],[13,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]],
+  // end ["milk-meat-hygiene","milk-overview"]
+  // ["milk-meat-hygiene","milk-processing"]
+  ["milk-meat-hygiene","milk-processing",0,[[32,5,1,0,1,0,0,0],[56,5,1,0,1,1,0,0],[18,5,1,1,1,1,0,0]]],
+  // end ["milk-meat-hygiene","milk-processing"]
+  // ["milk-meat-hygiene","milk-products-storage"]
+  ["milk-meat-hygiene","milk-products-storage",1,[[15,5,1,0,1,0,0,0],[2,5,1,0,1,1,0,0]]],
+  // end ["milk-meat-hygiene","milk-products-storage"]
+  // ["milk-meat-hygiene","milk-quality-composition"]
+  ["milk-meat-hygiene","milk-quality-composition",0,[[29,5,1,0,1,0,0,0],[44,5,1,0,1,1,0,0],[19,5,1,1,1,1,0,0]]],
+  // end ["milk-meat-hygiene","milk-quality-composition"]
+  // ["milk-meat-hygiene","milk-quality-determination"]
+  ["milk-meat-hygiene","milk-quality-determination",0,[[29,5,1,0,1,0,0,0],[53,5,1,0,1,1,0,0],[12,5,1,1,1,1,0,0]]],
+  // end ["milk-meat-hygiene","milk-quality-determination"]
+  // ["milk-meat-hygiene","milk-raw-std"]
+  ["milk-meat-hygiene","milk-raw-std",0,[[28,5,1,0,1,0,0,0],[26,5,1,0,1,1,0,0],[13,5,1,1,1,1,0,0]]],
+  // end ["milk-meat-hygiene","milk-raw-std"]
+  // ["milk-meat-hygiene","milk-raw-storage"]
+  ["milk-meat-hygiene","milk-raw-storage",0,[[20,5,1,0,1,0,0,0],[21,5,1,0,1,1,0,0],[23,5,1,1,1,1,0,0]]],
+  // end ["milk-meat-hygiene","milk-raw-storage"]
+  // ["one-health","oh-amr"]
+  ["one-health","oh-amr",0,[[9,5,1,0,2,0,0,0],[1,5,1,0,2,1,0,0],[3,5,1,1,2,1,0,0]]],
+  // end ["one-health","oh-amr"]
+  // ["one-health","oh-collaboration"]
+  ["one-health","oh-collaboration",0,[[3,5,1,0,1,0,0,0],[7,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]],
+  // end ["one-health","oh-collaboration"]
+  // ["one-health","oh-communication"]
+  ["one-health","oh-communication",0,[[7,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]],
+  // end ["one-health","oh-communication"]
+  // ["one-health","oh-concept"]
+  ["one-health","oh-concept",0,[[11,5,1,0,1,0,0,0],[4,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]],
+  // end ["one-health","oh-concept"]
+  // ["one-health","oh-disease-prevention"]
+  ["one-health","oh-disease-prevention",0,[[32,5,1,0,1,0,0,0],[19,5,1,0,1,1,0,0]]],
+  // end ["one-health","oh-disease-prevention"]
+  // ["one-health","oh-env-carcinogen"]
+  ["one-health","oh-env-carcinogen",0,[[1,5,1,0,2,0,0,0],[13,5,1,1,2,1,0,0]]],
+  // end ["one-health","oh-env-carcinogen"]
+  // ["one-health","oh-env-mutagen"]
+  ["one-health","oh-env-mutagen",0,[[11,5,1,1,2,1,0,0]]],
+  // end ["one-health","oh-env-mutagen"]
+  // ["one-health","oh-foodborne"]
+  ["one-health","oh-foodborne",0,[[4,5,1,0,2,0,0,0],[2,5,1,0,2,1,0,0],[2,5,1,1,2,1,0,0]]],
+  // end ["one-health","oh-foodborne"]
+  // ["one-health","oh-global-network"]
+  ["one-health","oh-global-network",0,[[6,5,1,0,1,0,0,0],[16,5,1,0,1,0,["2569-1","midterm"],0],[14,5,1,0,1,1,0,0]]],
+  // end ["one-health","oh-global-network"]
+  // ["one-health","oh-gmo"]
+  ["one-health","oh-gmo",0,[[9,5,1,1,2,1,0,0]]],
+  // end ["one-health","oh-gmo"]
+  // ["one-health","oh-import-risk"]
+  ["one-health","oh-import-risk",0,[[10,5,1,0,2,0,0,0]]],
+  // end ["one-health","oh-import-risk"]
+  // ["one-health","oh-livestock-waste"]
+  ["one-health","oh-livestock-waste",0,[[2,5,1,0,2,0,0,0],[8,5,1,1,2,1,0,0]]],
+  // end ["one-health","oh-livestock-waste"]
+  // ["one-health","oh-risk-analysis"]
+  ["one-health","oh-risk-analysis",0,[[4,5,1,0,2,0,0,0],[9,5,1,0,2,1,0,0],[2,5,1,1,2,1,0,0]]],
+  // end ["one-health","oh-risk-analysis"]
+  // ["one-health","oh-vet-role"]
+  ["one-health","oh-vet-role",0,[[17,5,1,0,1,0,0,0],[13,5,1,0,1,1,0,0]]],
+  // end ["one-health","oh-vet-role"]
+  // ["poa-clinical","poa-collapse"]
+  ["poa-clinical","poa-collapse",26,[]],
+  // end ["poa-clinical","poa-collapse"]
+  // ["poa-clinical","poa-diarrhea"]
+  ["poa-clinical","poa-diarrhea",0,[[14,5,1,0,0,0,["2569-1","continuous"],0]]],
+  // end ["poa-clinical","poa-diarrhea"]
+  // ["poa-clinical","poa-edema"]
+  ["poa-clinical","poa-edema",0,[[15,5,1,0,0,0,0,0]]],
+  // end ["poa-clinical","poa-edema"]
+  // ["poa-clinical","poa-intro"]
+  ["poa-clinical","poa-intro",0,[[8,5,1,0,0,0,["2569-1","continuous"],0]]],
+  // end ["poa-clinical","poa-intro"]
+  // ["poa-clinical","poa-red-urine"]
+  ["poa-clinical","poa-red-urine",0,[[3,5,1,1,0,1,0,0]]],
+  // end ["poa-clinical","poa-red-urine"]
+  // ["poa-clinical","poa-respiratory"]
+  ["poa-clinical","poa-respiratory",0,[[4,5,1,0,0,0,["2569-1","continuous"],0],[13,5,1,1,0,1,0,0]]],
+  // end ["poa-clinical","poa-respiratory"]
+  // ["poa-clinical","poa-vomiting"]
+  ["poa-clinical","poa-vomiting",0,[[14,5,1,0,0,0,["2569-1","continuous"],0]]],
+  // end ["poa-clinical","poa-vomiting"]
+  // ["poultry","avian-drugs"]
+  ["poultry","avian-drugs",0,[[1,4,1,0,3,0,0,0],[11,4,1,1,3,1,0,0]]],
+  // end ["poultry","avian-drugs"]
+  // ["poultry","avian-zoonosis"]
+  ["poultry","avian-zoonosis",0,[[1,4,1,0,3,0,0,0],[9,4,1,1,3,1,0,0]]],
+  // end ["poultry","avian-zoonosis"]
+  // ["poultry","biosecurity"]
+  ["poultry","biosecurity",2,[[1,4,1,0,3,0,0,0],[17,4,1,1,3,1,0,0]]],
+  // end ["poultry","biosecurity"]
+  // ["poultry","first-week-mortality"]
+  ["poultry","first-week-mortality",0,[[17,4,1,1,3,1,0,0]]],
+  // end ["poultry","first-week-mortality"]
+  // ["poultry","mahahon-poultry-biosec"]
+  ["poultry","mahahon-poultry-biosec",0,[[8,4,1,0,3,0,0,0]]],
+  // end ["poultry","mahahon-poultry-biosec"]
+  // ["poultry","mahahon-poultry-drugs"]
+  ["poultry","mahahon-poultry-drugs",0,[[7,4,1,0,3,0,0,0],[1,4,1,0,3,1,0,0]]],
+  // end ["poultry","mahahon-poultry-drugs"]
+  // ["poultry","mahahon-poultry-firstweek"]
+  ["poultry","mahahon-poultry-firstweek",0,[[10,4,1,0,3,0,0,0]]],
+  // end ["poultry","mahahon-poultry-firstweek"]
+  // ["poultry","mahahon-poultry-nutrition"]
+  ["poultry","mahahon-poultry-nutrition",0,[[18,4,1,0,3,0,0,0]]],
+  // end ["poultry","mahahon-poultry-nutrition"]
+  // ["poultry","mahahon-poultry-qa"]
+  ["poultry","mahahon-poultry-qa",0,[[8,4,1,0,3,0,0,0]]],
+  // end ["poultry","mahahon-poultry-qa"]
+  // ["poultry","mahahon-poultry-zoonosis"]
+  ["poultry","mahahon-poultry-zoonosis",0,[[8,4,1,0,3,0,0,0]]],
+  // end ["poultry","mahahon-poultry-zoonosis"]
+  // ["poultry","midterm-disease"]
+  ["poultry","midterm-disease",0,[[2,4,0,1,0,0,0,0]]],
+  // end ["poultry","midterm-disease"]
+  // ["poultry","physiology"]
+  ["poultry","physiology",0,[[3,4,0,1,0,0,0,0]]],
+  // end ["poultry","physiology"]
+  // ["poultry","quality-assurance"]
+  ["poultry","quality-assurance",0,[[1,4,1,0,3,0,0,0],[14,4,1,1,3,1,0,0]]],
+  // end ["poultry","quality-assurance"]
+  // ["poultry","uncertain-scope"]
+  ["poultry","uncertain-scope",11,[[41,4,0,1,0,0,0,0]]],
+  // end ["poultry","uncertain-scope"]
+  // ["practrum","animal-nutrition"]
+  ["practrum","animal-nutrition",0,[[5,4,1,0,3,0,0,0]]],
+  // end ["practrum","animal-nutrition"]
+  // ["practrum","bovine-anesthesia"]
+  ["practrum","bovine-anesthesia",0,[[9,4,1,0,3,0,0,0],[5,4,1,1,3,1,0,0]]],
+  // end ["practrum","bovine-anesthesia"]
+  // ["practrum","cow-restraint"]
+  ["practrum","cow-restraint",0,[[5,4,1,0,3,0,0,0]]],
+  // end ["practrum","cow-restraint"]
+  // ["practrum","dehorning"]
+  ["practrum","dehorning",0,[[4,4,1,0,3,0,0,0]]],
+  // end ["practrum","dehorning"]
+  // ["practrum","hoof-trim"]
+  ["practrum","hoof-trim",0,[[4,4,1,0,3,0,0,0],[4,4,1,1,3,1,0,0]]],
+  // end ["practrum","hoof-trim"]
+  // ["practrum","mahahon-practrum-dystocia"]
+  ["practrum","mahahon-practrum-dystocia",0,[[18,4,1,0,3,0,0,0]]],
+  // end ["practrum","mahahon-practrum-dystocia"]
+  // ["practrum","mahahon-practrum-feed"]
+  ["practrum","mahahon-practrum-feed",0,[[18,4,1,0,3,0,0,0]]],
+  // end ["practrum","mahahon-practrum-feed"]
+  // ["practrum","mahahon-practrum-penile"]
+  ["practrum","mahahon-practrum-penile",0,[[6,4,1,0,3,0,0,0]]],
+  // end ["practrum","mahahon-practrum-penile"]
+  // ["practrum","mahahon-practrum-silage"]
+  ["practrum","mahahon-practrum-silage",0,[[9,4,1,0,3,0,0,0]]],
+  // end ["practrum","mahahon-practrum-silage"]
+  // ["practrum","mahahon-practrum-surgery"]
+  ["practrum","mahahon-practrum-surgery",0,[[9,4,1,0,3,0,0,0],[3,4,1,1,3,1,0,0]]],
+  // end ["practrum","mahahon-practrum-surgery"]
+  // ["practrum","parturition-fetotomy"]
+  ["practrum","parturition-fetotomy",0,[[4,4,0,0,0,0,0,0]]],
+  // end ["practrum","parturition-fetotomy"]
+  // ["practrum","penile-deviation"]
+  ["practrum","penile-deviation",0,[[3,4,1,0,3,0,0,0]]],
+  // end ["practrum","penile-deviation"]
+  // ["practrum","rumenotomy"]
+  ["practrum","rumenotomy",0,[[6,4,1,0,3,0,0,0],[5,4,1,1,3,1,0,0]]],
+  // end ["practrum","rumenotomy"]
+  // ["rec-adv-bioscience","ravb-bacterial-dx"]
+  ["rec-adv-bioscience","ravb-bacterial-dx",0,[[1,5,1,1,3,1,0,0]]],
+  // end ["rec-adv-bioscience","ravb-bacterial-dx"]
+  // ["rec-adv-bioscience","ravb-helminths"]
+  ["rec-adv-bioscience","ravb-helminths",0,[[2,5,1,1,3,1,0,0]]],
+  // end ["rec-adv-bioscience","ravb-helminths"]
+  // ["rec-adv-bioscience","ravb-protozoa-blood"]
+  ["rec-adv-bioscience","ravb-protozoa-blood",0,[[1,5,1,1,3,1,0,0]]],
+  // end ["rec-adv-bioscience","ravb-protozoa-blood"]
+  // ["rec-adv-bioscience","ravb-virology"]
+  ["rec-adv-bioscience","ravb-virology",1,[]],
+  // end ["rec-adv-bioscience","ravb-virology"]
+  // ["repro","__unassigned__"]
+  ["repro","__unassigned__",0,[[9,4,1,1,3,1,0,0]]],
+  // end ["repro","__unassigned__"]
+  // ["repro","dystocia"]
+  ["repro","dystocia",0,[[6,4,1,1,3,1,0,0]]],
+  // end ["repro","dystocia"]
+  // ["repro","repro-exam"]
+  ["repro","repro-exam",0,[[6,4,1,1,3,1,0,0]]],
+  // end ["repro","repro-exam"]
+  // ["repro","semen-ai"]
+  ["repro","semen-ai",0,[[3,4,1,1,3,1,0,0]]],
+  // end ["repro","semen-ai"]
+  // ["repro","vaginal-cytology"]
+  ["repro","vaginal-cytology",0,[[7,4,1,1,3,1,0,0]]],
+  // end ["repro","vaginal-cytology"]
+  // ["repro-lect","biotech"]
+  ["repro-lect","biotech",0,[[10,4,1,0,3,0,0,0],[4,4,1,1,3,1,0,0]]],
+  // end ["repro-lect","biotech"]
+  // ["repro-lect","exotic-repro"]
+  ["repro-lect","exotic-repro",0,[[12,4,1,0,3,0,0,0]]],
+  // end ["repro-lect","exotic-repro"]
+  // ["repro-lect","genetics"]
+  ["repro-lect","genetics",0,[[5,4,1,0,3,0,0,0]]],
+  // end ["repro-lect","genetics"]
+  // ["repro-lect","gonadectomy-risk"]
+  ["repro-lect","gonadectomy-risk",0,[[10,4,1,0,3,0,0,0]]],
+  // end ["repro-lect","gonadectomy-risk"]
+  // ["repro-lect","group01-nutrition-neutered"]
+  ["repro-lect","group01-nutrition-neutered",0,[[1,4,1,0,3,0,0,0]]],
+  // end ["repro-lect","group01-nutrition-neutered"]
+  // ["repro-lect","group02-bph-pharmacology"]
+  ["repro-lect","group02-bph-pharmacology",0,[[1,4,1,0,3,0,0,0]]],
+  // end ["repro-lect","group02-bph-pharmacology"]
+  // ["repro-lect","group03-gene-editing"]
+  ["repro-lect","group03-gene-editing",0,[[1,4,1,0,3,0,0,0]]],
+  // end ["repro-lect","group03-gene-editing"]
+  // ["repro-lect","group04-dermato-repro"]
+  ["repro-lect","group04-dermato-repro",0,[[1,4,1,0,3,0,0,0]]],
+  // end ["repro-lect","group04-dermato-repro"]
+  // ["repro-lect","group05-felidae-infertility"]
+  ["repro-lect","group05-felidae-infertility",0,[[1,4,1,0,3,0,0,0]]],
+  // end ["repro-lect","group05-felidae-infertility"]
+  // ["repro-lect","group06-iugr-piglet"]
+  ["repro-lect","group06-iugr-piglet",0,[[1,4,1,0,3,0,0,0]]],
+  // end ["repro-lect","group06-iugr-piglet"]
+  // ["repro-lect","group07-ruminant-us-CL"]
+  ["repro-lect","group07-ruminant-us-CL",0,[[1,4,1,0,3,0,0,0]]],
+  // end ["repro-lect","group07-ruminant-us-CL"]
+  // ["repro-lect","group08-PAGs-ruminant"]
+  ["repro-lect","group08-PAGs-ruminant",0,[[1,4,1,0,3,0,0,0]]],
+  // end ["repro-lect","group08-PAGs-ruminant"]
+  // ["repro-lect","group09-placenta"]
+  ["repro-lect","group09-placenta",0,[[1,4,1,0,3,0,0,0]]],
+  // end ["repro-lect","group09-placenta"]
+  // ["repro-lect","group10-heat-stress"]
+  ["repro-lect","group10-heat-stress",0,[[1,4,1,0,3,0,0,0]]],
+  // end ["repro-lect","group10-heat-stress"]
+  // ["repro-lect","group11-buserelin-pig"]
+  ["repro-lect","group11-buserelin-pig",0,[[1,4,1,0,3,0,0,0]]],
+  // end ["repro-lect","group11-buserelin-pig"]
+  // ["repro-lect","group12-NEB-dairy"]
+  ["repro-lect","group12-NEB-dairy",0,[[1,4,1,0,3,0,0,0]]],
+  // end ["repro-lect","group12-NEB-dairy"]
+  // ["repro-lect","hormonal-applications"]
+  ["repro-lect","hormonal-applications",0,[[11,4,1,0,3,0,0,0],[2,4,1,1,3,1,0,0]]],
+  // end ["repro-lect","hormonal-applications"]
+  // ["repro-lect","infertility"]
+  ["repro-lect","infertility",0,[[6,4,1,0,3,0,0,0],[1,4,1,1,3,1,0,0]]],
+  // end ["repro-lect","infertility"]
+  // ["repro-lect","mahahon-art"]
+  ["repro-lect","mahahon-art",0,[[3,4,1,0,3,0,0,0],[7,4,1,1,3,1,0,0]]],
+  // end ["repro-lect","mahahon-art"]
+  // ["repro-lect","mahahon-exotic"]
+  ["repro-lect","mahahon-exotic",0,[[10,4,1,1,3,1,0,0]]],
+  // end ["repro-lect","mahahon-exotic"]
+  // ["repro-lect","mahahon-genetic"]
+  ["repro-lect","mahahon-genetic",0,[[10,4,1,0,3,0,0,0]]],
+  // end ["repro-lect","mahahon-genetic"]
+  // ["repro-lect","mahahon-hormone"]
+  ["repro-lect","mahahon-hormone",0,[[10,4,1,1,3,1,0,0]]],
+  // end ["repro-lect","mahahon-hormone"]
+  // ["repro-lect","mahahon-risk-benefit"]
+  ["repro-lect","mahahon-risk-benefit",0,[[10,4,1,0,3,0,0,0]]],
+  // end ["repro-lect","mahahon-risk-benefit"]
+  // ["repro-lect","mahahon-semen-eval"]
+  ["repro-lect","mahahon-semen-eval",0,[[10,4,1,0,3,0,0,0]]],
+  // end ["repro-lect","mahahon-semen-eval"]
+  // ["repro-lect","mahahon-semen-freezing"]
+  ["repro-lect","mahahon-semen-freezing",0,[[10,4,1,1,3,1,0,0]]],
+  // end ["repro-lect","mahahon-semen-freezing"]
+  // ["repro-lect","mahahon-surgical"]
+  ["repro-lect","mahahon-surgical",0,[[10,4,1,0,3,0,0,0]]],
+  // end ["repro-lect","mahahon-surgical"]
+  // ["repro-lect","mahahon-ultrasound"]
+  ["repro-lect","mahahon-ultrasound",0,[[10,4,1,1,3,1,0,0]]],
+  // end ["repro-lect","mahahon-ultrasound"]
+  // ["repro-lect","repro-ultrasound"]
+  ["repro-lect","repro-ultrasound",0,[[6,4,1,0,3,0,0,0]]],
+  // end ["repro-lect","repro-ultrasound"]
+  // ["repro-lect","semen-ai"]
+  ["repro-lect","semen-ai",0,[[5,4,1,0,3,0,0,0],[15,4,1,1,3,1,0,0]]],
+  // end ["repro-lect","semen-ai"]
+  // ["repro-lect","semen-preservation"]
+  ["repro-lect","semen-preservation",0,[[5,4,1,0,3,0,0,0],[2,4,1,1,3,1,0,0]]],
+  // end ["repro-lect","semen-preservation"]
+  // ["repro-lect","surgical-neutering"]
+  ["repro-lect","surgical-neutering",0,[[5,4,1,0,3,0,0,0],[7,4,1,1,3,1,0,0]]],
+  // end ["repro-lect","surgical-neutering"]
+  // ["ruminant-clinical","rum-hattakan"]
+  ["ruminant-clinical","rum-hattakan",3,[[2,5,1,1,3,1,0,0]]],
+  // end ["ruminant-clinical","rum-hattakan"]
+  // ["ruminant-clinical","rum-hhm"]
+  ["ruminant-clinical","rum-hhm",1,[[6,5,1,1,3,1,0,0]]],
+  // end ["ruminant-clinical","rum-hhm"]
+  // ["ruminant-clinical","rum-hhm-clinical"]
+  ["ruminant-clinical","rum-hhm-clinical",0,[[1,5,1,1,3,1,0,0]]],
+  // end ["ruminant-clinical","rum-hhm-clinical"]
+  // ["ruminant-clinical","rum-mastitis"]
+  ["ruminant-clinical","rum-mastitis",2,[[2,5,1,1,3,1,0,0]]],
+  // end ["ruminant-clinical","rum-mastitis"]
+  // ["ruminant-clinical","rum-reproduction"]
+  ["ruminant-clinical","rum-reproduction",1,[[4,5,1,1,3,1,0,0]]],
+  // end ["ruminant-clinical","rum-reproduction"]
+  // ["surg1","brachial-plexus-block"]
+  ["surg1","brachial-plexus-block",0,[[3,4,1,1,3,1,0,0]]],
+  // end ["surg1","brachial-plexus-block"]
+  // ["surg1","breathing-circuit"]
+  ["surg1","breathing-circuit",0,[[2,4,1,1,3,1,0,0]]],
+  // end ["surg1","breathing-circuit"]
+  // ["surg1","dental-nerve-block"]
+  ["surg1","dental-nerve-block",0,[[4,4,1,1,3,1,0,0]]],
+  // end ["surg1","dental-nerve-block"]
+  // ["surg1","endotracheal-intubation"]
+  ["surg1","endotracheal-intubation",0,[[2,4,1,1,3,1,0,0]]],
+  // end ["surg1","endotracheal-intubation"]
+  // ["surg1","epidural-block"]
+  ["surg1","epidural-block",0,[[5,4,1,1,3,1,0,0]]],
+  // end ["surg1","epidural-block"]
+  // ["surg1","incisional-line-block"]
+  ["surg1","incisional-line-block",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["surg1","incisional-line-block"]
+  // ["surg1","intercostal-block"]
+  ["surg1","intercostal-block",0,[[3,4,1,1,3,1,0,0]]],
+  // end ["surg1","intercostal-block"]
+  // ["surg1","intubation-cat"]
+  ["surg1","intubation-cat",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["surg1","intubation-cat"]
+  // ["surg1","iv-catheter"]
+  ["surg1","iv-catheter",0,[[2,4,1,1,3,1,0,0]]],
+  // end ["surg1","iv-catheter"]
+  // ["surg1","iv-fluid-calculation"]
+  ["surg1","iv-fluid-calculation",0,[[2,4,1,1,3,1,0,0]]],
+  // end ["surg1","iv-fluid-calculation"]
+  // ["surg1","local-infiltration"]
+  ["surg1","local-infiltration",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["surg1","local-infiltration"]
+  // ["surg1","oxygen-flow-rate"]
+  ["surg1","oxygen-flow-rate",0,[[2,4,1,1,3,1,0,0]]],
+  // end ["surg1","oxygen-flow-rate"]
+  // ["surg1","testicular-block"]
+  ["surg1","testicular-block",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["surg1","testicular-block"]
+  // ["surg2","__unassigned__"]
+  ["surg2","__unassigned__",0,[[5,4,1,1,3,1,0,0]]],
+  // end ["surg2","__unassigned__"]
+  // ["surg2","abdominal-surgery"]
+  ["surg2","abdominal-surgery",0,[[2,4,1,1,3,1,0,0]]],
+  // end ["surg2","abdominal-surgery"]
+  // ["surg2","aural-hematoma"]
+  ["surg2","aural-hematoma",0,[[2,4,1,1,3,1,0,0]]],
+  // end ["surg2","aural-hematoma"]
+  // ["surg2","bandage-drain"]
+  ["surg2","bandage-drain",0,[[3,4,1,1,3,1,0,0]]],
+  // end ["surg2","bandage-drain"]
+  // ["surg2","dental-scaling-muzzle"]
+  ["surg2","dental-scaling-muzzle",0,[[2,4,1,1,3,1,0,0]]],
+  // end ["surg2","dental-scaling-muzzle"]
+  // ["surg2","ophthalmology-lab"]
+  ["surg2","ophthalmology-lab",0,[[3,4,1,1,3,1,0,0]]],
+  // end ["surg2","ophthalmology-lab"]
+  // ["surg2","patient-prep-wound"]
+  ["surg2","patient-prep-wound",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["surg2","patient-prep-wound"]
+  // ["surg3","__unassigned__"]
+  ["surg3","__unassigned__",0,[[5,4,1,1,3,1,0,0]]],
+  // end ["surg3","__unassigned__"]
+  // ["surg3","approach-hip"]
+  ["surg3","approach-hip",0,[[5,4,1,1,3,1,0,0]]],
+  // end ["surg3","approach-hip"]
+  // ["surg3","approach-humerus"]
+  ["surg3","approach-humerus",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["surg3","approach-humerus"]
+  // ["surg3","approach-stifle"]
+  ["surg3","approach-stifle",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["surg3","approach-stifle"]
+  // ["surg3","bone-plate"]
+  ["surg3","bone-plate",0,[[2,4,1,1,3,1,0,0]]],
+  // end ["surg3","bone-plate"]
+  // ["surg3","cerclage-wire"]
+  ["surg3","cerclage-wire",0,[[3,4,1,1,3,1,0,0]]],
+  // end ["surg3","cerclage-wire"]
+  // ["surg3","esf"]
+  ["surg3","esf",0,[[5,4,1,1,3,1,0,0]]],
+  // end ["surg3","esf"]
+  // ["surg3","external-coaptation"]
+  ["surg3","external-coaptation",0,[[6,4,1,1,3,1,0,0]]],
+  // end ["surg3","external-coaptation"]
+  // ["surg3","oral-wiring"]
+  ["surg3","oral-wiring",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["surg3","oral-wiring"]
+  // ["surg3","ortho-exam"]
+  ["surg3","ortho-exam",0,[[6,4,1,1,3,1,0,0]]],
+  // end ["surg3","ortho-exam"]
+  // ["surg3","pinning"]
+  ["surg3","pinning",0,[[2,4,1,1,3,1,0,0]]],
+  // end ["surg3","pinning"]
+  // ["surg3","tension-band-wire"]
+  ["surg3","tension-band-wire",0,[[3,4,1,1,3,1,0,0]]],
+  // end ["surg3","tension-band-wire"]
+  // ["swine-clinic","swine-asf"]
+  ["swine-clinic","swine-asf",0,[[12,5,1,0,2,1,0,0],[17,5,1,1,2,1,0,0]]],
+  // end ["swine-clinic","swine-asf"]
+  // ["swine-clinic","swine-cns"]
+  ["swine-clinic","swine-cns",0,[[8,5,1,0,1,1,0,0]]],
+  // end ["swine-clinic","swine-cns"]
+  // ["swine-clinic","swine-control-dx"]
+  ["swine-clinic","swine-control-dx",0,[[5,5,1,0,2,0,0,0],[5,5,1,0,2,1,0,0]]],
+  // end ["swine-clinic","swine-control-dx"]
+  // ["swine-clinic","swine-csf"]
+  ["swine-clinic","swine-csf",0,[[2,5,1,0,2,1,0,0],[20,5,1,1,2,1,0,0]]],
+  // end ["swine-clinic","swine-csf"]
+  // ["swine-clinic","swine-fmd"]
+  ["swine-clinic","swine-fmd",0,[[15,5,1,0,2,1,0,0],[2,5,1,1,2,1,0,0]]],
+  // end ["swine-clinic","swine-fmd"]
+  // ["swine-clinic","swine-gi-viral"]
+  ["swine-clinic","swine-gi-viral",0,[[1,5,1,0,1,1,0,0],[11,5,1,1,1,1,0,0]]],
+  // end ["swine-clinic","swine-gi-viral"]
+  // ["swine-clinic","swine-greasypig"]
+  ["swine-clinic","swine-greasypig",0,[[1,5,1,0,2,1,0,0],[15,5,1,1,2,1,0,0]]],
+  // end ["swine-clinic","swine-greasypig"]
+  // ["swine-clinic","swine-ileitis-bacti"]
+  ["swine-clinic","swine-ileitis-bacti",2,[[13,5,1,0,2,1,0,0],[6,5,1,1,2,1,0,0]]],
+  // end ["swine-clinic","swine-ileitis-bacti"]
+  // ["swine-clinic","swine-pcv2"]
+  ["swine-clinic","swine-pcv2",0,[[10,5,1,0,2,1,0,0],[5,5,1,1,2,1,0,0]]],
+  // end ["swine-clinic","swine-pcv2"]
+  // ["swine-clinic","swine-pornchalit-set"]
+  ["swine-clinic","swine-pornchalit-set",0,[[13,5,1,0,1,0,0,0],[28,5,1,0,1,1,0,0],[21,5,1,1,1,1,0,0]]],
+  // end ["swine-clinic","swine-pornchalit-set"]
+  // ["swine-clinic","swine-prv-je"]
+  ["swine-clinic","swine-prv-je",0,[[8,5,1,0,2,1,0,0],[17,5,1,1,2,1,0,0]]],
+  // end ["swine-clinic","swine-prv-je"]
+  // ["swine-clinic","swine-repro"]
+  ["swine-clinic","swine-repro",0,[[10,5,1,0,2,1,0,0],[6,5,1,1,2,1,0,0]]],
+  // end ["swine-clinic","swine-repro"]
+  // ["swine-clinic","swine-resp-viral"]
+  ["swine-clinic","swine-resp-viral",1,[[12,5,1,1,1,1,0,0]]],
+  // end ["swine-clinic","swine-resp-viral"]
+  // ["swine-clinic","swine-trichinosis"]
+  ["swine-clinic","swine-trichinosis",0,[[5,5,1,0,2,0,0,0]]],
+  // end ["swine-clinic","swine-trichinosis"]
+  // ["swine-herd","adg-calculation"]
+  ["swine-herd","adg-calculation",0,[[1,4,1,1,1,1,0,0]]],
+  // end ["swine-herd","adg-calculation"]
+  // ["swine-herd","aflatoxin-source-effect"]
+  ["swine-herd","aflatoxin-source-effect",0,[[1,4,1,1,1,1,0,0]]],
+  // end ["swine-herd","aflatoxin-source-effect"]
+  // ["swine-herd","all-in-all-out-system"]
+  ["swine-herd","all-in-all-out-system",0,[[1,4,1,1,1,1,0,0]]],
+  // end ["swine-herd","all-in-all-out-system"]
+  // ["swine-herd","asf-acute-signs"]
+  ["swine-herd","asf-acute-signs",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["swine-herd","asf-acute-signs"]
+  // ["swine-herd","biosecurity-segregation-sanitation-resistance"]
+  ["swine-herd","biosecurity-segregation-sanitation-resistance",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["swine-herd","biosecurity-segregation-sanitation-resistance"]
+  // ["swine-herd","blup-breeding-value"]
+  ["swine-herd","blup-breeding-value",0,[[1,4,1,1,1,1,0,0]]],
+  // end ["swine-herd","blup-breeding-value"]
+  // ["swine-herd","boar-restraint-snare"]
+  ["swine-herd","boar-restraint-snare",0,[[1,4,1,1,1,1,0,0]]],
+  // end ["swine-herd","boar-restraint-snare"]
+  // ["swine-herd","breeding-system-3-breed-cross"]
+  ["swine-herd","breeding-system-3-breed-cross",0,[[1,4,1,1,1,1,0,0]]],
+  // end ["swine-herd","breeding-system-3-breed-cross"]
+  // ["swine-herd","contagious-vs-environmental-mastitis-pathogens"]
+  ["swine-herd","contagious-vs-environmental-mastitis-pathogens",0,[[1,4,1,0,3,0,0,0]]],
+  // end ["swine-herd","contagious-vs-environmental-mastitis-pathogens"]
+  // ["swine-herd","cross-sectional-vs-case-control"]
+  ["swine-herd","cross-sectional-vs-case-control",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["swine-herd","cross-sectional-vs-case-control"]
+  // ["swine-herd","epidemic-vs-endemic"]
+  ["swine-herd","epidemic-vs-endemic",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["swine-herd","epidemic-vs-endemic"]
+  // ["swine-herd","feeding-pregnancy-stage"]
+  ["swine-herd","feeding-pregnancy-stage",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["swine-herd","feeding-pregnancy-stage"]
+  // ["swine-herd","halothane-gene-pss"]
+  ["swine-herd","halothane-gene-pss",0,[[1,4,1,1,1,1,0,0]]],
+  // end ["swine-herd","halothane-gene-pss"]
+  // ["swine-herd","inbreeding-depression"]
+  ["swine-herd","inbreeding-depression",0,[[1,4,1,1,1,1,0,0]]],
+  // end ["swine-herd","inbreeding-depression"]
+  // ["swine-herd","iron-deficiency-anemia-piglet"]
+  ["swine-herd","iron-deficiency-anemia-piglet",0,[[1,4,1,1,1,1,0,0]]],
+  // end ["swine-herd","iron-deficiency-anemia-piglet"]
+  // ["swine-herd","isolation-acclimatization-new-gilts"]
+  ["swine-herd","isolation-acclimatization-new-gilts",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["swine-herd","isolation-acclimatization-new-gilts"]
+  // ["swine-herd","mastitis-subclinical-scc"]
+  ["swine-herd","mastitis-subclinical-scc",0,[[1,4,1,0,3,0,0,0]]],
+  // end ["swine-herd","mastitis-subclinical-scc"]
+  // ["swine-herd","milk-letdown-oxytocin"]
+  ["swine-herd","milk-letdown-oxytocin",0,[[1,4,1,0,3,0,0,0]]],
+  // end ["swine-herd","milk-letdown-oxytocin"]
+  // ["swine-herd","milking-machine-pulsation"]
+  ["swine-herd","milking-machine-pulsation",0,[[1,4,1,0,3,0,0,0]]],
+  // end ["swine-herd","milking-machine-pulsation"]
+  // ["swine-herd","mycotoxin-zearalenone"]
+  ["swine-herd","mycotoxin-zearalenone",0,[[1,4,1,1,1,1,0,0]]],
+  // end ["swine-herd","mycotoxin-zearalenone"]
+  // ["swine-herd","npd-calculation"]
+  ["swine-herd","npd-calculation",0,[[1,4,1,0,1,0,0,0]]],
+  // end ["swine-herd","npd-calculation"]
+  // ["swine-herd","parakeratosis-zinc-deficiency"]
+  ["swine-herd","parakeratosis-zinc-deficiency",0,[[1,4,1,1,1,1,0,0]]],
+  // end ["swine-herd","parakeratosis-zinc-deficiency"]
+  // ["swine-herd","parity-structure-management"]
+  ["swine-herd","parity-structure-management",0,[[1,4,1,0,1,0,0,0]]],
+  // end ["swine-herd","parity-structure-management"]
+  // ["swine-herd","production-tree-low-total-born"]
+  ["swine-herd","production-tree-low-total-born",0,[[1,4,1,0,1,0,0,0]]],
+  // end ["swine-herd","production-tree-low-total-born"]
+  // ["swine-herd","prrs-vaccination-program"]
+  ["swine-herd","prrs-vaccination-program",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["swine-herd","prrs-vaccination-program"]
+  // ["swine-herd","psy-calculation"]
+  ["swine-herd","psy-calculation",0,[[1,4,1,1,1,1,0,0]]],
+  // end ["swine-herd","psy-calculation"]
+  // ["swine-herd","return-to-estrus-pattern"]
+  ["swine-herd","return-to-estrus-pattern",0,[[1,4,1,0,1,0,0,0]]],
+  // end ["swine-herd","return-to-estrus-pattern"]
+  // ["swine-herd","sensitivity-specificity-calculation"]
+  ["swine-herd","sensitivity-specificity-calculation",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["swine-herd","sensitivity-specificity-calculation"]
+  // ["swine-herd","sow-feeding-lactation"]
+  ["swine-herd","sow-feeding-lactation",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["swine-herd","sow-feeding-lactation"]
+  // ["swine-herd","swine-dysentery-brachyspira"]
+  ["swine-herd","swine-dysentery-brachyspira",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["swine-herd","swine-dysentery-brachyspira"]
+  // ["swine-herd","swine-euthanasia-method"]
+  ["swine-herd","swine-euthanasia-method",0,[[1,4,1,1,1,1,0,0]]],
+  // end ["swine-herd","swine-euthanasia-method"]
+  // ["swine-herd","swine-house-count-calculation"]
+  ["swine-herd","swine-house-count-calculation",0,[[1,4,1,1,1,1,0,0]]],
+  // end ["swine-herd","swine-house-count-calculation"]
+  // ["swine-herd","swine-welfare-5-freedoms"]
+  ["swine-herd","swine-welfare-5-freedoms",0,[[1,4,1,1,1,1,0,0]]],
+  // end ["swine-herd","swine-welfare-5-freedoms"]
+  // ["swine-herd","thin-sow-syndrome"]
+  ["swine-herd","thin-sow-syndrome",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["swine-herd","thin-sow-syndrome"]
+  // ["swine-herd","vitamin-e-selenium-deficiency"]
+  ["swine-herd","vitamin-e-selenium-deficiency",0,[[1,4,1,1,1,1,0,0]]],
+  // end ["swine-herd","vitamin-e-selenium-deficiency"]
+  // ["swine-herd","wsi-fertility-relationship"]
+  ["swine-herd","wsi-fertility-relationship",0,[[1,4,1,0,3,0,0,0]]],
+  // end ["swine-herd","wsi-fertility-relationship"]
+  // ["swine-repro","artificial-insemination"]
+  ["swine-repro","artificial-insemination",0,[[3,4,1,1,1,1,0,0]]],
+  // end ["swine-repro","artificial-insemination"]
+  // ["swine-repro","boar-anatomy"]
+  ["swine-repro","boar-anatomy",0,[[3,4,1,1,1,1,0,0]]],
+  // end ["swine-repro","boar-anatomy"]
+  // ["swine-repro","boar-management"]
+  ["swine-repro","boar-management",0,[[5,4,1,1,3,1,0,0]]],
+  // end ["swine-repro","boar-management"]
+  // ["swine-repro","embryo-development"]
+  ["swine-repro","embryo-development",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["swine-repro","embryo-development"]
+  // ["swine-repro","estrus-detection"]
+  ["swine-repro","estrus-detection",0,[[1,4,1,1,1,1,0,0]]],
+  // end ["swine-repro","estrus-detection"]
+  // ["swine-repro","estrus-synchronization"]
+  ["swine-repro","estrus-synchronization",0,[[1,4,1,1,1,1,0,0]]],
+  // end ["swine-repro","estrus-synchronization"]
+  // ["swine-repro","farrowing-management"]
+  ["swine-repro","farrowing-management",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["swine-repro","farrowing-management"]
+  // ["swine-repro","gilt-puberty"]
+  ["swine-repro","gilt-puberty",0,[[1,4,1,1,1,1,0,0]]],
+  // end ["swine-repro","gilt-puberty"]
+  // ["swine-repro","lactation"]
+  ["swine-repro","lactation",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["swine-repro","lactation"]
+  // ["swine-repro","mma-syndrome"]
+  ["swine-repro","mma-syndrome",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["swine-repro","mma-syndrome"]
+  // ["swine-repro","parturition"]
+  ["swine-repro","parturition",0,[[4,4,1,1,2,1,0,0]]],
+  // end ["swine-repro","parturition"]
+  // ["swine-repro","piglet-survival"]
+  ["swine-repro","piglet-survival",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["swine-repro","piglet-survival"]
+  // ["swine-repro","pregnancy-diagnosis"]
+  ["swine-repro","pregnancy-diagnosis",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["swine-repro","pregnancy-diagnosis"]
+  // ["swine-repro","pregnancy-recognition"]
+  ["swine-repro","pregnancy-recognition",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["swine-repro","pregnancy-recognition"]
+  // ["swine-repro","reproductive-surgery"]
+  ["swine-repro","reproductive-surgery",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["swine-repro","reproductive-surgery"]
+  // ["swine-repro","returns-to-estrus"]
+  ["swine-repro","returns-to-estrus",0,[[1,4,1,1,3,1,0,0]]],
+  // end ["swine-repro","returns-to-estrus"]
+  // ["swine-repro","semen-evaluation"]
+  ["swine-repro","semen-evaluation",0,[[2,4,1,1,1,1,0,0]]],
+  // end ["swine-repro","semen-evaluation"]
+  // ["vca","anatomy"]
+  ["vca","anatomy",1,[[7,5,1,1,3,1,0,0]]],
+  // end ["vca","anatomy"]
+  // ["vca","aquatic"]
+  ["vca","aquatic",15,[[31,5,1,0,3,0,0,0],[70,5,1,1,3,1,0,0]]],
+  // end ["vca","aquatic"]
+  // ["vca","clinical-pathology"]
+  ["vca","clinical-pathology",1,[[17,5,1,0,3,0,0,0],[13,5,1,1,3,1,0,0]]],
+  // end ["vca","clinical-pathology"]
+  // ["vca","dogcat"]
+  ["vca","dogcat",37,[[66,5,1,0,3,0,0,0],[275,5,1,1,3,1,0,0]]],
+  // end ["vca","dogcat"]
+  // ["vca","epidemiology"]
+  ["vca","epidemiology",0,[[1,5,1,0,3,0,0,0],[12,5,1,1,3,1,0,0]]],
+  // end ["vca","epidemiology"]
+  // ["vca","equine"]
+  ["vca","equine",19,[[29,5,1,0,3,0,0,0],[80,5,1,1,3,1,0,0]]],
+  // end ["vca","equine"]
+  // ["vca","exotic"]
+  ["vca","exotic",13,[[32,5,1,0,3,0,0,0],[58,5,1,1,3,1,0,0]]],
+  // end ["vca","exotic"]
+  // ["vca","food-hygiene"]
+  ["vca","food-hygiene",1,[[14,5,1,1,3,1,0,0]]],
+  // end ["vca","food-hygiene"]
+  // ["vca","imaging"]
+  ["vca","imaging",6,[[23,5,1,1,3,1,0,0]]],
+  // end ["vca","imaging"]
+  // ["vca","immunology"]
+  ["vca","immunology",2,[[7,5,1,0,3,0,0,0],[16,5,1,1,3,1,0,0]]],
+  // end ["vca","immunology"]
+  // ["vca","juris"]
+  ["vca","juris",0,[[11,5,1,1,3,1,0,0]]],
+  // end ["vca","juris"]
+  // ["vca","microbiology"]
+  ["vca","microbiology",0,[[11,5,1,1,3,1,0,0]]],
+  // end ["vca","microbiology"]
+  // ["vca","neurology"]
+  ["vca","neurology",2,[[1,5,1,0,3,0,0,0],[19,5,1,1,3,1,0,0]]],
+  // end ["vca","neurology"]
+  // ["vca","ophthalmology"]
+  ["vca","ophthalmology",1,[[9,5,1,0,3,0,0,0],[20,5,1,1,3,1,0,0]]],
+  // end ["vca","ophthalmology"]
+  // ["vca","parasitology"]
+  ["vca","parasitology",5,[[4,5,1,0,3,0,0,0],[33,5,1,1,3,1,0,0]]],
+  // end ["vca","parasitology"]
+  // ["vca","pathology"]
+  ["vca","pathology",0,[[12,5,1,1,3,1,0,0]]],
+  // end ["vca","pathology"]
+  // ["vca","pharmacology"]
+  ["vca","pharmacology",3,[[18,5,1,1,3,1,0,0]]],
+  // end ["vca","pharmacology"]
+  // ["vca","poultry"]
+  ["vca","poultry",0,[[76,5,1,0,3,0,0,0],[13,5,1,1,3,1,0,0]]],
+  // end ["vca","poultry"]
+  // ["vca","ruminant"]
+  ["vca","ruminant",2,[[72,5,1,0,3,0,0,0],[17,5,1,1,3,1,0,0]]],
+  // end ["vca","ruminant"]
+  // ["vca","surgery"]
+  ["vca","surgery",14,[[85,5,1,1,3,1,0,0]]],
+  // end ["vca","surgery"]
+  // ["vca","swine"]
+  ["vca","swine",19,[[46,5,1,0,3,0,0,0],[109,5,1,1,3,1,0,0]]],
+  // end ["vca","swine"]
+  // ["vca","theriogenology"]
+  ["vca","theriogenology",6,[[28,5,1,1,3,1,0,0]]],
+  // end ["vca","theriogenology"]
+  // ["vca","zoonoses"]
+  ["vca","zoonoses",2,[[6,5,1,1,3,1,0,0]]],
+  // end ["vca","zoonoses"]
+  // ["vet-dev-anat","vd-cardio"]
+  ["vet-dev-anat","vd-cardio",0,[[10,1,1,1,3,1,0,0]]],
+  // end ["vet-dev-anat","vd-cardio"]
+  // ["vet-dev-anat","vd-git"]
+  ["vet-dev-anat","vd-git",0,[[9,1,1,1,3,1,0,0]]],
+  // end ["vet-dev-anat","vd-git"]
+  // ["vet-dev-anat","vd-pharyngeal"]
+  ["vet-dev-anat","vd-pharyngeal",0,[[7,1,1,1,3,1,0,0]]],
+  // end ["vet-dev-anat","vd-pharyngeal"]
+  // ["vet-histo","histo--avian"]
+  ["vet-histo","histo--avian",0,[[5,2,1,0,3,0,0,0]]],
+  // end ["vet-histo","histo--avian"]
+  // ["vet-histo","histo--bone-marrow"]
+  ["vet-histo","histo--bone-marrow",0,[[5,2,1,0,3,0,0,0]]],
+  // end ["vet-histo","histo--bone-marrow"]
+  // ["vet-histo","histo--bone-marrow-laboratory"]
+  ["vet-histo","histo--bone-marrow-laboratory",0,[[1,2,1,0,3,0,0,0]]],
+  // end ["vet-histo","histo--bone-marrow-laboratory"]
+  // ["vet-histo","histo--circulatory-system"]
+  ["vet-histo","histo--circulatory-system",0,[[6,2,1,0,3,0,0,0]]],
+  // end ["vet-histo","histo--circulatory-system"]
+  // ["vet-histo","histo--cytology"]
+  ["vet-histo","histo--cytology",0,[[6,2,1,0,3,0,0,0]]],
+  // end ["vet-histo","histo--cytology"]
+  // ["vet-histo","histo--digestive-system-i"]
+  ["vet-histo","histo--digestive-system-i",0,[[2,2,1,0,3,0,0,0]]],
+  // end ["vet-histo","histo--digestive-system-i"]
+  // ["vet-histo","histo--digestive-system-iii"]
+  ["vet-histo","histo--digestive-system-iii",0,[[4,2,1,0,3,0,0,0]]],
+  // end ["vet-histo","histo--digestive-system-iii"]
+  // ["vet-histo","histo--endocrine"]
+  ["vet-histo","histo--endocrine",0,[[6,2,1,0,3,0,0,0]]],
+  // end ["vet-histo","histo--endocrine"]
+  // ["vet-histo","histo--epithelium"]
+  ["vet-histo","histo--epithelium",0,[[3,2,1,0,3,0,0,0]]],
+  // end ["vet-histo","histo--epithelium"]
+  // ["vet-histo","histo--female-lab-manual"]
+  ["vet-histo","histo--female-lab-manual",0,[[8,2,1,0,3,0,0,0]]],
+  // end ["vet-histo","histo--female-lab-manual"]
+  // ["vet-histo","histo--female-reproductive-organ"]
+  ["vet-histo","histo--female-reproductive-organ",0,[[9,2,1,0,3,0,0,0]]],
+  // end ["vet-histo","histo--female-reproductive-organ"]
+  // ["vet-histo","histo--fish"]
+  ["vet-histo","histo--fish",0,[[7,2,1,0,3,0,0,0]]],
+  // end ["vet-histo","histo--fish"]
+  // ["vet-histo","histo--histo-lab-block-ii"]
+  ["vet-histo","histo--histo-lab-block-ii",0,[[4,2,1,0,3,0,0,0]]],
+  // end ["vet-histo","histo--histo-lab-block-ii"]
+  // ["vet-histo","histo--integument"]
+  ["vet-histo","histo--integument",0,[[3,2,1,0,3,0,0,0]]],
+  // end ["vet-histo","histo--integument"]
+  // ["vet-histo","histo--laboratory-of-nervous-system-histology"]
+  ["vet-histo","histo--laboratory-of-nervous-system-histology",0,[[1,2,1,0,3,0,0,0]]],
+  // end ["vet-histo","histo--laboratory-of-nervous-system-histology"]
+  // ["vet-histo","histo--lymphatic-organ-i"]
+  ["vet-histo","histo--lymphatic-organ-i",0,[[1,2,1,0,3,0,0,0]]],
+  // end ["vet-histo","histo--lymphatic-organ-i"]
+  // ["vet-histo","histo--lymphatic-organs-ii"]
+  ["vet-histo","histo--lymphatic-organs-ii",0,[[6,2,1,0,3,0,0,0]]],
+  // end ["vet-histo","histo--lymphatic-organs-ii"]
+  // ["vet-histo","histo--male-reproductive-system"]
+  ["vet-histo","histo--male-reproductive-system",0,[[2,2,1,0,3,0,0,0]]],
+  // end ["vet-histo","histo--male-reproductive-system"]
+  // ["vet-histo","histo--nervous-system"]
+  ["vet-histo","histo--nervous-system",0,[[1,2,1,0,3,0,0,0]]],
+  // end ["vet-histo","histo--nervous-system"]
+  // ["vet-histo","histo--placenta"]
+  ["vet-histo","histo--placenta",0,[[1,2,1,0,3,0,0,0]]],
+  // end ["vet-histo","histo--placenta"]
+  // ["vet-histo","histo--placenta-lab-manual"]
+  ["vet-histo","histo--placenta-lab-manual",0,[[2,2,1,0,3,0,0,0]]],
+  // end ["vet-histo","histo--placenta-lab-manual"]
+  // ["vet-histo","histo--respiratory-system"]
+  ["vet-histo","histo--respiratory-system",0,[[3,2,1,0,3,0,0,0]]],
+  // end ["vet-histo","histo--respiratory-system"]
+  // ["vet-histo","histo--special-sense"]
+  ["vet-histo","histo--special-sense",0,[[8,2,1,0,3,0,0,0]]],
+  // end ["vet-histo","histo--special-sense"]
+  // ["vet-histo","histo--tissue-preparation"]
+  ["vet-histo","histo--tissue-preparation",0,[[3,2,1,0,3,0,0,0]]],
+  // end ["vet-histo","histo--tissue-preparation"]
+  // ["vet-histo","histo--urinary-system"]
+  ["vet-histo","histo--urinary-system",0,[[7,2,1,0,3,0,0,0]]],
+  // end ["vet-histo","histo--urinary-system"]
+  // ["vet-imaging","abdomen-radiograph"]
+  ["vet-imaging","abdomen-radiograph",0,[[3,4,1,1,2,1,0,0]]],
+  // end ["vet-imaging","abdomen-radiograph"]
+  // ["vet-imaging","ct-basics"]
+  ["vet-imaging","ct-basics",0,[[5,4,1,1,3,1,0,0]]],
+  // end ["vet-imaging","ct-basics"]
+  // ["vet-imaging","echocardiography"]
+  ["vet-imaging","echocardiography",0,[[1,4,1,1,2,1,0,0]]],
+  // end ["vet-imaging","echocardiography"]
+  // ["vet-imaging","mri-basics"]
+  ["vet-imaging","mri-basics",0,[[6,4,1,1,2,1,0,0]]],
+  // end ["vet-imaging","mri-basics"]
+  // ["vet-imaging","musculoskeletal-imaging"]
+  ["vet-imaging","musculoskeletal-imaging",0,[[3,4,1,1,2,1,0,0]]],
+  // end ["vet-imaging","musculoskeletal-imaging"]
+  // ["vet-imaging","radiograph-projections"]
+  ["vet-imaging","radiograph-projections",0,[[3,4,1,1,2,1,0,0]]],
+  // end ["vet-imaging","radiograph-projections"]
+  // ["vet-imaging","thorax-radiograph"]
+  ["vet-imaging","thorax-radiograph",0,[[2,4,1,1,2,1,0,0]]],
+  // end ["vet-imaging","thorax-radiograph"]
+  // ["vet-imaging","ultrasound-basics"]
+  ["vet-imaging","ultrasound-basics",0,[[12,4,1,1,2,1,0,0]]],
+  // end ["vet-imaging","ultrasound-basics"]
+  // ["vet-juris","animal-epidemic-act-2558"]
+  ["vet-juris","animal-epidemic-act-2558",1,[[11,4,1,1,2,1,0,0]]],
+  // end ["vet-juris","animal-epidemic-act-2558"]
+  // ["vet-juris","animal-hospital-act-2557"]
+  ["vet-juris","animal-hospital-act-2557",0,[[12,4,1,1,2,1,0,0]]],
+  // end ["vet-juris","animal-hospital-act-2557"]
+  // ["vet-juris","drug-act-2510"]
+  ["vet-juris","drug-act-2510",0,[[15,4,1,1,2,1,0,0]]],
+  // end ["vet-juris","drug-act-2510"]
+  // ["vet-juris","slaughter-act-2559"]
+  ["vet-juris","slaughter-act-2559",0,[[3,4,1,1,2,1,0,0]]],
+  // end ["vet-juris","slaughter-act-2559"]
+  // ["vet-juris","wildlife-act-2562"]
+  ["vet-juris","wildlife-act-2562",0,[[5,4,1,1,2,1,0,0]]],
+  // end ["vet-juris","wildlife-act-2562"]
+  // ["vet-neuroanat","neuroanat--basal-nuclei"]
+  ["vet-neuroanat","neuroanat--basal-nuclei",0,[[2,2,1,0,3,0,0,0]]],
+  // end ["vet-neuroanat","neuroanat--basal-nuclei"]
+  // ["vet-neuroanat","neuroanat--diencephalon"]
+  ["vet-neuroanat","neuroanat--diencephalon",0,[[4,2,1,0,3,0,0,0]]],
+  // end ["vet-neuroanat","neuroanat--diencephalon"]
+  // ["vet-neuroanat","neuroanat--limbic-system-nonolfactory-rhinencephalon"]
+  ["vet-neuroanat","neuroanat--limbic-system-nonolfactory-rhinencephalon",0,[[5,2,1,0,3,0,0,0]]],
+  // end ["vet-neuroanat","neuroanat--limbic-system-nonolfactory-rhinencephalon"]
+  // ["vet-neuroanat","neuroanat--metencephalon"]
+  ["vet-neuroanat","neuroanat--metencephalon",0,[[8,2,1,0,3,0,0,0]]],
+  // end ["vet-neuroanat","neuroanat--metencephalon"]
+  // ["vet-neuroanat","neuroanat--midbrain"]
+  ["vet-neuroanat","neuroanat--midbrain",0,[[6,2,1,0,3,0,0,0]]],
+  // end ["vet-neuroanat","neuroanat--midbrain"]
+  // ["vet-neuroanat","neuroanat--myelencephalon"]
+  ["vet-neuroanat","neuroanat--myelencephalon",0,[[7,2,1,0,3,0,0,0]]],
+  // end ["vet-neuroanat","neuroanat--myelencephalon"]
+  // ["vet-neuroanat","neuroanat--neuro-exam-anatomy2024"]
+  ["vet-neuroanat","neuroanat--neuro-exam-anatomy2024",0,[[3,2,1,0,3,0,0,0]]],
+  // end ["vet-neuroanat","neuroanat--neuro-exam-anatomy2024"]
+  // ["vet-neuroanat","neuroanat--visual-vestibular-systems"]
+  ["vet-neuroanat","neuroanat--visual-vestibular-systems",0,[[5,2,1,0,3,0,0,0]]],
+  // end ["vet-neuroanat","neuroanat--visual-vestibular-systems"]
+  // ["vet-pharm-2","antibiotics"]
+  ["vet-pharm-2","antibiotics",0,[[3,3,1,0,3,0,0,0]]],
+  // end ["vet-pharm-2","antibiotics"]
+  // ["vet-pharm-2","antiparasitic"]
+  ["vet-pharm-2","antiparasitic",0,[[29,3,1,0,3,0,0,0]]],
+  // end ["vet-pharm-2","antiparasitic"]
+  // ["vet-pharm-2","autonomic"]
+  ["vet-pharm-2","autonomic",0,[[27,3,1,0,3,0,0,0]]],
+  // end ["vet-pharm-2","autonomic"]
+  // ["vet-pharm-2","cardio-renal"]
+  ["vet-pharm-2","cardio-renal",0,[[1,3,1,0,3,0,0,0]]],
+  // end ["vet-pharm-2","cardio-renal"]
+  // ["vet-pharm-2","nsaids"]
+  ["vet-pharm-2","nsaids",0,[[2,3,1,0,3,0,0,0]]],
+  // end ["vet-pharm-2","nsaids"]
+  // ["zoonoses","zoo-ai-basic"]
+  ["zoonoses","zoo-ai-basic",0,[[13,5,1,0,1,1,0,0],[9,5,1,1,1,1,0,0]]],
+  // end ["zoonoses","zoo-ai-basic"]
+  // ["zoonoses","zoo-bacterial"]
+  ["zoonoses","zoo-bacterial",0,[[9,5,1,0,2,0,0,0],[51,5,1,1,2,1,0,0]]],
+  // end ["zoonoses","zoo-bacterial"]
+  // ["zoonoses","zoo-corona"]
+  ["zoonoses","zoo-corona",0,[[1,5,1,0,1,0,0,0],[2,5,1,0,1,0,["2569-1","midterm"],0],[5,5,1,0,1,1,0,0],[13,5,1,1,1,1,0,0]]],
+  // end ["zoonoses","zoo-corona"]
+  // ["zoonoses","zoo-ebola-nipah"]
+  ["zoonoses","zoo-ebola-nipah",0,[[3,5,1,0,1,0,0,0],[1,5,1,0,1,0,["2569-1","midterm"],0],[1,5,1,0,1,0,["2569-1","midterm"],["2569-1","midterm"]],[7,5,1,0,1,1,0,0],[11,5,1,1,1,1,0,0]]],
+  // end ["zoonoses","zoo-ebola-nipah"]
+  // ["zoonoses","zoo-eid-cuvet"]
+  ["zoonoses","zoo-eid-cuvet",0,[[4,5,1,0,1,0,["2569-1","midterm"],0]]],
+  // end ["zoonoses","zoo-eid-cuvet"]
+  // ["zoonoses","zoo-eid-wildlife"]
+  ["zoonoses","zoo-eid-wildlife",0,[[9,5,1,0,3,0,0,0],[10,5,1,1,3,1,0,0]]],
+  // end ["zoonoses","zoo-eid-wildlife"]
+  // ["zoonoses","zoo-epi-approach"]
+  ["zoonoses","zoo-epi-approach",0,[[16,5,1,0,3,0,0,0],[52,5,1,1,3,1,0,0]]],
+  // end ["zoonoses","zoo-epi-approach"]
+  // ["zoonoses","zoo-helminthic"]
+  ["zoonoses","zoo-helminthic",0,[[2,5,1,0,1,0,0,0],[38,5,1,0,1,1,0,0],[24,5,1,1,1,1,0,0]]],
+  // end ["zoonoses","zoo-helminthic"]
+  // ["zoonoses","zoo-intro"]
+  ["zoonoses","zoo-intro",0,[[8,5,1,0,1,0,0,0],[1,5,1,0,1,1,0,0],[12,5,1,1,1,1,0,0]]],
+  // end ["zoonoses","zoo-intro"]
+  // ["zoonoses","zoo-mycoses"]
+  ["zoonoses","zoo-mycoses",0,[[4,5,1,0,2,1,0,0],[20,5,1,1,2,1,0,0]]],
+  // end ["zoonoses","zoo-mycoses"]
+  // ["zoonoses","zoo-outbreak"]
+  ["zoonoses","zoo-outbreak",0,[[12,5,1,0,1,1,0,0]]],
+  // end ["zoonoses","zoo-outbreak"]
+  // ["zoonoses","zoo-prion"]
+  ["zoonoses","zoo-prion",0,[[4,5,1,0,2,0,0,0],[9,5,1,1,2,1,0,0]]],
+  // end ["zoonoses","zoo-prion"]
+  // ["zoonoses","zoo-protozoal"]
+  ["zoonoses","zoo-protozoal",0,[[11,5,1,0,1,1,0,0],[17,5,1,1,1,1,0,0]]],
+  // end ["zoonoses","zoo-protozoal"]
+  // ["zoonoses","zoo-rabies"]
+  ["zoonoses","zoo-rabies",0,[[5,5,1,0,1,0,0,0],[16,5,1,0,1,1,0,0],[7,5,1,1,1,1,0,0]]],
+  // end ["zoonoses","zoo-rabies"]
+  // ["zoonoses","zoo-rickettsial"]
+  ["zoonoses","zoo-rickettsial",0,[[1,5,1,0,1,0,0,0],[2,5,1,0,1,0,["2569-1","midterm"],["2569-1","midterm"]],[1,5,1,0,1,1,0,0],[21,5,1,1,1,1,0,0]]],
+  // end ["zoonoses","zoo-rickettsial"]
+  // ["zoonoses","zoo-siv-civ"]
+  ["zoonoses","zoo-siv-civ",0,[[3,5,1,0,1,0,["2569-1","midterm"],0],[4,5,1,0,1,1,0,0],[4,5,1,1,1,1,0,0]]],
+  // end ["zoonoses","zoo-siv-civ"]
+  // ["zoonoses","zoo-vbz"]
+  ["zoonoses","zoo-vbz",0,[[2,5,1,0,1,0,["2569-1","midterm"],0],[1,5,1,0,1,0,["2569-1","midterm"],["2569-1","midterm"]],[21,5,1,0,1,1,0,0],[3,5,1,1,1,1,0,0]]],
+  // end ["zoonoses","zoo-vbz"]
+];
 
+const T = countTables(LEAVES, SUBJECT_TERMS);
+
+export const QB_TOTAL = T.QB_TOTAL;
+export const QB_SOURCE_TOTAL = T.QB_SOURCE_TOTAL;
+export const QB_BLOCKED_TOTAL = T.QB_BLOCKED_TOTAL;
+export const Q_COUNTS_BY_SUBJECT = T.Q_COUNTS_BY_SUBJECT;
+// Visible counts exclude hidden-topic Qs (midterm leftovers, uncertain-scope
+// items flagged via topic.hidden in curriculum.js).
+export const Q_VISIBLE_COUNTS_BY_SUBJECT = T.Q_VISIBLE_COUNTS_BY_SUBJECT;
 // What Panic Mode holds per subject: questions from a real paper plus the
 // ones written from what a senior cohort marked, hidden topics excluded.
 // A subject missing from this map has neither, and its Panic card falls
 // back to the whole subject.
-export const Q_PANIC_COUNTS_BY_SUBJECT = {
-  'aquatic-clinic': 408,
-  'avian-medicine': 278,
-  'biochem-1': 271,
-  'cliapprum': 10,
-  'com1': 31,
-  'com2': 42,
-  'com3': 178,
-  'com4': 33,
-  'com5': 10,
-  'comp-repro-clinic': 48,
-  'engprof': 1,
-  'epidemiology': 297,
-  'equine-medicine': 329,
-  'equine-repro': 200,
-  'exotic': 34,
-  'food-industry': 154,
-  'food-safety-y4': 31,
-  'herd-health-rum': 35,
-  'livestock-pathology': 67,
-  'milk-meat-hygiene': 904,
-  'one-health': 127,
-  'poa-clinical': 16,
-  'poultry': 69,
-  'practrum': 17,
-  'rec-adv-bioscience': 4,
-  'repro': 31,
-  'repro-lect': 78,
-  'ruminant-clinical': 15,
-  'surg1': 29,
-  'surg2': 18,
-  'surg3': 40,
-  'swine-clinic': 245,
-  'swine-herd': 27,
-  'swine-repro': 29,
-  'vca': 950,
-  'vet-dev-anat': 26,
-  'vet-imaging': 35,
-  'vet-juris': 46,
-  'zoonoses': 396,
-};
-
-// The same count, narrowed to one paper. A Panic card opened with a phase
-// selected must print what that phase will actually serve — see
-// lib/exam-scope.js. A subject absent from a paper holds nothing for it.
-export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
-  midterm: {
-    'aquatic-clinic': 217,
-    'avian-medicine': 198,
-    'biochem-1': 271,
-    'cliapprum': 10,
-    'com1': 4,
-    'com2': 14,
-    'com3': 178,
-    'com4': 33,
-    'com5': 10,
-    'comp-repro-clinic': 48,
-    'engprof': 1,
-    'equine-medicine': 230,
-    'equine-repro': 64,
-    'exotic': 34,
-    'food-industry': 124,
-    'food-safety-y4': 15,
-    'herd-health-rum': 20,
-    'livestock-pathology': 67,
-    'milk-meat-hygiene': 558,
-    'one-health': 67,
-    'poultry': 69,
-    'practrum': 17,
-    'rec-adv-bioscience': 4,
-    'repro': 31,
-    'repro-lect': 78,
-    'ruminant-clinical': 15,
-    'surg1': 29,
-    'surg2': 18,
-    'surg3': 40,
-    'swine-clinic': 81,
-    'swine-herd': 22,
-    'swine-repro': 17,
-    'vca': 950,
-    'vet-dev-anat': 26,
-    'vet-imaging': 5,
-    'zoonoses': 312,
-  },
-  final: {
-    'aquatic-clinic': 191,
-    'avian-medicine': 80,
-    'biochem-1': 271,
-    'cliapprum': 10,
-    'com1': 31,
-    'com2': 39,
-    'com3': 178,
-    'com4': 33,
-    'com5': 10,
-    'comp-repro-clinic': 48,
-    'engprof': 1,
-    'epidemiology': 280,
-    'equine-medicine': 325,
-    'equine-repro': 136,
-    'exotic': 34,
-    'food-industry': 30,
-    'food-safety-y4': 21,
-    'herd-health-rum': 33,
-    'livestock-pathology': 67,
-    'milk-meat-hygiene': 412,
-    'one-health': 60,
-    'poultry': 69,
-    'practrum': 17,
-    'rec-adv-bioscience': 4,
-    'repro': 31,
-    'repro-lect': 78,
-    'ruminant-clinical': 15,
-    'surg1': 29,
-    'surg2': 18,
-    'surg3': 40,
-    'swine-clinic': 164,
-    'swine-herd': 11,
-    'swine-repro': 18,
-    'vca': 950,
-    'vet-dev-anat': 26,
-    'vet-imaging': 35,
-    'vet-juris': 46,
-    'zoonoses': 146,
-  },
-};
-
-// What each surface may print once a paper is chosen. Every one of these
-// sits next to a button that opens buildExamPool with the same phase, so
-// the number and the set have to come from the same rule.
-export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
-  '1-mid': {
-    'aquatic-clinic': 289,
-    'avian-medicine': 472,
-    'com1': 4,
-    'com2': 14,
-    'equine-medicine': 390,
-    'equine-repro': 81,
-    'food-industry': 239,
-    'food-safety-y4': 15,
-    'herd-health-rum': 24,
-    'milk-meat-hygiene': 846,
-    'one-health': 152,
-    'surg1': 29,
-    'swine-clinic': 94,
-    'swine-herd': 31,
-    'swine-repro': 17,
-    'vca': 1341,
-    'vet-histo': 104,
-    'vet-imaging': 5,
-    'zoonoses': 373,
-  },
-  '1-final': {
-    'aquatic-clinic': 243,
-    'avian-medicine': 109,
-    'com1': 31,
-    'com2': 39,
-    'engprof1': 30,
-    'epidemiology': 355,
-    'equine-medicine': 565,
-    'equine-repro': 161,
-    'food-industry': 61,
-    'food-safety-y4': 21,
-    'herd-health-rum': 37,
-    'milk-meat-hygiene': 417,
-    'one-health': 90,
-    'surg1': 29,
-    'swine-clinic': 174,
-    'swine-herd': 16,
-    'swine-repro': 18,
-    'vca': 1341,
-    'vet-histo': 104,
-    'vet-imaging': 35,
-    'vet-juris': 46,
-    'zoonoses': 184,
-  },
-  '2-mid': {
-    'biochem-1': 271,
-    'cliapprum': 134,
-    'com3': 359,
-    'com4': 291,
-    'com5': 129,
-    'comp-repro-clinic': 48,
-    'engprof': 70,
-    'exotic': 108,
-    'livestock-pathology': 67,
-    'poultry': 132,
-    'practrum': 113,
-    'rec-adv-bioscience': 4,
-    'repro': 31,
-    'repro-lect': 208,
-    'ruminant-clinical': 15,
-    'surg2': 18,
-    'surg3': 40,
-    'vca': 1341,
-    'vet-dev-anat': 26,
-    'vet-neuroanat': 40,
-    'vet-pharm-2': 62,
-  },
-  '2-final': {
-    'biochem-1': 271,
-    'cliapprum': 134,
-    'com3': 359,
-    'com4': 291,
-    'com5': 129,
-    'comp-repro-clinic': 48,
-    'engprof': 70,
-    'exotic': 108,
-    'livestock-pathology': 67,
-    'poultry': 132,
-    'practrum': 113,
-    'rec-adv-bioscience': 4,
-    'repro': 31,
-    'repro-lect': 208,
-    'ruminant-clinical': 15,
-    'surg2': 18,
-    'surg3': 40,
-    'vca': 1341,
-    'vet-dev-anat': 26,
-    'vet-neuroanat': 40,
-    'vet-pharm-2': 62,
-  },
-};
-
+export const Q_PANIC_COUNTS_BY_SUBJECT = T.Q_PANIC_COUNTS_BY_SUBJECT;
+// The same count, narrowed to one paper (lib/exam-scope.js).
+export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = T.Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE;
+// What each surface may print once a paper is chosen: the same rule as the
+// buildExamPool call behind the button next to it.
+export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = T.Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE;
 // What รวมทุกวิชา serves for a year under a phase. Follows the pool's
-// never-empty guard: a year with no questions in the phase's term keeps the
-// whole year, then the paper filter, so this is NOT always the sum of the
-// subject table above (years 1 and 3 under เทอม 1).
-export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
-  '1-mid': {
-    1: 297,
-    2: 104,
-    3: 62,
-    4: 139,
-    5: 4277,
-  },
-  '1-final': {
-    1: 297,
-    2: 104,
-    3: 62,
-    4: 302,
-    5: 3700,
-  },
-  '2-mid': {
-    1: 297,
-    2: 40,
-    3: 62,
-    4: 1633,
-    5: 1475,
-  },
-  '2-final': {
-    1: 297,
-    2: 40,
-    3: 62,
-    4: 1633,
-    5: 1475,
-  },
-};
-
-export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
-  '1-mid': {
-    'aquatic-clinic': {
-      'aqua-amphibian': 12,
-      'aqua-fish-biology': 45,
-      'aqua-frog-diseases': 14,
-      'aqua-intro-thailand': 99,
-      'aqua-life-support': 10,
-      'aqua-ornamental': 38,
-      'aqua-shrimp-immunology': 26,
-      'aqua-turtle': 15,
-      'aqua-water-quality': 30,
-    },
-    'avian-medicine': {
-      'avian-adeno': 27,
-      'avian-ae': 20,
-      'avian-ahra-set': 33,
-      'avian-ai': 24,
-      'avian-cia': 14,
-      'avian-cocci': 28,
-      'avian-coli': 23,
-      'avian-coryza': 18,
-      'avian-egg-breakout': 1,
-      'avian-fowl-cholera': 18,
-      'avian-ib': 19,
-      'avian-ibd': 20,
-      'avian-intro': 6,
-      'avian-leuko': 14,
-      'avian-lt': 16,
-      'avian-malaria': 10,
-      'avian-marek': 26,
-      'avian-mpv': 14,
-      'avian-myco': 35,
-      'avian-nd': 24,
-      'avian-ne': 13,
-      'avian-pox': 18,
-      'avian-reo': 14,
-      'avian-rss': 10,
-      'avian-salmonella': 27,
-    },
-    'com1': {
-      'anemia-regen-vs-non': 1,
-      'blood-transfusion': 1,
-      'bone-marrow-biopsy': 1,
-      'splenectomy-indication': 1,
-    },
-    'com2': {
-      'fracture-classification': 1,
-      'fracture-management': 2,
-      'oral-trauma': 11,
-    },
-    'equine-medicine': {
-      'equine-colic-bestfit': 48,
-      'equine-dentistry': 40,
-      'equine-gi': 39,
-      'equine-intro': 87,
-      'equine-nutrition': 57,
-      'equine-parasites': 75,
-      'equine-respi': 44,
-    },
-    'equine-repro': {
-      'eqrepro-anatomy-cycle': 15,
-      'eqrepro-art-female': 16,
-      'eqrepro-exam-mare': 27,
-      'eqrepro-infertility': 18,
-      'eqrepro-mare-infect': 5,
-    },
-    'food-industry': {
-      'fiqc-feed-qc': 71,
-      'fiqc-intro': 29,
-      'fiqc-livestock-qc': 66,
-      'fiqc-slaughter-qc': 73,
-    },
-    'food-safety-y4': {
-      'dose-response': 1,
-      'drug-residues': 2,
-      'food-additives': 5,
-      'food-laws-thailand': 1,
-      'food-spoilage': 1,
-      'haccp': 1,
-      'milk-pasteurization': 1,
-      'risk-analysis-cac-framework': 1,
-      'risk-assessment-steps': 1,
-      'salmonella': 1,
-    },
-    'herd-health-rum': {
-      'anaplasmosis': 1,
-      'babesiosis': 1,
-      'brdc': 1,
-      'brucellosis': 2,
-      'bvd-persistent-infection': 1,
-      'enzootic-bovine-leukosis': 1,
-      'ephemeral-fever': 1,
-      'fec-anthelmintic-resistance': 1,
-      'fertility-kpi': 1,
-      'fmd': 2,
-      'hemorrhagic-septicemia': 1,
-      'incidence-rate-calculation': 1,
-      'lumpy-skin-disease': 1,
-      'malignant-catarrhal-fever': 1,
-      'mastitis-treatment-clinical': 1,
-      'mastitis-treatment-drycow': 1,
-      'milk-quality-standard': 1,
-      'on-farm-culture': 1,
-      'paratuberculosis': 1,
-      'toxic-mastitis': 1,
-      'tuberculosis-bovine': 2,
-    },
-    'milk-meat-hygiene': {
-      'milk-biosec-dairy': 32,
-      'milk-borne-pathogens': 44,
-      'milk-cleaning': 71,
-      'milk-industry-std': 63,
-      'milk-mastitis': 89,
-      'milk-microbiology': 79,
-      'milk-overview': 28,
-      'milk-processing': 106,
-      'milk-products-storage': 17,
-      'milk-quality-composition': 92,
-      'milk-quality-determination': 94,
-      'milk-raw-std': 67,
-      'milk-raw-storage': 64,
-    },
-    'one-health': {
-      'oh-collaboration': 11,
-      'oh-communication': 8,
-      'oh-concept': 16,
-      'oh-disease-prevention': 51,
-      'oh-global-network': 36,
-      'oh-vet-role': 30,
-    },
-    'surg1': {
-      'brachial-plexus-block': 3,
-      'breathing-circuit': 2,
-      'dental-nerve-block': 4,
-      'endotracheal-intubation': 2,
-      'epidural-block': 5,
-      'incisional-line-block': 1,
-      'intercostal-block': 3,
-      'intubation-cat': 1,
-      'iv-catheter': 2,
-      'iv-fluid-calculation': 2,
-      'local-infiltration': 1,
-      'oxygen-flow-rate': 2,
-      'testicular-block': 1,
-    },
-    'swine-clinic': {
-      'swine-cns': 8,
-      'swine-gi-viral': 12,
-      'swine-pornchalit-set': 62,
-      'swine-resp-viral': 12,
-    },
-    'swine-herd': {
-      'adg-calculation': 1,
-      'aflatoxin-source-effect': 1,
-      'all-in-all-out-system': 1,
-      'asf-acute-signs': 1,
-      'biosecurity-segregation-sanitation-resistance': 1,
-      'blup-breeding-value': 1,
-      'boar-restraint-snare': 1,
-      'breeding-system-3-breed-cross': 1,
-      'contagious-vs-environmental-mastitis-pathogens': 1,
-      'cross-sectional-vs-case-control': 1,
-      'epidemic-vs-endemic': 1,
-      'halothane-gene-pss': 1,
-      'inbreeding-depression': 1,
-      'iron-deficiency-anemia-piglet': 1,
-      'isolation-acclimatization-new-gilts': 1,
-      'mastitis-subclinical-scc': 1,
-      'milk-letdown-oxytocin': 1,
-      'milking-machine-pulsation': 1,
-      'mycotoxin-zearalenone': 1,
-      'npd-calculation': 1,
-      'parakeratosis-zinc-deficiency': 1,
-      'parity-structure-management': 1,
-      'production-tree-low-total-born': 1,
-      'psy-calculation': 1,
-      'return-to-estrus-pattern': 1,
-      'swine-euthanasia-method': 1,
-      'swine-house-count-calculation': 1,
-      'swine-welfare-5-freedoms': 1,
-      'thin-sow-syndrome': 1,
-      'vitamin-e-selenium-deficiency': 1,
-      'wsi-fertility-relationship': 1,
-    },
-    'swine-repro': {
-      'artificial-insemination': 3,
-      'boar-anatomy': 3,
-      'boar-management': 5,
-      'estrus-detection': 1,
-      'estrus-synchronization': 1,
-      'gilt-puberty': 1,
-      'returns-to-estrus': 1,
-      'semen-evaluation': 2,
-    },
-    'vca': {
-      'anatomy': 7,
-      'aquatic': 101,
-      'clinical-pathology': 30,
-      'dogcat': 341,
-      'epidemiology': 13,
-      'equine': 109,
-      'exotic': 90,
-      'food-hygiene': 14,
-      'imaging': 23,
-      'immunology': 23,
-      'juris': 11,
-      'microbiology': 11,
-      'neurology': 20,
-      'ophthalmology': 29,
-      'parasitology': 37,
-      'pathology': 12,
-      'pharmacology': 18,
-      'poultry': 89,
-      'ruminant': 89,
-      'surgery': 85,
-      'swine': 155,
-      'theriogenology': 28,
-      'zoonoses': 6,
-    },
-    'vet-histo': {
-      'histo--avian': 5,
-      'histo--bone-marrow': 5,
-      'histo--bone-marrow-laboratory': 1,
-      'histo--circulatory-system': 6,
-      'histo--cytology': 6,
-      'histo--digestive-system-i': 2,
-      'histo--digestive-system-iii': 4,
-      'histo--endocrine': 6,
-      'histo--epithelium': 3,
-      'histo--female-lab-manual': 8,
-      'histo--female-reproductive-organ': 9,
-      'histo--fish': 7,
-      'histo--histo-lab-block-ii': 4,
-      'histo--integument': 3,
-      'histo--laboratory-of-nervous-system-histology': 1,
-      'histo--lymphatic-organ-i': 1,
-      'histo--lymphatic-organs-ii': 6,
-      'histo--male-reproductive-system': 2,
-      'histo--nervous-system': 1,
-      'histo--placenta': 1,
-      'histo--placenta-lab-manual': 2,
-      'histo--respiratory-system': 3,
-      'histo--special-sense': 8,
-      'histo--tissue-preparation': 3,
-      'histo--urinary-system': 7,
-    },
-    'vet-imaging': {
-      'ct-basics': 5,
-    },
-    'zoonoses': {
-      'zoo-ai-basic': 22,
-      'zoo-corona': 21,
-      'zoo-ebola-nipah': 23,
-      'zoo-eid-cuvet': 4,
-      'zoo-eid-wildlife': 19,
-      'zoo-epi-approach': 68,
-      'zoo-helminthic': 64,
-      'zoo-intro': 21,
-      'zoo-outbreak': 12,
-      'zoo-protozoal': 28,
-      'zoo-rabies': 28,
-      'zoo-rickettsial': 25,
-      'zoo-siv-civ': 11,
-      'zoo-vbz': 27,
-    },
-  },
-  '1-final': {
-    'aquatic-clinic': {
-      'aqua-aquarium-vet': 11,
-      'aqua-conservation': 12,
-      'aqua-disease-control': 119,
-      'aqua-fish-diseases': 55,
-      'aqua-shrimp-diseases': 40,
-      'aqua-toxicology': 6,
-    },
-    'avian-medicine': {
-      'avian-campy': 6,
-      'avian-duck-flavi': 2,
-      'avian-duck-plague': 5,
-      'avian-dvh': 11,
-      'avian-goose-parvo': 7,
-      'avian-histomoniasis': 2,
-      'avian-listeria': 3,
-      'avian-mycosis': 32,
-      'avian-nds': 1,
-      'avian-ort': 9,
-      'avian-serology': 16,
-      'avian-vaccine-prog': 15,
-    },
-    'com1': {
-      'acute-chf-collapse': 1,
-      'aki-stages': 1,
-      'anemia-regen-vs-non': 1,
-      'aspiration-pneumonia': 1,
-      'blood-transfusion': 1,
-      'bone-marrow-biopsy': 1,
-      'brachycephalic-syndrome': 1,
-      'cardiogenic-shock': 1,
-      'ckd-complications': 1,
-      'ckd-iris': 1,
-      'ckd-proteinuria-rx': 1,
-      'dcm-management': 1,
-      'echocardiography': 1,
-      'ectopic-ureter': 1,
-      'ekg-arrhythmia': 1,
-      'feline-asthma': 1,
-      'feline-flutd': 1,
-      'feline-hypertension': 1,
-      'hcm-feline': 1,
-      'laryngeal-paralysis': 1,
-      'left-sided-heart-failure': 1,
-      'mitral-valve-disease': 1,
-      'prerenal-azotemia': 1,
-      'pulmonary-thromboembolism': 1,
-      'respiratory-pattern': 1,
-      'splenectomy-indication': 1,
-      'tetralogy-of-fallot': 1,
-      'tracheal-collapse': 1,
-      'urethral-obstruction': 1,
-      'urolith-types': 1,
-      'vsd-tricuspid': 1,
-    },
-    'com2': {
-      'arthrodesis': 1,
-      'ccl-conservative-tx': 1,
-      'ccl-surgery': 2,
-      'cranial-cruciate-ligament': 1,
-      'developmental-orthopedic-disease': 1,
-      'elbow-dysplasia': 1,
-      'hip-dysplasia': 3,
-      'hip-imaging': 1,
-      'hip-luxation': 2,
-      'hip-surgery': 1,
-      'legg-calve-perthes': 1,
-      'limb-amputation': 1,
-      'meniscal-injury': 1,
-      'metabolic-orthopedic-disease': 2,
-      'oral-trauma': 11,
-      'osteochondrosis': 1,
-      'patellar-luxation': 2,
-      'rehabilitation': 1,
-      'shoulder-luxation': 1,
-      'spinal-imaging': 1,
-      'spinal-trauma': 2,
-      'stifle-exam': 1,
-    },
-    'engprof1': {
-      'listening-therapy-dogs': 5,
-      'listening-vet-patient-consult': 3,
-      'listening-vet-shortage-news': 6,
-      'pronunciation-focus-meaning': 1,
-      'pronunciation-stress-function': 3,
-      'pronunciation-word-stress': 2,
-      'unit3-catnip-lecture': 1,
-      'unit3-cornell-method': 1,
-      'unit3-lecturing-styles': 1,
-      'unit3-note-taking-cues': 2,
-      'unit3-note-taking-symbols': 1,
-      'unit3-pain-medication-lecture': 2,
-      'unit3-sea-urchin-lecture': 2,
-    },
-    'epidemiology': {
-      'epidem-applied-stats': 26,
-      'epidem-basic-concepts': 25,
-      'epidem-causation': 23,
-      'epidem-control-prevention': 11,
-      'epidem-data-analysis': 17,
-      'epidem-disease-frequency': 27,
-      'epidem-disease-transmission': 27,
-      'epidem-dx-screening': 34,
-      'epidem-govt-policy': 28,
-      'epidem-intro': 7,
-      'epidem-observational-study': 31,
-      'epidem-outbreak-investigation': 41,
-      'epidem-sample-size': 14,
-      'epidem-software': 3,
-      'epidem-surveillance': 32,
-      'epidem-test-agreement': 9,
-    },
-    'equine-medicine': {
-      'equine-anesthesia': 17,
-      'equine-colic-bestfit': 48,
-      'equine-dentistry': 40,
-      'equine-derm': 29,
-      'equine-gi': 39,
-      'equine-hoof': 5,
-      'equine-infectious': 13,
-      'equine-intro': 87,
-      'equine-lameness': 18,
-      'equine-nutrition': 57,
-      'equine-ophth': 22,
-      'equine-parasites': 75,
-      'equine-poa': 35,
-      'equine-pythium': 7,
-      'equine-respi': 44,
-      'equine-surgery-wound': 24,
-      'equine-tendon': 5,
-    },
-    'equine-repro': {
-      'eqrepro-ai': 11,
-      'eqrepro-endometritis': 16,
-      'eqrepro-male': 18,
-      'eqrepro-postpartum': 11,
-      'eqrepro-pregnancy': 81,
-      'eqrepro-stallion-infect': 16,
-      'eqrepro-surgery': 8,
-    },
-    'food-industry': {
-      'fiqc-aquatic': 16,
-      'fiqc-haccp': 24,
-      'fiqc-poultry-export': 21,
-    },
-    'food-safety-y4': {
-      'dose-response': 1,
-      'e-coli-stec': 1,
-      'food-laws-thailand': 1,
-      'food-pathogens': 12,
-      'listeria': 1,
-      'norovirus': 1,
-      'qmra-quantitative-microbial-risk': 1,
-      'risk-analysis-cac-framework': 1,
-      'risk-assessment-steps': 1,
-      'salmonella': 1,
-    },
-    'herd-health-rum': {
-      'acute-ruminal-acidosis': 2,
-      'anaplasmosis': 1,
-      'anthrax': 2,
-      'babesiosis': 1,
-      'brdc': 1,
-      'brucellosis': 2,
-      'bvd-persistent-infection': 1,
-      'enzootic-bovine-leukosis': 1,
-      'ephemeral-fever': 1,
-      'fec-anthelmintic-resistance': 1,
-      'fluid-therapy': 1,
-      'fmd': 2,
-      'grass-tetany': 1,
-      'hemorrhagic-septicemia': 1,
-      'ketosis': 1,
-      'lumpy-skin-disease': 1,
-      'malignant-catarrhal-fever': 1,
-      'mastitis-treatment-clinical': 1,
-      'mastitis-treatment-drycow': 1,
-      'milk-fever': 1,
-      'milk-quality-standard': 1,
-      'on-farm-culture': 1,
-      'paratuberculosis': 1,
-      'pregnancy-toxemia': 2,
-      'responsible-amr': 1,
-      'subacute-ruminal-acidosis': 1,
-      'toxic-mastitis': 1,
-      'transition-cow-management': 1,
-      'tuberculosis-bovine': 2,
-      'urinary-calculi': 2,
-    },
-    'milk-meat-hygiene': {
-      'meat-ante-post-mortem': 63,
-      'meat-cutting-grading': 41,
-      'meat-egg-micro': 18,
-      'meat-hygiene-intro': 18,
-      'meat-microbiology': 59,
-      'meat-molecular': 10,
-      'meat-pest-control': 25,
-      'meat-quality': 10,
-      'meat-seafood': 39,
-      'meat-slaughter': 42,
-      'meat-storage': 21,
-      'milk-cleaning': 71,
-    },
-    'one-health': {
-      'oh-amr': 13,
-      'oh-env-carcinogen': 14,
-      'oh-env-mutagen': 11,
-      'oh-foodborne': 8,
-      'oh-gmo': 9,
-      'oh-import-risk': 10,
-      'oh-livestock-waste': 10,
-      'oh-risk-analysis': 15,
-    },
-    'surg1': {
-      'brachial-plexus-block': 3,
-      'breathing-circuit': 2,
-      'dental-nerve-block': 4,
-      'endotracheal-intubation': 2,
-      'epidural-block': 5,
-      'incisional-line-block': 1,
-      'intercostal-block': 3,
-      'intubation-cat': 1,
-      'iv-catheter': 2,
-      'iv-fluid-calculation': 2,
-      'local-infiltration': 1,
-      'oxygen-flow-rate': 2,
-      'testicular-block': 1,
-    },
-    'swine-clinic': {
-      'swine-asf': 29,
-      'swine-control-dx': 10,
-      'swine-csf': 22,
-      'swine-fmd': 17,
-      'swine-greasypig': 16,
-      'swine-ileitis-bacti': 19,
-      'swine-pcv2': 15,
-      'swine-prv-je': 25,
-      'swine-repro': 16,
-      'swine-trichinosis': 5,
-    },
-    'swine-herd': {
-      'asf-acute-signs': 1,
-      'biosecurity-segregation-sanitation-resistance': 1,
-      'contagious-vs-environmental-mastitis-pathogens': 1,
-      'cross-sectional-vs-case-control': 1,
-      'epidemic-vs-endemic': 1,
-      'feeding-pregnancy-stage': 1,
-      'isolation-acclimatization-new-gilts': 1,
-      'mastitis-subclinical-scc': 1,
-      'milk-letdown-oxytocin': 1,
-      'milking-machine-pulsation': 1,
-      'prrs-vaccination-program': 1,
-      'sensitivity-specificity-calculation': 1,
-      'sow-feeding-lactation': 1,
-      'swine-dysentery-brachyspira': 1,
-      'thin-sow-syndrome': 1,
-      'wsi-fertility-relationship': 1,
-    },
-    'swine-repro': {
-      'boar-management': 5,
-      'embryo-development': 1,
-      'farrowing-management': 1,
-      'lactation': 1,
-      'mma-syndrome': 1,
-      'parturition': 4,
-      'piglet-survival': 1,
-      'pregnancy-diagnosis': 1,
-      'pregnancy-recognition': 1,
-      'reproductive-surgery': 1,
-      'returns-to-estrus': 1,
-    },
-    'vca': {
-      'anatomy': 7,
-      'aquatic': 101,
-      'clinical-pathology': 30,
-      'dogcat': 341,
-      'epidemiology': 13,
-      'equine': 109,
-      'exotic': 90,
-      'food-hygiene': 14,
-      'imaging': 23,
-      'immunology': 23,
-      'juris': 11,
-      'microbiology': 11,
-      'neurology': 20,
-      'ophthalmology': 29,
-      'parasitology': 37,
-      'pathology': 12,
-      'pharmacology': 18,
-      'poultry': 89,
-      'ruminant': 89,
-      'surgery': 85,
-      'swine': 155,
-      'theriogenology': 28,
-      'zoonoses': 6,
-    },
-    'vet-histo': {
-      'histo--avian': 5,
-      'histo--bone-marrow': 5,
-      'histo--bone-marrow-laboratory': 1,
-      'histo--circulatory-system': 6,
-      'histo--cytology': 6,
-      'histo--digestive-system-i': 2,
-      'histo--digestive-system-iii': 4,
-      'histo--endocrine': 6,
-      'histo--epithelium': 3,
-      'histo--female-lab-manual': 8,
-      'histo--female-reproductive-organ': 9,
-      'histo--fish': 7,
-      'histo--histo-lab-block-ii': 4,
-      'histo--integument': 3,
-      'histo--laboratory-of-nervous-system-histology': 1,
-      'histo--lymphatic-organ-i': 1,
-      'histo--lymphatic-organs-ii': 6,
-      'histo--male-reproductive-system': 2,
-      'histo--nervous-system': 1,
-      'histo--placenta': 1,
-      'histo--placenta-lab-manual': 2,
-      'histo--respiratory-system': 3,
-      'histo--special-sense': 8,
-      'histo--tissue-preparation': 3,
-      'histo--urinary-system': 7,
-    },
-    'vet-imaging': {
-      'abdomen-radiograph': 3,
-      'ct-basics': 5,
-      'echocardiography': 1,
-      'mri-basics': 6,
-      'musculoskeletal-imaging': 3,
-      'radiograph-projections': 3,
-      'thorax-radiograph': 2,
-      'ultrasound-basics': 12,
-    },
-    'vet-juris': {
-      'animal-epidemic-act-2558': 11,
-      'animal-hospital-act-2557': 12,
-      'drug-act-2510': 15,
-      'slaughter-act-2559': 3,
-      'wildlife-act-2562': 5,
-    },
-    'zoonoses': {
-      'zoo-bacterial': 60,
-      'zoo-eid-wildlife': 19,
-      'zoo-epi-approach': 68,
-      'zoo-mycoses': 24,
-      'zoo-prion': 13,
-    },
-  },
-  '2-mid': {
-    'biochem-1': {
-      'lab-carbohydrate': 7,
-      'lab-chromatography': 9,
-      'lab-dna': 6,
-      'lab-electrophoresis': 12,
-      'lab-equipment': 5,
-      'lab-lipid': 10,
-      'lab-molecular': 16,
-      'lab-ph-buffer': 8,
-      'lab-protein': 9,
-      'lab-spectrophotometry': 10,
-      'lect-carbohydrate': 12,
-      'lect-drug-delivery': 11,
-      'lect-enzyme': 24,
-      'lect-intro': 13,
-      'lect-lipid': 17,
-      'lect-membrane': 5,
-      'lect-metabolism': 9,
-      'lect-nucleic-acid': 61,
-      'lect-protein': 27,
-    },
-    'cliapprum': {
-      'gi-surgery-sawita': 12,
-      'gi-vdtt': 6,
-      'hoof-health-fleet': 9,
-      'mahahon-cliapprum-anes': 15,
-      'mahahon-cliapprum-givdtt': 15,
-      'mahahon-cliapprum-piyanat-hoof': 15,
-      'mahahon-cliapprum-sawita-gi': 30,
-      'mahahon-cliapprum-sawita-respi': 15,
-      'metabolism-nutrition': 9,
-      'ruminant-anesthesia': 8,
-    },
-    'com3': {
-      'acute-abdomen': 19,
-      'ai-vet': 8,
-      'ataxia-tremor': 23,
-      'cataract': 2,
-      'cornea': 5,
-      'cpcr': 20,
-      'ear': 2,
-      'er-anes': 17,
-      'glaucoma': 3,
-      'imaging': 4,
-      'metabolic-er': 18,
-      'neuro-er': 16,
-      'neuro-exam': 12,
-      'nutrition': 19,
-      'ophthal-exam': 3,
-      'resp-cv-er': 23,
-      'retina': 3,
-      'seizure': 23,
-      'shock': 22,
-      'special-prep': 68,
-      'spinal': 26,
-      'triage': 15,
-      'uveitis': 8,
-    },
-    'com4': {
-      '__unassigned__': 4,
-      'derm-allergic': 18,
-      'derm-autoimmune': 18,
-      'derm-bacterial': 16,
-      'derm-endocrine': 26,
-      'derm-fungal': 16,
-      'derm-intro': 9,
-      'derm-nutrition': 13,
-      'derm-parasitic': 15,
-      'endo-addison': 1,
-      'endo-cushing': 1,
-      'endo-dm': 1,
-      'ibd': 27,
-      'imha': 33,
-      'immune-drugs': 15,
-      'peds-geri': 52,
-      'sle': 26,
-    },
-    'com5': {
-      'cve': 22,
-      'feline-uri': 20,
-      'gi-protozoa': 23,
-      'rabies': 19,
-      'sporo-crypto': 22,
-      'vaccine': 23,
-    },
-    'comp-repro-clinic': {
-      'comp-repro-anatomy-cycle': 4,
-      'comp-repro-art': 1,
-      'comp-repro-cytology': 6,
-      'comp-repro-infect': 1,
-      'comp-repro-infertility': 2,
-      'comp-repro-male': 11,
-      'comp-repro-postpartum': 1,
-      'comp-repro-pregnancy': 7,
-      'comp-repro-surgery': 15,
-    },
-    'engprof': {
-      'academic-writing': 3,
-      'paraphrasing': 5,
-      'research-design': 10,
-      'research-paper-structure': 45,
-      'summary-writing': 7,
-    },
-    'exotic': {
-      'bird-infect': 24,
-      'bird-noninfect': 23,
-      'ferret': 1,
-      'field-vet': 24,
-      'reptile': 6,
-      'wildlife-career': 6,
-      'zoo-vet': 24,
-    },
-    'livestock-pathology': {
-      'lpath-avian': 10,
-      'lpath-slaughter': 3,
-      'lpath-swine-systemic': 53,
-      'lpath-systemic': 1,
-    },
-    'poultry': {
-      'avian-drugs': 12,
-      'avian-zoonosis': 10,
-      'biosecurity': 18,
-      'first-week-mortality': 17,
-      'mahahon-poultry-biosec': 8,
-      'mahahon-poultry-drugs': 8,
-      'mahahon-poultry-firstweek': 10,
-      'mahahon-poultry-nutrition': 18,
-      'mahahon-poultry-qa': 8,
-      'mahahon-poultry-zoonosis': 8,
-      'quality-assurance': 15,
-    },
-    'practrum': {
-      'animal-nutrition': 5,
-      'bovine-anesthesia': 14,
-      'cow-restraint': 5,
-      'dehorning': 4,
-      'hoof-trim': 8,
-      'mahahon-practrum-dystocia': 18,
-      'mahahon-practrum-feed': 18,
-      'mahahon-practrum-penile': 6,
-      'mahahon-practrum-silage': 9,
-      'mahahon-practrum-surgery': 12,
-      'penile-deviation': 3,
-      'rumenotomy': 11,
-    },
-    'rec-adv-bioscience': {
-      'ravb-bacterial-dx': 1,
-      'ravb-helminths': 2,
-      'ravb-protozoa-blood': 1,
-    },
-    'repro': {
-      '__unassigned__': 9,
-      'dystocia': 6,
-      'repro-exam': 6,
-      'semen-ai': 3,
-      'vaginal-cytology': 7,
-    },
-    'repro-lect': {
-      'biotech': 14,
-      'exotic-repro': 12,
-      'genetics': 5,
-      'gonadectomy-risk': 10,
-      'group01-nutrition-neutered': 1,
-      'group02-bph-pharmacology': 1,
-      'group03-gene-editing': 1,
-      'group04-dermato-repro': 1,
-      'group05-felidae-infertility': 1,
-      'group06-iugr-piglet': 1,
-      'group07-ruminant-us-CL': 1,
-      'group08-PAGs-ruminant': 1,
-      'group09-placenta': 1,
-      'group10-heat-stress': 1,
-      'group11-buserelin-pig': 1,
-      'group12-NEB-dairy': 1,
-      'hormonal-applications': 13,
-      'infertility': 7,
-      'mahahon-art': 10,
-      'mahahon-exotic': 10,
-      'mahahon-genetic': 10,
-      'mahahon-hormone': 10,
-      'mahahon-risk-benefit': 10,
-      'mahahon-semen-eval': 10,
-      'mahahon-semen-freezing': 10,
-      'mahahon-surgical': 10,
-      'mahahon-ultrasound': 10,
-      'repro-ultrasound': 6,
-      'semen-ai': 20,
-      'semen-preservation': 7,
-      'surgical-neutering': 12,
-    },
-    'ruminant-clinical': {
-      'rum-hattakan': 2,
-      'rum-hhm': 6,
-      'rum-hhm-clinical': 1,
-      'rum-mastitis': 2,
-      'rum-reproduction': 4,
-    },
-    'surg2': {
-      '__unassigned__': 5,
-      'abdominal-surgery': 2,
-      'aural-hematoma': 2,
-      'bandage-drain': 3,
-      'dental-scaling-muzzle': 2,
-      'ophthalmology-lab': 3,
-      'patient-prep-wound': 1,
-    },
-    'surg3': {
-      '__unassigned__': 5,
-      'approach-hip': 5,
-      'approach-humerus': 1,
-      'approach-stifle': 1,
-      'bone-plate': 2,
-      'cerclage-wire': 3,
-      'esf': 5,
-      'external-coaptation': 6,
-      'oral-wiring': 1,
-      'ortho-exam': 6,
-      'pinning': 2,
-      'tension-band-wire': 3,
-    },
-    'vca': {
-      'anatomy': 7,
-      'aquatic': 101,
-      'clinical-pathology': 30,
-      'dogcat': 341,
-      'epidemiology': 13,
-      'equine': 109,
-      'exotic': 90,
-      'food-hygiene': 14,
-      'imaging': 23,
-      'immunology': 23,
-      'juris': 11,
-      'microbiology': 11,
-      'neurology': 20,
-      'ophthalmology': 29,
-      'parasitology': 37,
-      'pathology': 12,
-      'pharmacology': 18,
-      'poultry': 89,
-      'ruminant': 89,
-      'surgery': 85,
-      'swine': 155,
-      'theriogenology': 28,
-      'zoonoses': 6,
-    },
-    'vet-dev-anat': {
-      'vd-cardio': 10,
-      'vd-git': 9,
-      'vd-pharyngeal': 7,
-    },
-    'vet-neuroanat': {
-      'neuroanat--basal-nuclei': 2,
-      'neuroanat--diencephalon': 4,
-      'neuroanat--limbic-system-nonolfactory-rhinencephalon': 5,
-      'neuroanat--metencephalon': 8,
-      'neuroanat--midbrain': 6,
-      'neuroanat--myelencephalon': 7,
-      'neuroanat--neuro-exam-anatomy2024': 3,
-      'neuroanat--visual-vestibular-systems': 5,
-    },
-    'vet-pharm-2': {
-      'antibiotics': 3,
-      'antiparasitic': 29,
-      'autonomic': 27,
-      'cardio-renal': 1,
-      'nsaids': 2,
-    },
-  },
-  '2-final': {
-    'biochem-1': {
-      'lab-carbohydrate': 7,
-      'lab-chromatography': 9,
-      'lab-dna': 6,
-      'lab-electrophoresis': 12,
-      'lab-equipment': 5,
-      'lab-lipid': 10,
-      'lab-molecular': 16,
-      'lab-ph-buffer': 8,
-      'lab-protein': 9,
-      'lab-spectrophotometry': 10,
-      'lect-carbohydrate': 12,
-      'lect-drug-delivery': 11,
-      'lect-enzyme': 24,
-      'lect-intro': 13,
-      'lect-lipid': 17,
-      'lect-membrane': 5,
-      'lect-metabolism': 9,
-      'lect-nucleic-acid': 61,
-      'lect-protein': 27,
-    },
-    'cliapprum': {
-      'gi-surgery-sawita': 12,
-      'gi-vdtt': 6,
-      'hoof-health-fleet': 9,
-      'mahahon-cliapprum-anes': 15,
-      'mahahon-cliapprum-givdtt': 15,
-      'mahahon-cliapprum-piyanat-hoof': 15,
-      'mahahon-cliapprum-sawita-gi': 30,
-      'mahahon-cliapprum-sawita-respi': 15,
-      'metabolism-nutrition': 9,
-      'ruminant-anesthesia': 8,
-    },
-    'com3': {
-      'acute-abdomen': 19,
-      'ai-vet': 8,
-      'ataxia-tremor': 23,
-      'cataract': 2,
-      'cornea': 5,
-      'cpcr': 20,
-      'ear': 2,
-      'er-anes': 17,
-      'glaucoma': 3,
-      'imaging': 4,
-      'metabolic-er': 18,
-      'neuro-er': 16,
-      'neuro-exam': 12,
-      'nutrition': 19,
-      'ophthal-exam': 3,
-      'resp-cv-er': 23,
-      'retina': 3,
-      'seizure': 23,
-      'shock': 22,
-      'special-prep': 68,
-      'spinal': 26,
-      'triage': 15,
-      'uveitis': 8,
-    },
-    'com4': {
-      '__unassigned__': 4,
-      'derm-allergic': 18,
-      'derm-autoimmune': 18,
-      'derm-bacterial': 16,
-      'derm-endocrine': 26,
-      'derm-fungal': 16,
-      'derm-intro': 9,
-      'derm-nutrition': 13,
-      'derm-parasitic': 15,
-      'endo-addison': 1,
-      'endo-cushing': 1,
-      'endo-dm': 1,
-      'ibd': 27,
-      'imha': 33,
-      'immune-drugs': 15,
-      'peds-geri': 52,
-      'sle': 26,
-    },
-    'com5': {
-      'cve': 22,
-      'feline-uri': 20,
-      'gi-protozoa': 23,
-      'rabies': 19,
-      'sporo-crypto': 22,
-      'vaccine': 23,
-    },
-    'comp-repro-clinic': {
-      'comp-repro-anatomy-cycle': 4,
-      'comp-repro-art': 1,
-      'comp-repro-cytology': 6,
-      'comp-repro-infect': 1,
-      'comp-repro-infertility': 2,
-      'comp-repro-male': 11,
-      'comp-repro-postpartum': 1,
-      'comp-repro-pregnancy': 7,
-      'comp-repro-surgery': 15,
-    },
-    'engprof': {
-      'academic-writing': 3,
-      'paraphrasing': 5,
-      'research-design': 10,
-      'research-paper-structure': 45,
-      'summary-writing': 7,
-    },
-    'exotic': {
-      'bird-infect': 24,
-      'bird-noninfect': 23,
-      'ferret': 1,
-      'field-vet': 24,
-      'reptile': 6,
-      'wildlife-career': 6,
-      'zoo-vet': 24,
-    },
-    'livestock-pathology': {
-      'lpath-avian': 10,
-      'lpath-slaughter': 3,
-      'lpath-swine-systemic': 53,
-      'lpath-systemic': 1,
-    },
-    'poultry': {
-      'avian-drugs': 12,
-      'avian-zoonosis': 10,
-      'biosecurity': 18,
-      'first-week-mortality': 17,
-      'mahahon-poultry-biosec': 8,
-      'mahahon-poultry-drugs': 8,
-      'mahahon-poultry-firstweek': 10,
-      'mahahon-poultry-nutrition': 18,
-      'mahahon-poultry-qa': 8,
-      'mahahon-poultry-zoonosis': 8,
-      'quality-assurance': 15,
-    },
-    'practrum': {
-      'animal-nutrition': 5,
-      'bovine-anesthesia': 14,
-      'cow-restraint': 5,
-      'dehorning': 4,
-      'hoof-trim': 8,
-      'mahahon-practrum-dystocia': 18,
-      'mahahon-practrum-feed': 18,
-      'mahahon-practrum-penile': 6,
-      'mahahon-practrum-silage': 9,
-      'mahahon-practrum-surgery': 12,
-      'penile-deviation': 3,
-      'rumenotomy': 11,
-    },
-    'rec-adv-bioscience': {
-      'ravb-bacterial-dx': 1,
-      'ravb-helminths': 2,
-      'ravb-protozoa-blood': 1,
-    },
-    'repro': {
-      '__unassigned__': 9,
-      'dystocia': 6,
-      'repro-exam': 6,
-      'semen-ai': 3,
-      'vaginal-cytology': 7,
-    },
-    'repro-lect': {
-      'biotech': 14,
-      'exotic-repro': 12,
-      'genetics': 5,
-      'gonadectomy-risk': 10,
-      'group01-nutrition-neutered': 1,
-      'group02-bph-pharmacology': 1,
-      'group03-gene-editing': 1,
-      'group04-dermato-repro': 1,
-      'group05-felidae-infertility': 1,
-      'group06-iugr-piglet': 1,
-      'group07-ruminant-us-CL': 1,
-      'group08-PAGs-ruminant': 1,
-      'group09-placenta': 1,
-      'group10-heat-stress': 1,
-      'group11-buserelin-pig': 1,
-      'group12-NEB-dairy': 1,
-      'hormonal-applications': 13,
-      'infertility': 7,
-      'mahahon-art': 10,
-      'mahahon-exotic': 10,
-      'mahahon-genetic': 10,
-      'mahahon-hormone': 10,
-      'mahahon-risk-benefit': 10,
-      'mahahon-semen-eval': 10,
-      'mahahon-semen-freezing': 10,
-      'mahahon-surgical': 10,
-      'mahahon-ultrasound': 10,
-      'repro-ultrasound': 6,
-      'semen-ai': 20,
-      'semen-preservation': 7,
-      'surgical-neutering': 12,
-    },
-    'ruminant-clinical': {
-      'rum-hattakan': 2,
-      'rum-hhm': 6,
-      'rum-hhm-clinical': 1,
-      'rum-mastitis': 2,
-      'rum-reproduction': 4,
-    },
-    'surg2': {
-      '__unassigned__': 5,
-      'abdominal-surgery': 2,
-      'aural-hematoma': 2,
-      'bandage-drain': 3,
-      'dental-scaling-muzzle': 2,
-      'ophthalmology-lab': 3,
-      'patient-prep-wound': 1,
-    },
-    'surg3': {
-      '__unassigned__': 5,
-      'approach-hip': 5,
-      'approach-humerus': 1,
-      'approach-stifle': 1,
-      'bone-plate': 2,
-      'cerclage-wire': 3,
-      'esf': 5,
-      'external-coaptation': 6,
-      'oral-wiring': 1,
-      'ortho-exam': 6,
-      'pinning': 2,
-      'tension-band-wire': 3,
-    },
-    'vca': {
-      'anatomy': 7,
-      'aquatic': 101,
-      'clinical-pathology': 30,
-      'dogcat': 341,
-      'epidemiology': 13,
-      'equine': 109,
-      'exotic': 90,
-      'food-hygiene': 14,
-      'imaging': 23,
-      'immunology': 23,
-      'juris': 11,
-      'microbiology': 11,
-      'neurology': 20,
-      'ophthalmology': 29,
-      'parasitology': 37,
-      'pathology': 12,
-      'pharmacology': 18,
-      'poultry': 89,
-      'ruminant': 89,
-      'surgery': 85,
-      'swine': 155,
-      'theriogenology': 28,
-      'zoonoses': 6,
-    },
-    'vet-dev-anat': {
-      'vd-cardio': 10,
-      'vd-git': 9,
-      'vd-pharyngeal': 7,
-    },
-    'vet-neuroanat': {
-      'neuroanat--basal-nuclei': 2,
-      'neuroanat--diencephalon': 4,
-      'neuroanat--limbic-system-nonolfactory-rhinencephalon': 5,
-      'neuroanat--metencephalon': 8,
-      'neuroanat--midbrain': 6,
-      'neuroanat--myelencephalon': 7,
-      'neuroanat--neuro-exam-anatomy2024': 3,
-      'neuroanat--visual-vestibular-systems': 5,
-    },
-    'vet-pharm-2': {
-      'antibiotics': 3,
-      'antiparasitic': 29,
-      'autonomic': 27,
-      'cardio-renal': 1,
-      'nsaids': 2,
-    },
-  },
-};
-
-// Past-paper counts per topic, counted over the SAME phase-scoped set as
-// Q_COUNTS_BY_TOPIC_BY_SCOPE so the two can be shown as a ratio.
-export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
-  '1-mid': {
-    'aquatic-clinic': {
-      'aqua-amphibian': 1,
-      'aqua-fish-biology': 9,
-      'aqua-frog-diseases': 1,
-      'aqua-intro-thailand': 12,
-      'aqua-life-support': 2,
-      'aqua-ornamental': 6,
-      'aqua-shrimp-immunology': 7,
-      'aqua-turtle': 6,
-      'aqua-water-quality': 3,
-    },
-    'avian-medicine': {
-      'avian-ae': 3,
-      'avian-ai': 7,
-      'avian-cia': 2,
-      'avian-cocci': 8,
-      'avian-coli': 9,
-      'avian-fowl-cholera': 1,
-      'avian-ibd': 4,
-      'avian-intro': 1,
-      'avian-leuko': 2,
-      'avian-malaria': 1,
-      'avian-marek': 10,
-      'avian-myco': 3,
-      'avian-ne': 1,
-      'avian-pox': 2,
-      'avian-reo': 2,
-    },
-    'com1': {
-      'anemia-regen-vs-non': 1,
-      'blood-transfusion': 1,
-      'bone-marrow-biopsy': 1,
-      'splenectomy-indication': 1,
-    },
-    'com2': {
-      'fracture-classification': 1,
-      'fracture-management': 2,
-      'oral-trauma': 11,
-    },
-    'equine-medicine': {
-      'equine-colic-bestfit': 13,
-      'equine-dentistry': 26,
-      'equine-gi': 6,
-      'equine-intro': 31,
-      'equine-nutrition': 14,
-      'equine-parasites': 24,
-      'equine-respi': 12,
-    },
-    'equine-repro': {
-      'eqrepro-anatomy-cycle': 11,
-      'eqrepro-art-female': 13,
-      'eqrepro-exam-mare': 19,
-      'eqrepro-infertility': 12,
-      'eqrepro-mare-infect': 3,
-    },
-    'food-industry': {
-      'fiqc-feed-qc': 2,
-      'fiqc-intro': 4,
-      'fiqc-livestock-qc': 11,
-      'fiqc-slaughter-qc': 2,
-    },
-    'food-safety-y4': {
-      'dose-response': 1,
-      'drug-residues': 2,
-      'food-additives': 5,
-      'food-laws-thailand': 1,
-      'food-spoilage': 1,
-      'haccp': 1,
-      'milk-pasteurization': 1,
-      'risk-analysis-cac-framework': 1,
-      'risk-assessment-steps': 1,
-      'salmonella': 1,
-    },
-    'herd-health-rum': {
-      'anaplasmosis': 1,
-      'babesiosis': 1,
-      'brdc': 1,
-      'brucellosis': 2,
-      'bvd-persistent-infection': 1,
-      'enzootic-bovine-leukosis': 1,
-      'ephemeral-fever': 1,
-      'fec-anthelmintic-resistance': 1,
-      'fertility-kpi': 1,
-      'fmd': 2,
-      'hemorrhagic-septicemia': 1,
-      'incidence-rate-calculation': 1,
-      'lumpy-skin-disease': 1,
-      'malignant-catarrhal-fever': 1,
-      'paratuberculosis': 1,
-      'toxic-mastitis': 1,
-      'tuberculosis-bovine': 2,
-    },
-    'milk-meat-hygiene': {
-      'milk-biosec-dairy': 13,
-      'milk-borne-pathogens': 5,
-      'milk-cleaning': 14,
-      'milk-industry-std': 22,
-      'milk-mastitis': 14,
-      'milk-microbiology': 7,
-      'milk-overview': 1,
-      'milk-processing': 18,
-      'milk-quality-composition': 19,
-      'milk-quality-determination': 12,
-      'milk-raw-std': 13,
-      'milk-raw-storage': 23,
-    },
-    'one-health': {
-      'oh-collaboration': 1,
-      'oh-communication': 1,
-      'oh-concept': 1,
-    },
-    'surg1': {
-      'brachial-plexus-block': 3,
-      'breathing-circuit': 2,
-      'dental-nerve-block': 4,
-      'endotracheal-intubation': 2,
-      'epidural-block': 5,
-      'incisional-line-block': 1,
-      'intercostal-block': 3,
-      'intubation-cat': 1,
-      'iv-catheter': 2,
-      'iv-fluid-calculation': 2,
-      'local-infiltration': 1,
-      'oxygen-flow-rate': 2,
-      'testicular-block': 1,
-    },
-    'swine-clinic': {
-      'swine-gi-viral': 11,
-      'swine-pornchalit-set': 21,
-      'swine-resp-viral': 12,
-    },
-    'swine-herd': {
-      'adg-calculation': 1,
-      'aflatoxin-source-effect': 1,
-      'all-in-all-out-system': 1,
-      'asf-acute-signs': 1,
-      'biosecurity-segregation-sanitation-resistance': 1,
-      'blup-breeding-value': 1,
-      'boar-restraint-snare': 1,
-      'breeding-system-3-breed-cross': 1,
-      'cross-sectional-vs-case-control': 1,
-      'epidemic-vs-endemic': 1,
-      'halothane-gene-pss': 1,
-      'inbreeding-depression': 1,
-      'iron-deficiency-anemia-piglet': 1,
-      'isolation-acclimatization-new-gilts': 1,
-      'mycotoxin-zearalenone': 1,
-      'parakeratosis-zinc-deficiency': 1,
-      'psy-calculation': 1,
-      'swine-euthanasia-method': 1,
-      'swine-house-count-calculation': 1,
-      'swine-welfare-5-freedoms': 1,
-      'thin-sow-syndrome': 1,
-      'vitamin-e-selenium-deficiency': 1,
-    },
-    'swine-repro': {
-      'artificial-insemination': 3,
-      'boar-anatomy': 3,
-      'boar-management': 5,
-      'estrus-detection': 1,
-      'estrus-synchronization': 1,
-      'gilt-puberty': 1,
-      'returns-to-estrus': 1,
-      'semen-evaluation': 2,
-    },
-    'vca': {
-      'anatomy': 7,
-      'aquatic': 70,
-      'clinical-pathology': 13,
-      'dogcat': 275,
-      'epidemiology': 12,
-      'equine': 80,
-      'exotic': 58,
-      'food-hygiene': 14,
-      'imaging': 23,
-      'immunology': 16,
-      'juris': 11,
-      'microbiology': 11,
-      'neurology': 19,
-      'ophthalmology': 20,
-      'parasitology': 33,
-      'pathology': 12,
-      'pharmacology': 18,
-      'poultry': 13,
-      'ruminant': 17,
-      'surgery': 85,
-      'swine': 109,
-      'theriogenology': 28,
-      'zoonoses': 6,
-    },
-    'vet-imaging': {
-      'ct-basics': 5,
-    },
-    'zoonoses': {
-      'zoo-ai-basic': 9,
-      'zoo-corona': 13,
-      'zoo-ebola-nipah': 11,
-      'zoo-eid-wildlife': 10,
-      'zoo-epi-approach': 52,
-      'zoo-helminthic': 24,
-      'zoo-intro': 12,
-      'zoo-protozoal': 17,
-      'zoo-rabies': 7,
-      'zoo-rickettsial': 21,
-      'zoo-siv-civ': 4,
-      'zoo-vbz': 3,
-    },
-  },
-  '1-final': {
-    'aquatic-clinic': {
-      'aqua-conservation': 1,
-      'aqua-disease-control': 110,
-      'aqua-fish-diseases': 14,
-      'aqua-shrimp-diseases': 12,
-    },
-    'avian-medicine': {
-      'avian-campy': 3,
-      'avian-duck-flavi': 1,
-      'avian-duck-plague': 4,
-      'avian-dvh': 10,
-      'avian-goose-parvo': 6,
-      'avian-listeria': 2,
-      'avian-mycosis': 23,
-      'avian-ort': 7,
-      'avian-serology': 8,
-      'avian-vaccine-prog': 8,
-    },
-    'com1': {
-      'acute-chf-collapse': 1,
-      'aki-stages': 1,
-      'anemia-regen-vs-non': 1,
-      'aspiration-pneumonia': 1,
-      'blood-transfusion': 1,
-      'bone-marrow-biopsy': 1,
-      'brachycephalic-syndrome': 1,
-      'cardiogenic-shock': 1,
-      'ckd-complications': 1,
-      'ckd-iris': 1,
-      'ckd-proteinuria-rx': 1,
-      'dcm-management': 1,
-      'echocardiography': 1,
-      'ectopic-ureter': 1,
-      'ekg-arrhythmia': 1,
-      'feline-asthma': 1,
-      'feline-flutd': 1,
-      'feline-hypertension': 1,
-      'hcm-feline': 1,
-      'laryngeal-paralysis': 1,
-      'left-sided-heart-failure': 1,
-      'mitral-valve-disease': 1,
-      'prerenal-azotemia': 1,
-      'pulmonary-thromboembolism': 1,
-      'respiratory-pattern': 1,
-      'splenectomy-indication': 1,
-      'tetralogy-of-fallot': 1,
-      'tracheal-collapse': 1,
-      'urethral-obstruction': 1,
-      'urolith-types': 1,
-      'vsd-tricuspid': 1,
-    },
-    'com2': {
-      'arthrodesis': 1,
-      'ccl-conservative-tx': 1,
-      'ccl-surgery': 2,
-      'cranial-cruciate-ligament': 1,
-      'developmental-orthopedic-disease': 1,
-      'elbow-dysplasia': 1,
-      'hip-dysplasia': 3,
-      'hip-imaging': 1,
-      'hip-luxation': 2,
-      'hip-surgery': 1,
-      'legg-calve-perthes': 1,
-      'limb-amputation': 1,
-      'meniscal-injury': 1,
-      'metabolic-orthopedic-disease': 2,
-      'oral-trauma': 11,
-      'osteochondrosis': 1,
-      'patellar-luxation': 2,
-      'rehabilitation': 1,
-      'shoulder-luxation': 1,
-      'spinal-imaging': 1,
-      'spinal-trauma': 2,
-      'stifle-exam': 1,
-    },
-    'epidemiology': {
-      'epidem-applied-stats': 5,
-      'epidem-causation': 4,
-      'epidem-control-prevention': 10,
-      'epidem-data-analysis': 6,
-      'epidem-disease-frequency': 7,
-      'epidem-disease-transmission': 1,
-      'epidem-dx-screening': 7,
-      'epidem-observational-study': 13,
-      'epidem-outbreak-investigation': 8,
-      'epidem-sample-size': 1,
-      'epidem-surveillance': 4,
-    },
-    'equine-medicine': {
-      'equine-anesthesia': 11,
-      'equine-colic-bestfit': 13,
-      'equine-dentistry': 26,
-      'equine-gi': 6,
-      'equine-infectious': 8,
-      'equine-intro': 31,
-      'equine-lameness': 18,
-      'equine-nutrition': 14,
-      'equine-ophth': 17,
-      'equine-parasites': 24,
-      'equine-poa': 22,
-      'equine-respi': 12,
-    },
-    'equine-repro': {
-      'eqrepro-ai': 11,
-      'eqrepro-endometritis': 3,
-      'eqrepro-male': 18,
-      'eqrepro-postpartum': 6,
-      'eqrepro-pregnancy': 72,
-      'eqrepro-stallion-infect': 11,
-      'eqrepro-surgery': 8,
-    },
-    'food-industry': {
-      'fiqc-poultry-export': 1,
-    },
-    'food-safety-y4': {
-      'dose-response': 1,
-      'e-coli-stec': 1,
-      'food-laws-thailand': 1,
-      'food-pathogens': 12,
-      'listeria': 1,
-      'norovirus': 1,
-      'qmra-quantitative-microbial-risk': 1,
-      'risk-analysis-cac-framework': 1,
-      'risk-assessment-steps': 1,
-      'salmonella': 1,
-    },
-    'herd-health-rum': {
-      'acute-ruminal-acidosis': 2,
-      'anaplasmosis': 1,
-      'anthrax': 2,
-      'babesiosis': 1,
-      'brdc': 1,
-      'brucellosis': 2,
-      'bvd-persistent-infection': 1,
-      'enzootic-bovine-leukosis': 1,
-      'ephemeral-fever': 1,
-      'fec-anthelmintic-resistance': 1,
-      'fluid-therapy': 1,
-      'fmd': 2,
-      'grass-tetany': 1,
-      'hemorrhagic-septicemia': 1,
-      'ketosis': 1,
-      'lumpy-skin-disease': 1,
-      'malignant-catarrhal-fever': 1,
-      'milk-fever': 1,
-      'paratuberculosis': 1,
-      'pregnancy-toxemia': 2,
-      'responsible-amr': 1,
-      'subacute-ruminal-acidosis': 1,
-      'toxic-mastitis': 1,
-      'transition-cow-management': 1,
-      'tuberculosis-bovine': 2,
-      'urinary-calculi': 2,
-    },
-    'milk-meat-hygiene': {
-      'meat-ante-post-mortem': 22,
-      'meat-cutting-grading': 12,
-      'meat-egg-micro': 15,
-      'meat-hygiene-intro': 7,
-      'meat-microbiology': 21,
-      'meat-molecular': 5,
-      'meat-pest-control': 18,
-      'meat-quality': 3,
-      'meat-seafood': 14,
-      'meat-slaughter': 19,
-      'meat-storage': 10,
-      'milk-cleaning': 14,
-    },
-    'one-health': {
-      'oh-amr': 3,
-      'oh-env-carcinogen': 13,
-      'oh-env-mutagen': 11,
-      'oh-foodborne': 2,
-      'oh-gmo': 9,
-      'oh-livestock-waste': 8,
-      'oh-risk-analysis': 2,
-    },
-    'surg1': {
-      'brachial-plexus-block': 3,
-      'breathing-circuit': 2,
-      'dental-nerve-block': 4,
-      'endotracheal-intubation': 2,
-      'epidural-block': 5,
-      'incisional-line-block': 1,
-      'intercostal-block': 3,
-      'intubation-cat': 1,
-      'iv-catheter': 2,
-      'iv-fluid-calculation': 2,
-      'local-infiltration': 1,
-      'oxygen-flow-rate': 2,
-      'testicular-block': 1,
-    },
-    'swine-clinic': {
-      'swine-asf': 17,
-      'swine-csf': 20,
-      'swine-fmd': 2,
-      'swine-greasypig': 15,
-      'swine-ileitis-bacti': 6,
-      'swine-pcv2': 5,
-      'swine-prv-je': 17,
-      'swine-repro': 6,
-    },
-    'swine-herd': {
-      'asf-acute-signs': 1,
-      'biosecurity-segregation-sanitation-resistance': 1,
-      'cross-sectional-vs-case-control': 1,
-      'epidemic-vs-endemic': 1,
-      'feeding-pregnancy-stage': 1,
-      'isolation-acclimatization-new-gilts': 1,
-      'prrs-vaccination-program': 1,
-      'sensitivity-specificity-calculation': 1,
-      'sow-feeding-lactation': 1,
-      'swine-dysentery-brachyspira': 1,
-      'thin-sow-syndrome': 1,
-    },
-    'swine-repro': {
-      'boar-management': 5,
-      'embryo-development': 1,
-      'farrowing-management': 1,
-      'lactation': 1,
-      'mma-syndrome': 1,
-      'parturition': 4,
-      'piglet-survival': 1,
-      'pregnancy-diagnosis': 1,
-      'pregnancy-recognition': 1,
-      'reproductive-surgery': 1,
-      'returns-to-estrus': 1,
-    },
-    'vca': {
-      'anatomy': 7,
-      'aquatic': 70,
-      'clinical-pathology': 13,
-      'dogcat': 275,
-      'epidemiology': 12,
-      'equine': 80,
-      'exotic': 58,
-      'food-hygiene': 14,
-      'imaging': 23,
-      'immunology': 16,
-      'juris': 11,
-      'microbiology': 11,
-      'neurology': 19,
-      'ophthalmology': 20,
-      'parasitology': 33,
-      'pathology': 12,
-      'pharmacology': 18,
-      'poultry': 13,
-      'ruminant': 17,
-      'surgery': 85,
-      'swine': 109,
-      'theriogenology': 28,
-      'zoonoses': 6,
-    },
-    'vet-imaging': {
-      'abdomen-radiograph': 3,
-      'ct-basics': 5,
-      'echocardiography': 1,
-      'mri-basics': 6,
-      'musculoskeletal-imaging': 3,
-      'radiograph-projections': 3,
-      'thorax-radiograph': 2,
-      'ultrasound-basics': 12,
-    },
-    'vet-juris': {
-      'animal-epidemic-act-2558': 11,
-      'animal-hospital-act-2557': 12,
-      'drug-act-2510': 15,
-      'slaughter-act-2559': 3,
-      'wildlife-act-2562': 5,
-    },
-    'zoonoses': {
-      'zoo-bacterial': 51,
-      'zoo-eid-wildlife': 10,
-      'zoo-epi-approach': 52,
-      'zoo-mycoses': 20,
-      'zoo-prion': 9,
-    },
-  },
-  '2-mid': {
-    'biochem-1': {
-      'lab-carbohydrate': 7,
-      'lab-chromatography': 9,
-      'lab-dna': 6,
-      'lab-electrophoresis': 12,
-      'lab-equipment': 5,
-      'lab-lipid': 10,
-      'lab-molecular': 16,
-      'lab-ph-buffer': 8,
-      'lab-protein': 9,
-      'lab-spectrophotometry': 10,
-      'lect-carbohydrate': 12,
-      'lect-drug-delivery': 11,
-      'lect-enzyme': 24,
-      'lect-intro': 13,
-      'lect-lipid': 17,
-      'lect-membrane': 5,
-      'lect-metabolism': 9,
-      'lect-nucleic-acid': 61,
-      'lect-protein': 27,
-    },
-    'cliapprum': {
-      'gi-surgery-sawita': 3,
-      'gi-vdtt': 1,
-      'hoof-health-fleet': 4,
-    },
-    'com3': {
-      'acute-abdomen': 9,
-      'ataxia-tremor': 12,
-      'cpcr': 8,
-      'er-anes': 6,
-      'metabolic-er': 6,
-      'neuro-er': 6,
-      'nutrition': 11,
-      'resp-cv-er': 12,
-      'seizure': 10,
-      'shock': 11,
-      'special-prep': 68,
-      'spinal': 14,
-      'triage': 5,
-    },
-    'com4': {
-      '__unassigned__': 4,
-      'derm-allergic': 1,
-      'derm-parasitic': 1,
-      'endo-addison': 1,
-      'endo-cushing': 1,
-      'endo-dm': 1,
-      'ibd': 5,
-      'imha': 4,
-      'peds-geri': 11,
-      'sle': 4,
-    },
-    'com5': {
-      'cve': 3,
-      'gi-protozoa': 1,
-      'sporo-crypto': 4,
-      'vaccine': 2,
-    },
-    'comp-repro-clinic': {
-      'comp-repro-anatomy-cycle': 4,
-      'comp-repro-art': 1,
-      'comp-repro-cytology': 6,
-      'comp-repro-infect': 1,
-      'comp-repro-infertility': 2,
-      'comp-repro-male': 11,
-      'comp-repro-postpartum': 1,
-      'comp-repro-pregnancy': 7,
-      'comp-repro-surgery': 15,
-    },
-    'engprof': {
-      'paraphrasing': 1,
-    },
-    'exotic': {
-      'bird-infect': 16,
-      'bird-noninfect': 6,
-      'ferret': 1,
-      'field-vet': 1,
-      'reptile': 6,
-      'wildlife-career': 1,
-      'zoo-vet': 3,
-    },
-    'livestock-pathology': {
-      'lpath-avian': 10,
-      'lpath-slaughter': 3,
-      'lpath-swine-systemic': 53,
-      'lpath-systemic': 1,
-    },
-    'poultry': {
-      'avian-drugs': 11,
-      'avian-zoonosis': 9,
-      'biosecurity': 17,
-      'first-week-mortality': 17,
-      'quality-assurance': 14,
-    },
-    'practrum': {
-      'bovine-anesthesia': 5,
-      'hoof-trim': 4,
-      'mahahon-practrum-surgery': 3,
-      'rumenotomy': 5,
-    },
-    'rec-adv-bioscience': {
-      'ravb-bacterial-dx': 1,
-      'ravb-helminths': 2,
-      'ravb-protozoa-blood': 1,
-    },
-    'repro': {
-      '__unassigned__': 9,
-      'dystocia': 6,
-      'repro-exam': 6,
-      'semen-ai': 3,
-      'vaginal-cytology': 7,
-    },
-    'repro-lect': {
-      'biotech': 4,
-      'hormonal-applications': 2,
-      'infertility': 1,
-      'mahahon-art': 7,
-      'mahahon-exotic': 10,
-      'mahahon-hormone': 10,
-      'mahahon-semen-freezing': 10,
-      'mahahon-ultrasound': 10,
-      'semen-ai': 15,
-      'semen-preservation': 2,
-      'surgical-neutering': 7,
-    },
-    'ruminant-clinical': {
-      'rum-hattakan': 2,
-      'rum-hhm': 6,
-      'rum-hhm-clinical': 1,
-      'rum-mastitis': 2,
-      'rum-reproduction': 4,
-    },
-    'surg2': {
-      '__unassigned__': 5,
-      'abdominal-surgery': 2,
-      'aural-hematoma': 2,
-      'bandage-drain': 3,
-      'dental-scaling-muzzle': 2,
-      'ophthalmology-lab': 3,
-      'patient-prep-wound': 1,
-    },
-    'surg3': {
-      '__unassigned__': 5,
-      'approach-hip': 5,
-      'approach-humerus': 1,
-      'approach-stifle': 1,
-      'bone-plate': 2,
-      'cerclage-wire': 3,
-      'esf': 5,
-      'external-coaptation': 6,
-      'oral-wiring': 1,
-      'ortho-exam': 6,
-      'pinning': 2,
-      'tension-band-wire': 3,
-    },
-    'vca': {
-      'anatomy': 7,
-      'aquatic': 70,
-      'clinical-pathology': 13,
-      'dogcat': 275,
-      'epidemiology': 12,
-      'equine': 80,
-      'exotic': 58,
-      'food-hygiene': 14,
-      'imaging': 23,
-      'immunology': 16,
-      'juris': 11,
-      'microbiology': 11,
-      'neurology': 19,
-      'ophthalmology': 20,
-      'parasitology': 33,
-      'pathology': 12,
-      'pharmacology': 18,
-      'poultry': 13,
-      'ruminant': 17,
-      'surgery': 85,
-      'swine': 109,
-      'theriogenology': 28,
-      'zoonoses': 6,
-    },
-    'vet-dev-anat': {
-      'vd-cardio': 10,
-      'vd-git': 9,
-      'vd-pharyngeal': 7,
-    },
-  },
-  '2-final': {
-    'biochem-1': {
-      'lab-carbohydrate': 7,
-      'lab-chromatography': 9,
-      'lab-dna': 6,
-      'lab-electrophoresis': 12,
-      'lab-equipment': 5,
-      'lab-lipid': 10,
-      'lab-molecular': 16,
-      'lab-ph-buffer': 8,
-      'lab-protein': 9,
-      'lab-spectrophotometry': 10,
-      'lect-carbohydrate': 12,
-      'lect-drug-delivery': 11,
-      'lect-enzyme': 24,
-      'lect-intro': 13,
-      'lect-lipid': 17,
-      'lect-membrane': 5,
-      'lect-metabolism': 9,
-      'lect-nucleic-acid': 61,
-      'lect-protein': 27,
-    },
-    'cliapprum': {
-      'gi-surgery-sawita': 3,
-      'gi-vdtt': 1,
-      'hoof-health-fleet': 4,
-    },
-    'com3': {
-      'acute-abdomen': 9,
-      'ataxia-tremor': 12,
-      'cpcr': 8,
-      'er-anes': 6,
-      'metabolic-er': 6,
-      'neuro-er': 6,
-      'nutrition': 11,
-      'resp-cv-er': 12,
-      'seizure': 10,
-      'shock': 11,
-      'special-prep': 68,
-      'spinal': 14,
-      'triage': 5,
-    },
-    'com4': {
-      '__unassigned__': 4,
-      'derm-allergic': 1,
-      'derm-parasitic': 1,
-      'endo-addison': 1,
-      'endo-cushing': 1,
-      'endo-dm': 1,
-      'ibd': 5,
-      'imha': 4,
-      'peds-geri': 11,
-      'sle': 4,
-    },
-    'com5': {
-      'cve': 3,
-      'gi-protozoa': 1,
-      'sporo-crypto': 4,
-      'vaccine': 2,
-    },
-    'comp-repro-clinic': {
-      'comp-repro-anatomy-cycle': 4,
-      'comp-repro-art': 1,
-      'comp-repro-cytology': 6,
-      'comp-repro-infect': 1,
-      'comp-repro-infertility': 2,
-      'comp-repro-male': 11,
-      'comp-repro-postpartum': 1,
-      'comp-repro-pregnancy': 7,
-      'comp-repro-surgery': 15,
-    },
-    'engprof': {
-      'paraphrasing': 1,
-    },
-    'exotic': {
-      'bird-infect': 16,
-      'bird-noninfect': 6,
-      'ferret': 1,
-      'field-vet': 1,
-      'reptile': 6,
-      'wildlife-career': 1,
-      'zoo-vet': 3,
-    },
-    'livestock-pathology': {
-      'lpath-avian': 10,
-      'lpath-slaughter': 3,
-      'lpath-swine-systemic': 53,
-      'lpath-systemic': 1,
-    },
-    'poultry': {
-      'avian-drugs': 11,
-      'avian-zoonosis': 9,
-      'biosecurity': 17,
-      'first-week-mortality': 17,
-      'quality-assurance': 14,
-    },
-    'practrum': {
-      'bovine-anesthesia': 5,
-      'hoof-trim': 4,
-      'mahahon-practrum-surgery': 3,
-      'rumenotomy': 5,
-    },
-    'rec-adv-bioscience': {
-      'ravb-bacterial-dx': 1,
-      'ravb-helminths': 2,
-      'ravb-protozoa-blood': 1,
-    },
-    'repro': {
-      '__unassigned__': 9,
-      'dystocia': 6,
-      'repro-exam': 6,
-      'semen-ai': 3,
-      'vaginal-cytology': 7,
-    },
-    'repro-lect': {
-      'biotech': 4,
-      'hormonal-applications': 2,
-      'infertility': 1,
-      'mahahon-art': 7,
-      'mahahon-exotic': 10,
-      'mahahon-hormone': 10,
-      'mahahon-semen-freezing': 10,
-      'mahahon-ultrasound': 10,
-      'semen-ai': 15,
-      'semen-preservation': 2,
-      'surgical-neutering': 7,
-    },
-    'ruminant-clinical': {
-      'rum-hattakan': 2,
-      'rum-hhm': 6,
-      'rum-hhm-clinical': 1,
-      'rum-mastitis': 2,
-      'rum-reproduction': 4,
-    },
-    'surg2': {
-      '__unassigned__': 5,
-      'abdominal-surgery': 2,
-      'aural-hematoma': 2,
-      'bandage-drain': 3,
-      'dental-scaling-muzzle': 2,
-      'ophthalmology-lab': 3,
-      'patient-prep-wound': 1,
-    },
-    'surg3': {
-      '__unassigned__': 5,
-      'approach-hip': 5,
-      'approach-humerus': 1,
-      'approach-stifle': 1,
-      'bone-plate': 2,
-      'cerclage-wire': 3,
-      'esf': 5,
-      'external-coaptation': 6,
-      'oral-wiring': 1,
-      'ortho-exam': 6,
-      'pinning': 2,
-      'tension-band-wire': 3,
-    },
-    'vca': {
-      'anatomy': 7,
-      'aquatic': 70,
-      'clinical-pathology': 13,
-      'dogcat': 275,
-      'epidemiology': 12,
-      'equine': 80,
-      'exotic': 58,
-      'food-hygiene': 14,
-      'imaging': 23,
-      'immunology': 16,
-      'juris': 11,
-      'microbiology': 11,
-      'neurology': 19,
-      'ophthalmology': 20,
-      'parasitology': 33,
-      'pathology': 12,
-      'pharmacology': 18,
-      'poultry': 13,
-      'ruminant': 17,
-      'surgery': 85,
-      'swine': 109,
-      'theriogenology': 28,
-      'zoonoses': 6,
-    },
-    'vet-dev-anat': {
-      'vd-cardio': 10,
-      'vd-git': 9,
-      'vd-pharyngeal': 7,
-    },
-  },
-};
-
-export const Q_COUNTS_BY_YEAR = {
-  1: 297,
-  2: 144,
-  3: 62,
-  4: 2076,
-  5: 6314,
-};
-
-// Visible per-year totals (hidden topics excluded). Every user-facing
-// year total renders THIS — the raw total above counts questions the
-// UI deliberately hides, so showing it next to per-subject cards made
-// the same screen disagree with itself by up to 106 questions.
-export const Q_VISIBLE_COUNTS_BY_YEAR = {
-  1: 297,
-  2: 144,
-  3: 62,
-  4: 1981,
-  5: 6314,
-};
-
-// Per-topic metadata stays nested by subject so identical topic IDs in
-// different subjects cannot collide. Legacy Qs without a topic are
-// retained under "__unassigned__" so nested totals remain exact.
-export const Q_COUNTS_BY_TOPIC = {
-  "aquatic-clinic": {
-    "aqua-amphibian": 12,
-    "aqua-aquarium-vet": 11,
-    "aqua-conservation": 12,
-    "aqua-disease-control": 119,
-    "aqua-fish-biology": 45,
-    "aqua-fish-diseases": 55,
-    "aqua-frog-diseases": 14,
-    "aqua-intro-thailand": 99,
-    "aqua-life-support": 10,
-    "aqua-ornamental": 38,
-    "aqua-shrimp-diseases": 40,
-    "aqua-shrimp-immunology": 26,
-    "aqua-toxicology": 6,
-    "aqua-turtle": 15,
-    "aqua-water-quality": 30,
-  },
-  "avian-medicine": {
-    "avian-adeno": 27,
-    "avian-ae": 20,
-    "avian-ahra-set": 33,
-    "avian-ai": 24,
-    "avian-campy": 6,
-    "avian-cia": 14,
-    "avian-cocci": 28,
-    "avian-coli": 23,
-    "avian-coryza": 18,
-    "avian-duck-flavi": 2,
-    "avian-duck-plague": 5,
-    "avian-dvh": 11,
-    "avian-egg-breakout": 1,
-    "avian-fowl-cholera": 18,
-    "avian-goose-parvo": 7,
-    "avian-histomoniasis": 2,
-    "avian-ib": 19,
-    "avian-ibd": 20,
-    "avian-intro": 6,
-    "avian-leuko": 14,
-    "avian-listeria": 3,
-    "avian-lt": 16,
-    "avian-malaria": 10,
-    "avian-marek": 26,
-    "avian-mpv": 14,
-    "avian-myco": 35,
-    "avian-mycosis": 32,
-    "avian-nd": 24,
-    "avian-nds": 1,
-    "avian-ne": 13,
-    "avian-ort": 9,
-    "avian-pox": 18,
-    "avian-reo": 14,
-    "avian-rss": 10,
-    "avian-salmonella": 27,
-    "avian-serology": 16,
-    "avian-vaccine-prog": 15,
-  },
-  "biochem-1": {
-    "lab-carbohydrate": 7,
-    "lab-chromatography": 9,
-    "lab-dna": 6,
-    "lab-electrophoresis": 12,
-    "lab-equipment": 5,
-    "lab-lipid": 10,
-    "lab-molecular": 16,
-    "lab-ph-buffer": 8,
-    "lab-protein": 9,
-    "lab-spectrophotometry": 10,
-    "lect-carbohydrate": 12,
-    "lect-drug-delivery": 11,
-    "lect-enzyme": 24,
-    "lect-intro": 13,
-    "lect-lipid": 17,
-    "lect-membrane": 5,
-    "lect-metabolism": 9,
-    "lect-nucleic-acid": 61,
-    "lect-protein": 27,
-  },
-  "cliapprum": {
-    "gi-surgery-sawita": 12,
-    "gi-vdtt": 6,
-    "hoof-health-fleet": 9,
-    "mahahon-cliapprum-anes": 15,
-    "mahahon-cliapprum-givdtt": 15,
-    "mahahon-cliapprum-piyanat-hoof": 15,
-    "mahahon-cliapprum-sawita-gi": 30,
-    "mahahon-cliapprum-sawita-respi": 15,
-    "metabolism-nutrition": 9,
-    "ruminant-anesthesia": 8,
-    "uncertain-scope": 2,
-  },
-  "com1": {
-    "acute-chf-collapse": 1,
-    "aki-stages": 1,
-    "anemia-regen-vs-non": 1,
-    "aspiration-pneumonia": 1,
-    "blood-transfusion": 1,
-    "bone-marrow-biopsy": 1,
-    "brachycephalic-syndrome": 1,
-    "cardiogenic-shock": 1,
-    "ckd-complications": 1,
-    "ckd-iris": 1,
-    "ckd-proteinuria-rx": 1,
-    "dcm-management": 1,
-    "echocardiography": 1,
-    "ectopic-ureter": 1,
-    "ekg-arrhythmia": 1,
-    "feline-asthma": 1,
-    "feline-flutd": 1,
-    "feline-hypertension": 1,
-    "hcm-feline": 1,
-    "laryngeal-paralysis": 1,
-    "left-sided-heart-failure": 1,
-    "mitral-valve-disease": 1,
-    "prerenal-azotemia": 1,
-    "pulmonary-thromboembolism": 1,
-    "respiratory-pattern": 1,
-    "splenectomy-indication": 1,
-    "tetralogy-of-fallot": 1,
-    "tracheal-collapse": 1,
-    "urethral-obstruction": 1,
-    "urolith-types": 1,
-    "vsd-tricuspid": 1,
-  },
-  "com2": {
-    "arthrodesis": 1,
-    "ccl-conservative-tx": 1,
-    "ccl-surgery": 2,
-    "cranial-cruciate-ligament": 1,
-    "developmental-orthopedic-disease": 1,
-    "elbow-dysplasia": 1,
-    "fracture-classification": 1,
-    "fracture-management": 2,
-    "hip-dysplasia": 3,
-    "hip-imaging": 1,
-    "hip-luxation": 2,
-    "hip-surgery": 1,
-    "legg-calve-perthes": 1,
-    "limb-amputation": 1,
-    "meniscal-injury": 1,
-    "metabolic-orthopedic-disease": 2,
-    "oral-trauma": 11,
-    "osteochondrosis": 1,
-    "patellar-luxation": 2,
-    "rehabilitation": 1,
-    "shoulder-luxation": 1,
-    "spinal-imaging": 1,
-    "spinal-trauma": 2,
-    "stifle-exam": 1,
-  },
-  "com3": {
-    "acute-abdomen": 19,
-    "ai-vet": 8,
-    "ataxia-tremor": 23,
-    "cataract": 2,
-    "cornea": 5,
-    "cpcr": 20,
-    "ear": 2,
-    "er-anes": 17,
-    "glaucoma": 3,
-    "imaging": 4,
-    "metabolic-er": 18,
-    "neuro-er": 16,
-    "neuro-exam": 12,
-    "nutrition": 19,
-    "ophthal-exam": 3,
-    "resp-cv-er": 23,
-    "retina": 3,
-    "seizure": 23,
-    "shock": 22,
-    "special-prep": 68,
-    "spinal": 26,
-    "triage": 15,
-    "uveitis": 8,
-  },
-  "com4": {
-    "__unassigned__": 4,
-    "derm-allergic": 18,
-    "derm-autoimmune": 18,
-    "derm-bacterial": 16,
-    "derm-endocrine": 26,
-    "derm-fungal": 16,
-    "derm-intro": 9,
-    "derm-nutrition": 13,
-    "derm-parasitic": 15,
-    "endo-addison": 1,
-    "endo-cushing": 1,
-    "endo-dm": 1,
-    "ibd": 27,
-    "imha": 33,
-    "immune-drugs": 15,
-    "peds-geri": 52,
-    "sle": 26,
-  },
-  "com5": {
-    "cve": 22,
-    "feline-uri": 20,
-    "gi-protozoa": 23,
-    "rabies": 19,
-    "sporo-crypto": 22,
-    "vaccine": 23,
-  },
-  "comp-repro-clinic": {
-    "comp-repro-anatomy-cycle": 4,
-    "comp-repro-art": 1,
-    "comp-repro-cytology": 6,
-    "comp-repro-infect": 1,
-    "comp-repro-infertility": 2,
-    "comp-repro-male": 11,
-    "comp-repro-postpartum": 1,
-    "comp-repro-pregnancy": 7,
-    "comp-repro-surgery": 15,
-  },
-  "engprof": {
-    "academic-writing": 3,
-    "paraphrasing": 5,
-    "research-design": 10,
-    "research-paper-structure": 45,
-    "summary-writing": 7,
-  },
-  "engprof1": {
-    "listening-therapy-dogs": 5,
-    "listening-vet-patient-consult": 3,
-    "listening-vet-shortage-news": 6,
-    "pronunciation-focus-meaning": 1,
-    "pronunciation-stress-function": 3,
-    "pronunciation-word-stress": 2,
-    "unit3-catnip-lecture": 1,
-    "unit3-cornell-method": 1,
-    "unit3-lecturing-styles": 1,
-    "unit3-note-taking-cues": 2,
-    "unit3-note-taking-symbols": 1,
-    "unit3-pain-medication-lecture": 2,
-    "unit3-sea-urchin-lecture": 2,
-  },
-  "epidemiology": {
-    "epidem-applied-stats": 26,
-    "epidem-basic-concepts": 25,
-    "epidem-causation": 23,
-    "epidem-control-prevention": 11,
-    "epidem-data-analysis": 17,
-    "epidem-disease-frequency": 27,
-    "epidem-disease-transmission": 27,
-    "epidem-dx-screening": 34,
-    "epidem-fmd-strategy": 3,
-    "epidem-govt-policy": 28,
-    "epidem-intro": 7,
-    "epidem-lumpy-skin": 11,
-    "epidem-observational-study": 31,
-    "epidem-outbreak-investigation": 41,
-    "epidem-ppp": 3,
-    "epidem-sample-size": 14,
-    "epidem-software": 3,
-    "epidem-surveillance": 32,
-    "epidem-test-agreement": 9,
-  },
-  "equine-medicine": {
-    "equine-anesthesia": 17,
-    "equine-colic-bestfit": 48,
-    "equine-colic-surgery": 4,
-    "equine-dentistry": 40,
-    "equine-derm": 29,
-    "equine-gi": 39,
-    "equine-hoof": 5,
-    "equine-infectious": 13,
-    "equine-intro": 87,
-    "equine-lameness": 18,
-    "equine-nutrition": 57,
-    "equine-ophth": 22,
-    "equine-parasites": 75,
-    "equine-poa": 35,
-    "equine-pythium": 7,
-    "equine-respi": 44,
-    "equine-surgery-wound": 24,
-    "equine-tendon": 5,
-  },
-  "equine-repro": {
-    "eqrepro-ai": 11,
-    "eqrepro-anatomy-cycle": 15,
-    "eqrepro-art-female": 16,
-    "eqrepro-endometritis": 16,
-    "eqrepro-exam-mare": 27,
-    "eqrepro-infertility": 18,
-    "eqrepro-male": 18,
-    "eqrepro-mare-infect": 5,
-    "eqrepro-postpartum": 11,
-    "eqrepro-pregnancy": 81,
-    "eqrepro-stallion-infect": 16,
-    "eqrepro-surgery": 8,
-  },
-  "exotic": {
-    "bird-infect": 24,
-    "bird-noninfect": 23,
-    "chicken": 3,
-    "ferret": 1,
-    "field-vet": 24,
-    "hamster-gerbil": 6,
-    "rabbit": 19,
-    "reptile": 6,
-    "sugar-glider-hedgehog": 15,
-    "wildlife-career": 6,
-    "zoo-vet": 24,
-  },
-  "food-industry": {
-    "fiqc-aquatic": 16,
-    "fiqc-feed-qc": 71,
-    "fiqc-haccp": 24,
-    "fiqc-intro": 29,
-    "fiqc-livestock-qc": 66,
-    "fiqc-poultry-export": 21,
-    "fiqc-slaughter-qc": 73,
-  },
-  "food-safety-y4": {
-    "dose-response": 1,
-    "drug-residues": 2,
-    "e-coli-stec": 1,
-    "food-additives": 5,
-    "food-laws-thailand": 1,
-    "food-pathogens": 12,
-    "food-spoilage": 1,
-    "haccp": 1,
-    "listeria": 1,
-    "milk-pasteurization": 1,
-    "norovirus": 1,
-    "qmra-quantitative-microbial-risk": 1,
-    "risk-analysis-cac-framework": 1,
-    "risk-assessment-steps": 1,
-    "salmonella": 1,
-  },
-  "herd-health-rum": {
-    "acute-ruminal-acidosis": 2,
-    "anaplasmosis": 1,
-    "anthrax": 2,
-    "babesiosis": 1,
-    "brdc": 1,
-    "brucellosis": 2,
-    "bvd-persistent-infection": 1,
-    "enzootic-bovine-leukosis": 1,
-    "ephemeral-fever": 1,
-    "fec-anthelmintic-resistance": 1,
-    "fertility-kpi": 1,
-    "fluid-therapy": 1,
-    "fmd": 2,
-    "grass-tetany": 1,
-    "hemorrhagic-septicemia": 1,
-    "incidence-rate-calculation": 1,
-    "ketosis": 1,
-    "lumpy-skin-disease": 1,
-    "malignant-catarrhal-fever": 1,
-    "mastitis-treatment-clinical": 1,
-    "mastitis-treatment-drycow": 1,
-    "milk-fever": 1,
-    "milk-quality-standard": 1,
-    "on-farm-culture": 1,
-    "paratuberculosis": 1,
-    "pregnancy-toxemia": 2,
-    "responsible-amr": 1,
-    "subacute-ruminal-acidosis": 1,
-    "toxic-mastitis": 1,
-    "transition-cow-management": 1,
-    "tuberculosis-bovine": 2,
-    "urinary-calculi": 2,
-  },
-  "livestock-pathology": {
-    "lpath-avian": 10,
-    "lpath-slaughter": 3,
-    "lpath-swine-systemic": 53,
-    "lpath-systemic": 1,
-  },
-  "milk-meat-hygiene": {
-    "meat-ante-post-mortem": 63,
-    "meat-cutting-grading": 41,
-    "meat-egg-micro": 18,
-    "meat-hygiene-intro": 18,
-    "meat-microbiology": 59,
-    "meat-molecular": 10,
-    "meat-pest-control": 25,
-    "meat-quality": 10,
-    "meat-seafood": 39,
-    "meat-slaughter": 42,
-    "meat-storage": 21,
-    "milk-biosec-dairy": 32,
-    "milk-borne-pathogens": 44,
-    "milk-cleaning": 71,
-    "milk-industry-std": 63,
-    "milk-mastitis": 89,
-    "milk-microbiology": 79,
-    "milk-overview": 28,
-    "milk-processing": 106,
-    "milk-products-storage": 17,
-    "milk-quality-composition": 92,
-    "milk-quality-determination": 94,
-    "milk-raw-std": 67,
-    "milk-raw-storage": 64,
-  },
-  "one-health": {
-    "oh-amr": 13,
-    "oh-collaboration": 11,
-    "oh-communication": 8,
-    "oh-concept": 16,
-    "oh-disease-prevention": 51,
-    "oh-env-carcinogen": 14,
-    "oh-env-mutagen": 11,
-    "oh-foodborne": 8,
-    "oh-global-network": 36,
-    "oh-gmo": 9,
-    "oh-import-risk": 10,
-    "oh-livestock-waste": 10,
-    "oh-risk-analysis": 15,
-    "oh-vet-role": 30,
-  },
-  "poa-clinical": {
-    "poa-diarrhea": 14,
-    "poa-edema": 15,
-    "poa-intro": 8,
-    "poa-red-urine": 3,
-    "poa-respiratory": 17,
-    "poa-vomiting": 14,
-  },
-  "poultry": {
-    "avian-drugs": 12,
-    "avian-zoonosis": 10,
-    "biosecurity": 18,
-    "first-week-mortality": 17,
-    "mahahon-poultry-biosec": 8,
-    "mahahon-poultry-drugs": 8,
-    "mahahon-poultry-firstweek": 10,
-    "mahahon-poultry-nutrition": 18,
-    "mahahon-poultry-qa": 8,
-    "mahahon-poultry-zoonosis": 8,
-    "midterm-disease": 2,
-    "physiology": 3,
-    "quality-assurance": 15,
-    "uncertain-scope": 41,
-  },
-  "practrum": {
-    "animal-nutrition": 5,
-    "bovine-anesthesia": 14,
-    "cow-restraint": 5,
-    "dehorning": 4,
-    "hoof-trim": 8,
-    "mahahon-practrum-dystocia": 18,
-    "mahahon-practrum-feed": 18,
-    "mahahon-practrum-penile": 6,
-    "mahahon-practrum-silage": 9,
-    "mahahon-practrum-surgery": 12,
-    "parturition-fetotomy": 4,
-    "penile-deviation": 3,
-    "rumenotomy": 11,
-  },
-  "rec-adv-bioscience": {
-    "ravb-bacterial-dx": 1,
-    "ravb-helminths": 2,
-    "ravb-protozoa-blood": 1,
-  },
-  "repro": {
-    "__unassigned__": 9,
-    "dystocia": 6,
-    "repro-exam": 6,
-    "semen-ai": 3,
-    "vaginal-cytology": 7,
-  },
-  "repro-lect": {
-    "biotech": 14,
-    "exotic-repro": 12,
-    "genetics": 5,
-    "gonadectomy-risk": 10,
-    "group01-nutrition-neutered": 1,
-    "group02-bph-pharmacology": 1,
-    "group03-gene-editing": 1,
-    "group04-dermato-repro": 1,
-    "group05-felidae-infertility": 1,
-    "group06-iugr-piglet": 1,
-    "group07-ruminant-us-CL": 1,
-    "group08-PAGs-ruminant": 1,
-    "group09-placenta": 1,
-    "group10-heat-stress": 1,
-    "group11-buserelin-pig": 1,
-    "group12-NEB-dairy": 1,
-    "hormonal-applications": 13,
-    "infertility": 7,
-    "mahahon-art": 10,
-    "mahahon-exotic": 10,
-    "mahahon-genetic": 10,
-    "mahahon-hormone": 10,
-    "mahahon-risk-benefit": 10,
-    "mahahon-semen-eval": 10,
-    "mahahon-semen-freezing": 10,
-    "mahahon-surgical": 10,
-    "mahahon-ultrasound": 10,
-    "repro-ultrasound": 6,
-    "semen-ai": 20,
-    "semen-preservation": 7,
-    "surgical-neutering": 12,
-  },
-  "ruminant-clinical": {
-    "rum-hattakan": 2,
-    "rum-hhm": 6,
-    "rum-hhm-clinical": 1,
-    "rum-mastitis": 2,
-    "rum-reproduction": 4,
-  },
-  "surg1": {
-    "brachial-plexus-block": 3,
-    "breathing-circuit": 2,
-    "dental-nerve-block": 4,
-    "endotracheal-intubation": 2,
-    "epidural-block": 5,
-    "incisional-line-block": 1,
-    "intercostal-block": 3,
-    "intubation-cat": 1,
-    "iv-catheter": 2,
-    "iv-fluid-calculation": 2,
-    "local-infiltration": 1,
-    "oxygen-flow-rate": 2,
-    "testicular-block": 1,
-  },
-  "surg2": {
-    "__unassigned__": 5,
-    "abdominal-surgery": 2,
-    "aural-hematoma": 2,
-    "bandage-drain": 3,
-    "dental-scaling-muzzle": 2,
-    "ophthalmology-lab": 3,
-    "patient-prep-wound": 1,
-  },
-  "surg3": {
-    "__unassigned__": 5,
-    "approach-hip": 5,
-    "approach-humerus": 1,
-    "approach-stifle": 1,
-    "bone-plate": 2,
-    "cerclage-wire": 3,
-    "esf": 5,
-    "external-coaptation": 6,
-    "oral-wiring": 1,
-    "ortho-exam": 6,
-    "pinning": 2,
-    "tension-band-wire": 3,
-  },
-  "swine-clinic": {
-    "swine-asf": 29,
-    "swine-cns": 8,
-    "swine-control-dx": 10,
-    "swine-csf": 22,
-    "swine-fmd": 17,
-    "swine-gi-viral": 12,
-    "swine-greasypig": 16,
-    "swine-ileitis-bacti": 19,
-    "swine-pcv2": 15,
-    "swine-pornchalit-set": 62,
-    "swine-prv-je": 25,
-    "swine-repro": 16,
-    "swine-resp-viral": 12,
-    "swine-trichinosis": 5,
-  },
-  "swine-herd": {
-    "adg-calculation": 1,
-    "aflatoxin-source-effect": 1,
-    "all-in-all-out-system": 1,
-    "asf-acute-signs": 1,
-    "biosecurity-segregation-sanitation-resistance": 1,
-    "blup-breeding-value": 1,
-    "boar-restraint-snare": 1,
-    "breeding-system-3-breed-cross": 1,
-    "contagious-vs-environmental-mastitis-pathogens": 1,
-    "cross-sectional-vs-case-control": 1,
-    "epidemic-vs-endemic": 1,
-    "feeding-pregnancy-stage": 1,
-    "halothane-gene-pss": 1,
-    "inbreeding-depression": 1,
-    "iron-deficiency-anemia-piglet": 1,
-    "isolation-acclimatization-new-gilts": 1,
-    "mastitis-subclinical-scc": 1,
-    "milk-letdown-oxytocin": 1,
-    "milking-machine-pulsation": 1,
-    "mycotoxin-zearalenone": 1,
-    "npd-calculation": 1,
-    "parakeratosis-zinc-deficiency": 1,
-    "parity-structure-management": 1,
-    "production-tree-low-total-born": 1,
-    "prrs-vaccination-program": 1,
-    "psy-calculation": 1,
-    "return-to-estrus-pattern": 1,
-    "sensitivity-specificity-calculation": 1,
-    "sow-feeding-lactation": 1,
-    "swine-dysentery-brachyspira": 1,
-    "swine-euthanasia-method": 1,
-    "swine-house-count-calculation": 1,
-    "swine-welfare-5-freedoms": 1,
-    "thin-sow-syndrome": 1,
-    "vitamin-e-selenium-deficiency": 1,
-    "wsi-fertility-relationship": 1,
-  },
-  "swine-repro": {
-    "artificial-insemination": 3,
-    "boar-anatomy": 3,
-    "boar-management": 5,
-    "embryo-development": 1,
-    "estrus-detection": 1,
-    "estrus-synchronization": 1,
-    "farrowing-management": 1,
-    "gilt-puberty": 1,
-    "lactation": 1,
-    "mma-syndrome": 1,
-    "parturition": 4,
-    "piglet-survival": 1,
-    "pregnancy-diagnosis": 1,
-    "pregnancy-recognition": 1,
-    "reproductive-surgery": 1,
-    "returns-to-estrus": 1,
-    "semen-evaluation": 2,
-  },
-  "vca": {
-    "anatomy": 7,
-    "aquatic": 101,
-    "clinical-pathology": 30,
-    "dogcat": 341,
-    "epidemiology": 13,
-    "equine": 109,
-    "exotic": 90,
-    "food-hygiene": 14,
-    "imaging": 23,
-    "immunology": 23,
-    "juris": 11,
-    "microbiology": 11,
-    "neurology": 20,
-    "ophthalmology": 29,
-    "parasitology": 37,
-    "pathology": 12,
-    "pharmacology": 18,
-    "poultry": 89,
-    "ruminant": 89,
-    "surgery": 85,
-    "swine": 155,
-    "theriogenology": 28,
-    "zoonoses": 6,
-  },
-  "vet-dev-anat": {
-    "vd-cardio": 10,
-    "vd-git": 9,
-    "vd-pharyngeal": 7,
-  },
-  "vet-histo": {
-    "histo--avian": 5,
-    "histo--bone-marrow": 5,
-    "histo--bone-marrow-laboratory": 1,
-    "histo--circulatory-system": 6,
-    "histo--cytology": 6,
-    "histo--digestive-system-i": 2,
-    "histo--digestive-system-iii": 4,
-    "histo--endocrine": 6,
-    "histo--epithelium": 3,
-    "histo--female-lab-manual": 8,
-    "histo--female-reproductive-organ": 9,
-    "histo--fish": 7,
-    "histo--histo-lab-block-ii": 4,
-    "histo--integument": 3,
-    "histo--laboratory-of-nervous-system-histology": 1,
-    "histo--lymphatic-organ-i": 1,
-    "histo--lymphatic-organs-ii": 6,
-    "histo--male-reproductive-system": 2,
-    "histo--nervous-system": 1,
-    "histo--placenta": 1,
-    "histo--placenta-lab-manual": 2,
-    "histo--respiratory-system": 3,
-    "histo--special-sense": 8,
-    "histo--tissue-preparation": 3,
-    "histo--urinary-system": 7,
-  },
-  "vet-imaging": {
-    "abdomen-radiograph": 3,
-    "ct-basics": 5,
-    "echocardiography": 1,
-    "mri-basics": 6,
-    "musculoskeletal-imaging": 3,
-    "radiograph-projections": 3,
-    "thorax-radiograph": 2,
-    "ultrasound-basics": 12,
-  },
-  "vet-juris": {
-    "animal-epidemic-act-2558": 11,
-    "animal-hospital-act-2557": 12,
-    "drug-act-2510": 15,
-    "slaughter-act-2559": 3,
-    "wildlife-act-2562": 5,
-  },
-  "vet-neuroanat": {
-    "neuroanat--basal-nuclei": 2,
-    "neuroanat--diencephalon": 4,
-    "neuroanat--limbic-system-nonolfactory-rhinencephalon": 5,
-    "neuroanat--metencephalon": 8,
-    "neuroanat--midbrain": 6,
-    "neuroanat--myelencephalon": 7,
-    "neuroanat--neuro-exam-anatomy2024": 3,
-    "neuroanat--visual-vestibular-systems": 5,
-  },
-  "vet-pharm-2": {
-    "antibiotics": 3,
-    "antiparasitic": 29,
-    "autonomic": 27,
-    "cardio-renal": 1,
-    "nsaids": 2,
-  },
-  "zoonoses": {
-    "zoo-ai-basic": 22,
-    "zoo-bacterial": 60,
-    "zoo-corona": 21,
-    "zoo-ebola-nipah": 23,
-    "zoo-eid-cuvet": 4,
-    "zoo-eid-wildlife": 19,
-    "zoo-epi-approach": 68,
-    "zoo-helminthic": 64,
-    "zoo-intro": 21,
-    "zoo-mycoses": 24,
-    "zoo-outbreak": 12,
-    "zoo-prion": 13,
-    "zoo-protozoal": 28,
-    "zoo-rabies": 28,
-    "zoo-rickettsial": 25,
-    "zoo-siv-civ": 11,
-    "zoo-vbz": 27,
-  },
-};
-
-// Past-paper counts accept canonical sourceType plus legacy examOrigin
-// or source-name conventions only when no canonical marker is present.
-export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
-  "aquatic-clinic": {
-    "aqua-amphibian": 1,
-    "aqua-conservation": 1,
-    "aqua-disease-control": 110,
-    "aqua-fish-biology": 9,
-    "aqua-fish-diseases": 14,
-    "aqua-frog-diseases": 1,
-    "aqua-intro-thailand": 12,
-    "aqua-life-support": 2,
-    "aqua-ornamental": 6,
-    "aqua-shrimp-diseases": 12,
-    "aqua-shrimp-immunology": 7,
-    "aqua-turtle": 6,
-    "aqua-water-quality": 3,
-  },
-  "avian-medicine": {
-    "avian-ae": 3,
-    "avian-ai": 7,
-    "avian-campy": 3,
-    "avian-cia": 2,
-    "avian-cocci": 8,
-    "avian-coli": 9,
-    "avian-duck-flavi": 1,
-    "avian-duck-plague": 4,
-    "avian-dvh": 10,
-    "avian-fowl-cholera": 1,
-    "avian-goose-parvo": 6,
-    "avian-ibd": 4,
-    "avian-intro": 1,
-    "avian-leuko": 2,
-    "avian-listeria": 2,
-    "avian-malaria": 1,
-    "avian-marek": 10,
-    "avian-myco": 3,
-    "avian-mycosis": 23,
-    "avian-ne": 1,
-    "avian-ort": 7,
-    "avian-pox": 2,
-    "avian-reo": 2,
-    "avian-serology": 8,
-    "avian-vaccine-prog": 8,
-  },
-  "biochem-1": {
-    "lab-carbohydrate": 7,
-    "lab-chromatography": 9,
-    "lab-dna": 6,
-    "lab-electrophoresis": 12,
-    "lab-equipment": 5,
-    "lab-lipid": 10,
-    "lab-molecular": 16,
-    "lab-ph-buffer": 8,
-    "lab-protein": 9,
-    "lab-spectrophotometry": 10,
-    "lect-carbohydrate": 12,
-    "lect-drug-delivery": 11,
-    "lect-enzyme": 24,
-    "lect-intro": 13,
-    "lect-lipid": 17,
-    "lect-membrane": 5,
-    "lect-metabolism": 9,
-    "lect-nucleic-acid": 61,
-    "lect-protein": 27,
-  },
-  "cliapprum": {
-    "gi-surgery-sawita": 3,
-    "gi-vdtt": 1,
-    "hoof-health-fleet": 4,
-    "uncertain-scope": 2,
-  },
-  "com1": {
-    "acute-chf-collapse": 1,
-    "aki-stages": 1,
-    "anemia-regen-vs-non": 1,
-    "aspiration-pneumonia": 1,
-    "blood-transfusion": 1,
-    "bone-marrow-biopsy": 1,
-    "brachycephalic-syndrome": 1,
-    "cardiogenic-shock": 1,
-    "ckd-complications": 1,
-    "ckd-iris": 1,
-    "ckd-proteinuria-rx": 1,
-    "dcm-management": 1,
-    "echocardiography": 1,
-    "ectopic-ureter": 1,
-    "ekg-arrhythmia": 1,
-    "feline-asthma": 1,
-    "feline-flutd": 1,
-    "feline-hypertension": 1,
-    "hcm-feline": 1,
-    "laryngeal-paralysis": 1,
-    "left-sided-heart-failure": 1,
-    "mitral-valve-disease": 1,
-    "prerenal-azotemia": 1,
-    "pulmonary-thromboembolism": 1,
-    "respiratory-pattern": 1,
-    "splenectomy-indication": 1,
-    "tetralogy-of-fallot": 1,
-    "tracheal-collapse": 1,
-    "urethral-obstruction": 1,
-    "urolith-types": 1,
-    "vsd-tricuspid": 1,
-  },
-  "com2": {
-    "arthrodesis": 1,
-    "ccl-conservative-tx": 1,
-    "ccl-surgery": 2,
-    "cranial-cruciate-ligament": 1,
-    "developmental-orthopedic-disease": 1,
-    "elbow-dysplasia": 1,
-    "fracture-classification": 1,
-    "fracture-management": 2,
-    "hip-dysplasia": 3,
-    "hip-imaging": 1,
-    "hip-luxation": 2,
-    "hip-surgery": 1,
-    "legg-calve-perthes": 1,
-    "limb-amputation": 1,
-    "meniscal-injury": 1,
-    "metabolic-orthopedic-disease": 2,
-    "oral-trauma": 11,
-    "osteochondrosis": 1,
-    "patellar-luxation": 2,
-    "rehabilitation": 1,
-    "shoulder-luxation": 1,
-    "spinal-imaging": 1,
-    "spinal-trauma": 2,
-    "stifle-exam": 1,
-  },
-  "com3": {
-    "acute-abdomen": 9,
-    "ataxia-tremor": 12,
-    "cpcr": 8,
-    "er-anes": 6,
-    "metabolic-er": 6,
-    "neuro-er": 6,
-    "nutrition": 11,
-    "resp-cv-er": 12,
-    "seizure": 10,
-    "shock": 11,
-    "special-prep": 68,
-    "spinal": 14,
-    "triage": 5,
-  },
-  "com4": {
-    "__unassigned__": 4,
-    "derm-allergic": 1,
-    "derm-parasitic": 1,
-    "endo-addison": 1,
-    "endo-cushing": 1,
-    "endo-dm": 1,
-    "ibd": 5,
-    "imha": 4,
-    "peds-geri": 11,
-    "sle": 4,
-  },
-  "com5": {
-    "cve": 3,
-    "gi-protozoa": 1,
-    "sporo-crypto": 4,
-    "vaccine": 2,
-  },
-  "comp-repro-clinic": {
-    "comp-repro-anatomy-cycle": 4,
-    "comp-repro-art": 1,
-    "comp-repro-cytology": 6,
-    "comp-repro-infect": 1,
-    "comp-repro-infertility": 2,
-    "comp-repro-male": 11,
-    "comp-repro-postpartum": 1,
-    "comp-repro-pregnancy": 7,
-    "comp-repro-surgery": 15,
-  },
-  "engprof": {
-    "paraphrasing": 1,
-  },
-  "epidemiology": {
-    "epidem-applied-stats": 5,
-    "epidem-causation": 4,
-    "epidem-control-prevention": 10,
-    "epidem-data-analysis": 6,
-    "epidem-disease-frequency": 7,
-    "epidem-disease-transmission": 1,
-    "epidem-dx-screening": 7,
-    "epidem-observational-study": 13,
-    "epidem-outbreak-investigation": 8,
-    "epidem-sample-size": 1,
-    "epidem-surveillance": 4,
-  },
-  "equine-medicine": {
-    "equine-anesthesia": 11,
-    "equine-colic-bestfit": 13,
-    "equine-colic-surgery": 4,
-    "equine-dentistry": 26,
-    "equine-gi": 6,
-    "equine-infectious": 8,
-    "equine-intro": 31,
-    "equine-lameness": 18,
-    "equine-nutrition": 14,
-    "equine-ophth": 17,
-    "equine-parasites": 24,
-    "equine-poa": 22,
-    "equine-respi": 12,
-  },
-  "equine-repro": {
-    "eqrepro-ai": 11,
-    "eqrepro-anatomy-cycle": 11,
-    "eqrepro-art-female": 13,
-    "eqrepro-endometritis": 3,
-    "eqrepro-exam-mare": 19,
-    "eqrepro-infertility": 12,
-    "eqrepro-male": 18,
-    "eqrepro-mare-infect": 3,
-    "eqrepro-postpartum": 6,
-    "eqrepro-pregnancy": 72,
-    "eqrepro-stallion-infect": 11,
-    "eqrepro-surgery": 8,
-  },
-  "exotic": {
-    "bird-infect": 16,
-    "bird-noninfect": 6,
-    "chicken": 3,
-    "ferret": 1,
-    "field-vet": 1,
-    "hamster-gerbil": 6,
-    "rabbit": 19,
-    "reptile": 6,
-    "sugar-glider-hedgehog": 15,
-    "wildlife-career": 1,
-    "zoo-vet": 3,
-  },
-  "food-industry": {
-    "fiqc-feed-qc": 2,
-    "fiqc-intro": 4,
-    "fiqc-livestock-qc": 11,
-    "fiqc-poultry-export": 1,
-    "fiqc-slaughter-qc": 2,
-  },
-  "food-safety-y4": {
-    "dose-response": 1,
-    "drug-residues": 2,
-    "e-coli-stec": 1,
-    "food-additives": 5,
-    "food-laws-thailand": 1,
-    "food-pathogens": 12,
-    "food-spoilage": 1,
-    "haccp": 1,
-    "listeria": 1,
-    "milk-pasteurization": 1,
-    "norovirus": 1,
-    "qmra-quantitative-microbial-risk": 1,
-    "risk-analysis-cac-framework": 1,
-    "risk-assessment-steps": 1,
-    "salmonella": 1,
-  },
-  "herd-health-rum": {
-    "acute-ruminal-acidosis": 2,
-    "anaplasmosis": 1,
-    "anthrax": 2,
-    "babesiosis": 1,
-    "brdc": 1,
-    "brucellosis": 2,
-    "bvd-persistent-infection": 1,
-    "enzootic-bovine-leukosis": 1,
-    "ephemeral-fever": 1,
-    "fec-anthelmintic-resistance": 1,
-    "fertility-kpi": 1,
-    "fluid-therapy": 1,
-    "fmd": 2,
-    "grass-tetany": 1,
-    "hemorrhagic-septicemia": 1,
-    "incidence-rate-calculation": 1,
-    "ketosis": 1,
-    "lumpy-skin-disease": 1,
-    "malignant-catarrhal-fever": 1,
-    "milk-fever": 1,
-    "paratuberculosis": 1,
-    "pregnancy-toxemia": 2,
-    "responsible-amr": 1,
-    "subacute-ruminal-acidosis": 1,
-    "toxic-mastitis": 1,
-    "transition-cow-management": 1,
-    "tuberculosis-bovine": 2,
-    "urinary-calculi": 2,
-  },
-  "livestock-pathology": {
-    "lpath-avian": 10,
-    "lpath-slaughter": 3,
-    "lpath-swine-systemic": 53,
-    "lpath-systemic": 1,
-  },
-  "milk-meat-hygiene": {
-    "meat-ante-post-mortem": 22,
-    "meat-cutting-grading": 12,
-    "meat-egg-micro": 15,
-    "meat-hygiene-intro": 7,
-    "meat-microbiology": 21,
-    "meat-molecular": 5,
-    "meat-pest-control": 18,
-    "meat-quality": 3,
-    "meat-seafood": 14,
-    "meat-slaughter": 19,
-    "meat-storage": 10,
-    "milk-biosec-dairy": 13,
-    "milk-borne-pathogens": 5,
-    "milk-cleaning": 14,
-    "milk-industry-std": 22,
-    "milk-mastitis": 14,
-    "milk-microbiology": 7,
-    "milk-overview": 1,
-    "milk-processing": 18,
-    "milk-quality-composition": 19,
-    "milk-quality-determination": 12,
-    "milk-raw-std": 13,
-    "milk-raw-storage": 23,
-  },
-  "one-health": {
-    "oh-amr": 3,
-    "oh-collaboration": 1,
-    "oh-communication": 1,
-    "oh-concept": 1,
-    "oh-env-carcinogen": 13,
-    "oh-env-mutagen": 11,
-    "oh-foodborne": 2,
-    "oh-gmo": 9,
-    "oh-livestock-waste": 8,
-    "oh-risk-analysis": 2,
-  },
-  "poa-clinical": {
-    "poa-red-urine": 3,
-    "poa-respiratory": 13,
-  },
-  "poultry": {
-    "avian-drugs": 11,
-    "avian-zoonosis": 9,
-    "biosecurity": 17,
-    "first-week-mortality": 17,
-    "midterm-disease": 2,
-    "physiology": 3,
-    "quality-assurance": 14,
-    "uncertain-scope": 41,
-  },
-  "practrum": {
-    "bovine-anesthesia": 5,
-    "hoof-trim": 4,
-    "mahahon-practrum-surgery": 3,
-    "rumenotomy": 5,
-  },
-  "rec-adv-bioscience": {
-    "ravb-bacterial-dx": 1,
-    "ravb-helminths": 2,
-    "ravb-protozoa-blood": 1,
-  },
-  "repro": {
-    "__unassigned__": 9,
-    "dystocia": 6,
-    "repro-exam": 6,
-    "semen-ai": 3,
-    "vaginal-cytology": 7,
-  },
-  "repro-lect": {
-    "biotech": 4,
-    "hormonal-applications": 2,
-    "infertility": 1,
-    "mahahon-art": 7,
-    "mahahon-exotic": 10,
-    "mahahon-hormone": 10,
-    "mahahon-semen-freezing": 10,
-    "mahahon-ultrasound": 10,
-    "semen-ai": 15,
-    "semen-preservation": 2,
-    "surgical-neutering": 7,
-  },
-  "ruminant-clinical": {
-    "rum-hattakan": 2,
-    "rum-hhm": 6,
-    "rum-hhm-clinical": 1,
-    "rum-mastitis": 2,
-    "rum-reproduction": 4,
-  },
-  "surg1": {
-    "brachial-plexus-block": 3,
-    "breathing-circuit": 2,
-    "dental-nerve-block": 4,
-    "endotracheal-intubation": 2,
-    "epidural-block": 5,
-    "incisional-line-block": 1,
-    "intercostal-block": 3,
-    "intubation-cat": 1,
-    "iv-catheter": 2,
-    "iv-fluid-calculation": 2,
-    "local-infiltration": 1,
-    "oxygen-flow-rate": 2,
-    "testicular-block": 1,
-  },
-  "surg2": {
-    "__unassigned__": 5,
-    "abdominal-surgery": 2,
-    "aural-hematoma": 2,
-    "bandage-drain": 3,
-    "dental-scaling-muzzle": 2,
-    "ophthalmology-lab": 3,
-    "patient-prep-wound": 1,
-  },
-  "surg3": {
-    "__unassigned__": 5,
-    "approach-hip": 5,
-    "approach-humerus": 1,
-    "approach-stifle": 1,
-    "bone-plate": 2,
-    "cerclage-wire": 3,
-    "esf": 5,
-    "external-coaptation": 6,
-    "oral-wiring": 1,
-    "ortho-exam": 6,
-    "pinning": 2,
-    "tension-band-wire": 3,
-  },
-  "swine-clinic": {
-    "swine-asf": 17,
-    "swine-csf": 20,
-    "swine-fmd": 2,
-    "swine-gi-viral": 11,
-    "swine-greasypig": 15,
-    "swine-ileitis-bacti": 6,
-    "swine-pcv2": 5,
-    "swine-pornchalit-set": 21,
-    "swine-prv-je": 17,
-    "swine-repro": 6,
-    "swine-resp-viral": 12,
-  },
-  "swine-herd": {
-    "adg-calculation": 1,
-    "aflatoxin-source-effect": 1,
-    "all-in-all-out-system": 1,
-    "asf-acute-signs": 1,
-    "biosecurity-segregation-sanitation-resistance": 1,
-    "blup-breeding-value": 1,
-    "boar-restraint-snare": 1,
-    "breeding-system-3-breed-cross": 1,
-    "cross-sectional-vs-case-control": 1,
-    "epidemic-vs-endemic": 1,
-    "feeding-pregnancy-stage": 1,
-    "halothane-gene-pss": 1,
-    "inbreeding-depression": 1,
-    "iron-deficiency-anemia-piglet": 1,
-    "isolation-acclimatization-new-gilts": 1,
-    "mycotoxin-zearalenone": 1,
-    "parakeratosis-zinc-deficiency": 1,
-    "prrs-vaccination-program": 1,
-    "psy-calculation": 1,
-    "sensitivity-specificity-calculation": 1,
-    "sow-feeding-lactation": 1,
-    "swine-dysentery-brachyspira": 1,
-    "swine-euthanasia-method": 1,
-    "swine-house-count-calculation": 1,
-    "swine-welfare-5-freedoms": 1,
-    "thin-sow-syndrome": 1,
-    "vitamin-e-selenium-deficiency": 1,
-  },
-  "swine-repro": {
-    "artificial-insemination": 3,
-    "boar-anatomy": 3,
-    "boar-management": 5,
-    "embryo-development": 1,
-    "estrus-detection": 1,
-    "estrus-synchronization": 1,
-    "farrowing-management": 1,
-    "gilt-puberty": 1,
-    "lactation": 1,
-    "mma-syndrome": 1,
-    "parturition": 4,
-    "piglet-survival": 1,
-    "pregnancy-diagnosis": 1,
-    "pregnancy-recognition": 1,
-    "reproductive-surgery": 1,
-    "returns-to-estrus": 1,
-    "semen-evaluation": 2,
-  },
-  "vca": {
-    "anatomy": 7,
-    "aquatic": 70,
-    "clinical-pathology": 13,
-    "dogcat": 275,
-    "epidemiology": 12,
-    "equine": 80,
-    "exotic": 58,
-    "food-hygiene": 14,
-    "imaging": 23,
-    "immunology": 16,
-    "juris": 11,
-    "microbiology": 11,
-    "neurology": 19,
-    "ophthalmology": 20,
-    "parasitology": 33,
-    "pathology": 12,
-    "pharmacology": 18,
-    "poultry": 13,
-    "ruminant": 17,
-    "surgery": 85,
-    "swine": 109,
-    "theriogenology": 28,
-    "zoonoses": 6,
-  },
-  "vet-dev-anat": {
-    "vd-cardio": 10,
-    "vd-git": 9,
-    "vd-pharyngeal": 7,
-  },
-  "vet-imaging": {
-    "abdomen-radiograph": 3,
-    "ct-basics": 5,
-    "echocardiography": 1,
-    "mri-basics": 6,
-    "musculoskeletal-imaging": 3,
-    "radiograph-projections": 3,
-    "thorax-radiograph": 2,
-    "ultrasound-basics": 12,
-  },
-  "vet-juris": {
-    "animal-epidemic-act-2558": 11,
-    "animal-hospital-act-2557": 12,
-    "drug-act-2510": 15,
-    "slaughter-act-2559": 3,
-    "wildlife-act-2562": 5,
-  },
-  "zoonoses": {
-    "zoo-ai-basic": 9,
-    "zoo-bacterial": 51,
-    "zoo-corona": 13,
-    "zoo-ebola-nipah": 11,
-    "zoo-eid-wildlife": 10,
-    "zoo-epi-approach": 52,
-    "zoo-helminthic": 24,
-    "zoo-intro": 12,
-    "zoo-mycoses": 20,
-    "zoo-prion": 9,
-    "zoo-protozoal": 17,
-    "zoo-rabies": 7,
-    "zoo-rickettsial": 21,
-    "zoo-siv-civ": 4,
-    "zoo-vbz": 3,
-  },
-};
-
-// Current-scope questions have verified answers and complete metadata
-// for one exact curriculum version. Hidden topics are excluded.
-export const Q_CURRENT_SCOPE_COUNTS =
-{
-  "2569-1": {
-    "all": {
-      "avian-medicine": 113,
-      "epidemiology": 40,
-      "equine-medicine": 30,
-      "food-industry": 36,
-      "one-health": 16,
-      "poa-clinical": 40,
-      "zoonoses": 16
-    },
-    "midterm": {
-      "avian-medicine": 113,
-      "equine-medicine": 30,
-      "food-industry": 36,
-      "one-health": 16,
-      "zoonoses": 16
-    },
-    "final": {
-      "epidemiology": 40,
-      "equine-medicine": 30
-    },
-    "continuous": {
-      "poa-clinical": 40
-    }
-  }
-};
-
-// High-likelihood questions are counted only when their answer is
-// verified and their metadata names an exact curriculum + exam scope.
-// `all` counts each question once; `both` questions are expanded into
-// the midterm and final views so phase-specific buttons stay truthful;
-// `continuous` is its own bucket and never counts toward an exam phase.
-export const Q_HIGH_PREDICTION_COUNTS =
-{
-  "2569-1": {
-    "all": {
-      "zoonoses": 4
-    },
-    "midterm": {
-      "zoonoses": 4
-    },
-    "final": {},
-    "continuous": {}
-  }
-};
-
-// Built: 2026-11-15T18:28:54.752Z
+// never-empty guard, so this is NOT always the sum of the subject table.
+export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = T.Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE;
+export const Q_COUNTS_BY_TOPIC_BY_SCOPE = T.Q_COUNTS_BY_TOPIC_BY_SCOPE;
+// Past-paper counts per topic, over the SAME phase-scoped set as above.
+export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = T.Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE;
+export const Q_COUNTS_BY_YEAR = T.Q_COUNTS_BY_YEAR;
+// Visible per-year totals (hidden topics excluded): every user-facing year
+// total renders THIS.
+export const Q_VISIBLE_COUNTS_BY_YEAR = T.Q_VISIBLE_COUNTS_BY_YEAR;
+// Nested by subject so identical topic ids in different subjects cannot
+// collide; questions without a topic sit under the unassigned topic id.
+export const Q_COUNTS_BY_TOPIC = T.Q_COUNTS_BY_TOPIC;
+export const Q_PAST_PAPER_COUNTS_BY_TOPIC = T.Q_PAST_PAPER_COUNTS_BY_TOPIC;
+// Current-scope and high-likelihood questions per curriculum version: `all`
+// counts each question once, `both` lands in midterm and final, `continuous`
+// never counts toward an exam phase. Hidden topics are excluded.
+export const Q_CURRENT_SCOPE_COUNTS = T.Q_CURRENT_SCOPE_COUNTS;
+export const Q_HIGH_PREDICTION_COUNTS = T.Q_HIGH_PREDICTION_COUNTS;
