@@ -10,7 +10,7 @@ import { useTitle } from '../../lib/hooks.js';
 import { navigate, withQuery } from '../../router.js';
 import { Avatar, Byline } from '../ui/Avatar.jsx';
 import { JoinPrompt, PostChips, ReportSheet, Soon } from '../ui/bits.jsx';
-import { QuestionPeek } from '../ui/QuestionPeek.jsx';
+import { QuestionPeek } from '../../components/QuestionPeek.jsx';
 import { AttachButton, MediaGrid, MediaTray, useMediaTray } from '../ui/Media.jsx';
 import { askJoin } from '../ui/AccountButton.jsx';
 import { MODE } from '../config.js';

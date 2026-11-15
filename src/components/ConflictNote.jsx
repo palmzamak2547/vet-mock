@@ -24,21 +24,21 @@ export default function ConflictNote({ item }) {
   return (
     <div className={`vmx-conflict${strong ? '' : ' is-narrows'}`}>
       <div className="vmx-conflict-label">
-        {strong ? 'หลักฐานขัดกับที่บรรยาย' : 'ที่บรรยายกว้างกว่าที่หลักฐานรองรับ'}
+        {strong ? 'ตรงนี้แหล่งอ้างอิงไม่ตรงกับที่สอน' : 'ตรงนี้ที่สอนกว้างกว่าที่แหล่งอ้างอิงยืนยัน'}
       </div>
       <div className="vmx-conflict-sides">
         <div>
-          <div className="vmx-conflict-side">ที่บรรยายสอน</div>
+          <div className="vmx-conflict-side">ที่สอนในคาบ</div>
           <RichText text={item.lectureSays} />
         </div>
         <div>
-          <div className="vmx-conflict-side">ที่แหล่งอ้างอิงพบ</div>
+          <div className="vmx-conflict-side">แหล่งอ้างอิงว่า</div>
           <RichText text={item.evidenceSays} />
         </div>
       </div>
       {item.examAdvice && (
         <div className="vmx-conflict-exam">
-          <span className="vmx-conflict-side">เวลาสอบ</span>
+          <span className="vmx-conflict-side">ตอนสอบ</span>
           <RichText text={item.examAdvice} />
         </div>
       )}

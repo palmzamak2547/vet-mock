@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { Suspense, useState } from 'react';
 import ErrorBoundary from './ErrorBoundary.jsx';
 import { alertDialog } from '../lib/dialog.js';
 
@@ -6,10 +6,14 @@ import { alertDialog } from '../lib/dialog.js';
 // failure must not unmount the page and discard its draft or active session.
 // Background helpers omit onClose and disappear quietly if they fail.
 // `pending` is what shows while the feature's code downloads: nothing by
-// default, since most are warm by the time they open.
-export default function OptionalFeature({ children, label, onClose, pending = null }) {
-  const failed = () => {
-    if (!onClose) return;
+// default, since most are warm by the time they open. A feature a student
+// opens by a tap passes one (OverlayPending at least), or the tap looks dead.
+// `failed(retry)` replaces the close-and-alert with a state the feature draws
+// itself, offering `retry`; `onRetry` runs first (a lazyWithRetry's .retry).
+export default function OptionalFeature({ children, label, onClose, pending = null, failed = null, onRetry }) {
+  const [attempt, setAttempt] = useState(0);
+  const onError = () => {
+    if (failed || !onClose) return;
     onClose();
     void alertDialog({
       title: `เปิด${label}ไม่สำเร็จ`,
@@ -17,8 +21,12 @@ export default function OptionalFeature({ children, label, onClose, pending = nu
       confirmLabel: 'ปิด',
     });
   };
+  const retry = () => {
+    onRetry?.();
+    setAttempt((n) => n + 1);
+  };
   return (
-    <ErrorBoundary fallback={null} onError={failed}>
+    <ErrorBoundary key={attempt} fallback={failed ? failed(retry) : null} onError={onError}>
       <Suspense fallback={pending}>{children}</Suspense>
     </ErrorBoundary>
   );

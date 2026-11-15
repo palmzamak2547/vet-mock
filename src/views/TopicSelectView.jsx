@@ -400,11 +400,14 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           <button
             type="button"
             onClick={() => setView('reading-checklist')}
-            aria-label={`เปิดรายการอ่าน อ่านแล้ว ${subjReadDone} จาก ${topics.length} หัวข้อ`}
+            aria-label={`เปิดรายการอ่าน อ่านแล้ว ${subjReadDone} จาก ${topics.length} หัวข้อในแผนการสอน`}
             title="เปิดรายการอ่าน"
             className="vmx-topic-progress"
           >
-            อ่านแล้ว <strong>{subjReadDone}/{topics.length}</strong>
+            {/* Every topic of the syllabus, the reading list's own count. The cards
+                below leave out topics with nothing to study yet (24 against 19
+                for epidemiology), so the number says what it counts. */}
+            อ่านแล้ว <strong>{subjReadDone}/{topics.length}</strong> หัวข้อในแผนการสอน
           </button>
         )}
       </div>
@@ -494,7 +497,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           <div className="icon"><NavIcon name="exam" size={20} /></div>
           <div className="title">สอบจริง</div>
           <div className="sub">{setAvailable
-            ? 'ขั้นแบบสอบ 50 ข้อ × 60 วิ, นาฬิกาเดียวทั้งชุด เฉลยหลังส่ง'
+            ? 'ขั้นแบบสอบ 50 ข้อ × 60 วิ เฉลยหลังส่ง'
             : resources.questions?.available ? `ไม่มีข้อในช่วง${paperLabel}` : 'ยังไม่มีข้อสอบในวิชานี้'}</div>
         </button>
 
@@ -793,8 +796,10 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           const related = relatedDocs.get(`${subject}/${t.id}`) || [];
           const isEmpty = !hasTopicContent(t);
           const isRead = t.read;
-          // A note that says the topic is off the paper (curriculum.js flags it)
-          // keeps a warning sign; a provenance note is plain text.
+          // Only a note that changes what to study (curriculum.js marks it
+          // 'caveat': off the timetable, not examined, still on the paper)
+          // stays on the card, with its warning sign. Schedule and
+          // provenance notes are in the page's one folded row (5.226).
           const caveat = t.lecturerNoteKind === 'caveat';
           // The name the lecturer section above uses for the same person;
           // null for TBD, which gets no button at all.
@@ -843,13 +848,15 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                   // ข้อสอบเก่า, the word the question card's source line uses for
                   // the same predicate (isPastPaperQuestion). It read อิงแนวเดิม,
                   // the card chip's word for a wider set, until 5.189.2.
-                  <span className="vmx-topic-past" title={`มีข้อสอบเก่า ${ppCount}/${count} ข้อ (${ppPct}% ของหัวข้อนี้)`}>
-                    ข้อสอบเก่า {ppCount}/{count}, {ppPct}%
+                  // One figure, said as a sentence (5.226): "36% of these are
+                  // past-paper questions", with the count in the tooltip.
+                  <span className="vmx-topic-past" title={`ข้อสอบเก่า ${ppCount} จาก ${count} ข้อ`}>
+                    เป็นข้อสอบเก่า {ppPct}%
                   </span>
                 )}
-                {t.lecturerNote && !isEmpty && (
-                  <span className={`vmx-topic-note${caveat ? ' is-caveat' : ''}`}>
-                    {caveat && <span aria-hidden="true">⚠️ </span>}{t.lecturerNote}
+                {caveat && t.lecturerNote && !isEmpty && (
+                  <span className="vmx-topic-note is-caveat">
+                    <span aria-hidden="true">⚠️ </span>{t.lecturerNote}
                   </span>
                 )}
               </button>
@@ -929,6 +936,21 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
       </div>
       )}
 
+      {/* Schedule and provenance notes for the topics on this page, one
+          closed row (5.226); they were a line on 17 of 25 equine cards. */}
+      {(() => {
+        const notes = topics.filter((t) => hasTopicContent(t) && t.lecturerNote && t.lecturerNoteKind !== 'caveat');
+        if (!notes.length) return null;
+        return (
+          <details className="vmx-topic-prov">
+            <summary>ที่มาและตารางสอนของแต่ละหัวข้อ</summary>
+            <ul>
+              {notes.map((t) => <li key={t.id}><b>{t.label}</b> {t.lecturerNote}</li>)}
+            </ul>
+          </details>
+        );
+      })()}
+
       {/* Content-empty topic disclosure — only render when curriculum topics
           have no connected questions, Notes, or VetWiki article yet. */}
       {(() => {
@@ -983,7 +1005,10 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   );
 }
 
-// ─── Exam-format banner (shows up when subject has examFormat metadata) ───
+// ─── Exam format: one folded row (shows up when subject has examFormat metadata) ───
+// Weighting, cutoffs and where they came from are bookkeeping a student reads
+// once, so they sit closed (5.226; they were also a chip on 12 of 19 cards in
+// the subject picker until then).
 function ExamFormatBanner({ format, accent }) {
   const items = [];
   if (announced(format.weight)) items.push({ k: 'สัดส่วนวิชา', v: announced(format.weight) });
@@ -992,17 +1017,17 @@ function ExamFormatBanner({ format, accent }) {
   if (format.choiceCount) items.push({ k: 'รูปแบบ', v: `MCQ ${format.choiceCount} ช้อยส์ (A-${String.fromCharCode(64 + format.choiceCount)})` });
 
   return (
-    <div style={{
-      padding: '14px 18px',
+    <details className="vmx-exam-format" style={{
+      padding: '4px 18px',
       borderRadius: 12,
       borderLeft: `4px solid ${accent || 'var(--clr-ink)'}`,
       background: 'var(--clr-surface)',
       border: '1px solid var(--clr-border)',
       marginBottom: 20,
     }}>
-      <div className="vmx-eyebrow" style={{ marginBottom: 8 }}>
-        รูปแบบของชุดโจทย์ฝึก
-      </div>
+      <summary style={{ minHeight: 44, display: 'flex', alignItems: 'center', cursor: 'pointer', fontSize: 14, fontWeight: 600, color: 'var(--clr-ink)' }}>
+        สัดส่วนคะแนนและรูปแบบข้อสอบ
+      </summary>
 
       {items.length > 0 && (
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px 18px', marginBottom: format.notes?.length || format.questionTypes?.length ? 10 : 0 }}>
@@ -1032,10 +1057,10 @@ function ExamFormatBanner({ format, accent }) {
         </div>
       )}
 
-      <div style={{ marginTop: 8, fontSize: 14, fontStyle: 'italic', color: 'var(--clr-ink-soft)' }}>
+      <div style={{ margin: '8px 0 10px', fontSize: 14, fontStyle: 'italic', color: 'var(--clr-ink-soft)' }}>
         โปรดยืนยันกับอาจารย์/หัวปีอีกครั้งก่อนวันสอบจริง
       </div>
-    </div>
+    </details>
   );
 }
 
