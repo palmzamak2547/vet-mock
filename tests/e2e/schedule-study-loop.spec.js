@@ -20,7 +20,7 @@ test('a final timetable entry launches its own paper despite the selected midter
   expect(exam).toBeTruthy();
   await page.goto('/app/schedule');
   const card = page.locator('.vmx-dash-card').filter({ has: page.getByRole('heading', { name: examTitle(exam) }) });
-  await card.getByRole('button', { name: 'ฝึกข้อสอบวิชานี้ →', exact: true }).click();
+  await card.getByRole('button', { name: 'ฝึกข้อสอบวิชานี้', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'ตั้งค่า การฝึก', exact: true })).toBeVisible();
   await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('vmx-selected-phase')))).toBe('1-final');
   await openAdjust(page);
@@ -44,7 +44,10 @@ test('a timetable class with notes and no current-paper practice opens reading a
     && !Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE['1-mid'][item.subject]);
   expect(lesson).toBeTruthy();
   await page.goto('/app/schedule');
-  await page.getByRole('button', { name: new RegExp(lesson.title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')) }).first().click();
+  // The page opens on one day's classes; the five days, each class a link, are behind "ทั้งสัปดาห์".
+  await page.getByRole('button', { name: 'ทั้งสัปดาห์', exact: true }).click();
+  // A class is called by its course's own name, the one the exam rows use.
+  await page.getByRole('button', { name: new RegExp(examTitle(lesson).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')) }).first().click();
   await expect(page.locator('.vmx-notes-grid')).toBeVisible();
   await expect(page.locator('[data-reading-content]')).toBeVisible();
   await expect(page.locator('[data-reading-content]')).not.toBeEmpty();
