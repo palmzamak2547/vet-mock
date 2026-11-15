@@ -111,8 +111,13 @@ ok, 108 weak, 4 wrong, 3 keys in doubt.
 Two faults of a PDF's text layer no longer end a match: a Thai sara am split
 into a space and "า" ("จ านวน"), and mathematical letters ("𝑥"). And a fact
 set over many short lines (a cycle diagram, a list of one-word bullets) may
-take up to 14 lines when they hold 420 letters at most; the model is still
-asked for eight.
+take up to 14 lines when they hold 420 letters at most; the pointing step
+still asks for eight.
+
+Before that pass shipped (16 Nov 2026, release 5.242.0) a random 32 of its new
+slides were drawn again beside the question, the options, the key and the
+explanation: 31 held, and one title page with a campaign poster was turned
+down (`weak`) by hand in `checks.json`, then `index` was run for its subject.
 
 What the last reading judges, panel by panel:
 - `ok`: the highlighted lines (for a picture page, something plainly visible
