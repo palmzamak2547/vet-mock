@@ -45,7 +45,7 @@ begin
     'unique_devices', (select count(distinct reporter_ip_hash) from public.feedback_usage_log
                        where reporter_ip_hash is not null),
     'sent_by_type', (
-      select coalesce(jsonb_object_agg(feedback_type, n) order by feedback_type, '{}'::jsonb)
+      select coalesce(jsonb_object_agg(feedback_type, n order by feedback_type), '{}'::jsonb)
       from (select feedback_type, count(*) as n
             from public.feedback_usage_log where outcome = 'sent' group by feedback_type) t
     ),

@@ -253,6 +253,10 @@ Mochi is VetMock's own mascot (public/motion/poses).
 
 Each prints its course's bookplate from the app: VetMock's own artwork, not a public-domain work. Nine are the Panic Mode drawings (public/panic-art, September 2026); the rest are the course-card bookplates (public/subject-art, October 2026). Printed in one ink on the cloth colour of the course's volume on the VetWiki shelves.
 
+## set-*.png (43 covers)
+
+The covers of sets sent by link: type and ten drawn answer circles only, no artwork.
+
 # Share-card plates
 
 The friezes across the top of the share cards (src/data/art.js, CARD_PLATES): crops of one strip each, printed in the card's ink.
