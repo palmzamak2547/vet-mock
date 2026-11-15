@@ -40,6 +40,8 @@ const FIND_V = 7;            // bump to re-ask the models
 const CANDIDATES = 8;        // pages shown to the pointing model
 const PAGE_LINES = 70;       // lines of a page it sees
 const MAX_LINES = 8;         // lines one answer may rest on
+const SETTLE_LINES = 14;     // ...or more, when they are short: a run of up to 14 lines of 420 letters in all
+const SETTLE_CHARS = 420;
 const POINTER = process.env.VMX_EVIDENCE_POINTER || 'deepseek-v4-pro';   // points at lines
 const READER = process.env.VMX_EVIDENCE_READER || 'deepseek-v4-pro';    // reads those lines without the key
 const BUCKET = 'vetmock-evidence';   // served at slides.vetmock.com
@@ -80,8 +82,11 @@ export function tokens(text) {
   }
   return out;
 }
-/** Letters and digits only: a copied quote is compared without spaces, bullets or punctuation. */
-export const squash = (s) => String(s || '').normalize('NFC').toLowerCase().replace(/[^\p{L}\p{N}\p{M}]+/gu, '');
+/** Letters and digits only: a copied quote is compared without spaces, bullets or punctuation.
+ *  Two faults of a PDF's text layer are read through: a Thai sara am that came out as its nikhahit dropped and
+ *  "า" left behind ("จ านวน" for "จำนวน"), and mathematical letters ("𝑥") that a copy writes plainly. */
+export const squash = (s) => String(s || '').normalize('NFKC').toLowerCase()
+  .replace(/ำ/g, 'า').replace(/ํ/g, '').replace(/[^\p{L}\p{N}\p{M}]+/gu, '');
 
 // ---------- the bank ----------
 async function finalPool(subject) {
@@ -378,7 +383,10 @@ function locate(quote, given, flat) {
   if (want.length < 6) return null;
   const all = flat;
   const holds = (ids) => ids.length > 0 && ids.map((i) => flat[i]).join('').includes(want);
-  const fits = (ids) => ids.length > 0 && ids.length <= MAX_LINES && ids[ids.length - 1] - ids[0] <= MAX_LINES + 4;
+  // A slide breaks one sentence over many short lines ("Data / collection / Link to / Data / analysis"): the
+  // model was asked for eight at most but a fact set that way takes more, so a run is measured by its words too.
+  const fits = (ids) => ids.length > 0 && ids[ids.length - 1] - ids[0] <= MAX_LINES + 4
+    && (ids.length <= MAX_LINES || (ids.length <= SETTLE_LINES && ids.reduce((a, i) => a + flat[i].length, 0) <= SETTLE_CHARS));
   if (holds(given) && fits(given)) return given;
   // Its lines hold its words in another order, or with a word mended: nine tenths of the quote's
   // overlapping twelve-letter pieces must stand in them.
@@ -388,10 +396,10 @@ function locate(quote, given, flat) {
     for (let i = 0; i + 12 <= want.length; i += 6) { pieces++; if (text.includes(want.slice(i, i + 12))) found++; }
     if (pieces >= 3 && found >= 0.9 * pieces) return given;
   }
-  for (let n = 1; n <= MAX_LINES; n++) {   // the model miscounted: the shortest run of lines that holds its words
+  for (let n = 1; n <= SETTLE_LINES; n++) {   // the model miscounted: the shortest run of lines that holds its words
     for (let s = 0; s + n <= all.length; s++) {
       const run = Array.from({ length: n }, (_, k) => s + k);
-      if (holds(run)) return run;
+      if (holds(run) && fits(run)) return run;
     }
   }
   // Words copied from several places with their bullets dropped: each piece must stand in a line, or in a run
@@ -543,7 +551,10 @@ const published = (rows) => rows.filter((r) => r.checked === 'ok');
 
 /** The proposed slides nobody has looked at yet, with what a sheet needs to draw them. */
 async function tocheck(subject) {
-  const rows = registry(subject).filter((r) => r.sha16 && PROPOSED.has(r.state) && !r.checked);
+  // --states undecided also draws the picks whose blind reading did not settle: the lines may still state the key
+  // in words the reader would not take alone (a heading, a formula), and the eye decides them like any other.
+  const states = arg('states') ? new Set(arg('states').split(',')) : PROPOSED;
+  const rows = registry(subject).filter((r) => r.sha16 && states.has(r.state) && !r.checked);
   const { questions } = await finalPool(subject);
   const bank = new Map(questions.map(({ q }) => [q.id, q]));
   const out = rows.map((r) => {

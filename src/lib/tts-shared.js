@@ -11,12 +11,12 @@
 // ============================================================
 
 import { createAudioCache } from './tts-cache.js';
-import { SHARED_GENS, SHARED_TTS, clipKey, clipText, clipUrl, manifestUrl, optionLabel } from './tts-text.js';
+import { SHARED_GENS, SHARED_TTS, clipKey, clipParts, clipText, clipUrl, manifestUrl, optionLabel, segmentStarts } from './tts-text.js';
 
 const FETCH_TIMEOUT_MS = 8000;
 const MANIFEST_TIMEOUT_MS = 3000;
 const cache = createAudioCache({ dbName: 'vmx-tts-shared' });
-const manifests = new Map(); // 'gen/subject' -> Promise<Set<string> | null>
+const manifests = new Map(); // 'gen/subject' -> Promise<Set<string> | null> (complete: the whole subject is voiced)
 
 function fetchWithTimeout(url, ms, signal) {
   const ctrl = new AbortController();
@@ -29,6 +29,9 @@ function fetchWithTimeout(url, ms, signal) {
 }
 
 // null = could not be read (offline); a failed read is retried next tap.
+// A manifest is a list of clip names, or { complete, keys } for a
+// generation that serves a subject only once it is whole: the Set it
+// resolves to carries complete as a property.
 export function loadManifest(subject, g = SHARED_TTS) {
   if (!subject) return Promise.resolve(null);
   const id = `${g.gen}/${subject}`;
@@ -36,7 +39,15 @@ export function loadManifest(subject, g = SHARED_TTS) {
   if (!p) {
     p = fetchWithTimeout(manifestUrl(subject, g), MANIFEST_TIMEOUT_MS)
       .then((r) => (r.ok ? r.json() : r.status === 404 ? [] : null))
-      .then((list) => (Array.isArray(list) ? new Set(list) : null))
+      .then((list) => {
+        const keys = Array.isArray(list) ? list : Array.isArray(list?.keys) ? list.keys : null;
+        if (!keys) return null;
+        const set = new Set(keys);
+        // A whole-subject generation is complete only where its manifest says
+        // so: a missing one (404, read as []) or a plain list is not.
+        set.complete = g.wholeSubject ? list?.complete === true : keys.length > 0 || list?.complete === true;
+        return set;
+      })
       .catch(() => null);
     manifests.set(id, p);
     p.then((set) => { if (!set) manifests.delete(id); });
@@ -49,11 +60,11 @@ export function loadManifest(subject, g = SHARED_TTS) {
 // the body too: a download that stalls after its headers would otherwise
 // leave the read-aloud loading for ever.
 const CLIP_TIMEOUT_MS = 20000;
-export async function getSharedAudio({ key, url }, signal) {
+export async function getSharedAudio({ key, url }, signal, timeout = CLIP_TIMEOUT_MS) {
   const cached = await cache.read(key);
   if (cached) return cached;
   const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), CLIP_TIMEOUT_MS);
+  const t = setTimeout(() => ctrl.abort(), timeout);
   if (signal) {
     if (signal.aborted) ctrl.abort();
     else signal.addEventListener('abort', () => ctrl.abort(), { once: true });
@@ -76,7 +87,10 @@ export async function getSharedAudio({ key, url }, signal) {
  * an explanation is read as a stem with no options.
  * Each item: { key, url, gen, text, kind: 'stem' | 'label' | 'option', option }
  * (option: the display index a label or option belongs to), all from one
- * generation: the newest whose manifest lists every clip.
+ * generation: the newest whose manifest lists every clip. A segmented
+ * generation gives a piece one item per sentence-sized part, each with
+ * full (the piece's whole text), from (the words before it) and segs.
+ * A whole-subject generation plays only where its manifest is complete.
  */
 export async function sharedPlan({ stem, options, lang, subject, signal, prefetch = true }) {
   const parts = [];
@@ -93,8 +107,16 @@ export async function sharedPlan({ stem, options, lang, subject, signal, prefetc
   // order, newest first: only the voice that wins downloads its first clip,
   // and a generation without the question costs no request for one.
   const gens = SHARED_GENS.map(async (g) => {
-    const [keys, manifest] = await Promise.all([Promise.all(parts.map((p) => clipKey(p.text, g))), loadManifest(subject, g)]);
-    const plan = parts.map((p, i) => ({ ...p, key: keys[i], url: clipUrl(keys[i], g), gen: g.gen }));
+    const manifest = await loadManifest(subject, g);
+    // A generation that serves whole subjects only: nothing until it is done.
+    if (g.wholeSubject && !manifest?.complete) return null;
+    const pieces = parts.flatMap((p) => {
+      const segs = clipParts(p.text, g);
+      const starts = segmentStarts(p.text, segs);
+      return segs.map((text, k) => ({ ...p, text, full: p.text, from: starts[k], segs: segs.length }));
+    });
+    const keys = await Promise.all(pieces.map((p) => clipKey(p.text, g)));
+    const plan = pieces.map((p, i) => ({ ...p, key: keys[i], url: clipUrl(keys[i], g), gen: g.gen }));
     const whole = manifest ? plan.every((p) => manifest.has(p.key))
       // No manifest (offline): play only if every clip is already on the device.
       : (await Promise.all(plan.map((p) => cache.read(p.key)))).every(Boolean);

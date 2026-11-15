@@ -102,6 +102,23 @@ No model writes or changes an answer. For each question in scope:
    proposed slides found 231 right, 17 weak, 3 wrong and 1 key in doubt,
    which is why this step exists.
 
+A pick whose blind reading came back `undecided` is drawn too when `tocheck`
+is given `--states ...,undecided`: the reader declines lines it would need a
+heading or a table to read, and the eye can still find them right. On the
+second pass (11 Nov 2026) 260 such and re-matched picks were looked at: 145
+ok, 108 weak, 4 wrong, 3 keys in doubt.
+
+Two faults of a PDF's text layer no longer end a match: a Thai sara am split
+into a space and "า" ("จ านวน"), and mathematical letters ("𝑥"). And a fact
+set over many short lines (a cycle diagram, a list of one-word bullets) may
+take up to 14 lines when they hold 420 letters at most; the pointing step
+still asks for eight.
+
+Before that pass shipped (16 Nov 2026, release 5.242.0) a random 32 of its new
+slides were drawn again beside the question, the options, the key and the
+explanation: 31 held, and one title page with a campaign poster was turned
+down (`weak`) by hand in `checks.json`, then `index` was run for its subject.
+
 What the last reading judges, panel by panel:
 - `ok`: the highlighted lines (for a picture page, something plainly visible
   on the slide) state the fact that makes the key the right answer. A student
@@ -140,7 +157,7 @@ python -I scripts/evidence/pages.py fetch  --data <ROOT> --subject <id>
 python -I scripts/evidence/pages.py lines  --data <ROOT> --subject <id>
 python -I scripts/evidence/pages.py vision --data <ROOT> --subject <id>
 node scripts/evidence/build.mjs find    --subject <id>
-node scripts/evidence/build.mjs tocheck --subject <id>
+node scripts/evidence/build.mjs tocheck --subject <id> [--states states,review,conflict,undecided]
 python -I scripts/evidence/pages.py sheets --data <ROOT> --subject <id>
    (look at ROOT/sheets/<id>-NNN.jpg; write [{ "qid", "verdict", "note" }])
 node scripts/evidence/build.mjs check   --file <verdicts.json>

@@ -95,6 +95,9 @@ export const EXAM_ORIGINS = Object.freeze({
   "Aquatic Med final Vet 83 บันทึกหลังสอบ": { kind: 'paper', cohort: 83, paper: 'final' },
   "Aquatic Med final Vet 84 บันทึกหลังสอบ": { kind: 'paper', cohort: 84, paper: 'final' },
   "Aquatic Med final Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: 85, paper: 'final' },
+  // Vet 80 wrote down their Aquatic Med midterm by lecturer (a 2-page sheet kept in the Vet 84 midterm folder); the
+  // marine-mammal part of that midterm is taught for the final in 2569, so the row sits in a final topic.
+  "Aquatic Med midterm Vet 80 บันทึกหลังสอบ": { kind: 'paper', cohort: 80, paper: 'midterm' },
   "One Health final Vet 82 บันทึกหลังสอบ": { kind: 'paper', cohort: 82, paper: 'final' },
   "One Health final Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: 85, paper: 'final' },
   "One Health final บันทึกหลังสอบ (ไม่ระบุรุ่น)": { kind: 'paper', cohort: null, paper: 'final' },
@@ -276,6 +279,9 @@ export const EXAM_ORIGINS = Object.freeze({
   "ควิซในคาบ Aquatic Med ของ Vet 83": { kind: 'aligned' },
   "ควิซทบทวนที่ Vet 83 แต่งเอง": { kind: 'aligned' },
   "ควิซวิชาอื่นที่รุ่นพี่แปะไว้ในสรุปปลายภาค One Health": { kind: 'aligned' },
+  // Points a senior starred or wrote "ออก" beside in their own One Health final summary or slide copy (Vet 85, the
+  // Vet 83 summary and Vet 82 review kept by Vet 84, Vet 84's starred 2567 waste deck). A mark, not a paper.
+  "One Health final: จุดที่รุ่นพี่ติดดาวหรือเขียนว่าออกในสรุปและสไลด์ของตน": { kind: 'aligned' },
   "Equine Med & Surg POA practice case (Vet 84 class session)": { kind: 'aligned' },
   "Swine Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก": { kind: 'aligned' },
   "Swine Medicine final จุดที่รุ่นพี่มาร์คในสไลด์": { kind: 'aligned' },
@@ -313,6 +319,12 @@ export const EXAM_ORIGINS = Object.freeze({
   // Vet 85 drew a star beside single statements in their copy of the 2568 dermatology deck, and their final summary
   // (p. 6) says the dermatology and surgery points were added in the starred slides. A mark, not a paper.
   "Equine Dermatology (Vet 85) stars this point; their summary of the paper refers to the starred slides": { kind: 'aligned' },
+  // Zoonoses final marked points (5.247.0). "ว่าเคยออก": a mark whose own legend ties it to a cohort's paper (the
+  // Vet 84 bacterial map's "ออกสอบ 84" stars, the Vet 83 notebook's "สอบ vet 83" stars and Vet 84's red stars on it,
+  // Vet 85's post-exam pink notes). "ในสไลด์หรือสรุป": a star, asterisk or "!!!" in a senior's deck or summary with
+  // no such legend. Neither is a paper; the paper is never named because the marks sit in midterm and final folders.
+  "Zoonoses จุดที่รุ่นพี่มาร์คว่าเคยออก": { kind: 'aligned' },
+  "Zoonoses จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป": { kind: 'aligned' },
 
   // ── source-doc: Names the document the question was written from ──
   // rows that carry a sourceType
