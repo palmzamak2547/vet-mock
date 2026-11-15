@@ -14,6 +14,7 @@ import BackBar from '../components/BackBar.jsx';
 import StatePanel from '../components/StatePanel.jsx';
 import { confirmDialog } from '../lib/dialog.js';
 import { thaiError } from '../lib/errors.js';
+import { readStoredJson } from '../lib/stored-json.js';
 import { isQuestionDeliverable } from '../data/question-delivery.generated.js';
 import { raceEligibleQuestions } from '../lib/question-surfaces.js';
 import { wholeStem } from '../lib/rich-blocks.js';
@@ -36,11 +37,10 @@ function rememberRoom(owner, value) {
 }
 function forgetRoom() { rememberRoom(null, ''); }
 function rememberedRoom(owner) {
-  try {
-    const kept = JSON.parse(sessionStorage.getItem(LAST_ROOM_KEY) || 'null');
-    if (kept && owner && kept.owner === owner && typeof kept.code === 'string') return kept.code;
-    if (kept) forgetRoom();
-  } catch { forgetRoom(); }
+  let kept = null;
+  try { kept = readStoredJson(LAST_ROOM_KEY, null, { storage: sessionStorage }); } catch { /* storage off */ }
+  if (kept && owner && kept.owner === owner && typeof kept.code === 'string') return kept.code;
+  forgetRoom();
   return '';
 }
 
