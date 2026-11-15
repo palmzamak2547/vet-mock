@@ -61,7 +61,7 @@ test('the caution shows with the key only, none after it; the source waits, then
   await expect(chip).toHaveCount(0);
   await answerWithKey(page, disputed);
   // With the key: one chip in the verdict panel, below the options, with air above it.
-  await expect(caution).toHaveText(/^s*ข้อควรระวัง ▸$/);
+  await expect(caution).toHaveText(/^\s*ข้อควรระวัง ▸$/);
   await expect(anyChip).toHaveCount(1);
   await expect(page.locator('.vmx-instant-feedback [data-flag-chip]')).toHaveCount(1);
   const options = await page.getByRole('group', { name: 'ตัวเลือกคำตอบ' }).boundingBox();
@@ -196,6 +196,9 @@ test.describe('in a running timed exam', () => {
     // Answer, move on and back: nothing scrolls by itself.
     await page.locator('.vmx-option').first().click();
     await next(page, scoped);
+    // The session refuses a second move within 120 ms of the first and holds one for up to 250 ms
+    // (useExamSession.js), so a double tap cannot skip a question: this step back is a separate tap.
+    await page.waitForTimeout(300);
     await page.getByRole('button', { name: /ข้อก่อนหน้า/ }).first().click();
     await expect(page.locator('.vmx-qtext')).toContainText(norm(withTable.q).slice(0, 20));
     const settled = await page.evaluate(() => window.scrollY);
