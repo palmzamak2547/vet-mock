@@ -4000,21 +4000,21 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "examOrigin": "Equine Med final recall (Vet 85)",
     "q": "จุดสีน้ำตาลเข้มกลางหน้าตัดฟันตัดม้าที่เรียกกันว่า dental star ในทางกายวิภาคคือเนื้อเยื่อใด และเกิดขึ้นเพราะอะไร",
     "options": [
-      "Tertiary dentin ที่ odontoblast สร้างขึ้นเมื่อการสึกใกล้ถึงโพรงประสาทฟัน",
+      "Secondary dentin ที่อุดโพรงประสาทฟัน โดยมีแกนกลางเป็น tertiary dentin",
       "Cementum ที่ไหลลงมาอุดร่อง infundibulum จนเต็มหลังจากฟันสึก",
       "Peripheral enamel ที่พับเข้าด้านในแล้วหนาตัวขึ้นตามอายุของม้า",
       "เศษอาหารที่อัดแน่นอยู่ในรูของ pulp cavity จนเปลี่ยนเป็นสีน้ำตาล",
       "กระดูกที่งอกขึ้นมาแทนที่ dentin เดิมหลังจากฟันน้ำนมหลุดไป"
     ],
     "answer": 0,
-    "explain": "dental star เป็นคำเรียกอย่างไม่เป็นทางการของ tertiary dentin หรืออีกชื่อคือ reparative dentin เมื่อหน้าตัดฟันสึกลงจนแรงบดเคี้ยวเริ่มใกล้ pulp cavity odontoblast ที่ยังมีชีวิตอยู่รอบโพรงประสาทจะสร้างเนื้อ dentin ชั้นใหม่ขึ้นมาปิดกั้นไว้ก่อน บางตำราเรียก dentin ที่อุดโพรงประสาทฟันส่วนนี้ว่า secondary dentin เพราะเป็น dentin ที่สร้างเพิ่มภายหลังเช่นกัน ส่วนชื่อ tertiary หรือ reparative dentin เน้นว่าสร้างขึ้นเพื่อตอบสนองต่อการสึก สีที่ออกน้ำตาลเข้มมาจากซิลิกาในหญ้าที่แทรกเข้าไปขณะเนื้อฟันชั้นนี้สัมผัสกับช่องปาก ม้าที่กินแต่อาหารเม็ดจึงอาจเห็น dental star เป็นสีขาวหรือเหลืองได้ ส่วน cup หรือ infundibulum เป็นร่องที่เกิดจากการพับตัวของ enamel ซึ่งเป็นคนละโครงสร้างกัน",
+    "explain": "dental star คือ dentin ที่สร้างเพิ่มขึ้นอุดโพรงประสาทฟัน (pulp cavity) เมื่อหน้าตัดฟันสึกลงจนใกล้โพรงประสาท odontoblast ที่ยังมีชีวิตอยู่รอบโพรงจะวาง dentin ชั้นใหม่ปิดไว้ก่อน เมื่อตัดดูภายใต้กล้องจุลทรรศน์ dental star มีสามชั้น แกนกลางเป็น tertiary dentin (reparative dentin) ที่มีท่อ dentin น้อยและสีจาง ล้อมด้วยวง secondary dentin สีจาง และขอบนอกเป็น secondary dentin สีน้ำตาลเข้ม ส่วนที่เห็นเป็นจุดสีน้ำตาลจึงเป็น secondary dentin ซึ่งมีท่อ dentin จำนวนมาก กว้าง และเปิดตั้งฉากกับหน้าฟัน สีจากอาหารจึงซึมเข้าได้ง่าย การเรียกทั้ง dental star ว่า tertiary dentin หมายถึงเฉพาะแกนกลางของมัน ส่วน cup หรือ infundibulum เป็นร่องที่เกิดจากการพับตัวของ enamel และมี cementum อุดอยู่ ซึ่งเป็นคนละโครงสร้างกับ pulp cavity",
     "source": "EQUINE MED MID 86.pdf หน้า 19 (รวบรวมโดยรุ่นพี่ Vet 85)",
-    "verified": "EQUINE MED MID 86.pdf หน้า 15 และ 19 + jOm4PZtiC8o [11:34] และ [10:58]",
-    "sourcePages": [{ "doc": "equine-med-mid86", "edition": "44p", "page": 19 }, { "doc": "equine-med-mid86", "edition": "44p", "page": 15 }],
+    "verified": "EQUINE MED MID 86.pdf หน้า 15 และ 19 + jOm4PZtiC8o [11:34] และ [10:58] + Eq Dentistry 2026 หน้า 3 (Pulp cavity, dental star, secondary dentin) + Muylle, Simoens, Lauwers 2002, Equine Vet J 34(3):230-234, doi:10.2746/042516402776186038",
+    "sourcePages": [{ "doc": "equine-med-mid86", "edition": "44p", "page": 19 }, { "doc": "equine-med-mid86", "edition": "44p", "page": 15 }, { "doc": "equine-dentistry-2569", "edition": "136p", "page": 3 }],
     "tags": [
       "equine-dentistry",
       "dental-star",
-      "tertiary-dentin"
+      "secondary-dentin"
     ]
   },
   {
@@ -5774,14 +5774,15 @@ export const QUESTIONS_MID86_EQUINE_MEDICINE = [
     "q": "Dental star ที่เห็นกลางหน้าตัดฟันตัดของม้า ตรงกับโครงสร้างใดเมื่อเรียกด้วยศัพท์ทางกายวิภาค",
     "options": [
       "Infundibulum ที่ถูกซีเมนต์อุดจนเต็ม",
-      "Tertiary dentin ที่สร้างขึ้นปิดโพรงประสาทฟัน",
+      "Secondary dentin ที่อุดโพรงประสาทฟัน",
       "Peripheral enamel ที่หนาตัวขึ้นตรงกลางหน้าตัด",
       "Cementum ชั้นนอกที่สึกจนเปลี่ยนสี"
     ],
     "answer": 1,
-    "explain": "เมื่อฟันสึกลงเรื่อยๆ จนใกล้ถึงโพรงประสาทฟัน odontoblast ที่อยู่รอบโพรงประสาทจะสร้างเนื้อฟันชุดที่สาม (tertiary dentin หรือ reparative dentin) ขึ้นมาปิดไว้ก่อน จึงเห็นเป็นจุดสีน้ำตาลเข้มกลางหน้าตัดฟัน ซึ่งเรียกกันอย่างง่ายว่า dental star คำว่า cup และ star เป็นคำเรียกอย่างง่าย ส่วนศัพท์ทางกายวิภาคของทั้งคู่คือ infundibulum และ tertiary dentin ตามลำดับ\n\n❌ ทำไมข้ออื่นผิด\n— infundibulum ที่ซีเมนต์อุดอยู่คือ cup ซึ่งเป็นคนละตำแหน่งและเกิดก่อน dental star\n— peripheral enamel เป็นเคลือบฟันวงนอกสุดของหน้าตัด ไม่ได้อยู่กลางหน้าตัด\n— cementum ชั้นนอกหุ้มตัวฟัน ไม่ใช่เนื้อฟันที่สร้างใหม่เพื่อปิดโพรงประสาท\n\n💡 จุดน้ำตาลกลางหน้าตัดคือเนื้อฟันซ่อมแซม ไม่ใช่หลุม",
+    "explain": "เมื่อฟันสึกลงเรื่อยๆ จนใกล้ถึงโพรงประสาทฟัน odontoblast ที่อยู่รอบโพรงประสาทจะวาง dentin เพิ่มขึ้นอุดโพรงไว้ก่อน หน้าตัดจึงเห็นเป็นจุดสีน้ำตาลเข้มกลางฟันที่เรียกว่า dental star ส่วนที่เป็นสีน้ำตาลเข้มคือ secondary dentin ชั้นนอกซึ่งมีท่อ dentin มากและกว้าง สีจากอาหารจึงซึมเข้าได้ง่าย ตรงแกนกลางที่สีจางกว่าเป็น tertiary dentin (reparative dentin) คำว่า cup และ star เป็นคำเรียกอย่างง่าย ส่วนศัพท์ทางกายวิภาคคือ infundibulum และ pulp cavity ที่ถูก secondary dentin อุด ตามลำดับ\n\n❌ ทำไมข้ออื่นผิด\n— infundibulum ที่ซีเมนต์อุดอยู่คือ cup ซึ่งเป็นคนละตำแหน่งและเกิดก่อน dental star\n— peripheral enamel เป็นเคลือบฟันวงนอกสุดของหน้าตัด ไม่ได้อยู่กลางหน้าตัด\n— cementum ชั้นนอกหุ้มตัวฟัน ไม่ใช่เนื้อฟันที่สร้างใหม่เพื่อปิดโพรงประสาท\n\n💡 จุดน้ำตาลกลางหน้าตัดคือเนื้อฟันซ่อมแซม ไม่ใช่หลุม",
     "source": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 8 (รวบรวมโดยรุ่นพี่ Vet 83)",
-    "verified": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 8 + jOm4PZtiC8o [11:34-11:48]",
+    "verified": "Equine med & Sx part 1 (โน้ตพิมพ์ 40 หน้า) หน้า 8 + jOm4PZtiC8o [11:34-11:48] + Eq Dentistry 2026 หน้า 3 (Pulp cavity, dental star, secondary dentin) + Muylle, Simoens, Lauwers 2002, Equine Vet J 34(3):230-234, doi:10.2746/042516402776186038",
+    "sourcePages": [{ "doc": "equine-dentistry-2569", "edition": "136p", "page": 3 }],
     "tags": [
       "equine-dentistry",
       "dental star",

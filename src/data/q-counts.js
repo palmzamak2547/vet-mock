@@ -10,8 +10,8 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 8986;
-export const QB_SOURCE_TOTAL = 9198;
+export const QB_TOTAL = 9045;
+export const QB_SOURCE_TOTAL = 9257;
 export const QB_BLOCKED_TOTAL = 212;
 
 export const Q_COUNTS_BY_SUBJECT = {
@@ -28,7 +28,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'engprof': 70,
   'engprof1': 30,
   'epidemiology': 372,
-  'equine-medicine': 569,
+  'equine-medicine': 602,
   'equine-repro': 242,
   'exotic': 151,
   'food-industry': 300,
@@ -36,7 +36,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'herd-health-rum': 39,
   'livestock-pathology': 67,
   'milk-meat-hygiene': 1192,
-  'one-health': 252,
+  'one-health': 278,
   'poa-clinical': 71,
   'poultry': 178,
   'practrum': 117,
@@ -78,7 +78,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'engprof': 70,
   'engprof1': 30,
   'epidemiology': 372,
-  'equine-medicine': 569,
+  'equine-medicine': 602,
   'equine-repro': 242,
   'exotic': 108,
   'food-industry': 300,
@@ -86,7 +86,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'herd-health-rum': 39,
   'livestock-pathology': 67,
   'milk-meat-hygiene': 1192,
-  'one-health': 252,
+  'one-health': 278,
   'poa-clinical': 71,
   'poultry': 132,
   'practrum': 113,
@@ -127,7 +127,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'comp-repro-clinic': 48,
   'engprof': 1,
   'epidemiology': 297,
-  'equine-medicine': 329,
+  'equine-medicine': 372,
   'equine-repro': 200,
   'exotic': 34,
   'food-industry': 154,
@@ -135,7 +135,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'herd-health-rum': 35,
   'livestock-pathology': 67,
   'milk-meat-hygiene': 904,
-  'one-health': 137,
+  'one-health': 163,
   'poa-clinical': 16,
   'poultry': 69,
   'practrum': 17,
@@ -211,7 +211,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'comp-repro-clinic': 48,
     'engprof': 1,
     'epidemiology': 280,
-    'equine-medicine': 325,
+    'equine-medicine': 368,
     'equine-repro': 136,
     'exotic': 34,
     'food-industry': 30,
@@ -219,7 +219,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'herd-health-rum': 33,
     'livestock-pathology': 67,
     'milk-meat-hygiene': 412,
-    'one-health': 74,
+    'one-health': 100,
     'poultry': 69,
     'practrum': 17,
     'rec-adv-bioscience': 4,
@@ -272,13 +272,13 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'com2': 39,
     'engprof1': 30,
     'epidemiology': 355,
-    'equine-medicine': 565,
+    'equine-medicine': 598,
     'equine-repro': 161,
     'food-industry': 61,
     'food-safety-y4': 21,
     'herd-health-rum': 37,
     'milk-meat-hygiene': 417,
-    'one-health': 119,
+    'one-health': 145,
     'surg1': 29,
     'swine-clinic': 177,
     'swine-herd': 16,
@@ -354,7 +354,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
     2: 104,
     3: 62,
     4: 302,
-    5: 3812,
+    5: 3871,
   },
   '2-mid': {
     1: 297,
@@ -753,22 +753,22 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'epidem-test-agreement': 9,
     },
     'equine-medicine': {
-      'equine-anesthesia': 17,
+      'equine-anesthesia': 19,
       'equine-colic-bestfit': 48,
       'equine-dentistry': 40,
       'equine-derm': 29,
       'equine-gi': 39,
       'equine-hoof': 5,
-      'equine-infectious': 13,
+      'equine-infectious': 29,
       'equine-intro': 87,
-      'equine-lameness': 18,
+      'equine-lameness': 22,
       'equine-nutrition': 57,
-      'equine-ophth': 22,
+      'equine-ophth': 30,
       'equine-parasites': 75,
       'equine-poa': 35,
-      'equine-pythium': 7,
+      'equine-pythium': 8,
       'equine-respi': 44,
-      'equine-surgery-wound': 24,
+      'equine-surgery-wound': 26,
       'equine-tendon': 5,
     },
     'equine-repro': {
@@ -844,13 +844,13 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'milk-cleaning': 71,
     },
     'one-health': {
-      'oh-amr': 16,
+      'oh-amr': 21,
       'oh-env-carcinogen': 19,
       'oh-env-mutagen': 20,
-      'oh-foodborne': 8,
-      'oh-gmo': 14,
-      'oh-import-risk': 10,
-      'oh-livestock-waste': 17,
+      'oh-foodborne': 11,
+      'oh-gmo': 16,
+      'oh-import-risk': 11,
+      'oh-livestock-waste': 32,
       'oh-risk-analysis': 15,
     },
     'surg1': {
@@ -2403,7 +2403,7 @@ export const Q_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 2076,
-  5: 6407,
+  5: 6466,
 };
 
 // Visible per-year totals (hidden topics excluded). Every user-facing
@@ -2415,7 +2415,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 1981,
-  5: 6407,
+  5: 6466,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -2678,23 +2678,23 @@ export const Q_COUNTS_BY_TOPIC = {
     "epidem-test-agreement": 9,
   },
   "equine-medicine": {
-    "equine-anesthesia": 17,
+    "equine-anesthesia": 19,
     "equine-colic-bestfit": 48,
     "equine-colic-surgery": 4,
     "equine-dentistry": 40,
     "equine-derm": 29,
     "equine-gi": 39,
     "equine-hoof": 5,
-    "equine-infectious": 13,
+    "equine-infectious": 29,
     "equine-intro": 87,
-    "equine-lameness": 18,
+    "equine-lameness": 22,
     "equine-nutrition": 57,
-    "equine-ophth": 22,
+    "equine-ophth": 30,
     "equine-parasites": 75,
     "equine-poa": 35,
-    "equine-pythium": 7,
+    "equine-pythium": 8,
     "equine-respi": 44,
-    "equine-surgery-wound": 24,
+    "equine-surgery-wound": 26,
     "equine-tendon": 5,
   },
   "equine-repro": {
@@ -2817,18 +2817,18 @@ export const Q_COUNTS_BY_TOPIC = {
     "milk-raw-storage": 64,
   },
   "one-health": {
-    "oh-amr": 16,
+    "oh-amr": 21,
     "oh-collaboration": 7,
     "oh-communication": 8,
     "oh-concept": 9,
     "oh-disease-prevention": 51,
     "oh-env-carcinogen": 19,
     "oh-env-mutagen": 20,
-    "oh-foodborne": 8,
+    "oh-foodborne": 11,
     "oh-global-network": 36,
-    "oh-gmo": 14,
-    "oh-import-risk": 10,
-    "oh-livestock-waste": 17,
+    "oh-gmo": 16,
+    "oh-import-risk": 11,
+    "oh-livestock-waste": 32,
     "oh-risk-analysis": 15,
     "oh-vet-role": 22,
   },
@@ -3744,4 +3744,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-11-15T23:57:24.159Z
+// Built: 2026-11-16T03:08:07.222Z

@@ -1013,4 +1013,992 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_C = [
       }
     ]
   },
+  {
+    "id": 218600,
+    "subject": "one-health",
+    "topic": "oh-import-risk",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ขั้น risk estimation ของการประเมินความเสี่ยงการนำเข้า (import risk assessment) ตามแนวทาง WOAH มีขั้นตอนตามลำดับอย่างไร",
+    "options": [
+      "ระบุ hazard แล้วประเมิน entry แล้วเลือกมาตรการลดความเสี่ยงที่เหมาะสม",
+      "ประเมิน likelihood of entry and exposure แล้ว likely consequences แล้วรวม likelihood กับ consequences",
+      "กำหนด ALOP แล้วทำ option evaluation แล้วติดตามผลด้วย monitoring and review",
+      "ประเมิน consequences ก่อน แล้วประเมิน exposure แล้วสื่อสารความเสี่ยงแก่ผู้เกี่ยวข้อง"
+    ],
+    "answer": 1,
+    "explain": "Risk assessment ตามแนวทาง WOAH มี 4 ขั้น คือ entry assessment, exposure assessment, consequence assessment และ risk estimation ขั้น risk estimation ประเมินความเสี่ยงจากโอกาสที่เชื้อจะเข้ามา สัมผัส ตั้งตัว และแพร่ ร่วมกับผลกระทบ โดยทำตามลำดับ คือ ประเมิน likelihood of entry and exposure แล้วประเมิน likely consequences และสุดท้ายรวม likelihood กับ consequences เข้าด้วยกัน\n\nทำไมข้ออื่นผิด\nระบุ hazard แล้วเลือกมาตรการ: hazard identification อยู่ก่อน risk assessment ส่วนการเลือกมาตรการเป็นงานของ risk management\nALOP, option evaluation, monitoring and review: เป็นขั้นของ risk management\nประเมิน consequences ก่อนแล้วสื่อสาร: ลำดับไม่ถูก และการสื่อสารเป็นอีกองค์ประกอบของ risk analysis",
+    "source": "Import Risk Assessment (Present) หน้า 6, 7 และ 18",
+    "verified": "Import Risk Assessment (Present) (2569) หน้า 7 (WOAH risk assessment: entry, exposure, consequence, risk estimation), หน้า 18 (risk estimation objective, procedure: 1. likelihood of entry and exposure, 2. likely consequences, 3. integration of likelihood and consequences), หน้า 6 (risk management: risk evaluation, option evaluation, implementation, monitoring and review); สไลด์ Animal and Human Health Risk Analysis deck 2024 ของรุ่นพี่ Vet 84 หน้า 33 ไฮไลต์ขั้นตอน risk estimation",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ Vet 84 ไฮไลต์ ขีดเส้นใต้ หรือติดดาวในสไลด์ของตน",
+    "tags": [
+      "oh-import-risk",
+      "risk-estimation",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-import-risk-2569",
+        "edition": "47p",
+        "page": 18
+      },
+      {
+        "doc": "oh-import-risk-2569",
+        "edition": "47p",
+        "page": 7
+      },
+      {
+        "doc": "oh-risk-analysis-2024",
+        "edition": "34p",
+        "page": 33
+      }
+    ]
+  },
+  {
+    "id": 218601,
+    "subject": "one-health",
+    "topic": "oh-foodborne",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ตามแนวคิด farm-to-fork continuum การปนเปื้อนเชื้อก่อโรคในอาหารเกิดขึ้นได้ที่ขั้นตอนใด",
+    "options": [
+      "เฉพาะในฟาร์ม เพราะเชื้อก่อโรคในอาหารมาจากสัตว์ที่เป็นพาหะเท่านั้น",
+      "เฉพาะขั้นแปรรูปและค้าปลีก ซึ่งเป็นจุดที่อาหารผ่านมือคนมากที่สุด",
+      "เฉพาะในครัวเรือน เพราะการปรุงไม่สุกเป็นสาเหตุเดียวของการป่วย",
+      "ได้ทุกขั้นตอน ตั้งแต่ฟาร์ม อาหารสัตว์และน้ำ จนถึงครัวเรือนและผู้บริโภค"
+    ],
+    "answer": 3,
+    "explain": "Farm-to-fork continuum เริ่มจากฟาร์ม (รวมอาหารสัตว์และน้ำ) การขนส่ง การฆ่าหรือเก็บเกี่ยว การแปรรูป การกระจายสินค้า ตลาดค้าปลีก ครัวเรือนหรือร้านอาหาร จนถึงผู้บริโภค การปนเปื้อนเกิดได้ทุกขั้น การควบคุมโรคจากอาหารจึงต้องทำทั้งระบบ เช่น สัตว์ที่เป็นพาหะในฟาร์ม การปนเปื้อนข้ามซากที่โรงฆ่า การคุมอุณหภูมิไม่ดีที่โรงงาน และการปรุงไม่สุกหรือเก็บรักษาไม่ถูกต้องที่ผู้บริโภค\n\nทำไมข้ออื่นผิด\nเฉพาะในฟาร์ม เฉพาะแปรรูปและค้าปลีก หรือเฉพาะครัวเรือน: แต่ละข้อเป็นเพียงจุดเดียวในหลายจุดที่ปนเปื้อนได้",
+    "source": "One Health approach to combat foodborne diseases หน้า 7 และ 8",
+    "verified": "One Health approach to combat foodborne diseases (2569) หน้า 7 (farm-to-fork continuum, contamination may occur at every stage, interventions across the whole system), หน้า 8 (potential sources of contamination at farm, slaughter, processing, consumers); สไลด์ One Health approach to combat foodborne diseases deck 2024 ของรุ่นพี่ Vet 84 หน้า 6 ไฮไลต์ Farm-to-Fork scheme",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ Vet 84 ไฮไลต์ ขีดเส้นใต้ หรือติดดาวในสไลด์ของตน",
+    "tags": [
+      "oh-foodborne",
+      "farm-to-fork",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-foodborne-2569",
+        "edition": "32p",
+        "page": 7
+      },
+      {
+        "doc": "oh-foodborne-2569",
+        "edition": "32p",
+        "page": 8
+      },
+      {
+        "doc": "oh-foodborne-2024",
+        "edition": "21p",
+        "page": 6
+      }
+    ]
+  },
+  {
+    "id": 218602,
+    "subject": "one-health",
+    "topic": "oh-foodborne",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "เหตุใดแนวทางสุขภาพหนึ่งเดียวด้านความปลอดภัยอาหารจึงเน้นการป้องกันที่แหล่งกำเนิด (prevention at the source)",
+    "options": [
+      "เมื่อป้องกันที่ฟาร์มแล้ว ไม่ต้องควบคุมขั้นแปรรูปและผู้บริโภคอีก",
+      "มักได้ผลดีกว่า ยั่งยืนกว่า และเสียค่าใช้จ่ายน้อยกว่าการรับมือหลังคนป่วยแล้ว",
+      "โรคจากอาหารในคนรักษาไม่ได้ จึงทำได้เพียงป้องกันที่ฟาร์มเท่านั้น",
+      "เชื้อก่อโรคในอาหารทุกชนิดมาจากสัตว์ จึงไม่ต้องดูแลสิ่งแวดล้อมและคน"
+    ],
+    "answer": 1,
+    "explain": "แนวทางสุขภาพหนึ่งเดียวด้านความปลอดภัยอาหารมุ่งระบุ จัดลำดับ และลดความเสี่ยงในทุกขั้นของห่วงโซ่การผลิตอาหาร การป้องกันที่แหล่งกำเนิดมักได้ผลดีกว่า ยั่งยืนกว่า และเสียค่าใช้จ่ายน้อยกว่าการรับมือหลังคนป่วยแล้ว แต่ยังต้องควบคุมต่อเนื่องในทุกขั้นจนถึงผู้บริโภค\n\nทำไมข้ออื่นผิด\nไม่ต้องควบคุมขั้นอื่น: การปนเปื้อนเกิดได้ทุกขั้น จึงต้องควบคุมทั้งห่วงโซ่\nโรคจากอาหารรักษาไม่ได้: ส่วนใหญ่รักษาได้ เหตุผลคือการป้องกันคุ้มค่ากว่า\nทุกเชื้อมาจากสัตว์: อันตรายในอาหารมาจากคน สิ่งแวดล้อม สารเคมี และวัตถุแปลกปลอมได้ด้วย",
+    "source": "One Health approach to combat foodborne diseases หน้า 2, 4, 5 และ 7",
+    "verified": "One Health approach to combat foodborne diseases (2569) หน้า 4 (identify, prioritize and mitigate food safety risks at every stage, prevention at the source is usually more effective, sustainable, and less costly than responding only after human disease occurs), หน้า 2 (prevention at the source), หน้า 5 (hazard categories), หน้า 7 (every stage); สไลด์ One Health approach to combat foodborne diseases deck 2024 ของรุ่นพี่ Vet 84 หน้า 4 ไฮไลต์ One Health for Food Safety: breaks the chain of foodborne illnesses",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ Vet 84 ไฮไลต์ ขีดเส้นใต้ หรือติดดาวในสไลด์ของตน",
+    "tags": [
+      "oh-foodborne",
+      "prevention-at-source",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-foodborne-2569",
+        "edition": "32p",
+        "page": 4
+      },
+      {
+        "doc": "oh-foodborne-2024",
+        "edition": "21p",
+        "page": 4
+      }
+    ]
+  },
+  {
+    "id": 218603,
+    "subject": "one-health",
+    "topic": "oh-foodborne",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ในขั้นการฆ่าสัตว์ปีก (slaughter) ความเสี่ยงหลักที่ทำให้ซากปนเปื้อน Salmonella และ Campylobacter คืออะไร และควบคุมอย่างไร",
+    "options": [
+      "นำไก่ที่มีเชื้อเข้าฟาร์ม ควบคุมด้วย biosecurity และ all-in/all-out",
+      "อุณหภูมิไม่เหมาะสมและน้ำหยดปนเปื้อน ควบคุมด้วย cold chain และบรรจุภัณฑ์",
+      "ปรุงไม่สุกและปนเปื้อนข้ามในครัว ควบคุมด้วยปรุงสุกและแยกของดิบของสุก",
+      "อุจจาระรั่วและปนเปื้อนข้ามระหว่างควักเครื่องใน ควบคุมด้วยคุมกระบวนการและล้างอุปกรณ์"
+    ],
+    "answer": 3,
+    "explain": "ไก่อาจพาเชื้อ Salmonella และ Campylobacter โดยไม่แสดงอาการ ในขั้นการฆ่า ความเสี่ยงหลักคืออุจจาระรั่วและการปนเปื้อนข้ามระหว่างควักเครื่องใน ควบคุมด้วยการคุมกระบวนการ ควักเครื่องในอย่างถูกสุขลักษณะ และทำความสะอาดอุปกรณ์ ร่วมกับ GHP และ HACCP\n\nทำไมข้ออื่นผิด\nนำไก่ที่มีเชื้อเข้าฟาร์ม: เป็นความเสี่ยงขั้นฟาร์ม\nอุณหภูมิและน้ำหยด: เป็นความเสี่ยงขั้นค้าปลีก\nปรุงไม่สุกและปนเปื้อนข้ามในครัว: เป็นความเสี่ยงขั้นครัวเรือน",
+    "source": "One Health approach to combat foodborne diseases หน้า 9, 20 และ 22",
+    "verified": "One Health approach to combat foodborne diseases (2569) หน้า 20 (stage table: farm, transport, slaughter fecal leakage and cross-contamination during evisceration with process control, hygienic evisceration, equipment sanitation, retail, household), หน้า 9 (chickens carry pathogens without signs, carcass contamination during slaughter), หน้า 22 (GHP and HACCP); สไลด์ One Health approach to combat foodborne diseases deck 2024 ของรุ่นพี่ Vet 84 หน้า 6 ไฮไลต์ว่าเชื้อในทางเดินอาหารสัตว์ต้องถูกกำจัดที่ขั้นการฆ่า",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ Vet 84 ไฮไลต์ ขีดเส้นใต้ หรือติดดาวในสไลด์ของตน",
+    "tags": [
+      "oh-foodborne",
+      "slaughter-hygiene",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-foodborne-2569",
+        "edition": "32p",
+        "page": 20
+      },
+      {
+        "doc": "oh-foodborne-2569",
+        "edition": "32p",
+        "page": 9
+      },
+      {
+        "doc": "oh-foodborne-2024",
+        "edition": "21p",
+        "page": 6
+      }
+    ]
+  },
+  {
+    "id": 218604,
+    "subject": "one-health",
+    "topic": "oh-gmo",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "เหตุผลหลักของการพัฒนา GMO สำหรับอาหารและอาหารสัตว์คือข้อใด",
+    "options": [
+      "ทำให้พืชและสัตว์ไม่ต้องผ่านการประเมินความปลอดภัยใดๆ ก่อนวางจำหน่าย",
+      "เพิ่มสารพิษตามธรรมชาติในพืช เพื่อให้คนและสัตว์บริโภคพืชนั้นน้อยลง",
+      "ให้พืชผลิตยาปฏิชีวนะขึ้นเอง เพื่อใช้แทนการให้ยาในฟาร์มปศุสัตว์",
+      "ปรับปรุงลักษณะสำคัญทางเศรษฐกิจ เช่น การเติบโต ความต้านทานโรคหรือแมลง และความทนแล้ง"
+    ],
+    "answer": 3,
+    "explain": "GMO คือพืช สัตว์ หรือจุลินทรีย์ที่ DNA ถูกดัดแปลงด้วยเทคโนโลยี เหตุผลหลักคือปรับปรุงลักษณะที่สำคัญทางเศรษฐกิจ ได้แก่ อัตราการเติบโตและการรอด ความต้านทานโรคหรือแมลง ความทนต่อสารกำจัดวัชพืชหรือความแล้ง และคุณภาพหรือองค์ประกอบของพืชและอาหารจากสัตว์ ตัวอย่างเช่น Bt corn และ Roundup Ready soybean\n\nทำไมข้ออื่นผิด\nไม่ต้องประเมินความปลอดภัย: อาหาร GMO ต้องผ่านการประเมินความปลอดภัยด้านโมเลกุล โภชนาการ พิษวิทยา และการแพ้\nเพิ่มสารพิษ: ไม่ใช่เป้าหมาย และขัดกับการประเมินความปลอดภัย\nผลิตยาปฏิชีวนะแทนยาในฟาร์ม: ไม่ใช่เหตุผลของการพัฒนา GMO",
+    "source": "One Health perspective of food and feed GMOs (4 พ.ย. 69) หน้า 2 ถึง 4 และ 9",
+    "verified": "One Health perspective of food and feed GMOs (4 พ.ย. 69) หน้า 3 (Why do we have GMOs: growth rate and survival, resistance to diseases or insects, tolerance to herbicides or drought, quality and composition), หน้า 2 (definition), หน้า 4 (Bt corn, Roundup Ready soybean), หน้า 9 (FDA assessment); สไลด์ One Health perspective of food and feed GMOs deck 2024 ของรุ่นพี่ Vet 84 หน้า 10 ไฮไลต์ Benefits of GM food และหน้า 5 ไฮไลต์ Why we need GM food",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ Vet 84 ไฮไลต์ ขีดเส้นใต้ หรือติดดาวในสไลด์ของตน",
+    "tags": [
+      "oh-gmo",
+      "gmo-purpose",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-gmo-2569",
+        "edition": "21p",
+        "page": 3
+      },
+      {
+        "doc": "oh-gmo-2024",
+        "edition": "27p",
+        "page": 10
+      },
+      {
+        "doc": "oh-gmo-2024",
+        "edition": "27p",
+        "page": 5
+      }
+    ]
+  },
+  {
+    "id": 218605,
+    "subject": "one-health",
+    "topic": "oh-gmo",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "เพื่อให้ผู้บริโภคเลือกได้ (consumer choice) อาหารที่มีส่วนประกอบเป็น GMO ตั้งแต่ปริมาณเท่าใดจึงต้องแสดงฉลาก ตามเกณฑ์ที่ใช้ในประเทศไทย",
+    "options": [
+      "ตั้งแต่ร้อยละ 0.9 ขึ้นไป",
+      "ตั้งแต่ร้อยละ 5 ขึ้นไป",
+      "ตั้งแต่ร้อยละ 1 ขึ้นไป",
+      "ตั้งแต่ร้อยละ 10 ขึ้นไป"
+    ],
+    "answer": 1,
+    "explain": "การประเมินความปลอดภัยของอาหาร GMO ประกอบด้วยการวิเคราะห์ระดับโมเลกุล โภชนาการ พิษวิทยา และการแพ้ ผลกระทบโดยตรงต่อสุขภาพคนจากการบริโภคถือว่าน้อยมาก ส่วนการเลือกของผู้บริโภคใช้การแสดงฉลากอาหารที่มี GMO ตั้งแต่ร้อยละ 5 ขึ้นไป ตามข้อมูลของสำนักงานคณะกรรมการอาหารและยา\n\nทำไมข้ออื่นผิด\nร้อยละ 0.9, 1 และ 10: ไม่ตรงกับเกณฑ์ร้อยละ 5 ที่ใช้ในประเทศไทย",
+    "source": "One Health perspective of food and feed GMOs (4 พ.ย. 69) หน้า 9",
+    "verified": "One Health perspective of food and feed GMOs (4 พ.ย. 69) หน้า 9 (Food Safety Assessment (FDA): molecular characterization, nutritional, toxicological, allergenicity, direct adverse effects negligible, Consumer Choice GMOs ≥ 5%, source food.fda.moph.go.th faq-gmo-label); สไลด์ One Health perspective of food and feed GMOs deck 2024 ของรุ่นพี่ Vet 84 หน้า 14 ไฮไลต์ labelling and consumer choice",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ Vet 84 ไฮไลต์ ขีดเส้นใต้ หรือติดดาวในสไลด์ของตน",
+    "tags": [
+      "oh-gmo",
+      "gmo-labelling",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-gmo-2569",
+        "edition": "21p",
+        "page": 9
+      },
+      {
+        "doc": "oh-gmo-2024",
+        "edition": "27p",
+        "page": 14
+      }
+    ]
+  },
+  {
+    "id": 218606,
+    "subject": "one-health",
+    "topic": "oh-amr",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "From a One Health view of AMR, any antimicrobial use in any sector may select for antimicrobial resistance, and resistance does not stop at borders.",
+    "answer": true,
+    "explain": "The One Health complexity of AMR rests on four points: AMR is borderless, any antimicrobial use may select for AMR, the same antimicrobial classes are used in different sectors, and antibiotics are used in many settings. Use in animals, people or the environment therefore all feed the same problem.",
+    "source": "One health AMR หน้า 4 และ 34",
+    "verified": "One health AMR (2569) หน้า 4 และ 34 (One Health complexity of AMR: AMR is borderless, any AMU may select for AMR, same antimicrobial classes are used in different sectors, antibiotics are used in many settings); สไลด์ One health AMR deck 2024 ของรุ่นพี่ Vet 84 หน้า 3 ติดดาวที่ One Health complexity of AMR",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ Vet 84 ไฮไลต์ ขีดเส้นใต้ หรือติดดาวในสไลด์ของตน",
+    "tags": [
+      "oh-amr",
+      "one-health-complexity",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-amr-2569",
+        "edition": "35p",
+        "page": 4
+      },
+      {
+        "doc": "oh-amr-2024",
+        "edition": "46p",
+        "page": 3
+      }
+    ]
+  },
+  {
+    "id": 218607,
+    "subject": "one-health",
+    "topic": "oh-amr",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Microbiological resistance is shown by a wild-type population with decreased MICs, so acquired genetic markers are not part of its definition.",
+    "answer": false,
+    "explain": "Microbiological resistance is marked by decreased susceptibility, a non-wild type, increased MICs and acquired genetic markers. A wild-type population with decreased MICs describes the opposite, and acquired genetic markers are one of the signs of resistance.",
+    "source": "One health AMR หน้า 2",
+    "verified": "One health AMR (2569) หน้า 2 (WHO 2022 definition, decreased susceptibility, a non-wild type, increased MICs, acquired genetic markers); สไลด์ One health AMR deck 2024 ของรุ่นพี่ Vet 84 หน้า 2 ไฮไลต์ microbiological resistance",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ Vet 84 ไฮไลต์ ขีดเส้นใต้ หรือติดดาวในสไลด์ของตน",
+    "tags": [
+      "oh-amr",
+      "microbiological-resistance",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-amr-2569",
+        "edition": "35p",
+        "page": 2
+      },
+      {
+        "doc": "oh-amr-2024",
+        "edition": "46p",
+        "page": 2
+      }
+    ]
+  },
+  {
+    "id": 218608,
+    "subject": "one-health",
+    "topic": "oh-amr",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Most ESBL-producing bacteria are multidrug resistant, and their ESBL genes are commonly carried on plasmids.",
+    "answer": true,
+    "explain": "ESBLs indirectly confer resistance to last-resort antibiotics, most ESBL producers are MDR, and ESBL genes are plasmid-mediated, which lets them spread between bacteria by horizontal transfer.",
+    "source": "One health AMR หน้า 8",
+    "verified": "One health AMR (2569) หน้า 8 (ESBLs: indirectly confer resistance to last resort antibiotics, most ESBL producers are MDR, plasmid-mediated ESBL genes); สไลด์ One health AMR deck 2024 ของรุ่นพี่ Vet 84 หน้า 13 ไฮไลต์ ESBLs",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ Vet 84 ไฮไลต์ ขีดเส้นใต้ หรือติดดาวในสไลด์ของตน",
+    "tags": [
+      "oh-amr",
+      "esbl",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-amr-2569",
+        "edition": "35p",
+        "page": 8
+      },
+      {
+        "doc": "oh-amr-2024",
+        "edition": "46p",
+        "page": 13
+      }
+    ]
+  },
+  {
+    "id": 218609,
+    "subject": "one-health",
+    "topic": "oh-amr",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "In AMR, the environment acts only as a passive vehicle that carries resistant bacteria to people or animals; it plays no part in the development of resistance.",
+    "answer": false,
+    "explain": "The environment has two roles in AMR: it is a vehicle for the spread of resistant microorganisms to humans or animals, and it is a source and facilitator for the evolution and development of AMR. Resistant bacteria and genes move around farms by droplets, airborne dust, bioaerosols, direct contact, animal food products, insects and pests, and manure and waste.",
+    "source": "One health AMR หน้า 27",
+    "verified": "One health AMR (2569) หน้า 27 (role of the environment: a vehicle for the spread of AMR microorganisms, a source and facilitator for the evolution and development of AMR, spreading routes in farm environment); สไลด์ One health AMR deck 2024 ของรุ่นพี่ Vet 84 หน้า 25 ไฮไลต์ Role of the environment in AMR development and spread",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ Vet 84 ไฮไลต์ ขีดเส้นใต้ หรือติดดาวในสไลด์ของตน",
+    "tags": [
+      "oh-amr",
+      "environment-amr",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-amr-2569",
+        "edition": "35p",
+        "page": 27
+      },
+      {
+        "doc": "oh-amr-2024",
+        "edition": "46p",
+        "page": 25
+      }
+    ]
+  },
+  {
+    "id": 218610,
+    "subject": "one-health",
+    "topic": "oh-amr",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Metagenomic analysis of airborne dust inside Thai pig farms detected up to 159 AMR genes belonging to 12 antibiotic classes.",
+    "answer": true,
+    "explain": "A metagenomic study of airborne dust from pig farms sampled dust inside the farms and 25 m upwind and downwind, and up to 159 AMR genes in 12 different antibiotic classes were detected inside the farms. Airborne dust is one of the routes that spread resistant bacteria and genes from the farm environment.",
+    "source": "One health AMR หน้า 27 ถึง 32",
+    "verified": "One health AMR (2569) หน้า 28 (metagenomic insights into AMR in airborne dust from pig farms), หน้า 29 (inside, 25 m upwind, 25 m downwind), หน้า 32 (up to 159 AMR genes in 12 different classes detected inside pig farms), หน้า 27 (airborne dust as a route); สไลด์ One health AMR deck 2024 ของรุ่นพี่ Vet 84 หน้า 30 ไฮไลต์ Up to 159 AMR genes in 12 different classes",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ Vet 84 ไฮไลต์ ขีดเส้นใต้ หรือติดดาวในสไลด์ของตน",
+    "tags": [
+      "oh-amr",
+      "airborne-dust",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-amr-2569",
+        "edition": "35p",
+        "page": 32
+      },
+      {
+        "doc": "oh-amr-2024",
+        "edition": "46p",
+        "page": 30
+      }
+    ]
+  },
+  {
+    "id": 218611,
+    "subject": "one-health",
+    "topic": "oh-livestock-waste",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ข้อใดไม่ใช่องค์ประกอบของแนวทางสุขภาพหนึ่งเดียวแบบบูรณาการต่อการปนเปื้อนของเสียและน้ำ (integrated One Health approach to waste and water contamination)",
+    "options": [
+      "เคารพวิถีปฏิบัติทางสังคมและวัฒนธรรมของชุมชน",
+      "ปรับปรุงการจัดการที่ดินและวิธีปฏิบัติทางการเกษตร",
+      "ย้ายฟาร์มออกห่างชุมชนแทนการบำบัดของเสีย",
+      "ปรับปรุงโครงสร้างพื้นฐานการจัดการของเสียและน้ำ"
+    ],
+    "answer": 2,
+    "explain": "แนวทางสุขภาพหนึ่งเดียวแบบบูรณาการต่อการปนเปื้อนของเสียและน้ำ ประกอบด้วย การเคารพวิถีปฏิบัติทางสังคมและวัฒนธรรม การปรับปรุงการจัดการที่ดิน การปรับปรุงโครงสร้างพื้นฐานการจัดการของเสียและน้ำ การปรับปรุงวิธีปฏิบัติทางการเกษตร และการป้องกันผ่านระบบการจัดการสิ่งแวดล้อม การย้ายฟาร์มออกห่างชุมชนโดยไม่บำบัดของเสียไม่ได้แก้ที่ต้นเหตุ และไม่อยู่ในแนวทางนี้\n\nทำไมข้ออื่นผิด\nเคารพวิถีชุมชน ปรับปรุงการจัดการที่ดินและการเกษตร และปรับปรุงโครงสร้างพื้นฐาน: ทั้งสามเป็นองค์ประกอบของแนวทางนี้",
+    "source": "OHVPH_SP_E4 หน้า 3",
+    "verified": "สไลด์ Livestock waste management ปี 2569 (11 พ.ย., ไฟล์ OHVPH_SP_E4) หน้า 3 (respect for sociocultural practices, improved land management, improved infrastructure for waste and water management, improved agricultural practices, preventing through environment management systems); สไลด์ One Health approach for livestock waste management deck 2024 ของรุ่นพี่ Vet 84 หน้า 3 ไฮไลต์หัวข้อเดียวกัน",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ Vet 84 ไฮไลต์ ขีดเส้นใต้ หรือติดดาวในสไลด์ของตน",
+    "tags": [
+      "oh-livestock-waste",
+      "integrated-one-health",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-livestock-waste-2569",
+        "edition": "56p",
+        "page": 3
+      },
+      {
+        "doc": "oh-livestock-waste-2024",
+        "edition": "56p",
+        "page": 3
+      }
+    ]
+  },
+  {
+    "id": 218612,
+    "subject": "one-health",
+    "topic": "oh-livestock-waste",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ระบบบำบัดน้ำเสียทางชีวภาพข้อใดจัดเป็นระบบแบบไม่ใช้อากาศ (anaerobic process)",
+    "options": [
+      "ระบบบ่อบำบัด (ponding system)",
+      "ระบบตะกอนเร่ง (activated sludge)",
+      "ระบบโปรยกรอง (trickling filter)",
+      "ระบบถังกรองไร้อากาศ (anaerobic filter)"
+    ],
+    "answer": 3,
+    "explain": "กระบวนการบำบัดทางชีวภาพแบ่งเป็นสองกลุ่ม ระบบแบบใช้อากาศ ได้แก่ ระบบบ่อบำบัด ระบบตะกอนเร่ง และระบบโปรยกรอง ส่วนระบบแบบไม่ใช้อากาศ ได้แก่ ระบบก๊าซชีวภาพ และระบบถังกรองไร้อากาศ\n\nทำไมข้ออื่นผิด\nระบบบ่อบำบัด ระบบตะกอนเร่ง และระบบโปรยกรอง: จัดเป็นระบบแบบใช้อากาศ",
+    "source": "OHVPH_SP_E4 หน้า 31",
+    "verified": "สไลด์ Livestock waste management ปี 2569 (OHVPH_SP_E4) หน้า 31 (aerobic: ponding system, activated sludge, trickling filters, anaerobic: biogas system, anaerobic filter); สไลด์ One Health approach for livestock waste management deck 2024 ของรุ่นพี่ Vet 84 หน้า 31 ไฮไลต์กระบวนการทางชีวภาพ",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ Vet 84 ไฮไลต์ ขีดเส้นใต้ หรือติดดาวในสไลด์ของตน",
+    "tags": [
+      "oh-livestock-waste",
+      "biological-treatment",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-livestock-waste-2569",
+        "edition": "56p",
+        "page": 31
+      },
+      {
+        "doc": "oh-livestock-waste-2024",
+        "edition": "56p",
+        "page": 31
+      }
+    ]
+  },
+  {
+    "id": 218613,
+    "subject": "one-health",
+    "topic": "oh-livestock-waste",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "การสร้างส้วมน้ำในคอกสุกรอาศัยพฤติกรรมใดของสุกร และให้ประโยชน์อย่างไร",
+    "options": [
+      "สุกรชอบนอนแช่น้ำหรือที่ชื้นเพื่อคลายร้อน จึงใช้เป็นจุดรวบรวมของเสีย ลดกลิ่น และช่วยให้กินและโตดีขึ้น",
+      "สุกรชอบขับถ่ายใกล้รางอาหาร จึงใช้ส้วมน้ำเป็นแหล่งน้ำดื่มเสริม ลดการใช้น้ำ และลดการตายของลูกสุกร",
+      "สุกรไม่ชอบความชื้น จึงใช้ส้วมน้ำแยกน้ำออกจากพื้นคอก ทำให้ไม่ต้องบำบัดน้ำเสียก่อนปล่อยทิ้ง",
+      "สุกรชอบคุ้ยดิน จึงใช้ส้วมน้ำเป็นที่หมักมูลทำปุ๋ยภายในคอก และใช้แทนระบบก๊าซชีวภาพได้ทั้งหมด"
+    ],
+    "answer": 0,
+    "explain": "สุกรชอบนอนแช่น้ำหรือที่ชื้นเพื่อลดความร้อน จึงสร้างส้วมน้ำในตำแหน่งที่ทำความสะอาดง่าย ใช้เป็นที่รวบรวมของเสียในคอก ประโยชน์คือ ปรับปรุงสภาพแวดล้อมในโรงเรือน ลดกลิ่นจากการหมักของจุลินทรีย์ เพิ่มประสิทธิภาพการกินอาหารและการเติบโต และลดการใช้ทรัพยากร\n\nทำไมข้ออื่นผิด\nขับถ่ายใกล้รางอาหารและใช้เป็นน้ำดื่ม: ส้วมน้ำเป็นที่รวบรวมของเสีย ไม่ใช่แหล่งน้ำดื่ม\nไม่ชอบความชื้นและไม่ต้องบำบัด: สุกรชอบที่ชื้น และของเสียที่รวบรวมได้ยังต้องบำบัด\nคุ้ยดินและแทนระบบก๊าซชีวภาพ: ส้วมน้ำเป็นการจัดการภายในคอก ไม่ได้แทนระบบบำบัด",
+    "source": "OHVPH_SP_E4 หน้า 17 และ 18",
+    "verified": "สไลด์ Livestock waste management ปี 2569 (OHVPH_SP_E4) หน้า 17 (สุกรชอบนอนแช่น้ำหรือที่ชื้นเพื่อลดความร้อน, ส้วมน้ำเป็นที่รวบรวมของเสียในคอก, ประโยชน์: สภาพแวดล้อมในโรงเรือน ลดกลิ่น เพิ่มประสิทธิภาพการกินอาหารและการเจริญเติบโต ลดการใช้ทรัพยากร), หน้า 18 (ภาพส้วมน้ำ); สไลด์ One Health approach for livestock waste management deck 2024 ของรุ่นพี่ Vet 84 หน้า 17 ไฮไลต์หัวข้อเดียวกัน",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ Vet 84 ไฮไลต์ ขีดเส้นใต้ หรือติดดาวในสไลด์ของตน",
+    "tags": [
+      "oh-livestock-waste",
+      "pig-water-toilet",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-livestock-waste-2569",
+        "edition": "56p",
+        "page": 17
+      },
+      {
+        "doc": "oh-livestock-waste-2024",
+        "edition": "56p",
+        "page": 17
+      }
+    ]
+  },
+  {
+    "id": 218614,
+    "subject": "one-health",
+    "topic": "oh-livestock-waste",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ข้อใดไม่ใช่การนำก๊าซชีวภาพจากฟาร์มไปใช้ประโยชน์",
+    "options": [
+      "ผลิตกระแสไฟฟ้า",
+      "ใช้เป็นเชื้อเพลิงเครื่องยนต์",
+      "ใช้หุงต้ม อบผลผลิตการเกษตร และกกลูกหมู",
+      "ฉีดพ่นลงแปลงหญ้าเป็นปุ๋ยไนโตรเจนโดยตรง"
+    ],
+    "answer": 3,
+    "explain": "ก๊าซชีวภาพที่ได้จากการหมักของเสียแบบไม่ใช้อากาศนำไปผลิตกระแสไฟฟ้า ใช้เป็นเชื้อเพลิงเครื่องยนต์ ใช้หุงต้ม อบผลผลิตการเกษตร และกกลูกหมู ก๊าซไม่ได้ใช้เป็นปุ๋ย ส่วนที่นำไปทำปุ๋ยคือมูลสัตว์ซึ่งนำไปทำปุ๋ยอินทรีย์ ปุ๋ยหมัก หรือปุ๋ยชีวภาพ\n\nทำไมข้ออื่นผิด\nผลิตไฟฟ้า เชื้อเพลิงเครื่องยนต์ และหุงต้มอบผลผลิตกกลูกหมู: ทั้งสามเป็นการใช้ก๊าซชีวภาพ",
+    "source": "OHVPH_SP_E4 หน้า 21 และ 23",
+    "verified": "สไลด์ Livestock waste management ปี 2569 (OHVPH_SP_E4) หน้า 23 (การนำไปใช้ผลิตก๊าซชีวภาพ: ผลิตกระแสไฟฟ้า, เป็นเชื้อเพลิงเครื่องยนต์, ใช้หุงต้ม อบผลผลิตการเกษตร กกลูกหมู), หน้า 21 (มูลสัตว์ทำปุ๋ยอินทรีย์ ปุ๋ยหมัก ปุ๋ยชีวภาพ); สไลด์ One Health approach for livestock waste management deck 2024 ของรุ่นพี่ Vet 84 หน้า 23 ไฮไลต์หัวข้อเดียวกัน",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ Vet 84 ไฮไลต์ ขีดเส้นใต้ หรือติดดาวในสไลด์ของตน",
+    "tags": [
+      "oh-livestock-waste",
+      "biogas-use",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-livestock-waste-2569",
+        "edition": "56p",
+        "page": 23
+      },
+      {
+        "doc": "oh-livestock-waste-2024",
+        "edition": "56p",
+        "page": 23
+      }
+    ]
+  },
+  {
+    "id": 218615,
+    "subject": "one-health",
+    "topic": "oh-livestock-waste",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "การบำบัดน้ำเสียขั้นที่สอง (secondary treatment) ในฟาร์มปศุสัตว์มีหลักการอย่างไร",
+    "options": [
+      "แยกของแข็งและมูลสัตว์ออกด้วยตะแกรงหรือลานตากก่อนเข้าสู่ระบบ",
+      "ใช้จุลินทรีย์กำจัดสารอินทรีย์ที่ละลายในน้ำเสีย เช่น ระบบบ่อบำบัดและก๊าซชีวภาพ",
+      "ทำให้น้ำมีสภาพคงที่เพื่อปล่อยทิ้งหรือนำกลับมาใช้ เช่น บ่อบ่ม",
+      "เติมสารเคมีให้ตกตะกอนและปรับสภาพให้เป็นกลางเพียงอย่างเดียว"
+    ],
+    "answer": 1,
+    "explain": "การบำบัดน้ำเสียมีสี่ขั้น คือ ขั้นเตรียมการ ขั้นต้น ขั้นที่สอง และขั้นที่สาม ขั้นที่สองเป็นขั้นสำคัญที่สุดและกำจัดของเสียได้มากที่สุด เน้นกำจัดสารอินทรีย์ส่วนใหญ่ที่ละลายปนอยู่ในน้ำเสียโดยใช้จุลินทรีย์ ตัวอย่างคือระบบบ่อบำบัดและระบบก๊าซชีวภาพ\n\nทำไมข้ออื่นผิด\nแยกของแข็งด้วยตะแกรงหรือลานตาก: เป็นขั้นเตรียมการและขั้นต้น\nทำให้น้ำคงที่เพื่อปล่อยหรือนำกลับมาใช้: เป็นขั้นที่สาม\nเติมสารเคมีอย่างเดียว: เป็นกระบวนการทางเคมี ไม่ใช่หลักของขั้นที่สอง",
+    "source": "OHVPH_SP_E4 หน้า 26 ถึง 31; 720ploUu9Oo [38:50-40:10]",
+    "verified": "สไลด์ Livestock waste management ปี 2569 (OHVPH_SP_E4) หน้า 26 (ขั้นตอนการบำบัด: preliminary, primary, secondary, tertiary), หน้า 28 (กายภาพ), หน้า 30 (เคมี), หน้า 31 (ชีวภาพ); คลิป 720ploUu9Oo [38:50-40:10] (การบำบัดขั้นที่ 2 สำคัญที่สุด กำจัดสารอินทรีย์ที่ละลายในน้ำเสียโดยจุลินทรีย์ เช่น บ่อบำบัด ก๊าซชีวภาพ, ขั้นที่ 3 ทำให้น้ำคงที่ บ่อบ่ม); สไลด์ One Health approach for livestock waste management deck 2024 ของรุ่นพี่ Vet 84 หน้า 26 ติดดาวที่ Secondary treatment",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ Vet 84 ไฮไลต์ ขีดเส้นใต้ หรือติดดาวในสไลด์ของตน",
+    "tags": [
+      "oh-livestock-waste",
+      "secondary-treatment",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-livestock-waste-2569",
+        "edition": "56p",
+        "page": 26
+      },
+      {
+        "doc": "oh-livestock-waste-2024",
+        "edition": "56p",
+        "page": 26
+      }
+    ]
+  },
+  {
+    "id": 218616,
+    "subject": "one-health",
+    "topic": "oh-livestock-waste",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "การแปรสภาพซากสัตว์ (rendering) เพื่อนำไปใช้ประโยชน์ทำอย่างไร",
+    "options": [
+      "ฝังซากในหลุมลึกที่ห่างจากแหล่งน้ำ โรยปูนขาวทับ แล้วกลบดินทันที",
+      "เผาซากในเตาจนเหลือเถ้า แล้วนำเถ้าไปโรยในแปลงหญ้ารอบฟาร์ม",
+      "หมักซากรวมกับมูลสัตว์ที่อุณหภูมิห้องนานหลายเดือนจนกลายเป็นปุ๋ย",
+      "ตัดซากเป็นชิ้นเล็ก ให้ความร้อนสูงกว่า 120 องศาเซลเซียส แล้วบดเป็นวัตถุดิบอาหารสัตว์"
+    ],
+    "answer": 3,
+    "explain": "Rendering คือการนำซากสัตว์ไปตัดย่อยเป็นชิ้นเล็ก ผ่านกระบวนการให้ความร้อนที่อุณหภูมิสูงกว่า 120 องศาเซลเซียส แล้วบดให้ป่นละเอียดเพื่อใช้เป็นวัตถุดิบผสมอาหารสัตว์\n\nทำไมข้ออื่นผิด\nฝังกลบหรือเผา: เป็นการกำจัดซาก ไม่ใช่ rendering\nหมักที่อุณหภูมิห้อง: ไม่มีขั้นให้ความร้อนสูง และไม่ได้วัตถุดิบอาหารสัตว์",
+    "source": "OHVPH_SP_E4 หน้า 25",
+    "verified": "สไลด์ Livestock waste management ปี 2569 (OHVPH_SP_E4) หน้า 25 (การแปรสภาพซากสัตว์ (Rendering): ตัดย่อยเป็นชิ้นเล็ก ให้ความร้อน temp >120°C บดให้ป่นละเอียด ใช้เป็นวัตถุดิบผสมอาหารสัตว์); สไลด์ One Health approach for livestock waste management deck 2024 ของรุ่นพี่ Vet 84 หน้า 25 ไฮไลต์หัวข้อเดียวกัน",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ Vet 84 ไฮไลต์ ขีดเส้นใต้ หรือติดดาวในสไลด์ของตน",
+    "tags": [
+      "oh-livestock-waste",
+      "rendering",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-livestock-waste-2569",
+        "edition": "56p",
+        "page": 25
+      },
+      {
+        "doc": "oh-livestock-waste-2024",
+        "edition": "56p",
+        "page": 25
+      }
+    ]
+  },
+  {
+    "id": 218617,
+    "subject": "one-health",
+    "topic": "oh-livestock-waste",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ลำดับขั้นตอนการบำบัดน้ำเสียจากฟาร์มข้อใดถูกต้อง",
+    "options": [
+      "ขั้นต้น ขั้นเตรียมการ ขั้นที่สอง ขั้นที่สาม",
+      "ขั้นเตรียมการ ขั้นต้น ขั้นที่สอง ขั้นที่สาม",
+      "ขั้นเตรียมการ ขั้นที่สอง ขั้นต้น ขั้นที่สาม",
+      "ขั้นต้น ขั้นที่สอง ขั้นเตรียมการ ขั้นที่สาม"
+    ],
+    "answer": 1,
+    "explain": "การบำบัดน้ำเสียหรือของเสียคือการกำจัดหรือย่อยสลายสารอินทรีย์ก่อนปล่อยออกสู่สิ่งแวดล้อม ทำตามลำดับ คือ ขั้นเตรียมการ (preliminary) ขั้นต้น (primary) ขั้นที่สอง (secondary) และขั้นที่สาม (tertiary)\n\nทำไมข้ออื่นผิด\nตัวเลือกอื่นสลับลำดับ ขั้นเตรียมการต้องมาก่อนขั้นต้น และขั้นที่สองตามหลังขั้นต้น",
+    "source": "OHVPH_SP_E4 หน้า 26",
+    "verified": "สไลด์ Livestock waste management ปี 2569 (OHVPH_SP_E4) หน้า 26 (ขั้นตอนการบำบัดน้ำเสีย: Preliminary, Primary, Secondary, Tertiary treatment); สไลด์ One Health approach for livestock waste management deck 2024 ของรุ่นพี่ Vet 84 หน้า 26 ไฮไลต์ขั้นตอนการบำบัด",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ Vet 84 ไฮไลต์ ขีดเส้นใต้ หรือติดดาวในสไลด์ของตน",
+    "tags": [
+      "oh-livestock-waste",
+      "treatment-stages",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-livestock-waste-2569",
+        "edition": "56p",
+        "page": 26
+      },
+      {
+        "doc": "oh-livestock-waste-2024",
+        "edition": "56p",
+        "page": 26
+      }
+    ]
+  },
+  {
+    "id": 218618,
+    "subject": "one-health",
+    "topic": "oh-livestock-waste",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "บ่อผึ่ง (บ่อบำบัดแบบใช้อากาศ ลึกราว 1 ถึง 2 เมตร) ได้ออกซิเจนสำหรับการบำบัดจากแหล่งใด",
+    "options": [
+      "สาหร่ายและแพลงก์ตอนพืชที่สังเคราะห์แสง ร่วมกับอากาศที่ซึมผ่านผิวน้ำ",
+      "เครื่องเป่าอากาศที่ติดตั้งไว้ที่ก้นบ่อซึ่งลึกราว 3 ถึง 5 เมตร",
+      "ก๊าซมีเทนที่จุลินทรีย์ผลิตขึ้นที่ก้นบ่อแล้วลอยขึ้นสู่ผิวน้ำ",
+      "สารเคมีฆ่าเชื้อที่เติมลงไปเพื่อปล่อยออกซิเจนออกมา"
+    ],
+    "answer": 0,
+    "explain": "บ่อผึ่งเป็นบ่อบำบัดแบบใช้อากาศ ต้องจัดให้มีออกซิเจนละลาย (DO) กระจายทั่วบ่อ ออกซิเจนมาจากสาหร่ายและแพลงก์ตอนพืชที่สังเคราะห์แสง และจากอากาศที่ซึมผ่านผิวน้ำ บ่อลึกราว 1 ถึง 2 เมตร\n\nทำไมข้ออื่นผิด\nเครื่องเป่าอากาศที่ก้นบ่อลึก 3 ถึง 5 เมตร: ความลึกนี้เป็นของบ่อหมักซึ่งไม่ใช้อากาศ\nก๊าซมีเทน: เป็นผลผลิตของการย่อยแบบไม่ใช้อากาศ ไม่ได้ให้ออกซิเจน\nสารเคมีฆ่าเชื้อ: เป็นกระบวนการทางเคมี ไม่ใช่แหล่งออกซิเจนของบ่อผึ่ง",
+    "source": "OHVPH_SP_E4 หน้า 35 และ 37",
+    "verified": "สไลด์ Livestock waste management ปี 2569 (OHVPH_SP_E4) หน้า 37 (บ่อผึ่ง: บ่อบำบัดแบบใช้อากาศ ต้องมี DO กระจายทั่วบ่อ สาหร่ายและแพลงตอนพืชช่วยบำบัดและเพิ่ม O2 การซึมของอากาศที่ผิวน้ำ ลึก 1-2 m), หน้า 35 (บ่อหมัก ลึก 3-5 m); สไลด์ One Health approach for livestock waste management deck 2024 ของรุ่นพี่ Vet 84 หน้า 37 ไฮไลต์หัวข้อเดียวกัน",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ Vet 84 ไฮไลต์ ขีดเส้นใต้ หรือติดดาวในสไลด์ของตน",
+    "tags": [
+      "oh-livestock-waste",
+      "oxidation-pond",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-livestock-waste-2569",
+        "edition": "56p",
+        "page": 37
+      },
+      {
+        "doc": "oh-livestock-waste-2024",
+        "edition": "56p",
+        "page": 37
+      }
+    ]
+  },
+  {
+    "id": 218619,
+    "subject": "one-health",
+    "topic": "oh-livestock-waste",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "บ่อหมัก (anaerobic pond) ในระบบบ่อบำบัดเหมาะกับน้ำเสียแบบใด",
+    "options": [
+      "น้ำเสียที่บำบัดแล้ว ต้องการเพิ่มออกซิเจนก่อนปล่อย บ่อลึกราว 1 ถึง 2 เมตร",
+      "น้ำฝนที่ไม่ปนเปื้อน บ่อตื้นไม่เกิน 0.5 เมตร",
+      "น้ำเสียที่มีสารอินทรีย์เข้มข้นสูง บ่อลึกราว 3 ถึง 5 เมตร",
+      "น้ำเสียที่มีสารอินทรีย์ต่ำมาก ใช้สาหร่ายเป็นตัวบำบัดหลัก บ่อลึกราว 1 เมตร"
+    ],
+    "answer": 2,
+    "explain": "บ่อหมักใช้บำบัดน้ำเสียที่มีความเข้มข้นของสารอินทรีย์สูง ประสิทธิภาพขึ้นกับจุลินทรีย์ชนิดไม่ใช้อากาศ ปล่อยน้ำเสียเข้าที่ก้นบ่อให้ไหลไปตามความยาวบ่อ บ่อลึกราว 3 ถึง 5 เมตร และได้ก๊าซ CH4, H2S และ CO2 จากการย่อยแบบไม่ใช้อากาศ\n\nทำไมข้ออื่นผิด\nเพิ่มออกซิเจน ลึก 1 ถึง 2 เมตร: เป็นลักษณะของบ่อผึ่ง\nน้ำฝนที่ไม่ปนเปื้อน: ควรแยกออกจากระบบบำบัด\nสารอินทรีย์ต่ำ ใช้สาหร่าย: เป็นลักษณะของบ่อแบบใช้อากาศ",
+    "source": "OHVPH_SP_E4 หน้า 35 และ 37",
+    "verified": "สไลด์ Livestock waste management ปี 2569 (OHVPH_SP_E4) หน้า 35 (บ่อหมัก: น้ำเสียที่มีความเข้มข้นของสารอินทรีย์สูง จุลินทรีย์ชนิดไม่ใช้อากาศ ปล่อยน้ำเสียที่ก้นบ่อ ลึก 3-5 m, CH4 และ H2S และ CO2), หน้า 37 (บ่อผึ่ง ลึก 1-2 m); สไลด์ One Health approach for livestock waste management deck 2024 ของรุ่นพี่ Vet 84 หน้า 35 ไฮไลต์หัวข้อเดียวกัน",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ Vet 84 ไฮไลต์ ขีดเส้นใต้ หรือติดดาวในสไลด์ของตน",
+    "tags": [
+      "oh-livestock-waste",
+      "anaerobic-pond",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-livestock-waste-2569",
+        "edition": "56p",
+        "page": 35
+      },
+      {
+        "doc": "oh-livestock-waste-2024",
+        "edition": "56p",
+        "page": 35
+      }
+    ]
+  },
+  {
+    "id": 218620,
+    "subject": "one-health",
+    "topic": "oh-livestock-waste",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "บ่อหมักผสม (facultative pond) จัดชั้นของจุลินทรีย์ตามความลึกอย่างไร",
+    "options": [
+      "ทุกชั้นเป็นจุลินทรีย์แบบใช้อากาศ เพราะสาหร่ายกระจายอยู่ตลอดความลึกของบ่อ และให้ออกซิเจนทั่วถึง",
+      "ชั้นบนเป็นแบบไม่ใช้อากาศ ชั้นกลางเป็นแบบใช้อากาศ และก้นบ่อมีจุลินทรีย์ทั้งสองแบบปนกัน",
+      "ก้นบ่อลึกกว่า 1 เมตรไม่ใช้อากาศ ชั้นกลาง 0.5 ถึง 1 เมตรมีทั้งสองแบบ ชั้นบนน้อยกว่า 0.5 เมตรใช้อากาศ",
+      "ทุกชั้นเป็นจุลินทรีย์แบบไม่ใช้อากาศ เพราะบ่อลึกมากจนแสงและอากาศลงไปไม่ถึงชั้นใดเลย"
+    ],
+    "answer": 2,
+    "explain": "บ่อหมักผสมจัดระบบนิเวศของจุลินทรีย์เป็น 3 ชั้น ชั้นก้นบ่อลึกกว่า 1 เมตรจากผิวน้ำมีสารอินทรีย์เข้มข้นสูงและย่อยโดยจุลินทรีย์ชนิดไม่ใช้อากาศ ชั้นกลางลึก 0.5 ถึง 1 เมตรมีจุลินทรีย์ที่เจริญได้ทั้งแบบใช้และไม่ใช้อากาศ ชั้นบนลึกน้อยกว่า 0.5 เมตรมีพืชน้ำและสาหร่ายสังเคราะห์แสงเพิ่มออกซิเจน และย่อยสลายโดยจุลินทรีย์ชนิดใช้อากาศ\n\nทำไมข้ออื่นผิด\nทุกชั้นใช้อากาศหรือทุกชั้นไม่ใช้อากาศ: บ่อนี้มีทั้งสามชั้นต่างกัน\nชั้นบนไม่ใช้อากาศ: กลับด้าน ชั้นบนได้ออกซิเจนจากสาหร่ายและอากาศ",
+    "source": "OHVPH_SP_E4 หน้า 36",
+    "verified": "สไลด์ Livestock waste management ปี 2569 (OHVPH_SP_E4) หน้า 36 (บ่อหมักผสม 3 ชั้น: ก้นบ่อ >1 m ไม่ใช้อากาศ, ชั้นกลาง 0.5-1 m ทั้งใช้และไม่ใช้อากาศ, ชั้นบน <0.5 m พืชน้ำ สาหร่าย สังเคราะห์แสงเพิ่ม O2 ย่อยแบบใช้อากาศ); สไลด์ One Health approach for livestock waste management deck 2024 ของรุ่นพี่ Vet 84 หน้า 36 ไฮไลต์หัวข้อเดียวกัน",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ Vet 84 ไฮไลต์ ขีดเส้นใต้ หรือติดดาวในสไลด์ของตน",
+    "tags": [
+      "oh-livestock-waste",
+      "facultative-pond",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-livestock-waste-2569",
+        "edition": "56p",
+        "page": 36
+      },
+      {
+        "doc": "oh-livestock-waste-2024",
+        "edition": "56p",
+        "page": 36
+      }
+    ]
+  },
+  {
+    "id": 218621,
+    "subject": "one-health",
+    "topic": "oh-livestock-waste",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ปฏิกิริยาของจุลินทรีย์ในระบบบำบัดน้ำเสียแบบใดให้ก๊าซมีเทน (CH4)",
+    "options": [
+      "แบบใช้อากาศ ได้เซลล์ใหม่ ตะกอน CO2 น้ำ และแอมโมเนีย",
+      "แบบไม่ใช้อากาศ ได้เซลล์ใหม่ น้ำ CH4 N2 H2S และ CO2",
+      "แบบกึ่งใช้อากาศ ใช้ไนเตรตกับออกซิเจน ได้น้ำ N2 H2S และ CO2",
+      "แบบใช้อากาศร่วมกับไนเตรต ได้ CH4 และแอมโมเนียเป็นหลัก"
+    ],
+    "answer": 1,
+    "explain": "ปฏิกิริยาแบบไม่ใช้อากาศ แบคทีเรียย่อยสารอินทรีย์ (COHNS) ได้เซลล์ใหม่ น้ำ CH4 N2 H2S และ CO2 ระบบก๊าซชีวภาพอาศัยปฏิกิริยานี้ ส่วนปฏิกิริยาแบบใช้อากาศได้เซลล์ใหม่ ตะกอน CO2 น้ำ และ NH3 และแบบกึ่งใช้อากาศใช้ไนเตรตกับออกซิเจน ได้น้ำ N2 H2S และ CO2\n\nทำไมข้ออื่นผิด\nแบบใช้อากาศ: ไม่มี CH4 ในผลผลิต\nแบบกึ่งใช้อากาศ: ไม่มี CH4 ในผลผลิต\nแบบใช้อากาศร่วมกับไนเตรตได้ CH4: ไม่ตรงกับปฏิกิริยาใด",
+    "source": "OHVPH_SP_E4 หน้า 32",
+    "verified": "สไลด์ Livestock waste management ปี 2569 (OHVPH_SP_E4) หน้า 32 (ปฏิกิริยาแบบใช้อากาศ: New cell และ Sludge และ CO2 และ H2O และ NH3, แบบไม่ใช้อากาศ: New cell และ H2O และ CH4 และ N2 และ H2S และ CO2, แบบกึ่งใช้อากาศ: COHNS และ NO3- และ O2 -> H2O และ N2 และ H2S และ CO2); สไลด์ One Health approach for livestock waste management deck 2024 ของรุ่นพี่ Vet 84 หน้า 32 ไฮไลต์ทั้งสามปฏิกิริยา; สรุปการจัดการของเสียของรุ่นพี่ Vet 84 หน้าแรก วงกระบวนการไม่ใช้อากาศที่ได้มีเทน",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ Vet 84 ไฮไลต์ ขีดเส้นใต้ หรือติดดาวในสไลด์ของตน",
+    "tags": [
+      "oh-livestock-waste",
+      "microbial-reactions",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-livestock-waste-2569",
+        "edition": "56p",
+        "page": 32
+      },
+      {
+        "doc": "oh-livestock-waste-2024",
+        "edition": "56p",
+        "page": 32
+      }
+    ]
+  },
+  {
+    "id": 218622,
+    "subject": "one-health",
+    "topic": "oh-livestock-waste",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ข้อใดไม่ใช่ปัญหาที่เกิดจากของเสียของฟาร์มปศุสัตว์",
+    "options": [
+      "เป็นแหล่งสะสมเชื้อโรค และเป็นอาหารของสัตว์พาหะ",
+      "ทำให้ดินในแปลงหญ้ารอบฟาร์มขาดธาตุไนโตรเจน",
+      "ก่อมลพิษต่อดิน น้ำ และอากาศ",
+      "ความขัดแย้งและปัญหาสุขภาพของคนที่อยู่ใกล้ฟาร์ม"
+    ],
+    "answer": 1,
+    "explain": "ปัญหาจากของเสียของฟาร์มปศุสัตว์ ได้แก่ เป็นแหล่งสะสมเชื้อโรคและพาหะนำโรค เพราะเชื้อปนออกมากับของเสียและซาก และเศษอาหาร มูล และซากเป็นอาหารของสัตว์พาหะ ก่อมลพิษทางดิน น้ำ และอากาศ และมีผลกระทบด้านสังคมและสาธารณสุข เช่น ความขัดแย้งและปัญหาสุขภาพของคนที่อยู่ใกล้ฟาร์ม มูลสัตว์มีธาตุอาหารและนำไปทำปุ๋ยได้ จึงไม่ได้ทำให้ดินขาดไนโตรเจน\n\nทำไมข้ออื่นผิด\nแหล่งเชื้อโรคและพาหะ มลพิษต่อดินน้ำอากาศ และผลกระทบต่อชุมชน: ทั้งสามเป็นปัญหาของของเสียจากฟาร์ม",
+    "source": "OHVPH_SP_E4 หน้า 5 และ 21",
+    "verified": "สไลด์ Livestock waste management ปี 2569 (OHVPH_SP_E4) หน้า 5 (แหล่งสะสมของเชื้อโรคและพาหะนำโรค, มลพิษต่อสิ่งแวดล้อม ดิน น้ำ อากาศ, ผลกระทบด้านสังคมและสาธารณสุข), หน้า 21 (มูลสัตว์มีแร่ธาตุสำคัญ ทำปุ๋ย); สไลด์ One Health approach for livestock waste management deck 2024 ของรุ่นพี่ Vet 84 หน้า 5 ไฮไลต์หัวข้อเดียวกัน",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ Vet 84 ไฮไลต์ ขีดเส้นใต้ หรือติดดาวในสไลด์ของตน",
+    "tags": [
+      "oh-livestock-waste",
+      "waste-problems",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-livestock-waste-2569",
+        "edition": "56p",
+        "page": 5
+      },
+      {
+        "doc": "oh-livestock-waste-2024",
+        "edition": "56p",
+        "page": 5
+      }
+    ]
+  },
+  {
+    "id": 218623,
+    "subject": "one-health",
+    "topic": "oh-livestock-waste",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ระบบก๊าซชีวภาพแบบใดเหมาะกับฟาร์มขนาดเล็กถึงกลาง ได้ก๊าซความดันสูงราว 2 bar ระยะกักเก็บสั้นราว 15 ถึง 20 วัน แต่บำบัดน้ำเสียได้เพียงราวร้อยละ 50 ถึง 65",
+    "options": [
+      "ระบบบ่อคลุม (covered lagoon)",
+      "ระบบรางหรือพลาสติกคลุมราง (channel digester)",
+      "ระบบโดมคงที่ (fixed dome)",
+      "ระบบยูเอเอสบี (UASB)"
+    ],
+    "answer": 2,
+    "explain": "ระบบก๊าซชีวภาพออกแบบเพื่อผลิตพลังงานมากกว่าบำบัดน้ำเสีย น้ำที่ผ่านระบบยังมีสารอินทรีย์มากและต้องบำบัดขั้นหลังต่อ ระบบโดมคงที่เหมาะกับฟาร์มเล็กถึงกลาง บำบัดได้ต่ำราวร้อยละ 50 ถึง 65 ได้ก๊าซความดันสูงราว 2 bar และกักเก็บสั้นราว 15 ถึง 20 วัน\n\nทำไมข้ออื่นผิด\nบ่อคลุม: บำบัดได้ราวร้อยละ 70 ถึง 80 รับสารอินทรีย์ได้มากที่สุด และกักเก็บนานกว่า 120 วัน\nChannel digester: บำบัดได้ราวร้อยละ 60 ถึง 70 และรับสารอินทรีย์จำนวนมากได้\nUASB: ค่าก่อสร้างสูง ดูแลยาก และผลิตก๊าซได้สูงมาก",
+    "source": "OHVPH_SP_E4 หน้า 41 ถึง 48",
+    "verified": "สไลด์ Livestock waste management ปี 2569 (OHVPH_SP_E4) หน้า 42 (ระบบโดมคงที่: ฟาร์มเล็กถึงกลาง ประสิทธิภาพต่ำ 50-65% CH4 ความดันสูง ~2 bar กักเก็บสั้น ~15-20 day), หน้า 41 (ออกแบบเพื่อผลิตพลังงาน), หน้า 44 (channel 60-70%), หน้า 46 (บ่อคลุม 70-80%, >120 day), หน้า 48 (ตารางเปรียบเทียบ); สไลด์ One Health approach for livestock waste management deck 2024 ของรุ่นพี่ Vet 84 หน้า 42 ไฮไลต์ระบบก๊าซชีวภาพแบบโดมคงที่",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ Vet 84 ไฮไลต์ ขีดเส้นใต้ หรือติดดาวในสไลด์ของตน",
+    "tags": [
+      "oh-livestock-waste",
+      "fixed-dome",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-livestock-waste-2569",
+        "edition": "56p",
+        "page": 42
+      },
+      {
+        "doc": "oh-livestock-waste-2569",
+        "edition": "56p",
+        "page": 48
+      },
+      {
+        "doc": "oh-livestock-waste-2024",
+        "edition": "56p",
+        "page": 42
+      }
+    ]
+  },
+  {
+    "id": 218624,
+    "subject": "one-health",
+    "topic": "oh-livestock-waste",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "เหตุใดการจัดการหลังคาและรางน้ำฝนของโรงเรือนจึงสำคัญต่อการจัดการน้ำเสียของฟาร์ม",
+    "options": [
+      "น้ำฝนมีสารพิษตกค้างเข้มข้นกว่าน้ำเสียจากตัวสัตว์",
+      "น้ำฝนที่ไหลลงบ่อทำให้จุลินทรีย์แบบไม่ใช้อากาศตายหมด",
+      "น้ำฝนที่ไหลปนกับมูลและน้ำล้างคอกกลายเป็นน้ำเสีย เพิ่มปริมาณที่ต้องบำบัด",
+      "น้ำฝนทุกหยดในฟาร์มต้องผ่านระบบบำบัดก่อนนำไปใช้"
+    ],
+    "answer": 2,
+    "explain": "น้ำฝนเป็นหนึ่งในแหล่งน้ำเสียของฟาร์ม ถ้าหลังคาและรางน้ำฝนไม่ดี น้ำฝนจะไหลปนกับมูลและน้ำล้างคอกจนกลายเป็นน้ำเสีย เพิ่มปริมาณที่ระบบต้องบำบัด ฟาร์มจึงควรวางผังให้น้ำฝนแยกจากน้ำเสีย และนำน้ำฝนที่สะอาดไปใช้ประโยชน์\n\nทำไมข้ออื่นผิด\nสารพิษเข้มข้นกว่า: ปัญหาคือปริมาณน้ำเสียที่เพิ่มขึ้นเมื่อน้ำฝนปนกับของเสีย\nจุลินทรีย์ตายหมด: ไม่ใช่เหตุผลของการจัดการน้ำฝน\nน้ำฝนทุกหยดต้องบำบัด: น้ำฝนที่แยกไว้และไม่ปนเปื้อนนำไปใช้ได้",
+    "source": "OHVPH_SP_E4 หน้า 8 และ 55; 720ploUu9Oo [10:20-10:30] และ [15:38-16:00]",
+    "verified": "สไลด์ Livestock waste management ปี 2569 (OHVPH_SP_E4) หน้า 8 (แหล่งกำเนิดน้ำเสียในฟาร์ม รวมน้ำฝน); คลิป 720ploUu9Oo [10:20-10:30] (ระบบหลังคาและรางน้ำฝนไม่ดี น้ำฝนจะกลายเป็นน้ำเสีย), [15:38-16:00] (ระบบจัดการน้ำฝนที่ดี น้ำฝนนำมาใช้ประโยชน์ได้), [38:50] (วางระบบน้ำฝนไม่ให้ปนกับน้ำเสีย); สไลด์ One Health approach for livestock waste management deck 2024 ของรุ่นพี่ Vet 84 หน้า 55 ติดดาวว่าน้ำฝนเป็นการเพิ่มน้ำเสียในฟาร์ม",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ Vet 84 ไฮไลต์ ขีดเส้นใต้ หรือติดดาวในสไลด์ของตน",
+    "tags": [
+      "oh-livestock-waste",
+      "rainwater",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-livestock-waste-2569",
+        "edition": "56p",
+        "page": 8
+      },
+      {
+        "doc": "oh-livestock-waste-2024",
+        "edition": "56p",
+        "page": 55
+      }
+    ]
+  },
+  {
+    "id": 218625,
+    "subject": "one-health",
+    "topic": "oh-livestock-waste",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ข้อใดจัดเป็นของเสียประเภทของเหลว (liquid waste) จากฟาร์มปศุสัตว์",
+    "options": [
+      "มูลสัตว์และซากสัตว์",
+      "เศษอาหารและขยะมูลฝอย",
+      "ชิ้นส่วนอุปกรณ์ที่ชำรุดเสียหาย",
+      "น้ำปัสสาวะและน้ำล้างคอก"
+    ],
+    "answer": 3,
+    "explain": "ของเสียจากฟาร์มปศุสัตว์คือของเหลือทิ้งจากการเลี้ยงสัตว์ที่นำกลับมาใช้ไม่ได้หากไม่ผ่านการบำบัด แบ่งเป็นของแข็ง ได้แก่ มูลสัตว์ ซากสัตว์ เศษอาหาร ขยะมูลฝอย และชิ้นส่วนอุปกรณ์ที่ชำรุด และของเหลว ได้แก่ น้ำปัสสาวะ น้ำล้างคอก น้ำล้างโรงเรือนหรือตัวสัตว์ และน้ำทิ้งจากกิจกรรมในฟาร์ม\n\nทำไมข้ออื่นผิด\nมูลและซากสัตว์ เศษอาหารและขยะ และชิ้นส่วนอุปกรณ์: จัดเป็นของเสียประเภทของแข็ง",
+    "source": "OHVPH_SP_E4 หน้า 4",
+    "verified": "สไลด์ Livestock waste management ปี 2569 (OHVPH_SP_E4) หน้า 4 (ของแข็ง: มูลสัตว์ ซากสัตว์ เศษอาหาร ขยะมูลฝอย ชิ้นส่วนอุปกรณ์ที่ชำรุด, ของเหลว: น้ำปัสสาวะ น้ำล้างคอก น้ำล้างโรงเรือนหรือตัวสัตว์ น้ำทิ้งจากกิจกรรมภายในฟาร์ม); สไลด์ One Health approach for livestock waste management deck 2024 ของรุ่นพี่ Vet 84 หน้า 4 และ 8 ไฮไลต์ประเภทของเสีย",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ Vet 84 ไฮไลต์ ขีดเส้นใต้ หรือติดดาวในสไลด์ของตน",
+    "tags": [
+      "oh-livestock-waste",
+      "waste-types",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-livestock-waste-2569",
+        "edition": "56p",
+        "page": 4
+      },
+      {
+        "doc": "oh-livestock-waste-2024",
+        "edition": "56p",
+        "page": 4
+      },
+      {
+        "doc": "oh-livestock-waste-2024",
+        "edition": "56p",
+        "page": 8
+      }
+    ]
+  },
 ];

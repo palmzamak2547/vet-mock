@@ -9,9 +9,9 @@ Generated from the working tree at the time of the run.
 
 | | |
 |---|---|
-| **Questions ready for learners** | **8,986** |
+| **Questions ready for learners** | **9,045** |
 | Questions retained but fail-closed pending answer, scope, or figure review | 212 |
-| Total questions in source banks | 9,198 |
+| Total questions in source banks | 9,257 |
 | Question banks (files) | 108 |
 | Subjects with questions | 43 |
 | Years covered | 1, 2, 3, 4, 5 |
@@ -19,9 +19,9 @@ Generated from the working tree at the time of the run.
 | — year 2 | 144 |
 | — year 3 | 62 |
 | — year 4 | 2,076 |
-| — year 5 | 6,407 |
+| — year 5 | 6,466 |
 
-Consistency: source banks **9198**, learner-ready **8986**, fail-closed **212**, registry sums to **9198**, files missing from the registry: **0** → ✅ consistent
+Consistency: source banks **9257**, learner-ready **9045**, fail-closed **212**, registry sums to **9257**, files missing from the registry: **0** → ✅ consistent
 
 ## Study notes
 
@@ -69,7 +69,7 @@ Learner-ready questions that open an article, through their own topic or a judge
 | engprof | 70 | 70 | 0 | 100.0% |
 | engprof1 | 30 | 0 | 0 | 0.0% |
 | epidemiology | 372 | 355 | 0 | 95.4% |
-| equine-medicine | 569 | 569 | 0 | 100.0% |
+| equine-medicine | 602 | 602 | 0 | 100.0% |
 | equine-repro | 242 | 237 | 0 | 97.9% |
 | exotic | 151 | 101 | 0 | 66.9% |
 | food-industry | 300 | 61 | 0 | 20.3% |
@@ -77,7 +77,7 @@ Learner-ready questions that open an article, through their own topic or a judge
 | herd-health-rum | 39 | 0 | 0 | 0.0% |
 | livestock-pathology | 67 | 0 | 0 | 0.0% |
 | milk-meat-hygiene | 1192 | 1192 | 0 | 100.0% |
-| one-health | 252 | 244 | 0 | 96.8% |
+| one-health | 278 | 270 | 0 | 97.1% |
 | poa-clinical | 71 | 35 | 0 | 49.3% |
 | poultry | 178 | 114 | 42 | 64.0% |
 | practrum | 117 | 68 | 18 | 58.1% |
@@ -99,4 +99,4 @@ Learner-ready questions that open an article, through their own topic or a judge
 | vet-neuroanat | 40 | 40 | 0 | 100.0% |
 | vet-pharm-2 | 62 | 0 | 0 | 0.0% |
 | zoonoses | 534 | 522 | 0 | 97.8% |
-| **All** | 8986 | 5841 | 324 | 65.0% |
+| **All** | 9045 | 5900 | 324 | 65.2% |

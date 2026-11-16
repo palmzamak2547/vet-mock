@@ -200,7 +200,7 @@ export const BANK_REGISTRY = [
   { file: 'questions-y5-eqrepro-2026.js', export: 'QUESTIONS_Y5_EQREPRO_2026', year: 5, count: 149,
     subjects: ['equine-repro'],
     load: () => import('./questions-y5-eqrepro-2026.js').then((m) => m.QUESTIONS_Y5_EQREPRO_2026) },
-  { file: 'questions-y5-equine-2026-b.js', export: 'QUESTIONS_Y5_EQUINE_2026_B', year: 5, count: 52,
+  { file: 'questions-y5-equine-2026-b.js', export: 'QUESTIONS_Y5_EQUINE_2026_B', year: 5, count: 85,
     subjects: ['equine-medicine'],
     load: () => import('./questions-y5-equine-2026-b.js').then((m) => m.QUESTIONS_Y5_EQUINE_2026_B) },
   { file: 'questions-y5-equine-2026.js', export: 'QUESTIONS_Y5_EQUINE_2026', year: 5, count: 189,
@@ -245,7 +245,7 @@ export const BANK_REGISTRY = [
   { file: 'questions-y5-one-health-2026-b.js', export: 'QUESTIONS_Y5_ONE_HEALTH_2026_B', year: 5, count: 61,
     subjects: ['one-health'],
     load: () => import('./questions-y5-one-health-2026-b.js').then((m) => m.QUESTIONS_Y5_ONE_HEALTH_2026_B) },
-  { file: 'questions-y5-one-health-2026-c.js', export: 'QUESTIONS_Y5_ONE_HEALTH_2026_C', year: 5, count: 30,
+  { file: 'questions-y5-one-health-2026-c.js', export: 'QUESTIONS_Y5_ONE_HEALTH_2026_C', year: 5, count: 56,
     subjects: ['one-health'],
     load: () => import('./questions-y5-one-health-2026-c.js').then((m) => m.QUESTIONS_Y5_ONE_HEALTH_2026_C) },
   { file: 'questions-y5-one-health-2026.js', export: 'QB_Y5_ONE_HEALTH_2026', year: 5, count: 14,
@@ -334,4 +334,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-11-15T23:57:01.531Z — 108 banks · 9198 Qs
+// Built: 2026-11-16T03:07:11.340Z — 108 banks · 9257 Qs

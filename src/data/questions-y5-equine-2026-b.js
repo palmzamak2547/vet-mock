@@ -1778,4 +1778,1345 @@ export const QUESTIONS_Y5_EQUINE_2026_B = [
       }
     ]
   },
+  {
+    "id": 218500,
+    "subject": "equine-medicine",
+    "topic": "equine-surgery-wound",
+    "year": 5,
+    "type": "mcq",
+    "q": "ในโรงพยาบาลม้า ห้องเตรียมม้าก่อนผ่าตัด (patient preparation room) ซึ่งอยู่หน้าห้อง induction ใช้ทำงานใด",
+    "options": [
+      "ให้ยานำสลบ แล้วใช้รอกยกม้าขึ้นเตียงผ่าตัด",
+      "ปูผ้าคลุมปลอดเชื้อและเปิดชุดเครื่องมือผ่าตัด",
+      "ใส่ catheter ทำความสะอาดกีบ แปรงขน และล้างปากม้า",
+      "เฝ้าดูม้าจนลุกยืนได้เองหลังหมดฤทธิ์ยาสลบ"
+    ],
+    "answer": 2,
+    "explain": "ห้องเตรียมม้าแยกจากห้องผ่าตัดอื่นเพื่อรักษาความสะอาด มีขนาดพอและอุปกรณ์ครบ มีฝักบัวและนาฬิกา และตั้งอยู่หน้าห้อง induction งานในห้องนี้คือใส่ catheter ทำความสะอาดกีบ แปรงขน และล้างปากม้า ก่อนพาเข้าห้องวางยา\n\nทำไมข้ออื่นผิด\nให้ยานำสลบและยกม้าขึ้นเตียง: ทำในห้อง induction และห้องผ่าตัด\nปูผ้าคลุมปลอดเชื้อ: ทำในห้องผ่าตัดหลังจัดท่าม้าแล้ว\nเฝ้าดูจนลุกยืน: ทำในห้อง recovery",
+    "source": "Equine surgery & anesthesia 5th year หน้า 11",
+    "verified": "Equine surgery & anesthesia 5th year (2569) หน้า 11 (Patient preparation room: separated from other operating rooms, in front of the induction room, catheter placement, cleaning feet, brushing of the horse and rinsing the mouth); สไลด์ Equine Sx concept ของรุ่นพี่ Vet 85 หน้า 10 ติดดาวสีชมพูที่ catheter placement, cleaning feet",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Sx concept (Vet 85) stars this point; their summary of the paper refers to the starred slides",
+    "tags": [
+      "equine-surgery-wound",
+      "surgery-room-flow",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-surgery-anesthesia-2569",
+        "edition": "94p",
+        "page": 11
+      },
+      {
+        "doc": "equine-sx-concept85",
+        "edition": "62p",
+        "page": 10
+      }
+    ]
+  },
+  {
+    "id": 218501,
+    "subject": "equine-medicine",
+    "topic": "equine-anesthesia",
+    "year": 5,
+    "type": "mcq",
+    "q": "ระหว่างที่ม้าฟื้นจากยาสลบหลังผ่าตัดภาคสนาม หลักการดูแลข้อใดถูกต้อง",
+    "options": [
+      "คุมศีรษะให้ปลอดภัยและคุมหางไว้ (safe head, control tail)",
+      "ให้ม้ากินหญ้าและอาหารข้นทันทีที่ยกศีรษะได้",
+      "ปล่อยม้าออกจากคอกทันทีที่ยืนได้ แม้ยังรู้สึกตัวไม่เต็มที่",
+      "จัดให้ม้านอนหงาย (dorsal recumbency) จนกว่าจะรู้สึกตัวเต็มที่"
+    ],
+    "answer": 0,
+    "explain": "ช่วงฟื้นจากยาสลบม้าต้องรู้สึกตัวเต็มที่และทรงตัวได้เอง ผู้ดูแลคุมศีรษะให้ปลอดภัยและคุมหางไว้ ม้าที่นอนอยู่ควรลุกยืนให้ได้ในครั้งเดียว หลังผ่าตัดให้อยู่ในคอกจนรู้สึกตัวเต็มที่ และงดอาหารจนรู้สึกตัว จากนั้นให้เฉพาะหญ้าใน 12 ชั่วโมงแรก\n\nทำไมข้ออื่นผิด\nให้หญ้าและอาหารข้นทันที: ต้องงดอาหารจนรู้สึกตัว แล้วให้เฉพาะหญ้าก่อน\nปล่อยออกจากคอกทันทีที่ยืนได้: ต้องอยู่ในคอกจนรู้สึกตัวเต็มที่\nนอนหงายจนรู้สึกตัว: การวางยาในภาคสนามจัดม้านอนตะแคง (lateral recumbency)",
+    "source": "Equine surgery & anesthesia 5th year หน้า 92",
+    "verified": "Equine surgery & anesthesia 5th year (2569) หน้า 92 (recovery: completely consciousness and balancing-itself, safe head, control tail, for recumbent: quick stand in one time, stay in box until complete consciousness, NPO until consciousness, only grass 12 hr); สไลด์ Equine Sx concept ของรุ่นพี่ Vet 85 หน้า 30 ติดดาวที่ Safe head, control tail",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Sx concept (Vet 85) stars this point; their summary of the paper refers to the starred slides",
+    "tags": [
+      "equine-anesthesia",
+      "anesthetic-recovery",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-surgery-anesthesia-2569",
+        "edition": "94p",
+        "page": 92
+      },
+      {
+        "doc": "equine-sx-concept85",
+        "edition": "62p",
+        "page": 30
+      }
+    ]
+  },
+  {
+    "id": 218502,
+    "subject": "equine-medicine",
+    "topic": "equine-anesthesia",
+    "year": 5,
+    "type": "mcq",
+    "q": "ม้าที่ยังนอนอยู่ (recumbent) ระหว่างฟื้นจากยาสลบ ควรให้ลุกยืนแบบใด",
+    "options": [
+      "ดันให้ลุกทันทีที่เริ่มขยับขา แม้ยังไม่รู้สึกตัวเต็มที่",
+      "ปล่อยให้ลุกแล้วล้มซ้ำหลายรอบ เพื่อฝึกการทรงตัวไปเอง",
+      "ยกม้าขึ้นยืนด้วยรอกทุกตัว ไม่ให้ม้าออกแรงลุกเอง",
+      "ลุกยืนได้อย่างรวดเร็วในครั้งเดียว เมื่อรู้สึกตัวและทรงตัวได้"
+    ],
+    "answer": 3,
+    "explain": "ม้าที่นอนอยู่ช่วงฟื้นจากยาสลบควรลุกยืนอย่างรวดเร็วในครั้งเดียว (quick stand in one time) เมื่อรู้สึกตัวเต็มที่และทรงตัวได้เองแล้ว การลุกแล้วล้มหลายครั้งเพิ่มโอกาสบาดเจ็บ ระหว่างนั้นผู้ดูแลคุมศีรษะและหางไว้\n\nทำไมข้ออื่นผิด\nดันให้ลุกก่อนรู้สึกตัว: ม้ายังทรงตัวไม่ได้และล้มบาดเจ็บได้\nลุกแล้วล้มซ้ำหลายรอบ: ตรงข้ามกับหลักให้ลุกในครั้งเดียว\nยกด้วยรอกทุกตัว: ไม่ใช่หลักการดูแลปกติ ม้าที่รู้สึกตัวแล้วลุกยืนเองได้",
+    "source": "Equine surgery & anesthesia 5th year หน้า 92",
+    "verified": "Equine surgery & anesthesia 5th year (2569) หน้า 92 (For recumbent: quick stand in one time, completely consciousness and balancing-itself); สไลด์ Equine Sx concept ของรุ่นพี่ Vet 85 หน้า 30 ติดดาวที่ For recumbent: quick stand in one time",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Sx concept (Vet 85) stars this point; their summary of the paper refers to the starred slides",
+    "tags": [
+      "equine-anesthesia",
+      "anesthetic-recovery",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-surgery-anesthesia-2569",
+        "edition": "94p",
+        "page": 92
+      },
+      {
+        "doc": "equine-sx-concept85",
+        "edition": "62p",
+        "page": 30
+      }
+    ]
+  },
+  {
+    "id": 218503,
+    "subject": "equine-medicine",
+    "topic": "equine-surgery-wound",
+    "year": 5,
+    "type": "mcq",
+    "q": "เมื่อเย็บปิดแผลแบบ first-intention healing (primary closure) ผลการหายของ pony เทียบกับม้าเป็นอย่างไร",
+    "options": [
+      "Pony สำเร็จต่ำกว่า เพราะการอักเสบช่วงแรกรุนแรงจนแผลที่เย็บแยกออก",
+      "Pony สำเร็จสูงกว่า กระดูกตายเป็นชิ้นน้อยกว่า แม้แผลลึกกว่าและใช้ยาต้านจุลชีพน้อยกว่า",
+      "ม้าสำเร็จสูงกว่า เพราะการอักเสบที่ช้าทำให้ติดเชื้อน้อยและแผลแยกน้อยกว่า",
+      "ทั้งสองสำเร็จพอกัน ความต่างระหว่างม้ากับ pony พบเฉพาะแผลที่ปล่อยหายเอง"
+    ],
+    "answer": 1,
+    "explain": "การเย็บปิดแผลแบบ first-intention เลือกใช้เมื่อต้องการให้หายเร็วและแผลเป็นสวย pony ได้ผลสำเร็จสูงกว่าม้า เกิด bone sequestration น้อยกว่า แม้แผลจะลึกกว่าและใช้ยาต้านจุลชีพน้อยกว่า ส่วนม้ามีการตอบสนองแบบอักเสบที่ช้ากว่า จึงเสี่ยงติดเชื้อมากกว่า และ NSAIDs อาจรบกวนการหายของแผล\n\nทำไมข้ออื่นผิด\nPony สำเร็จต่ำกว่า: กลับกัน pony สำเร็จสูงกว่า\nม้าสำเร็จสูงกว่าเพราะอักเสบช้า: การอักเสบที่ช้าทำให้ม้าเสี่ยงติดเชื้อมากขึ้น\nสำเร็จพอกัน: ความต่างพบทั้งแผลที่เย็บปิดและแผลที่ปล่อยหายเอง",
+    "source": "Equine dermatology and wound management หน้า 54",
+    "verified": "Equine dermatology and wound management (2569) หน้า 54 (First-intention healing: preferred for speed and cosmetic outcome, Ponies: higher success, less bone sequestration, despite deeper wounds and less antimicrobial use, Horses: slower inflammatory response, higher infection risk, NSAIDs may impair healing); สไลด์ Equine Sx concept ของรุ่นพี่ Vet 85 หน้า 35 ติดดาวที่ Ponies และ Horses",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Sx concept (Vet 85) stars this point; their summary of the paper refers to the starred slides",
+    "tags": [
+      "equine-surgery-wound",
+      "first-intention-healing",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-derm-wound-2569",
+        "edition": "97p",
+        "page": 54
+      },
+      {
+        "doc": "equine-sx-concept85",
+        "edition": "62p",
+        "page": 35
+      }
+    ]
+  },
+  {
+    "id": 218504,
+    "subject": "equine-medicine",
+    "topic": "equine-infectious",
+    "year": 5,
+    "type": "mcq",
+    "q": "พิษสุนัขบ้า (rabies) ในม้าแสดงอาการได้เป็นรูปแบบใด",
+    "options": [
+      "Pulmonary form และ cardiac form",
+      "Mad-dog form และ paralysis form",
+      "Nasal form และ cutaneous form",
+      "Acute form และ inapparent form"
+    ],
+    "answer": 1,
+    "explain": "พิษสุนัขบ้าในม้าพบไม่บ่อยแต่ตายทุกราย ติดจากการถูกสัตว์ที่มีเชื้อกัด แสดงออกได้ 2 รูปแบบ คือ mad-dog form และ paralysis form อาการแปรผันและอาจสับสนกับภาวะอื่น เช่น colic เริ่มจากอาการไม่จำเพาะแล้วจึงเป็นอัมพาตและตาย คนติดได้จากการถูกกัดหรือสัมผัสน้ำลายของม้าป่วย\n\nทำไมข้ออื่นผิด\nPulmonary และ cardiac form: เป็นรูปแบบของ African horse sickness\nNasal และ cutaneous form: เป็นรูปแบบของ glanders ซึ่งมี pulmonary form ด้วย\nAcute และ inapparent form: เป็นรูปแบบของ equine infectious anemia ซึ่งมี chronic form ด้วย",
+    "source": "Eq Infectious Dz and Biosecurity หน้า 4",
+    "verified": "Eq Infectious Dz and Biosecurity (2569) หน้า 4 (Rabies: rare but invariably fatal, bite from infected animals, Mad-dog and Paralysis form, could be confused with colic), หน้า 12 (AHS forms), หน้า 22 (EIA forms), หน้า 53 (glanders forms); สไลด์ Eq inf dz 67 ของรุ่นพี่ Vet 84 หน้า 4 ไฮไลต์ Mad-dog และ Paralysis form",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides",
+    "tags": [
+      "equine-infectious",
+      "rabies",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 4
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 12
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 22
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 53
+      },
+      {
+        "doc": "equine-infectious-v84",
+        "edition": "75p",
+        "page": 4
+      }
+    ]
+  },
+  {
+    "id": 218505,
+    "subject": "equine-medicine",
+    "topic": "equine-infectious",
+    "year": 5,
+    "type": "mcq",
+    "q": "เชื้อก่อโรค African horse sickness (Orbivirus) อยู่ในสกุลเดียวกับเชื้อก่อโรคใดในสัตว์เคี้ยวเอื้อง",
+    "options": [
+      "Foot-and-mouth disease",
+      "Lumpy skin disease",
+      "Bluetongue disease",
+      "Peste des petits ruminants"
+    ],
+    "answer": 2,
+    "explain": "African horse sickness เกิดจาก Orbivirus ซึ่งเป็นไวรัส RNA สายคู่ไม่มีเปลือกหุ้ม ไวรัสสกุลเดียวกันนี้ก่อ bluetongue ในสัตว์เคี้ยวเอื้อง ในแอฟริกาพบ AHS 9 ซีโรไทป์ และการเกิดโรคตามฤดูสัมพันธ์กับช่วงที่พาหะชุกชุม\n\nทำไมข้ออื่นผิด\nFoot-and-mouth disease: เกิดจาก Aphthovirus\nLumpy skin disease: เกิดจาก Capripoxvirus\nPeste des petits ruminants: เกิดจาก Morbillivirus",
+    "source": "Eq Infectious Dz and Biosecurity หน้า 8",
+    "verified": "Eq Infectious Dz and Biosecurity (2569) หน้า 8 (Cause: Orbivirus, non-envelop double-stranded RNA, Equidae: African horse sickness, Ruminant: Bluetongue disease, 9 serotypes in Africa); สไลด์ Eq inf dz 67 ของรุ่นพี่ Vet 84 หน้า 8 ปากกาแดงชี้ Ruminant: Bluetongue disease",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides",
+    "tags": [
+      "equine-infectious",
+      "african-horse-sickness",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 8
+      },
+      {
+        "doc": "equine-infectious-v84",
+        "edition": "75p",
+        "page": 8
+      }
+    ]
+  },
+  {
+    "id": 218506,
+    "subject": "equine-medicine",
+    "topic": "equine-infectious",
+    "year": 5,
+    "type": "mcq",
+    "q": "ในการฉีดวัคซีน African horse sickness ของประเทศไทย เข็มแรกใช้วัคซีนรวมซีโรไทป์ใด และเข็มกระตุ้นใช้ซีโรไทป์ใด",
+    "options": [
+      "เข็มแรก polyvalent ซีโรไทป์ 1 และ 4 เข็มกระตุ้น monovalent ซีโรไทป์ 1",
+      "เข็มแรก polyvalent ซีโรไทป์ 1 และ 9 เข็มกระตุ้น monovalent ซีโรไทป์ 9",
+      "เข็มแรก monovalent ซีโรไทป์ 4 เข็มกระตุ้น polyvalent ซีโรไทป์ 1 และ 4",
+      "เข็มแรก polyvalent ซีโรไทป์ 4 และ 7 เข็มกระตุ้น monovalent ซีโรไทป์ 4"
+    ],
+    "answer": 0,
+    "explain": "เชื้อ AHS ที่พบในประเทศไทยเป็นซีโรไทป์ 1 การฉีดวัคซีนในไทยจึงเริ่มด้วยวัคซีนรวม (polyvalent) ซีโรไทป์ 1 และ 4 แล้วกระตุ้นด้วยวัคซีนเดี่ยว (monovalent) ซีโรไทป์ 1 ก่อนเลือกวัคซีนต้องระบุไวรัสและซีโรไทป์ของการระบาดก่อนเสมอ\n\nทำไมข้ออื่นผิด\nเข็มกระตุ้นซีโรไทป์ 9: ไทยพบซีโรไทป์ 1 ส่วนตัวเลข 9 คือจำนวนซีโรไทป์ที่พบในแอฟริกา\nเข็มแรก monovalent ซีโรไทป์ 4: ลำดับกลับกัน และซีโรไทป์ที่ระบาดในไทยคือ 1\nซีโรไทป์ 4 และ 7: ไม่ตรงกับซีโรไทป์ 1 ที่พบในไทย",
+    "source": "Eq Infectious Dz and Biosecurity หน้า 8 และ 13",
+    "verified": "Eq Infectious Dz and Biosecurity (2569) หน้า 8 (9 serotypes occur in Africa, serotype 1 in Thailand), หน้า 13 (TH: 1st poly type 1 และ 4, booster mono type 1, identify the virus and serotype); สไลด์ Eq inf dz 67 ของรุ่นพี่ Vet 84 หน้า 8 ไฮไลต์ Serotype 1 in Thailand และหน้า 14 ไฮไลต์ Polyvalent, monovalent พร้อมวง 1 และ 4",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides",
+    "tags": [
+      "equine-infectious",
+      "african-horse-sickness",
+      "ahs-vaccine",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 8
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 13
+      },
+      {
+        "doc": "equine-infectious-v84",
+        "edition": "75p",
+        "page": 8
+      },
+      {
+        "doc": "equine-infectious-v84",
+        "edition": "75p",
+        "page": 14
+      }
+    ]
+  },
+  {
+    "id": 218507,
+    "subject": "equine-medicine",
+    "topic": "equine-infectious",
+    "year": 5,
+    "type": "mcq",
+    "q": "ม้าป่วย African horse sickness มีไข้ หายใจลำบาก รูจมูกบาน มีน้ำมูกเป็นฟอง และเยื่อตาแดง อาการนี้เข้ากับรูปแบบใด และอัตราตายประมาณเท่าใด",
+    "options": [
+      "Sub-acute หรือ cardiac form อัตราตายมากกว่าร้อยละ 50",
+      "Mixed form อัตราตายมากกว่าร้อยละ 70",
+      "Horse sickness fever ส่วนใหญ่หายได้เอง",
+      "Acute respiratory หรือ pulmonary form อัตราตายมากกว่าร้อยละ 95"
+    ],
+    "answer": 3,
+    "explain": "AHS มี 4 รูปแบบ รูปแบบ acute respiratory (pulmonary form) มีไข้ หายใจลำบาก รูจมูกบาน น้ำมูกเป็นฟอง เยื่อตาแดง อัตราตายมากกว่าร้อยละ 95 และมักตายภายใน 1 สัปดาห์\n\nทำไมข้ออื่นผิด\nSub-acute หรือ cardiac form: มีไข้ร่วมกับบวมที่หน้า คอ อก brisket และไหล่ รวมถึงแอ่งเหนือเบ้าตา อัตราตายมากกว่าร้อยละ 50\nMixed form: อาการทางปอดและหัวใจแบบอ่อนกว่า อัตราตายมากกว่าร้อยละ 70\nHorse sickness fever: เป็นแบบ sub-clinical มีไข้ต่ำๆ และมักหายเอง",
+    "source": "Eq Infectious Dz and Biosecurity หน้า 11 และ 12",
+    "verified": "Eq Infectious Dz and Biosecurity (2569) หน้า 11 (swelling at supraorbital fossa, respiratory distress, frothy fluid), หน้า 12 (4 main forms with mortality: sub-clinical recovers, cardiac >50%, pulmonary >95% within 1 week, mixed >70%); สไลด์ Eq inf dz 67 ของรุ่นพี่ Vet 84 หน้า 11 ไฮไลต์ Mortality rate และวง 70-95%, หน้า 12 ไฮไลต์ Swelling at supraorbital fossa และ Respiratory distress, frothy fluid",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides",
+    "tags": [
+      "equine-infectious",
+      "african-horse-sickness",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 11
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 12
+      },
+      {
+        "doc": "equine-infectious-v84",
+        "edition": "75p",
+        "page": 11
+      },
+      {
+        "doc": "equine-infectious-v84",
+        "edition": "75p",
+        "page": 12
+      }
+    ]
+  },
+  {
+    "id": 218508,
+    "subject": "equine-medicine",
+    "topic": "equine-infectious",
+    "year": 5,
+    "type": "mcq",
+    "q": "วัคซีน African horse sickness ที่มีจำหน่ายเป็นวัคซีนชนิดใด และมีข้อควรระวังอะไร",
+    "options": [
+      "วัคซีนเชื้อตาย ภูมิคุ้มกันอยู่สั้นจึงต้องฉีดกระตุ้นทุกเดือนตลอดฤดูระบาด",
+      "วัคซีน subunit ใช้รักษาม้าที่ป่วยแล้วเพื่อให้หายเร็วขึ้นและลดอัตราตาย",
+      "วัคซีนเชื้อเป็นอ่อนฤทธิ์ เสี่ยงกลับมาก่อโรคและเกิด reassortment กับเชื้อในธรรมชาติ",
+      "วัคซีน DNA ห้ามใช้ในเขตระบาด เพราะแยกม้าที่ฉีดออกจากม้าป่วยไม่ได้เลย"
+    ],
+    "answer": 2,
+    "explain": "วัคซีน AHS ที่มีจำหน่ายเป็นวัคซีนเชื้อเป็นอ่อนฤทธิ์ (live attenuated) มีทั้งแบบรวมหลายซีโรไทป์และแบบเดี่ยว ข้อควรระวังคือเชื้อวัคซีนอาจกลับมาก่อโรค (reversion to virulence) และแลกชิ้นส่วนพันธุกรรม (reassortment) กับเชื้อในธรรมชาติได้ วัคซีนใช้ป้องกัน ไม่ได้ใช้รักษา และม้าที่ฉีดต้องระบุตัวด้วยไมโครชิป\n\nทำไมข้ออื่นผิด\nวัคซีนเชื้อตายฉีดทุกเดือน: วัคซีนที่มีจำหน่ายเป็นเชื้อเป็นอ่อนฤทธิ์\nใช้รักษาม้าป่วย: วัคซีนใช้ป้องกันในม้าที่ยังไม่ติดเชื้อ\nห้ามใช้ในเขตระบาด: มาตรการคือฉีดม้าที่ยังไม่ติดเชื้อในเขตป้องกันและระบุตัวม้าที่ฉีด",
+    "source": "Eq Infectious Dz and Biosecurity หน้า 13",
+    "verified": "Eq Infectious Dz and Biosecurity (2569) หน้า 13 (Live attenuated, commercially available, risk of reversion to virulence and reassortment, wild type and vaccine type, vaccination of non-infected horses in protection zone, identify vaccinated animals by microchip); สไลด์ Eq inf dz 67 ของรุ่นพี่ Vet 84 หน้า 14 ขีดเส้นใต้ Live attenuated และ Risk of reversion พร้อมโน้ตว่าวัคซีนใช้ป้องกันเท่านั้น",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides",
+    "tags": [
+      "equine-infectious",
+      "african-horse-sickness",
+      "ahs-vaccine",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 13
+      },
+      {
+        "doc": "equine-infectious-v84",
+        "edition": "75p",
+        "page": 14
+      }
+    ]
+  },
+  {
+    "id": 218509,
+    "subject": "equine-medicine",
+    "topic": "equine-infectious",
+    "year": 5,
+    "type": "mcq",
+    "q": "เมื่อเกิดการระบาดของ African horse sickness การฉีดวัคซีนให้ม้าที่ยังไม่ติดเชื้อในเขตป้องกัน (protection zone) ครอบคลุมรัศมีเท่าใด และต้องติดตามม้าที่ฉีดอย่างไร",
+    "options": [
+      "รัศมี 150 กิโลเมตร ทำเครื่องหมายที่สะโพก และวัดไข้วันละครั้งนาน 14 วัน",
+      "รัศมี 50 กิโลเมตร ฝังไมโครชิประบุตัว และวัดไข้วันละ 2 ครั้งนานกว่า 30 วัน",
+      "รัศมี 5 กิโลเมตร ฝังไมโครชิประบุตัว และวัดไข้วันละครั้งนาน 7 วัน",
+      "รัศมี 700 กิโลเมตร ตัดขนแผงคอเป็นสัญลักษณ์ และวัดไข้สัปดาห์ละครั้ง"
+    ],
+    "answer": 1,
+    "explain": "มาตรการเมื่อ AHS ระบาด ได้แก่ ระบุไวรัสและซีโรไทป์ ตั้งเขตกักกันและควบคุมการเคลื่อนย้ายอย่างเข้มงวด ฉีดวัคซีนม้าที่ยังไม่ติดเชื้อในเขตป้องกันรัศมี 50 กิโลเมตร ระบุตัวม้าที่ฉีดด้วยไมโครชิป วัดไข้วันละ 2 ครั้งนานกว่า 30 วัน ควบคุมพาหะด้วยมุ้งและยาฆ่าแมลง และเลี้ยงม้าทุกตัวในคอกกันแมลง\n\nทำไมข้ออื่นผิด\n150 และ 700 กิโลเมตร: เป็นระยะที่พาหะติดเชื้ออาจถูกลมพัดไปได้ทางบกและข้ามทะเล ไม่ใช่รัศมีเขตป้องกัน\n5 กิโลเมตร วัดไข้วันละครั้ง 7 วัน: แคบและสั้นกว่ามาตรการที่กำหนด",
+    "source": "Eq Infectious Dz and Biosecurity หน้า 9 และ 13",
+    "verified": "Eq Infectious Dz and Biosecurity (2569) หน้า 13 (vaccination of non-infected horses in protection zone (50 km), identify vaccinated animals (microchip), monitor for fever 2 times/day >30 days, net and insecticide, insect-proof housing), หน้า 9 (wind-borne spread of vectors up to 700 km over water or 150 km over land); สไลด์ Eq inf dz 67 ของรุ่นพี่ Vet 84 หน้า 14 ไฮไลต์ Vaccination of non-infected horses in protection zone (50km)",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides",
+    "tags": [
+      "equine-infectious",
+      "african-horse-sickness",
+      "outbreak-control",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 13
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 9
+      },
+      {
+        "doc": "equine-infectious-v84",
+        "edition": "75p",
+        "page": 14
+      }
+    ]
+  },
+  {
+    "id": 218510,
+    "subject": "equine-medicine",
+    "topic": "equine-infectious",
+    "year": 5,
+    "type": "mcq",
+    "q": "ข้อใดเป็นมาตรการควบคุมพาหะของ African horse sickness",
+    "options": [
+      "ถ่ายพยาธิม้าด้วย ivermectin ทุกเดือน เพื่อฆ่าตัวอ่อนของริ้นในลำไส้ม้า",
+      "ใช้มุ้งหรือตาข่าย พ่นยาฆ่าแมลง cypermethrin หรือ etofenprox และเลี้ยงม้าในคอกกันแมลง",
+      "ฉีดวัคซีนให้ม้าลายในพื้นที่ เพื่อไม่ให้ริ้นได้รับเชื้อจากแหล่งรังโรค",
+      "งดให้น้ำในรางช่วงกลางวัน เพื่อไม่ให้ยุงลายวางไข่ใกล้คอกม้า"
+    ],
+    "answer": 1,
+    "explain": "AHS ติดต่อผ่านริ้น Culicoides เป็นหลัก การควบคุมพาหะใช้มุ้งหรือตาข่าย ยาฆ่าแมลงเช่น cypermethrin และ etofenprox ร่วมกับการจัดการที่ดี และเลี้ยงม้าทุกตัวในคอกที่กันแมลงได้\n\nทำไมข้ออื่นผิด\nถ่ายพยาธิด้วย ivermectin: ริ้นไม่ได้เจริญในลำไส้ม้า ยาถ่ายพยาธิไม่ใช่วิธีควบคุมพาหะนี้\nฉีดวัคซีนม้าลาย: ม้าลายเป็นแหล่งรังโรคที่ติดเชื้อโดยไม่ป่วย มาตรการที่กำหนดคือฉีดม้าที่ยังไม่ติดเชื้อในเขตป้องกันและควบคุมแมลง\nงดน้ำกันยุงลาย: พาหะหลักคือริ้น Culicoides ไม่ใช่ยุงลาย",
+    "source": "Eq Infectious Dz and Biosecurity หน้า 9, 13 และ 15",
+    "verified": "Eq Infectious Dz and Biosecurity (2569) หน้า 15 (AHS vector control: net, insecticide cypermethrin, etofenprox, good management), หน้า 13 (insect-proof housing), หน้า 9 (Culicoides spp. primary vector), หน้า 10 (zebras in the transmission cycle); สไลด์ Eq inf dz 67 ของรุ่นพี่ Vet 84 หน้า 16 ไฮไลต์ Etofenprox",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides",
+    "tags": [
+      "equine-infectious",
+      "african-horse-sickness",
+      "vector-control",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 15
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 13
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 9
+      },
+      {
+        "doc": "equine-infectious-v84",
+        "edition": "75p",
+        "page": 16
+      }
+    ]
+  },
+  {
+    "id": 218511,
+    "subject": "equine-medicine",
+    "topic": "equine-infectious",
+    "year": 5,
+    "type": "mcq",
+    "q": "Equine infectious anemia (EIA) ติดต่อระหว่างม้าผ่านทางใดเป็นหลัก",
+    "options": [
+      "แมลงดูดเลือด เช่น เหลือบ (Tabanus) แมลงวันคอก (Stomoxys) และยุง",
+      "การกินอาหารและน้ำที่ปนเปื้อนน้ำมูกของม้าที่เป็นพาหะ",
+      "การผสมพันธุ์ การผสมเทียม และมือหรืออุปกรณ์ที่ปนเปื้อน",
+      "สปอร์ในดินที่เข้าทางแผลตะปูตำที่พื้นกีบ"
+    ],
+    "answer": 0,
+    "explain": "EIA เกิดจาก lentivirus ในวงศ์ Retroviridae ชื่อเรียกอื่นคือ swamp disease หรือเอดส์ม้า ติดต่อผ่านแมลงดูดเลือด ได้แก่ เหลือบ (Tabanus) แมลงวันคอก (Stomoxys) และยุง แบ่งเป็น 3 รูปแบบ คือ acute, chronic และ inapparent\n\nทำไมข้ออื่นผิด\nกินอาหารและน้ำปนน้ำมูก: เป็นทางติดของ glanders\nการผสมพันธุ์และผสมเทียม: เป็นทางติดของ contagious equine metritis\nสปอร์ในดินเข้าทางแผล: เป็นทางติดของบาดทะยัก",
+    "source": "Eq Infectious Dz and Biosecurity หน้า 22",
+    "verified": "Eq Infectious Dz and Biosecurity (2569) หน้า 22 (EIA: Retroviridae, Lentiviridae, swamp disease, เอดส์ม้า, vector horse flies (Tabanus), stable flies (Stomoxys) and mosquitoes, acute, chronic, inapparent), หน้า 53 (glanders route), หน้า 56 (CEM route), หน้า 39 (tetanus route); สไลด์ Eq inf dz 67 ของรุ่นพี่ Vet 84 หน้า 23 ไฮไลต์ Horse flies (Tabanus), mosquitoes",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides",
+    "tags": [
+      "equine-infectious",
+      "equine-infectious-anemia",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 22
+      },
+      {
+        "doc": "equine-infectious-v84",
+        "edition": "75p",
+        "page": 23
+      }
+    ]
+  },
+  {
+    "id": 218512,
+    "subject": "equine-medicine",
+    "topic": "equine-infectious",
+    "year": 5,
+    "type": "mcq",
+    "q": "ม้ามีไข้ อ่อนแรง น้ำหนักลด ซีด มีจุดเลือดออก เลือดกำเดาไหล เดินเซ และบวมน้ำใต้ท้อง ผลเลือดพบเกล็ดเลือดต่ำ ควรนึกถึงโรคใดเป็นอันดับแรก",
+    "options": [
+      "Strangles (Streptococcus equi)",
+      "Glanders (Burkholderia mallei)",
+      "Equine infectious anemia (EIA)",
+      "Tetanus (Clostridium tetani)"
+    ],
+    "answer": 2,
+    "explain": "อาการของ equine infectious anemia ได้แก่ ไข้ อ่อนแรง น้ำหนักลด โลหิตจาง เกล็ดเลือดต่ำ ท้องเสียมีเลือด จุดเลือดออก เลือดกำเดาไหล เดินเซ และบวมน้ำใต้ท้อง วินิจฉัยด้วย AGID ELISA หรือ PCR รักษาได้เพียงประคับประคอง ม้าอาจตายจากไวรัสเองหรือจากการติดเชื้อแทรกซ้อน\n\nทำไมข้ออื่นผิด\nStrangles: ไข้ น้ำมูก และฝีที่ต่อมน้ำเหลืองใต้คาง\nGlanders: ไข้สูง น้ำมูกข้น และแผลหลุมที่ทางเดินหายใจส่วนบน ปอด หรือผิวหนัง\nTetanus: กล้ามเนื้อแข็งเกร็งแบบ saw horse และหนังตาที่สามยื่นออกมา",
+    "source": "Eq Infectious Dz and Biosecurity หน้า 23 และ 24",
+    "verified": "Eq Infectious Dz and Biosecurity (2569) หน้า 23 (EIA signs: fever, weakness, weight loss, anemia, thrombocytopenia, haemorrhagic diarrhea, petechial hemorrhages, epistaxis, ataxia, ventral edema), หน้า 24 (AGID, ELISA, PCR, supportive treatment), หน้า 47 (strangles), หน้า 54 (glanders), หน้า 40 (tetanus); สไลด์ Eq inf dz 67 ของรุ่นพี่ Vet 84 หน้า 24 ไฮไลต์ Thrombocytopenia, Epistaxis, Ataxia, VENTRAL EDEMA",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides",
+    "tags": [
+      "equine-infectious",
+      "equine-infectious-anemia",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 23
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 24
+      },
+      {
+        "doc": "equine-infectious-v84",
+        "edition": "75p",
+        "page": 24
+      }
+    ]
+  },
+  {
+    "id": 218513,
+    "subject": "equine-medicine",
+    "topic": "equine-infectious",
+    "year": 5,
+    "type": "mcq",
+    "q": "Equine encephalomyelitis (EEE, WEE และ VEE) มีแหล่งรังโรคสำคัญคือสัตว์ใด และติดต่อผ่านทางใด",
+    "options": [
+      "สุกร ผ่านยุง Culex",
+      "ม้าลาย ผ่านริ้น Culicoides",
+      "นก ผ่านยุงที่เป็นพาหะ",
+      "สุนัข ผ่านการถูกกัด"
+    ],
+    "answer": 2,
+    "explain": "Equine encephalomyelitis เกิดจากไวรัส EEE WEE และ VEE มีชื่อเรียกอื่นว่า sleeping sickness ติดต่อผ่านยุงที่เป็นพาหะ และมีนกเป็นแหล่งรังโรคสำคัญ อาการคือไข้สูง ระบบประสาทผิดปกติ ตาบอด เดินไม่ประสาน กล้ามเนื้อสั่น และอัมพาต วินิจฉัยด้วย complement fixation, PRN test, PCR หรือแยกเชื้อ\n\nทำไมข้ออื่นผิด\nสุกรกับยุง Culex: เป็นวงจรของ Japanese encephalitis ซึ่งสุกรเป็นตัวขยายเชื้อ\nม้าลายกับริ้น: เป็นวงจรของ African horse sickness\nสุนัขกับการกัด: เป็นทางติดของพิษสุนัขบ้า",
+    "source": "Eq Infectious Dz and Biosecurity หน้า 30 ถึง 32",
+    "verified": "Eq Infectious Dz and Biosecurity (2569) หน้า 30 (EEE, WEE, VEE, sleeping sickness, mosquito vector, important reservoir birds), หน้า 31 (signs), หน้า 32 (CF, PRN, PCR, viral isolation), หน้า 33 (JE: Culex, pigs amplifiers), หน้า 4 (rabies bite); สไลด์ Eq inf dz 67 ของรุ่นพี่ Vet 84 หน้า 31 ขีดเส้นใต้ mosquitoes that carried viruses และเขียน zoonosis, หน้า 33 ไฮไลต์ Complement fixation (CF)",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides",
+    "tags": [
+      "equine-infectious",
+      "equine-encephalomyelitis",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 30
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 32
+      },
+      {
+        "doc": "equine-infectious-v84",
+        "edition": "75p",
+        "page": 31
+      },
+      {
+        "doc": "equine-infectious-v84",
+        "edition": "75p",
+        "page": 33
+      }
+    ]
+  },
+  {
+    "id": 218514,
+    "subject": "equine-medicine",
+    "topic": "equine-infectious",
+    "year": 5,
+    "type": "mcq",
+    "q": "ข้อใดไม่ใช่ทางที่ Clostridium tetani เข้าสู่ร่างกายม้า",
+    "options": [
+      "แผลตะปูตำที่พื้นกีบที่สกปรก",
+      "แผลหลุมในกระเพาะหรือลำไส้ หลังกินดินหรือมูลที่ปนเปื้อน",
+      "สะดือของลูกม้าแรกเกิด",
+      "หายใจเอาสปอร์ในฝุ่นคอกเข้าทางเดินหายใจ"
+    ],
+    "answer": 3,
+    "explain": "Clostridium tetani เป็นแบคทีเรียไม่ใช้ออกซิเจน สปอร์อยู่ในดินได้นาน สร้าง tetanus toxin ซึ่งเป็น neurotoxin ทำให้เกิดอาการบาดทะยัก เชื้อเข้าทางแผล โดยเฉพาะแผลตะปูตำที่สกปรกและแผลที่พื้นกีบ เข้าทางลำไส้ผ่านแผลหลุมในกระเพาะหรือลำไส้หลังกินดินหรือมูลที่ปนเปื้อน และในลูกม้าเข้าทางสะดือ การหายใจเอาสปอร์เข้าไปไม่ใช่ทางติดโรคนี้\n\nทำไมข้ออื่นผิด\nแผลตะปูตำที่พื้นกีบ แผลหลุมในทางเดินอาหาร และสะดือลูกม้า: ทั้งสามเป็นทางเข้าของเชื้อ",
+    "source": "Eq Infectious Dz and Biosecurity หน้า 38 และ 39",
+    "verified": "Eq Infectious Dz and Biosecurity (2569) หน้า 38 (anaerobic, persistent spore in soil, tetanus toxin, potent neurotoxin), หน้า 39 (route: wounds, puncture wounds on the sole, via the intestines through gastric or intestinal ulcers, in foals via the umbilicus); สไลด์ Eq inf dz 67 ของรุ่นพี่ Vet 84 หน้า 39 ไฮไลต์ spore, soil และหน้า 40 ขีดเส้นใต้ wounds และไฮไลต์ through gastric or intestinal ulcers, In foals ... umbilicus",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides",
+    "tags": [
+      "equine-infectious",
+      "tetanus",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 38
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 39
+      },
+      {
+        "doc": "equine-infectious-v84",
+        "edition": "75p",
+        "page": 39
+      },
+      {
+        "doc": "equine-infectious-v84",
+        "edition": "75p",
+        "page": 40
+      }
+    ]
+  },
+  {
+    "id": 218515,
+    "subject": "equine-medicine",
+    "topic": "equine-infectious",
+    "year": 5,
+    "type": "mcq",
+    "q": "Strangles ติดต่อระหว่างม้าทางใดบ่อยที่สุด",
+    "options": [
+      "ยุงและแมลงดูดเลือดที่กัดม้าป่วยแล้วไปกัดม้าตัวอื่น",
+      "สัมผัสกันโดยตรงระหว่างม้า",
+      "กินหญ้าที่มีสปอร์ของเชื้อปนอยู่ในดิน",
+      "ละอองในอากาศที่ลมพัดไปไกลหลายกิโลเมตร"
+    ],
+    "answer": 1,
+    "explain": "Strangles เกิดจาก Streptococcus equi ติดต่อทางการสัมผัสกันโดยตรงระหว่างม้าบ่อยที่สุด น้ำมูกและหนองจากฝีมีเชื้อปริมาณมากและติดต่อได้ง่าย และติดผ่านอุปกรณ์ที่ปนเปื้อนได้ การป้องกันจึงเน้นเลี่ยงการสัมผัสม้าที่ไม่ทราบที่มา กักกัน และจำกัดการเคลื่อนย้ายม้าและคน\n\nทำไมข้ออื่นผิด\nแมลงดูดเลือด: เป็นทางติดของ EIA และโรคที่มีพาหะ\nสปอร์ในดิน: S. equi ไม่สร้างสปอร์ สปอร์ในดินเป็นลักษณะของ Clostridium tetani\nละอองลอยไปไกลหลายกิโลเมตร: การแพร่ข้ามระยะไกลด้วยลมเป็นลักษณะของพาหะ AHS",
+    "source": "Eq Infectious Dz and Biosecurity หน้า 45, 46 และ 52",
+    "verified": "Eq Infectious Dz and Biosecurity (2569) หน้า 46 (direct contact between horses is the most common way, discharge from the nose or abscesses highly infective, contaminated equipment), หน้า 45 (Streptococcus equi), หน้า 52 (avoid contact with horses of unknown origin, quarantine, restrict movement), หน้า 38 (tetanus spores), หน้า 9 (AHS wind-borne vectors); สไลด์ Eq inf dz 67 ของรุ่นพี่ Vet 84 หน้า 47 ไฮไลต์ Direct contact between horses is the most common way",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides",
+    "tags": [
+      "equine-infectious",
+      "strangles",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 46
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 52
+      },
+      {
+        "doc": "equine-infectious-v84",
+        "edition": "75p",
+        "page": 47
+      }
+    ]
+  },
+  {
+    "id": 218516,
+    "subject": "equine-medicine",
+    "topic": "equine-infectious",
+    "year": 5,
+    "type": "mcq",
+    "q": "การใช้ procaine penicillin G รักษา strangles ข้อใดถูกต้อง",
+    "options": [
+      "ควรให้หลังฝีแตกแล้วเท่านั้น เพื่อไม่ให้หนองกระจายไปที่อื่น",
+      "ห้ามใช้ทุกระยะ เพราะ Streptococcus equi ดื้อ penicillin ตามธรรมชาติ",
+      "ให้ระยะสั้นเพียง 3 วันก็พอ แม้ในม้าที่เป็น bastard strangles",
+      "ได้ผลดีถ้าให้ก่อนเกิดฝี ถ้าให้หลังเกิดฝีแล้วจะทำให้หายช้าลง"
+    ],
+    "answer": 3,
+    "explain": "Procaine penicillin G เป็นยาที่เลือกใช้รักษา strangles ถ้าให้ก่อนเกิดฝีที่ต่อมน้ำเหลือง ถ้าให้หลังฝีเกิดแล้วจะทำให้หายช้าลง ร่วมกับการดูแลประคับประคอง ได้แก่ ให้ม้าอบอุ่นและแห้ง แยกจากม้าตัวอื่น ให้อาหารอ่อน และประคบร้อนที่ฝี\n\nทำไมข้ออื่นผิด\nให้หลังฝีแตกเท่านั้น: การให้ยาหลังเกิดฝีทำให้หายช้าลง\nห้ามใช้เพราะดื้อยา: penicillin เป็นยาที่เลือกใช้\nให้ 3 วันใน bastard strangles: ภาวะนี้ต้องให้ยาปฏิชีวนะนาน 4 ถึง 6 สัปดาห์",
+    "source": "Eq Infectious Dz and Biosecurity หน้า 51",
+    "verified": "Eq Infectious Dz and Biosecurity (2569) หน้า 51 (supportive care, procaine penicillin G is the drug of choice if used before abscess development, penicillin used after abscess formation slows recovery, bastard strangles 4-6 weeks); สไลด์ Eq inf dz 67 ของรุ่นพี่ Vet 84 หน้า 52 ไฮไลต์ Procaine penicillin G is the drug of choice",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides",
+    "tags": [
+      "equine-infectious",
+      "strangles",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 51
+      },
+      {
+        "doc": "equine-infectious-v84",
+        "edition": "75p",
+        "page": 52
+      }
+    ]
+  },
+  {
+    "id": 218517,
+    "subject": "equine-medicine",
+    "topic": "equine-infectious",
+    "year": 5,
+    "type": "mcq",
+    "q": "Bastard strangles คือภาวะใด และต้องให้ยาปฏิชีวนะนานเท่าใด",
+    "options": [
+      "ฝีเกิดกระจายทั่วร่างกาย เช่น ปอด ตับ ม้าม ไต และสมอง ให้ยานาน 4 ถึง 6 สัปดาห์",
+      "ต่อมน้ำเหลืองใต้คางบวมจนกดทางเดินหายใจ ให้ยานาน 3 ถึง 5 วัน",
+      "ม้าที่หายแล้วยังปล่อยเชื้อทางน้ำมูก ให้ยานาน 7 ถึง 10 วัน",
+      "ม้าติดเชื้อซ้ำหลังฉีดวัคซีน ให้ยาต่อเนื่องนาน 6 เดือน"
+    ],
+    "answer": 0,
+    "explain": "Bastard strangles เป็นภาวะแทรกซ้อนที่พบได้ถึงราวร้อยละ 20 ของม้าที่เป็น strangles เกิดฝีกระจายไปทั่วร่างกาย ตำแหน่งที่พบบ่อยคือปอด ตับ ม้าม ไต และสมอง ต้องให้ยาปฏิชีวนะนาน 4 ถึง 6 สัปดาห์ และอาจต้องให้ยาต้านการอักเสบหรือสารน้ำทางหลอดเลือดร่วมด้วย\n\nทำไมข้ออื่นผิด\nต่อมน้ำเหลืองใต้คางบวมกดทางเดินหายใจ: เป็นที่มาของชื่อ strangles ในม้าทั่วไป\nม้าที่หายแล้วยังปล่อยเชื้อ: ไม่ใช่ความหมายของ bastard strangles\nติดเชื้อซ้ำหลังฉีดวัคซีน: ไม่ใช่ความหมายของ bastard strangles และระยะเวลาให้ยาไม่ถูก",
+    "source": "Eq Infectious Dz and Biosecurity หน้า 45, 49 และ 51",
+    "verified": "Eq Infectious Dz and Biosecurity (2569) หน้า 49 (bastard strangles in up to 20 percent of cases, abscesses throughout the body, most commonly lungs, liver, spleen, kidney and brain), หน้า 51 (antibiotic therapy for four to six weeks, anti-inflammatory medications or intravenous fluids), หน้า 45 (name from swelling of lymph nodes); สไลด์ Eq inf dz 67 ของรุ่นพี่ Vet 84 หน้า 50 ขีดเส้นใต้ bastard strangles",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides",
+    "tags": [
+      "equine-infectious",
+      "strangles",
+      "bastard-strangles",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 49
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 51
+      },
+      {
+        "doc": "equine-infectious-v84",
+        "edition": "75p",
+        "page": 50
+      }
+    ]
+  },
+  {
+    "id": 218518,
+    "subject": "equine-medicine",
+    "topic": "equine-infectious",
+    "year": 5,
+    "type": "mcq",
+    "q": "ข้อใดถูกต้องเกี่ยวกับ glanders ในม้า",
+    "options": [
+      "เกิดจาก Burkholderia mallei แบ่งเป็น nasal, pulmonary และ cutaneous form และไม่มีวัคซีน",
+      "เกิดจาก Taylorella equigenitalis ติดต่อทางการผสมพันธุ์ และทำให้แม่ม้ามดลูกอักเสบ",
+      "เกิดจาก Streptococcus equi ทำให้ต่อมน้ำเหลืองใต้คางเป็นฝี และรักษาด้วย penicillin",
+      "เกิดจาก Pythium insidiosum ทำให้แผลเป็นก้อนเนื้อที่ขา และรักษาด้วย PIA"
+    ],
+    "answer": 0,
+    "explain": "Glanders เกิดจาก Burkholderia mallei ติดต่อทางอาหารหรือน้ำที่ปนเปื้อนน้ำมูกของม้าที่เป็นพาหะ แบ่งเป็น nasal, pulmonary และ cutaneous form อาการคือไข้สูง น้ำมูกข้น และแผลหลุมที่ทางเดินหายใจส่วนบน ปอด หรือผิวหนัง อัตราตายสูงและไม่มีวัคซีน การป้องกันคือตรวจหาและกำจัดม้าป่วย กักกัน ฆ่าเชื้อพื้นที่ และมักแนะนำให้ทำ euthanasia ม้าป่วย\n\nทำไมข้ออื่นผิด\nTaylorella equigenitalis: ก่อ contagious equine metritis\nStreptococcus equi: ก่อ strangles\nPythium insidiosum: ก่อ pythiosis",
+    "source": "Eq Infectious Dz and Biosecurity หน้า 53 ถึง 55",
+    "verified": "Eq Infectious Dz and Biosecurity (2569) หน้า 53 (Burkholderia mallei, food or water contaminated by nasal discharge of carriers, nasal, pulmonary, cutaneous form), หน้า 54 (signs), หน้า 55 (mortality high, no vaccine available, detection and elimination, quarantine, euthanasia usually recommended), หน้า 56, 45, 67 (CEM, strangles, pythiosis); สไลด์ Eq inf dz 67 ของรุ่นพี่ Vet 84 หน้า 54 ปากกาแดง zoonosis และหน้า 56 ขีดเส้นใต้ No vaccine available",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides",
+    "tags": [
+      "equine-infectious",
+      "glanders",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 53
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 55
+      },
+      {
+        "doc": "equine-infectious-v84",
+        "edition": "75p",
+        "page": 54
+      },
+      {
+        "doc": "equine-infectious-v84",
+        "edition": "75p",
+        "page": 56
+      }
+    ]
+  },
+  {
+    "id": 218519,
+    "subject": "equine-medicine",
+    "topic": "equine-infectious",
+    "year": 5,
+    "type": "mcq",
+    "q": "แม่ม้ามีมดลูกอักเสบ (endometritis) และมีหนองไหลจากช่องคลอดหลังผสมพันธุ์ ตรวจสิ่งคัดหลั่งจากมดลูกพบแบคทีเรียแกรมลบรูปแท่งสั้น (coccobacilli) ควรนึกถึงเชื้อใด",
+    "options": [
+      "Streptococcus equi",
+      "Burkholderia mallei",
+      "Clostridium tetani",
+      "Taylorella equigenitalis"
+    ],
+    "answer": 3,
+    "explain": "Contagious equine metritis (CEM) เกิดจาก Taylorella equigenitalis ติดต่อทางการผสมพันธุ์ การผสมเทียม และการปนเปื้อนจากมือ แม่ม้าเกิด endometritis, cervicitis, vaginitis และมีหนองไหล วินิจฉัยด้วยการเพาะเชื้อ PCR และย้อมสิ่งคัดหลั่งจากมดลูกพบแบคทีเรียแกรมลบรูปแท่งสั้น ไม่มีวัคซีน แต่เชื้อไวต่อยาฆ่าเชื้อทั่วไป เช่น chlorhexidine และ sodium hypochlorite\n\nทำไมข้ออื่นผิด\nStreptococcus equi: แกรมบวก ก่อ strangles\nBurkholderia mallei: ก่อ glanders ติดทางอาหารและน้ำที่ปนเปื้อนน้ำมูก\nClostridium tetani: แกรมบวกสร้างสปอร์ ก่อบาดทะยัก",
+    "source": "Eq Infectious Dz and Biosecurity หน้า 56 ถึง 58",
+    "verified": "Eq Infectious Dz and Biosecurity (2569) หน้า 56 (Taylorella equigenitalis, mating, AI, manual contamination), หน้า 57 (mares can develop endometritis, cervicitis, vaginitis, mucopurulent discharge), หน้า 58 (culture, PCR, gram-negative coccobacilli, no vaccine, chlorhexidine, sodium hypochlorite); สไลด์ Eq inf dz 67 ของรุ่นพี่ Vet 84 หน้า 58 ไฮไลต์ develop endometritis และหน้า 59 ไฮไลต์ CEM, Culture / PCR",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides",
+    "tags": [
+      "equine-infectious",
+      "contagious-equine-metritis",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 57
+      },
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 58
+      },
+      {
+        "doc": "equine-infectious-v84",
+        "edition": "75p",
+        "page": 58
+      },
+      {
+        "doc": "equine-infectious-v84",
+        "edition": "75p",
+        "page": 59
+      }
+    ]
+  },
+  {
+    "id": 218520,
+    "subject": "equine-medicine",
+    "topic": "equine-pythium",
+    "year": 5,
+    "type": "mcq",
+    "q": "ก้อนแข็งสีเทาที่เป็นเนื้อตาย (firm, necrotic gray material) ซึ่งพบอยู่ในแผล pythiosis ของม้า เรียกว่าอะไร",
+    "options": [
+      "Sequestrum",
+      "Kunkers",
+      "Proud flesh",
+      "Sitfast"
+    ],
+    "answer": 1,
+    "explain": "รอยโรคของ equine pythiosis เป็นแผลหลุมและก้อนเนื้อแบบ granuloma ที่ผิวหนังและใต้ผิวหนัง พบบ่อยที่ขา อก และท้อง ภายในแผลมีก้อนแข็งสีเทาที่เป็นเนื้อตาย เรียกว่า kunkers\n\nทำไมข้ออื่นผิด\nSequestrum: ชิ้นกระดูกตายที่แยกตัวออกจากกระดูกปกติ\nProud flesh: ชื่อเรียกของ exuberant granulation tissue ที่งอกเกินระดับผิวแผล\nSitfast: แผลกดทับเรื้อรังใต้อานหรืออุปกรณ์",
+    "source": "Eq Infectious Dz and Biosecurity หน้า 68",
+    "verified": "Eq Infectious Dz and Biosecurity (2569) หน้า 68 (ulceration, granulomatous lesions at cutaneous and subcutaneous tissues, limbs, chest and abdomen, firm and necrotic gray material referred as kunkers); Equine dermatology and wound management (2569) หัวข้อ exuberant granulation tissue; สไลด์ Eq inf dz 67 ของรุ่นพี่ Vet 84 หน้า 69 ไฮไลต์ Granulomatous และ kunkers",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides",
+    "tags": [
+      "equine-pythium",
+      "kunkers",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-infectious-2569",
+        "edition": "83p",
+        "page": 68
+      },
+      {
+        "doc": "equine-infectious-v84",
+        "edition": "75p",
+        "page": 69
+      }
+    ]
+  },
+  {
+    "id": 218521,
+    "subject": "equine-medicine",
+    "topic": "equine-ophth",
+    "year": 5,
+    "type": "mcq",
+    "q": "ความคมชัดของการมองเห็น (visual acuity) ของม้าเทียบกับคน สุนัข และแมวเป็นอย่างไร",
+    "options": [
+      "ราว 1.5 เท่าของคน 0.6 เท่าของสุนัข และ 3 เท่าของแมว",
+      "ราว 3 เท่าของคน 1.5 เท่าของสุนัข และ 0.6 เท่าของแมว",
+      "ราว 0.6 เท่าของคน 1.5 เท่าของสุนัข และ 3 เท่าของแมว",
+      "ราว 0.6 เท่าของคน 0.3 เท่าของสุนัข และ 1.5 เท่าของแมว"
+    ],
+    "answer": 2,
+    "explain": "Visual acuity ของม้าราว 0.6 เท่าของคน 1.5 เท่าของสุนัข และ 3 เท่าของแมว คือดีกว่าสุนัขและแมวแต่ด้อยกว่าคน เบ้าตาที่อยู่ด้านข้างทำให้มีลานสายตากว้างราว 350 องศา แต่การมองสองตา (65 ถึง 70 องศา) และการกะระยะลดลง เลนส์ปรับโฟกัสได้น้อย จึงมองระยะใกล้ได้จำกัด\n\nทำไมข้ออื่นผิด\nตัวเลขในตัวเลือกอื่นสลับตำแหน่งกัน ม้ามองชัดน้อยกว่าคน แต่ชัดกว่าสุนัขและแมว",
+    "source": "Equine Ophthalmology หน้า 6",
+    "verified": "Equine Ophthalmology (2569) หน้า 6 (panoramic visual field 350 degree, binocular vision 65-70 degree, visual acuity 0.6x of humans, 1.5x of dogs, 3x of cats, weak accommodative ability of lens); สไลด์ Equine Ophthalmology 67 ของรุ่นพี่ Vet 84 หน้า 7 ขีดเส้นใต้ 350 degree และ Visual acuity พร้อมโน้ตว่าดีกว่าสุนัขแมวแต่น้อยกว่าคน",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides",
+    "tags": [
+      "equine-ophth",
+      "equine-vision",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-ophthalmology-2569",
+        "edition": "58p",
+        "page": 6
+      },
+      {
+        "doc": "equine-ophthalmology-v84",
+        "edition": "57p",
+        "page": 7
+      }
+    ]
+  },
+  {
+    "id": 218522,
+    "subject": "equine-medicine",
+    "topic": "equine-ophth",
+    "year": 5,
+    "type": "mcq",
+    "q": "ขนตาของม้ามีลักษณะอย่างไร",
+    "options": [
+      "มีทั้งหนังตาบนและล่าง และเรียงขนานกับกระจกตา",
+      "มีเฉพาะหนังตาบน และเรียงตั้งฉากกับกระจกตา",
+      "มีเฉพาะหนังตาล่าง และชี้ลงด้านล่าง",
+      "มีเฉพาะที่หนังตาที่สาม และชี้เข้าหาหัวตา"
+    ],
+    "answer": 1,
+    "explain": "หนังตาม้าบางและมีหลอดเลือดมาก จึงบวมได้ง่าย ม้ามีขนตาเฉพาะที่หนังตาบน และเรียงตั้งฉากกับกระจกตา หนังตาที่เริ่มบวมเป็นสัญญาณให้ตรวจหารอยโรคที่กระจกตา และ neutrophil จากหนังตาที่อักเสบเข้าสู่น้ำตา กระตุ้นให้เกิด cytokine และโรคกระจกตาอักเสบได้\n\nทำไมข้ออื่นผิด\nมีทั้งบนและล่าง: ม้ามีขนตาเฉพาะหนังตาบน\nเฉพาะหนังตาล่าง: ผิดตำแหน่ง\nเฉพาะหนังตาที่สาม: หนังตาที่สามไม่มีขนตา",
+    "source": "Equine Ophthalmology หน้า 8",
+    "verified": "Equine Ophthalmology (2569) หน้า 8 (eyelid thin and highly vascularized, only upper eyelashes, perpendicular to the cornea, early sign of eyelid swelling, monitor for corneal lesion, neutrophils into tears); สไลด์ Equine Ophthalmology 67 ของรุ่นพี่ Vet 84 หน้า 8 ขีดเส้นใต้ Eyelashes และ upper พร้อมดาวสองดวง",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides",
+    "tags": [
+      "equine-ophth",
+      "eyelid",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-ophthalmology-2569",
+        "edition": "58p",
+        "page": 8
+      },
+      {
+        "doc": "equine-ophthalmology-v84",
+        "edition": "57p",
+        "page": 8
+      }
+    ]
+  },
+  {
+    "id": 218523,
+    "subject": "equine-medicine",
+    "topic": "equine-ophth",
+    "year": 5,
+    "type": "mcq",
+    "q": "ตรวจตาม้าพบสีเข้ม (pigment) ที่เยื่อบุตาบริเวณใกล้ขอบกระจกตา (limbus) ควรแปลผลอย่างไร",
+    "options": [
+      "เป็นระยะเริ่มต้นของ melanoma ควรตัดชิ้นเนื้อออกทันที",
+      "บ่งชี้ว่าเคยเป็น equine recurrent uveitis มาก่อน",
+      "พบได้บ่อยในม้า ไม่ได้บ่งชี้ความผิดปกติ",
+      "เป็นรอยโรคแรกเริ่มของ squamous cell carcinoma"
+    ],
+    "answer": 2,
+    "explain": "เยื่อบุตาเป็นส่วนหนึ่งของระบบภูมิคุ้มกันของตาและมีเซลล์สร้างน้ำตา การมีสีเข้มที่เยื่อบุตาใกล้ limbus พบได้บ่อยในม้า ส่วนอาการตาแดงพบได้ในโรคตาเกือบทุกชนิด\n\nทำไมข้ออื่นผิด\nMelanoma และ SCC: สีเข้มบริเวณนี้พบได้บ่อยตามปกติ ไม่ได้บ่งชี้เนื้องอก ส่วน SCC มักพบในบริเวณที่ไม่มีเม็ดสี\nERU: วินิจฉัยจากอาการอักเสบภายในลูกตาซ้ำๆ ไม่ใช่จากสีของเยื่อบุตา",
+    "source": "Equine Ophthalmology หน้า 11 และ 28",
+    "verified": "Equine Ophthalmology (2569) หน้า 11 (conjunctiva: component of ocular immune system and tear producing cells, pigmented conjunctiva near limbus: common, red eye in nearly all eye diseases), หน้า 28 (SCC related to peri-ocular pigmentation), หน้า 36 (uveitis); สไลด์ Equine Ophthalmology 67 ของรุ่นพี่ Vet 84 หน้า 11 ขีดเส้นใต้ Pigmented conjunctiva พร้อมโน้ตว่าปกติ",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides",
+    "tags": [
+      "equine-ophth",
+      "conjunctiva",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-ophthalmology-2569",
+        "edition": "58p",
+        "page": 11
+      },
+      {
+        "doc": "equine-ophthalmology-v84",
+        "edition": "57p",
+        "page": 11
+      }
+    ]
+  },
+  {
+    "id": 218524,
+    "subject": "equine-medicine",
+    "topic": "equine-ophth",
+    "year": 5,
+    "type": "mcq",
+    "q": "แผลที่ผิวกระจกตาม้าที่เรื้อรัง (persistent superficial corneal ulcer) ส่งผลต่อกระจกตาอย่างไร",
+    "options": [
+      "กระจกตาไวต่อความรู้สึกมากขึ้น แผลจึงหายเร็วขึ้น",
+      "เส้นประสาท facial งอกเข้าไปเลี้ยงชั้นผิวมากขึ้น",
+      "กระจกตาส่วนกลางหนาขึ้นจนถึงราว 3 มิลลิเมตร",
+      "ความรู้สึกของกระจกตาลดลง แผลจึงหายช้า"
+    ],
+    "answer": 3,
+    "explain": "กระจกตาม้าได้รับเส้นประสาทจากแขนงของ trigeminal nerve ซึ่งหนาแน่นที่ชั้นผิว จึงไวต่อความรู้สึกมาก แผลที่ผิวกระจกตาที่เรื้อรังทำให้ความรู้สึกของกระจกตาลดลง และแผลหายช้า กระจกตาส่วนกลางหนา 1.0 ถึง 1.5 มิลลิเมตร ส่วนขอบหนาราว 0.8 มิลลิเมตร และตาที่ยื่นเด่นของม้าทำให้บาดเจ็บที่กระจกตาได้ง่าย\n\nทำไมข้ออื่นผิด\nไวต่อความรู้สึกมากขึ้น: แผลเรื้อรังทำให้ความรู้สึกลดลง\nเส้นประสาท facial: กระจกตาได้รับเส้นประสาทจาก trigeminal nerve\nหนาขึ้นถึง 3 มิลลิเมตร: ความหนาปกติส่วนกลางคือ 1.0 ถึง 1.5 มิลลิเมตร",
+    "source": "Equine Ophthalmology หน้า 16",
+    "verified": "Equine Ophthalmology (2569) หน้า 16 (thickness center 1.0-1.5 mm, periphery 0.8 mm, branch of trigeminal nerve concentrated on superficial layer, very sensitive, persistent superficial ulcer, decreased corneal sensation, slow healing, prominent eye prone to trauma); สไลด์ Equine Ophthalmology 67 ของรุ่นพี่ Vet 84 หน้า 15 ขีดเส้นใต้ Branch of trigeminal nerve และ very sensitive organ",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides",
+    "tags": [
+      "equine-ophth",
+      "cornea",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-ophthalmology-2569",
+        "edition": "58p",
+        "page": 16
+      },
+      {
+        "doc": "equine-ophthalmology-v84",
+        "edition": "57p",
+        "page": 15
+      }
+    ]
+  },
+  {
+    "id": 218525,
+    "subject": "equine-medicine",
+    "topic": "equine-ophth",
+    "year": 5,
+    "type": "mcq",
+    "q": "ประวัติใดชวนให้นึกถึง ulcerative keratomycosis ในม้ามากที่สุด",
+    "options": [
+      "กระจกตาเคยบาดเจ็บจากเศษพืช และรักษามานานแต่ไม่ดีขึ้น",
+      "ตาอักเสบภายในลูกตาซ้ำหลายรอบในม้าพันธุ์ Appaloosa",
+      "มีก้อนที่หนังตาที่สามในม้าขนสีขาวที่ตากแดดเป็นประจำ",
+      "ตามัวลงช้าๆ ในม้าอายุมากที่วัดความดันลูกตาได้สูง"
+    ],
+    "answer": 0,
+    "explain": "Ulcerative keratomycosis เกิดจากเชื้อราที่อยู่ตามธรรมชาติในสิ่งแวดล้อม ประวัติที่พบบ่อยคือกระจกตาเคยบาดเจ็บจากเศษพืช และรักษามานานแต่ไม่ดีขึ้น เมื่อเชื้อเข้าทางแผล เชื้อรา เม็ดเลือดขาว และ keratocyte ปล่อย proteinase และเชื้อรามีแนวโน้มลงไปถึงชั้น Descemet's membrane ยาต้านเชื้อราที่ใช้ เช่น natamycin, miconazole, itraconazole\n\nทำไมข้ออื่นผิด\nอักเสบซ้ำในม้า Appaloosa: เข้ากับ equine recurrent uveitis\nก้อนที่หนังตาที่สามในม้าสีขาว: เข้ากับ squamous cell carcinoma\nตามัวในม้าแก่ที่ความดันตาสูง: เข้ากับ glaucoma",
+    "source": "Equine Ophthalmology หน้า 20",
+    "verified": "Equine Ophthalmology (2569) หน้า 20 (fungus normal inhabitants of environment, history of corneal injury with vegetative materials, prolonged therapy with no improvement, proteinase, antifungals, affinity of fungi for Descemet's membrane), หน้า 28, 36, 48; สไลด์ Equine Ophthalmology 67 ของรุ่นพี่ Vet 84 หน้า 18 ขีดเส้นใต้ ULCERATIVE KERATOMYCOSIS และวง Fungus พร้อมโน้ตว่ามาจากหญ้าฟาง",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides",
+    "tags": [
+      "equine-ophth",
+      "keratomycosis",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-ophthalmology-2569",
+        "edition": "58p",
+        "page": 20
+      },
+      {
+        "doc": "equine-ophthalmology-v84",
+        "edition": "57p",
+        "page": 18
+      }
+    ]
+  },
+  {
+    "id": 218526,
+    "subject": "equine-medicine",
+    "topic": "equine-ophth",
+    "year": 5,
+    "type": "mcq",
+    "q": "ปัจจัยเสี่ยงของ squamous cell carcinoma ที่ตาและอวัยวะรอบตาของม้าคือข้อใด",
+    "options": [
+      "การติด bovine papillomavirus ในม้าอายุน้อยกว่า 3 ปี",
+      "แสงยูวี ผิวรอบตาที่ไม่มีเม็ดสี และม้าขนสีขาวหรือเทาขาว",
+      "ความดันลูกตาสูงจาก pectinate ligament ที่เสื่อม",
+      "การบาดเจ็บของกระจกตาจากเศษพืชและหญ้าฟาง"
+    ],
+    "answer": 1,
+    "explain": "Squamous cell carcinoma เป็นเนื้องอกที่พบบ่อยที่สุดของอวัยวะรอบตาม้า สัมพันธ์กับการได้รับแสงยูวี สีของผิวรอบตา และความไวต่อสารก่อมะเร็ง พบมากในม้าขนสีขาวหรือเทาขาว การรักษาร่วมได้แก่ ผ่าตัด cryotherapy hyperthermia immunotherapy chemotherapy และการฉายรังสี\n\nทำไมข้ออื่นผิด\nBovine papillomavirus: เกี่ยวกับ sarcoid และ papilloma\nความดันลูกตาสูงจาก pectinate ligament เสื่อม: เป็นกลไกของ glaucoma\nบาดเจ็บจากเศษพืช: เป็นประวัติของ keratomycosis",
+    "source": "Equine Ophthalmology หน้า 28 และ 29",
+    "verified": "Equine Ophthalmology (2569) หน้า 28 (SCC most common tumor of equine adnexa, related to UV exposure, peri-ocular pigmentation, susceptibility to carcinogen, high prevalence in white, grey-white horses), หน้า 29 (treatments), หน้า 49 (pectinate ligament), หน้า 20 (keratomycosis); สไลด์ Equine Ophthalmology 67 ของรุ่นพี่ Vet 84 หน้า 27 ขีดเส้นใต้ most common tumor, Related to UV exposure และ white",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides",
+    "tags": [
+      "equine-ophth",
+      "squamous-cell-carcinoma",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-ophthalmology-2569",
+        "edition": "58p",
+        "page": 28
+      },
+      {
+        "doc": "equine-ophthalmology-v84",
+        "edition": "57p",
+        "page": 27
+      }
+    ]
+  },
+  {
+    "id": 218527,
+    "subject": "equine-medicine",
+    "topic": "equine-ophth",
+    "year": 5,
+    "type": "mcq",
+    "q": "ม้าที่เป็น equine recurrent uveitis ในระยะที่มี cyclitis มักวัดความดันลูกตา (IOP) ได้อย่างไร",
+    "options": [
+      "สูงขึ้นตลอดเวลาจนเกิด glaucoma ทันที",
+      "ปกติเสมอไม่ว่าจะอยู่ระยะใดของโรค",
+      "ต่ำลงเป็นพักๆ",
+      "สูงขึ้นเฉพาะตอนกลางคืนเมื่อรูม่านตาขยาย"
+    ],
+    "answer": 2,
+    "explain": "Uveitis ในม้าแบ่งเป็น 3 กลุ่มอาการ คือ classic, insidious และ posterior ความดันลูกตาอาจต่ำลงเป็นพักๆ เมื่อมี cyclitis พบ aqueous flare เมื่อมี iridocyclitis อาจเกิดต้อกระจกแทรกซ้อน choroiditis ทำให้จอประสาทตาหลุดลอกแบบมีของเหลว และอาจจบที่ตาบอดถาวร ERU ยังเป็นปัจจัยเสี่ยงของ glaucoma ในระยะต่อมา\n\nทำไมข้ออื่นผิด\nสูงขึ้นตลอดจน glaucoma ทันที: ระยะอักเสบมักมีความดันต่ำ ส่วน glaucoma เป็นผลระยะยาว\nปกติเสมอ: ความดันเปลี่ยนตามการอักเสบ\nสูงเฉพาะกลางคืน: ไม่ใช่ลักษณะของ ERU",
+    "source": "Equine Ophthalmology หน้า 36 และ 48",
+    "verified": "Equine Ophthalmology (2569) หน้า 36 (3 syndromes classic, insidious, posterior, IOP may be intermittently low if cyclitis, aqueous flare, secondary cataract, choroiditis, irreversible blindness), หน้า 48 (risk for glaucoma: ERU); สไลด์ Equine Ophthalmology 67 ของรุ่นพี่ Vet 84 หน้า 31 ขีดเส้นใต้ IOP และ low พร้อมเครื่องหมายสามขีด",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides",
+    "tags": [
+      "equine-ophth",
+      "equine-recurrent-uveitis",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-ophthalmology-2569",
+        "edition": "58p",
+        "page": 36
+      },
+      {
+        "doc": "equine-ophthalmology-v84",
+        "edition": "57p",
+        "page": 31
+      }
+    ]
+  },
+  {
+    "id": 218528,
+    "subject": "equine-medicine",
+    "topic": "equine-ophth",
+    "year": 5,
+    "type": "mcq",
+    "q": "ม้ากลุ่มใดเสี่ยงต่อต้อหิน (glaucoma) และใช้วิธีใดวินิจฉัย",
+    "options": [
+      "ลูกม้าอายุน้อยกว่า 6 เดือน วินิจฉัยด้วย fluorescein staining",
+      "ม้าขนสีขาวที่ตากแดดนาน วินิจฉัยด้วย corneal scraping",
+      "ม้าที่เคยเป็น ERU ม้าอายุมาก และม้าพันธุ์ Appaloosa วินิจฉัยด้วย tonometry",
+      "ม้าที่กินหญ้าแห้งขึ้นรา วินิจฉัยด้วยการเพาะเชื้อจากน้ำตา"
+    ],
+    "answer": 2,
+    "explain": "Glaucoma ในม้าเกิดจากการไหลเวียนของ aqueous humor ผิดปกติ ทำให้ความดันลูกตาสูงจนตาบอด กลุ่มเสี่ยงคือม้าที่เคยเป็น ERU ม้าอายุมาก และม้าพันธุ์ Appaloosa วินิจฉัยด้วยการวัดความดันลูกตา (tonometry) และการส่องตรวจ ophthalmoscopy การเสื่อมของ pectinate ligament ที่มุมระบายน้ำทำให้การระบายลดลง\n\nทำไมข้ออื่นผิด\nFluorescein staining: ใช้หาแผลที่กระจกตา\nม้าขนสีขาวตากแดด: เป็นปัจจัยเสี่ยงของ squamous cell carcinoma\nหญ้าแห้งขึ้นรา: เกี่ยวกับเชื้อราที่กระจกตา ไม่ใช่ glaucoma",
+    "source": "Equine Ophthalmology หน้า 48 และ 49",
+    "verified": "Equine Ophthalmology (2569) หน้า 48 (glaucoma: alteration of aqueous humor dynamics, increased IOP, blindness, risk: ERU, aged horse, Appaloosa, diagnosis: tonometry, ophthalmoscopy), หน้า 49 (degeneration of pectinate ligament), หน้า 17 (fluorescein), หน้า 28 (SCC); สไลด์ Equine Ophthalmology 67 ของรุ่นพี่ Vet 84 หน้า 35 ขีดเส้นใต้ Tonometry และหน้า 36 ขีดเส้นใต้ Degeneration of pectinate ligament",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides",
+    "tags": [
+      "equine-ophth",
+      "glaucoma",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-ophthalmology-2569",
+        "edition": "58p",
+        "page": 48
+      },
+      {
+        "doc": "equine-ophthalmology-2569",
+        "edition": "58p",
+        "page": 49
+      },
+      {
+        "doc": "equine-ophthalmology-v84",
+        "edition": "57p",
+        "page": 35
+      },
+      {
+        "doc": "equine-ophthalmology-v84",
+        "edition": "57p",
+        "page": 36
+      }
+    ]
+  },
+  {
+    "id": 218529,
+    "subject": "equine-medicine",
+    "topic": "equine-lameness",
+    "year": 5,
+    "type": "mcq",
+    "q": "ม้ายืนนิ่งแทบไม่เห็นอาการเจ็บขา (+/-) เดินเห็นอาการชัด (+/++) และวิ่งเหยาะ (trot) เห็นชัดมาก (+++) ควรให้คะแนนความเจ็บขา (grade of lameness) ระดับใด",
+    "options": [
+      "Grade 2",
+      "Grade 3",
+      "Grade 4",
+      "Grade 5"
+    ],
+    "answer": 2,
+    "explain": "การให้คะแนนความเจ็บขาดูจากท่ายืน ท่าเดิน และท่าวิ่งเหยาะ Grade 4 คือยืนแทบไม่เห็น (+/-) เดินเห็นชัด (+/++) และวิ่งเหยาะเห็นชัดมาก (+++)\n\nทำไมข้ออื่นผิด\nGrade 2: ยืนและเดินไม่เห็นอาการ เห็นเฉพาะตอนวิ่งเหยาะ (+)\nGrade 3: ยืนไม่เห็น เดินแทบไม่เห็น (+/-) และวิ่งเหยาะเห็น (++)\nGrade 5: เห็นตั้งแต่ยืน (+) เดิน (+++) และวิ่งเหยาะ (++++)",
+    "source": "Equine lameness: an introduction (2026) หน้า 25",
+    "verified": "Equine lameness: an introduction (2026) หน้า 25 (grade of lameness table: grade 5 stand และ , walk และ  และ  และ , trot และ  และ  และ  และ , grade 4 stand และ /-, walk และ / และ  และ , trot และ  และ  และ , grade 3 stand -, walk และ /-, trot และ  และ , grade 2 trot และ , grade 1 trot และ /-); สไลด์ Eq lame ของรุ่นพี่ Vet 84 หน้า 25 วง Trot grade 2 ( และ ) และขีดเส้นใต้ Walk grade 4 ( และ / และ  และ )",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides",
+    "tags": [
+      "equine-lameness",
+      "lameness-grade",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-lameness-2026",
+        "edition": "85p",
+        "page": 25
+      },
+      {
+        "doc": "equine-lameness-v84",
+        "edition": "84p",
+        "page": 25
+      }
+    ]
+  },
+  {
+    "id": 218530,
+    "subject": "equine-medicine",
+    "topic": "equine-lameness",
+    "year": 5,
+    "type": "mcq",
+    "q": "หลักการทำ diagnostic analgesia ด้วย perineural block ในม้าที่เจ็บขาข้อใดถูกต้อง",
+    "options": [
+      "บล็อกไล่จากส่วนต้นของขาลงมาส่วนปลาย และประเมินซ้ำทันทีหลังฉีด",
+      "บล็อกทุกตำแหน่งของขาพร้อมกันในครั้งเดียว แล้วประเมินผลหลัง 1 ชั่วโมง",
+      "บล็อกไล่จากส่วนปลายของขาขึ้นไปส่วนต้น และประเมินซ้ำราว 10 นาทีหลังฉีด",
+      "บล็อกขาข้างที่ไม่เจ็บก่อนทุกครั้ง เพื่อใช้เป็นค่าควบคุมของการประเมิน"
+    ],
+    "answer": 2,
+    "explain": "การทำ diagnostic analgesia ควรบล็อกตามลำดับจากส่วนปลายของขาขึ้นไปส่วนต้น เลือกตำแหน่งตามผลการตรวจทางคลินิก ระวังการกระจายของยาชา โดยเฉพาะบริเวณส่วนต้น ฉีดให้แม่นและใช้ปริมาณยาให้น้อยตามความเหมาะสม และประเมินความเจ็บขาซ้ำราว 10 นาทีหลังฉีด\n\nทำไมข้ออื่นผิด\nไล่จากส่วนต้นลงปลายและประเมินทันที: ลำดับกลับกัน และยาชายังไม่ออกฤทธิ์เต็มที่\nบล็อกทุกตำแหน่งพร้อมกัน: แยกไม่ได้ว่าความเจ็บมาจากตำแหน่งใด\nบล็อกขาที่ไม่เจ็บก่อน: การบล็อกทำที่ขาที่เจ็บ เพื่อดูว่าอาการดีขึ้นหรือไม่",
+    "source": "Diagnostic analgesia in horses (2026) หน้า 7",
+    "verified": "Diagnostic analgesia in horses (2026) หน้า 7 (sequential distal to proximal ideally, targeted based on clinical findings, awareness of diffusion especially proximal, be accurate and minimise volume, re-evaluate lameness at 10 mins after injection ideally); สไลด์ Diagnostic analgesia ของรุ่นพี่ Vet 84 หน้า 7 ขีดเส้นใต้ distal to proximal และ Re-evaluate lameness at 10mins after injection ideally",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides",
+    "tags": [
+      "equine-lameness",
+      "diagnostic-analgesia",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-diag-analgesia-2026",
+        "edition": "43p",
+        "page": 7
+      },
+      {
+        "doc": "equine-diag-analgesia-v84",
+        "edition": "41p",
+        "page": 7
+      }
+    ]
+  },
+  {
+    "id": 218531,
+    "subject": "equine-medicine",
+    "topic": "equine-lameness",
+    "year": 5,
+    "type": "mcq",
+    "q": "หลังทำ perineural block อาการเจ็บขาลดลงราวร้อยละ 70 ถึง 90 จากค่าตั้งต้น ควรแปลผลอย่างไร",
+    "options": [
+      "เป็นผลบวกที่พบได้บ่อย แม้ในอุดมคติควรดีขึ้นร้อยละ 100",
+      "เป็นผลลบ เพราะต้องดีขึ้นครบร้อยละ 100 จึงนับว่าเป็นบวก",
+      "แปลผลไม่ได้ ต้องเปลี่ยนไปฉีดยาชาเข้าข้อแทนทุกครั้ง",
+      "บ่งชี้ว่ายาชาฉีดผิดตำแหน่ง ต้องเริ่มบล็อกใหม่จากส่วนต้นขา"
+    ],
+    "answer": 0,
+    "explain": "การแปลผล perineural block ในอุดมคติคือดีขึ้นร้อยละ 100 จากค่าตั้งต้น แต่ที่พบบ่อยคือดีขึ้นร้อยละ 70 ถึง 90 ซึ่งถือเป็นผลบวก ในทางปฏิบัติการดีขึ้นใดๆ ต้องตัดสินว่าบวกหรือลบ และต้องระวังอาการย้ายขา (switching lameness) และอาการที่แย่ลงหลังบล็อก\n\nทำไมข้ออื่นผิด\nต้องดีขึ้นครบร้อยละ 100: เป็นเพียงอุดมคติ การดีขึ้นร้อยละ 70 ถึง 90 พบบ่อยกว่าและนับเป็นบวก\nเปลี่ยนไปฉีดเข้าข้อทุกครั้ง: ไม่ใช่หลักการแปลผล\nฉีดผิดตำแหน่งแล้วเริ่มจากส่วนต้น: การบล็อกทำจากส่วนปลายขึ้นไปส่วนต้น",
+    "source": "Diagnostic analgesia in horses (2026) หน้า 31",
+    "verified": "Diagnostic analgesia in horses (2026) หน้า 31 (100% improvement from baseline ideally, 70-90% positive response more common but any improvement in reality positive or negative, switching lameness, worsening lameness), หน้า 7 (distal to proximal); สไลด์ Diagnostic analgesia ของรุ่นพี่ Vet 84 หน้า 28 วง 70-90% พร้อมเครื่องหมายสามขีด และขีดเส้นใต้ positive or negative",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides",
+    "tags": [
+      "equine-lameness",
+      "diagnostic-analgesia",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-diag-analgesia-2026",
+        "edition": "43p",
+        "page": 31
+      },
+      {
+        "doc": "equine-diag-analgesia-v84",
+        "edition": "41p",
+        "page": 28
+      }
+    ]
+  },
+  {
+    "id": 218532,
+    "subject": "equine-medicine",
+    "topic": "equine-lameness",
+    "year": 5,
+    "type": "mcq",
+    "q": "ข้อใดเป็นสาเหตุของผล nerve block เป็นลบลวง (false negative)",
+    "options": [
+      "ยาชากระจายขึ้นไปถึงบริเวณส่วนต้นที่เป็นต้นเหตุของความเจ็บ",
+      "ผู้ตรวจมองไม่ออกว่าม้าเดินดีขึ้น (failure to appreciate improvement)",
+      "ฉีดยาชาตรงตำแหน่งเส้นประสาทเป้าหมายได้อย่างแม่นยำ",
+      "ความเจ็บทั้งหมดมาจากเนื้อเยื่อที่ยาชาครอบคลุมถึง"
+    ],
+    "answer": 1,
+    "explain": "สาเหตุของผลลบลวงจาก nerve block ได้แก่ ฉีดไม่แม่น เช่น navicular bursa ให้เวลายาชาออกฤทธิ์ไม่พอ ผู้ตรวจมองไม่ออกว่าม้าดีขึ้น ความเจ็บรุนแรงมาก ความเจ็บที่ subchondral bone ไม่หายหลังฉีดเข้าข้อ ความเจ็บอยู่นอกข้อ เส้นประสาทเลี้ยงผิดแบบ และอาการที่ขึ้นลงระหว่างการตรวจ\n\nทำไมข้ออื่นผิด\nยาชากระจายขึ้นไปส่วนต้น: ทำให้ชาบริเวณที่ไม่ได้ตั้งใจและอาจได้ผลบวกลวง\nฉีดตรงตำแหน่งอย่างแม่นยำ: ทำให้ผลเชื่อถือได้ ไม่ใช่สาเหตุของผลลบลวง\nความเจ็บอยู่ในบริเวณที่ชา: ม้าควรดีขึ้น ผลจึงเป็นบวกจริง",
+    "source": "Diagnostic analgesia in horses (2026) หน้า 7 และ 32",
+    "verified": "Diagnostic analgesia in horses (2026) หน้า 32 (false-negative responses: inaccurate injection eg. navicular bursa, inadequate time, failure to appreciate improvement, very severe pain, subchondral bone pain, extra-articular pain, aberrant nerve supply, fluctuation), หน้า 7 (awareness of diffusion especially proximal); สไลด์ Diagnostic analgesia ของรุ่นพี่ Vet 84 หน้า 29 ขีดเส้นใต้ Failure to appreciate improvement",
+    "sourceType": "student-compilation",
+    "examOrigin": "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides",
+    "tags": [
+      "equine-lameness",
+      "diagnostic-analgesia",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "equine-diag-analgesia-2026",
+        "edition": "43p",
+        "page": 32
+      },
+      {
+        "doc": "equine-diag-analgesia-v84",
+        "edition": "41p",
+        "page": 29
+      }
+    ]
+  },
 ];
