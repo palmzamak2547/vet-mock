@@ -5891,7 +5891,7 @@ body.vmx-reading .vmx-pdf-body {
 /* The pinned button is drawn at the screen's edge from its first frame: it fades in, never rises from below the fold. */
 .vmx-res-thumb.is-paced { animation-name: vmx-res-fade; }
 @keyframes vmx-res-fade { from { opacity: 0; } to { opacity: 1; } }
-@media (prefers-reduced-motion: reduce) { .vmx-res-step.is-paced { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .vmx-res-step.is-paced, .vmx-res-thumb.is-paced { animation: none; } }
 
 /* The day count after the first set of a day (StreakMoment). */
 .vmx-streak-moment { display: flex; align-items: center; gap: 12px; margin: 0 auto 16px; max-width: 480px; padding: 12px 16px; border: 1px solid var(--clr-gold); border-radius: var(--r-lg); background: var(--clr-surface); }
