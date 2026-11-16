@@ -57,6 +57,7 @@
 // ============================================================
 
 import { touchStudyStores } from './idb-touch.js';
+import { reportFailure } from './report-failure.js';
 
 const DB_NAME = 'vmx-pdf-annotations';
 const DB_VERSION = 1;
@@ -266,11 +267,11 @@ function migrateLegacy() {
         // Never overwrite work done on the new store with an older copy.
         if (existing) continue;
         await tx('readwrite', (s) => s.put(normalise(hash, v)));
-      } catch { return; } // IndexedDB is gone; the legacy key stays where it is
+      } catch (error) { reportFailure('save', error); return; } // IndexedDB is gone; the legacy key stays where it is
     }
     // The old key is deliberately NOT deleted. A student who opens an older
     // build, or a cached service-worker version, must still find their marks.
-  })();
+  })().catch((error) => { reportFailure('save', error); });
   return _migrated;
 }
 
