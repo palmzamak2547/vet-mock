@@ -72,6 +72,38 @@ test.describe('Study library', () => {
     await expect(page).toHaveURL(/\/app\/library\?q=VCA\+Pharmacology$/);
   });
 
+  // The shell moves focus to the page one frame after a page change. On a slow phone that frame can
+  // come after the student has tapped a field of the new page, and it used to take the focus away:
+  // the keyboard closed and what was typed went nowhere. The frame is held here so the order is the
+  // same in every run: page change, field focused, then the shell's frame.
+  test('a field focused right after a page change keeps the focus when the shell frame comes late', async ({ page }) => {
+    await stubVercelAnalytics(page);
+    await page.goto('/app/tools/pdf');
+    const open = page.getByRole('button', { name: 'เปิดคลังเอกสาร', exact: true });
+    await expect(open).toBeVisible({ timeout: 20_000 });
+    await page.evaluate(() => {
+      const held = [];
+      const frame = window.requestAnimationFrame.bind(window);
+      window.requestAnimationFrame = (fn) => { held.push(fn); return 0; };
+      window.__releaseFrames = () => {
+        window.requestAnimationFrame = frame;
+        for (const fn of held.splice(0)) frame(fn);
+      };
+    });
+    await open.click();
+    const search = page.getByRole('searchbox', { name: 'ค้นหาเอกสารในคลัง' });
+    await search.focus();
+    await expect(search).toBeFocused();
+    await page.evaluate(() => new Promise((done) => {
+      window.__releaseFrames();
+      requestAnimationFrame(() => requestAnimationFrame(done));
+    }));
+    await expect(search).toBeFocused();
+    await page.keyboard.insertText('VCA Pharmacology');
+    await expect(search).toHaveValue('VCA Pharmacology');
+    await expect(page).toHaveURL(/q=VCA\+Pharmacology/);
+  });
+
   test('a shelf document does not reopen when switching to a personal PDF', async ({ page }) => {
     await stubVercelAnalytics(page);
     const pdf = Buffer.from('%PDF-1.4\n1 0 obj<</Type/Catalog/Pages 2 0 R>>endobj\n'

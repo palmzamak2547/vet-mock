@@ -889,8 +889,14 @@ export default function App() {
     // that is still downloading must retain its original return target.
     const id = requestAnimationFrame(() => {
       if (document.querySelector('[data-vmx-modal="true"]')) return;
-      try { document.getElementById('main')?.focus({ preventScroll: true }); }
-      catch { document.getElementById('main')?.focus(); }
+      const main = document.getElementById('main');
+      // This frame can come late (a slow phone, a heavy first render), after the student has
+      // already tapped a field of the new page. Everything inside main is new with the view, so
+      // focus that is already in there was put there on this page and stays where it is.
+      const active = document.activeElement;
+      if (main && active && active !== main && main.contains(active)) return;
+      try { main?.focus({ preventScroll: true }); }
+      catch { main?.focus(); }
     });
     return () => cancelAnimationFrame(id);
   }, [view]);
