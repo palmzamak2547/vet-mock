@@ -1498,6 +1498,16 @@ export const SOURCE_DOCS = [
     editions: [{ id: '28p', pages: 28 }],
   },
   {
+    slug: 'epid-future-vet-2569', subject: 'epidemiology', title: "The Future Veterinarian: Epidemiology in the Age of Big Data, AI,One Health and AMR",
+    match: /The Future Veterinarian: Epidemiology in the Age of Big Data, AI,One Health and AMR/i,
+    editions: [{ id: '19p', pages: 19 }],
+  },
+  {
+    slug: 'epid-module1-diagnostic-2569', subject: 'epidemiology', title: "Intro. to Module 1: Diagnostic Tool",
+    match: /Intro\. to Module 1: Diagnostic Tool/i,
+    editions: [{ id: '27p', pages: 27 }],
+  },
+  {
     slug: 'epid-intro-2569', subject: 'epidemiology', title: "Introduction to Epidemiology 2569 (NC)",
     match: /Introduction to Epidemiology 2569 \(NC\)/i, // 1_vet epidem intro 150526.pdf on Palm's Drive (Y.5 Term1 Mid, Epidemiology); the library has no copy
     editions: [{ id: '26p', pages: 26 }],
