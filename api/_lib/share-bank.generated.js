@@ -1957,12 +1957,21 @@ const LEAVES = [
   // ["vet-juris","animal-hospital-act-2557"]
   ["vet-juris","animal-hospital-act-2557",[[93000,93011]]],
   // end ["vet-juris","animal-hospital-act-2557"]
+  // ["vet-juris","animal-welfare-act-2557"]
+  ["vet-juris","animal-welfare-act-2557",[[218712,218731]]],
+  // end ["vet-juris","animal-welfare-act-2557"]
   // ["vet-juris","drug-act-2510"]
   ["vet-juris","drug-act-2510",[[93012,93026]]],
   // end ["vet-juris","drug-act-2510"]
   // ["vet-juris","slaughter-act-2559"]
   ["vet-juris","slaughter-act-2559",[[93038,93039],93041]],
   // end ["vet-juris","slaughter-act-2559"]
+  // ["vet-juris","vet-practice-act-2545"]
+  ["vet-juris","vet-practice-act-2545",[[218700,218711]]],
+  // end ["vet-juris","vet-practice-act-2545"]
+  // ["vet-juris","vet-professional-ethics"]
+  ["vet-juris","vet-professional-ethics",[218732]],
+  // end ["vet-juris","vet-professional-ethics"]
   // ["vet-juris","wildlife-act-2562"]
   ["vet-juris","wildlife-act-2562",[[93042,93046]]],
   // end ["vet-juris","wildlife-act-2562"]

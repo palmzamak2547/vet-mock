@@ -404,6 +404,9 @@ const LEAVES = [
  // ["lethargy|universal","vca","parasitology"]
  [694170],
  // end ["lethargy|universal","vca","parasitology"]
+ // ["lethargy|universal","vet-juris","animal-welfare-act-2557"]
+ [218725,218729],
+ // end ["lethargy|universal","vet-juris","animal-welfare-act-2557"]
  // ["lethargy|universal","zoonoses","zoo-vbz"]
  [106096],
  // end ["lethargy|universal","zoonoses","zoo-vbz"]
@@ -4730,6 +4733,9 @@ const LEAVES = [
  // ["post-mortem inspection|public-health","milk-meat-hygiene","meat-slaughter"]
  [214165,214177],
  // end ["post-mortem inspection|public-health","milk-meat-hygiene","meat-slaughter"]
+ // ["post-mortem inspection|public-health","vet-juris","animal-welfare-act-2557"]
+ [218713],
+ // end ["post-mortem inspection|public-health","vet-juris","animal-welfare-act-2557"]
  // ["post-mortem inspection|public-health","vet-juris","slaughter-act-2559"]
  [93038],
  // end ["post-mortem inspection|public-health","vet-juris","slaughter-act-2559"]

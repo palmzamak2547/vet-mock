@@ -1973,12 +1973,21 @@ const LEAVES = [
   // ["vet-juris","animal-hospital-act-2557"]
   ["vet-juris","animal-hospital-act-2557",0,[[12,4,1,1,2,1,0,0]]], // acdde53985bc
   // end ["vet-juris","animal-hospital-act-2557"]
+  // ["vet-juris","animal-welfare-act-2557"]
+  ["vet-juris","animal-welfare-act-2557",0,[[20,4,1,1,1,1,0,0]]], // aae0a0dd3a59
+  // end ["vet-juris","animal-welfare-act-2557"]
   // ["vet-juris","drug-act-2510"]
   ["vet-juris","drug-act-2510",0,[[15,4,1,1,2,1,0,0]]], // 0febc37120a3
   // end ["vet-juris","drug-act-2510"]
   // ["vet-juris","slaughter-act-2559"]
   ["vet-juris","slaughter-act-2559",0,[[3,4,1,1,2,1,0,0]]], // 84ea09d902ce
   // end ["vet-juris","slaughter-act-2559"]
+  // ["vet-juris","vet-practice-act-2545"]
+  ["vet-juris","vet-practice-act-2545",0,[[12,4,1,1,1,1,0,0]]], // 4c7e5641b99a
+  // end ["vet-juris","vet-practice-act-2545"]
+  // ["vet-juris","vet-professional-ethics"]
+  ["vet-juris","vet-professional-ethics",0,[[1,4,1,1,1,1,0,0]]], // ecb5d13c1f95
+  // end ["vet-juris","vet-professional-ethics"]
   // ["vet-juris","wildlife-act-2562"]
   ["vet-juris","wildlife-act-2562",0,[[5,4,1,1,2,1,0,0]]], // 776d695f7518
   // end ["vet-juris","wildlife-act-2562"]

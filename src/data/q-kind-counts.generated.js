@@ -1825,12 +1825,21 @@ const LEAVES = [
   // ["vet-juris","animal-hospital-act-2557"]
   ["vet-juris","animal-hospital-act-2557",12,{"1-final":[12,0,0,0]},{"1-final":[12,0,0,0]}], // c2d3b9abd084
   // end ["vet-juris","animal-hospital-act-2557"]
+  // ["vet-juris","animal-welfare-act-2557"]
+  ["vet-juris","animal-welfare-act-2557",20,{"1-mid":[18,0,0,2]},{"1-mid":[18,0,0,2]}], // cdf299964627
+  // end ["vet-juris","animal-welfare-act-2557"]
   // ["vet-juris","drug-act-2510"]
   ["vet-juris","drug-act-2510",15,{"1-final":[15,0,0,0]},{"1-final":[15,0,0,0]}], // 3b79e19aefa4
   // end ["vet-juris","drug-act-2510"]
   // ["vet-juris","slaughter-act-2559"]
   ["vet-juris","slaughter-act-2559",3,{"1-final":[3,0,0,0]},{"1-final":[3,0,0,0]}], // 6466818217e0
   // end ["vet-juris","slaughter-act-2559"]
+  // ["vet-juris","vet-practice-act-2545"]
+  ["vet-juris","vet-practice-act-2545",12,{"1-mid":[12,0,0,0]},{"1-mid":[12,0,0,0]}], // abef14c8e043
+  // end ["vet-juris","vet-practice-act-2545"]
+  // ["vet-juris","vet-professional-ethics"]
+  ["vet-juris","vet-professional-ethics",1,{"1-mid":[0,0,0,1]},{"1-mid":[0,0,0,1]}], // 4b7b27015bf3
+  // end ["vet-juris","vet-professional-ethics"]
   // ["vet-juris","wildlife-act-2562"]
   ["vet-juris","wildlife-act-2562",5,{"1-final":[5,0,0,0]},{"1-final":[5,0,0,0]}], // 135c2f93503f
   // end ["vet-juris","wildlife-act-2562"]

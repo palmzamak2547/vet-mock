@@ -4559,8 +4559,8 @@ export const EXAM_RECURRENCE = {
     },
   },
   "vet-juris": {
-    "cohorts": [],
-    "items": 46,
+    "cohorts": [85, 86],
+    "items": 79,
     "topics": {
       "animal-epidemic-act-2558": {
         "cohorts": [],
@@ -4578,6 +4578,21 @@ export const EXAM_RECURRENCE = {
         "sat": {},
         "unattributed": ["vet-juris:93000", "vet-juris:93001", "vet-juris:93002", "vet-juris:93003", "vet-juris:93004", "vet-juris:93005", "vet-juris:93006", "vet-juris:93007", "vet-juris:93008", "vet-juris:93009", "vet-juris:93010", "vet-juris:93011"],
       },
+      "animal-welfare-act-2557": {
+        "cohorts": [85, 86],
+        "first": 85,
+        "last": 86,
+        "items": 20,
+        "sat": {
+          "85": {
+            "midterm": ["vet-juris:218712", "vet-juris:218713", "vet-juris:218714", "vet-juris:218715", "vet-juris:218716", "vet-juris:218717", "vet-juris:218718", "vet-juris:218719", "vet-juris:218720", "vet-juris:218721", "vet-juris:218722", "vet-juris:218723", "vet-juris:218724", "vet-juris:218725", "vet-juris:218726", "vet-juris:218727", "vet-juris:218728", "vet-juris:218729", "vet-juris:218730", "vet-juris:218731"],
+          },
+          "86": {
+            "midterm": ["vet-juris:218712", "vet-juris:218713", "vet-juris:218714", "vet-juris:218715", "vet-juris:218716", "vet-juris:218717", "vet-juris:218718", "vet-juris:218719", "vet-juris:218720", "vet-juris:218721", "vet-juris:218722", "vet-juris:218723", "vet-juris:218724", "vet-juris:218725", "vet-juris:218726", "vet-juris:218727", "vet-juris:218728", "vet-juris:218729"],
+          },
+        },
+        "unattributed": [],
+      },
       "drug-act-2510": {
         "cohorts": [],
         "first": null,
@@ -4593,6 +4608,33 @@ export const EXAM_RECURRENCE = {
         "items": 3,
         "sat": {},
         "unattributed": ["vet-juris:93038", "vet-juris:93039", "vet-juris:93041"],
+      },
+      "vet-practice-act-2545": {
+        "cohorts": [85, 86],
+        "first": 85,
+        "last": 86,
+        "items": 12,
+        "sat": {
+          "85": {
+            "midterm": ["vet-juris:218700", "vet-juris:218701", "vet-juris:218702", "vet-juris:218703", "vet-juris:218704", "vet-juris:218705", "vet-juris:218706", "vet-juris:218707", "vet-juris:218708", "vet-juris:218709", "vet-juris:218710", "vet-juris:218711"],
+          },
+          "86": {
+            "midterm": ["vet-juris:218700", "vet-juris:218701", "vet-juris:218702", "vet-juris:218703", "vet-juris:218704", "vet-juris:218705", "vet-juris:218706", "vet-juris:218707", "vet-juris:218708", "vet-juris:218709", "vet-juris:218710", "vet-juris:218711"],
+          },
+        },
+        "unattributed": [],
+      },
+      "vet-professional-ethics": {
+        "cohorts": [85],
+        "first": 85,
+        "last": 85,
+        "items": 1,
+        "sat": {
+          "85": {
+            "midterm": ["vet-juris:218732"],
+          },
+        },
+        "unattributed": [],
       },
       "wildlife-act-2562": {
         "cohorts": [],
