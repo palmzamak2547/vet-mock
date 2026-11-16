@@ -160,6 +160,9 @@ async function detailView({ members, board, props = {}, deps = {} } = {}) {
     confirmDialog: async (opts) => { calls.confirms.push(opts); return true; },
     alertDialog: () => {},
     thaiError: (e, fallback) => e?.message || fallback,
+    usePictures: () => ({}),
+    reportPicture: async () => ({ ok: true }),
+    PICTURE_WORDS: {},
     ...deps,
   });
   const view = mount(make, { group: GROUP, user: { id: 'A' }, goBack() {}, ...props });

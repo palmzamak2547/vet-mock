@@ -12,7 +12,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import StudentCard from '../components/StudentCard.jsx';
-import { useMyCard } from '../hooks/useMyCard.js';
+import { useMyCard, useOwnPicture } from '../hooks/useMyCard.js';
 import { ownCard } from '../lib/own-card.js';
 import {
   CARD_BACKDROPS, FRAME_EARNED_BY, FRAME_LABEL, MAX_ON_SHOW, DEFAULT_CARD,
@@ -39,7 +39,9 @@ const STATUS = {
 export default function StudioView({ goBack, user = null, profile = null, history = [], srCards = {}, streakData = null, selectedYear = null, theme = 'light' }) {
   const { card, status, save, retry } = useMyCard(user);
   const [sharing, setSharing] = useState(false);
-  const { face, worn, allowance, streak } = ownCard({ card, user, profile, history, srCards, streakData, selectedYear, theme });
+  // The preview shows the student's own picture, as classmates see the card; the share image keeps the ready-made one.
+  const ownPicture = useOwnPicture(user?.id);
+  const { face, worn, allowance, streak } = ownCard({ card, user, profile, history, srCards, streakData, selectedYear, theme, ownPicture });
   const next = useMemo(() => nextTrophy({ history: history || [], srCards: srCards || {}, currentStreak: streak }), [history, srCards, streak]);
   const set = (patch) => save({ ...worn, ...patch });
   const draw = useCallback(async (t) => {

@@ -27,7 +27,7 @@ registerHooks({
 });
 
 const {
-  parseCardToken, encodeCard, readCard, cardFace, cardAllowance, wearable, BADGE_IDS, CARD_BACKDROPS, DEFAULT_CARD, isDefaultCard, darkPlatePixel,
+  parseCardToken, encodeCard, readCard, cardFace, cardAllowance, wearable, BADGE_IDS, CARD_BACKDROPS, DEFAULT_CARD, isDefaultCard, darkPlatePixel, shownPhoto,
 } = await import('../../src/lib/card-style.js');
 const { BADGE_ART } = await import('../../src/data/art.js');
 const { fetchCardStyles, saveCardStyle, resetCardStyleRemote, cardStylesAbsent } = await import('../../src/lib/card-style-remote.js');
@@ -220,4 +220,21 @@ test('saving says what happened: offline, refused, and a value that is not a sty
   const thrown = fakeClient(() => { throw new Error('network'); });
   assert.equal(await saveCardStyle('c1.bfield', { client: thrown }), 'failed');
   assert.equal((await fetchCardStyles([PAT], { client: thrown })).size, 0);
+});
+
+test("a member's own picture is on the card only in the shown state, and a card without one draws no image", () => {
+  const url = 'https://pictures.example.invalid/p/pat.webp';
+  assert.equal(shownPhoto({ url, state: 'shown' }), url);
+  assert.equal(shownPhoto({ url, state: 'anything-else' }), '', 'only a picture in the shown state has an address');
+  assert.equal(shownPhoto({ url: null, state: 'none' }), '');
+  assert.equal(shownPhoto(undefined), '');
+  assert.equal(cardFace({}).photo, '');
+  const faces = memberFaces(members, new Map(), { selfId: ME, pictures: { [PAT]: { url, state: 'shown' }, [ME]: { url, state: 'none' } } });
+  assert.equal(faces[1].face.photo, url);
+  assert.equal(faces[0].face.photo, '');
+  const withPhoto = renderToStaticMarkup(createElement(StudentCard, { face: faces[1].face, compact: true, still: true }));
+  assert.ok(withPhoto.includes(`<img src="${url}"`), 'the ring draws the picture');
+  assert.ok(withPhoto.includes('referrerPolicy="no-referrer"') || withPhoto.includes('referrerpolicy="no-referrer"'), 'the picture host is not told which page asked');
+  const without = renderToStaticMarkup(createElement(StudentCard, { face: faces[0].face, compact: true, still: true }));
+  assert.ok(!without.includes(url), 'no picture: the ready-made one stays in the ring');
 });

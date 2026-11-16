@@ -9,7 +9,7 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 - **optional**: a feature turns off or a default applies.
 - Runtime: *browser build* is baked in by Vite at build time (a change needs a rebuild); *function* is read by a Vercel function per request; *edge function* by a Supabase function; *script*, *test* and *build* run on a machine or in CI.
 
-131 names, 12 required; 10 more are set by the platform.
+132 names, 12 required; 10 more are set by the platform.
 
 ## Supabase
 
@@ -164,16 +164,17 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 |---|---|---|---|---|
 | `PLAYWRIGHT_BASE_URL` | optional | test, script | `playwright.config.js`, `scripts/defect-sweep.mjs` | Runs the e2e suite against another origin (test:e2e:prod uses vetmock.com). |
 | `PAPER_OUT` | optional | test | `tests/e2e/question-paper.spec.js` | Folder where the question-paper e2e keeps the PDFs it saves, for page pictures. |
-| `VMX_SHOT_DIR` | optional | test | `tests/e2e/library-doc-loading-layout.spec.js` | Folder where the document loading layout e2e keeps a picture of each size it checks. |
+| `VMX_SHOT_DIR` | optional | test | `tests/e2e/library-doc-loading-layout.spec.js`, `tests/e2e/profile-picture.spec.js` | Folder where the document loading layout e2e keeps a picture of each size it checks. |
 | `VMX_SHOT_TAG` | optional | test | `tests/e2e/library-doc-loading-layout.spec.js` | Prefix of those picture names (before, after); default shot. |
+| `PROFILE_PICTURE_VIEW` | optional | test | `tests/e2e/profile-picture.spec.js` | Viewport and colour scheme (390x664:dark) the profile picture e2e uses for its design pictures. |
 | `PLAYWRIGHT_PORT` | optional | test | `tests/e2e/local-port.js` | Port of the e2e server; scope it to e2e only. |
 | `PLAYWRIGHT_OUTPUT_DIR` | optional | test | `playwright.config.js`, `research/playwright.config.js` | Where Playwright writes results; default test-results. |
 | `PLAYWRIGHT_JSON_OUTPUT_FILE` | optional | test | `playwright.config.js` | Where CI writes the JSON e2e report; default e2e-results.json. |
 | `PLAYWRIGHT_CHROMIUM` | optional | test, script | `vca/playwright.config.js`, `vca/scripts/make-icons.mjs`, `vca/scripts/render-og.mjs` | A Chromium binary for the VCA specs and image scripts. |
 | `PERF_BUDGET_CPU` | optional | test | `tests/e2e/perf-budget.spec.js` | CPU slowdown for the perf budget spec. |
 | `UPDATE_PERF_BUDGETS` | optional | test | `tests/e2e/perf-budget.spec.js` | 1 rewrites perf-budgets.json from a fresh measurement. |
-| `PGLITE_MODULE` | optional | script | `scripts/gate.mjs`, `scripts/test-annotation-db.mjs`, `scripts/test-chula-wall-db.mjs` +7 | Path of the pglite module the SQL harnesses load. |
-| `PG_CONTAINER` | optional | script | `scripts/test-annotation-db.mjs`, `scripts/test-chula-wall-db.mjs`, `scripts/test-failure-record-db.mjs` +5 | Postgres service container the SQL harnesses use in CI. |
+| `PGLITE_MODULE` | optional | script | `scripts/gate.mjs`, `scripts/test-annotation-db.mjs`, `scripts/test-chula-wall-db.mjs` +8 | Path of the pglite module the SQL harnesses load. |
+| `PG_CONTAINER` | optional | script | `scripts/test-annotation-db.mjs`, `scripts/test-chula-wall-db.mjs`, `scripts/test-failure-record-db.mjs` +6 | Postgres service container the SQL harnesses use in CI. |
 | `PG_MODULE` | optional | script | `vca/scripts/test-community-db.mjs` | Path of the pg module the VCA community harness loads. |
 | `PGHOST` | optional | script | `vca/scripts/test-community-db.mjs` | Postgres socket folder for the VCA community harness. |
 | `PGUSER` | optional | script | `vca/scripts/test-community-db.mjs` | Postgres user for the VCA community harness; default postgres. |
@@ -212,7 +213,7 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 | Name | Read in | Meaning |
 |---|---|---|
 | `CI` | `playwright.config.js`, `research/playwright.config.js`, `scripts/check-ci-graphics.mjs` +1 | set by GitHub Actions; Playwright and a few scripts switch to CI mode |
-| `GITHUB_ACTIONS` | `scripts/test-annotation-db.mjs`, `scripts/test-chula-wall-db.mjs`, `scripts/test-failure-record-db.mjs` +5 | set by GitHub Actions; the SQL harnesses refuse native Postgres without it |
+| `GITHUB_ACTIONS` | `scripts/test-annotation-db.mjs`, `scripts/test-chula-wall-db.mjs`, `scripts/test-failure-record-db.mjs` +6 | set by GitHub Actions; the SQL harnesses refuse native Postgres without it |
 | `GITHUB_STEP_SUMMARY` | `scripts/e2e-durations.mjs`, `scripts/perf-budget.mjs`, `tests/e2e/perf-budget.spec.js` | set by GitHub Actions; perf and e2e duration reports append to it |
 | `NODE_ENV` | `api/_lib/rate-limit.js` | set by Node tooling and Vercel; production makes the rate limiter require Upstash |
 | `PATH` | `scripts/video-asr.py` | the system search path; scripts/video-asr.py adds its CUDA folder |

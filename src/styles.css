@@ -3073,7 +3073,25 @@ html.dark .vmx-panic-scrim {
 /* Full screen: the pad takes all the height the actions leave. */
 .vmx-hand.is-fullscreen { border: 0; border-radius: 0; padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)); }
 .vmx-hand.is-fullscreen .vmx-hand-hint { display: none; }
+.vmx-hand.is-fullscreen .vmx-hand-stage { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
 .vmx-hand.is-fullscreen .vmx-hand-pad { flex: 1 1 0; min-height: 0; height: auto; }
+/* The pad before its pointer loop has loaded, or when it could not be: a note
+   over the paper, so a stroke that would be dropped is never drawn on blind.
+   The loading note waits a moment, so a quick load does not flash it. */
+.vmx-hand-stage { position: relative; }
+.vmx-hand-wait {
+  position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 10px; padding: 16px; border-radius: 8px; text-align: center;
+  background: rgba(255, 255, 255, .88); color: #3a3a3a; font-size: 14px; line-height: 1.45;
+  animation: vmx-hand-wait-in var(--vm-dur-fade) var(--vm-ease-tap) .35s both;
+}
+.vmx-hand-wait.is-failed { animation: none; color: #141414; }
+.vmx-hand-wait button {
+  appearance: none; font: inherit; font-size: 14px; min-height: 44px; padding: 6px 18px; border-radius: 999px;
+  border: 1px solid #141414; background: #141414; color: #fff; cursor: pointer;
+}
+@keyframes vmx-hand-wait-in { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .vmx-hand-wait { animation-duration: 0s; } }
 .vmx-hand { margin-top: 8px; padding: 10px; border: 1px solid var(--clr-border); border-radius: 10px; background: var(--clr-surface); }
 .vmx-hand-hint { margin: 0 0 8px; font-size: 14px; line-height: 1.45; color: var(--clr-ink-soft); }
 .vmx-hand-pad {
@@ -3249,6 +3267,15 @@ html.dark .vmx-panic-scrim {
 .vmx-qtable .num { text-align: right; }
 .vmx-qtable-wrap.is-wide .has-names tr > :first-child { position: sticky; left: 0; z-index: 1; background: var(--clr-surface); }
 .vmx-qtable-hint { margin: -6px 0 12px; font-size: 14px; font-style: normal; color: var(--clr-ink-soft); }
+/* A note table wider than its frame (ScrollFrame.jsx): the edge still to be
+   scrolled to fades, and a line under it says the table scrolls sideways. */
+.vmx-scroll-frame { overflow-x: auto; }
+.vmx-scroll-frame.is-wide:not(.is-at-end) {
+  -webkit-mask-image: linear-gradient(to right, currentColor calc(100% - 40px), transparent);
+  mask-image: linear-gradient(to right, currentColor calc(100% - 40px), transparent);
+}
+.vmx-scroll-frame:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: -2px; }
+.vmx-scroll-hint { margin: -6px 0 12px; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
 @media (max-width: 640px) {
   .vmx-qtable th, .vmx-qtable td { padding: 5px 6px; min-width: 2.5em; }
   .vmx-qtable tbody th { min-width: 5em; }

@@ -136,3 +136,22 @@ test('a long topic has a way back to its header, observed rather than polled', (
   assert.match(src, /className="vmx-wiki-toc-return vmx-reading-return" onClick=\{backToTopicHead\}/);
   assert.match(src, /motionIsReduced\(\) \? 'auto' : 'smooth'/);
 });
+
+test('the "near the end" reading is cleared by a jump and by a topic change', () => {
+  // The end observer reports only when its marker starts or stops touching the
+  // screen, so a jump from below the marker to above it leaves the pill hidden
+  // for the rest of the topic unless the reading is cleared and observed afresh.
+  const src = readFileSync(new URL('../../src/views/NotesView.jsx', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
+  const back = src.slice(src.indexOf('const backToTopicHead = () => {'));
+  assert.match(back.slice(0, back.indexOf('};')), /setEndNear\(false\)/, 'the pill\'s own jump clears it');
+  const reset = src.slice(src.indexOf('// Reset scroll + search when topic changes'));
+  assert.match(reset.slice(0, reset.indexOf('}, [validTopic, subject]);')), /setEndNear\(false\)/, 'a topic change clears it');
+  assert.match(src, /\}, \[notesState\.status, subject, validTopic\]\);\n  const backToTopicHead/, 'and the observers start again for the new topic');
+});
+
+test('a table\'s spoken name collapses white space and keeps every letter', () => {
+  const src = readFileSync(new URL('../../src/components/ScrollFrame.jsx', import.meta.url), 'utf8');
+  const collapses = src.match(/\.replace\(\/[^/]+\/g, ' '\)/g) || [];
+  assert.equal(collapses.length, 2, 'the caption and the header cells are both tidied');
+  for (const c of collapses) assert.equal(c, ".replace(/\\s+/g, ' ')", 'white space, not the letter s');
+});

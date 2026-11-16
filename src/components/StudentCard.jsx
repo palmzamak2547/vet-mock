@@ -7,13 +7,16 @@
 // same face with the same colours and the same crop of the plate.
 // The light it catches is lib/card-sheen.js (never under reduced motion).
 // ============================================================
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { attachSheen } from '../lib/card-sheen.js';
 import { useMotionPreferences } from '../hooks/useMotionPreferences.js';
 import '../styles-card.css';
 
-export default function StudentCard({ face, compact = false, still = false, className = '' }) {
+export default function StudentCard({ face, compact = false, still = false, className = '', onPhotoBroken = null }) {
   const ref = useRef(null);
+  // A member's own picture, when the face carries one. One that fails to load gives way to the ready-made picture.
+  const [brokenPhoto, setBrokenPhoto] = useState('');
+  const photo = face.photo && face.photo !== brokenPhoto ? face.photo : '';
   const { reduced } = useMotionPreferences();
   useEffect(() => (still ? undefined : attachSheen(ref.current, { reduced })), [reduced, still]);
   const c = face.colours;
@@ -39,7 +42,11 @@ export default function StudentCard({ face, compact = false, still = false, clas
         {face.yearLine && <span className="vmx-scard__year">{face.yearLine}</span>}
       </div>
       <div className="vmx-scard__body">
-        <span className="vmx-scard__ring" aria-hidden="true">{face.picture}</span>
+        <span className="vmx-scard__ring" aria-hidden="true">
+          {photo
+            ? <img src={photo} alt="" referrerPolicy="no-referrer" draggable={false} onError={() => { setBrokenPhoto(photo); if (onPhotoBroken) onPhotoBroken(photo); }} />
+            : face.picture}
+        </span>
         <div className="vmx-scard__who">
           <figcaption className="vmx-scard__name">{face.name}</figcaption>
           {face.title && <p className="vmx-scard__title">{face.title}</p>}

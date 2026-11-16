@@ -64,6 +64,7 @@
   background: color-mix(in srgb, var(--sc-stock, var(--clr-surface)) 70%, var(--sc-rule, var(--clr-border)));
   box-shadow: 0 0 0 1px var(--sc-rule, var(--clr-border)), 0 0 0 1.4cqi var(--sc-stock, var(--clr-surface)), 0 0 0 calc(1.4cqi + 1px) var(--sc-soft, var(--clr-ink-soft));
 }
+.vmx-scard__ring > img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 .vmx-scard__who { min-width: 0; }
 .vmx-scard__name {
   font-family: var(--vmx-display); font-weight: 600; font-size: max(17px, 6.7cqi); line-height: 1.2; letter-spacing: 0;

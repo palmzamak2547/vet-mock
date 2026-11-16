@@ -59,6 +59,10 @@ export const VETWIKI_TOPIC_KEYS = ${JSON.stringify(topics.map((t) => t.id), null
 
 // A shelf is a year: the cloth only has to part from the subjects beside it.
 const shelf = buildShelf({ topics, loadTopic, provenanceSummary, covers: SUBJECT_COVERS, shelfOf: yearForSubject });
+// Subjects with notes and no article yet (lib/vetwiki/notes-only.js lists them
+// in the index). Written here so the index never loads the notes registry.
+const { SUBJECTS_WITH_NOTES } = await import(new URL('../src/data/notes-registry.generated.js', import.meta.url).href);
+const notesOnly = [...SUBJECTS_WITH_NOTES].filter((id) => !Object.prototype.hasOwnProperty.call(shelf.subjects, id)).sort();
 const shelfOutput = `// ============================================================
 // VetWiki shelves -- GENERATED, do not hand-edit
 // ============================================================
@@ -77,6 +81,9 @@ export const SHELF_TOPICS = ${JSON.stringify(Object.fromEntries(Object.entries(s
 // Per topic: [[topic, sources both cite], ...], the end of an article's
 // "อ้างแหล่งเดียวกัน" (at least two shared, four topics at most).
 export const SHELF_RELATED = ${JSON.stringify(shelf.related)};
+
+// Subjects with notes and no shelf: listed in the index, opened in the notes reader.
+export const NOTES_ONLY_SUBJECTS = ${JSON.stringify(notesOnly)};
 `;
 
 if (CHECK) {

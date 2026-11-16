@@ -24,6 +24,7 @@
     "--sc-title",
     "--vmx-color-accent",
     "--vmx-print-foot",
-    "--vmx-print-head"
+    "--vmx-print-head",
+    "--vmx-read-spacer"
   ]
 }

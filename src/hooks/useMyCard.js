@@ -64,3 +64,22 @@ export function useMyCard(user) {
 
   return { card: readCard(token), token, status, save, retry, key: cardKey(userId) };
 }
+
+/** The student's own uploaded picture ({ url, state }), or null. The picture library loads on demand, as it does
+ *  on the profile page, and the picture is read again when one changes anywhere in the app. */
+export function useOwnPicture(userId) {
+  const [mine, setMine] = useState(null);
+  useEffect(() => {
+    if (!userId) { setMine(null); return undefined; }
+    let live = true;
+    let stop = null;
+    import('../lib/profile-picture.js').then((lib) => {
+      if (!live) return;
+      const readMine = () => lib.picturesFor([userId]).then((found) => { if (live) setMine(found?.[userId] || null); }, () => {});
+      stop = lib.onPicturesChanged(readMine);
+      readMine();
+    }, () => {});
+    return () => { live = false; if (typeof stop === 'function') stop(); };
+  }, [userId]);
+  return mine;
+}

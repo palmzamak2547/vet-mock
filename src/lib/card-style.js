@@ -163,11 +163,16 @@ const num = (n) => Math.max(0, Math.round(Number(n) || 0)).toLocaleString('en-US
  * stats: { answered, streak, trophies } or null (a classmate's card shows no
  * numbers: their study record is theirs).
  */
-export function cardFace({ card = DEFAULT_CARD, name = '', picture = '', yearLine = '', stats = null, theme = 'light' } = {}) {
+/** The address of a member's own uploaded picture while classmates may see it, else ''.
+ *  (A picture is { url, state }; one that was reported, or that is missing, has no address here.) */
+export const shownPhoto = (picture) => (picture && picture.state === 'shown' && picture.url ? String(picture.url) : '');
+
+export function cardFace({ card = DEFAULT_CARD, name = '', picture = '', photo = '', yearLine = '', stats = null, theme = 'light' } = {}) {
   const c = { ...fresh(), ...card };
   return {
     name: String(name || 'นิสิต'),
     picture: String(picture || ''),
+    photo: String(photo || ''),
     yearLine: String(yearLine || ''),
     brand: 'VetMock',
     backdrop: { id: c.backdrop, src: backdropSrc(c.backdrop), label: backdropLabel(c.backdrop) },
