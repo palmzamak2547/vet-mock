@@ -46,6 +46,11 @@
      rendered in Fraunces. Naming the Thai faces here keeps both in the same
      family, and having one token means the stack can be changed in one place. */
   --vmx-display: 'Fraunces', 'Sarabun', 'IBM Plex Sans Thai', serif;
+  /* The case reader's marks (CasePane, CaseSheet): no green, red or pink, which are the verdicts' colours. */
+  --clr-case-ink: #2b2419; --clr-case-ocean: #2f5d7c; --clr-case-plum: #7d4a7d;
+  --clr-case-lemon: rgba(255, 214, 10, 0.40); --clr-case-sky: rgba(90, 170, 230, 0.32); --clr-case-lilac: rgba(176, 128, 220, 0.32);
+  --clr-case-lemon-dot: #f2c200; --clr-case-sky-dot: #5aaae6; --clr-case-lilac-dot: #b080dc;
+  --clr-case-blend: multiply;
 
   --clr-bg: #f6efe4;
   --clr-surface: #fdf8ef;
@@ -198,6 +203,9 @@
 }
 
 [data-theme="dark"] {
+  --clr-case-ink: #f0e6d2; --clr-case-ocean: #8fb8d4; --clr-case-plum: #d4a3d4;
+  --clr-case-lemon: rgba(255, 214, 10, 0.30); --clr-case-sky: rgba(90, 170, 230, 0.34); --clr-case-lilac: rgba(176, 128, 220, 0.36);
+  --clr-case-blend: normal;
   --clr-bg: #1a1612;
   --clr-surface: #2b2419;
   --clr-surface-2: #3a3126;
@@ -2899,7 +2907,8 @@ html.dark .vmx-panic-scrim {
 @media (min-width: 1024px) {
   .vmx-q-with-passage {
     display: grid;
-    grid-template-columns: minmax(300px, 42%) 1fr;
+    /* 320 px holds the pane's seven 44 px tools on one row: a second row hid the text under it. */
+    grid-template-columns: minmax(320px, 42%) 1fr;
     gap: 24px;
     align-items: start;
   }
@@ -5153,6 +5162,33 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
 .vmx-qtext.is-reading, .vmx-qstem.is-reading, .vmx-instant-feedback .w.is-reading { box-shadow: inset 3px 0 0 var(--clr-ocean); }
 /* A stem read together with the numbers of its table: the table carries the edge too. */
 .vmx-q-passage-pane.is-reading { box-shadow: -3px 0 0 var(--clr-ocean); }
+
+/* ── The case pane (components/case/CasePane.jsx) ─────────────
+   One scroller: from 1024 px the sticky pane column scrolls, below it the
+   page does. The text box has no height of its own, so pen strokes on its
+   canvas scroll with the words. The full-screen sheet is styles-case.css,
+   with what shows only once a tool is in use (cursors, the wet stroke, the
+   toast after a clear): the tools bring that file. */
+.vmx-case-pane { border: 1px solid var(--clr-border); border-radius: var(--r-md); background: var(--clr-surface-2); }
+.vmx-case-top { position: sticky; top: 0; z-index: var(--z-raised); background: var(--clr-surface); border-radius: var(--r-md) var(--r-md) 0 0; }
+.vmx-case-head { display: flex; align-items: center; gap: 8px; padding: 0 6px 0 14px; background: var(--clr-surface); border-bottom: 1px solid var(--clr-border); border-radius: var(--r-md) var(--r-md) 0 0; }
+.vmx-case-toggle { all: unset; box-sizing: border-box; cursor: pointer; flex: 1 1 auto; min-width: 0; min-height: 44px; display: flex; align-items: center; gap: 8px; padding: 6px 0; }
+.vmx-case-title { font-size: 14px; font-weight: 600; line-height: 1.5; color: var(--clr-ink-soft); min-width: 0; }
+.vmx-case-toggle-word { margin-left: auto; font-size: 14px; color: var(--clr-ink-soft); white-space: nowrap; }
+.vmx-case-full { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; min-width: 44px; padding: 0 10px; border: 0; border-radius: var(--r-sm); background: transparent; color: var(--clr-ink); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; touch-action: manipulation; }
+.vmx-case-full:hover { background: var(--clr-gold-soft); }
+.vmx-case-note { margin: 0; padding: 8px 14px; font-size: 14px; color: var(--clr-rose-text); }
+.vmx-case-tools.is-row { box-sizing: border-box; min-height: 49px; display: flex; flex-wrap: wrap; align-items: center; gap: 0; padding: 2px; background: var(--clr-surface); border-bottom: 1px solid var(--clr-border); }
+.vmx-case-tools.is-retry { width: 100%; border: 0; font: inherit; color: var(--clr-ink); cursor: pointer; }
+.vmx-case-surface { position: relative; padding: 14px 16px; color: var(--clr-ink); font-size: 16px; line-height: 1.75; touch-action: manipulation; }
+.vmx-case-text .vmx-rb-p, .vmx-case-text .vmx-rb-lead { white-space: pre-wrap; }
+.vmx-case-mark { color: inherit; padding: 0; border-radius: 2px; mix-blend-mode: var(--clr-case-blend); }
+.vmx-case-mark.is-lemon { background: var(--clr-case-lemon); }
+.vmx-case-mark.is-sky { background: var(--clr-case-sky); }
+.vmx-case-mark.is-lilac { background: var(--clr-case-lilac); }
+.vmx-case-wet { position: absolute; inset: 0; pointer-events: none; }
+.vmx-case-ink { position: absolute; left: 0; top: 0; pointer-events: none; }
+
 .vmx-option.is-reading { border-color: var(--clr-ocean); box-shadow: inset 0 0 0 1px var(--clr-ocean); }
 ::highlight(vmx-reading) { background-color: var(--clr-gold-soft); color: var(--clr-ink); }
 

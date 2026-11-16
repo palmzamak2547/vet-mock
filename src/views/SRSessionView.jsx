@@ -23,7 +23,7 @@ import { RichText, stripRichText } from '../lib/richtext.jsx';
 import RichBlocks, { StemText } from '../components/RichBlocks.jsx';
 import WikiLinkForQuestion from '../components/WikiLinkForQuestion.jsx';
 import ZoomableImage from '../components/ZoomableImage.jsx';
-import SmartPassage from '../components/SmartPassage.jsx';
+import CaseSlot from '../components/case/CaseSlot.jsx';
 import FlagChip from '../components/FlagChip.jsx';
 import { useReadAloud, ListenButton } from '../components/ReadAloudListen.jsx';
 import { wholeExplain, wholeStem } from '../lib/rich-blocks.js';
@@ -879,7 +879,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
           </div>
           {currentQ.passage && (
             <div style={{ textAlign: 'left' }}>
-              <SmartPassage text={currentQ.passage} title={currentQ.passage_title} />
+              <CaseSlot text={currentQ.passage} title={currentQ.passage_title} subject={currentQ.subject} ownerId={ownerId} ask={currentQ.q || ''} questionKey={`${currentQ.subject}:${currentQ.id}`} />
             </div>
           )}
           {/* The figure as the practice card shows it (Question.jsx): one figure
