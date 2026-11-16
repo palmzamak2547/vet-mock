@@ -15,7 +15,7 @@ export function subjectCardCopy({
   if (qbLoading) return { kind: 'loading', text: 'กำลังโหลด…', title: 'กำลังโหลดคลังข้อสอบ', dead: false };
   if (count === 0 && hasNotes) return { kind: 'notes', text: 'มีสรุปให้อ่าน', title: '', dead: false };
   if (isEmpty && docs > 0) {
-    return { kind: 'docs', text: `เอกสารจริง ${docs} ไฟล์`, title: `เปิดชั้นเอกสารจริงของวิชานี้ (${docs} ไฟล์)`, dead: false };
+    return { kind: 'docs', text: `เอกสารจริง ${docs} ไฟล์`, title: `เปิดคลังเอกสารจริงของวิชานี้ (${docs} ไฟล์)`, dead: false };
   }
   if (isEmpty && outOfPhase) {
     return { kind: 'outOfPhase', text: 'ไม่อยู่ในช่วงสอบนี้', title: 'วิชานี้ไม่อยู่ในช่วงสอบที่เลือก สลับช่วงสอบที่หน้าแรกเพื่อฝึก', dead: true };
@@ -23,8 +23,8 @@ export function subjectCardCopy({
   if (isEmpty && docs === null) {
     // The shelf is not known yet: say so, never "empty".
     return docsChecked
-      ? { kind: 'unknown', text: 'ยังโหลดชั้นเอกสารไม่ได้', title: '', dead: false }
-      : { kind: 'checking', text: 'กำลังโหลด…', title: 'กำลังตรวจชั้นเอกสาร', dead: false };
+      ? { kind: 'unknown', text: 'ยังโหลดคลังเอกสารไม่ได้', title: '', dead: false }
+      : { kind: 'checking', text: 'กำลังโหลด…', title: 'กำลังตรวจคลังเอกสาร', dead: false };
   }
   if (isEmpty) return { kind: 'empty', text: NO_CONTENT_TEXT, title: NO_CONTENT_TITLE, dead: true };
   return { kind: 'count', text: `${count.toLocaleString()} ข้อ`, title: '', dead: false };
@@ -48,6 +48,6 @@ export function previewYearSubtitle({ subjectIds = [], docCounts = null, docsChe
   }
   const withDocs = subjectIds.filter((id) => (docCounts.get(id) || 0) > 0).length;
   return withDocs > 0
-    ? 'วิชาที่มีชั้นเอกสารเปิดอ่านได้เลย ข้อสอบกำลังทยอยเพิ่ม'
+    ? 'วิชาที่มีคลังเอกสารเปิดอ่านได้เลย ข้อสอบกำลังทยอยเพิ่ม'
     : 'ข้อสอบและเอกสารกำลังทยอยเพิ่ม';
 }
