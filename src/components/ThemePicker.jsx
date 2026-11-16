@@ -71,12 +71,15 @@ export default function ThemePicker({ theme, themePref = theme, setTheme, palett
   const DROPDOWN_MIN_W = 220;
   const anchorSide = useDropdownAnchor(wrapRef, open, DROPDOWN_MIN_W);
   const panelRef = useRef(null);
-  // Opening moves focus into the panel, onto the mode in use, so the keys
-  // reach its choices; Tab out of the panel closes it, as a click outside does.
+  // Opened from the keyboard, focus moves into the panel, onto the mode in use,
+  // so the keys reach its choices; Tab out of the panel closes it, as a click
+  // outside does. Opened by a tap or a click, focus stays on the button: moving
+  // it scrolled a phone's page to the panel.
+  const openedByKeys = useRef(false);
   useEffect(() => {
-    if (!open) return;
+    if (!open || !openedByKeys.current) return;
     const panel = panelRef.current;
-    (panel?.querySelector('[aria-pressed="true"]') || panel?.querySelector('button, summary'))?.focus();
+    (panel?.querySelector('[aria-pressed="true"]') || panel?.querySelector('button, summary'))?.focus({ preventScroll: true });
   }, [open]);
   const onPanelBlur = (e) => {
     if (e.relatedTarget && wrapRef.current && !wrapRef.current.contains(e.relatedTarget)) setOpen(false);
@@ -91,12 +94,13 @@ export default function ThemePicker({ theme, themePref = theme, setTheme, palett
       setOpen(false);
       wrapRef.current?.querySelector('button')?.focus();
     };
-    // Defer attaching the outside-click listener until after the click
-    // that opened the menu has finished bubbling (otherwise the same
-    // pointerdown closes the menu we just opened).
+    // Escape works from the moment the panel is open: a key pressed in the
+    // same frame as the open is not lost. Only the outside-click listener
+    // waits a frame, until the click that opened the menu has finished
+    // bubbling (otherwise the same pointerdown closes the menu we just opened).
+    document.addEventListener('keydown', onKeyDown);
     const raf = requestAnimationFrame(() => {
       document.addEventListener('pointerdown', onDoc);
-      document.addEventListener('keydown', onKeyDown);
     });
     return () => {
       cancelAnimationFrame(raf);
@@ -108,7 +112,7 @@ export default function ThemePicker({ theme, themePref = theme, setTheme, palett
     <div ref={wrapRef} style={{ position: 'relative' }}>
       <button
         className="vmx-theme-btn"
-        onClick={() => setOpen((o) => !o)}
+        onClick={(e) => { openedByKeys.current = e.detail === 0; setOpen((o) => !o); }}
         onPointerEnter={() => { loadMotionSettings().catch(() => {}); }}
         onFocus={() => { loadMotionSettings().catch(() => {}); }}
         title="ธีมและสี"

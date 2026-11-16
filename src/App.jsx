@@ -836,6 +836,8 @@ export default function App() {
           // from it returns there (5.144.5 review: their back went Home).
           // Always written, since the state above spreads the previous entry.
           vmxRestReturn: REST_TOOLS.has(next) && previous === 'mochi' ? true : null,
+          // The case sheet's marker belongs to the sheet's own entry (lib/case-entry.js), never to a page after it.
+          vmxCaseSheet: null,
         };
         // Wiki, Practical, and stable app destinations own canonical URLs.
         // Stateful flows return to root so refresh never reconstructs a
@@ -937,7 +939,11 @@ export default function App() {
       // An exam entry whose set is gone (finished, or cleared by Home) has
       // nothing to show: drawn as it was, it was a loading screen with no end
       // and no navigation, since the exam hides the bars.
-      if (next === 'exam' && viewRef.current !== 'exam' && !sessionRef.current?.questions?.length) {
+      // So has the entry of a paper already handed in: the results can stand one entry past it (they replace
+      // the case sheet's entry when the paper ended under the sheet), and drawn live again it took answers and
+      // wrote the paper back as not submitted.
+      if (next === 'exam' && viewRef.current !== 'exam'
+        && (!sessionRef.current?.questions?.length || finishingRef.current || completedAtRef.current != null)) {
         try { window.history.replaceState({ ...(window.history.state || {}), vmxView: 'home' }, '', '/'); } catch {}
         viewRef.current = 'home';
         withTransition(() => setViewRaw('home'));

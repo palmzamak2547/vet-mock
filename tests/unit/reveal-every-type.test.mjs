@@ -37,7 +37,7 @@ const STUBS = [
   { match: '/lib/haptics\\.js$', contents: 'export const haptic = () => false;' },
   // The source chip is a probe: it draws what it was told, so the test can read `revealed`.
   { match: 'QSourceChip\\.jsx$', contents: "export default function QSourceChip({ revealed }) { return { type: 'i', props: { 'data-source-revealed': Boolean(revealed) }, key: null }; }" },
-  ...['WikiLinkForQuestion', 'TermLinkedRichText', 'SmartPassage', 'NavIcon', 'ZoomableImage', 'VoiceInputButton',
+  ...['WikiLinkForQuestion', 'TermLinkedRichText', 'CasePane', 'NavIcon', 'ZoomableImage', 'VoiceInputButton',
     'HandwritingInput', 'PinButton', 'MissCoach', 'Mochi', 'AiGradePanel', 'ReadAloudBar', 'EvidenceSlot']
     .map((name) => ({ match: `${name}\\.jsx$`, contents: `${nothing}\nexport const useEvidenceWarmup = () => {};` })),
 ];

@@ -47,6 +47,9 @@ async function holdBank(page) {
   return { release, requested: bankRequested };
 }
 
+// The passage's first line: since 5.240.0 it is typeset in blocks, so a blank line is a gap, not text.
+const opening = (q) => q.passage.split('\n')[0].slice(0, 80);
+
 test('SR shows each real passage before recall and resets annotations and controls on the next card', async ({ page }, info) => {
   expect(passage).toBeTruthy();
   await seed(page, [passage, nextPassage, figure]);
@@ -54,14 +57,20 @@ test('SR shows each real passage before recall and resets annotations and contro
   await expect(front).toContainText(passage.q);
   const toggle = front.getByRole('button', { name: new RegExp(passage.passage_title) });
   await expect(toggle).toBeVisible();
-  await expect(front).toContainText(passage.passage.slice(0, 80));
-  await expect(front.getByText(passage.passage.slice(0, 80))).toHaveCSS('text-align', 'left');
+  await expect(front).toContainText(opening(passage));
+  await expect(front.getByText(opening(passage))).toHaveCSS('text-align', 'left');
   await toggle.click();
-  await expect(front).not.toContainText(passage.passage.slice(0, 80));
+  await expect(front).not.toContainText(opening(passage));
   await toggle.click();
-  await expect(front).toContainText(passage.passage.slice(0, 80));
-  await front.getByTitle('ไฮไลท์ข้อความ — ลากเพื่อทำเครื่องหมาย', { exact: true }).click();
-  await front.evaluate((root, text) => {
+  await expect(front).toContainText(opening(passage));
+  // The highlighter is in the pane's tools; a phone's pane has none and marks in the reading sheet (5.240.0).
+  const highlighter = front.getByRole('button', { name: 'ปากกาไฮไลต์', exact: true });
+  const phone = !(await highlighter.isVisible());
+  if (phone) {
+    await front.getByRole('button', { name: 'อ่านเต็มจอ' }).click();
+    await expect(page.getByRole('dialog')).toBeVisible();
+  } else await highlighter.click();
+  await (phone ? page.locator('.vmx-case-sheet .vmx-case-text') : front).evaluate((root, text) => {
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
     let node;
     while ((node = walker.nextNode()) && !node.textContent.startsWith(text)) {}
@@ -70,23 +79,25 @@ test('SR shows each real passage before recall and resets annotations and contro
     const selection = window.getSelection();
     selection.removeAllRanges(); selection.addRange(range);
     node.parentElement.dispatchEvent(new MouseEvent('mouseup', { bubbles: true }));
-  }, passage.passage.slice(0, 80));
+  }, opening(passage));
+  if (phone) await page.getByRole('button', { name: 'กลับไปที่คำถาม' }).click();
   await expect(front.locator('mark')).toHaveCount(1);
   await toggle.click();
   await page.getByRole('button', { name: 'แสดงคำตอบ (Space)', exact: true }).click();
   await expect(page.locator('.vmx-flashcard .back')).toContainText(passage.explain);
   await page.getByRole('button', { name: /Good/ }).click();
   await expect(front).toContainText(nextPassage.q);
-  await expect(front).toContainText(nextPassage.passage.slice(0, 80));
+  await expect(front).toContainText(opening(nextPassage));
   await expect(front.locator('mark')).toHaveCount(0);
-  await expect(front.getByTitle('yellow', { exact: true })).toHaveCount(0);
+  // The next case arrives with the pen in hand again, not the highlighter the last one was left with.
+  if (!phone) await expect(front.getByRole('button', { name: 'ปากกาไฮไลต์', exact: true })).toHaveAttribute('aria-pressed', 'false');
   await expect(front).not.toContainText(passage.passage_title);
   await page.screenshot({ path: info.outputPath('sr-next-passage.png') });
   await page.getByRole('button', { name: 'แสดงคำตอบ (Space)', exact: true }).click();
   await page.getByRole('button', { name: /Good/ }).click();
   await expect(front).toContainText(figure.q);
   await expect(front).not.toContainText(passage.passage_title);
-  await expect(front).not.toContainText(passage.passage.slice(0, 80));
+  await expect(front).not.toContainText(opening(passage));
 });
 
 test('SR reveals a safe explanation figure with zoom and never fetches an untrusted one', async ({ page }, info) => {
