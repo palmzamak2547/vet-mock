@@ -15,29 +15,40 @@ test.setTimeout(60_000);
 const SUBJECT = 'exotic';
 const TOPIC_HAS_TEXT = 'โรคติดเชื้อในนก';
 
-async function stubSpeech(page) {
-  await page.addInitScript(() => {
+// opts.lateMs: the device lists no voice until then, then fires voiceschanged.
+// opts.mute: a voice by that name takes utterances and never starts.
+// opts.only: the names of the voices this device has (default: Kanya, Narisa, Samantha).
+async function stubSpeech(page, opts = {}) {
+  await page.addInitScript(({ lateMs = 0, mute = '', only = ['Kanya', 'Narisa', 'Samantha'] }) => {
     window.__said = [];
-    const voices = [
+    const born = Date.now();
+    const listeners = new Set();
+    const all = [
       { name: 'Kanya', lang: 'th-TH', voiceURI: 'Kanya', localService: true, default: true },
       { name: 'Narisa', lang: 'th-TH', voiceURI: 'Narisa', localService: true, default: false },
       { name: 'Samantha', lang: 'en-US', voiceURI: 'Samantha', localService: true, default: false },
     ];
+    all.push({ name: 'Microsoft Pattara - Thai (Thailand)', lang: 'th-TH', voiceURI: 'Pattara', localService: true, default: false });
+    const mine = all.filter((v) => only.some((n) => v.name.startsWith(n)));
+    const voices = () => (Date.now() - born < lateMs ? [] : mine);
+    if (lateMs) setTimeout(() => { for (const f of listeners) f(); }, lateMs);
     let current = null;
     const synth = {
       speak(u) {
         current = u;
         window.__said.push({ text: u.text, rate: u.rate, pitch: u.pitch, voice: u.voice?.name || null });
+        if (mute && u.voice?.name === mute) return;
         setTimeout(() => { if (current !== u) return; u.onstart?.(); u.t = setTimeout(() => { if (current === u) { current = null; u.onend?.(); } }, 900); }, 5);
       },
       cancel() { const u = current; current = null; if (u) { clearTimeout(u.t); u.onerror?.({ error: 'interrupted' }); } },
-      getVoices: () => voices, pause() {}, resume() {},
+      getVoices: voices, pause() {}, resume() {},
       get speaking() { return Boolean(current); }, pending: false,
-      addEventListener() {}, removeEventListener() {},
+      addEventListener(type, f) { if (type === 'voiceschanged') listeners.add(f); },
+      removeEventListener(type, f) { listeners.delete(f); },
     };
     Object.defineProperty(window, 'speechSynthesis', { configurable: true, get: () => synth });
     window.SpeechSynthesisUtterance = function (text) { this.text = text; };
-  });
+  }, opts);
 }
 
 // No stored clips anywhere: the device voice reads. Every request for a
@@ -163,6 +174,88 @@ test('inside a timed paper the speed button steps the speed and opens nothing', 
   await bar.getByRole('button', { name: /ความเร็ว 1 เท่า แตะเพื่อเปลี่ยนเป็น 1.25 เท่า/ }).click();
   await expect(bar.getByRole('button', { name: /ความเร็ว 1.25 เท่า/ })).toHaveText('1.25x');
   await expect(page.getByRole('dialog')).toHaveCount(0);
+  await bar.getByRole('button', { name: 'ปิดเสียงอ่าน' }).click();
+  await page.evaluate(() => window.localStorage.removeItem('vmx-tts-prefs'));
+});
+
+test('a voice list that arrives late is waited for, never reported as no Thai voice', async ({ page }) => {
+  await stubSpeech(page, { lateMs: 15_000 });
+  await routeVoices(page);
+  await openPractice(page);
+  await page.getByRole('button', { name: 'อ่านคำถามออกเสียง' }).click();
+  const bar = page.getByRole('region', { name: 'เสียงอ่าน' });
+  await expect(bar).toBeVisible();
+  await bar.getByRole('button', { name: /ปรับเสียงอ่าน/ }).click();
+  const sheet = page.getByRole('dialog', { name: 'ตั้งค่าเสียงอ่าน' });
+  const thai = sheet.getByRole('combobox', { name: 'เสียงของเครื่อง ภาษาไทย' });
+  await expect(thai).toBeDisabled();
+  await expect(sheet).not.toContainText('เครื่องนี้ไม่มีเสียงอ่านภาษาไทย');
+  // The device lists its voices: the dialog reads the list again.
+  await expect(thai.locator('option')).toHaveText(['เลือกให้อัตโนมัติ', 'Kanya', 'Narisa'], { timeout: 20_000 });
+  await expect(thai).toBeEnabled();
+  await expect(sheet).not.toContainText('เครื่องนี้ไม่มีเสียงอ่านภาษาไทย');
+  await expect(sheet.locator('.vmx-voice-now')).toContainText('เสียงของเครื่อง (Kanya)');
+});
+
+test('the dialog says which voice reads here, and ลองฟัง takes that voice: the cloud for a plain device voice, the device voice once toned', async ({ page }) => {
+  await stubSpeech(page, { only: ['Microsoft Pattara'] });
+  const seen = await routeVoices(page);
+  await openPractice(page);
+  await page.getByRole('button', { name: 'อ่านคำถามออกเสียง' }).click();
+  const bar = page.getByRole('region', { name: 'เสียงอ่าน' });
+  await expect(bar).toBeVisible();
+  await bar.getByRole('button', { name: /ปรับเสียงอ่าน/ }).click();
+  const sheet = page.getByRole('dialog', { name: 'ตั้งค่าเสียงอ่าน' });
+  const now = sheet.locator('.vmx-voice-now');
+  await expect(now).toContainText('เสียงออนไลน์');
+  await expect(sheet).toContainText('โทนเสียงและการเลือกเสียงใช้กับเสียงของเครื่องเท่านั้น');
+  const cloud = seen.cloud;
+  await sheet.getByRole('button', { name: 'ลองฟัง' }).click();
+  await expect.poll(() => seen.cloud).toBeGreaterThan(cloud);
+  // Toned, the device voice reads, and the sample is the device voice with the tone.
+  const pitch = sheet.getByRole('slider', { name: /โทนเสียง/ });
+  await pitch.focus();
+  await page.keyboard.press('ArrowLeft');
+  await expect(now).toContainText('เสียงของเครื่อง (Microsoft Pattara');
+  const asked = seen.cloud;
+  await expect(sheet.getByRole('button', { name: 'ลองฟัง' })).toBeVisible({ timeout: 15_000 });
+  await sheet.getByRole('button', { name: 'ลองฟัง' }).click();
+  await expect.poll(() => page.evaluate(() => window.__said.at(-1)?.text || '')).toContain('นี่คือเสียงอ่านตามที่ตั้งไว้');
+  expect(await page.evaluate(() => window.__said.at(-1).pitch)).toBe(0.85);
+  expect(seen.cloud).toBe(asked);
+  await sheet.getByRole('button', { name: 'คืนค่าเริ่มต้น' }).click();
+  await page.evaluate(() => window.localStorage.removeItem('vmx-tts-prefs'));
+});
+
+test('in a timed paper a chosen voice that does not speak gives way to the device\'s own voice, never silence', async ({ page }) => {
+  await stubSpeech(page, { mute: 'Narisa' });
+  const seen = await routeVoices(page);
+  await page.addInitScript(() => {
+    localStorage.setItem('vmx-selected-year', '4');
+    localStorage.setItem('vmx-seen-landing', '1');
+    localStorage.setItem('vmx-consent', JSON.stringify('essential'));
+    localStorage.setItem('vmx-tts-prefs', JSON.stringify({ v: 2, rate: 1, pitch: 1, voiceTh: 'Narisa', voiceEn: '' }));
+    if (!sessionStorage.getItem('voice-mute-fixture')) {
+      sessionStorage.setItem('voice-mute-fixture', '1');
+      const now = Date.now();
+      localStorage.setItem('vmx-inflight-exam:guest', JSON.stringify({
+        ownerId: null,
+        questions: [{ id: 6202, subject: 'vca', type: 'mcq', q: 'โคนมป่วยด้วยโรคใดมากที่สุดหลังคลอด', options: ['ไข้น้ำนม', 'ปากและเท้าเปื่อย', 'บิด'], answer: 0, explain: 'ตัวอย่างสำหรับตรวจเสียงอ่าน' }],
+        answers: {}, currentIdx: 0, useTimer: true, timePerQ: 600,
+        questionDeadline: now + 600_000, examStartTime: now,
+        savedAt: now, mode: 'exam', clock: 'session', selectedYear: 4,
+      }));
+    }
+  });
+  await page.goto('/app');
+  await page.getByRole('button', { name: /ทำต่อจากครั้งล่าสุด/ }).click();
+  await expect(page.locator('.vmx-timer')).toBeVisible();
+  await page.getByRole('button', { name: 'อ่านคำถามออกเสียง' }).click();
+  const bar = page.getByRole('region', { name: 'เสียงอ่าน' });
+  // The chosen voice was asked first, did not start, and Kanya read instead.
+  await expect.poll(() => page.evaluate(() => window.__said.map((s) => s.voice)), { timeout: 15_000 }).toEqual(expect.arrayContaining(['Narisa', 'Kanya']));
+  await expect(bar.getByRole('status')).toHaveText('เสียงอ่านของเครื่อง');
+  expect(seen.cloud).toBe(0);
   await bar.getByRole('button', { name: 'ปิดเสียงอ่าน' }).click();
   await page.evaluate(() => window.localStorage.removeItem('vmx-tts-prefs'));
 });

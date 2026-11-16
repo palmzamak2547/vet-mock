@@ -19,7 +19,7 @@ import '../styles-voice.css';
 const NO_THAI = 'เครื่องนี้ไม่มีเสียงอ่านภาษาไทย เพิ่มได้ในการตั้งค่าเสียงของเครื่อง';
 const rateText = (r) => `${r}x`;
 
-export default function VoiceSettings({ onClose, onBeforeSample }) {
+export default function VoiceSettings({ onClose }) {
   const prefs = useSyncExternalStore(subscribeVoicePrefs, getVoicePrefs, getVoicePrefs);
   const preset = presetOf(prefs);
   const firstRef = useRef(null);
@@ -29,18 +29,27 @@ export default function VoiceSettings({ onClose, onBeforeSample }) {
   const [sample, setSample] = useState({ state: 'idle', note: '' });
   const tts = useRef(null);
   const sampleRun = useRef(0);
+  // Which voice reads a question with no stored clip here, now: it follows
+  // the tone and the voice chosen, so it is read again on every change.
+  const [reading, setReading] = useState(null);
   useEffect(() => {
     let live = true;
-    import('../lib/tts.js').then((m) => {
-      tts.current = m;
-      return m.deviceVoices();
-    }).then((v) => { if (live) setVoices(v); }, () => { if (live) setVoices({ th: [], en: [] }); });
-    return () => { live = false; tts.current?.stopSample?.(); };
+    // A device lists its voices late (Chrome, the Android app): read the list
+    // again each time it changes while the dialog is open.
+    const synth = typeof window !== 'undefined' ? window.speechSynthesis : null;
+    const read = () => tts.current?.deviceVoices().then((v) => { if (live) { setVoices(v); setReading(tts.current.readingVoice('th')); } }, () => {});
+    import('../lib/tts.js').then((m) => { tts.current = m; read(); }, () => { if (live) setVoices({ th: [], en: [], loaded: false }); });
+    try { synth?.addEventListener?.('voiceschanged', read); } catch { /* an engine without events */ }
+    return () => {
+      live = false;
+      try { synth?.removeEventListener?.('voiceschanged', read); } catch { /* an engine without events */ }
+      tts.current?.stopSample?.();
+    };
   }, []);
+  useEffect(() => { if (tts.current) setReading(tts.current.readingVoice('th')); }, [prefs]);
 
   const playSample = async () => {
     if (sample.state === 'playing') { sampleRun.current++; tts.current?.stopSample(); setSample({ state: 'idle', note: '' }); return; }
-    onBeforeSample?.();
     const mine = ++sampleRun.current;
     setSample({ state: 'playing', note: '' });
     let res;
@@ -50,13 +59,16 @@ export default function VoiceSettings({ onClose, onBeforeSample }) {
       res = await m.speakSample('th');
     } catch { res = { ok: false, reason: 'no-speech' }; }
     if (mine !== sampleRun.current) return;
-    if (!res.ok) { setSample({ state: 'idle', note: res.reason === 'no-speech' ? 'เบราว์เซอร์นี้อ่านออกเสียงเองไม่ได้' : NO_THAI }); return; }
+    if (!res.ok) { setSample({ state: 'idle', note: res.reason === 'no-speech' ? 'เบราว์เซอร์นี้อ่านออกเสียงเองไม่ได้' : res.reason === 'no-voice' ? NO_THAI : 'เสียงของเครื่องยังไม่เริ่มพูด ลองอีกครั้ง' }); return; }
     setSample({ state: 'idle', note: '' });
   };
 
   const pitchIndex = Math.max(0, PITCHES.indexOf(prefs.pitch));
   const thai = voices?.th || [];
   const english = voices?.en || [];
+  // No Thai voice is said only once the device has listed its voices.
+  const noThai = Boolean(voices?.loaded) && !thai.length;
+  const listing = !voices || (!voices.loaded && !thai.length);
 
   return (
     <div className="vmx-modal-overlay" onClick={onClose}>
@@ -125,24 +137,31 @@ export default function VoiceSettings({ onClose, onBeforeSample }) {
             onChange={(e) => setVoicePrefs({ pitch: PITCHES[Number(e.target.value)] })}
           />
           <div className="vmx-voice-ends" aria-hidden="true"><span>ทุ้ม</span><span>สูง</span></div>
-          <p className="vmx-voice-hint">ใช้กับเสียงอ่านของเครื่อง เสียงที่อัดไว้แล้วปรับได้เฉพาะความเร็ว</p>
+          <p className="vmx-voice-hint">โทนเสียงและการเลือกเสียงใช้กับเสียงของเครื่องเท่านั้น เสียงที่อัดไว้และเสียงออนไลน์ปรับได้เฉพาะความเร็ว</p>
         </div>
 
         <div className="vmx-voice-row">
           <span className="vmx-voice-label">เสียงของเครื่อง</span>
-          {voices && !thai.length && <p className="vmx-voice-hint vmx-voice-hint-top">{NO_THAI}</p>}
+          {reading && (
+            <p className="vmx-voice-now" data-source={reading.source}>
+              {reading.source === 'speech'
+                ? `ข้อที่ไม่มีเสียงอัดไว้ เครื่องนี้อ่านด้วยเสียงของเครื่อง${reading.name ? ` (${reading.name})` : ''}`
+                : 'ข้อที่ไม่มีเสียงอัดไว้ เครื่องนี้อ่านด้วยเสียงออนไลน์ ซึ่งปรับได้เฉพาะความเร็ว เลือกเสียงของเครื่องหรือปรับโทนเพื่อใช้เสียงของเครื่องแทน'}
+            </p>
+          )}
+          {noThai && <p className="vmx-voice-hint vmx-voice-hint-top">{NO_THAI}</p>}
           <div className="vmx-voice-pick">
-            {!(voices && !thai.length) && (
+            {!noThai && (
               <label className="vmx-voice-field">
                 <span>ภาษาไทย</span>
                 <select
                   className="vmx-voice-select"
                   aria-label="เสียงของเครื่อง ภาษาไทย"
                   value={thai.some((v) => v.id === prefs.voiceTh) ? prefs.voiceTh : ''}
-                  disabled={!voices}
+                  disabled={listing}
                   onChange={(e) => setVoicePrefs({ voiceTh: e.target.value })}
                 >
-                  <option value="">{voices ? 'เลือกให้อัตโนมัติ' : 'กำลังหาเสียง'}</option>
+                  <option value="">{listing ? 'กำลังหาเสียงของเครื่อง' : 'เลือกให้อัตโนมัติ'}</option>
                   {thai.map((v) => <option key={v.id} value={v.id}>{v.name}</option>)}
                 </select>
               </label>
@@ -164,6 +183,7 @@ export default function VoiceSettings({ onClose, onBeforeSample }) {
           </div>
         </div>
 
+        <p className="vmx-voice-hint" role="status" aria-live="polite">{sample.note}</p>
         <div className="vmx-voice-actions">
           <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm vmx-voice-try" onClick={playSample} aria-pressed={sample.state === 'playing'}>
             {sample.state === 'playing' ? 'หยุดฟัง' : 'ลองฟัง'}
@@ -178,7 +198,6 @@ export default function VoiceSettings({ onClose, onBeforeSample }) {
           </button>
           <button className="vmx-btn vmx-btn-primary vmx-btn-sm" onClick={onClose} type="button">เสร็จ</button>
         </div>
-        <p className="vmx-voice-hint" role="status" aria-live="polite">{sample.note}</p>
       </div>
     </div>
   );

@@ -63,6 +63,14 @@ export const readAloud = {
   },
 };
 
+// The voice settings' sample and the reader never sound together: a sample
+// pauses the reading through the reader's own pause (the bar shows it
+// paused), and the reader stops a sample before it plays. `session.cloudRefused`:
+// the cloud voice refused this visitor, so the device voice reads.
+export const session = { cloudRefused: false, pause: null, stopSample: null };
+export function pauseReading() { session.pause?.(); }
+export function stopSampleSound() { const f = session.stopSample; session.stopSample = null; f?.(); }
+
 // The speeds a student can pick, and the one they picked last (voice-prefs.js
 // keeps it with the rest of the voice settings).
 export { RATES } from './voice-prefs.js';

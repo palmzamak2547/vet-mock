@@ -51,6 +51,7 @@ import { thaiPhoneticTranslit } from './tts-phonetic.js';
 import { normalizeSymbols, expandUnits, questionLang, stripForSpeech, clipText, clipSegments, optionLabel, segmentStarts } from './tts-text.js';
 import { sharedPlan, getSharedAudio } from './tts-shared.js';
 import { getVoicePrefs } from './voice-prefs.js';
+import { pauseReading, session } from './read-aloud-store.js';
 import { chosenVoice, voiceChoices } from './voice-choices.js';
 import {
   speakViaEdge,
@@ -812,65 +813,158 @@ export async function livePlan({ stem, options = [] }) {
 // The device voice for a language: the one the listener chose in the voice
 // settings while this device still has it, else the best one it has. `rate`
 // is that voice's natural pace; the listener's speed multiplies it.
-function deviceVoice(voices, lang) {
-  const picked = chosenVoice(voices, lang);
+function deviceVoice(voices, lang, { ignoreChoice = false } = {}) {
+  const picked = ignoreChoice ? null : chosenVoice(voices, lang);
   const voice = picked || pickVoice(voices, lang);
   const tier = voiceTier(voice);
   return { voice, tier, rate: rateFor(lang, tier), chosen: Boolean(picked) };
 }
 
-/** The device voice for a language with the voices the device lists now
- *  (a change in the voice settings while it reads). */
-export function voiceNow(lang) {
-  const voices = typeof window !== 'undefined' ? window.speechSynthesis?.getVoices?.() || [] : [];
-  return deviceVoice(voices, lang);
+const speechOk = () => typeof window !== 'undefined' && Boolean(window.speechSynthesis) && typeof SpeechSynthesisUtterance !== 'undefined';
+
+/**
+ * Which voice reads a question that has no stored clip: 'speech' (the
+ * device's own voice) or 'cloud'. The device voice reads when it is a good
+ * one, when the listener chose it, when they changed the tone (only the
+ * device voice takes a tone), or when the cloud voice refused this visitor.
+ * The reader, the voice settings' line and its sample all use this rule.
+ */
+export function readerSource(live, cloudRefused = false) {
+  if (!speechOk() || !live?.voice) return 'cloud';
+  if (live.chosen || live.tier !== 'standard' || getVoicePrefs().pitch !== 1 || cloudRefused) return 'speech';
+  return 'cloud';
 }
 
-/** The device's own voices, Thai and English, for the voice settings. */
+/** The device voice for a language with the voices the device lists now
+ *  (a change in the voice settings while it reads). ignoreChoice: the
+ *  device's own best voice, for when the chosen one does not speak. */
+export function voiceNow(lang, opts) {
+  const voices = typeof window !== 'undefined' ? window.speechSynthesis?.getVoices?.() || [] : [];
+  return deviceVoice(voices, lang, opts);
+}
+
+/** The device's own voices, Thai and English, for the voice settings.
+ *  loaded: the device has listed any voice at all yet. */
 export async function deviceVoices() {
   const now = typeof window !== 'undefined' ? window.speechSynthesis?.getVoices?.() : null;
   const voices = now?.length ? now : await Promise.race([ensureVoices(), pause(VOICE_WAIT_MS).then(() => [])]);
-  return voiceChoices(voices);
+  const fresh = voices?.length ? voices : (typeof window !== 'undefined' ? window.speechSynthesis?.getVoices?.() || [] : []);
+  return { ...voiceChoices(fresh), loaded: fresh.length > 0 };
 }
 
-// The voice settings' sample: one fixed sentence, said by the device's own
-// voice with the settings as they are. Never the cloud voice, so a sample
-// costs nothing and works offline.
+/** What reads a question with no stored clip on this device now: { source, name }. */
+export function readingVoice(lang = 'th') {
+  const v = voiceNow(lang);
+  const source = readerSource(v, session.cloudRefused || (typeof navigator !== 'undefined' && navigator.onLine === false));
+  return { source, name: source === 'speech' ? v.voice?.name || '' : '' };
+}
+
+// The voice settings' sample: one fixed sentence, said the way this device
+// reads a question with no stored clip (readerSource): the device's own
+// voice with the tone and speed set, or the cloud voice (free, no credit) at
+// the speed set, falling back to the device voice as the reader does. The
+// reading in progress pauses through the reader's own pause first, and the
+// reader stops a sample before it plays (read-aloud-store.js).
 export const SAMPLE_TEXT = {
   th: 'นี่คือเสียงอ่านตามที่ตั้งไว้ ความเร็วและโทนเสียงจะเป็นแบบนี้',
   en: 'This is how a question in English will sound.',
 };
-let sampleUtter = null;
+let sampleStop = null;
 export function stopSample() {
-  if (!sampleUtter) return;
-  sampleUtter = null;
-  try { window.speechSynthesis?.cancel(); } catch { /* no speech */ }
+  const f = sampleStop;
+  sampleStop = null;
+  if (session.stopSample === f) session.stopSample = null;
+  f?.();
 }
-/** Resolves { ok: true } once the device has said it (or was stopped), else { ok: false, reason: 'no-voice' | 'no-speech' }. */
+const SAMPLE_SETTLE_MS = 80;
+const SAMPLE_NO_START_MS = 6000;
+
+/** Resolves { ok: true, via } once it has been said (or was stopped), else
+ *  { ok: false, reason: 'no-voice' | 'no-speech' | 'no-start' }. */
 export async function speakSample(lang = 'th') {
-  const synth = typeof window !== 'undefined' ? window.speechSynthesis : null;
-  if (!synth || typeof SpeechSynthesisUtterance === 'undefined') return { ok: false, reason: 'no-speech' };
-  const now = synth.getVoices?.();
-  const voices = now?.length ? now : await Promise.race([ensureVoices(), pause(VOICE_WAIT_MS).then(() => [])]);
-  const { voice, rate } = deviceVoice(voices, lang);
-  if (!voice) return { ok: false, reason: 'no-voice' };
   stopSample();
-  if (synth.speaking || synth.pending) { try { synth.cancel(); } catch { /* no speech */ } }
+  pauseReading();
+  const synth = speechOk() ? window.speechSynthesis : null;
+  const now = synth?.getVoices?.();
+  const voices = now?.length ? now : synth ? await Promise.race([ensureVoices(), pause(VOICE_WAIT_MS).then(() => [])]) : [];
+  const v = deviceVoice(voices?.length ? voices : synth?.getVoices?.() || [], lang);
+  const source = readerSource(v, session.cloudRefused);
   const prefs = getVoicePrefs();
-  const u = new SpeechSynthesisUtterance(SAMPLE_TEXT[lang] || SAMPLE_TEXT.th);
-  u.voice = voice;
-  u.lang = voice.lang;
-  u.rate = Math.max(0.5, Math.min(2, rate * prefs.rate));
+  const text = SAMPLE_TEXT[lang] || SAMPLE_TEXT.th;
+  if (source === 'cloud' && (typeof navigator === 'undefined' || navigator.onLine !== false)) {
+    const res = await cloudSample(text, lang, prefs.rate);
+    if (res.ok || res.stopped) return { ok: true, via: 'cloud' };
+  }
+  if (!synth) return { ok: false, reason: 'no-speech' };
+  if (!v.voice) return { ok: false, reason: (voices || []).length ? 'no-voice' : 'no-start' };
+  return deviceSample(synth, v, text, prefs);
+}
+
+function deviceSample(synth, v, text, prefs) {
+  const u = new SpeechSynthesisUtterance(text);
+  u.voice = v.voice;
+  u.lang = v.voice.lang;
+  u.rate = Math.max(0.5, Math.min(2, v.rate * prefs.rate));
   u.pitch = prefs.pitch;
-  sampleUtter = u;
   return new Promise((resolve) => {
     let done = false;
-    const finish = (res) => { if (!done) { done = true; clearTimeout(t); resolve(res); } };
-    const t = setTimeout(() => { if (sampleUtter === u) stopSample(); finish({ ok: false, reason: 'no-voice' }); }, 6000);
+    let t = null;
+    const finish = (res) => { if (!done) { done = true; clearTimeout(t); if (sampleStop === stop) sampleStop = null; resolve(res); } };
+    const stop = () => { finish({ ok: true, via: 'speech' }); try { synth.cancel(); } catch { /* no speech */ } };
+    sampleStop = stop;
+    session.stopSample = stop;
     u.onstart = () => clearTimeout(t); // resolves when it ends
-    u.onend = () => { if (sampleUtter === u) sampleUtter = null; finish({ ok: true }); };
-    u.onerror = (e) => { if (sampleUtter === u) sampleUtter = null; finish(e?.error === 'interrupted' || e?.error === 'canceled' ? { ok: true } : { ok: false, reason: 'no-voice' }); };
-    try { synth.speak(u); } catch { finish({ ok: false, reason: 'no-speech' }); }
+    u.onend = () => finish({ ok: true, via: 'speech' });
+    u.onerror = (e) => finish(e?.error === 'interrupted' || e?.error === 'canceled' ? { ok: true, via: 'speech' } : { ok: false, reason: 'no-start' });
+    // A speak() straight after a cancel() (the reading just paused) can be
+    // dropped on Chrome for Android: wait a moment, as the reader does.
+    const cancelled = synth.speaking || synth.pending;
+    if (cancelled) { try { synth.cancel(); } catch { /* no speech */ } }
+    setTimeout(() => {
+      if (done) return;
+      t = setTimeout(() => { try { synth.cancel(); } catch { /* no speech */ } finish({ ok: false, reason: 'no-start' }); }, SAMPLE_NO_START_MS);
+      try { synth.speak(u); } catch { finish({ ok: false, reason: 'no-speech' }); }
+    }, cancelled ? SAMPLE_SETTLE_MS : 0);
+  });
+}
+
+// The cloud voice's sample on an element of its own (the reader's element
+// may hold a paused clip): resolves { ok } when it has played, { stopped }
+// when stopped, { ok: false } when it could not (then the device voice says it).
+function cloudSample(text, lang, rate) {
+  const abort = new AbortController();
+  let el = null;
+  let url = null;
+  return new Promise((resolve) => {
+    let done = false;
+    const finish = (res) => {
+      if (done) return;
+      done = true;
+      clearTimeout(t);
+      if (sampleStop === stop) sampleStop = null;
+      try { el?.pause(); } catch { /* nothing playing */ }
+      if (url) URL.revokeObjectURL(url);
+      resolve(res);
+    };
+    const stop = () => { abort.abort(); finish({ stopped: true }); };
+    sampleStop = stop;
+    session.stopSample = stop;
+    const t = setTimeout(() => { abort.abort(); finish({ ok: false }); }, 4000);
+    getEdgeAudio({ text: `${text}.`, lang, rate: 1 }, abort.signal).then((buf) => {
+      if (done) return;
+      clearTimeout(t);
+      url = URL.createObjectURL(new Blob([buf], { type: 'audio/mpeg' }));
+      el = new Audio(url);
+      el.defaultPlaybackRate = rate;
+      el.playbackRate = rate;
+      try { el.preservesPitch = true; el.webkitPreservesPitch = true; } catch { /* read-only */ }
+      el.onended = () => finish({ ok: true });
+      el.onerror = () => finish({ ok: false });
+      el.play().catch(() => finish({ ok: false }));
+    }, (e) => {
+      if (/^tts 40[13]/.test(String(e?.message))) session.cloudRefused = true;
+      finish({ ok: false });
+    });
   });
 }
 

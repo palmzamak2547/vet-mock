@@ -126,22 +126,26 @@ test('voice choices: Thai and English voices by name, others left out', () => {
   assert.deepEqual(vp.voiceChoices([]), { th: [], en: [] });
 });
 
-test('a device with no Thai voice: no choice, the sample says so, nothing asks the network', async () => {
+test('a device with no Thai voice: no choice; the sample takes the reader path (the cloud voice) and, offline, says so', async () => {
   fresh();
   voices = [SAMANTHA];
   vp.setVoicePrefs({ voiceTh: KANYA.voiceURI });
   assert.equal(vp.chosenVoice(voices, 'th'), null);
-  assert.deepEqual((await tts.deviceVoices()).th, []);
+  const listed = await tts.deviceVoices();
+  assert.deepEqual(listed.th, []);
+  assert.equal(listed.loaded, true, 'voices were listed: no Thai voice is a fact, not a wait');
   const before = said.length;
+  const asked = fetched;
   const res = await tts.speakSample('th');
   assert.deepEqual(res, { ok: false, reason: 'no-voice' });
   assert.equal(said.length, before);
-  assert.equal(fetched, 0);
+  assert.ok(fetched > asked, 'the cloud voice was asked, as the reader would');
 });
 
 test('the chosen device voice reads, with the tone and speed set; a missing one falls back', async () => {
   fresh();
   voices = [PATTARA, KANYA, SAMANTHA];
+  const askedBefore = fetched;
   // Unset: the better voice reads (Kanya over the plain Windows voice).
   let plan = await tts.livePlan({ stem: 'สุกรป่วยด้วยโรคใด', options: [] });
   assert.equal(plan.voice.name, 'Kanya');
@@ -156,7 +160,7 @@ test('the chosen device voice reads, with the tone and speed set; a missing one 
   assert.equal(plan.voice.name, 'Samantha');
   // The sample: the chosen voice, the tone, the speed times the voice's own pace.
   const res = await tts.speakSample('th');
-  assert.deepEqual(res, { ok: true });
+  assert.deepEqual(res, { ok: true, via: 'speech' });
   const last = said.at(-1);
   assert.equal(last.voice, PATTARA.name);
   assert.equal(last.pitch, 0.85);
@@ -167,5 +171,5 @@ test('the chosen device voice reads, with the tone and speed set; a missing one 
   plan = await tts.livePlan({ stem: 'สุกรป่วยด้วยโรคใด', options: [] });
   assert.equal(plan.voice.name, 'Kanya');
   assert.equal(plan.chosen, false);
-  assert.equal(fetched, 0);
+  assert.equal(fetched, askedBefore, 'a chosen device voice never asks the cloud');
 });

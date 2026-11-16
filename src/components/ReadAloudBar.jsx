@@ -73,7 +73,7 @@ export default function ReadAloudBar({ jobPrefix, engine, timed = false, optionL
   // Its own portal: the bar's transform would hold a fixed dialog inside it.
   const sheet = tuning && !timed ? createPortal(
     <Suspense fallback={null}>
-      <VoiceSettings onClose={() => setTuning(false)} onBeforeSample={() => engine?.pause()} />
+      <VoiceSettings onClose={() => setTuning(false)} />
     </Suspense>,
     document.body,
   ) : null;

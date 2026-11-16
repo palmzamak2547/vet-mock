@@ -20,7 +20,7 @@
 // change, so nothing moves) with the page following it unless they scroll.
 // ============================================================
 
-import { playerElement, readAloud, RATES, savedRate } from './read-aloud-store.js';
+import { playerElement, readAloud, RATES, savedRate, session, stopSampleSound } from './read-aloud-store.js';
 import { getVoicePrefs, setVoicePrefs, subscribeVoicePrefs } from './voice-prefs.js';
 import { sharedPlan, getSharedAudio, loadWords } from './tts-shared.js';
 import { questionLang } from './tts-text.js';
@@ -39,7 +39,6 @@ export const CLOUD_WAIT_MS = 4000;
 export const NO_START_MS = 2500;
 export const NO_START_FIRST_MS = 6000;
 let speechWarm = false;   // the device voice has spoken once this session
-let cloudRefused = false; // the cloud voice refused this visitor (signed out): not asked again this session
 const OFFLINE_NOTE = 'ต่ออินเทอร์เน็ตแล้วลองอีกครั้ง';
 const noVoiceNote = (lang) => (lang === 'en'
   ? 'เครื่องนี้ไม่มีเสียงอ่านภาษาอังกฤษ ต่ออินเทอร์เน็ตแล้วลองอีกครั้ง'
@@ -48,7 +47,7 @@ const noVoiceNote = (lang) => (lang === 'en'
 const signInNote = (lang) => (lang === 'en'
   ? 'เครื่องนี้ไม่มีเสียงอ่านภาษาอังกฤษ เข้าสู่ระบบด้วยอีเมลจุฬาเพื่อใช้เสียงอ่านออนไลน์'
   : 'เครื่องนี้ไม่มีเสียงอ่านภาษาไทย เพิ่มได้ในการตั้งค่าเสียงของเครื่อง หรือเข้าสู่ระบบด้วยอีเมลจุฬาเพื่อใช้เสียงอ่านออนไลน์');
-const failNote = (r) => (r.offline || !online() ? OFFLINE_NOTE : cloudRefused ? signInNote(r.live?.lang) : noVoiceNote(r.live?.lang));
+const failNote = (r) => (r.offline || !online() ? OFFLINE_NOTE : session.cloudRefused ? signInNote(r.live?.lang) : noVoiceNote(r.live?.lang));
 const positions = new Map(); // job id -> { part, t, device }: where a student stopped
 let run = null;              // the job being read, private to this module
 let liveTts = null;          // tts.js, asked for at the tap so a fallback never waits for it
@@ -95,6 +94,7 @@ function wire(el) {
  * phrase is marked in; stemLabel, what the bar calls the stem.
  */
 export async function start(job) {
+  stopSampleSound();
   if (run?.job.id === job.id) { toggle(); return; }
   stop();
   const el = playerElement();
@@ -206,11 +206,12 @@ export function resume() {
   if (!r) return;
   const status = readAloud.get().status;
   if (status !== 'paused' && status !== 'error') return;
+  stopSampleSound();
   // A note that nothing can read this question: play starts it again from
   // its first choice of voice (the network or a voice may be back), also
   // when it failed before it had any pieces. The student's tap asks the
   // cloud voice once more (a sign-in since); nothing else re-asks it.
-  if (r.dead) { const job = r.job; cloudRefused = false; stop(); start(job); return; }
+  if (r.dead) { const job = r.job; session.cloudRefused = false; stop(); start(job); return; }
   if (!r.plan) return;
   r.paused = false;
   if (r.gapPending) { r.gapPending = false; afterGap(r); return; }
@@ -290,19 +291,36 @@ function applyPrefs() {
     readAloud.set({ rate: prefs.rate });
   }
   const r = run;
-  if (!r?.live || r.plan?.[r.i]?.src !== 'speech') return;
-  const voiceChanged = prefs.voiceTh !== was.voiceTh || prefs.voiceEn !== was.voiceEn;
-  const sound = voiceChanged || prefs.pitch !== was.pitch || prefs.rate !== was.rate;
-  if (!sound) return;
-  const restart = () => { if (run === r && r.utter && !r.paused && r.plan?.[r.i]?.src === 'speech') playPart(r, r.i, 0); };
-  if (!voiceChanged) { restart(); return; }
-  loadLive().then((m) => {
-    if (run !== r) return;
-    const v = m.voiceNow?.(r.live.lang);
-    if (v?.voice) Object.assign(r.live, v);
-    restart();
-  }).catch(() => {});
+  if (!r?.live) return;
+  // Only the voice for the language being read matters to this reading.
+  const key = r.live.lang === 'en' ? 'voiceEn' : 'voiceTh';
+  const voiceChanged = prefs[key] !== was[key];
+  if (!voiceChanged && prefs.pitch === was.pitch && prefs.rate === was.rate) return;
+  // A new voice is taken now, for the device pieces still to come, even while
+  // a cloud piece plays.
+  if (voiceChanged) {
+    loadLive().then((m) => {
+      if (run !== r) return;
+      const v = m.voiceNow(r.live.lang);
+      if (v.voice) Object.assign(r.live, v);
+      restartSoon(r);
+    }).catch(() => {});
+  } else restartSoon(r);
 }
+// The sentence the device voice is saying starts again in the new settings,
+// once the student stops tapping (each restart is a cancel and a speak, and
+// some engines drop a speak that follows a cancel). The old utterance is let
+// go first, so an engine that reports 'end' on cancel does not move on.
+function restartSoon(r) {
+  clearTimeout(r.retune);
+  r.retune = setTimeout(() => {
+    if (run !== r || r.paused || r.plan?.[r.i]?.src !== 'speech' || !r.utter) return;
+    r.utter = null;
+    clearTimeout(r.watch);
+    playPart(r, r.i, 0);
+  }, 250);
+}
+session.pause = () => pause();
 subscribeVoicePrefs(applyPrefs);
 
 /** For a student who has used read-aloud: the manifests ahead of the tap, and
@@ -452,13 +470,11 @@ async function device(r) {
   if (run !== r) return;
   if (!live?.parts.length) { dead(r, noVoiceNote(live?.lang)); return; }
   r.live = live;
-  // A voice the listener chose in the voice settings reads, plain or not.
-  const good = live.voice && (live.chosen || live.tier !== 'standard');
-  const speechOk = typeof window !== 'undefined' && Boolean(window.speechSynthesis) && typeof SpeechSynthesisUtterance !== 'undefined';
-  const first = good && speechOk ? 'speech' : cloudRefused && speechOk && live.voice ? 'speech' : 'cloud';
+  // Which voice reads first: the rule the voice settings show and sample with.
+  const first = tts.readerSource(live, session.cloudRefused);
   // The cloud voice already refused this visitor and the device has no voice:
   // say so at once, without asking the cloud again.
-  if (first === 'cloud' && cloudRefused) { dead(r, signInNote(live.lang)); return; }
+  if (first === 'cloud' && session.cloudRefused) { dead(r, signInNote(live.lang)); return; }
   r.plan = live.parts.map((p) => ({ ...p, src: first }));
   r.triedCloud = first === 'cloud';
   r.triedSpeech = first === 'speech';
@@ -536,6 +552,18 @@ function cancelDeviceSpeech() {
 // once; then a note.
 function speechFailed(r, i) {
   if (run !== r) return;
+  // A voice the listener chose that does not speak (on this device, or in a
+  // timed paper where the settings cannot be opened): the device's own
+  // default voice reads at once, before the cloud is asked.
+  if (r.live?.chosen && !r.triedDefault) {
+    r.triedDefault = true;
+    loadLive().then((m) => {
+      if (run !== r) return;
+      const v = m.voiceNow(r.live.lang, { ignoreChoice: true });
+      if (v.voice && v.voice !== r.live.voice) { Object.assign(r.live, v, { chosen: false }); playPart(r, i, 0); } else speechFailed(r, i);
+    }, () => speechFailed(r, i));
+    return;
+  }
   if (!r.triedCloud && online()) {
     r.triedCloud = true;
     for (let k = i; k < r.plan.length; k++) r.plan[k].src = 'cloud';
@@ -577,7 +605,7 @@ function cloudAudio(r, p) {
     p.cloud.catch((e) => {
       p.cloud = null;
       if (e?.name === 'TypeError') r.offline = true;
-      if (/^tts 40[13]/.test(String(e?.message))) cloudRefused = true;
+      if (/^tts 40[13]/.test(String(e?.message))) session.cloudRefused = true;
     });
   }
   return p.cloud;
