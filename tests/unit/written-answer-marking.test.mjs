@@ -137,6 +137,8 @@ test('O-283: a self-grade the browser refuses is said in one line and counted on
   assert.equal(lines.length, 1, 'one line under the grader');
   assert.equal(fr.textOf(lines[0]), Grader.GRADE_NOT_SAVED);
   assert.match(Grader.GRADE_NOT_SAVED, /ยังไม่ได้บันทึก/);
+  assert.match(Grader.GRADE_NOT_SAVED, /พื้นที่เต็ม/, 'a full browser, the case simulated here, is named');
+  assert.match(Grader.GRADE_NOT_SAVED, /ลบไฟล์ที่ไม่ใช้/, 'and what to do about it');
   assert.ok(!Grader.GRADE_NOT_SAVED.includes('·'), 'no middle dot');
   assert.deepEqual(env.failures.map((f) => [f.kind, f.name]), [['save', 'QuotaExceededError']]);
 
@@ -170,5 +172,22 @@ test('O-283: a refused calibration entry is said and counted too', async () => {
   inst.flush();
   assert.equal(notSavedLine(inst.tree).length, 1, 'the calibration write fails at once and is said');
   assert.equal(env.failures.length, 1);
+  inst.unmount();
+});
+
+test('O-283: a grading history that cannot be read is counted, and the save line is not shown', async () => {
+  const env = browser();
+  env.store.set('vmx-grade-9', JSON.stringify({ predicted: '5', predictedSubmitted: true }));
+  env.store.set('vmx-grade-calibration', '{not json');
+  const inst = fr.mount(Grader.default, { q: { id: 9, type: 'essay' }, userAnswer: 'A short summary.' });
+  firstBox(inst.tree).props.onChange();
+  inst.flush();
+  fr.findAll(inst.tree, (n) => n.type === 'input' && n.props.type === 'checkbox')[1].props.onChange();
+  inst.flush();
+  await wait(AUTOSAVE_MS);
+  inst.flush();
+  assert.equal(notSavedLine(inst.tree).length, 0, 'the browser can store data: the save line would be wrong');
+  assert.deepEqual(env.failures.map((f) => f.kind), ['load'], 'counted once, as a read');
+  assert.ok(JSON.parse(env.store.get('vmx-grade-9')).checks, 'the ticks themselves are saved');
   inst.unmount();
 });

@@ -65,6 +65,7 @@ test('in a timed exam the way back reopens a hidden table, the clock keeps its d
   await option.click();
   await expect(option).toHaveAttribute('aria-pressed', 'true');
   const before = await seconds();
+  const beforeAt = Date.now();
 
   // Then hides the table and scrolls down past it.
   await pane.getByRole('button', { expanded: true }).click();
@@ -84,7 +85,14 @@ test('in a timed exam the way back reopens a hidden table, the clock keeps its d
   // down to the deadline it had (never refilled), and no verdict shown in a running paper.
   await expect(timer).toBeVisible();
   await expect(option).toHaveAttribute('aria-pressed', 'true');
-  expect(await seconds()).toBeLessThanOrEqual(before);
+  // Still running: the remaining time goes down after the way back (waited for, not slept for)...
+  await expect.poll(seconds, { timeout: 10_000 }).toBeLessThan(before);
+  // ...and by no more than the time that passed (2 s for the display's whole seconds and the read),
+  // so it was neither stopped nor refilled.
+  const after = await seconds();
+  const passed = (Date.now() - beforeAt) / 1000;
+  expect(before - after).toBeGreaterThan(0);
+  expect(before - after).toBeLessThanOrEqual(passed + 2);
   // The saved deadline is re-derived from the running clock on each autosave, so it may move by a
   // fraction of a millisecond; a refill would move it by minutes.
   expect(Math.abs((await deadline()) - parkedDeadline)).toBeLessThan(1000);

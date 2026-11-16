@@ -5,7 +5,7 @@ import { reportFailure } from '../lib/report-failure.js';
 
 // Said under the grader when the browser refused to keep its ticks or the
 // prediction: they would be gone the next time this question opens.
-export const GRADE_NOT_SAVED = 'คะแนนที่ตรวจไว้ยังไม่ได้บันทึกในเครื่อง เบราว์เซอร์นี้เก็บข้อมูลไม่ได้ เปิดการเก็บข้อมูลของเว็บนี้ หรือออกจากโหมดส่วนตัว';
+export const GRADE_NOT_SAVED = 'คะแนนที่ตรวจไว้ยังไม่ได้บันทึกในเครื่อง เบราว์เซอร์นี้เก็บข้อมูลไม่ได้ (พื้นที่เต็มหรือปิดการเก็บข้อมูลไว้) ลบไฟล์ที่ไม่ใช้ในคลังเอกสาร หรือเปิดการเก็บข้อมูลของเว็บนี้ แล้วลองอีกครั้ง';
 
 // ============================================================
 // SmartGrader — rubric-based self-grading without an LLM
@@ -137,6 +137,8 @@ export default function SmartGrader({ q, userAnswer }) {
   // once, when a write that worked starts failing, not on every tick after it.
   const [notSaved, setNotSaved] = useState(false);
   const failedRef = useRef({ grade: false, calibration: false });
+  // A calibration history that cannot be read is not a refused save: counted once, never said.
+  const unreadRef = useRef(false);
   const noteSave = (part, error) => {
     const failed = error != null;
     if (failedRef.current[part] === failed) return;
@@ -217,8 +219,15 @@ export default function SmartGrader({ q, userAnswer }) {
     if (!predictedSubmitted) return;
     const touched = Object.keys(checks).length > 0 || Object.keys(shortGrade).length > 0;
     if (!touched) return;
+    let arr;
     try {
-      const arr = JSON.parse(localStorage.getItem('vmx-grade-calibration') || '[]');
+      arr = JSON.parse(localStorage.getItem('vmx-grade-calibration') || '[]');
+      if (!Array.isArray(arr)) throw new TypeError('calibration history is not a list');
+    } catch (error) {
+      if (!unreadRef.current) { unreadRef.current = true; reportFailure('load', error); }
+      return;
+    }
+    try {
       const idx = arr.findIndex((e) => e.qid === q.id);
       const entry = { qid: q.id, predicted: parseFloat(predicted), actual: total, max: maxScore, ts: Date.now() };
       if (idx >= 0) arr[idx] = entry; else arr.push(entry);
