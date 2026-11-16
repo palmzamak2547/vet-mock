@@ -5,23 +5,10 @@
 
 Generated from the working tree at the time of the run.
 
-## Questions
-
-| | |
-|---|---|
-| **Questions ready for learners** | **9,045** |
-| Questions retained but fail-closed pending answer, scope, or figure review | 212 |
-| Total questions in source banks | 9,257 |
-| Question banks (files) | 108 |
-| Subjects with questions | 43 |
-| Years covered | 1, 2, 3, 4, 5 |
-| — year 1 | 297 |
-| — year 2 | 144 |
-| — year 3 | 62 |
-| — year 4 | 2,076 |
-| — year 5 | 6,466 |
-
-Consistency: source banks **9257**, learner-ready **9045**, fail-closed **212**, registry sums to **9257**, files missing from the registry: **0** → ✅ consistent
+Question counts are not stored here: every pull request that adds questions
+would change the same lines. `npm run stats` prints them (questions ready for
+learners, held back, banks, years, the consistency check and VetWiki coverage
+per subject), counted from the banks at the time of the run.
 
 ## Study notes
 
@@ -49,54 +36,3 @@ Consistency: source banks **9257**, learner-ready **9045**, fail-closed **212**,
 | Claims verified against an external source | 3578 |
 | Distinct external sources cited | 2251 |
 | Share of note sections governed | 49.5% |
-
-## VetWiki coverage of questions
-
-Learner-ready questions that open an article, through their own topic or a judged link.
-
-| Subject | Questions | Reach an article | Via a judged link | Coverage |
-|---|---|---|---|---|
-| aquatic-clinic | 548 | 455 | 12 | 83.0% |
-| avian-medicine | 581 | 431 | 0 | 74.2% |
-| biochem-1 | 271 | 0 | 0 | 0.0% |
-| cliapprum | 136 | 95 | 51 | 69.9% |
-| com1 | 31 | 0 | 0 | 0.0% |
-| com2 | 42 | 0 | 0 | 0.0% |
-| com3 | 359 | 308 | 47 | 85.8% |
-| com4 | 291 | 286 | 2 | 98.3% |
-| com5 | 129 | 129 | 0 | 100.0% |
-| comp-repro-clinic | 48 | 0 | 0 | 0.0% |
-| engprof | 70 | 70 | 0 | 100.0% |
-| engprof1 | 30 | 0 | 0 | 0.0% |
-| epidemiology | 372 | 355 | 0 | 95.4% |
-| equine-medicine | 602 | 602 | 0 | 100.0% |
-| equine-repro | 242 | 237 | 0 | 97.9% |
-| exotic | 151 | 101 | 0 | 66.9% |
-| food-industry | 300 | 61 | 0 | 20.3% |
-| food-safety-y4 | 31 | 0 | 0 | 0.0% |
-| herd-health-rum | 39 | 0 | 0 | 0.0% |
-| livestock-pathology | 67 | 0 | 0 | 0.0% |
-| milk-meat-hygiene | 1192 | 1192 | 0 | 100.0% |
-| one-health | 278 | 270 | 0 | 97.1% |
-| poa-clinical | 71 | 35 | 0 | 49.3% |
-| poultry | 178 | 114 | 42 | 64.0% |
-| practrum | 117 | 68 | 18 | 58.1% |
-| rec-adv-bioscience | 4 | 0 | 0 | 0.0% |
-| repro | 31 | 16 | 16 | 51.6% |
-| repro-lect | 208 | 151 | 45 | 72.6% |
-| ruminant-clinical | 15 | 0 | 0 | 0.0% |
-| surg1 | 29 | 3 | 3 | 10.3% |
-| surg2 | 18 | 1 | 1 | 5.6% |
-| surg3 | 40 | 0 | 0 | 0.0% |
-| swine-clinic | 271 | 271 | 0 | 100.0% |
-| swine-herd | 36 | 0 | 0 | 0.0% |
-| swine-repro | 29 | 0 | 0 | 0.0% |
-| vca | 1341 | 87 | 87 | 6.5% |
-| vet-dev-anat | 26 | 0 | 0 | 0.0% |
-| vet-histo | 104 | 0 | 0 | 0.0% |
-| vet-imaging | 35 | 0 | 0 | 0.0% |
-| vet-juris | 46 | 0 | 0 | 0.0% |
-| vet-neuroanat | 40 | 40 | 0 | 100.0% |
-| vet-pharm-2 | 62 | 0 | 0 | 0.0% |
-| zoonoses | 534 | 522 | 0 | 97.8% |
-| **All** | 9045 | 5900 | 324 | 65.2% |
