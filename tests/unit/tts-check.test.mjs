@@ -56,6 +56,20 @@ test('numbers stay strict', () => {
   assert.equal(compare('พบ 3 ใน 5 ตัว', ['พบสามในสี่ตัว', 'พบสามในห้าตัว']).ok, true);
 });
 
+test('a second transcript settles numbers the first one joined or glossed', () => {
+  // The three Swine clips that failed twice on 16 Nov 2026: Scribe (Thai), then Paxa speech to text.
+  for (const [script, scribe, paxa] of [
+    ['arthritis. ตอบ 2 ใน 5.', 'Arthritis อักเสบในข้อ', 'Arthritis ตอบ 2 ใน 5'],
+    ['3, 6, 8, 13 และ 14', 'สาม หก แปดสิบสาม และสิบสี่', '3, 6, 8, 13 และ 14'],
+    ['3 ถึง 6-8 และ 4 ถึง 7 และแต่ละพื้นที่พบ serotype ต่างกัน ชุดที่มี 3, 6, 8 จึงเป็นกลุ่ม cross reaction',
+      'สามถึงหกถึงแปดและสี่ถึงเจ็ด และแต่ละพื้นที่พบ Serotype ต่างกัน ชุดที่มีสามหกแปดจึงเป็นกลุ่ม Cross Reaction',
+      '3 ถึง 6 ถึง 8 และ 4 ถึง 7 และแต่ละพื้นที่พบ stereotype ต่างกัน ชุดที่มี 3 6 8 จึงเป็นกลุ่ม cross-reaction'],
+  ]) {
+    assert.equal(compare(script, scribe).ok, false, script);
+    assert.equal(compare(script, [scribe, paxa]).ok, true, script);
+  }
+});
+
 test('units stay strict', () => {
   assert.deepEqual(compare('ให้ยา 10 มิลลิกรัม', 'ให้ยาสิบกรัม').problems.map((p) => p.kind), ['unit']);
   assert.equal(compare('ให้ยา 10 มิลลิกรัม', 'ให้ยา 10 mg').ok, true);

@@ -36,7 +36,9 @@
 // voiced again only with --retry-failed. --check transcribes each clip whose text
 // holds a digit, a unit or an English or Latin term, and one in ten of the
 // rest, with ElevenLabs Scribe (never past --scribe-floor, default 51,500
-// left), compares the numbers, units and terms with the script, voices a
+// left), asks Paxa speech to text for a second transcript when a number or
+// unit is missing, compares the numbers, units and terms with the script
+// (a term no transcript confirms is listed as unverified, not failed), voices a
 // failing clip once more, and uploads nothing that fails twice: that
 // question keeps the device voice, and the clip is listed. A ledger line per
 // clip goes to work/sound/ledger-p1.jsonl (question, piece, characters,
@@ -440,6 +442,29 @@ async function scribe(bytes, sec) {
   }
   return null;
 }
+// A second, independent transcription (Paxa speech to text) for a clip whose
+// numbers or units Scribe did not hear: Scribe joins Thai number words ("แปด
+// สิบสาม" as 83) or writes an English gloss, and a clip is voiced again only
+// when neither transcript holds the number (16 Nov 2026: all three Swine
+// clips that failed twice passed with it). About 0.8 credit a clip.
+async function paxaStt(bytes, sec) {
+  const estimate = Math.max(0.1, Math.ceil(sec) / 3600 * 500);
+  if (!(await reserve(estimate))) return null;
+  let cost = NaN;
+  try {
+    const form = new FormData();
+    form.append('model', 'paxa-stt-lite-v1-preview');
+    form.append('convention', 'written');
+    form.append('audio', new Blob([bytes], { type: 'audio/mp4' }), 'clip.m4a');
+    const r = await fetch('https://api.paxalabs.com/v1/stt', { method: 'POST', headers: { authorization: `Bearer ${secret('PAXA_API_KEY')}` }, body: form, signal: AbortSignal.timeout(120_000) }).catch(() => null);
+    if (!r?.ok) return null;
+    const j = await r.json().catch(() => ({}));
+    cost = Number(j.usage?.credits);
+    return { text: j.text || '', cost };
+  } finally {
+    settle(estimate, cost);
+  }
+}
 // Every clip with a digit, a unit or an English or Latin term, and one in ten of the rest.
 const sampled = (key) => parseInt(key.slice(0, 2), 16) % 10 === 0;
 const ledger = PAXA ? fs.createWriteStream(path.join(ROOT, 'work', 'sound', 'ledger-p1.jsonl'), { flags: 'a' }) : null;
@@ -565,9 +590,14 @@ async function one(key) {
         if (heard == null && risky(text)) { ledger?.write(JSON.stringify({ at: new Date().toISOString(), question: q?.id, key, chars: text.length, credits: said.cost, check: 'not checked, not uploaded' }) + String.fromCharCode(10)); failed.push(key); return; }
         if (heard == null) check = 'not checked (floor or error)';
         else {
-          const c = compare(text, heard);
+          let c = compare(text, heard);
+          let second;
+          if (!c.ok && c.problems.every((p) => p.kind === 'number' || p.kind === 'unit')) {
+            second = await paxaStt(bytes, sec);
+            if (second) c = compare(text, [heard, second.text]);
+          }
           check = c.ok ? 'pass' : `fail: ${c.problems.map((p) => `${p.kind} ${p.want ?? ''}`).join(', ')}`;
-          ledger?.write(JSON.stringify({ at: new Date().toISOString(), question: q?.id, subject: q?.subject, piece: kindOf.get(key), key, chars: text.length, credits: said.cost, provider: G.provider, model: G.model, voice: G.voice, try: tries + 1, check, unverified: c.unverified?.length ? c.unverified : undefined, heard: c.ok && !c.unverified?.length ? undefined : heard }) + '\n');
+          ledger?.write(JSON.stringify({ at: new Date().toISOString(), question: q?.id, subject: q?.subject, piece: kindOf.get(key), key, chars: text.length, credits: said.cost, provider: G.provider, model: G.model, voice: G.voice, try: tries + 1, check, unverified: c.unverified?.length ? c.unverified : undefined, heard: c.ok && !c.unverified?.length && !second ? undefined : heard, heard2: second?.text, stt_credits: second?.cost }) + '\n');
           if (!c.ok) { lastCheck = check; continue; }
         }
       }
