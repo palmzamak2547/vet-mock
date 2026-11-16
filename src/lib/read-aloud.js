@@ -313,11 +313,43 @@ function applyPrefs() {
 function restartSoon(r) {
   clearTimeout(r.retune);
   r.retune = setTimeout(() => {
-    if (run !== r || r.paused || r.plan?.[r.i]?.src !== 'speech' || !r.utter) return;
-    r.utter = null;
-    clearTimeout(r.watch);
-    playPart(r, r.i, 0);
+    if (run !== r) return;
+    loadLive().then((m) => {
+      if (run !== r || followSource(r, m)) return;
+      if (r.paused || r.plan?.[r.i]?.src !== 'speech' || !r.utter) return;
+      r.utter = null;
+      clearTimeout(r.watch);
+      playPart(r, r.i, 0);
+    }, () => {});
   }, 250);
+}
+// A new tone or voice can change which voice reads (readerSource, the rule
+// the dialog's line and ลองฟัง follow): the pieces still to come take the new
+// one, and the sentence being read starts again in it, so what the listener
+// hears next is what the dialog names. A voice that already failed in this
+// reading is not gone back to. Paused, the sentence waits for play.
+function followSource(r, m) {
+  if (!r.device || !r.plan || r.dead || r.done) return false;
+  const src = m.readerSource(r.live, session.cloudRefused);
+  const from = r.inGap || r.gapPending ? r.i + 1 : r.i;
+  if (from >= r.plan.length || r.plan[from].src === src) return false;
+  if (src === 'cloud' ? r.cloudGone : r.speechGone) return false;
+  for (let k = from; k < r.plan.length; k++) r.plan[k].src = src;
+  r.triedCloud = src === 'cloud' || Boolean(r.cloudGone);
+  r.triedSpeech = src === 'speech' || Boolean(r.speechGone);
+  if (from !== r.i) return true; // between two pieces: the next one starts in it
+  clearTimeout(r.watch);
+  if (r.utter) { r.utter = null; cancelDeviceSpeech(); }
+  if (r.onElement != null) {
+    const el = playerElement();
+    r.switching = true;
+    el.pause();
+    el.removeAttribute('src');
+    try { el.load(); } catch { /* nothing loaded */ }
+    r.onElement = null;
+  }
+  playPart(r, r.i, 0);
+  return true;
 }
 session.pause = () => pause();
 subscribeVoicePrefs(applyPrefs);
@@ -355,6 +387,10 @@ async function playPart(r, i, offset = 0) {
   // The piece being read comes up above the bar (which renders a moment
   // after the first one starts), unless the student is scrolling.
   setTimeout(() => { if (run === r && r.i === i) keepBlockInView((r.job.block || r.job.container)?.(p.kind, p.option)); }, 60);
+  // A download that a later start of a piece overtook (a change of voice in
+  // followSource replays the same one) is let go.
+  const ticket = (r.ticket = (r.ticket || 0) + 1);
+  const mine = () => run === r && r.i === i && r.ticket === ticket;
   if (p.src === 'speech') { speakPart(r, i); return; }
   if (p.src === 'cloud') aheadCloud(r, i);
   let buf;
@@ -368,7 +404,7 @@ async function playPart(r, i, offset = 0) {
   } catch {
     // Forget the failed download, so play fetches it again.
     p.buf = null;
-    if (run !== r || r.i !== i) return;
+    if (!mine()) return;
     r.loading = false;
     if (p.src === 'cloud') { cloudFailed(r, i); return; }
     if (firstWait) { r.abort.abort(); r.abort = new AbortController(); device(r); return; }
@@ -376,7 +412,7 @@ async function playPart(r, i, offset = 0) {
     return;
   }
   p.ready = true;
-  if (run !== r || r.i !== i) return;
+  if (!mine()) return;
   r.loading = false;
   r.switching = true;
   if (r.url) URL.revokeObjectURL(r.url);
@@ -565,6 +601,7 @@ function speechFailed(r, i) {
   }
   if (!r.triedCloud && online()) {
     r.triedCloud = true;
+    r.speechGone = true;
     for (let k = i; k < r.plan.length; k++) r.plan[k].src = 'cloud';
     playPart(r, i, 0);
     return;
@@ -580,6 +617,7 @@ function cloudFailed(r, i) {
   if (!r.triedSpeech && speechOk && r.live?.voice) {
     r.triedSpeech = true;
     r.triedCloud = true;
+    r.cloudGone = true;
     for (let k = i; k < r.plan.length; k++) r.plan[k].src = 'speech';
     playPart(r, i, 0);
     return;

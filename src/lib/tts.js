@@ -883,9 +883,15 @@ const SAMPLE_NO_START_MS = 6000;
 export async function speakSample(lang = 'th') {
   stopSample();
   pauseReading();
+  // Stopped (the dialog closed, หยุดฟัง) while the voices are waited for: it never speaks.
+  let gone = false;
+  const early = () => { gone = true; };
+  sampleStop = early;
   const synth = speechOk() ? window.speechSynthesis : null;
   const now = synth?.getVoices?.();
   const voices = now?.length ? now : synth ? await Promise.race([ensureVoices(), pause(VOICE_WAIT_MS).then(() => [])]) : [];
+  if (gone) return { ok: true, via: 'stopped' };
+  if (sampleStop === early) sampleStop = null;
   const v = deviceVoice(voices?.length ? voices : synth?.getVoices?.() || [], lang);
   const source = readerSource(v, session.cloudRefused);
   const prefs = getVoicePrefs();
@@ -908,7 +914,7 @@ function deviceSample(synth, v, text, prefs) {
   return new Promise((resolve) => {
     let done = false;
     let t = null;
-    const finish = (res) => { if (!done) { done = true; clearTimeout(t); if (sampleStop === stop) sampleStop = null; resolve(res); } };
+    const finish = (res) => { if (!done) { done = true; clearTimeout(t); if (sampleStop === stop) sampleStop = null; if (session.stopSample === stop) session.stopSample = null; resolve(res); } };
     const stop = () => { finish({ ok: true, via: 'speech' }); try { synth.cancel(); } catch { /* no speech */ } };
     sampleStop = stop;
     session.stopSample = stop;
@@ -941,6 +947,7 @@ function cloudSample(text, lang, rate) {
       done = true;
       clearTimeout(t);
       if (sampleStop === stop) sampleStop = null;
+      if (session.stopSample === stop) session.stopSample = null;
       try { el?.pause(); } catch { /* nothing playing */ }
       if (url) URL.revokeObjectURL(url);
       resolve(res);

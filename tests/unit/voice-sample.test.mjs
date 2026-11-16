@@ -100,6 +100,30 @@ test('ลองฟัง pauses a reading through the reader\'s own pause, and a
   store.session.pause = null;
 });
 
+test('a sample that has ended sends the engine no cancel when the reading starts (a cancel there can drop the next sentence)', async () => {
+  fresh({ voiceTh: 'Kanya' });
+  voices = [KANYA];
+  assert.deepEqual(await tts.speakSample('th'), { ok: true, via: 'speech' });
+  const cancel = synth.cancel;
+  let cancels = 0;
+  synth.cancel = () => { cancels += 1; cancel(); };
+  store.stopSampleSound(); // what the reader's start and resume call first
+  synth.cancel = cancel;
+  assert.equal(cancels, 0);
+});
+
+test('a sample stopped while the device is still listing its voices is never heard', async () => {
+  fresh({ voiceTh: 'Kanya' });
+  voices = []; // the list arrives a moment later
+  said.length = 0;
+  const p = tts.speakSample('th');
+  setTimeout(() => { voices = [KANYA]; }, 20);
+  tts.stopSample(); // the dialog closed
+  await p;
+  await new Promise((r) => setTimeout(r, 150));
+  assert.equal(said.length, 0);
+});
+
 test('a voice list that arrives late is not "no Thai voice"', async () => {
   fresh();
   voices = [];

@@ -267,3 +267,113 @@ test('in a timed paper a chosen voice that does not speak gives way to the devic
   await bar.getByRole('button', { name: 'ปิดเสียงอ่าน' }).click();
   await page.evaluate(() => window.localStorage.removeItem('vmx-tts-prefs'));
 });
+
+// The cloud voice answers here. Its pieces play on the read-aloud's element,
+// whose src is only remembered (the fixture is not real audio) and which
+// "plays" each piece for CLIP_MS; window.__clips counts the pieces played.
+const CLIP_MS = 1500;
+async function stubCloudPlayer(page) {
+  await page.addInitScript((ms) => {
+    window.__clips = 0;
+    HTMLMediaElement.prototype.canPlayType = () => 'probably';
+    Object.defineProperty(HTMLMediaElement.prototype, 'src', {
+      configurable: true,
+      get() { return this.__src || ''; },
+      set(v) { clearTimeout(this.__t); this.__src = String(v); },
+    });
+    const removeAttribute = Element.prototype.removeAttribute;
+    HTMLMediaElement.prototype.removeAttribute = function (name) { if (name === 'src') this.__src = ''; return removeAttribute.call(this, name); };
+    HTMLMediaElement.prototype.load = function () {};
+    HTMLMediaElement.prototype.play = function play() {
+      const src = this.__src || '';
+      if (!src.startsWith('blob:')) return Promise.resolve();
+      window.__clips += 1;
+      const el = this;
+      clearTimeout(el.__t);
+      queueMicrotask(() => el.dispatchEvent(new Event('playing')));
+      el.__t = setTimeout(() => { if (el.__src === src) el.dispatchEvent(new Event('ended')); }, ms);
+      return Promise.resolve();
+    };
+    HTMLMediaElement.prototype.pause = function () { clearTimeout(this.__t); };
+  }, CLIP_MS);
+  await page.route('https://tts.vetmock.com/**', (route) => route.fulfill({ status: 404, headers: { 'access-control-allow-origin': '*' }, body: 'not found' }));
+  await page.route('**/api/tts*', (route) => route.fulfill({ status: 200, contentType: 'audio/mpeg', body: Buffer.from('cloud piece') }));
+}
+
+// One Thai question of several sentences, in an untimed paper (the dialog
+// opens there), so every run reads the same pieces.
+async function openThaiQuestion(page, prefs = null) {
+  await page.addInitScript((p) => {
+    localStorage.setItem('vmx-selected-year', '4');
+    localStorage.setItem('vmx-seen-landing', '1');
+    localStorage.setItem('vmx-consent', JSON.stringify('essential'));
+    if (p) localStorage.setItem('vmx-tts-prefs', JSON.stringify(p));
+    if (!sessionStorage.getItem('voice-follow-fixture')) {
+      sessionStorage.setItem('voice-follow-fixture', '1');
+      const now = Date.now();
+      localStorage.setItem('vmx-inflight-exam:guest', JSON.stringify({
+        ownerId: null,
+        questions: [{ id: 6203, subject: 'vca', type: 'mcq', q: 'สุกรขุนอายุสิบสองสัปดาห์มีไข้สูงและไอ. ผิวหนังบริเวณใบหูมีสีม่วงคล้ำ. สุกรหลายตัวในคอกเดียวกันตายภายในสามวัน. โรคใดเป็นไปได้มากที่สุด', options: ['อหิวาต์สุกรแอฟริกา', 'โรคปากและเท้าเปื่อย', 'โรคบิดมูกเลือด', 'โรคพิษสุนัขบ้า'], answer: 0, explain: 'ตัวอย่างสำหรับตรวจเสียงอ่าน' }],
+        answers: {}, currentIdx: 0, useTimer: false, timePerQ: 0,
+        examStartTime: now, savedAt: now, mode: 'exam', clock: 'session', selectedYear: 4,
+      }));
+    }
+  }, prefs);
+  await page.goto('/app');
+  await page.getByRole('button', { name: /ทำต่อจากครั้งล่าสุด/ }).click();
+  await expect(page.locator('.vmx-question-card')).toBeVisible({ timeout: 30_000 });
+}
+
+const PATTARA = 'Microsoft Pattara - Thai (Thailand)';
+
+test('a tone set while the cloud voice reads: the rest of the question is the device voice with that tone', async ({ page }) => {
+  await stubSpeech(page, { only: ['Microsoft Pattara'] });
+  await stubCloudPlayer(page);
+  await openThaiQuestion(page);
+  await page.getByRole('button', { name: 'อ่านคำถามออกเสียง' }).click();
+  const bar = page.getByRole('region', { name: 'เสียงอ่าน' });
+  await expect.poll(() => page.evaluate(() => window.__clips)).toBeGreaterThan(0);
+  await bar.getByRole('button', { name: /ปรับเสียงอ่าน/ }).click();
+  const sheet = page.getByRole('dialog', { name: 'ตั้งค่าเสียงอ่าน' });
+  await expect(sheet.locator('.vmx-voice-now')).toContainText('เสียงออนไลน์');
+  expect(await page.evaluate(() => window.__said.length)).toBe(0);
+  const pitch = sheet.getByRole('slider', { name: /โทนเสียง/ });
+  // One step down; pressed again only if the key reached nothing (the dialog
+  // can still be settling its focus on a slow engine).
+  await expect(async () => {
+    if ((await pitch.getAttribute('aria-valuetext')) === 'ปกติ') { await pitch.focus(); await page.keyboard.press('ArrowLeft'); }
+    await expect(pitch).toHaveAttribute('aria-valuetext', 'ทุ้ม', { timeout: 1000 });
+  }).toPass({ timeout: 10_000 });
+  await expect(sheet.locator('.vmx-voice-now')).toContainText('เสียงของเครื่อง (Microsoft Pattara');
+  // The sentence being read starts again in the device voice, with the tone.
+  await expect.poll(() => page.evaluate(() => window.__said[0] || null)).toMatchObject({ voice: PATTARA, pitch: 0.85, rate: 0.88 });
+  const clips = await page.evaluate(() => window.__clips);
+  // And the rest of the question goes on in it: no cloud piece plays again.
+  await expect.poll(() => page.evaluate(() => window.__said.length), { timeout: 15_000 }).toBeGreaterThan(2);
+  const said = await page.evaluate(() => window.__said);
+  expect(said.every((s) => s.voice === PATTARA && s.pitch === 0.85)).toBe(true);
+  expect(await page.evaluate(() => window.__clips)).toBe(clips);
+  await sheet.getByRole('button', { name: 'คืนค่าเริ่มต้น' }).click();
+  await page.evaluate(() => window.localStorage.removeItem('vmx-tts-prefs'));
+});
+
+test('the settings put back while the device voice reads: the rest of the question is the cloud voice, as the dialog says', async ({ page }) => {
+  await stubSpeech(page, { only: ['Microsoft Pattara'] });
+  await stubCloudPlayer(page);
+  await openThaiQuestion(page, { v: 2, rate: 1, pitch: 0.85, voiceTh: '', voiceEn: '' });
+  await page.getByRole('button', { name: 'อ่านคำถามออกเสียง' }).click();
+  const bar = page.getByRole('region', { name: 'เสียงอ่าน' });
+  await expect.poll(() => page.evaluate(() => window.__said[0] || null)).toMatchObject({ voice: PATTARA, pitch: 0.85 });
+  await bar.getByRole('button', { name: /ปรับเสียงอ่าน/ }).click();
+  const sheet = page.getByRole('dialog', { name: 'ตั้งค่าเสียงอ่าน' });
+  await expect(sheet.locator('.vmx-voice-now')).toContainText('เสียงของเครื่อง (Microsoft Pattara');
+  await sheet.getByRole('button', { name: 'คืนค่าเริ่มต้น' }).click();
+  await expect(sheet.locator('.vmx-voice-now')).toContainText('เสียงออนไลน์');
+  // The cloud voice takes over, and the device voice says nothing more.
+  await expect.poll(() => page.evaluate(() => window.__clips)).toBeGreaterThan(0);
+  const spoken = await page.evaluate(() => window.__said.length);
+  await expect.poll(() => page.evaluate(() => window.__clips), { timeout: 15_000 }).toBeGreaterThan(2);
+  expect(await page.evaluate(() => window.__said.length)).toBe(spoken);
+  await page.keyboard.press('Escape');
+  await page.evaluate(() => window.localStorage.removeItem('vmx-tts-prefs'));
+});
