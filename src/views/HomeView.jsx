@@ -330,7 +330,10 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   // that cannot load offline must not hold it for good).
   const [planHold, setPlanHold] = useState(true);
   useEffect(() => { const t = setTimeout(() => setPlanHold(false), 6000); return () => clearTimeout(t); }, []);
-  const planWaiting = planHold && !pendingResume && (accountReading || !isQBYearLoaded(selectedYear));
+  // With no history and no account to read, the plan is one first-question
+  // card whatever the bank holds: nothing to wait for.
+  const planWaiting = planHold && !pendingResume
+    && (accountReading || (history.length > 0 && !isQBYearLoaded(selectedYear)));
 
   // Email-verify banner dismiss — session-only state. We don't persist
   // because we WANT a gentle re-nag if they ignore it across sessions

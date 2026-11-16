@@ -1394,11 +1394,13 @@ html, body {
   gap: var(--space-2);
   min-width: 0;
 }
-/* One step per line: two to a row, a course name wrapped its count onto a
-   line of its own beside the button. */
-.vmx-next-actions-secondary { grid-template-columns: minmax(0, 1fr); }
+/* Two to a row, the button word an arrow: beside "เริ่มฝึก" a course name
+   wrapped its count onto a line of its own. The whole card is the button. */
+.vmx-next-actions-secondary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.vmx-next-actions-secondary .vmx-next-action-cta { font-size: 0; padding-inline: 4px; }
+.vmx-next-actions-secondary .vmx-next-action-cta::after { content: "\2192"; font-size: var(--text-md); }
 /* Where the plan will be: a primary step, two more and the note under them. */
-.vmx-next-actions-wait { min-height: 270px; align-content: center; justify-items: center; }
+.vmx-next-actions-wait { min-height: 200px; align-content: center; justify-items: center; }
 .vmx-next-action {
   width: 100%;
   min-height: 58px;
@@ -4008,6 +4010,8 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   .vmx-next-actions { padding: var(--space-3); border-radius: var(--r-lg); }
   .vmx-next-actions-header { align-items: start; margin-bottom: var(--space-2); }
   .vmx-next-actions-note { display: none; }
+  .vmx-next-actions-secondary { grid-template-columns: 1fr; }
+  .vmx-next-actions-wait { min-height: 270px; }
   .vmx-next-action { grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-2); }
   .vmx-next-action.is-primary { min-height: 84px; padding: 10px 12px; }
   .vmx-next-action-cta { grid-column: 2; justify-self: start; min-height: 36px; padding: 5px 10px; }
