@@ -29,6 +29,11 @@
 //   title, quoted without its lecture numbers and date).
 // - `papers`: the written papers the faculty timetable holds for the course;
 //   `to`/`from` only where the course's document states the window itself.
+// - `evidenceUntil`: the last day this course's evidence reaches, its latest
+//   recording or the end of the class LINE export (28 Oct), whichever is
+//   later. A class after it keeps the plan's date; a class on or before it
+//   without `held` is printed as still only the plan. Per course, because the
+//   recordings of one course run weeks past another's.
 // Lecturer names are as the sources print them, without academic titles.
 // ============================================================
 
@@ -38,17 +43,16 @@ export const TERMS = {
     labelTh: 'ภาคการศึกษาต้น 2569',
     midterm: { start: '2026-09-21', end: '2026-09-25' },
     final: { start: '2026-11-23', end: '2026-12-04' },
-    // The last day the evidence reaches: the recordings are listed to 27 Oct,
-    // the class LINE export to 28 Oct. A later class keeps the plan's date.
-    evidenceUntil: '2026-10-28',
   },
 };
 
 const CHECKED = '2026-11-01';
+// The class LINE export ends on 28 Oct; the recordings were read again on 16 Nov.
+const LINE_UNTIL = '2026-10-28';
 const MCV_PRINT = (code, year) => ({ title: `ประมวลรายวิชา ${code} ปีการศึกษา ${year}`, where: 'myCourseVille', checked: CHECKED });
 // Where a course's own document gives no room: the faculty's weekly timetable (CLASS_TIMETABLE.y5).
 const FACULTY_ROOM = { title: 'ห้องเรียนตามตารางเรียนของคณะ', where: 'คณะ', checked: CHECKED };
-const RECORDINGS = { title: 'คลิปบันทึกการสอนของรุ่น', where: 'คณะ', checked: CHECKED };
+const RECORDINGS = { title: 'คลิปบันทึกการสอนของรุ่น', where: 'คณะ', checked: '2026-11-16' };
 const CLASS_LINE = { title: 'ประกาศในกลุ่มไลน์ชั้นปี', where: 'คณะ', checked: CHECKED };
 
 const AN = 'อธิภู นันทประเสริฐ';
@@ -87,6 +91,7 @@ export const SYLLABI = {
     5: {
       'epidemiology': {
         code: '3107508', nameTh: 'ระบาดวิทยาและเวชศาสตร์ป้องกันทางการสัตวแพทย์', nameEn: 'Veterinary Epidemiology and Preventive Medicine', credits: 3,
+        evidenceUntil: LINE_UNTIL,
         slot: { day: 'จันทร์', time: '10:00–12:00 บรรยาย, 13:00–15:00 ปฏิบัติการ', room: 'VET6 807' },
         sources: [MCV_PRINT('3107508', 2569), RECORDINGS, CLASS_LINE, FACULTY_ROOM],
         papers: { final: {} },
@@ -95,7 +100,7 @@ export const SYLLABI = {
           { date: '2026-08-10', time: '09:00–12:00', planned: ['2026-08-03', '2026-08-10'], held: true, title: 'Basic concept in Epidemiology, Measurement of Disease Frequency, Diagnostic and screening test, Agreement of Test', lecturers: [NIWAT, VACHIRA], topics: ['epidem-basic-concepts', 'epidem-disease-frequency', 'epidem-dx-screening', 'epidem-test-agreement'], note: clip('Basic concept in Epidemiology + Measurement') },
           { date: '2026-08-17', held: true, title: 'Study designs, Sample size determination', lecturers: [CHAIDATE, THANICHA], topics: ['epidem-observational-study', 'epidem-sample-size'] },
           { date: '2026-08-24', held: true, title: 'Animal Disease Surveillance and Monitoring, Outbreak investigation', lecturers: [SAHA], topics: ['epidem-surveillance', 'epidem-outbreak-investigation'] },
-          { date: '2026-08-31', held: true, title: 'Principle of Disease prevention, control and eradication, Government Policy and Practice on Disease prevention, control and eradication', lecturers: [NIWAT], topics: ['epidem-control-prevention', 'epidem-govt-policy'] },
+          { date: '2026-08-31', held: true, title: 'Principle of Disease prevention, control and eradication, Government Policy and Practice on Disease prevention, control and eradication', lecturers: [NIWAT, 'นพวรรณ บัวมีธูป'], topics: ['epidem-control-prevention', 'epidem-govt-policy'] },
           { date: '2026-09-07', held: true, title: 'Applied statistic for Epidemiology, Epidemiology data analysis', lecturers: [THANICHA], topics: ['epidem-applied-stats', 'epidem-data-analysis'] },
           { date: '2026-09-14', held: true, title: 'Intro. to Module and Software, Epidemiology Application in Current Research', lecturers: [CHAIDATE], topics: ['epidem-software', 'epidem-current-research'], note: clip('Module 5 The Future Vet + Module 1 Diagnostic Tools in Veterinary Epidem'), change: classLine('2026-09-14', 'ช่วงบ่ายไม่มีเรียน ให้ศึกษาเองผ่าน dashboard ใน myCourseVille') },
           { date: '2026-09-28', held: true, title: 'Emerging Infectious Diseases & Pandemic Preparedness, Introduction to Economics and Decision Tools for Veterinary Epidemiology', lecturers: [THANICHA], topics: ['epidem-eid-pandemic', 'epidem-economics'], paper: null, change: classLine('2026-09-27', 'เรียนออนไลน์ เนื้อหาที่เรียนวันที่ 28 ก.ย. ไม่ออกสอบ') },
@@ -111,6 +116,7 @@ export const SYLLABI = {
 
       'aquatic-clinic': {
         code: '3107520', nameTh: 'อายุรศาสตร์สัตว์น้ำ', nameEn: 'Aquatic Animal Medicine', credits: 3,
+        evidenceUntil: '2026-11-10',
         coordinator: ARANYA,
         slot: { day: 'อังคาร', time: '09:00–12:00', room: 'VET6 807' },
         sources: [MCV_PRINT('3107520', 2569), { title: 'หน้า Schedule (ผู้สอนรายคาบ)', where: 'myCourseVille', checked: CHECKED }, RECORDINGS, CLASS_LINE, FACULTY_ROOM],
@@ -139,8 +145,8 @@ export const SYLLABI = {
           // The schedule names ฐนิดา for this class; the class's own deck names นันทริกา, who also set out her part of the final.
           { date: '2026-10-20', held: true, title: 'Aquarium Management & Medicine', lecturers: ['นันทริกา ชันซื่อ'], topics: ['aqua-aquarium-vet'], note: 'ผู้บรรยายตามสไลด์ของคาบ ตารางของรายวิชาระบุ ฐนิดา เหตระกูล' },
           { date: '2026-10-27', held: true, title: 'Conservation Aquatic Animal Management & Medicine', lecturers: [THANIDA], topics: ['aqua-conservation'], note: clip('Marine mammal medicine') },
-          { date: '2026-11-03', title: 'Aquatic toxicology and aquatic animal impact', lecturers: [WORAYANEE], topics: ['aqua-toxicology'] },
-          { date: '2026-11-10', title: 'Aquatic Animal Diseases Regulation & Involving Organizations', lecturers: [ARANYA, THANIDA, PATHARAPOL, 'ผู้แทน มกอช.'], topics: ['aqua-disease-control'] },
+          { date: '2026-11-03', held: true, title: 'Aquatic toxicology and aquatic animal impact', lecturers: [WORAYANEE], topics: ['aqua-toxicology'] },
+          { date: '2026-11-10', held: true, title: 'Aquatic Animal Diseases Regulation & Involving Organizations', lecturers: [ARANYA, THANIDA, PATHARAPOL, 'ผู้แทน มกอช.'], topics: ['aqua-disease-control'] },
           { date: '2026-11-17', planned: '2026-10-13', title: 'Biosecurity & Disease Control in Aquaculture, The Role of Aquatic Veterinarians in the International Community', lecturers: [PATHARAPOL], topics: ['aqua-shrimp-diseases', 'aqua-disease-control'], change: classLine('2026-08-20', '13 ต.ค. เป็นวันหยุด ย้ายมาสอนวันนี้ราว 1 ชั่วโมงก่อนการนำเสนอ') },
           { date: '2026-11-17', title: 'Aquatic animal disease in Animal Epidemics Act 2558 (นิสิตนำเสนอผลงาน)', lecturers: ['นิสิตนำเสนอหน้าชั้นเรียน'], topics: ['aqua-disease-control'] },
         ],
@@ -148,6 +154,7 @@ export const SYLLABI = {
 
       'avian-medicine': {
         code: '3107510', nameTh: 'อายุรศาสตร์สัตว์ปีก', nameEn: 'Avian Medicine', credits: 2,
+        evidenceUntil: '2026-11-10',
         coordinator: NATAYA,
         slot: { day: 'อังคาร', time: '13:00–16:00', room: 'ห้อง 807' },
         sources: [{ title: 'ตารางเรียนวิชา Avian Medicine ปีการศึกษา 2569', where: 'myCourseVille', checked: CHECKED }, RECORDINGS, CLASS_LINE],
@@ -171,13 +178,15 @@ export const SYLLABI = {
           { date: '2026-10-19', time: '09:00–10:00', planned: '2026-10-27', held: true, title: 'Mycotic Infections', lecturers: [NIWAT], topics: ['avian-mycosis'], change: classLine('2026-08-29', 'คาบบ่าย 27 ต.ค. ย้ายมาเรียนวันจันทร์ 19 และ 26 ต.ค. 09:00–10:00') },
           { date: '2026-10-20', planned: ['2026-10-06', '2026-10-20'], held: true, title: 'Duck Virus Enteritis, Duck Virus Hepatitis, New Duck Syndrome, Goose Parvovirus Infection, Duck Flavivirus Infection', lecturers: [KRIENG], topics: ['avian-duck-plague', 'avian-dvh', 'avian-nds', 'avian-goose-parvo', 'avian-duck-flavi'], note: clip('AHRA Avian med: RA DVE DVH DTMUV GP AI') },
           { date: '2026-10-26', time: '09:00–10:00', planned: '2026-10-27', held: true, title: 'Mycotic Infections (ต่อ), Mycotoxicosis', lecturers: [NIWAT], topics: ['avian-mycosis'] },
-          { date: '2026-11-03', title: 'Ornithobacteriosis, Campylobacteriosis, Listeriosis, Histomoniasis', lecturers: [NIWAT], topics: ['avian-ort', 'avian-campy', 'avian-listeria', 'avian-histomoniasis'] },
+          { date: '2026-11-02', held: true, title: 'Mycotoxicosis (ต่อ)', lecturers: [NIWAT], topics: ['avian-mycosis'], note: clip('Mycotoxicosis (ต่อ)') },
+          { date: '2026-11-03', held: true, title: 'Ornithobacteriosis, Campylobacteriosis, Listeriosis, Histomoniasis', lecturers: [NIWAT], topics: ['avian-ort', 'avian-campy', 'avian-listeria', 'avian-histomoniasis'] },
           { date: '2026-11-17', planned: '2026-09-29', kind: 'activity', title: 'Activities with Hipra', lecturers: [KRIENG], topics: [], change: classLine('2026-09-28', 'เลื่อนมาจาก 29 ก.ย.') },
         ],
       },
 
       'poa-clinical': {
         code: '3107522', nameTh: 'การแก้ไขปัญหาทางคลินิกอายุรศาสตร์สัตว์เลี้ยง', nameEn: 'Clinical Problem Solving in Companion Animal Medicine', credits: 1,
+        evidenceUntil: LINE_UNTIL,
         coordinator: VACHIRA,
         slot: { day: 'พุธ', time: '08:00–09:00', room: 'VET6 807' },
         sources: [MCV_PRINT('3107522', 2569), CLASS_LINE, FACULTY_ROOM],
@@ -202,6 +211,7 @@ export const SYLLABI = {
 
       'milk-meat-hygiene': {
         code: '3109503', nameTh: 'สุขศาสตร์น้ำนมและการตรวจคุณภาพเนื้อสัตว์', nameEn: 'Milk Hygiene and Meat Inspection', credits: 3,
+        evidenceUntil: '2026-11-11',
         coordinator: RUNGTIP,
         slot: { day: 'พุธ', time: '09:00–12:00', room: 'ห้อง 807 ตึก 60 ปี' },
         sources: [{ title: 'ตารางสอนวิชาสุขศาสตร์น้ำนมและเนื้อสัตว์ ปีการศึกษา 2569', where: 'myCourseVille', checked: CHECKED }, RECORDINGS, CLASS_LINE],
@@ -218,15 +228,16 @@ export const SYLLABI = {
           { date: '2026-10-07', planned: '2026-10-14', held: true, title: 'จุลินทรีย์ที่ก่อให้เกิดการเน่าเสียและเกิดโรคที่ติดต่อผ่านเนื้อสัตว์ และมาตรฐานทางจุลชีววิทยาของเนื้อสัตว์, การเก็บตัวอย่าง การตรวจเนื้อสัตว์ทางจุลชีววิทยา และการควบคุมจุลินทรีย์ที่ปนเปื้อนในเนื้อสัตว์', en: 'Spoilage- and disease-causing microorganisms in meat and meat microbiological standards, Sampling, microbiological examination and contamination control in meat', lecturers: [TARADOL], topics: ['meat-microbiology'] },
           { date: '2026-10-14', planned: '2026-10-07', held: true, title: 'บทนำสุขศาสตร์เนื้อสัตว์, การเสื่อมคุณภาพของอาหารที่มาจากสัตว์น้ำและสารพิษในสัตว์น้ำ', en: 'Introduction to meat hygiene, Deterioration of aquatic-derived food and aquatic toxins', lecturers: [SIRAWIT], topics: ['meat-hygiene-intro', 'meat-seafood'] },
           { date: '2026-10-21', held: true, title: 'การเก็บรักษาเนื้อสัตว์และผลิตภัณฑ์, อนามัยเนื้อสัตว์, การใช้เทคนิคด้านอณูชีววิทยาในการตรวจคุณภาพและการรับรองเนื้อสัตว์', en: 'Storage of meat and meat products, Meat wholesomeness, Use of molecular techniques for meat quality and authentication', lecturers: [RUNGTIP], topics: ['meat-storage', 'meat-quality', 'meat-molecular'] },
-          { date: '2026-10-28', title: 'การควบคุมสัตว์รังควานและตัวนำโรคในโรงฆ่าสัตว์, สุขศาสตร์ไข่', en: 'Pest and vector control in slaughterhouses, Egg hygiene', lecturers: [SUPHACHAI], topics: ['meat-pest-control', 'meat-egg-micro'] },
-          { date: '2026-11-04', title: 'สุขศาสตร์โรงฆ่าสัตว์, การออกแบบและระบบการฆ่าในโรงฆ่าสัตว์', en: 'Slaughterhouse hygiene, Slaughterhouse design and slaughtering process', lecturers: [SIRAWIT], topics: ['meat-slaughter'] },
-          { date: '2026-11-11', title: 'การตรวจสัตว์ก่อนฆ่าและการตรวจซากสัตว์หลังฆ่า', en: 'Antemortem and postmortem meat inspection', lecturers: [SIRAWIT], topics: ['meat-ante-post-mortem'] },
+          { date: '2026-10-28', held: true, title: 'การควบคุมสัตว์รังควานและตัวนำโรคในโรงฆ่าสัตว์, สุขศาสตร์ไข่', en: 'Pest and vector control in slaughterhouses, Egg hygiene', lecturers: [SUPHACHAI], topics: ['meat-pest-control', 'meat-egg-micro'] },
+          { date: '2026-11-04', held: true, title: 'สุขศาสตร์โรงฆ่าสัตว์, การออกแบบและระบบการฆ่าในโรงฆ่าสัตว์', en: 'Slaughterhouse hygiene, Slaughterhouse design and slaughtering process', lecturers: [SIRAWIT], topics: ['meat-slaughter'] },
+          { date: '2026-11-11', held: true, title: 'การตรวจสัตว์ก่อนฆ่าและการตรวจซากสัตว์หลังฆ่า', en: 'Antemortem and postmortem meat inspection', lecturers: [SIRAWIT], topics: ['meat-ante-post-mortem'] },
           { date: '2026-11-18', title: 'การเปลี่ยนแปลงหลังสัตว์ตายที่ส่งผลกับซากสัตว์, การตัดแต่ง ประเมินและตัดสินคุณภาพซาก', en: 'Postmortem changes, Meat cutting and grading', lecturers: [SIRAWIT], topics: ['meat-cutting-grading'] },
         ],
       },
 
       'one-health': {
         code: '3109502', nameTh: 'สุขภาพหนึ่งเดียวทางสัตวแพทยสาธารณสุข', nameEn: 'One Health in Veterinary Public Health', credits: 1,
+        evidenceUntil: '2026-11-11',
         coordinator: SAHA,
         slot: { day: 'พุธ', time: '13:00–14:00', room: 'ห้อง 807 ตึก 60 ปี' },
         sources: [{ title: 'ตารางเรียนวิชาสุขภาพหนึ่งเดียว (One Health) ปีการศึกษา 2569', where: 'myCourseVille', checked: CHECKED }, RECORDINGS, CLASS_LINE],
@@ -243,14 +254,15 @@ export const SYLLABI = {
           { date: '2026-10-07', planned: ['2026-10-07', '2026-11-18'], held: true, title: 'Animal and human health risk analysis, Import risk assessment', lecturers: [SUPHACHAI], topics: ['oh-risk-analysis', 'oh-import-risk'] },
           { date: '2026-10-14', planned: '2026-09-30', held: true, title: 'One Health approach to combat foodborne diseases', lecturers: [TARADOL], topics: ['oh-foodborne'] },
           { date: '2026-10-21', held: true, title: 'One Health approach to address environmental health risks I', lecturers: [WORAYANEE], topics: ['oh-env-carcinogen'] },
-          { date: '2026-10-28', title: 'One Health approach to address environmental health risks II', lecturers: [WORAYANEE], topics: ['oh-env-mutagen'] },
-          { date: '2026-11-04', title: 'One Health perspective of food and feed GMOs', lecturers: [WORAYANEE], topics: ['oh-gmo'] },
-          { date: '2026-11-11', title: 'Application of One Health approach for livestock waste management', lecturers: [SIRAWIT], topics: ['oh-livestock-waste'] },
+          { date: '2026-10-28', held: true, title: 'One Health approach to address environmental health risks II', lecturers: [WORAYANEE], topics: ['oh-env-mutagen'] },
+          { date: '2026-11-04', held: true, title: 'One Health perspective of food and feed GMOs', lecturers: [WORAYANEE], topics: ['oh-gmo'] },
+          { date: '2026-11-11', held: true, title: 'Application of One Health approach for livestock waste management', lecturers: [SIRAWIT], topics: ['oh-livestock-waste'] },
         ],
       },
 
       'food-industry': {
         code: '3109501', nameTh: 'อุตสาหกรรมอาหารและการควบคุมคุณภาพ', nameEn: 'Food Industry and Quality Control', credits: 1,
+        evidenceUntil: LINE_UNTIL,
         coordinator: SIRAWIT,
         slot: { day: 'พุธ', time: '14:00–16:00', room: 'VET6 807' },
         sources: [
@@ -274,13 +286,14 @@ export const SYLLABI = {
           { date: '2026-09-09', time: '14:00–16:00', held: true, title: 'การควบคุมคุณภาพในกระบวนการผลิตปศุสัตว์', lecturers: ['มินตรา ลักขณา'], topics: ['fiqc-livestock-qc'] },
           { date: '2026-10-14', time: '14:00–16:00', planned: '2026-09-30', held: true, title: 'ระบบการวิเคราะห์อันตรายและจุดวิกฤตที่ต้องควบคุม (HACCP)', lecturers: ['สมพิศ จุลลาบุตรดี'], topics: ['fiqc-haccp'], change: classLine('2026-09-29', 'งดเรียน 30 ก.ย. เรียนกับ อ.สมพิศ วันนี้ครั้งเดียว 14:00–18:00') },
           { date: '2026-10-14', time: '16:00–18:00', held: true, title: 'มาตรฐานสินค้าปศุสัตว์เพื่อการส่งออก', lecturers: ['สมพิศ จุลลาบุตรดี'], topics: ['fiqc-poultry-export'] },
-          { date: '2026-10-28', time: '14:00–16:00', title: 'การควบคุมคุณภาพสัตว์น้ำและผลิตภัณฑ์สัตว์น้ำ', lecturers: [SAHA], topics: ['fiqc-aquatic'] },
+          { date: '2026-10-28', time: '14:00–16:00', held: true, title: 'การควบคุมคุณภาพสัตว์น้ำและผลิตภัณฑ์สัตว์น้ำ', lecturers: [SAHA], topics: ['fiqc-aquatic'] },
           { date: '2026-11-11', time: '14:00–16:00', title: 'การตรวจสอบและควบคุมคุณภาพเนื้อสัตว์และผลิตภัณฑ์ในอุตสาหกรรมอาหาร (การบรรยายเชิงปฏิบัติการ)', lecturers: ['VPH staff'], topics: [] },
         ],
       },
 
       'equine-medicine': {
         code: '3106510', nameTh: 'อายุรศาสตร์และศัลยศาสตร์ม้า', nameEn: 'Equine Medicine and Surgery', credits: 3,
+        evidenceUntil: '2026-11-05',
         slot: { day: 'พฤหัสบดี', time: '09:00–12:00', room: 'VET6 807' },
         sources: [MCV_PRINT('3106510', 2569), RECORDINGS, CLASS_LINE, FACULTY_ROOM],
         papers: { midterm: {}, final: {} },
@@ -308,7 +321,7 @@ export const SYLLABI = {
           { date: '2026-10-08', planned: ['2026-10-08', '2026-10-29'], held: true, title: 'Equine Dermatology, wound management', lecturers: [SAWITA], topics: ['equine-derm', 'equine-surgery-wound'] },
           { date: '2026-10-15', held: true, title: 'Equine infectious disease, vaccination, Biosecurity and Biosafety', lecturers: [TEERAPOL], topics: ['equine-infectious'] },
           { date: '2026-10-22', planned: ['2026-10-22', '2026-10-29'], held: true, title: 'Concept of equine surgery, Equine anesthesia, analgesia and euthanasia', lecturers: [SAWITA], topics: ['equine-surgery-wound', 'equine-anesthesia'] },
-          { date: '2026-11-05', title: 'Lameness 1: Lameness exam and hoof, diagnostic analgesia', lecturers: [TEERAPOL], topics: ['equine-lameness', 'equine-hoof'] },
+          { date: '2026-11-05', held: true, title: 'Lameness 1: Lameness exam and hoof, diagnostic analgesia', lecturers: [TEERAPOL], topics: ['equine-lameness', 'equine-hoof'] },
           { date: '2026-11-12', title: 'Lameness 2: Pathology and treatment of lame horse', lecturers: [TEERAPOL], topics: ['equine-lameness'] },
           { date: '2026-11-16', time: '10:30–12:00', title: 'POA case discussion', lecturers: [TEERAPOL], topics: ['equine-poa'] },
           { date: '2026-11-19', time: '09:00–10:30', title: 'Exercise related disease', lecturers: [TEERAPOL], topics: ['equine-exercise'] },
@@ -317,6 +330,7 @@ export const SYLLABI = {
 
       'equine-repro': {
         code: '3108515', nameTh: 'วิทยาการสืบพันธุ์ม้า', nameEn: 'Equine Reproduction', credits: 1,
+        evidenceUntil: '2026-10-29',
         slot: { day: 'พฤหัสบดี', time: '13:00–14:00', room: 'VET6 807' },
         sources: [MCV_PRINT('3108515', 2569), RECORDINGS, CLASS_LINE, FACULTY_ROOM],
         papers: { midterm: {}, final: {} },
@@ -328,14 +342,15 @@ export const SYLLABI = {
           { date: '2026-10-01', held: true, title: 'ภาวะเยื่อบุมดลูกอักเสบในม้า', lecturers: [SWANGCHAN], topics: ['eqrepro-endometritis'] },
           { date: '2026-10-08', planned: ['2026-09-17', '2026-10-08'], held: true, title: 'กายวิภาคและการทำหน้าที่ของระบบสืบพันธุ์ กระบวนการสร้างอสุจิ, การตรวจระบบสืบพันธุ์ม้าเพศผู้ทางคลินิก', lecturers: [THARASANIT], topics: ['eqrepro-male'] },
           { date: '2026-10-15', planned: ['2026-10-15', '2026-10-22'], held: true, title: 'เทคโนโลยีการเก็บน้ำเชื้อและการผสมเทียม, โรคติดเชื้อที่สำคัญของม้าเพศผู้', lecturers: [THARASANIT], topics: ['eqrepro-ai', 'eqrepro-stallion-infect'], note: clip('Semen collection and insemination + Infertility problem in stallion') },
-          { date: '2026-10-29', title: 'ศัลยกรรมที่สำคัญของม้าเพศผู้และเพศเมีย', lecturers: [SAWITA], topics: ['eqrepro-surgery'], change: classLine('2026-10-23', 'เนื้อหาอายุรศาสตร์ม้าของวันนี้สอนไปแล้ว จึงเรียนส่วนของ อ.ศวิตา ทั้งหมดแทนตั้งแต่เช้า ถ้าสอนเช้าเสร็จทันก็ไม่มีบ่าย') },
-          { date: '2026-10-29', planned: '2026-11-05', title: 'การตั้งท้องและการคลอด การดูแลลูกม้าหลังคลอด', lecturers: [SAWITA], topics: ['eqrepro-pregnancy'] },
-          { date: '2026-10-29', planned: '2026-11-12', title: 'ความผิดปกติของการคลอด และปัญหาหลังคลอดในม้า', lecturers: [SAWITA], topics: ['eqrepro-postpartum'] },
+          { date: '2026-10-29', held: true, title: 'ศัลยกรรมที่สำคัญของม้าเพศผู้และเพศเมีย', lecturers: [SAWITA], topics: ['eqrepro-surgery'], change: classLine('2026-10-23', 'เนื้อหาอายุรศาสตร์ม้าของวันนี้สอนไปแล้ว จึงเรียนส่วนของ อ.ศวิตา ทั้งหมดแทนตั้งแต่เช้า ถ้าสอนเช้าเสร็จทันก็ไม่มีบ่าย') },
+          { date: '2026-10-29', planned: '2026-11-05', held: true, title: 'การตั้งท้องและการคลอด การดูแลลูกม้าหลังคลอด', lecturers: [SAWITA], topics: ['eqrepro-pregnancy'] },
+          { date: '2026-10-29', planned: '2026-11-12', held: true, title: 'ความผิดปกติของการคลอด และปัญหาหลังคลอดในม้า', lecturers: [SAWITA], topics: ['eqrepro-postpartum'] },
         ],
       },
 
       'zoonoses': {
         code: '3109504', nameTh: 'โรคติดต่อระหว่างสัตว์และคน', nameEn: 'Zoonoses', credits: 3,
+        evidenceUntil: '2026-11-13',
         coordinator: KAMONPAN,
         slot: { day: 'ศุกร์', time: '09:00–12:00', room: 'ห้อง 807 ตึก 60 ปี' },
         sources: [{ title: 'ตารางเรียนวิชาโรคติดต่อระหว่างสัตว์และคน ปีการศึกษา 2569', where: 'myCourseVille', checked: CHECKED }, RECORDINGS, CLASS_LINE],
@@ -360,17 +375,17 @@ export const SYLLABI = {
           { date: '2026-10-02', held: true, title: 'Mycozoonoses', lecturers: [SUPHACHAI], topics: ['zoo-mycoses'], change: classLine('2026-10-01', 'เรียนออนไซต์ เริ่มราว 09:30') },
           { date: '2026-10-16', kind: 'holiday', title: 'วันหยุดราชการ', lecturers: [], topics: [] },
           { date: '2026-10-23', kind: 'holiday', title: 'วันหยุดราชการ', lecturers: [], topics: [] },
-          { date: '2026-10-27', kind: 'makeup', held: true, title: 'เรียนชดเชยช่วงบ่าย (ยังไม่ทราบหัวข้อ)', lecturers: [], topics: [], change: classLine('2026-10-27', 'วันนี้ช่วงบ่ายมีเรียนชดเชยของวิชา Zoonoses') },
-          { date: '2026-10-30', title: 'Bacterial zoonoses I', lecturers: [TARADOL], topics: ['zoo-bacterial'] },
-          { date: '2026-11-06', title: 'Bacterial zoonoses II', lecturers: [TARADOL], topics: ['zoo-bacterial'] },
-          { date: '2026-11-13', title: 'Prion zoonoses', lecturers: [TARADOL], topics: ['zoo-prion'] },
-          { date: '2026-11-13', planned: '2026-10-09', title: 'Epidemiological approach to zoonoses', lecturers: [SAHA], topics: ['zoo-epi-approach'], change: classLine('2026-09-30', 'วันที่ 9 ต.ค. ไม่มีเรียน ย้ายมาสอนวันนี้') },
+          { date: '2026-10-27', planned: '2026-10-30', held: true, title: 'Bacterial zoonoses I', lecturers: [TARADOL], topics: ['zoo-bacterial'], change: classLine('2026-10-27', 'วันนี้ช่วงบ่ายมีเรียนชดเชยของวิชา Zoonoses'), note: clip('Bacterial zoonoses') },
+          { date: '2026-11-04', planned: '2026-11-06', held: true, title: 'Bacterial zoonoses II', lecturers: [TARADOL], topics: ['zoo-bacterial'], note: clip('Bacterial zoonoses (ต่อ) + Prion diseases') },
+          { date: '2026-11-04', planned: '2026-11-13', held: true, title: 'Prion zoonoses', lecturers: [TARADOL], topics: ['zoo-prion'] },
+          { date: '2026-11-13', planned: '2026-10-09', held: true, title: 'Epidemiological approach to zoonoses', lecturers: [SAHA], topics: ['zoo-epi-approach'], change: classLine('2026-09-30', 'วันที่ 9 ต.ค. ไม่มีเรียน ย้ายมาสอนวันนี้') },
           { date: '2026-11-20', title: 'Emerging threat', lecturers: ['ไพศิลป์ เล็กเจริญ', KAMONPAN, 'วิทยากร'], topics: ['zoo-eid-wildlife'] },
         ],
       },
 
       'swine-clinic': {
         code: '3107507', nameTh: 'อายุรศาสตร์สุกร', nameEn: 'Swine Medicine', credits: 2,
+        evidenceUntil: '2026-11-06',
         coordinator: PA,
         slot: { day: 'ศุกร์', time: '13:00–15:00', room: 'ห้อง 807' },
         sources: [{ title: 'ประกาศตารางสอนวิชาอายุรศาสตร์สุกร (2 ก.ค. 69)', where: 'myCourseVille', checked: CHECKED }, RECORDINGS, CLASS_LINE],
@@ -387,9 +402,9 @@ export const SYLLABI = {
           { date: '2026-10-07', time: '14:00–16:00', planned: '2026-10-23', held: true, title: 'โรคระบบทางเดินอาหารจากเชื้อแบคทีเรีย (ต่อ)', lecturers: [SW], topics: ['swine-ileitis-bacti'], note: clip('Yersinia') },
           { date: '2026-10-09', held: true, title: 'โรคพีอาร์อาร์เอส', lecturers: [PA], topics: ['swine-repro'], note: clip('Porcine reproductive and respiratory syndrome') },
           { date: '2026-10-09', held: true, title: 'แนวทางการจัดการควบคุมป้องกันโรคระบาดในสุกร แนวทางการตรวจวินิจฉัยโรคสุกร', lecturers: [PA], topics: ['swine-control-dx'], note: 'สอนแทรกในคาบ PRRS 9 ต.ค.: ต้นคาบอาจารย์บอกว่าวันนี้มีเรื่อง management เข้ามาแทรก ไว้ใช้ตอนฝึกงาน (คลิปคาบนั้น นาที 4:23) ไม่มีคลิปแยกของหัวข้อนี้' },
-          { date: '2026-10-16', title: 'โรคปากและเท้าเปื่อย โรคเซอร์โคไวรัส โรคทริปาโนโซโมซิสของสุกร โรคทริคิโนซิส โรคหนอนพยาธิ', lecturers: [SW], topics: ['swine-fmd', 'swine-pcv2', 'swine-trichinosis'], dayUnknown: true, note: '16 ต.ค. เป็นวันหยุด ยังไม่มีคลิปหรือประกาศว่าหัวข้อนี้สอนวันไหน' },
-          { date: '2026-10-30', title: 'โรคระบบทางเดินอาหารจากเชื้อแบคทีเรีย 2: โรคโคไลบาซิลโลซิส โรคแคมพิโลแบคเตอร์', lecturers: [SW], topics: ['swine-ileitis-bacti'] },
-          { date: '2026-11-06', planned: ['2026-11-13', '2026-11-20'], title: 'โรคสมองอักเสบแจแปนิส โรคสมองอักเสบนิปาห์ โรคกรีสซีพิก โรคจากเชื้อ Mycoplasma suis โรคพิษสุนัขบ้าเทียม', lecturers: [RK], topics: ['swine-prv-je', 'swine-greasypig'], note: clip('Japanese encephalitis') },
+          { date: '2026-10-30', planned: '2026-10-16', held: true, title: 'โรคปากและเท้าเปื่อย โรคเซอร์โคไวรัส โรคทริปาโนโซโมซิสของสุกร โรคทริคิโนซิส โรคหนอนพยาธิ', lecturers: [SW], topics: ['swine-fmd', 'swine-pcv2', 'swine-trichinosis'], note: clip('Trichinosis + FMD + PCV2') },
+          { date: '2026-10-30', title: 'โรคระบบทางเดินอาหารจากเชื้อแบคทีเรีย 2: โรคโคไลบาซิลโลซิส โรคแคมพิโลแบคเตอร์', lecturers: [SW], topics: ['swine-ileitis-bacti'], dayUnknown: true, note: 'คาบ 30 ต.ค. สอนโรคปากและเท้าเปื่อยแทน ยังไม่มีคลิปหรือประกาศว่าหัวข้อนี้สอนวันไหน' },
+          { date: '2026-11-06', planned: ['2026-11-13', '2026-11-20'], held: true, title: 'โรคสมองอักเสบแจแปนิส โรคสมองอักเสบนิปาห์ โรคกรีสซีพิก โรคจากเชื้อ Mycoplasma suis โรคพิษสุนัขบ้าเทียม', lecturers: [RK], topics: ['swine-prv-je', 'swine-greasypig'], note: clip('Japanese encephalitis') },
           { date: '2026-11-13', planned: '2026-11-06', title: 'โรคอหิวาต์สุกร (วิดีโอแทนคาบเรียน)', lecturers: [RK], topics: ['swine-csf'], note: 'สัปดาห์นี้ไม่มีคาบเรียน ในคาบ 6 พ.ย. อาจารย์แจ้งว่าจะทำเรื่องนี้เป็นวิดีโอไว้ใน myCourseVille ให้ดูแทน (คลิปคาบนั้น นาที 8:51 และ 103:36)' },
           { date: '2026-11-20', planned: '2026-11-06', title: 'โรคอหิวาต์แอฟริกาในสุกร และทบทวน', lecturers: [RK], topics: ['swine-asf'], note: 'ในคาบ 6 พ.ย. อาจารย์แจ้งว่าคาบสุดท้ายสอน African swine fever อย่างเดียว และอาจทบทวนเรื่องที่สอนไปแล้ว (คลิปคาบนั้น นาที 103:36)' },
         ],

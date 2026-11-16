@@ -1648,7 +1648,7 @@ export const SUBJECTS_BY_YEAR = {
         notes: [
           '🗓 ไม่มีสอบกลางภาคตามตารางสอบทางการ 2569 — เนื้อหาบรรยาย 3 ส.ค. ถึง 14 ก.ย. 69 รวมสอบปลายภาค 4 ธ.ค. 69 เวลา 08.30-11.30',
           '⚠️ หัวข้อวันที่ 28 ก.ย. (Emerging Infectious Diseases & Pandemic Preparedness, Economics and Decision Tools) ตารางกำกับว่า "สอนแต่ไม่ออกข้อสอบ"',
-          '👥 อาจารย์ — NC ศ.น.สพ.ดร.นิวัตร จันทร์ศิริพรชัย (ผู้ประสานงาน), CI รศ.น.สพ.ดร.ชัยเดช อินทร์ชัยศรี, VH ผศ.น.สพ.ดร.วชิรา หุ่นประสิทธิ์, SJ รศ.สพ.ญ.ดร.สหฤทัย เจียมศรีพงษ์, TC อ.สพ.ญ.ดร.ฐนิชา ชาญชัยเดชาชัย, NB สพ.ญ.นพวรรณ บัวมีธูป',
+          '👥 อาจารย์ — NC ศ.น.สพ.ดร.นิวัตร จันทร์ศิริพรชัย (ผู้ประสานงาน), CI ศ.น.สพ.ดร.ชัยเดช อินทร์ชัยศรี, VH ผศ.น.สพ.ดร.วชิรา หุ่นประสิทธิ์, SJ รศ.สพ.ญ.ดร.สหฤทัย เจียมศรีพงษ์, TC อ.สพ.ญ.ดร.ฐนิชา ชาญชัยเดชาชัย, NB สพ.ญ.นพวรรณ บัวมีธูป',
           '🧪 ต้องเข้าเรียนอย่างน้อย 80% จึงมีสิทธิ์สอบ ปฏิบัติการ Module 1-4 แบ่ง 5 กลุ่มใหญ่ กลุ่มละ 4 กลุ่มย่อย จับสลาก present',
           '📚 เอกสารรุ่นก่อนมีชุดกลางภาคและชุดรวมวิชา ใช้เป็นสัญญาณหัวข้อซ้ำเท่านั้น เพราะปี 2569 ประเมินในสอบปลายภาค',
         ],
@@ -1709,7 +1709,7 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'aqua-shrimp-diseases', examScope: 'final', label: 'Shrimp diseases + biosecurity', icon: '🦐', lecturer: 'Patharapol Piamsomboon', lecturer_year: 2026, lecturerNote: 'ตารางเรียน Vet 86 (Course outline 2569) + ปกสไลด์ของคาบนั้น' },
         { id: 'aqua-aquarium-vet', examScope: 'final', label: 'Aquarium veterinarian', icon: '🏛', lecturer: 'Nantarika Chansue', lecturer_year: 2026, lecturerNote: 'ตารางเรียน Vet 86 วาง Aquarium Management & Medicine หลังสอบกลางภาค ปกสไลด์ระบุ Assoc. Prof. Dr. Nantarika Chansue', lecturerNoteKind: 'caveat' },
         { id: 'aqua-toxicology', examScope: 'final', label: 'Aquatic toxicology & aquatic animal impact', icon: '🧪', lecturer: 'Worrayanee Thammatorn', lecturer_year: 2026, lecturerNote: 'ตารางเรียน Vet 86 (Course outline 2569) วางคาบ 3 พ.ย. 2569 หลังสอบกลางภาค + ปกสไลด์ Aquatic Toxicology', lecturerNoteKind: 'caveat' },
-        { id: 'aqua-disease-control', examScope: 'final', label: 'Aquatic disease control + พรบ.โรคระบาด 2558', icon: '📜', lecturer: 'TBD', lecturer_year: 2026, lecturerNote: 'ตารางเรียน Vet 86 (Course outline 2569) + ปกสไลด์ของคาบนั้น' },
+        { id: 'aqua-disease-control', examScope: 'final', label: 'Aquatic disease control + พรบ.โรคระบาด 2558', icon: '📜', lecturer: 'Aranya Ponpornpisit', lecturer_year: 2026, lecturerNote: 'ตารางเรียน Vet 86 (Course outline 2569) + ปกสไลด์ของคาบนั้น' },
       ] },
 
     { id: 'avian-medicine', code: '3107510', name: 'อายุรศาสตร์สัตว์ปีก',
@@ -1843,7 +1843,7 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'meat-slaughter', examScope: 'final', label: 'Slaughter hygiene design', icon: '🏭', lecturer: 'Sirawit Pagdepanichkit', lecturer_year: 2026 },
         { id: 'meat-ante-post-mortem', examScope: 'final', label: 'Ante / post-mortem inspection', icon: '🔍', lecturer: 'Sirawit Pagdepanichkit', lecturer_year: 2026 },
         { id: 'meat-cutting-grading', examScope: 'final', label: 'Postmortem cutting & grading', icon: '🔪', lecturer: 'Sirawit Pagdepanichkit', lecturer_year: 2026 },
-        { id: 'meat-pest-control', examScope: 'final', label: 'Pest control', icon: '🪲', lecturer: 'Suphachai Nuanualsuwan', lecturer_year: 2026, lecturerNote: 'Per course schedule (รศ.น.สพ.ดร. ศุภชัย เนื้อนวลสุวรรณ), not SP' },
+        { id: 'meat-pest-control', examScope: 'final', label: 'Pest control', icon: '🪲', lecturer: 'Suphachai Nuanualsuwan', lecturer_year: 2026, lecturerNote: 'Per course schedule (ศ.น.สพ.ดร. ศุภชัย เนื้อนวลสุวรรณ), not SP' },
         { id: 'meat-egg-micro', examScope: 'final', label: 'Microbiology of egg', icon: '🥚', lecturer: 'Suphachai Nuanualsuwan', lecturer_year: 2026 },
       ] },
 
@@ -1861,7 +1861,7 @@ export const SUBJECTS_BY_YEAR = {
           '📚 มี past papers: เขียนสรุปข้อสอบพี่ปั้ก, -OH final, --ไฟนอลวันเฮ้ว',
           '🐘 มี handout เรื่อง elephant ที่ไม่แจกในห้อง (referenced in สรุป)',
         ],
-        source: 'ตารางสอนวิชาสุขภาพหนึ่งเดียว (3109502) ภาคต้น 2569 — ผู้ประสานรายวิชา รศ.สพ.ญ.ดร.สหฤทัย เจียมศรีพงษ์',
+        source: 'ตารางสอนวิชาสุขภาพหนึ่งเดียว (3109502) ภาคต้น 2569 — ผู้ประสานรายวิชา รศ.สพ.ญ.ดร.สหฤทัย เจียมศรีพงษ์; การตัดเกรดอิงเกณฑ์และน้ำหนักกลางภาคปลายภาคตามจำนวนคาบ: ประกาศในกลุ่มไลน์ชั้นปี 28 ต.ค. 69',
       },
       topics: [
         { id: 'oh-vet-role', examScope: 'midterm', label: 'Role of veterinarians in One Health', icon: '🩺', lecturer: 'Saharuetai Jeamsripong', lecturer_year: 2026 },
@@ -1888,6 +1888,7 @@ export const SUBJECTS_BY_YEAR = {
       vault_lecturers: ['sirawit-pakdeephanichkit', 'sompiss-jullabutradee', 'saharuetai-jeamsripong'],
       examFormat: {
         weight: 'กลางภาค 40% ตามสัดส่วนชั่วโมงเรียน (คะแนนดิบกลางภาค 35 คะแนน)',
+        source: 'ประกาศในกลุ่มไลน์ชั้นปี 28 ต.ค. 69: คะแนนดิบกลางภาค 35 คะแนน คิดเป็น 40 จาก 100 ตามสัดส่วนชั่วโมงเรียน',
         notes: [
           '📚 มี past papers: FIQC midterm map, [final] mini survival kit FIQC, FIQC อ่านไม่ทันก็ต้องทันจ้า',
           '🗓 ปลายภาค: HACCP และมาตรฐานส่งออก (14 ต.ค.), สัตว์น้ำและผลิตภัณฑ์ (28 ต.ค.), ตรวจสอบคุณภาพเนื้อสัตว์ (11 พ.ย. 69)',
@@ -1936,10 +1937,10 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'equine-rvf', examScope: 'continuous', label: 'Rectovaginal fistula', icon: '🩹', lecturer: 'TBD', lecturer_year: 2026, lecturerNote: 'ไม่อยู่ในตารางบรรยาย 2569 — หัวข้อจากรุ่นก่อน', lecturerNoteKind: 'caveat' },
         { id: 'equine-lapove', examScope: 'continuous', label: 'LapOVE (laparoscopic ovariectomy)', icon: '🔬', lecturer: 'TBD', lecturer_year: 2026, lecturerNote: 'ไม่อยู่ในตารางบรรยาย 2569 — หัวข้อจากรุ่นก่อน', lecturerNoteKind: 'caveat' },
         { id: 'equine-ortho', examScope: 'continuous', label: 'Orthopedic', icon: '🦴', lecturer: 'TBD', lecturer_year: 2026, lecturerNote: 'ไม่อยู่ในตารางบรรยาย 2569 — หัวข้อจากรุ่นก่อน', lecturerNoteKind: 'caveat' },
-        { id: 'equine-pythium', examScope: 'final', label: 'Pythium', icon: '🦠', lecturer: 'TBD', lecturer_year: 2026, lecturerNote: 'สอนในคาบ infectious disease 15 ต.ค. 2569' },
+        { id: 'equine-pythium', examScope: 'final', label: 'Pythium', icon: '🦠', lecturer: 'Teerapol Chinkangsadarn', lecturer_year: 2026, lecturerNote: 'สอนในคาบ infectious disease 15 ต.ค. 2569' },
         { id: 'equine-ophth', examScope: 'final', label: 'Ophthalmology', icon: '👁', lecturer: 'Nalinee Tuntivanich', lecturer_year: 2026, lecturerNote: 'ตารางสอน Vet 86 3106510 (2569)' },
         { id: 'equine-respi', examScope: 'both', label: 'Respiratory', icon: '🫁', lecturer: 'Teerapol Chinkangsadarn', lecturer_year: 2026, lecturerNote: 'ตารางสอน Vet 86 วาง Equine respiratory diseases เป็นคาบสุดท้ายก่อนสอบกลางภาค (Vet 85 เรียนหลังสอบ)' },
-        { id: 'equine-neonatal', examScope: 'continuous', label: 'Neonatal & foal management', icon: '🐎', lecturer: 'TBD', lecturer_year: 2026, lecturerNote: 'ปีนี้สอนในวิชา Equine Repro (29 ต.ค. 2569)', lecturerNoteKind: 'caveat' },
+        { id: 'equine-neonatal', examScope: 'continuous', label: 'Neonatal & foal management', icon: '🐎', lecturer: 'Sawita Santiviparat', lecturer_year: 2026, lecturerNote: 'ปีนี้สอนในวิชา Equine Repro (29 ต.ค. 2569)', lecturerNoteKind: 'caveat' },
         { id: 'equine-poa', examScope: 'final', label: 'POA equine', icon: '🩺', lecturer: 'Teerapol Chinkangsadarn', lecturer_year: 2026 },
         { id: 'equine-derm', examScope: 'final', label: 'Equine dermatology', icon: '🩹', lecturer: 'Sawita Santiviparat', lecturer_year: 2026 },
         { id: 'equine-surgery-wound', examScope: 'final', label: 'Concept of equine surgery and wound management', icon: '🩺', lecturer: 'Sawita Santiviparat', lecturer_year: 2026 },
