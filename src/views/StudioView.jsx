@@ -30,7 +30,7 @@ const STATUS = {
   device: 'บันทึกไว้ในเครื่องนี้แล้ว',
   offline: 'ไม่มีอินเทอร์เน็ต บันทึกไว้ในเครื่องนี้ก่อน จะส่งให้เมื่อกลับมาออนไลน์',
   failed: 'บันทึกให้เพื่อนเห็นไม่สำเร็จ การ์ดยังอยู่ในเครื่องนี้',
-  guest: 'บันทึกไว้ในเครื่องนี้แล้ว เข้าสู่ระบบเพื่อให้เพื่อนในกลุ่มเห็นการ์ดนี้',
+  guest: 'การ์ดเก็บไว้ในเครื่องนี้ เข้าสู่ระบบเพื่อให้เพื่อนในกลุ่มติวเห็นการ์ดนี้',
 };
 
 export default function StudioView({ goBack, user = null, profile = null, history = [], srCards = {}, streakData = null, selectedYear = null, theme = 'light' }) {
@@ -65,8 +65,8 @@ export default function StudioView({ goBack, user = null, profile = null, histor
           <h2 id="st-bd" className="vmx-studio__h">พื้นหลัง</h2>
           <div className="vmx-studio__backdrops" role="radiogroup" aria-labelledby="st-bd">
             {CARD_BACKDROPS.map((id) => (
-              <button key={id} type="button" role="radio" aria-checked={worn.backdrop === id} className="vmx-studio__bd" onClick={() => set({ backdrop: id })}>
-                {backdropSrc(id) && <img src={backdropSrc(id)} alt="" decoding="async" />}
+              <button key={id} type="button" role="radio" aria-checked={worn.backdrop === id} className="vmx-studio__bd" style={{ background: face.colours.stock }} onClick={() => set({ backdrop: id })}>
+                {backdropSrc(id) && <img src={backdropSrc(id)} alt="" decoding="async" style={{ opacity: face.colours.plateOpacity, filter: face.colours.plateFilter }} />}
                 <span>{backdropLabel(id)}</span>
               </button>
             ))}
@@ -128,8 +128,8 @@ export default function StudioView({ goBack, user = null, profile = null, histor
 
         {next && (
           <p className="vmx-studio__next">
-            ถ้วยถัดไป {next.label} อีก <b>{next.left.toLocaleString('en-US')}</b> {next.unit}
-            {next.frame ? ` แล้วได้กรอบ${FRAME_LABEL[next.frame]}ด้วย` : ''}
+            ถ้วยถัดไป "{next.label}" อีก <b>{next.left.toLocaleString('en-US')}</b> {next.unit}
+            {next.frame ? ` ได้ถ้วยนี้แล้วใช้กรอบ${FRAME_LABEL[next.frame]}ได้` : ''}
           </p>
         )}
 

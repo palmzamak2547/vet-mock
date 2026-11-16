@@ -10,7 +10,9 @@
 // carry it whole.
 // ============================================================
 
-import { createCard, paper, footer, picture, fitCard, STORY, LIVE, CORE, FAMILY } from './kit.js';
+import { createCard, paper, masthead, footer, picture, fitCard, thaiDate, STORY, LIVE, CORE, FAMILY } from './kit.js';
+
+import { darkPlatePixel } from '../card-style.js';
 
 const EMOJI_FONT = '"Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif';
 export const CARD_RATIO = 1.586;
@@ -34,6 +36,31 @@ export function coverCrop(iw, ih, w, h) {
   const sw = w / s;
   const sh = h / s;
   return { sx: (iw - sw) * 0.5, sy: ih - sh, sw, sh };
+}
+
+/**
+ * The plate in negative, as the preview's CSS filter prints it in dark mode
+ * (darkPlatePixel). null when the pixels cannot be read; the plate is then
+ * drawn as it is.
+ */
+function negative(img, crop, w, h) {
+  try {
+    const off = document.createElement('canvas');
+    off.width = Math.round(w);
+    off.height = Math.round(h);
+    const o = off.getContext('2d', { willReadFrequently: true });
+    o.drawImage(img, crop.sx, crop.sy, crop.sw, crop.sh, 0, 0, off.width, off.height);
+    const data = o.getImageData(0, 0, off.width, off.height);
+    const px = data.data;
+    for (let i = 0; i < px.length; i += 4) {
+      const [r, g, b] = darkPlatePixel(px[i], px[i + 1], px[i + 2]);
+      px[i] = r; px[i + 1] = g; px[i + 2] = b;
+    }
+    o.putImageData(data, 0, 0);
+    return off;
+  } catch {
+    return null;
+  }
 }
 
 function frame(card, face, box, u) {
@@ -100,6 +127,8 @@ function layout(card, face, art, gap) {
   const u = box.w / 100;
   const r = 16 * (box.w / 360);
   paper(card);
+  // The house masthead, as on every share card: what this is, and when.
+  masthead(card, 'การ์ดของฉัน', thaiDate(new Date()));
 
   // Stock, shadow, plate.
   if (!card.dry) {
@@ -119,7 +148,9 @@ function layout(card, face, art, gap) {
       const iw = art.plate.naturalWidth || art.plate.width || 1;
       const ih = art.plate.naturalHeight || art.plate.height || 1;
       const { sx, sy, sw, sh } = coverCrop(iw, ih, box.w, box.h);
-      ctx.drawImage(art.plate, sx, sy, sw, sh, box.x, box.y, box.w, box.h);
+      const plate = face.theme === 'dark' ? negative(art.plate, { sx, sy, sw, sh }, box.w, box.h) : null;
+      if (plate) ctx.drawImage(plate, box.x, box.y, box.w, box.h);
+      else ctx.drawImage(art.plate, sx, sy, sw, sh, box.x, box.y, box.w, box.h);
       ctx.restore();
     }
   }

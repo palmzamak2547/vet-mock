@@ -175,8 +175,6 @@ export default function ProfileView({
             </section>
           )}
 
-          <MyCardTile {...{ user, profile, history, srCards, streakData, selectedYear: year, theme, onOpen: () => setView('card-studio') }} />
-
           {/* ── The one goal: the next paper ──────────────────────────── */}
           {goal ? (
             <section className="vmx-dash-card vmx-profile-card vmx-hub-goal" aria-labelledby="hub-goal">
@@ -307,6 +305,8 @@ export default function ProfileView({
               </ul>
             </section>
           )}
+
+          <MyCardTile {...{ user, profile, history, srCards, streakData, selectedYear: year, theme, onOpen: () => setView('card-studio') }} />
 
           <section className="vmx-dash-card vmx-profile-card" aria-labelledby="hub-study">
             <h2 id="hub-study">การเรียนของฉัน</h2>

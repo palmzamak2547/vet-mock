@@ -37,7 +37,7 @@ test('the hub card opens the studio, a pick shows at once and is still there aft
   await page.getByRole('radiogroup', { name: 'พื้นหลัง' }).getByRole('radio', { name: 'กล้องจุลทรรศน์' }).click();
   await expect(card).toHaveAttribute('data-backdrop', 'microscope');
   await expect(card.locator('img.vmx-scard__bd')).toHaveAttribute('src', /microscope/);
-  await expect(page.getByRole('status').filter({ hasText: 'บันทึกไว้ในเครื่องนี้แล้ว' })).toBeVisible();
+  await expect(page.getByRole('status').filter({ hasText: 'การ์ดเก็บไว้ในเครื่องนี้' })).toBeVisible();
 
   // Leave, come back: the hub shows the same card, and so does the studio.
   await page.getByRole('button', { name: 'โปรไฟล์' }).first().click();

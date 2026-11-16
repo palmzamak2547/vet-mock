@@ -1,13 +1,13 @@
 // Every text colour on "การ์ดของฉัน" reads at 4.5:1 or more over every
 // backdrop a student can pick, light and dark. The plate is cropped as the
 // card crops it (cover, bottom centre) at 360 px and blended at the card's
-// opacity over the card stock; the 2nd-percentile pixel is the bed measured
+// opacity over the card stock (in dark, printed in negative first); the 2nd-percentile pixel is the bed measured
 // (a single stroke of the drawing is not where a line of text sits).
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
-import { cardColours, CARD_BACKDROPS, backdropSrc } from '../../src/lib/card-style.js';
+import { cardColours, CARD_BACKDROPS, backdropSrc, darkPlatePixel } from '../../src/lib/card-style.js';
 
 const W = 180;
 const H = Math.round(W / 1.586);
@@ -36,7 +36,9 @@ for (const theme of ['light', 'dark']) {
         const ink = hex(colour);
         const scores = [];
         for (let i = 0; i < n; i++) {
-          const bed = px ? [0, 1, 2].map((k) => stock[k] * (1 - c.plateOpacity) + px[i * 3 + k] * c.plateOpacity) : stock;
+          // Dark mode prints the plate in negative (cardColours().plateFilter).
+          const p = px && (theme === 'dark' ? darkPlatePixel(px[i * 3], px[i * 3 + 1], px[i * 3 + 2]) : [px[i * 3], px[i * 3 + 1], px[i * 3 + 2]]);
+          const bed = p ? [0, 1, 2].map((k) => stock[k] * (1 - c.plateOpacity) + p[k] * c.plateOpacity) : stock;
           scores.push(ratio(ink, bed));
         }
         scores.sort((a, b) => a - b);

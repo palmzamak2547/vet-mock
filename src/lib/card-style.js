@@ -118,6 +118,19 @@ export function nextTrophy(src = {}) {
 
 // ── The face: what any copy of the card draws ──────────────────────────────
 
+export const DARK_PLATE_FILTER = 'invert(1) hue-rotate(180deg)';
+export const DARK_PLATE_OPACITY = 0.5;
+
+// invert(1) then hue-rotate(180deg), as the Filter Effects spec defines them
+// (sRGB values, the matrix at cos -1, sin 0): the share image and the
+// contrast test print a dark-mode plate exactly as the CSS filter does.
+const HUE_180 = [[-0.574, 1.43, 0.144], [0.426, 0.43, 0.144], [0.426, 1.43, -0.856]];
+const clamp = (v) => Math.max(0, Math.min(255, Math.round(v)));
+export function darkPlatePixel(r, g, b) {
+  const i = [255 - r, 255 - g, 255 - b];
+  return HUE_180.map((row) => clamp(row[0] * i[0] + row[1] * i[1] + row[2] * i[2]));
+}
+
 /** The card's colours for a theme: the share card's paper and inks. */
 export function cardColours(theme = 'light') {
   const pal = PALETTES[theme === 'dark' ? 'dark' : 'light'];
@@ -133,8 +146,11 @@ export function cardColours(theme = 'light') {
     title: pal.gold,
     gold: pal.goldField,
     seal: pal.rose,
-    // A plate is printed art on light paper; dark mode shows it fainter.
-    plateOpacity: theme === 'dark' ? 0.14 : 0.35,
+    // A plate is printed art on light paper. Dark mode prints it in
+    // negative (darkPlatePixel, the CSS filter below), so its paper sinks into
+    // the dark stock and the drawing still shows.
+    plateOpacity: theme === 'dark' ? DARK_PLATE_OPACITY : 0.35,
+    plateFilter: theme === 'dark' ? DARK_PLATE_FILTER : 'none',
     // Foil: the palette's four field colours, round the edge.
     foil: [PALETTES.light.rightEdge, PALETTES.light.goldField, PALETTES.light.wrongEdge, PALETTES.dark.sage],
   };

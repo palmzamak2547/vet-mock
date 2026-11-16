@@ -20,7 +20,7 @@ export default function StudentCard({ face, compact = false, still = false, clas
   const style = {
     '--sc-stock': c.stock, '--sc-ink': c.ink, '--sc-soft': c.soft, '--sc-rule': c.rule,
     '--sc-brand': c.brand, '--sc-title': c.title, '--sc-gold': c.gold, '--sc-seal': c.seal,
-    '--sc-plate': c.plateOpacity,
+    '--sc-plate': c.plateOpacity, '--sc-plate-filter': c.plateFilter,
     '--sc-foil': `conic-gradient(from 210deg, ${c.foil.join(', ')}, ${c.foil[0]})`,
   };
   return (

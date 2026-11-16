@@ -69,8 +69,9 @@
 .vmx-studio button[aria-disabled="true"] { cursor: default; }
 
 .vmx-studio__backdrops { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
-.vmx-studio__bd { height: 84px; overflow: hidden; padding: 0; display: grid; align-items: start; font-size: 14px; background: var(--clr-surface); }
-.vmx-studio__bd img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; opacity: 0.85; }
+/* Each tile is the card's own shape and crop, so it shows what the card will. */
+.vmx-studio__bd { aspect-ratio: 1.586; min-height: 64px; overflow: hidden; padding: 0; display: grid; align-items: start; font-size: 14px; background: var(--clr-surface); }
+.vmx-studio__bd img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; }
 .vmx-studio__bd span {
   position: relative; padding: 4px 8px; text-align: left; line-height: 1.3;
   background: color-mix(in oklab, var(--clr-surface) 88%, transparent); color: var(--clr-ink);

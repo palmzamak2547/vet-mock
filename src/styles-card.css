@@ -34,7 +34,7 @@
 .vmx-scard__bd {
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover; object-position: 50% 100%;
-  opacity: var(--sc-plate); z-index: -1; pointer-events: none;
+  opacity: var(--sc-plate); filter: var(--sc-plate-filter); z-index: -1; pointer-events: none;
 }
 .vmx-scard__sheen {
   position: absolute; inset: -20% -40%; z-index: 2; pointer-events: none;

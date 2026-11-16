@@ -16,6 +16,7 @@
     "--sc-gold",
     "--sc-ink",
     "--sc-plate",
+    "--sc-plate-filter",
     "--sc-rule",
     "--sc-seal",
     "--sc-soft",

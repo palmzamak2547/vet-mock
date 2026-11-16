@@ -27,7 +27,7 @@ registerHooks({
 });
 
 const {
-  parseCardToken, encodeCard, readCard, cardFace, cardAllowance, wearable, BADGE_IDS, CARD_BACKDROPS, DEFAULT_CARD, isDefaultCard,
+  parseCardToken, encodeCard, readCard, cardFace, cardAllowance, wearable, BADGE_IDS, CARD_BACKDROPS, DEFAULT_CARD, isDefaultCard, darkPlatePixel,
 } = await import('../../src/lib/card-style.js');
 const { BADGE_ART } = await import('../../src/data/art.js');
 const { fetchCardStyles, saveCardStyle, resetCardStyleRemote, cardStylesAbsent } = await import('../../src/lib/card-style-remote.js');
@@ -69,7 +69,7 @@ test('a student wears only what they earned; the rest falls back to the free cho
 // A recording 2D context: every text with its colour, every picture with its
 // source rectangle and alpha, every fill colour.
 function recorder() {
-  const log = { texts: [], images: [], fills: [] };
+  const log = { texts: [], images: [], fills: [], puts: [] };
   const state = { font: '10px x', fillStyle: '#000', globalAlpha: 1 };
   const stack = [];
   const sizeOf = () => Number(/(\d+(?:\.\d+)?)px/.exec(state.font)?.[1] || 10);
@@ -82,7 +82,9 @@ function recorder() {
       if (key === 'fill') return () => log.fills.push(state.fillStyle);
       if (key === 'save') return () => stack.push({ ...state });
       if (key === 'restore') return () => Object.assign(state, stack.pop() || {});
-      if (key === 'getImageData') return () => { throw new Error('no pixels'); };
+      // Every pixel the paper of a plate: the negative must turn it dark.
+      if (key === 'getImageData') return (x, y, w, h) => ({ data: new Uint8ClampedArray(w * h * 4).fill(245) });
+      if (key === 'putImageData') return (d) => log.puts.push([...d.data.slice(0, 3)]);
       if (key === 'createLinearGradient' || key === 'createConicGradient') return () => ({ addColorStop() {} });
       return () => {};
     },
@@ -128,12 +130,25 @@ for (const theme of ['light', 'dark']) {
     assert.ok(html.includes(`--sc-plate:${face.colours.plateOpacity}`));
     // The same plate, cropped the same way (cover, anchored bottom centre).
     assert.ok(html.includes(`src="${plate.src}"`) && html.includes('is-frame-gilt'));
+    assert.ok(html.includes(`--sc-plate-filter:${face.colours.plateFilter}`));
     const box = cardBox();
-    const shown = log.images.find((i) => i.src === plate.src);
     const crop = coverCrop(1080, 1350, box.w, box.h);
-    assert.deepEqual(shown.args.slice(0, 4).map(Math.round), [crop.sx, crop.sy, crop.sw, crop.sh].map(Math.round));
     assert.equal(crop.sy + crop.sh, 1350, 'the crop keeps the bottom of the plate, as object-position 50% 100%');
-    assert.equal(shown.alpha, face.colours.plateOpacity);
+    // The plate is cut from the source as the preview cuts it.
+    const cut = log.images.find((i) => i.src === plate.src);
+    assert.deepEqual(cut.args.slice(0, 4).map(Math.round), [crop.sx, crop.sy, crop.sw, crop.sh].map(Math.round));
+    if (theme === 'dark') {
+      // In dark the preview prints the plate in negative (CSS filter); so does the image.
+      assert.equal(face.colours.plateFilter, 'invert(1) hue-rotate(180deg)');
+      assert.deepEqual(log.puts[0], darkPlatePixel(245, 245, 245));
+      const shown = log.images.find((i) => i.src === undefined && i.args.length === 4);
+      assert.deepEqual(shown.args.map(Math.round), [box.x, box.y, box.w, box.h].map(Math.round));
+      assert.equal(shown.alpha, face.colours.plateOpacity);
+    } else {
+      assert.equal(face.colours.plateFilter, 'none');
+      assert.equal(log.puts.length, 0);
+      assert.equal(cut.alpha, face.colours.plateOpacity);
+    }
     // The same trophies.
     for (const t of face.trophies) {
       assert.ok(html.includes(`alt="${t.label}"`));
