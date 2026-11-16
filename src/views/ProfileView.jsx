@@ -30,6 +30,9 @@ import ThemePicker from '../components/ThemePicker.jsx';
 import PWAInstallChip from '../components/PWAInstallChip.jsx';
 import NavIcon from '../components/NavIcon.jsx';
 import IdentityEditor from '../components/IdentityEditor.jsx';
+import ProfilePicture, { usePictures } from '../components/ProfilePicture.jsx';
+import { uploadPicture, removePicture, PICTURE_WORDS } from '../lib/profile-picture.js';
+import { confirmDialog } from '../lib/dialog.js';
 import ActivityFigure from '../components/ActivityFigure.jsx';
 import { storage } from '../hooks/useStorage.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, CURRENT_YEAR } from '../data/curriculum.js';
@@ -383,6 +386,8 @@ function IdentityCard({ user, profile, year, cohort, onSaved, onYear }) {
   const picture = shownPicture(profile?.avatar_emoji);
   const shown = showsOnBoards(user);
   const headingId = 'hub-identity';
+  const own = usePictures([user?.id], Boolean(user?.id))[user?.id] || null;
+  const [photoNote, setPhotoNote] = useState(null);
 
   // The confirmation stays where the change was made, then gets out of the way.
   useEffect(() => {
@@ -418,7 +423,9 @@ function IdentityCard({ user, profile, year, cohort, onSaved, onYear }) {
             aria-label={`แก้ชื่อและรูปที่เพื่อนเห็น ตอนนี้ ${auto ? 'ยังไม่ได้ตั้งชื่อ' : shownName(name)} รูป${pictureLabel(picture)}`}
             data-testid="hub-identity"
           >
-            <span key={picture} className={`vmx-hub-pic${saved ? ' is-fresh' : ''}`} aria-hidden="true">{picture}</span>
+            <span key={own?.url || picture} className={`vmx-hub-pic${saved || photoNote === 'saved' ? ' is-fresh' : ''}${own?.url ? ' has-photo' : ''}`} aria-hidden="true">
+              {own?.url ? <ProfilePicture picture={own} emoji={picture} size={56} ownerView /> : picture}
+            </span>
             <span className="vmx-hub-who">
               <span className="vmx-hub-name">{auto ? 'ยังไม่ได้ตั้งชื่อ' : shownName(name)}</span>
               <span className="vmx-hub-meta">ปี {year}{cohort ? ` รุ่น ${cohort}` : ''}</span>
@@ -434,6 +441,7 @@ function IdentityCard({ user, profile, year, cohort, onSaved, onYear }) {
               {name ? `ตอนนี้เพื่อนเห็นคุณเป็น ${name} ซึ่งระบบตั้งให้` : 'ยังไม่มีชื่อที่คุณตั้งเอง'} แตะการ์ดเพื่อเลือกชื่อของคุณ
             </p>
           )}
+          <PhotoControls user={user} own={own} note={photoNote} setNote={setPhotoNote} />
           <div className="vmx-hub-id-foot">
             <span className="vmx-hub-meta">ประวัติ การ์ดทบทวน และรายการอ่านเก็บในบัญชี</span>
             <button type="button" className="vmx-hub-link" onClick={onYear}>เปลี่ยนชั้นปี</button>
@@ -455,6 +463,70 @@ function IdentityCard({ user, profile, year, cohort, onSaved, onYear }) {
         />
       )}
     </section>
+  );
+}
+
+// ── The student's own picture ────────────────────────────────────────
+// Pick or take a picture (the phone offers its camera for an image input),
+// replace it, or remove it and go back to the ready-made picture. Every
+// outcome is said on this line, beside the buttons the student pressed.
+function PhotoControls({ user, own, note, setNote }) {
+  const inputRef = useRef(null);
+  const [busy, setBusy] = useState(false);
+  const has = Boolean(own?.url);
+  const hidden = own?.state === 'hidden_reports' || own?.state === 'hidden_admin' ? own.state : null;
+
+  const choose = async (event) => {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+    if (!file) return;
+    setBusy(true);
+    setNote('uploading');
+    const done = await uploadPicture(file, user.id);
+    setBusy(false);
+    setNote(done.ok ? 'saved' : done.problem);
+  };
+  const remove = async () => {
+    const yes = await confirmDialog({
+      title: 'ลบรูปของคุณ',
+      body: 'เพื่อนจะเห็นรูปสำเร็จรูปที่คุณเลือกไว้แทน',
+      confirmLabel: 'ลบรูป',
+      tone: 'danger',
+    });
+    if (!yes) return;
+    setBusy(true);
+    const done = await removePicture(user.id);
+    setBusy(false);
+    setNote(done.ok ? 'removed' : done.problem);
+  };
+
+  const message = note ? PICTURE_WORDS[note] || PICTURE_WORDS.failed : '';
+  const good = note === 'saved' || note === 'removed' || note === 'uploading';
+  return (
+    <div className="vmx-hub-photo" data-testid="profile-photo-controls">
+      {hidden && !note && <p className="vmx-hub-auto" role="status">{PICTURE_WORDS[hidden]}</p>}
+      <div className="vmx-hub-photo-row">
+        <input
+          ref={inputRef}
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          className="vmx-sr-only"
+          tabIndex={-1}
+          aria-hidden="true"
+          onChange={choose}
+          data-testid="profile-photo-input"
+        />
+        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" disabled={busy} onClick={() => inputRef.current?.click()}>
+          {has ? 'เปลี่ยนรูป' : 'ใส่รูปของคุณ'}
+        </button>
+        {has && (
+          <button type="button" className="vmx-hub-link" disabled={busy} onClick={remove}>
+            ลบรูป กลับไปใช้รูปสำเร็จรูป
+          </button>
+        )}
+      </div>
+      <p className={`vmx-hub-photo-note${good ? '' : ' is-problem'}`} role="status" aria-live="polite">{message}</p>
+    </div>
   );
 }
 

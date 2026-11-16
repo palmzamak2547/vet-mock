@@ -503,6 +503,11 @@ export async function deleteAccountData() {
   const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
   if (!supabaseUrl) throw new Error('Supabase URL not configured');
 
+  // The student's own picture lives in the private bucket, which the purge
+  // below cannot reach: remove it first, while the session still exists. Its
+  // key and its reports go with the profile row and the auth user.
+  await fetch('/api/profile-picture', { method: 'DELETE', headers: { authorization: `Bearer ${accessToken}` } }).catch(() => null);
+
   let report;
   try {
     const res = await fetch(`${supabaseUrl}/functions/v1/delete-account`, {

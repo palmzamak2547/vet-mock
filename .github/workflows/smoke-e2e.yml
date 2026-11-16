@@ -218,6 +218,10 @@ jobs:
         env:
           PG_CONTAINER: ${{ job.services.postgres.id }}
         run: node scripts/test-failure-record-db.mjs --backend=postgres
+      - name: Verify profile pictures (server-only writes, who sees a picture, three reporters hide it, admin hide and restore, the undo)
+        env:
+          PG_CONTAINER: ${{ job.services.postgres.id }}
+        run: node scripts/test-profile-pictures-db.mjs --backend=postgres
 
   e2e:
     name: e2e (${{ matrix.label }})
