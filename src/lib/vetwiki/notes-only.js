@@ -7,23 +7,17 @@
 // and the index left them out: a student looking in the wiki could not find
 // those notes at all. The index lists them under the shelves and opens them in
 // the notes reader, marked as not yet checked, instead of passing them off as
-// articles. Built from the two generated registries, so the index loads no
-// note: a new notes subject appears here until its articles exist.
+// articles. The list is written with the shelves (npm run regen:wiki-registry),
+// so the index loads neither a note nor the notes registry, and a new notes
+// subject appears here until its articles exist.
 // ============================================================
-import { SUBJECTS_WITH_NOTES, NOTE_TOPIC_KEYS } from '../../data/notes-registry.generated.js';
-import { SHELF_SUBJECTS } from './shelf.generated.js';
+import { NOTES_ONLY_SUBJECTS } from './shelf.generated.js';
 import { SUBJECTS, yearForSubject } from '../../data/curriculum.js';
 
-/** [{ id, topics }] for every subject with notes and no VetWiki shelf, in course order. */
+/** [{ id, year }] for every subject with notes and no VetWiki shelf, in course order. */
 export function notesOnlySubjects() {
   const order = new Map(SUBJECTS.map((s, i) => [s.id, i]));
-  const topics = new Map();
-  for (const key of NOTE_TOPIC_KEYS) {
-    const id = key.split('/')[0];
-    topics.set(id, (topics.get(id) || 0) + 1);
-  }
-  return [...SUBJECTS_WITH_NOTES]
-    .filter((id) => !Object.prototype.hasOwnProperty.call(SHELF_SUBJECTS, id))
-    .map((id) => ({ id, year: yearForSubject(id) || 0, topics: topics.get(id) || 0 }))
+  return NOTES_ONLY_SUBJECTS
+    .map((id) => ({ id, year: yearForSubject(id) || 0 }))
     .sort((a, b) => (order.get(a.id) ?? 1e9) - (order.get(b.id) ?? 1e9));
 }

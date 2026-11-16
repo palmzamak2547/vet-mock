@@ -41,7 +41,20 @@ import { wikiPath, wikiUrl, parseWikiPath, wikiEntry, WIKI_BASE } from '../lib/v
 import ReportConcern from '../components/ReportConcern.jsx';
 import SlideFigures from '../components/SlideFigures.jsx';
 import ScrollFrame from '../components/ScrollFrame.jsx';
-import { noteSourceLine } from '../lib/note-source-line.js';
+// The source-line label (lib/note-source-line.js) carries the recording and
+// lecturer tables, about 22 KB the article does not need before the first
+// "แหล่งอ้างอิง" row, which starts closed: it is fetched once, after mount.
+let sourceLineModule = null;
+function useNoteSourceLine() {
+  const [fn, setFn] = useState(() => sourceLineModule?.noteSourceLine || null);
+  useEffect(() => {
+    if (fn) return undefined;
+    let live = true;
+    import('../lib/note-source-line.js').then((m) => { sourceLineModule = m; if (live) setFn(() => m.noteSourceLine); }).catch(() => {});
+    return () => { live = false; };
+  }, [fn]);
+  return fn;
+}
 import { notesOnlySubjects } from '../lib/vetwiki/notes-only.js';
 import RelatedDocs from '../components/RelatedDocs.jsx';
 import { fetchRelatedDocs } from '../lib/library.js';
@@ -579,14 +592,14 @@ export function WikiIndex({ topics, onOpen, onOpenSection, onOpenNotes = null, g
           <h2 id="vw-notes-only-head" className="vw-year">โน้ตที่ยังไม่ได้ตรวจทาน</h2>
           <p className="vw-notes-only-lede">เนื้อหาวิชาเหล่านี้ยังไม่ได้ตรวจกับแหล่งอ้างอิงทีละหัวข้อ เปิดอ่านได้ในหน้าโน้ต</p>
           <ul className="vw-notes-only-list">
-            {notesOnly.map(({ id, year, topics: count }) => (
+            {notesOnly.map(({ id, year }) => (
               <li key={id}>
-                <button type="button" className="vmx-wiki-subject-row vmx-wiki-subject-toggle" onClick={() => onOpenNotes(id)}>
+                <button type="button" className="vmx-wiki-subject-row vw-notes-only-row" onClick={() => onOpenNotes(id)}>
                   <span className="vmx-wiki-subject-title">
                     <span className="vmx-wiki-subject-name">{subjectName(id)}</span>
                     {subjectMeta(id)?.code && <span className="vmx-wiki-subject-code">{subjectMeta(id).code}</span>}
                   </span>
-                  <span className="vmx-wiki-subject-count">{year ? `ปี ${year}, ` : ''}{count} หัวข้อ</span>
+                  <span className="vmx-wiki-subject-count">{year ? `ปี ${year}` : ''}</span>
                   <span aria-hidden="true" className="vmx-wiki-subject-chevron">→</span>
                 </button>
               </li>
@@ -801,6 +814,7 @@ const Section = React.memo(function Section({ s, i, chips, knowledgeId, copiedSt
   // (course logistics, a draft) carries a badge.
   const rev = s.reviewStatus === 'verified' ? null : REVIEW_LABEL[s.reviewStatus];
   const noteRef = (s.sourceRefs || [])[0];
+  const sourceLine = useNoteSourceLine();
   return (
     <section id={s.id} className="vw-section">
       <div className="vw-section-text">
@@ -832,7 +846,7 @@ const Section = React.memo(function Section({ s, i, chips, knowledgeId, copiedSt
             come from Vet 85 summaries, MSD tables or VetMock's own pages. */}
         <details className="vw-refs">
           <summary>แหล่งอ้างอิง</summary>
-          {noteRef && <div className="vw-source">ที่มา: {noteSourceLine(noteRef.locator)}</div>}
+          {noteRef && <div className="vw-source">ที่มา: {sourceLine ? sourceLine(noteRef.locator) : noteRef.locator}</div>}
           <SectionEvidence chips={chips} onGoToSource={onGoToSource} />
           <div className="vw-section-report">
             <ReportConcern topicId={knowledgeId} sectionId={s.id} sectionHeading={s.heading} />

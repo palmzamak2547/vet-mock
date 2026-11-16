@@ -88,6 +88,7 @@
 .vw-notes-only .vw-year { line-height: 1.2; letter-spacing: 0; }
 .vw-notes-only-lede { margin: 0 0 8px; font-family: var(--vw-label); font-size: 15px; line-height: 1.6; color: var(--clr-ink-soft); }
 .vw-notes-only-list { list-style: none; margin: 0; padding: 0; }
+.vw-notes-only-row { cursor: pointer; }
 .vw .vmx-wiki-subject-name { font-family: var(--vw-display); font-size: 19px; font-weight: 600; line-height: 1.45; }
 .vw .vmx-wiki-subject-code { font-size: 13px; }
 .vw .vmx-wiki-subject-count, .vw .vmx-wiki-subject-chevron { font-size: 14px; }

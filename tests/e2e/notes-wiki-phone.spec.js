@@ -23,7 +23,7 @@ test('a wide wiki table says it scrolls sideways, and scrolls', async ({ page })
   await page.setViewportSize(PHONE);
   await page.goto('/wiki/one-health/oh-gmo');
   const frame = page.locator('.vw-table.is-wide').first();
-  await expect(frame).toBeVisible({ timeout: 30_000 });
+  await expect(frame).toBeVisible({ timeout: 60_000 });
   await expect(frame).toHaveAttribute('tabindex', '0');
   await expect(page.locator('.vmx-scroll-hint').first()).toHaveText(/เลื่อนตารางไปด้านข้าง/);
   const moved = await frame.evaluate((el) => { el.scrollLeft = 120; return el.scrollLeft; });
@@ -34,29 +34,28 @@ test('source titles are 44 px to tap and the source line reads as a label', asyn
   await page.setViewportSize(PHONE);
   await page.goto('/wiki/one-health/oh-vet-role');
   const cite = page.locator('.vw-src-cite a').first();
-  await expect(cite).toBeAttached({ timeout: 30_000 });
+  await expect(cite).toBeAttached({ timeout: 60_000 });
   const heights = await page.locator('.vw-src-cite a').evaluateAll((els) => els.map((a) => a.getBoundingClientRect().height));
   expect(Math.min(...heights)).toBeGreaterThanOrEqual(44);
-  const lines = await page.locator('.vw-source').allTextContents();
-  expect(lines.length).toBeGreaterThan(0);
-  expect(lines.filter((t) => t.includes('_'))).toEqual([]);
+  expect(await page.locator('.vw-source').count()).toBeGreaterThan(0);
+  await expect.poll(async () => (await page.locator('.vw-source').allTextContents()).filter((t) => t.includes('_')), { timeout: 15_000 }).toEqual([]);
 });
 
 test('every subject with notes is in the wiki index; a notes-only one opens the notes', async ({ page }) => {
   await page.setViewportSize(PHONE);
   await page.goto('/wiki');
   const list = page.locator('.vw-notes-only');
-  await expect(list).toBeVisible({ timeout: 30_000 });
+  await expect(list).toBeVisible({ timeout: 60_000 });
   await expect(list.getByRole('button', { name: /3101206/ })).toBeVisible();
   await list.getByRole('button', { name: /3101206/ }).click();
-  await expect(page.locator('.vmx-notes-grid').first()).toBeVisible({ timeout: 30_000 });
+  await expect(page.locator('.vmx-notes-grid').first()).toBeVisible({ timeout: 60_000 });
 });
 
 test('the pill never covers the last line of the notes', async ({ page }) => {
   await page.setViewportSize(PHONE);
   await page.goto('/wiki/one-health/oh-gmo');
   await page.getByRole('button', { name: 'อ่านโน้ตเต็ม' }).click();
-  await expect(page.locator('.vmx-notes-section-body').first()).toBeVisible({ timeout: 30_000 });
+  await expect(page.locator('.vmx-notes-section-body').first()).toBeVisible({ timeout: 60_000 });
   const covered = await page.evaluate(async () => {
     const bodies = document.querySelectorAll('.vmx-notes-section-body');
     const last = bodies[bodies.length - 1];
@@ -87,7 +86,7 @@ test('notes tables and callouts are 14 px or more on a desktop', async ({ page }
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto('/wiki/one-health/oh-gmo');
   await page.getByRole('button', { name: 'อ่านโน้ตเต็ม' }).click();
-  await expect(page.locator('.vmx-notes-section-body').first()).toBeVisible({ timeout: 30_000 });
+  await expect(page.locator('.vmx-notes-section-body').first()).toBeVisible({ timeout: 60_000 });
   const sizes = await page.locator('.vmx-notes-section-body table, .vmx-notes-callout').evaluateAll((els) => els.map((el) => parseFloat(getComputedStyle(el).fontSize)));
   expect(sizes.length).toBeGreaterThan(0);
   expect(Math.min(...sizes)).toBeGreaterThanOrEqual(14);

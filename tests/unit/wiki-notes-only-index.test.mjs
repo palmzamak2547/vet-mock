@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { SUBJECTS_WITH_NOTES, NOTE_TOPIC_KEYS } from '../../src/data/notes-registry.generated.js';
+import { SUBJECTS_WITH_NOTES } from '../../src/data/notes-registry.generated.js';
 import { SHELF_SUBJECTS } from '../../src/lib/vetwiki/shelf.generated.js';
 import { notesOnlySubjects } from '../../src/lib/vetwiki/notes-only.js';
 import { noteSourceLine } from '../../src/lib/note-source-line.js';
@@ -16,14 +16,11 @@ test('every subject with notes is in the VetWiki index, as a shelf or a notes-on
   assert.deepEqual(missing, []);
 });
 
-test('a notes-only row is a subject with notes and no shelf, with its topic count', () => {
+test('a notes-only row is a subject with notes and no shelf', () => {
   const rows = notesOnlySubjects();
   for (const row of rows) {
     assert.ok(SUBJECTS_WITH_NOTES.has(row.id), row.id);
     assert.equal(Object.prototype.hasOwnProperty.call(SHELF_SUBJECTS, row.id), false, row.id);
-    const topics = [...NOTE_TOPIC_KEYS].filter((k) => k.startsWith(`${row.id}/`)).length;
-    assert.equal(row.topics, topics, row.id);
-    assert.ok(row.topics > 0, row.id);
   }
   // The seven Year 2 subjects found missing on 16 Nov 2026 (until their articles exist).
   for (const id of ['vet-histo', 'vet-physio-3', 'biochem-2', 'vet-microbio-1', 'vet-parasit-1', 'vet-physio-lab-1', 'vet-physio-lab-2']) {
