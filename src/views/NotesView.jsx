@@ -27,11 +27,10 @@ import { saveNoteRetryTarget } from '../lib/note-retry.js';
 import { recordQuestEvent, todayKey } from '../lib/quests.js';
 import NavIcon from '../components/NavIcon.jsx';
 import { motionIsReduced } from '../lib/motion-preferences.js';
-import { noteSourceLabel } from '../lib/source-label.js';
-import { NOTE_SOURCE_TITLES } from '../data/note-source-titles.generated.js';
-
-// A file name a registered document claims is shown as that document's title.
-const registeredTitle = (name) => (Object.prototype.hasOwnProperty.call(NOTE_SOURCE_TITLES, name) ? NOTE_SOURCE_TITLES[name] : null);
+// A file name a registered document claims is shown as that document's title
+// (the same line the VetWiki article shows).
+import { noteSourceLine } from '../lib/note-source-line.js';
+import ScrollFrame from '../components/ScrollFrame.jsx';
 
 // One topic can only count once a day towards the reading quests, so
 // re-opening the same page cannot tick the counter three times. The day is
@@ -232,7 +231,9 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
       setHeadAway(!entry.isIntersecting && entry.boundingClientRect.top < 0);
     });
     io.observe(el);
-    const endIo = end ? new IntersectionObserver(([entry]) => setEndNear(entry.isIntersecting), { rootMargin: '0px 0px 200px 0px' }) : null;
+    // The marker sits right after the last section, so the pill is gone before
+    // the last line reaches it, and stays gone over the pager below.
+    const endIo = end ? new IntersectionObserver(([entry]) => setEndNear(entry.isIntersecting || entry.boundingClientRect.top < 0), { rootMargin: '0px 0px 200px 0px' }) : null;
     if (end) endIo.observe(end);
     return () => { io.disconnect(); endIo?.disconnect(); };
   }, [notesState.status, subject]);
@@ -582,6 +583,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
             );
           })}
           </ReadingEffects>
+          <div ref={endRef} aria-hidden="true" className="vmx-reading-end" />
 
           {headAway && !endNear && (
             <button type="button" className="vmx-wiki-toc-return vmx-reading-return" onClick={backToTopicHead}>
@@ -607,7 +609,6 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
               )}
             </nav>
           )}
-          <div ref={endRef} aria-hidden="true" className="vmx-reading-end" />
         </div>
       </div>
 
@@ -681,7 +682,7 @@ const SectionBlock = memo(function SectionBlock({ section, number, highlight, co
           <SlideFigures sectionId={figSectionId} source={section.source || ''} />
           {section.source && (
             <div style={{ marginTop: 14, paddingTop: 10, borderTop: '1px dashed var(--clr-border)', fontSize: 14, fontFamily: 'var(--vmx-mono)', color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}>
-              แหล่งที่มา: {noteSourceLabel(section.source.replace(/\s*·\s*/g, ', '), registeredTitle)}
+              แหล่งที่มา: {noteSourceLine(section.source)}
             </div>
           )}
         </MotionEnter>
@@ -724,8 +725,9 @@ function BodyItem({ item, highlight }) {
   if (item.table) {
     const { headers, rows } = item.table;
     return (
-      <div style={{ overflowX: 'auto', margin: '12px 0' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.93em', lineHeight: 1.5 }}>
+      <ScrollFrame style={{ margin: '12px 0' }}>
+        {/* Never under the 14 px floor: 0.93em of the 14 px desktop body was 13 px. */}
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 'max(14px, 0.93em)', lineHeight: 1.5 }}>
           <thead>
             <tr style={{ background: 'var(--clr-surface-2)' }}>
               {headers.map((h, i) => (
@@ -747,7 +749,7 @@ function BodyItem({ item, highlight }) {
             ))}
           </tbody>
         </table>
-      </div>
+      </ScrollFrame>
     );
   }
 
@@ -759,7 +761,7 @@ function BodyItem({ item, highlight }) {
     };
     const p = palette[item.kind] || palette.tip;
     return (
-      <div style={{ margin: '12px 0', padding: '10px 14px', borderRadius: 10, background: p.bg, borderLeft: `4px solid ${p.border}`, fontSize: '0.93em', lineHeight: 1.65 }}>
+      <div style={{ margin: '12px 0', padding: '10px 14px', borderRadius: 10, background: p.bg, borderLeft: `4px solid ${p.border}`, fontSize: 'max(14px, 0.93em)', lineHeight: 1.65 }} className="vmx-notes-callout">
         <span style={{ marginRight: 6 }}>{p.icon}</span>
         <RichText text={item.callout} highlight={highlight} />
       </div>

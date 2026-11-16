@@ -3488,7 +3488,7 @@ export default function App() {
                   selectedPhase={paperPhase}
                 />
               )}
-{view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} setSubject={setSubject} goBack={returnFromNotes} backLabel={NOTES_RETURN_LABELS.get(notesReturnRef.current.view) || 'เลือกหัวข้ออื่น'} goHome={goHome} onOpenWiki={openWiki} />}
+{view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} setSubject={setSubject} goBack={returnFromNotes} backLabel={(notesReturnRef.current.view === 'knowledge' && /^\/wiki\/?$/.test(notesReturnRef.current.path || '') ? 'สารบัญ VetWiki' : NOTES_RETURN_LABELS.get(notesReturnRef.current.view)) || 'เลือกหัวข้ออื่น'} goHome={goHome} onOpenWiki={openWiki} />}
               {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, openNonce: wikiOpenNonce, setView, setSubject, setTopic, goHome, startExam, readingChecklist, setReadingChecklist, onOpenDoc: openLibraryReader }} />}
               {view === 'config' && <ConfigView {...{ practiceMode, setPracticeMode, subject, setSubject, topic, setTopic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, setMode, selectedYear, selectedPhase, panicPending, setPanicPending }} hasHistory={(history?.length || 0) > 0} showCategoryPicker={categoryPickerShown(subject, practiceMode)} availableCount={configAvailableCount} availablePool={configServedPool} onBack={goBackFromConfig} />}
               {view === 'exam' && !currentQ && <ViewFallback />}

@@ -83,6 +83,11 @@
 }
 .vw-year::after { content: ''; flex: 1; height: 1px; background: var(--clr-border); transform: translateY(-0.3em); }
 .vw-year small { font-family: var(--vw-label); font-size: 14px; font-weight: 500; color: var(--clr-ink-soft); }
+/* Subjects with notes and no checked articles yet: rows that open the notes reader. */
+.vw-notes-only { margin-top: 8px; }
+.vw-notes-only .vw-year { line-height: 1.2; letter-spacing: 0; }
+.vw-notes-only-lede { margin: 0 0 8px; font-family: var(--vw-label); font-size: 15px; line-height: 1.6; color: var(--clr-ink-soft); }
+.vw-notes-only-list { list-style: none; margin: 0; padding: 0; }
 .vw .vmx-wiki-subject-name { font-family: var(--vw-display); font-size: 19px; font-weight: 600; line-height: 1.45; }
 .vw .vmx-wiki-subject-code { font-size: 13px; }
 .vw .vmx-wiki-subject-count, .vw .vmx-wiki-subject-chevron { font-size: 14px; }
@@ -633,7 +638,8 @@
 .vw-sources li:focus { outline: none; background: var(--clr-surface-2); }
 .vw-src-n { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 500; line-height: 1.5; color: var(--clr-ink-soft); font-variant-numeric: lining-nums tabular-nums; text-align: right; }
 .vw-src-cite { margin: 0; font-family: var(--vw-body); font-size: 15px; line-height: 1.65; overflow-wrap: anywhere; }
-.vw-src-cite a { color: var(--clr-ocean-text); }
+/* The title is the link to the source: a whole 44 px row to tap, not a 19 px line of text. */
+.vw-src-cite a { display: block; min-height: 44px; padding-block: 10px; margin-block: -10px; color: var(--clr-ocean-text); }
 .vw-src-meta { display: flex; flex-wrap: wrap; gap: 2px 14px; margin: 4px 0 0; font-family: var(--vw-label); font-size: 14px; line-height: 1.6; color: var(--clr-ink-soft); }
 .vw-src-meta a {
   display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; margin: -11px -6px;
