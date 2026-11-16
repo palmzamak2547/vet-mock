@@ -1,4 +1,5 @@
 import { test, expect, PINNED_NOW } from './fixtures.js';
+import { encodeQuizSet } from '../../src/lib/share-link.js';
 
 // The Chula sign-in wall (docs/CHULA-SIGNIN.md), against the connected bundle.
 // Every request to the database host is answered here and any other *.supabase.co
@@ -237,4 +238,32 @@ test('a session the server ends after the link opened still lands on the documen
   await expect(gateHeading(page)).toBeVisible({ timeout: 30_000 });
   await page.getByRole('button', { name: 'ดำเนินการต่อด้วย Google' }).click();
   await expect(page.locator('[data-page="3"][data-render-state="ready"]')).toBeVisible({ timeout: 30_000 });
+});
+
+// A set a friend sent (5.282.0). A /s/<code> link reaches the app as `?qset=`
+// (api/s.js sends the browser on), the same form every older link has.
+const SHARED = encodeQuizSet([100001, 100002, 100003, 100004].map((id) => ({ subject: 'epidemiology', id })));
+
+test('a set a friend sent stays in view behind the wall, and opens after signing in', async ({ page, context }) => {
+  // The wall, Google's step and the set in one test: 60 s like the other whole-flow specs.
+  test.setTimeout(60_000);
+  const seen = await modeled(page, context, { members: [MEMBER.id] });
+  const asked = await googleSignsInMember(page);
+  await open(page, seen, `/?qset=${SHARED}`);
+  await expect(page.getByRole('heading', { level: 1, name: 'เพื่อนส่งชุดโจทย์มาให้' })).toBeVisible();
+  const card = page.getByTestId('shared-set-card');
+  await expect(card).toContainText('ระบาดวิทยา');
+  await expect(card).toContainText('4 ข้อ');
+  await expect(page.locator('#main')).toHaveCount(0);
+  await page.getByRole('button', { name: 'ดำเนินการต่อด้วย Google' }).click();
+  await expect(page.locator('.vmx-option').first()).toBeVisible({ timeout: 30_000 });
+  // The set went to Google and back in the address, and nothing else did.
+  expect(new URL(asked.to).searchParams.get('qset')).toBe(SHARED);
+});
+
+test('a signed-in friend opening a shared set goes straight into it', async ({ page, context }) => {
+  const seen = await modeled(page, context, { user: MEMBER, members: [MEMBER.id], down: true });
+  await open(page, seen, `/?qset=${SHARED}`);
+  await expect(page.locator('.vmx-option').first()).toBeVisible({ timeout: 30_000 });
+  await expect(page.getByTestId('shared-set-card')).toHaveCount(0);
 });

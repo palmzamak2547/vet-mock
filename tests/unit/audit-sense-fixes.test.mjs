@@ -424,8 +424,10 @@ test('the results screen reaches one verdict and every part of it agrees', () =>
     'the boundary this guards must still exist');
   assert.ok(s.includes('const reached = score.total > 0 && score.correct / score.total >= PRACTICE_PASS_PCT / 100;'));
   assert.ok(s.includes(': reached ?'), 'the message reads it');
-  assert.ok(s.includes('const passed = autoQs.length > 0 && reached;'), 'the banner reads it');
-  assert.ok(s.includes("reached ? 'pass' : 'fail'"), 'the colour of the big number reads it');
+  // 5.282.0: the seal and its banner became one verdict word in the score
+  // card, and a number under the mark is ink, not rose; both still read it.
+  assert.ok(s.includes(": reached ? 'ถึงเกณฑ์ซ้อมแล้ว' : 'ยังไม่ถึงเกณฑ์ซ้อม'"), 'the verdict word reads it');
+  assert.ok(s.includes("vmx-score-big${reached ? ' pass' : ''}"), 'the colour of the big number reads it');
   assert.ok(!s.includes('score.pct >= PRACTICE_PASS_PCT') && !s.includes('score.pct >= 60'),
     'nothing about the bar may go back to the rounded percentage');
   // The shared card is a second surface that must not contradict the first.

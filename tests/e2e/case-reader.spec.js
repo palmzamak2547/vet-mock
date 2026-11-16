@@ -559,9 +559,10 @@ test.describe('with the page clock in the test\'s hand', () => {
       await new Promise((done) => requestAnimationFrame(() => requestAnimationFrame(done)));
       return window.scrollY;
     }), { timeout: 15_000 }).toBeGreaterThan(100);
-    // A frame callback asked for while the sheet's entry leaves runs at once, before the browser has done anything
-    // of its own for that popstate: the earliest it can run, as when the machine is too busy to draw. The browser
-    // puts the page's old scroll back after it, and the notice must still end in view.
+    // A frame callback asked for from the popstate that takes the sheet's entry back runs in a microtask, and so
+    // does any other asked for before the next task: before the browser has put the page's old scroll back.
+    // A faked frame can run there when the machine is slow to draw, and in Chromium a real frame's callback runs
+    // before that scroll too. The notice must still end in view.
     await page.evaluate(() => {
       const frame = window.requestAnimationFrame;
       let leaving = false;
@@ -577,12 +578,27 @@ test.describe('with the page clock in the test\'s hand', () => {
         return 0;
       };
     });
-    await page.clock.setSystemTime(Date.now() + 120_000);
-    await page.clock.runFor(1100);
+    // From here the test alone moves the page's clock. The popstate of the sheet's entry comes in the browser's
+    // own time, and a clock left running counts that wait against the page's timers: on a busy machine a whole
+    // second of it went by before the popstate did.
+    await page.clock.pauseAt(Date.now() + 120_000);
+    // The paper's tick has seen the time run out; step on only until the card has moved.
+    await expect.poll(async () => {
+      await page.clock.runFor(100);
+      return page.locator('.vmx-sr-only[role="status"]').textContent();
+    }, { intervals: [50], timeout: 15_000 }).toBe('ข้อ 2 จาก 2');
+    // The sheet's entry leaves with a popstate the browser sends in its own time; the app puts the page at its top
+    // once the browser has rendered after it.
+    await expect.poll(() => page.evaluate(() => Boolean(window.history.state?.vmxCaseSheet)), { timeout: 15_000 }).toBe(false);
+    await page.clock.runFor(100);
     await expect(page.locator('.vmx-sr-only[role="status"]')).toHaveText('ข้อ 2 จาก 2');
     // The sheet is gone, with the question it was asking; the notice says why the card moved on.
     await expect(sheet).toHaveCount(0);
     await expect(page.locator('.vmx-exam-timeout-note')).toBeVisible();
+    await expect(page.locator('.vmx-exam-timeout-note')).toBeInViewport();
+    // And the page stays there: nothing the browser does in the frames that follow moves it again.
+    await page.waitForTimeout(300);
+    expect(await page.evaluate(() => window.scrollY)).toBe(0);
     await expect(page.locator('.vmx-exam-timeout-note')).toBeInViewport();
     // Its history entry went with it: Back now is the paper's own Back, not a second close.
     expect(await page.evaluate(() => Boolean(window.history.state?.vmxCaseSheet))).toBe(false);

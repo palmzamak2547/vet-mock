@@ -71,10 +71,13 @@ test('the instant verdict and the results seal speak Thai, with no English kicke
   for (const gone of ['CLINICAL BENCHMARK ATTAINED', 'DIAGNOSTIC REFINEMENT NEEDED', 'RUBRIC SELF-EVALUATION', '% PASS', '<span>• เฉลี่ย']) {
     assert.equal(results.includes(gone), false, `${gone} is back`);
   }
-  assert.match(results, /\{reached \? 'ถึงเกณฑ์ซ้อมแล้ว' : 'ยังไม่ถึงเกณฑ์ซ้อม'\}/);
-  assert.match(results, /<div className="vmx-benchmark-flag">เกณฑ์ \{PRACTICE_PASS_PCT\}%<\/div>/);
-  assert.match(night, /\.vmx-clinical-seal \{ font-family: var\(--vmx-sans\); letter-spacing: 0; text-transform: none;/);
-  assert.match(night, /\.vmx-clinical-seal \.vmx-seal-sub \{[^}]*opacity: 1;/);
+  // 5.282.0: the seal is the verdict word in the score card; the bar's one tick reads "60%".
+  assert.match(results, /: reached \? 'ถึงเกณฑ์ซ้อมแล้ว' : 'ยังไม่ถึงเกณฑ์ซ้อม'/);
+  assert.match(results, /<div className="vmx-benchmark-flag">\{PRACTICE_PASS_PCT\}%<\/div>/);
+  // The seal element is gone with it, so its rules are too: nothing on the screen wears them.
+  for (const gone of ['vmx-clinical-seal', 'vmx-results-seal-wrapper', 'vmx-results-primary', 'vmx-share-cta']) {
+    assert.equal(results.includes(gone) || css.includes(`.${gone}`), false, `${gone} is back without an element to style`);
+  }
 });
 
 test('the results screen reads the rung off the set and judges it with the app\'s own bar', () => {
@@ -82,12 +85,12 @@ test('the results screen reads the rung off the set and judges it with the app\'
   assert.match(results, /ladderVerdict\(\{ stepId, correct: score\.correct, total: score\.total, passPct: PRACTICE_PASS_PCT \}\)/);
   assert.match(results, /sessionKind === 'redo'\n\s+\? \{ kind: 'redo'/, 'a redo round never climbs');
   assert.match(results, /<LadderStrip\n\s+done=\{verdict\.step\}/);
-  // The ladder section sits after the stat grid and before the action stack,
-  // so the score is still what the student sees first (UI-06).
-  const stats = results.indexOf('<div className="vmx-stat-grid">');
+  // The score card comes first, then the one filled button, and the ladder
+  // strip only after the actions (5.282.0, results-design direction 1).
+  const card = results.indexOf('<section className={`vmx-res-card');
+  const thumb = results.indexOf('<div className={`vmx-res-thumb');
   const ladder = results.indexOf('<section className="vmx-next-ladder"');
-  const stack = results.indexOf('<div className="vmx-btn-row is-stack" style={{ gap: 8 }}>');
-  assert.ok(stats > 0 && ladder > stats && stack > ladder);
+  assert.ok(card > 0 && thumb > card && ladder > thumb);
   // Climbing a rung starts the next rung on the same subject; the exam rung is the whole subject.
   const launch = results.slice(results.indexOf('const launchStep = (id) => {'), results.indexOf('const openExamConfig'));
   assert.match(launch, /if \(id === 'exam'\) \{[\s\S]*topic: null/);
@@ -95,7 +98,6 @@ test('the results screen reads the rung off the set and judges it with the app\'
   assert.equal(launch.includes('excludeIds'), false, 'the next rung re-tests the same material; only "ต่ออีก" excludes');
 });
 
-test('below the pass line on the same rung, the note sends the student to the misses first', () => {
-  assert.ok(results.includes('`ได้ ${pctExact}% ยังไม่ถึงเกณฑ์ซ้อม ${PRACTICE_PASS_PCT}% แก้ข้อที่ผิดก่อน แล้วทำขั้นนี้อีกชุด`'));
-  assert.equal(results.includes('ทำขั้นนี้อีกชุดก่อน`'), false, 'the old note is back');
-});
+// Below the pass line on the same rung the student is sent to the misses first: since 5.282.0 that is
+// the filled button itself, with the rung as the next step (the sentence under the ladder went), read
+// off the rendered screen in tests/unit/results-calm.test.mjs.

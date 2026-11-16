@@ -45,7 +45,7 @@ for (const failure of ['core', 'details']) {
     await expect(page.getByRole('button', { name: /กู้ผลชุดที่ยังบันทึกไม่สำเร็จ/ })).toBeVisible();
     await page.evaluate(() => sessionStorage.setItem('fail-save', 'off'));
     await page.getByRole('button', { name: /กู้ผลชุดที่ยังบันทึกไม่สำเร็จ/ }).click();
-    await expect(page.getByText(/Auto-graded Score|คะแนนตรวจอัตโนมัติ/)).toBeVisible();
+    await expect(page.getByRole('region', { name: 'ผลชุดนี้' })).toBeVisible();
     await expect.poll(() => page.evaluate(() => localStorage.getItem('vmx-inflight-exam:guest'))).toBe(null);
     const stored = await page.evaluate(async () => {
       const db = await new Promise((resolve, reject) => {

@@ -522,3 +522,6 @@
   .vmx-gate-mochi { width: 72px; height: 72px; }
   .vmx-gate-id { padding: var(--space-4) var(--space-4) var(--space-3); }
 }
+
+/* A set a friend sent, kept in view above the sign-in (5.282.0). */
+.vmx-gate-set { margin: 0 0 16px; }

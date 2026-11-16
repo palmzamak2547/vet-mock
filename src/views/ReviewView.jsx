@@ -15,7 +15,6 @@ import { MatchReview } from '../components/AnswerReveal.jsx';
 import BackBar from '../components/BackBar.jsx';
 import ZoomableImage from '../components/ZoomableImage.jsx';
 import EvidenceSlot from '../components/EvidenceSlot.jsx';
-import { copyShareUrl } from '../lib/share-link.js';
 import NavIcon from '../components/NavIcon.jsx';
 import OptionalFeature from '../components/OptionalFeature.jsx';
 import { lazyWithRetry } from '../lib/lazy-retry.js';
@@ -678,7 +677,6 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
       <div className="vmx-btn-row" style={{ marginTop: 30, flexWrap: 'wrap' }}>
         <button className="vmx-btn vmx-btn-ghost" onClick={goHome}>← หน้าแรก</button>
         <button className="vmx-btn vmx-btn-primary" onClick={() => setView('config')}>ทำชุดใหม่ →</button>
-        <ReviewShareButton questions={questions} />
       </div>
 
       {annotateSrc && (
@@ -688,28 +686,6 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
       )}
       <OptionalFeature><ReadAloudHost prefix="review:" onVoice={setVoice} /></OptionalFeature>
     </>
-  );
-}
-
-function ReviewShareButton({ questions }) {
-  const [hint, setHint] = useState('');
-  if (!questions?.length) return null;
-  return (
-    <button
-      type="button"
-      className="vmx-btn vmx-btn-ghost"
-      onClick={async () => {
-        const res = await copyShareUrl(questions);
-        if (res.ok) setHint('คัดลอกลิงก์แล้ว');
-        // The link was built even when the clipboard refused it (LINE and
-        // Instagram webviews) — show it, as ResultsView already does.
-        else setHint('คัดลอกไม่ได้: ' + (res.url || ''));
-        setTimeout(() => setHint(''), res.ok ? 3000 : 8000);
-      }}
-      title="แชร์ชุดโจทย์นี้ให้เพื่อน"
-    >
-      แชร์ชุดนี้{hint && <span style={{ marginLeft: 6, fontSize: 14, color: 'var(--clr-sage-text)' }}>{hint}</span>}
-    </button>
   );
 }
 
