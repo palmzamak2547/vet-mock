@@ -5888,6 +5888,9 @@ body.vmx-reading .vmx-pdf-body {
   .vmx-res-step.is-paced { animation-timing-function: linear(0, 0.053, 0.174, 0.32, 0.467, 0.6, 0.712, 0.802, 0.871, 0.922, 0.958, 0.982, 0.997, 1.005, 1.01, 1.011, 1.011, 1.01, 1.008, 1.006, 1.005, 1.004, 1.002, 1.002, 1); }
 }
 @keyframes vmx-res-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+/* The pinned button is drawn at the screen's edge from its first frame: it fades in, never rises from below the fold. */
+.vmx-res-thumb.is-paced { animation-name: vmx-res-fade; }
+@keyframes vmx-res-fade { from { opacity: 0; } to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .vmx-res-step.is-paced { animation: none; } }
 
 /* The day count after the first set of a day (StreakMoment). */

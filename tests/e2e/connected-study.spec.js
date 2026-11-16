@@ -301,7 +301,9 @@ test.describe('connected study experience', () => {
     // Every answer is in and shown, so the last button shows the result.
     await page.getByRole('button', { name: 'ดูผลลัพธ์ →', exact: true }).click();
     await expect(page.getByRole('region', { name: 'ผลชุดนี้' })).toBeVisible();
-    await expect(page.getByText(new RegExp(`คุณพลาด ${introCount} ข้อในหัวข้อ "Intro to Vet Epidemiology"`))).toBeVisible();
+    // 5.282.0: the advice box is gone; the card names the topic and the misses are counted on their row.
+    await expect(page.getByRole('region', { name: 'ผลชุดนี้' }).locator('.vmx-res-scope')).toContainText('Intro to Vet Epidemiology');
+    await expect(page.getByText(new RegExp(`แก้ข้อที่ผิด ${introCount} ข้อ`)).first()).toBeVisible();
     await expect(page.getByText(/epidem-intro/)).toHaveCount(0);
     await page.getByRole('button', { name: 'หน้าแรก', exact: true }).click();
     await page.evaluate(() => new Promise((resolve) => {
