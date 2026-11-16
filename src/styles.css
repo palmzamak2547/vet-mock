@@ -3249,6 +3249,15 @@ html.dark .vmx-panic-scrim {
 .vmx-qtable .num { text-align: right; }
 .vmx-qtable-wrap.is-wide .has-names tr > :first-child { position: sticky; left: 0; z-index: 1; background: var(--clr-surface); }
 .vmx-qtable-hint { margin: -6px 0 12px; font-size: 14px; font-style: normal; color: var(--clr-ink-soft); }
+/* A note table wider than its frame (ScrollFrame.jsx): the edge still to be
+   scrolled to fades, and a line under it says the table scrolls sideways. */
+.vmx-scroll-frame { overflow-x: auto; }
+.vmx-scroll-frame.is-wide:not(.is-at-end) {
+  -webkit-mask-image: linear-gradient(to right, currentColor calc(100% - 40px), transparent);
+  mask-image: linear-gradient(to right, currentColor calc(100% - 40px), transparent);
+}
+.vmx-scroll-frame:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: -2px; }
+.vmx-scroll-hint { margin: -6px 0 12px; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
 @media (max-width: 640px) {
   .vmx-qtable th, .vmx-qtable td { padding: 5px 6px; min-width: 2.5em; }
   .vmx-qtable tbody th { min-width: 5em; }

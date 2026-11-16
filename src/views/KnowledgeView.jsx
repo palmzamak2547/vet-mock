@@ -40,6 +40,22 @@ import { copyText } from '../lib/clipboard.js';
 import { wikiPath, wikiUrl, parseWikiPath, wikiEntry, WIKI_BASE } from '../lib/vetwiki/url.js';
 import ReportConcern from '../components/ReportConcern.jsx';
 import SlideFigures from '../components/SlideFigures.jsx';
+import ScrollFrame from '../components/ScrollFrame.jsx';
+// The source-line label (lib/note-source-line.js) carries the recording and
+// lecturer tables, about 22 KB the article does not need before the first
+// "แหล่งอ้างอิง" row, which starts closed: it is fetched once, after mount.
+let sourceLineModule = null;
+function useNoteSourceLine() {
+  const [fn, setFn] = useState(() => sourceLineModule?.noteSourceLine || null);
+  useEffect(() => {
+    if (fn) return undefined;
+    let live = true;
+    import('../lib/note-source-line.js').then((m) => { sourceLineModule = m; if (live) setFn(() => m.noteSourceLine); }).catch(() => {});
+    return () => { live = false; };
+  }, [fn]);
+  return fn;
+}
+import { notesOnlySubjects } from '../lib/vetwiki/notes-only.js';
 import RelatedDocs from '../components/RelatedDocs.jsx';
 import { fetchRelatedDocs } from '../lib/library.js';
 import { takeRelatedReturn } from '../lib/related-return.js';
@@ -148,7 +164,7 @@ function NoteBody({ item }) {
   if (item?.table) {
     const { headers = [], rows = [] } = item.table;
     return (
-      <div className="vw-table">
+      <ScrollFrame className="vw-table">
         <table>
           <thead><tr>{headers.map((h, i) => (
             <th key={i} style={{ whiteSpace: 'nowrap' }}><RichText text={h} /></th>
@@ -159,7 +175,7 @@ function NoteBody({ item }) {
             ))}</tr>
           ))}</tbody>
         </table>
-      </div>
+      </ScrollFrame>
     );
   }
   if (item?.callout) return <p className="vw-callout"><RichText text={item.callout} /></p>;
@@ -249,7 +265,8 @@ function ProvenancePanel({ prov, history, sections, atHistory, onJump, onClose }
 
 // ================= INDEX =================
 // Exported for tests: mounted alone, its own state can be driven.
-export function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject = null, readingChecklist = null, missing = false }) {
+export function WikiIndex({ topics, onOpen, onOpenSection, onOpenNotes = null, goHome, focusSubject = null, readingChecklist = null, missing = false }) {
+  const notesOnly = useMemo(() => notesOnlySubjects(), []);
   // Survive the stale-deploy reload. When a subject chunk fails to load, the
   // app reloads to pick up a fresh deploy — correct, and not something to
   // remove — but it took the student's search term with it, so a recovery in
@@ -568,6 +585,29 @@ export function WikiIndex({ topics, onOpen, onOpenSection, goHome, focusSubject 
         </React.Fragment>
       ))}
 
+      {/* Subjects whose notes have no checked articles yet: listed, so the
+          wiki finds every subject with notes, and opened in the notes reader. */}
+      {!query && onOpenNotes && notesOnly.length > 0 && (
+        <section className="vw-notes-only" aria-labelledby="vw-notes-only-head">
+          <h2 id="vw-notes-only-head" className="vw-year">โน้ตที่ยังไม่ได้ตรวจทาน</h2>
+          <p className="vw-notes-only-lede">เนื้อหาวิชาเหล่านี้ยังไม่ได้ตรวจกับแหล่งอ้างอิงทีละหัวข้อ เปิดอ่านได้ในหน้าโน้ต</p>
+          <ul className="vw-notes-only-list">
+            {notesOnly.map(({ id, year }) => (
+              <li key={id}>
+                <button type="button" className="vmx-wiki-subject-row vw-notes-only-row" onClick={() => onOpenNotes(id)}>
+                  <span className="vmx-wiki-subject-title">
+                    <span className="vmx-wiki-subject-name">{subjectName(id)}</span>
+                    {subjectMeta(id)?.code && <span className="vmx-wiki-subject-code">{subjectMeta(id).code}</span>}
+                  </span>
+                  <span className="vmx-wiki-subject-count">{year ? `ปี ${year}` : ''}</span>
+                  <span aria-hidden="true" className="vmx-wiki-subject-chevron">→</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       {!query && (
         <footer className="vw-colophon">
           {SHELF_TOTALS.newestReview && <p className="vw-colophon-date">ตรวจทานครั้งล่าสุด {thaiDay(SHELF_TOTALS.newestReview)}</p>}
@@ -774,6 +814,7 @@ const Section = React.memo(function Section({ s, i, chips, knowledgeId, copiedSt
   // (course logistics, a draft) carries a badge.
   const rev = s.reviewStatus === 'verified' ? null : REVIEW_LABEL[s.reviewStatus];
   const noteRef = (s.sourceRefs || [])[0];
+  const sourceLine = useNoteSourceLine();
   return (
     <section id={s.id} className="vw-section">
       <div className="vw-section-text">
@@ -805,7 +846,7 @@ const Section = React.memo(function Section({ s, i, chips, knowledgeId, copiedSt
             come from Vet 85 summaries, MSD tables or VetMock's own pages. */}
         <details className="vw-refs">
           <summary>แหล่งอ้างอิง</summary>
-          {noteRef && <div className="vw-source">ที่มา: {noteRef.locator}</div>}
+          {noteRef && <div className="vw-source">ที่มา: {sourceLine ? sourceLine(noteRef.locator) : noteRef.locator}</div>}
           <SectionEvidence chips={chips} onGoToSource={onGoToSource} />
           <div className="vw-section-report">
             <ReportConcern topicId={knowledgeId} sectionId={s.id} sectionHeading={s.heading} />
@@ -1428,6 +1469,7 @@ export default function KnowledgeView({ subject, topic, openNonce = 0, setView, 
     // cleared search and the asked-for subject starts open.
     return (
       <WikiIndex topics={topics} onOpen={openTopic} onOpenSection={openSection} goHome={goHome} readingChecklist={readingChecklist}
+        onOpenNotes={setView ? (id) => { if (setSubject) setSubject(id); if (setTopic) setTopic(null); setView('notes'); } : null}
         key={indexFocus ? `focus-${indexFocus.nonce}` : 'index'} focusSubject={indexFocus?.subject || null} missing={missing && !indexFocus} />
     );
   }
