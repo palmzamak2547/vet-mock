@@ -3613,9 +3613,6 @@ const LEAVES = [
  // ["actinobacillus pleuropneumoniae|swine","swine-clinic","swine-pornchalit-set"]
  [202353,202354,202355,202478,202479,202480,202488,105621,105622,105623,105624,105625,105627,105629,105633,105643,209101,209107,209115,209117,209124,209125,209148],
  // end ["actinobacillus pleuropneumoniae|swine","swine-clinic","swine-pornchalit-set"]
- // ["actinobacillus pleuropneumoniae|swine","swine-clinic","swine-prv-je"]
- [209016],
- // end ["actinobacillus pleuropneumoniae|swine","swine-clinic","swine-prv-je"]
  // ["actinobacillus pleuropneumoniae|swine","swine-clinic","swine-resp-viral"]
  [8022,8025,8046],
  // end ["actinobacillus pleuropneumoniae|swine","swine-clinic","swine-resp-viral"]
@@ -3749,9 +3746,6 @@ const LEAVES = [
  // ["prrs|swine","swine-clinic","swine-pornchalit-set"]
  [8353,209149],
  // end ["prrs|swine","swine-clinic","swine-pornchalit-set"]
- // ["prrs|swine","swine-clinic","swine-prv-je"]
- [209016],
- // end ["prrs|swine","swine-clinic","swine-prv-je"]
  // ["prrs|swine","swine-clinic","swine-repro"]
  [209054,209055],
  // end ["prrs|swine","swine-clinic","swine-repro"]

@@ -73,7 +73,7 @@ Generated from the source by `npm run stats -- --write`; `npm run stats:check` f
 | สรุปโน้ต | 39 ไฟล์, 431 หัวข้อ, 4,605 sections, อ้างอิงแหล่งที่มาครบ 100% |
 | สรุปคลิป | 644 คลิป ใน 32 ไฟล์ |
 | VetWiki (governed) | 253 หัวข้อ, 2,279 sections = 49.5% ของ note sections |
-| Taxonomy | 86 วิชา, 1,086 หัวข้อ |
+| Taxonomy | 86 วิชา, 1,087 หัวข้อ |
 | ชนิดคำถาม | MCQ, True/False, Fill-in, Matching, Short answer, Writing |
 <!-- content-stats:end -->
 
