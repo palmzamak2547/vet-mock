@@ -985,6 +985,24 @@ export const CORRECTIONS = {
       "sourceRef": "PMID 15243643"
     }
   ],
+  "epidemiology--epidem-applied-stats--correlation-และ-linear-regression": [
+    {
+      "severity": "narrows",
+      "lectureSays": "โน้ตเขียนว่า fit regression line ที่ให้ smallest sum of residual (error) และ Residual = ŷ − y",
+      "evidenceSays": "NIST/SEMATECH e-Handbook of Statistical Methods หัวข้อ 4.4.3.1 อธิบายว่าวิธี least squares เลือกค่าพารามิเตอร์ที่ทำให้ผลรวมของกำลังสองของส่วนต่างระหว่างค่าที่สังเกตได้กับค่าจากโมเดลน้อยที่สุด คือ Σ(y − ŷ)² ไม่ใช่ผลรวมของ residual เฉยๆ ซึ่งบวกลบหักล้างกันได้ ส่วนต่างในสูตรเขียนเป็นค่าที่สังเกตได้ลบค่าที่ทำนาย (y − ŷ) เมื่อยกกำลังสองแล้วเครื่องหมายไม่มีผลต่อผลรวม",
+      "examAdvice": "ถ้าโจทย์ถามว่า regression line เลือกจากอะไร ให้ตอบ smallest sum of squared residuals และจำว่า residual ตามตำราคือ y − ŷ",
+      "sourceRef": "NIST/SEMATECH e-Handbook of Statistical Methods, section 4.4.3.1 Least Squares"
+    }
+  ],
+  "epidemiology--epidem-applied-stats--hypothesis-testing-และ-p-value": [
+    {
+      "severity": "narrows",
+      "lectureSays": "โน้ตเขียนตามสไลด์ว่าช่อง accept H0 ที่ H0 true เป็น good conclusion และในทางการแพทย์ถือว่า significant ถ้า p-value ≤ 0.05",
+      "evidenceSays": "Altman และ Bland (1995) อธิบายว่าผลที่ไม่ significant ไม่ได้แสดงว่าไม่มีความแตกต่าง การไม่พบหลักฐานไม่ใช่หลักฐานว่าไม่มี จึงนิยมเขียนว่า fail to reject H0 มากกว่า accept H0 ส่วนระดับ 0.05 NIST/SEMATECH e-Handbook ระบุว่าการเลือก α ค่อนข้าง arbitrary โดยค่าที่ใช้บ่อยคือ 0.1, 0.05 และ 0.01 ไม่ใช่เกณฑ์ตายตัว",
+      "examAdvice": "ในข้อสอบให้ใช้คำและเกณฑ์ 0.05 ตามที่สอน เวลาอ่าน paper ให้อ่านผลที่ p มากกว่า 0.05 ว่ายังสรุปไม่ได้ว่าไม่มีความแตกต่าง และดูช่วงความเชื่อมั่นประกอบ",
+      "sourceRef": "Altman DG, Bland JM. Absence of evidence is not evidence of absence. BMJ 1995;311:485 (PMID 7647644); NIST/SEMATECH e-Handbook of Statistical Methods, section 7.1.3.1 Critical values and p values"
+    }
+  ],
   "epidemiology--epidem-basic-concepts--รากศัพท์และนิยามของระบาดวิทยา": [
     {
       "severity": "narrows",
@@ -1039,6 +1057,33 @@ export const CORRECTIONS = {
       "sourceRef": "WOAH Bovine spongiform encephalopathy disease information page (2025)"
     }
   ],
+  "epidemiology--epidem-control-prevention--กรณีศึกษาไข้หวัดนก-ความเป็นมาและการระบาดในไทย": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "ตารางการระบาดรอบ 1-4 ให้รอบ 1 (23 ม.ค. ถึง 24 พ.ค. 2547) เกิดใน 89 ตำบล 42 จังหวัด และรอบ 2 (3 ก.ค. 47 ถึง 12 เม.ย. 48) ใน 264 ตำบล 51 จังหวัด",
+      "evidenceSays": "Tiensin และคณะ (2005) ซึ่งเขียนจากข้อมูลของกรมปศุสัตว์ ให้จำนวนจังหวัดตรงกัน (42 และ 51) แต่ 89 และ 264 เป็นจำนวนอำเภอ ไม่ใช่ตำบล จำนวนตำบลคือ 146 ในช่วงมกราคมถึงพฤษภาคม 2547 และ 781 ในช่วงกรกฎาคมถึงธันวาคม 2547 และจำนวนหมู่บ้านคือ 188 และ 1,243 ตามลำดับ ทั้งปี 2547 พบใน 60 จังหวัด 305 อำเภอ 903 ตำบล 1,417 หมู่บ้าน ตัวเลขรอบที่สองในบทความนับถึงสิ้นปี 2547 เท่านั้น",
+      "examAdvice": "ในข้อสอบให้ตอบตัวเลขตามตาราง แต่ถ้าโจทย์ถามว่า 89 และ 264 เป็นหน่วยปกครองระดับใด ให้รู้ว่าข้อมูลต้นทางนับเป็นอำเภอ",
+      "sourceRef": "Tiensin T, et al. Highly pathogenic avian influenza H5N1, Thailand, 2004. Emerg Infect Dis 2005;11(11):1664-72, Table 3 (PMID 16318716, doi 10.3201/eid1111.050608)"
+    }
+  ],
+  "epidemiology--epidem-control-prevention--นิยาม-control-eradication-elimination": [
+    {
+      "severity": "narrows",
+      "lectureSays": "เด็ค 7 p.4 ให้ elimination คืออุบัติการณ์ลดลงจนควบคุมได้แต่ยังระบาดได้ และ p.3 ให้ eradication ที่นิยมในทางสัตวแพทย์เป็นระดับพื้นที่ ส่วน Module 4 p.10 ให้ elimination คือ locally acquired transmission เป็นศูนย์ในพื้นที่ และ eradication เป็นระดับโลก",
+      "evidenceSays": "Dowdle (1998) สรุปนิยามจาก Dahlem Workshop ไว้เป็นลำดับ control คือลดอุบัติการณ์ ความชุก การป่วย หรือการตาย ลงถึงระดับที่ยอมรับได้ในท้องถิ่น โดยยังต้องทำมาตรการต่อ elimination of disease คือลดอุบัติการณ์ของโรคลงเป็นศูนย์ในพื้นที่ที่กำหนด โดยยังต้องทำมาตรการต่อ และ eradication คือลดอุบัติการณ์ของการติดเชื้อทั่วโลกลงเป็นศูนย์อย่างถาวร จนไม่ต้องทำมาตรการอีก นิยามนี้ตรงกับ Module 4 ส่วนเด็ค 7 ใช้ความหมายที่หลวมกว่า",
+      "examAdvice": "ถ้าโจทย์อิงเด็ค 7 ให้ตอบตามนิยามของเด็ค 7 ถ้าไม่ระบุ ให้ยึดลำดับ control, elimination (เป็นศูนย์ในพื้นที่) และ eradication (เป็นศูนย์ทั่วโลกอย่างถาวร)",
+      "sourceRef": "Dowdle WR. The principles of disease elimination and eradication. Bull World Health Organ 1998;76 Suppl 2:22-5 (PMID 10063669)"
+    }
+  ],
+  "epidemiology--epidem-disease-frequency--health-index-อัตราการตาย": [
+    {
+      "severity": "narrows",
+      "lectureSays": "โน้ตเขียนว่า Proportional mortality ratio (PMR) = proportional mortality rate = สัดส่วนสาเหตุการตาย",
+      "evidenceSays": "CDC (Principles of Epidemiology in Public Health Practice ฉบับที่ 3, Lesson 3) อธิบาย proportionate mortality ว่าเป็นสัดส่วนของการตายในประชากรหนึ่งช่วงเวลาหนึ่งที่เกิดจากแต่ละสาเหตุ และระบุชัดว่าสัดส่วนนี้ไม่ใช่ mortality rate เพราะตัวหารคือจำนวนตายทั้งหมด ไม่ใช่ประชากรที่การตายนั้นเกิดขึ้น คำว่า rate ในชื่อ proportional mortality rate จึงเป็นชื่อเรียกตามความเคยชิน ค่าที่ได้เป็นสัดส่วน",
+      "examAdvice": "ถ้าโจทย์ถาม PMR ให้ใช้ตัวหารเป็นจำนวนตายทั้งหมดตามที่สอน และอย่าเอาไปเทียบความเสี่ยงตายระหว่างประชากร เพราะตัวหารไม่ใช่ประชากรที่เสี่ยง",
+      "sourceRef": "CDC, Principles of Epidemiology in Public Health Practice, 3rd ed., Lesson 3 Section 3: Mortality Frequency Measures (Proportionate mortality)"
+    }
+  ],
   "epidemiology--epidem-disease-transmission--direct-transmission-direct-contact-และ-droplet-spread": [
     {
       "severity": "contradicts",
@@ -1078,6 +1123,15 @@ export const CORRECTIONS = {
       "evidenceSays": "Carranza-Flores และคณะ ให้เป็ดปักกิ่งและไก่ Leghorn ติด LPAI H5N2 สายพันธุ์ A/chicken/Mexico/2007 แล้วตามการขับเชื้อจาก oropharyngeal และ cloacal swab พบว่า \"We observed prolonged excretion from both species of birds lasting for at least 21 days\" และผู้วิจัยเองระบุว่า \"Prolonged excretion of LPAIV A/chicken/Mexico/2007 is atypical\" ข้อควรระวังที่ต้องพูดให้ครบคืองานนี้วัดด้วย real-time RT-PCR ซึ่งตรวจ viral RNA ไม่ได้พิสูจน์ว่าเป็นเชื้อที่ยังติดต่อได้ตลอด 21 วัน สรุปได้ว่า 11 วันใช้เป็นค่ากลางที่พบบ่อยได้ แต่ใช้เป็นเพดานตายตัวของนกน้ำทุกกรณีไม่ได้ เพราะระยะขับเชื้อขึ้นกับสายพันธุ์ไวรัสและชนิดนก (Prolonged excretion of a low-pathogenicity H5N2 avian influenza virus strain in the Pekin duck, PMID 23820212)",
       "examAdvice": "ตอบ 11 days ตามสไลด์ เวลาวางแผน quarantine หรือ surveillance จริงให้เผื่อไว้ว่าบางสายพันธุ์และบางชนิดนกขับเชื้อได้นานกว่านั้น และแยกให้ชัดเสมอระหว่างผลบวก PCR กับการยังแพร่เชื้อได้ เพราะเป็นคนละคำถามกันและมักถูกถามต่อในข้อสอบอัตนัย",
       "sourceRef": "PMID 23820212 (doi 10.4142/jvs.2013.14.4.487)"
+    }
+  ],
+  "epidemiology--epidem-test-agreement--cohen-s-kappa": [
+    {
+      "severity": "narrows",
+      "lectureSays": "ตารางแปลผล kappa ในโน้ตให้ 0.00-0.19 poor, 0.20-0.39 fair, 0.40-0.59 moderate, 0.60-0.79 substantial และ 0.80-1.00 almost perfect agreement",
+      "evidenceSays": "McHugh (2012) ชี้ว่าเกณฑ์แบบนี้หลวมเกินไปสำหรับงานด้านสุขภาพ เพราะทำให้ kappa เพียง 0.41 ดูยอมรับได้ จึงเสนอเกณฑ์ที่เข้มกว่า คือ 0-0.20 none, 0.21-0.39 minimal, 0.40-0.59 weak, 0.60-0.79 moderate, 0.80-0.90 strong และมากกว่า 0.90 almost perfect ช่วงตัวเลขเดียวกันจึงได้ชื่อระดับต่างกันตามเกณฑ์ที่ใช้ เช่น 0.65 เป็น substantial ในตารางของโน้ต แต่เป็นเพียง moderate ตาม McHugh",
+      "examAdvice": "ในข้อสอบให้แปลผลตามตารางในโน้ต เวลาอ่าน paper ให้ดูก่อนว่าผู้เขียนใช้เกณฑ์ของใคร เพราะชื่อระดับเดียวกันอาจหมายถึงช่วงตัวเลขต่างกัน",
+      "sourceRef": "McHugh ML. Interrater reliability: the kappa statistic. Biochem Med (Zagreb) 2012;22(3):276-82, Table 3 (PMID 23092060)"
     }
   ],
   "equine-medicine--equine-anesthesia--ประเมินก่อนวางยา": [

@@ -4,50 +4,2085 @@
 // Per subject of SHARE_SUBJECTS: its name and the ids the bank has, as
 // [first, last] runs of consecutive ids, held-back questions left out.
 // Read by api/s.js only.
+// Layout: one leaf per line, between a header and a footer line naming it, so
+// two pull requests that change different leaves merge without a conflict and
+// the merge equals a regeneration. Nothing here is a total: the totals are
+// computed from the leaves when this module loads (scripts/lib/merge-friendly.mjs).
 // ============================================================
-export const SHARE_BANK = {
-  "aquatic-clinic": { name: "คลินิกสัตว์น้ำ", runs: [[8055,8059],[105117,105124],[105128,105131],[105133,105133],[105137,105139],[105141,105143],[105145,105145],[105147,105149],[105151,105152],[105154,105154],[105159,105160],[105162,105162],[105165,105167],[105169,105171],[105175,105178],[105180,105180],[105182,105189],[105191,105204],[105206,105206],[105208,105209],[105211,105211],[105213,105215],[105873,105937],[202094,202217],[202415,202453],[202455,202477],[204001,204087],[211000,211105],[216200,216213],[217700,217701],[217710,217723]] },
-  "avian-medicine": { name: "อายุรศาสตร์สัตว์ปีก", runs: [[8029,8030],[8032,8032],[8048,8048],[105016,105028],[105030,105040],[105042,105043],[105045,105046],[105049,105049],[105053,105059],[105061,105083],[105772,105872],[106193,106220],[107100,107139],[109000,109000],[109002,109002],[109004,109004],[109006,109006],[109008,109008],[109010,109010],[109012,109012],[109014,109014],[109016,109016],[109018,109018],[109020,109020],[109022,109022],[109024,109024],[109026,109026],[109028,109028],[109030,109030],[109032,109032],[109034,109034],[109036,109036],[109038,109038],[109040,109040],[109042,109042],[109044,109044],[109046,109046],[109048,109048],[109050,109050],[109052,109052],[109054,109054],[109056,109056],[109058,109058],[109060,109060],[109062,109062],[109064,109064],[109066,109066],[109068,109068],[109070,109070],[109072,109072],[109074,109074],[109076,109076],[109078,109078],[109080,109080],[109082,109082],[109084,109084],[109086,109086],[109088,109088],[109090,109090],[109092,109092],[109094,109094],[109096,109096],[109098,109098],[109100,109100],[109102,109102],[109104,109104],[109106,109106],[109108,109108],[109110,109110],[109112,109112],[109114,109114],[109116,109116],[109118,109118],[109120,109120],[109122,109122],[109124,109124],[109126,109126],[109128,109128],[109130,109130],[109132,109132],[109134,109134],[109136,109136],[109138,109138],[202218,202244],[203011,203017],[205001,205035],[206001,206136],[206144,206145],[206147,206149],[206151,206151],[206155,206155],[206158,206162],[212500,212561]] },
-  "biochem-1": { name: "ชีวเคมี I", runs: [[70001,70007],[70009,70027],[70029,70043],[70045,70049],[72001,72046],[73001,73028],[74001,74081],[75001,75032],[76001,76029],[76031,76039]] },
-  "cliapprum": { name: "Clinical App Rumen", runs: [[130,139],[2100,2133],[2220,2221],[5000,5089]] },
-  "com1": { name: "อายุรศาสตร์สัตว์เล็ก I", runs: [[90000,90030]] },
-  "com2": { name: "อายุรศาสตร์สัตว์เล็ก II", runs: [[90500,90541]] },
-  "com3": { name: "COM III", runs: [[264,266],[700,707],[710,718],[720,726],[730,736],[740,744],[750,754],[760,766],[770,775],[780,785],[790,793],[800,804],[810,815],[820,897],[1300,1404],[1500,1506],[1508,1526],[1528,1531],[1533,1567],[1569,1571],[94100,94129]] },
-  "com4": { name: "COM IV", runs: [[90,92],[94,99],[101,110],[260,263],[267,273],[900,1160]] },
-  "com5": { name: "COM V", runs: [[500,628]] },
-  "comp-repro-clinic": { name: "คลินิกสูติกรรมสัตว์เล็ก", runs: [[8400,8447]] },
-  "engprof": { name: "Eng Vet Prof II", runs: [[1161,1166],[1169,1173],[1175,1175],[1180,1185],[1187,1190],[1192,1192],[1195,1195],[51000,51039],[51041,51046]] },
-  "engprof1": { name: "English for Vet Profession I", runs: [[93500,93529]] },
-  "epidemiology": { name: "ระบาดวิทยา", runs: [[100001,100004],[100008,100025],[100027,100034],[100036,100042],[105084,105084],[105086,105086],[105089,105091],[105094,105096],[105098,105099],[105101,105102],[105104,105106],[105109,105116],[107001,107040],[213500,213565],[214500,214705]] },
-  "equine-medicine": { name: "เวชปฏิบัติม้า + ศัลย์", runs: [[105216,105219],[105221,105224],[105227,105229],[105231,105233],[105236,105243],[105246,105250],[105252,105256],[105258,105258],[105260,105264],[105266,105267],[105270,105276],[105278,105392],[105395,105396],[105398,105402],[105404,105404],[105407,105407],[105410,105410],[105412,105412],[105416,105431],[107400,107429],[202031,202090],[202357,202414],[202454,202454],[207496,207612],[209500,209512],[209567,209645],[216000,216021]] },
-  "equine-repro": { name: "การสืบพันธุ์ในม้า", runs: [[105432,105575],[202091,202093],[202245,202252],[207485,207495],[207613,207629],[209513,209566],[211500,211504]] },
-  "exotic": { name: "Wildlife & Exotic", runs: [[163,174],[290,297],[1572,1572],[1580,1610],[50000,50054],[94000,94043]] },
-  "food-industry": { name: "อุตสาหกรรมอาหาร (FIQC)", runs: [[103000,103015],[106221,106254],[107200,107235],[109500,109500],[109502,109502],[109504,109504],[109506,109506],[109508,109508],[109510,109510],[109512,109512],[109514,109514],[109516,109516],[109518,109518],[109520,109520],[109522,109522],[109524,109524],[109526,109526],[109528,109528],[109530,109530],[109532,109532],[109534,109534],[109536,109536],[109538,109538],[109540,109540],[109542,109542],[109544,109544],[109546,109546],[109548,109548],[109550,109550],[109552,109552],[109554,109554],[109556,109556],[109558,109558],[109560,109560],[109562,109562],[109564,109564],[109566,109566],[109568,109568],[109570,109570],[109572,109572],[109574,109574],[109576,109576],[109578,109578],[109580,109580],[109582,109582],[109584,109584],[109586,109586],[109588,109588],[109590,109590],[109592,109592],[109594,109594],[109596,109596],[202253,202271],[207000,207104],[207266,207287],[207475,207482],[213000,213010]] },
-  "food-safety-y4": { name: "ความปลอดภัยอาหาร", runs: [[92500,92530]] },
-  "herd-health-rum": { name: "สุขศาสตร์ฝูงโค-กระบือ", runs: [[94500,94538]] },
-  "livestock-pathology": { name: "พยาธิวิทยาปศุสัตว์", runs: [[8002,8002],[8034,8034],[8201,8265]] },
-  "milk-meat-hygiene": { name: "สุขศาสตร์น้ำนม + เนื้อ", runs: [[101000,101000],[101002,101024],[101026,101077],[101079,101114],[101116,101123],[101125,101125],[101127,101135],[104500,104500],[104502,104502],[104504,104504],[104506,104506],[104508,104508],[104510,104510],[104512,104512],[104514,104514],[104516,104516],[104518,104518],[104520,104520],[104522,104522],[104524,104524],[104526,104526],[104528,104528],[104530,104530],[104532,104532],[104534,104534],[104536,104536],[104538,104538],[104540,104540],[104542,104542],[104544,104544],[104546,104546],[104548,104548],[104550,104550],[104552,104552],[104554,104554],[104556,104556],[104558,104558],[104560,104560],[104562,104562],[104564,104564],[104566,104566],[104568,104568],[104570,104570],[104572,104572],[104574,104574],[104576,104576],[104578,104578],[104580,104580],[104582,104582],[104584,104584],[104586,104586],[104588,104588],[104590,104590],[104592,104592],[104594,104594],[104596,104596],[104598,104598],[104600,104600],[104602,104602],[104604,104604],[104606,104606],[104608,104608],[104610,104610],[104612,104612],[104614,104614],[104616,104616],[104618,104618],[104620,104620],[104622,104622],[104624,104624],[104626,104626],[104628,104628],[104630,104630],[104632,104632],[104634,104634],[104636,104636],[104638,104638],[104640,104640],[104642,104642],[104644,104644],[104646,104646],[104648,104648],[104650,104650],[104652,104652],[104654,104654],[104656,104656],[104658,104658],[104660,104660],[104662,104662],[104664,104664],[104666,104666],[104668,104668],[104670,104670],[104672,104672],[104674,104674],[104676,104676],[104678,104678],[104680,104680],[104682,104682],[104684,104684],[104686,104686],[104688,104688],[104690,104690],[104692,104692],[104694,104694],[104696,104696],[104698,104698],[104700,104700],[104702,104702],[104704,104704],[104706,104706],[104708,104708],[104710,104710],[104712,104712],[104714,104714],[104716,104716],[104718,104718],[104720,104720],[104722,104722],[104724,104724],[104726,104726],[104728,104728],[104730,104730],[104732,104732],[104734,104734],[104736,104736],[104738,104738],[104740,104740],[104742,104742],[104744,104744],[104746,104746],[104748,104748],[104750,104750],[104752,104752],[104754,104754],[104756,104756],[104758,104758],[104760,104760],[104762,104762],[104764,104764],[104766,104766],[104768,104768],[104770,104770],[104772,104772],[104774,104774],[104776,104776],[104778,104778],[104780,104780],[104782,104782],[104784,104784],[104786,104786],[104788,104788],[104790,104790],[104792,104792],[104794,104794],[104796,104796],[104798,104798],[104800,104800],[104802,104802],[104804,104804],[104806,104806],[104808,104808],[104810,104810],[104812,104812],[105644,105729],[105731,105771],[106255,106286],[202272,202274],[203001,203007],[207105,207265],[207288,207363],[207365,207474],[207484,207484],[212000,212148],[214000,214238]] },
-  "one-health": { name: "One Health", runs: [[102000,102010],[102015,102015],[102018,102019],[105938,105938],[105940,105940],[105943,105950],[105952,105968],[105970,105971],[105973,106004],[107500,107503],[107505,107506],[107508,107508],[107510,107513],[107515,107519],[108000,108000],[108002,108002],[108004,108004],[202275,202320],[206163,206210],[210000,210049],[215000,215013]] },
-  "poa-clinical": { name: "POA, การแก้ปัญหาคลินิกสัตว์เล็ก", runs: [[105000,105001],[105003,105015],[106287,106302],[107300,107339]] },
-  "poultry": { name: "Poultry", runs: [[1700,1701],[1703,1706],[1708,1713],[1715,1718],[1720,1727],[1730,1730],[1732,1735],[1737,1740],[1742,1746],[1748,1749],[1751,1758],[1760,1762],[1764,1766],[1900,1959],[2200,2203],[4001,4060]] },
-  "practrum": { name: "Practice Ruminant", runs: [[2000,2042],[2044,2052],[2210,2211],[3002,3002],[3006,3006],[3008,3008],[3010,3057],[3060,3071]] },
-  "rec-adv-bioscience": { name: "Recent Advances in Vet Biosciences", runs: [[8044,8044],[8049,8051]] },
-  "repro": { name: "Repro Lab", runs: [[60,62],[64,79],[230,241]] },
-  "repro-lect": { name: "Repro Lecture", runs: [[1800,1899],[2053,2089],[2204,2209],[2230,2231],[52000,52062]] },
-  "ruminant-clinical": { name: "คลินิกปฏิบัติโค", runs: [[8033,8033],[8300,8305],[8310,8313],[8320,8321],[8330,8331]] },
-  "surg1": { name: "ปฏิบัติศัลยศาสตร์ I", runs: [[94200,94228]] },
-  "surg2": { name: "Vet Surg Lab II", runs: [[1,7],[9,10],[12,12],[200,205],[213,214]] },
-  "surg3": { name: "Vet Surg Lab III", runs: [[20,52],[206,212]] },
-  "swine-clinic": { name: "อายุรศาสตร์สุกร", runs: [[8016,8020],[8022,8023],[8025,8026],[8028,8028],[8040,8040],[8042,8042],[8046,8046],[8350,8359],[105576,105577],[105579,105580],[105582,105643],[202350,202356],[202478,202488],[209000,209064],[209100,209181],[209400,209403],[216100,216109],[216700,216702]] },
-  "swine-herd": { name: "สุขศาสตร์ฝูงสุกร", runs: [[92000,92035]] },
-  "swine-repro": { name: "การสืบพันธุ์ในสุกร", runs: [[91500,91528]] },
-  "vca": { name: "แนวข้อสอบเก่า VCA", runs: [[6001,6007],[6010,6013],[6020,6025],[6030,6031],[6040,6044],[6050,6051],[6060,6064],[6070,6075],[6080,6080],[6101,6104],[6110,6116],[6120,6122],[6130,6136],[6140,6145],[6150,6157],[6201,6205],[6210,6215],[6220,6223],[6230,6231],[6240,6243],[6250,6251],[6260,6262],[6270,6272],[6280,6281],[6290,6292],[6300,6303],[6310,6312],[6320,6322],[6401,6404],[6410,6415],[6420,6422],[6430,6432],[6440,6442],[6450,6454],[6460,6461],[6470,6471],[6480,6483],[6490,6493],[6500,6502],[6601,6603],[6610,6612],[6620,6621],[6630,6630],[6640,6640],[6642,6644],[6650,6653],[6660,6661],[6670,6671],[6681,6682],[6690,6693],[6700,6703],[6710,6711],[6720,6721],[6730,6731],[6801,6803],[6810,6814],[6820,6823],[6830,6834],[6840,6843],[6850,6852],[6860,6861],[6870,6873],[6880,6885],[6890,6892],[6900,6903],[6910,6911],[6920,6922],[7001,7003],[7005,7006],[7010,7012],[7020,7023],[7030,7032],[7040,7045],[7050,7053],[7060,7067],[7070,7074],[7080,7084],[7090,7092],[7100,7102],[7110,7112],[7120,7121],[7130,7136],[7140,7142],[7150,7152],[7160,7162],[8001,8001],[8004,8005],[8007,8012],[8014,8015],[8038,8038],[8043,8043],[8045,8045],[8052,8052],[8054,8054],[8060,8060],[200017,200018],[200021,200021],[200024,200024],[200027,200027],[200031,200032],[200036,200036],[200038,200038],[200045,200045],[200047,200047],[200051,200051],[200059,200060],[200065,200065],[200067,200069],[200071,200071],[200080,200081],[200084,200084],[200087,200087],[200092,200092],[200095,200096],[200103,200104],[200108,200108],[200123,200123],[200126,200127],[200130,200130],[200132,200132],[200135,200135],[200139,200139],[200142,200142],[200145,200145],[200147,200149],[200151,200151],[200153,200153],[200160,200160],[200168,200168],[200176,200176],[200184,200184],[200193,200193],[200195,200197],[200202,200207],[200211,200211],[200216,200216],[200221,200225],[200234,200235],[200238,200238],[200242,200242],[200253,200253],[200262,200262],[200266,200266],[200269,200269],[200273,200273],[200296,200299],[200305,200305],[200307,200308],[200310,200311],[200313,200313],[200315,200317],[200319,200319],[200322,200322],[200325,200325],[200329,200329],[200333,200333],[200337,200337],[200339,200343],[200348,200349],[200351,200351],[200353,200353],[200357,200359],[200362,200362],[200364,200364],[200372,200373],[200376,200376],[200380,200380],[200382,200383],[200385,200385],[200388,200388],[200395,200396],[200400,200400],[200402,200402],[200406,200406],[200409,200409],[200412,200412],[692001,692005],[692007,692030],[692032,692043],[692045,692049],[692051,692051],[692053,692053],[692055,692088],[692090,692090],[692092,692121],[692124,692133],[693001,693012],[693014,693033],[693035,693041],[693043,693051],[693053,693062],[693064,693064],[693066,693070],[693075,693080],[693083,693086],[693089,693089],[693091,693104],[693107,693108],[693112,693112],[693114,693133],[693135,693135],[694001,694004],[694006,694008],[694010,694020],[694022,694024],[694026,694026],[694028,694029],[694031,694031],[694033,694037],[694040,694040],[694042,694044],[694046,694053],[694055,694055],[694057,694059],[694062,694066],[694068,694076],[694078,694079],[694081,694089],[694091,694091],[694093,694093],[694095,694095],[694097,694100],[694102,694106],[694108,694109],[694111,694116],[694118,694120],[694122,694122],[694124,694133],[694135,694135],[694137,694142],[694144,694147],[694149,694149],[694151,694151],[694153,694159],[694161,694183],[694186,694193],[694195,694200],[694204,694214],[694216,694225],[694227,694230],[694232,694232],[694234,694243],[694245,694245],[694248,694248],[694250,694251],[694253,694266],[694268,694287],[694289,694290],[694293,694299],[694301,694307],[694309,694324],[694326,694330],[694333,694334],[694336,694336],[694338,694346],[694348,694352],[694354,694370],[694372,694374],[694376,694378],[694380,694385],[694387,694387],[694389,694391],[694393,694400],[694402,694420],[694422,694424],[694426,694429],[694431,694437],[694439,694443],[694445,694456],[694459,694477],[694480,694484],[694486,694490],[694492,694504],[694506,694507],[694509,694510],[694514,694515],[694517,694536],[694538,694539],[694541,694544],[694546,694552],[694554,694570],[694572,694583],[694585,694603],[694605,694623],[694626,694630],[694632,694635],[694637,694639],[694641,694646],[694648,694653],[694655,694656],[694658,694658],[694660,694664],[694668,694669],[694671,694671],[694673,694676],[694678,694678],[694680,694701],[694704,694709],[694711,694716],[694718,694727],[694729,694734],[694736,694742],[694744,694744],[694746,694747],[694749,694749],[694753,694753],[694755,694758],[694760,694768],[694770,694774],[694776,694776],[694778,694782],[694784,694784]] },
-  "vet-dev-anat": { name: "คัพภวิทยาทางสัตวแพทย์", runs: [[71001,71026]] },
-  "vet-histo": { name: "จุลกายวิภาคสัตวแพทย์", runs: [[106624,106626],[106628,106629],[106633,106633],[106638,106644],[106647,106649],[106651,106651],[106660,106664],[106667,106668],[106670,106670],[106674,106674],[106677,106683],[106685,106686],[106690,106692],[106694,106698],[106700,106705],[106707,106719],[106722,106722],[106725,106727],[106729,106731],[106733,106733],[106741,106741],[106743,106743],[106745,106745],[106747,106751],[106758,106758],[106762,106762],[106769,106770],[106776,106778],[106780,106780],[106783,106790],[106793,106795],[106797,106799],[106801,106804]] },
-  "vet-imaging": { name: "การถ่ายภาพทางสัตวแพทย์", runs: [[91000,91034]] },
-  "vet-juris": { name: "กฎหมาย จริยธรรม + สวัสดิภาพสัตว์", runs: [[93000,93036],[93038,93046]] },
-  "vet-neuroanat": { name: "ประสาทกายวิภาคสัตว์", runs: [[106805,106805],[106810,106810],[106813,106813],[106817,106836],[106838,106841],[106843,106847],[106850,106851],[106855,106855],[106860,106860],[106862,106862],[106864,106864],[106868,106869]] },
-  "vet-pharm-2": { name: "เภสัชวิทยาทางสัตวแพทย์ II", runs: [[53001,53062]] },
-  "zoonoses": { name: "โรคติดต่อระหว่างสัตว์-คน", runs: [[8031,8031],[8036,8036],[104000,104015],[106005,106164],[107600,107603],[107605,107616],[202000,202030],[202321,202349],[208000,208059],[208100,208152],[210500,210602],[216800,216863]] },
+
+// Every subject a /s/ link can name, in SHARE_SUBJECTS order, with its name.
+const NAMES = {
+  // ["aquatic-clinic"]
+  "aquatic-clinic": "คลินิกสัตว์น้ำ",
+  // end ["aquatic-clinic"]
+  // ["avian-medicine"]
+  "avian-medicine": "อายุรศาสตร์สัตว์ปีก",
+  // end ["avian-medicine"]
+  // ["biochem-1"]
+  "biochem-1": "ชีวเคมี I",
+  // end ["biochem-1"]
+  // ["cliapprum"]
+  "cliapprum": "Clinical App Rumen",
+  // end ["cliapprum"]
+  // ["com1"]
+  "com1": "อายุรศาสตร์สัตว์เล็ก I",
+  // end ["com1"]
+  // ["com2"]
+  "com2": "อายุรศาสตร์สัตว์เล็ก II",
+  // end ["com2"]
+  // ["com3"]
+  "com3": "COM III",
+  // end ["com3"]
+  // ["com4"]
+  "com4": "COM IV",
+  // end ["com4"]
+  // ["com5"]
+  "com5": "COM V",
+  // end ["com5"]
+  // ["comp-repro-clinic"]
+  "comp-repro-clinic": "คลินิกสูติกรรมสัตว์เล็ก",
+  // end ["comp-repro-clinic"]
+  // ["engprof"]
+  "engprof": "Eng Vet Prof II",
+  // end ["engprof"]
+  // ["engprof1"]
+  "engprof1": "English for Vet Profession I",
+  // end ["engprof1"]
+  // ["epidemiology"]
+  "epidemiology": "ระบาดวิทยา",
+  // end ["epidemiology"]
+  // ["equine-medicine"]
+  "equine-medicine": "เวชปฏิบัติม้า + ศัลย์",
+  // end ["equine-medicine"]
+  // ["equine-repro"]
+  "equine-repro": "การสืบพันธุ์ในม้า",
+  // end ["equine-repro"]
+  // ["exotic"]
+  "exotic": "Wildlife & Exotic",
+  // end ["exotic"]
+  // ["food-industry"]
+  "food-industry": "อุตสาหกรรมอาหาร (FIQC)",
+  // end ["food-industry"]
+  // ["food-safety-y4"]
+  "food-safety-y4": "ความปลอดภัยอาหาร",
+  // end ["food-safety-y4"]
+  // ["herd-health-rum"]
+  "herd-health-rum": "สุขศาสตร์ฝูงโค-กระบือ",
+  // end ["herd-health-rum"]
+  // ["livestock-pathology"]
+  "livestock-pathology": "พยาธิวิทยาปศุสัตว์",
+  // end ["livestock-pathology"]
+  // ["milk-meat-hygiene"]
+  "milk-meat-hygiene": "สุขศาสตร์น้ำนม + เนื้อ",
+  // end ["milk-meat-hygiene"]
+  // ["one-health"]
+  "one-health": "One Health",
+  // end ["one-health"]
+  // ["poa-clinical"]
+  "poa-clinical": "POA, การแก้ปัญหาคลินิกสัตว์เล็ก",
+  // end ["poa-clinical"]
+  // ["poultry"]
+  "poultry": "Poultry",
+  // end ["poultry"]
+  // ["practrum"]
+  "practrum": "Practice Ruminant",
+  // end ["practrum"]
+  // ["rec-adv-bioscience"]
+  "rec-adv-bioscience": "Recent Advances in Vet Biosciences",
+  // end ["rec-adv-bioscience"]
+  // ["repro"]
+  "repro": "Repro Lab",
+  // end ["repro"]
+  // ["repro-lect"]
+  "repro-lect": "Repro Lecture",
+  // end ["repro-lect"]
+  // ["ruminant-clinical"]
+  "ruminant-clinical": "คลินิกปฏิบัติโค",
+  // end ["ruminant-clinical"]
+  // ["surg1"]
+  "surg1": "ปฏิบัติศัลยศาสตร์ I",
+  // end ["surg1"]
+  // ["surg2"]
+  "surg2": "Vet Surg Lab II",
+  // end ["surg2"]
+  // ["surg3"]
+  "surg3": "Vet Surg Lab III",
+  // end ["surg3"]
+  // ["swine-clinic"]
+  "swine-clinic": "อายุรศาสตร์สุกร",
+  // end ["swine-clinic"]
+  // ["swine-herd"]
+  "swine-herd": "สุขศาสตร์ฝูงสุกร",
+  // end ["swine-herd"]
+  // ["swine-repro"]
+  "swine-repro": "การสืบพันธุ์ในสุกร",
+  // end ["swine-repro"]
+  // ["vca"]
+  "vca": "แนวข้อสอบเก่า VCA",
+  // end ["vca"]
+  // ["vet-dev-anat"]
+  "vet-dev-anat": "คัพภวิทยาทางสัตวแพทย์",
+  // end ["vet-dev-anat"]
+  // ["vet-histo"]
+  "vet-histo": "จุลกายวิภาคสัตวแพทย์",
+  // end ["vet-histo"]
+  // ["vet-imaging"]
+  "vet-imaging": "การถ่ายภาพทางสัตวแพทย์",
+  // end ["vet-imaging"]
+  // ["vet-juris"]
+  "vet-juris": "กฎหมาย จริยธรรม + สวัสดิภาพสัตว์",
+  // end ["vet-juris"]
+  // ["vet-neuroanat"]
+  "vet-neuroanat": "ประสาทกายวิภาคสัตว์",
+  // end ["vet-neuroanat"]
+  // ["vet-pharm-2"]
+  "vet-pharm-2": "เภสัชวิทยาทางสัตวแพทย์ II",
+  // end ["vet-pharm-2"]
+  // ["zoonoses"]
+  "zoonoses": "โรคติดต่อระหว่างสัตว์-คน",
+  // end ["zoonoses"]
 };
-// Built: 2026-11-15T23:57:43.760Z — 43 subjects, 8986 ids in 937 runs
+
+// [subject, topic, that topic's ids as [first, last] runs, a lone id as itself]
+const LEAVES = [
+  // ["aquatic-clinic","aqua-amphibian"]
+  ["aquatic-clinic","aqua-amphibian",[[202194,202197],[202459,202461],[204018,204020],[204056,204057]]],
+  // end ["aquatic-clinic","aqua-amphibian"]
+  // ["aquatic-clinic","aqua-aquarium-vet"]
+  ["aquatic-clinic","aqua-aquarium-vet",[[105925,105927],[216206,216213],217701,217723]],
+  // end ["aquatic-clinic","aqua-aquarium-vet"]
+  // ["aquatic-clinic","aqua-conservation"]
+  ["aquatic-clinic","aqua-conservation",[[105931,105937],[202466,202469],211098,217700,[217710,217716]]],
+  // end ["aquatic-clinic","aqua-conservation"]
+  // ["aquatic-clinic","aqua-disease-control"]
+  ["aquatic-clinic","aqua-disease-control",[[105117,105124],[105873,105893],[202432,202433],202435,[202439,202440],202470,[211000,211076],[211099,211105]]],
+  // end ["aquatic-clinic","aqua-disease-control"]
+  // ["aquatic-clinic","aqua-fish-biology"]
+  ["aquatic-clinic","aqua-fish-biology",[[105128,105131],105133,[105137,105139],[105141,105143],105145,[105147,105149],[105151,105152],105154,[202134,202147],202217,202418,202442,[202444,202447],202473,202476,[204028,204031]]],
+  // end ["aquatic-clinic","aqua-fish-biology"]
+  // ["aquatic-clinic","aqua-fish-diseases"]
+  ["aquatic-clinic","aqua-fish-diseases",[8055,8058,[105894,105906],[202148,202165],202216,202416,[202424,202426],202429,202431,202434,202441,[202471,202472],[211082,211084],[211086,211088],[211090,211093],211095,[217717,217719]]],
+  // end ["aquatic-clinic","aqua-fish-diseases"]
+  // ["aquatic-clinic","aqua-frog-diseases"]
+  ["aquatic-clinic","aqua-frog-diseases",[[202190,202193],[202198,202199],202474,[204013,204017],[204054,204055]]],
+  // end ["aquatic-clinic","aqua-frog-diseases"]
+  // ["aquatic-clinic","aqua-intro-thailand"]
+  ["aquatic-clinic","aqua-intro-thailand",[[105159,105160],105162,[105165,105167],[105169,105171],[105175,105178],105180,[105182,105189],[105191,105204],105206,[105208,105209],105211,[105213,105215],[202094,202120],[202208,202215],202436,202455,202475,202477,[204022,204027],204058,[204060,204063],[204065,204068],204085,211085]],
+  // end ["aquatic-clinic","aqua-intro-thailand"]
+  // ["aquatic-clinic","aqua-life-support"]
+  ["aquatic-clinic","aqua-life-support",[[105928,105930],[202130,202133],202451,202458,202462]],
+  // end ["aquatic-clinic","aqua-life-support"]
+  // ["aquatic-clinic","aqua-ornamental"]
+  ["aquatic-clinic","aqua-ornamental",[[202184,202189],202430,[202452,202453],[202456,202457],[204032,204044],204059,[204069,204071],[204073,204081],204087]],
+  // end ["aquatic-clinic","aqua-ornamental"]
+  // ["aquatic-clinic","aqua-shrimp-diseases"]
+  ["aquatic-clinic","aqua-shrimp-diseases",[[8056,8057],8059,[105907,105916],[202166,202183],202415,202417,202419,202423,[202427,202428],[211077,211078],211097,217720]],
+  // end ["aquatic-clinic","aqua-shrimp-diseases"]
+  // ["aquatic-clinic","aqua-shrimp-immunology"]
+  ["aquatic-clinic","aqua-shrimp-immunology",[202420,202422,202438,202443,[204001,204012],[204049,204053],[211079,211081],211094,211096]],
+  // end ["aquatic-clinic","aqua-shrimp-immunology"]
+  // ["aquatic-clinic","aqua-toxicology"]
+  ["aquatic-clinic","aqua-toxicology",[[216200,216205],[217721,217722]]],
+  // end ["aquatic-clinic","aqua-toxicology"]
+  // ["aquatic-clinic","aqua-turtle"]
+  ["aquatic-clinic","aqua-turtle",[[202200,202207],[202463,202465],204021,[204082,204084]]],
+  // end ["aquatic-clinic","aqua-turtle"]
+  // ["aquatic-clinic","aqua-water-quality"]
+  ["aquatic-clinic","aqua-water-quality",[[105917,105924],[202121,202129],202421,202437,[202448,202450],[204045,204048],204064,204072,204086,211089]],
+  // end ["aquatic-clinic","aqua-water-quality"]
+  // ["avian-medicine","avian-adeno"]
+  ["avian-medicine","avian-adeno",[[105784,105785],109052,109128,[202243,202244],[206009,206018],[206114,206124]]],
+  // end ["avian-medicine","avian-adeno"]
+  // ["avian-medicine","avian-ae"]
+  ["avian-medicine","avian-ae",[[105777,105778],109018,109036,109054,[206001,206008],[206107,206113]]],
+  // end ["avian-medicine","avian-ae"]
+  // ["avian-medicine","avian-ahra-set"]
+  ["avian-medicine","avian-ahra-set",[[105779,105781],109038,109082,109088,[202239,202241],[206019,206028],[206093,206106]]],
+  // end ["avian-medicine","avian-ahra-set"]
+  // ["avian-medicine","avian-ai"]
+  ["avian-medicine","avian-ai",[8029,[105856,105861],109022,109028,109044,109068,109070,109076,109080,109100,109106,109116,202238,[203012,203017]]],
+  // end ["avian-medicine","avian-ai"]
+  // ["avian-medicine","avian-campy"]
+  ["avian-medicine","avian-campy",[[105790,105791],109006,[212527,212529],[218222,218225]]],
+  // end ["avian-medicine","avian-campy"]
+  // ["avian-medicine","avian-cia"]
+  ["avian-medicine","avian-cia",[105866,106194,106204,[107100,107107],109040,109098,206159]],
+  // end ["avian-medicine","avian-cia"]
+  // ["avian-medicine","avian-cocci"]
+  ["avian-medicine","avian-cocci",[[105863,105864],[106212,106217],106219,109014,109016,109030,109032,109056,109064,109104,[205001,205010],206144,206162]],
+  // end ["avian-medicine","avian-cocci"]
+  // ["avian-medicine","avian-coli"]
+  ["avian-medicine","avian-coli",[[105853,105855],109000,[202224,202225],[206056,206072]]],
+  // end ["avian-medicine","avian-coli"]
+  // ["avian-medicine","avian-coryza"]
+  ["avian-medicine","avian-coryza",[[105847,105849],109078,109112,202226,[202236,202237],[206083,206092]]],
+  // end ["avian-medicine","avian-coryza"]
+  // ["avian-medicine","avian-duck-flavi"]
+  ["avian-medicine","avian-duck-flavi",[105775,212520,[218213,218216]]],
+  // end ["avian-medicine","avian-duck-flavi"]
+  // ["avian-medicine","avian-duck-plague"]
+  ["avian-medicine","avian-duck-plague",[105773,[212500,212503],[218202,218206]]],
+  // end ["avian-medicine","avian-duck-plague"]
+  // ["avian-medicine","avian-dvh"]
+  ["avian-medicine","avian-dvh",[105774,[212504,212513],[218207,218210]]],
+  // end ["avian-medicine","avian-dvh"]
+  // ["avian-medicine","avian-egg-breakout"]
+  ["avian-medicine","avian-egg-breakout",[206147]],
+  // end ["avian-medicine","avian-egg-breakout"]
+  // ["avian-medicine","avian-fowl-cholera"]
+  ["avian-medicine","avian-fowl-cholera",[8032,[105850,105852],109008,109034,202223,202235,[206073,206082]]],
+  // end ["avian-medicine","avian-fowl-cholera"]
+  // ["avian-medicine","avian-goose-parvo"]
+  ["avian-medicine","avian-goose-parvo",[105776,[212514,212519],218212]],
+  // end ["avian-medicine","avian-goose-parvo"]
+  // ["avian-medicine","avian-histomoniasis"]
+  ["avian-medicine","avian-histomoniasis",[[105793,105794],218230,[218259,218260]]],
+  // end ["avian-medicine","avian-histomoniasis"]
+  // ["avian-medicine","avian-ib"]
+  ["avian-medicine","avian-ib",[[105016,105028],[105824,105826],109050,109130,202218]],
+  // end ["avian-medicine","avian-ib"]
+  // ["avian-medicine","avian-ibd"]
+  ["avian-medicine","avian-ibd",[8030,105862,105867,105872,106193,106202,106205,[107108,107115],109042,109094,109126,202220,206151]],
+  // end ["avian-medicine","avian-ibd"]
+  // ["avian-medicine","avian-intro"]
+  ["avian-medicine","avian-intro",[105871,109086,109118,203011,[206148,206149]]],
+  // end ["avian-medicine","avian-intro"]
+  // ["avian-medicine","avian-leuko"]
+  ["avian-medicine","avian-leuko",[105869,106210,106220,109114,109122,[205020,205027],206160]],
+  // end ["avian-medicine","avian-leuko"]
+  // ["avian-medicine","avian-listeria"]
+  ["avian-medicine","avian-listeria",[105792,212530,212560,[218226,218229]]],
+  // end ["avian-medicine","avian-listeria"]
+  // ["avian-medicine","avian-lt"]
+  ["avian-medicine","avian-lt",[[105030,105040],[105827,105830],109138]],
+  // end ["avian-medicine","avian-lt"]
+  // ["avian-medicine","avian-malaria"]
+  ["avian-medicine","avian-malaria",[106218,[205028,205035],206155]],
+  // end ["avian-medicine","avian-malaria"]
+  // ["avian-medicine","avian-marek"]
+  ["avian-medicine","avian-marek",[8048,105865,[106195,106196],[106199,106201],106203,[106206,106207],[107116,107123],109002,109020,109062,109084,109102,109110,109136,206161]],
+  // end ["avian-medicine","avian-marek"]
+  // ["avian-medicine","avian-mpv"]
+  ["avian-medicine","avian-mpv",[[105042,105043],[105045,105046],105049,[105053,105055],[105831,105834],109120,202219]],
+  // end ["avian-medicine","avian-mpv"]
+  // ["avian-medicine","avian-myco"]
+  ["avian-medicine","avian-myco",[[105839,105846],109026,202222,[202227,202234],[206039,206055]]],
+  // end ["avian-medicine","avian-myco"]
+  // ["avian-medicine","avian-mycosis"]
+  ["avian-medicine","avian-mycosis",[[105795,105803],[212531,212552],212561,[218231,218254]]],
+  // end ["avian-medicine","avian-mycosis"]
+  // ["avian-medicine","avian-nd"]
+  ["avian-medicine","avian-nd",[[105056,105059],[105061,105073],[105820,105823],109072,109108,206158]],
+  // end ["avian-medicine","avian-nd"]
+  // ["avian-medicine","avian-nds"]
+  ["avian-medicine","avian-nds",[105772,[218200,218201],218211,[218256,218258]]],
+  // end ["avian-medicine","avian-nds"]
+  // ["avian-medicine","avian-ne"]
+  ["avian-medicine","avian-ne",[105868,106211,109132,202221,[205011,205019]]],
+  // end ["avian-medicine","avian-ne"]
+  // ["avian-medicine","avian-ort"]
+  ["avian-medicine","avian-ort",[[105788,105789],105819,[212521,212526],[218217,218221]]],
+  // end ["avian-medicine","avian-ort"]
+  // ["avian-medicine","avian-pox"]
+  ["avian-medicine","avian-pox",[[105074,105083],[105835,105838],106197,106209,109048,109074]],
+  // end ["avian-medicine","avian-pox"]
+  // ["avian-medicine","avian-reo"]
+  ["avian-medicine","avian-reo",[105870,106198,106208,[107124,107131],109060,109124,109134]],
+  // end ["avian-medicine","avian-reo"]
+  // ["avian-medicine","avian-rss"]
+  ["avian-medicine","avian-rss",[[107132,107139],109092,206145]],
+  // end ["avian-medicine","avian-rss"]
+  // ["avian-medicine","avian-salmonella"]
+  ["avian-medicine","avian-salmonella",[[105782,105783],109090,109096,202242,[206029,206038],[206125,206136]]],
+  // end ["avian-medicine","avian-salmonella"]
+  // ["avian-medicine","avian-serology"]
+  ["avian-medicine","avian-serology",[105786,[105806,105813],[105815,105816],105818,109012,109046,212554,212558,218255]],
+  // end ["avian-medicine","avian-serology"]
+  // ["avian-medicine","avian-vaccine-prog"]
+  ["avian-medicine","avian-vaccine-prog",[105787,[105804,105805],105814,105817,109004,109010,109024,109058,109066,212553,[212555,212557],212559]],
+  // end ["avian-medicine","avian-vaccine-prog"]
+  // ["biochem-1","lab-carbohydrate"]
+  ["biochem-1","lab-carbohydrate",[[72005,72011]]],
+  // end ["biochem-1","lab-carbohydrate"]
+  // ["biochem-1","lab-chromatography"]
+  ["biochem-1","lab-chromatography",[[70001,70007],[70009,70010]]],
+  // end ["biochem-1","lab-chromatography"]
+  // ["biochem-1","lab-dna"]
+  ["biochem-1","lab-dna",[[70021,70026]]],
+  // end ["biochem-1","lab-dna"]
+  // ["biochem-1","lab-electrophoresis"]
+  ["biochem-1","lab-electrophoresis",[[70011,70020],[70047,70048]]],
+  // end ["biochem-1","lab-electrophoresis"]
+  // ["biochem-1","lab-equipment"]
+  ["biochem-1","lab-equipment",[70049,[72001,72004]]],
+  // end ["biochem-1","lab-equipment"]
+  // ["biochem-1","lab-lipid"]
+  ["biochem-1","lab-lipid",[[72012,72021]]],
+  // end ["biochem-1","lab-lipid"]
+  // ["biochem-1","lab-molecular"]
+  ["biochem-1","lab-molecular",[[70030,70043],[70045,70046]]],
+  // end ["biochem-1","lab-molecular"]
+  // ["biochem-1","lab-ph-buffer"]
+  ["biochem-1","lab-ph-buffer",[[72022,72029]]],
+  // end ["biochem-1","lab-ph-buffer"]
+  // ["biochem-1","lab-protein"]
+  ["biochem-1","lab-protein",[[72038,72046]]],
+  // end ["biochem-1","lab-protein"]
+  // ["biochem-1","lab-spectrophotometry"]
+  ["biochem-1","lab-spectrophotometry",[70027,70029,[72030,72037]]],
+  // end ["biochem-1","lab-spectrophotometry"]
+  // ["biochem-1","lect-carbohydrate"]
+  ["biochem-1","lect-carbohydrate",[[73006,73008],[76001,76009]]],
+  // end ["biochem-1","lect-carbohydrate"]
+  // ["biochem-1","lect-drug-delivery"]
+  ["biochem-1","lect-drug-delivery",[[74062,74072]]],
+  // end ["biochem-1","lect-drug-delivery"]
+  // ["biochem-1","lect-enzyme"]
+  ["biochem-1","lect-enzyme",[[75009,75032]]],
+  // end ["biochem-1","lect-enzyme"]
+  // ["biochem-1","lect-intro"]
+  ["biochem-1","lect-intro",[[73001,73005],[75001,75008]]],
+  // end ["biochem-1","lect-intro"]
+  // ["biochem-1","lect-lipid"]
+  ["biochem-1","lect-lipid",[[73009,73011],[76010,76023]]],
+  // end ["biochem-1","lect-lipid"]
+  // ["biochem-1","lect-membrane"]
+  ["biochem-1","lect-membrane",[[73024,73028]]],
+  // end ["biochem-1","lect-membrane"]
+  // ["biochem-1","lect-metabolism"]
+  ["biochem-1","lect-metabolism",[[74073,74081]]],
+  // end ["biochem-1","lect-metabolism"]
+  // ["biochem-1","lect-nucleic-acid"]
+  ["biochem-1","lect-nucleic-acid",[[74001,74061]]],
+  // end ["biochem-1","lect-nucleic-acid"]
+  // ["biochem-1","lect-protein"]
+  ["biochem-1","lect-protein",[[73012,73023],[76024,76029],[76031,76039]]],
+  // end ["biochem-1","lect-protein"]
+  // ["cliapprum","gi-surgery-sawita"]
+  ["cliapprum","gi-surgery-sawita",[[134,135],138,[2116,2123],2221]],
+  // end ["cliapprum","gi-surgery-sawita"]
+  // ["cliapprum","gi-vdtt"]
+  ["cliapprum","gi-vdtt",[137,[2129,2133]]],
+  // end ["cliapprum","gi-vdtt"]
+  // ["cliapprum","hoof-health-fleet"]
+  ["cliapprum","hoof-health-fleet",[[130,133],[2124,2128]]],
+  // end ["cliapprum","hoof-health-fleet"]
+  // ["cliapprum","mahahon-cliapprum-anes"]
+  ["cliapprum","mahahon-cliapprum-anes",[[5000,5007],[5066,5072]]],
+  // end ["cliapprum","mahahon-cliapprum-anes"]
+  // ["cliapprum","mahahon-cliapprum-givdtt"]
+  ["cliapprum","mahahon-cliapprum-givdtt",[[5008,5013],[5073,5081]]],
+  // end ["cliapprum","mahahon-cliapprum-givdtt"]
+  // ["cliapprum","mahahon-cliapprum-piyanat-hoof"]
+  ["cliapprum","mahahon-cliapprum-piyanat-hoof",[[5020,5026],[5082,5089]]],
+  // end ["cliapprum","mahahon-cliapprum-piyanat-hoof"]
+  // ["cliapprum","mahahon-cliapprum-sawita-gi"]
+  ["cliapprum","mahahon-cliapprum-sawita-gi",[[5014,5017],[5030,5039],[5045,5060]]],
+  // end ["cliapprum","mahahon-cliapprum-sawita-gi"]
+  // ["cliapprum","mahahon-cliapprum-sawita-respi"]
+  ["cliapprum","mahahon-cliapprum-sawita-respi",[[5018,5019],[5027,5029],[5040,5044],[5061,5065]]],
+  // end ["cliapprum","mahahon-cliapprum-sawita-respi"]
+  // ["cliapprum","metabolism-nutrition"]
+  ["cliapprum","metabolism-nutrition",[[2100,2107],2220]],
+  // end ["cliapprum","metabolism-nutrition"]
+  // ["cliapprum","ruminant-anesthesia"]
+  ["cliapprum","ruminant-anesthesia",[[2108,2115]]],
+  // end ["cliapprum","ruminant-anesthesia"]
+  // ["cliapprum","uncertain-scope"]
+  ["cliapprum","uncertain-scope",[136,139]],
+  // end ["cliapprum","uncertain-scope"]
+  // ["com1","acute-chf-collapse"]
+  ["com1","acute-chf-collapse",[90004]],
+  // end ["com1","acute-chf-collapse"]
+  // ["com1","aki-stages"]
+  ["com1","aki-stages",[90023]],
+  // end ["com1","aki-stages"]
+  // ["com1","anemia-regen-vs-non"]
+  ["com1","anemia-regen-vs-non",[90018]],
+  // end ["com1","anemia-regen-vs-non"]
+  // ["com1","aspiration-pneumonia"]
+  ["com1","aspiration-pneumonia",[90012]],
+  // end ["com1","aspiration-pneumonia"]
+  // ["com1","blood-transfusion"]
+  ["com1","blood-transfusion",[90019]],
+  // end ["com1","blood-transfusion"]
+  // ["com1","bone-marrow-biopsy"]
+  ["com1","bone-marrow-biopsy",[90020]],
+  // end ["com1","bone-marrow-biopsy"]
+  // ["com1","brachycephalic-syndrome"]
+  ["com1","brachycephalic-syndrome",[90017]],
+  // end ["com1","brachycephalic-syndrome"]
+  // ["com1","cardiogenic-shock"]
+  ["com1","cardiogenic-shock",[90009]],
+  // end ["com1","cardiogenic-shock"]
+  // ["com1","ckd-complications"]
+  ["com1","ckd-complications",[90025]],
+  // end ["com1","ckd-complications"]
+  // ["com1","ckd-iris"]
+  ["com1","ckd-iris",[90022]],
+  // end ["com1","ckd-iris"]
+  // ["com1","ckd-proteinuria-rx"]
+  ["com1","ckd-proteinuria-rx",[90026]],
+  // end ["com1","ckd-proteinuria-rx"]
+  // ["com1","dcm-management"]
+  ["com1","dcm-management",[90003]],
+  // end ["com1","dcm-management"]
+  // ["com1","echocardiography"]
+  ["com1","echocardiography",[90010]],
+  // end ["com1","echocardiography"]
+  // ["com1","ectopic-ureter"]
+  ["com1","ectopic-ureter",[90030]],
+  // end ["com1","ectopic-ureter"]
+  // ["com1","ekg-arrhythmia"]
+  ["com1","ekg-arrhythmia",[90008]],
+  // end ["com1","ekg-arrhythmia"]
+  // ["com1","feline-asthma"]
+  ["com1","feline-asthma",[90014]],
+  // end ["com1","feline-asthma"]
+  // ["com1","feline-flutd"]
+  ["com1","feline-flutd",[90027]],
+  // end ["com1","feline-flutd"]
+  // ["com1","feline-hypertension"]
+  ["com1","feline-hypertension",[90006]],
+  // end ["com1","feline-hypertension"]
+  // ["com1","hcm-feline"]
+  ["com1","hcm-feline",[90005]],
+  // end ["com1","hcm-feline"]
+  // ["com1","laryngeal-paralysis"]
+  ["com1","laryngeal-paralysis",[90015]],
+  // end ["com1","laryngeal-paralysis"]
+  // ["com1","left-sided-heart-failure"]
+  ["com1","left-sided-heart-failure",[90000]],
+  // end ["com1","left-sided-heart-failure"]
+  // ["com1","mitral-valve-disease"]
+  ["com1","mitral-valve-disease",[90001]],
+  // end ["com1","mitral-valve-disease"]
+  // ["com1","prerenal-azotemia"]
+  ["com1","prerenal-azotemia",[90024]],
+  // end ["com1","prerenal-azotemia"]
+  // ["com1","pulmonary-thromboembolism"]
+  ["com1","pulmonary-thromboembolism",[90013]],
+  // end ["com1","pulmonary-thromboembolism"]
+  // ["com1","respiratory-pattern"]
+  ["com1","respiratory-pattern",[90011]],
+  // end ["com1","respiratory-pattern"]
+  // ["com1","splenectomy-indication"]
+  ["com1","splenectomy-indication",[90021]],
+  // end ["com1","splenectomy-indication"]
+  // ["com1","tetralogy-of-fallot"]
+  ["com1","tetralogy-of-fallot",[90007]],
+  // end ["com1","tetralogy-of-fallot"]
+  // ["com1","tracheal-collapse"]
+  ["com1","tracheal-collapse",[90016]],
+  // end ["com1","tracheal-collapse"]
+  // ["com1","urethral-obstruction"]
+  ["com1","urethral-obstruction",[90029]],
+  // end ["com1","urethral-obstruction"]
+  // ["com1","urolith-types"]
+  ["com1","urolith-types",[90028]],
+  // end ["com1","urolith-types"]
+  // ["com1","vsd-tricuspid"]
+  ["com1","vsd-tricuspid",[90002]],
+  // end ["com1","vsd-tricuspid"]
+  // ["com2","arthrodesis"]
+  ["com2","arthrodesis",[90537]],
+  // end ["com2","arthrodesis"]
+  // ["com2","ccl-conservative-tx"]
+  ["com2","ccl-conservative-tx",[90530]],
+  // end ["com2","ccl-conservative-tx"]
+  // ["com2","ccl-surgery"]
+  ["com2","ccl-surgery",[[90526,90527]]],
+  // end ["com2","ccl-surgery"]
+  // ["com2","cranial-cruciate-ligament"]
+  ["com2","cranial-cruciate-ligament",[90525]],
+  // end ["com2","cranial-cruciate-ligament"]
+  // ["com2","developmental-orthopedic-disease"]
+  ["com2","developmental-orthopedic-disease",[90514]],
+  // end ["com2","developmental-orthopedic-disease"]
+  // ["com2","elbow-dysplasia"]
+  ["com2","elbow-dysplasia",[90520]],
+  // end ["com2","elbow-dysplasia"]
+  // ["com2","fracture-classification"]
+  ["com2","fracture-classification",[90539]],
+  // end ["com2","fracture-classification"]
+  // ["com2","fracture-management"]
+  ["com2","fracture-management",[[90540,90541]]],
+  // end ["com2","fracture-management"]
+  // ["com2","hip-dysplasia"]
+  ["com2","hip-dysplasia",[[90511,90513]]],
+  // end ["com2","hip-dysplasia"]
+  // ["com2","hip-imaging"]
+  ["com2","hip-imaging",[90516]],
+  // end ["com2","hip-imaging"]
+  // ["com2","hip-luxation"]
+  ["com2","hip-luxation",[[90522,90523]]],
+  // end ["com2","hip-luxation"]
+  // ["com2","hip-surgery"]
+  ["com2","hip-surgery",[90517]],
+  // end ["com2","hip-surgery"]
+  // ["com2","legg-calve-perthes"]
+  ["com2","legg-calve-perthes",[90515]],
+  // end ["com2","legg-calve-perthes"]
+  // ["com2","limb-amputation"]
+  ["com2","limb-amputation",[90536]],
+  // end ["com2","limb-amputation"]
+  // ["com2","meniscal-injury"]
+  ["com2","meniscal-injury",[90528]],
+  // end ["com2","meniscal-injury"]
+  // ["com2","metabolic-orthopedic-disease"]
+  ["com2","metabolic-orthopedic-disease",[[90534,90535]]],
+  // end ["com2","metabolic-orthopedic-disease"]
+  // ["com2","oral-trauma"]
+  ["com2","oral-trauma",[[90500,90510]]],
+  // end ["com2","oral-trauma"]
+  // ["com2","osteochondrosis"]
+  ["com2","osteochondrosis",[90521]],
+  // end ["com2","osteochondrosis"]
+  // ["com2","patellar-luxation"]
+  ["com2","patellar-luxation",[[90518,90519]]],
+  // end ["com2","patellar-luxation"]
+  // ["com2","rehabilitation"]
+  ["com2","rehabilitation",[90538]],
+  // end ["com2","rehabilitation"]
+  // ["com2","shoulder-luxation"]
+  ["com2","shoulder-luxation",[90524]],
+  // end ["com2","shoulder-luxation"]
+  // ["com2","spinal-imaging"]
+  ["com2","spinal-imaging",[90533]],
+  // end ["com2","spinal-imaging"]
+  // ["com2","spinal-trauma"]
+  ["com2","spinal-trauma",[[90531,90532]]],
+  // end ["com2","spinal-trauma"]
+  // ["com2","stifle-exam"]
+  ["com2","stifle-exam",[90529]],
+  // end ["com2","stifle-exam"]
+  // ["com3","acute-abdomen"]
+  ["com3","acute-abdomen",[[730,736],[830,832],886,1310,1327,1345,1357,[1363,1364],[1399,1400]]],
+  // end ["com3","acute-abdomen"]
+  // ["com3","ai-vet"]
+  ["com3","ai-vet",[[875,882]]],
+  // end ["com3","ai-vet"]
+  // ["com3","ataxia-tremor"]
+  ["com3","ataxia-tremor",[[790,793],[858,863],1306,1311,1317,1330,1337,1344,1347,[1384,1388],1394]],
+  // end ["com3","ataxia-tremor"]
+  // ["com3","cataract"]
+  ["com3","cataract",[[94113,94114]]],
+  // end ["com3","cataract"]
+  // ["com3","cornea"]
+  ["com3","cornea",[[94100,94101],[94103,94105]]],
+  // end ["com3","cornea"]
+  // ["com3","cpcr"]
+  ["com3","cpcr",[[720,726],[827,829],885,1300,1315,1341,[1348,1349],[1360,1361],[1401,1402]]],
+  // end ["com3","cpcr"]
+  // ["com3","ear"]
+  ["com3","ear",[[94123,94124]]],
+  // end ["com3","ear"]
+  // ["com3","er-anes"]
+  ["com3","er-anes",[[750,754],[838,842],889,[894,897],1358,1392]],
+  // end ["com3","er-anes"]
+  // ["com3","glaucoma"]
+  ["com3","glaucoma",[[94115,94117]]],
+  // end ["com3","glaucoma"]
+  // ["com3","imaging"]
+  ["com3","imaging",[[94126,94129]]],
+  // end ["com3","imaging"]
+  // ["com3","metabolic-er"]
+  ["com3","metabolic-er",[[760,766],[843,845],888,1304,1351,1359,[1372,1374],1397]],
+  // end ["com3","metabolic-er"]
+  // ["com3","neuro-er"]
+  ["com3","neuro-er",[[820,823],[869,874],1329,1339,1354,[1381,1383]]],
+  // end ["com3","neuro-er"]
+  // ["com3","neuro-exam"]
+  ["com3","neuro-exam",[[780,785],[850,853],890,1393]],
+  // end ["com3","neuro-exam"]
+  // ["com3","nutrition"]
+  ["com3","nutrition",[[770,775],[846,849],1312,1322,1326,1334,1336,[1375,1377],1403]],
+  // end ["com3","nutrition"]
+  // ["com3","ophthal-exam"]
+  ["com3","ophthal-exam",[[94121,94122],94125]],
+  // end ["com3","ophthal-exam"]
+  // ["com3","resp-cv-er"]
+  ["com3","resp-cv-er",[[264,266],[740,744],[833,837],887,1323,1325,1340,1346,1350,[1368,1371]]],
+  // end ["com3","resp-cv-er"]
+  // ["com3","retina"]
+  ["com3","retina",[[94118,94120]]],
+  // end ["com3","retina"]
+  // ["com3","seizure"]
+  ["com3","seizure",[[800,804],[864,868],892,1302,[1307,1309],1313,1320,1343,[1378,1380],[1395,1396]]],
+  // end ["com3","seizure"]
+  // ["com3","shock"]
+  ["com3","shock",[[710,718],826,884,1305,1316,1328,[1332,1333],1353,1356,[1365,1367],1398]],
+  // end ["com3","shock"]
+  // ["com3","special-prep"]
+  ["com3","special-prep",[[1500,1506],[1508,1526],[1528,1531],[1533,1567],[1569,1571]]],
+  // end ["com3","special-prep"]
+  // ["com3","spinal"]
+  ["com3","spinal",[[810,815],[854,857],891,893,1314,[1318,1319],1321,1324,1331,1335,1338,1342,1355,[1389,1391],1404]],
+  // end ["com3","spinal"]
+  // ["com3","triage"]
+  ["com3","triage",[[700,707],[824,825],883,1301,1303,1352,1362]],
+  // end ["com3","triage"]
+  // ["com3","uveitis"]
+  ["com3","uveitis",[94102,[94106,94112]]],
+  // end ["com3","uveitis"]
+  // ["com4","__unassigned__"]
+  ["com4","__unassigned__",[[262,263],[270,271]]],
+  // end ["com4","__unassigned__"]
+  // ["com4","derm-allergic"]
+  ["com4","derm-allergic",[272,[955,964],1038,[1083,1084],1114,1117,1152,1155]],
+  // end ["com4","derm-allergic"]
+  // ["com4","derm-autoimmune"]
+  ["com4","derm-autoimmune",[[965,974],[1061,1068]]],
+  // end ["com4","derm-autoimmune"]
+  // ["com4","derm-bacterial"]
+  ["com4","derm-bacterial",[[915,924],[1136,1138],1151,1156,1160]],
+  // end ["com4","derm-bacterial"]
+  // ["com4","derm-endocrine"]
+  ["com4","derm-endocrine",[[935,944],[1048,1060],[1148,1150]]],
+  // end ["com4","derm-endocrine"]
+  // ["com4","derm-fungal"]
+  ["com4","derm-fungal",[[925,934],[1142,1144],1153,[1158,1159]]],
+  // end ["com4","derm-fungal"]
+  // ["com4","derm-intro"]
+  ["com4","derm-intro",[[900,904],[1132,1135]]],
+  // end ["com4","derm-intro"]
+  // ["com4","derm-nutrition"]
+  ["com4","derm-nutrition",[[945,954],[1145,1147]]],
+  // end ["com4","derm-nutrition"]
+  // ["com4","derm-parasitic"]
+  ["com4","derm-parasitic",[273,[905,914],[1139,1141],1157]],
+  // end ["com4","derm-parasitic"]
+  // ["com4","endo-addison"]
+  ["com4","endo-addison",[268]],
+  // end ["com4","endo-addison"]
+  // ["com4","endo-cushing"]
+  ["com4","endo-cushing",[267]],
+  // end ["com4","endo-cushing"]
+  // ["com4","endo-dm"]
+  ["com4","endo-dm",[269]],
+  // end ["com4","endo-dm"]
+  // ["com4","ibd"]
+  ["com4","ibd",[[97,99],[260,261],[1000,1014],[1081,1082],[1103,1107]]],
+  // end ["com4","ibd"]
+  // ["com4","imha"]
+  ["com4","imha",[[95,96],[983,991],[1031,1032],[1040,1047],[1086,1096],1154]],
+  // end ["com4","imha"]
+  // ["com4","immune-drugs"]
+  ["com4","immune-drugs",[[975,982],[1033,1037],1039,1113]],
+  // end ["com4","immune-drugs"]
+  // ["com4","peds-geri"]
+  ["com4","peds-geri",[[101,110],[1015,1030],[1071,1080],1085,[1115,1116],[1118,1125],[1127,1131]]],
+  // end ["com4","peds-geri"]
+  // ["com4","sle"]
+  ["com4","sle",[[90,92],94,[992,999],[1069,1070],[1097,1102],[1108,1112],1126]],
+  // end ["com4","sle"]
+  // ["com5","cve"]
+  ["com5","cve",[[500,507],[535,548]]],
+  // end ["com5","cve"]
+  // ["com5","feline-uri"]
+  ["com5","feline-uri",[[605,624]]],
+  // end ["com5","feline-uri"]
+  // ["com5","gi-protozoa"]
+  ["com5","gi-protozoa",[[514,520],[563,578]]],
+  // end ["com5","gi-protozoa"]
+  // ["com5","rabies"]
+  ["com5","rabies",[[521,527],[579,590]]],
+  // end ["com5","rabies"]
+  // ["com5","sporo-crypto"]
+  ["com5","sporo-crypto",[[508,513],[549,562],[625,626]]],
+  // end ["com5","sporo-crypto"]
+  // ["com5","vaccine"]
+  ["com5","vaccine",[[528,534],[591,604],[627,628]]],
+  // end ["com5","vaccine"]
+  // ["comp-repro-clinic","comp-repro-anatomy-cycle"]
+  ["comp-repro-clinic","comp-repro-anatomy-cycle",[[8405,8406],8443,8446]],
+  // end ["comp-repro-clinic","comp-repro-anatomy-cycle"]
+  // ["comp-repro-clinic","comp-repro-art"]
+  ["comp-repro-clinic","comp-repro-art",[8442]],
+  // end ["comp-repro-clinic","comp-repro-art"]
+  // ["comp-repro-clinic","comp-repro-cytology"]
+  ["comp-repro-clinic","comp-repro-cytology",[[8400,8404],8407]],
+  // end ["comp-repro-clinic","comp-repro-cytology"]
+  // ["comp-repro-clinic","comp-repro-infect"]
+  ["comp-repro-clinic","comp-repro-infect",[8423]],
+  // end ["comp-repro-clinic","comp-repro-infect"]
+  // ["comp-repro-clinic","comp-repro-infertility"]
+  ["comp-repro-clinic","comp-repro-infertility",[[8434,8435]]],
+  // end ["comp-repro-clinic","comp-repro-infertility"]
+  // ["comp-repro-clinic","comp-repro-male"]
+  ["comp-repro-clinic","comp-repro-male",[[8424,8433],8445]],
+  // end ["comp-repro-clinic","comp-repro-male"]
+  // ["comp-repro-clinic","comp-repro-postpartum"]
+  ["comp-repro-clinic","comp-repro-postpartum",[8447]],
+  // end ["comp-repro-clinic","comp-repro-postpartum"]
+  // ["comp-repro-clinic","comp-repro-pregnancy"]
+  ["comp-repro-clinic","comp-repro-pregnancy",[[8436,8441],8444]],
+  // end ["comp-repro-clinic","comp-repro-pregnancy"]
+  // ["comp-repro-clinic","comp-repro-surgery"]
+  ["comp-repro-clinic","comp-repro-surgery",[[8408,8422]]],
+  // end ["comp-repro-clinic","comp-repro-surgery"]
+  // ["engprof","academic-writing"]
+  ["engprof","academic-writing",[[51017,51019]]],
+  // end ["engprof","academic-writing"]
+  // ["engprof","paraphrasing"]
+  ["engprof","paraphrasing",[1195,[51010,51013]]],
+  // end ["engprof","paraphrasing"]
+  // ["engprof","research-design"]
+  ["engprof","research-design",[1163,1182,[51005,51009],51022,51024,51035]],
+  // end ["engprof","research-design"]
+  // ["engprof","research-paper-structure"]
+  ["engprof","research-paper-structure",[[1161,1162],[1164,1166],[1169,1173],[1180,1181],[1183,1185],[1187,1190],[51000,51004],[51020,51021],51023,[51025,51031],[51033,51034],[51036,51039],[51041,51044],51046]],
+  // end ["engprof","research-paper-structure"]
+  // ["engprof","summary-writing"]
+  ["engprof","summary-writing",[1175,1192,[51014,51016],51032,51045]],
+  // end ["engprof","summary-writing"]
+  // ["engprof1","listening-therapy-dogs"]
+  ["engprof1","listening-therapy-dogs",[[93515,93519]]],
+  // end ["engprof1","listening-therapy-dogs"]
+  // ["engprof1","listening-vet-patient-consult"]
+  ["engprof1","listening-vet-patient-consult",[[93512,93514]]],
+  // end ["engprof1","listening-vet-patient-consult"]
+  // ["engprof1","listening-vet-shortage-news"]
+  ["engprof1","listening-vet-shortage-news",[[93500,93505]]],
+  // end ["engprof1","listening-vet-shortage-news"]
+  // ["engprof1","pronunciation-focus-meaning"]
+  ["engprof1","pronunciation-focus-meaning",[93508]],
+  // end ["engprof1","pronunciation-focus-meaning"]
+  // ["engprof1","pronunciation-stress-function"]
+  ["engprof1","pronunciation-stress-function",[[93509,93511]]],
+  // end ["engprof1","pronunciation-stress-function"]
+  // ["engprof1","pronunciation-word-stress"]
+  ["engprof1","pronunciation-word-stress",[[93506,93507]]],
+  // end ["engprof1","pronunciation-word-stress"]
+  // ["engprof1","unit3-catnip-lecture"]
+  ["engprof1","unit3-catnip-lecture",[93525]],
+  // end ["engprof1","unit3-catnip-lecture"]
+  // ["engprof1","unit3-cornell-method"]
+  ["engprof1","unit3-cornell-method",[93524]],
+  // end ["engprof1","unit3-cornell-method"]
+  // ["engprof1","unit3-lecturing-styles"]
+  ["engprof1","unit3-lecturing-styles",[93520]],
+  // end ["engprof1","unit3-lecturing-styles"]
+  // ["engprof1","unit3-note-taking-cues"]
+  ["engprof1","unit3-note-taking-cues",[[93521,93522]]],
+  // end ["engprof1","unit3-note-taking-cues"]
+  // ["engprof1","unit3-note-taking-symbols"]
+  ["engprof1","unit3-note-taking-symbols",[93523]],
+  // end ["engprof1","unit3-note-taking-symbols"]
+  // ["engprof1","unit3-pain-medication-lecture"]
+  ["engprof1","unit3-pain-medication-lecture",[[93526,93527]]],
+  // end ["engprof1","unit3-pain-medication-lecture"]
+  // ["engprof1","unit3-sea-urchin-lecture"]
+  ["engprof1","unit3-sea-urchin-lecture",[[93528,93529]]],
+  // end ["engprof1","unit3-sea-urchin-lecture"]
+  // ["epidemiology","epidem-applied-stats"]
+  ["epidemiology","epidem-applied-stats",[[213511,213513],213554,213558,[214623,214643]]],
+  // end ["epidemiology","epidem-applied-stats"]
+  // ["epidemiology","epidem-basic-concepts"]
+  ["epidemiology","epidem-basic-concepts",[[100008,100017],214501,[214507,214519]]],
+  // end ["epidemiology","epidem-basic-concepts"]
+  // ["epidemiology","epidem-causation"]
+  ["epidemiology","epidem-causation",[105084,105086,[105089,105091],[105094,105096],213503,213509,213519,213539,[214503,214506],[214530,214533],[214535,214536]]],
+  // end ["epidemiology","epidem-causation"]
+  // ["epidemiology","epidem-control-prevention"]
+  ["epidemiology","epidem-control-prevention",[213504,[213529,213532],[213540,213541],[213563,213565],214622]],
+  // end ["epidemiology","epidem-control-prevention"]
+  // ["epidemiology","epidem-current-research"]
+  ["epidemiology","epidem-current-research",[[218400,218405],[218802,218803]]],
+  // end ["epidemiology","epidem-current-research"]
+  // ["epidemiology","epidem-data-analysis"]
+  ["epidemiology","epidem-data-analysis",[213528,213543,213545,[213555,213557],[214644,214647],[214653,214654]]],
+  // end ["epidemiology","epidem-data-analysis"]
+  // ["epidemiology","epidem-disease-frequency"]
+  ["epidemiology","epidem-disease-frequency",[[107001,107009],[213500,213502],213521,213523,213525,213538,214537,[214539,214548]]],
+  // end ["epidemiology","epidem-disease-frequency"]
+  // ["epidemiology","epidem-disease-transmission"]
+  ["epidemiology","epidem-disease-transmission",[[105098,105099],[105101,105102],[105104,105106],[105109,105116],213549,214502,[214520,214529],214534]],
+  // end ["epidemiology","epidem-disease-transmission"]
+  // ["epidemiology","epidem-dx-screening"]
+  ["epidemiology","epidem-dx-screening",[[107010,107020],213526,[213535,213536],[213546,213548],213560,214538,[214549,214563]]],
+  // end ["epidemiology","epidem-dx-screening"]
+  // ["epidemiology","epidem-fmd-strategy"]
+  ["epidemiology","epidem-fmd-strategy",[[214689,214691]]],
+  // end ["epidemiology","epidem-fmd-strategy"]
+  // ["epidemiology","epidem-govt-policy"]
+  ["epidemiology","epidem-govt-policy",[[214658,214685]]],
+  // end ["epidemiology","epidem-govt-policy"]
+  // ["epidemiology","epidem-intro"]
+  ["epidemiology","epidem-intro",[[100001,100004],[214686,214688],218804]],
+  // end ["epidemiology","epidem-intro"]
+  // ["epidemiology","epidem-lumpy-skin"]
+  ["epidemiology","epidem-lumpy-skin",[[214692,214702]]],
+  // end ["epidemiology","epidem-lumpy-skin"]
+  // ["epidemiology","epidem-observational-study"]
+  ["epidemiology","epidem-observational-study",[213510,[213514,213517],213520,213524,213527,[213533,213534],213542,213544,213561,[214566,214583]]],
+  // end ["epidemiology","epidem-observational-study"]
+  // ["epidemiology","epidem-outbreak-investigation"]
+  ["epidemiology","epidem-outbreak-investigation",[[100031,100034],[100036,100042],[213506,213508],213522,213537,[213550,213551],213562,214500,214584,[214588,214608]]],
+  // end ["epidemiology","epidem-outbreak-investigation"]
+  // ["epidemiology","epidem-ppp"]
+  ["epidemiology","epidem-ppp",[[214703,214705]]],
+  // end ["epidemiology","epidem-ppp"]
+  // ["epidemiology","epidem-sample-size"]
+  ["epidemiology","epidem-sample-size",[[107028,107040],213559,[214648,214652]]],
+  // end ["epidemiology","epidem-sample-size"]
+  // ["epidemiology","epidem-software"]
+  ["epidemiology","epidem-software",[[214655,214657],[218406,218408],[218800,218801]]],
+  // end ["epidemiology","epidem-software"]
+  // ["epidemiology","epidem-surveillance"]
+  ["epidemiology","epidem-surveillance",[[100018,100025],[100027,100030],213505,213518,[213552,213553],[214585,214587],[214609,214621]]],
+  // end ["epidemiology","epidem-surveillance"]
+  // ["epidemiology","epidem-test-agreement"]
+  ["epidemiology","epidem-test-agreement",[[107021,107027],[214564,214565],218409]],
+  // end ["epidemiology","epidem-test-agreement"]
+  // ["equine-medicine","equine-anesthesia"]
+  ["equine-medicine","equine-anesthesia",[[105271,105272],[105401,105402],105404,105407,[209570,209571],[209576,209584],[218501,218502]]],
+  // end ["equine-medicine","equine-anesthesia"]
+  // ["equine-medicine","equine-colic-bestfit"]
+  ["equine-medicine","equine-colic-bestfit",[[105376,105391],[107416,107429],[202059,202064],[202400,202404],[202406,202408],[207549,207551],207553]],
+  // end ["equine-medicine","equine-colic-bestfit"]
+  // ["equine-medicine","equine-colic-surgery"]
+  ["equine-medicine","equine-colic-surgery",[[209568,209569],[209585,209586]]],
+  // end ["equine-medicine","equine-colic-surgery"]
+  // ["equine-medicine","equine-dentistry"]
+  ["equine-medicine","equine-dentistry",[[202357,202366],[207524,207548],[207585,207589]]],
+  // end ["equine-medicine","equine-dentistry"]
+  // ["equine-medicine","equine-derm"]
+  ["equine-medicine","equine-derm",[[105216,105219],[105221,105224],[105227,105229],[105231,105233],[105236,105243],[105246,105250],[105252,105253]]],
+  // end ["equine-medicine","equine-derm"]
+  // ["equine-medicine","equine-gi"]
+  ["equine-medicine","equine-gi",[[105358,105375],[107408,107415],[202053,202058],202383,[202398,202399],202405,207552,[209625,209626]]],
+  // end ["equine-medicine","equine-gi"]
+  // ["equine-medicine","equine-hoof"]
+  ["equine-medicine","equine-hoof",[[216009,216013]]],
+  // end ["equine-medicine","equine-hoof"]
+  // ["equine-medicine","equine-infectious"]
+  ["equine-medicine","equine-infectious",[209567,[209639,209645],[216000,216004],[218504,218519]]],
+  // end ["equine-medicine","equine-infectious"]
+  // ["equine-medicine","equine-intro"]
+  ["equine-medicine","equine-intro",[[105282,105302],[107400,107407],[202031,202052],[202367,202382],202454,[207496,207513],209627]],
+  // end ["equine-medicine","equine-intro"]
+  // ["equine-medicine","equine-lameness"]
+  ["equine-medicine","equine-lameness",[[209600,209615],[209633,209634],[218529,218532]]],
+  // end ["equine-medicine","equine-lameness"]
+  // ["equine-medicine","equine-nutrition"]
+  ["equine-medicine","equine-nutrition",[[105303,105326],[202065,202078],[202387,202393],[207514,207523],[209623,209624]]],
+  // end ["equine-medicine","equine-nutrition"]
+  // ["equine-medicine","equine-ophth"]
+  ["equine-medicine","equine-ophth",[[105263,105264],[105266,105267],105270,[209500,209512],[209572,209575],[218521,218528]]],
+  // end ["equine-medicine","equine-ophth"]
+  // ["equine-medicine","equine-parasites"]
+  ["equine-medicine","equine-parasites",[[105327,105357],[202079,202090],[202394,202397],[207554,207570],[207606,207612],[209635,209638]]],
+  // end ["equine-medicine","equine-parasites"]
+  // ["equine-medicine","equine-poa"]
+  ["equine-medicine","equine-poa",[[105273,105276],[105278,105281],[202384,202385],[209587,209599],[209616,209622],[209628,209632]]],
+  // end ["equine-medicine","equine-poa"]
+  // ["equine-medicine","equine-pythium"]
+  ["equine-medicine","equine-pythium",[[216005,216008],[216019,216021],218520]],
+  // end ["equine-medicine","equine-pythium"]
+  // ["equine-medicine","equine-respi"]
+  ["equine-medicine","equine-respi",[[105254,105256],105258,[105260,105262],202386,[202409,202414],[207571,207584],[207590,207605]]],
+  // end ["equine-medicine","equine-respi"]
+  // ["equine-medicine","equine-surgery-wound"]
+  ["equine-medicine","equine-surgery-wound",[105392,[105395,105396],[105398,105400],105410,105412,[105416,105431],218500,218503]],
+  // end ["equine-medicine","equine-surgery-wound"]
+  // ["equine-medicine","equine-tendon"]
+  ["equine-medicine","equine-tendon",[[216014,216018]]],
+  // end ["equine-medicine","equine-tendon"]
+  // ["equine-repro","eqrepro-ai"]
+  ["equine-repro","eqrepro-ai",[[105468,105478],[218104,218105]]],
+  // end ["equine-repro","eqrepro-ai"]
+  // ["equine-repro","eqrepro-anatomy-cycle"]
+  ["equine-repro","eqrepro-anatomy-cycle",[[105504,105511],[105544,105545],105561,202093,[207619,207621]]],
+  // end ["equine-repro","eqrepro-anatomy-cycle"]
+  // ["equine-repro","eqrepro-art-female"]
+  ["equine-repro","eqrepro-art-female",[[105523,105532],202092,[202245,202246],[207492,207493],207625]],
+  // end ["equine-repro","eqrepro-art-female"]
+  // ["equine-repro","eqrepro-endometritis"]
+  ["equine-repro","eqrepro-endometritis",[[105535,105537],[105548,105560],[218110,218117]]],
+  // end ["equine-repro","eqrepro-endometritis"]
+  // ["equine-repro","eqrepro-exam-mare"]
+  ["equine-repro","eqrepro-exam-mare",[[105493,105503],105515,[105520,105521],[202248,202249],[202251,202252],207485,207494,[207613,207618],207622]],
+  // end ["equine-repro","eqrepro-exam-mare"]
+  // ["equine-repro","eqrepro-infertility"]
+  ["equine-repro","eqrepro-infertility",[105436,[105491,105492],105512,105514,[105516,105517],[105533,105534],105546,202247,[207490,207491],207495,[207623,207624],207626,211503]],
+  // end ["equine-repro","eqrepro-infertility"]
+  // ["equine-repro","eqrepro-male"]
+  ["equine-repro","eqrepro-male",[[105452,105467],211500,211502,[218100,218103]]],
+  // end ["equine-repro","eqrepro-male"]
+  // ["equine-repro","eqrepro-mare-infect"]
+  ["equine-repro","eqrepro-mare-infect",[[105538,105539],202091,207486,207488]],
+  // end ["equine-repro","eqrepro-mare-infect"]
+  // ["equine-repro","eqrepro-postpartum"]
+  ["equine-repro","eqrepro-postpartum",[[105446,105451],[105571,105575],[218120,218121]]],
+  // end ["equine-repro","eqrepro-postpartum"]
+  // ["equine-repro","eqrepro-pregnancy"]
+  ["equine-repro","eqrepro-pregnancy",[[105432,105435],[105437,105445],105513,[105518,105519],105522,105547,[105562,105570],[209513,209566],[218118,218119]]],
+  // end ["equine-repro","eqrepro-pregnancy"]
+  // ["equine-repro","eqrepro-stallion-infect"]
+  ["equine-repro","eqrepro-stallion-infect",[[105479,105482],[105540,105543],202250,207487,207489,[207627,207629],211501,211504,218106]],
+  // end ["equine-repro","eqrepro-stallion-infect"]
+  // ["equine-repro","eqrepro-surgery"]
+  ["equine-repro","eqrepro-surgery",[[105483,105490],[218107,218109]]],
+  // end ["equine-repro","eqrepro-surgery"]
+  // ["exotic","bird-infect"]
+  ["exotic","bird-infect",[[167,168],[294,295],1572,[50023,50034],[50048,50054]]],
+  // end ["exotic","bird-infect"]
+  // ["exotic","bird-noninfect"]
+  ["exotic","bird-noninfect",[[164,166],[169,170],[50018,50022],[50035,50047]]],
+  // end ["exotic","bird-noninfect"]
+  // ["exotic","chicken"]
+  ["exotic","chicken",[[94036,94038]]],
+  // end ["exotic","chicken"]
+  // ["exotic","ferret"]
+  ["exotic","ferret",[297]],
+  // end ["exotic","ferret"]
+  // ["exotic","field-vet"]
+  ["exotic","field-vet",[172,[1594,1610],[50007,50012]]],
+  // end ["exotic","field-vet"]
+  // ["exotic","hamster-gerbil"]
+  ["exotic","hamster-gerbil",[296,[94001,94002],[94040,94042]]],
+  // end ["exotic","hamster-gerbil"]
+  // ["exotic","rabbit"]
+  ["exotic","rabbit",[[290,291],94000,[94004,94009],[94011,94018],94033,94035]],
+  // end ["exotic","rabbit"]
+  // ["exotic","reptile"]
+  ["exotic","reptile",[[292,293],94010,94032,94034,94039]],
+  // end ["exotic","reptile"]
+  // ["exotic","sugar-glider-hedgehog"]
+  ["exotic","sugar-glider-hedgehog",[94003,[94019,94031],94043]],
+  // end ["exotic","sugar-glider-hedgehog"]
+  // ["exotic","wildlife-career"]
+  ["exotic","wildlife-career",[163,[50013,50017]]],
+  // end ["exotic","wildlife-career"]
+  // ["exotic","zoo-vet"]
+  ["exotic","zoo-vet",[171,[173,174],[1580,1593],[50000,50006]]],
+  // end ["exotic","zoo-vet"]
+  // ["food-industry","fiqc-aquatic"]
+  ["food-industry","fiqc-aquatic",[[103000,103015],[218336,218347]]],
+  // end ["food-industry","fiqc-aquatic"]
+  // ["food-industry","fiqc-feed-qc"]
+  ["food-industry","fiqc-feed-qc",[[107209,107217],109500,109502,109506,109516,109526,109528,109530,109534,109542,109544,109548,109552,109564,109566,109568,109570,109572,109586,109588,109590,[202253,202254],[207055,207088],[207266,207270],207482]],
+  // end ["food-industry","fiqc-feed-qc"]
+  // ["food-industry","fiqc-haccp"]
+  ["food-industry","fiqc-haccp",[[106221,106237],[213000,213006],[218300,218311]]],
+  // end ["food-industry","fiqc-haccp"]
+  // ["food-industry","fiqc-intro"]
+  ["food-industry","fiqc-intro",[[107200,107208],[202268,202271],[207089,207104]]],
+  // end ["food-industry","fiqc-intro"]
+  // ["food-industry","fiqc-livestock-qc"]
+  ["food-industry","fiqc-livestock-qc",[[107227,107235],109504,109508,109512,109532,109538,109540,109550,109554,109556,109558,109574,109576,[202257,202267],[207029,207054],[207283,207287],[207479,207481]]],
+  // end ["food-industry","fiqc-livestock-qc"]
+  // ["food-industry","fiqc-poultry-export"]
+  ["food-industry","fiqc-poultry-export",[[106238,106254],[213007,213010],[218312,218335]]],
+  // end ["food-industry","fiqc-poultry-export"]
+  // ["food-industry","fiqc-slaughter-qc"]
+  ["food-industry","fiqc-slaughter-qc",[[107218,107226],109510,109514,109518,109520,109522,109524,109536,109546,109560,109562,109578,109580,109582,109584,109592,109594,109596,[202255,202256],[207000,207028],[207271,207282],[207475,207478]]],
+  // end ["food-industry","fiqc-slaughter-qc"]
+  // ["food-safety-y4","dose-response"]
+  ["food-safety-y4","dose-response",[92503]],
+  // end ["food-safety-y4","dose-response"]
+  // ["food-safety-y4","drug-residues"]
+  ["food-safety-y4","drug-residues",[[92525,92526]]],
+  // end ["food-safety-y4","drug-residues"]
+  // ["food-safety-y4","e-coli-stec"]
+  ["food-safety-y4","e-coli-stec",[92507]],
+  // end ["food-safety-y4","e-coli-stec"]
+  // ["food-safety-y4","food-additives"]
+  ["food-safety-y4","food-additives",[[92520,92524]]],
+  // end ["food-safety-y4","food-additives"]
+  // ["food-safety-y4","food-laws-thailand"]
+  ["food-safety-y4","food-laws-thailand",[92504]],
+  // end ["food-safety-y4","food-laws-thailand"]
+  // ["food-safety-y4","food-pathogens"]
+  ["food-safety-y4","food-pathogens",[92506,[92509,92513],[92515,92519],92530]],
+  // end ["food-safety-y4","food-pathogens"]
+  // ["food-safety-y4","food-spoilage"]
+  ["food-safety-y4","food-spoilage",[92528]],
+  // end ["food-safety-y4","food-spoilage"]
+  // ["food-safety-y4","haccp"]
+  ["food-safety-y4","haccp",[92529]],
+  // end ["food-safety-y4","haccp"]
+  // ["food-safety-y4","listeria"]
+  ["food-safety-y4","listeria",[92508]],
+  // end ["food-safety-y4","listeria"]
+  // ["food-safety-y4","milk-pasteurization"]
+  ["food-safety-y4","milk-pasteurization",[92527]],
+  // end ["food-safety-y4","milk-pasteurization"]
+  // ["food-safety-y4","norovirus"]
+  ["food-safety-y4","norovirus",[92514]],
+  // end ["food-safety-y4","norovirus"]
+  // ["food-safety-y4","qmra-quantitative-microbial-risk"]
+  ["food-safety-y4","qmra-quantitative-microbial-risk",[92502]],
+  // end ["food-safety-y4","qmra-quantitative-microbial-risk"]
+  // ["food-safety-y4","risk-analysis-cac-framework"]
+  ["food-safety-y4","risk-analysis-cac-framework",[92500]],
+  // end ["food-safety-y4","risk-analysis-cac-framework"]
+  // ["food-safety-y4","risk-assessment-steps"]
+  ["food-safety-y4","risk-assessment-steps",[92501]],
+  // end ["food-safety-y4","risk-assessment-steps"]
+  // ["food-safety-y4","salmonella"]
+  ["food-safety-y4","salmonella",[92505]],
+  // end ["food-safety-y4","salmonella"]
+  // ["herd-health-rum","acute-ruminal-acidosis"]
+  ["herd-health-rum","acute-ruminal-acidosis",[[94502,94503]]],
+  // end ["herd-health-rum","acute-ruminal-acidosis"]
+  // ["herd-health-rum","anaplasmosis"]
+  ["herd-health-rum","anaplasmosis",[94517]],
+  // end ["herd-health-rum","anaplasmosis"]
+  // ["herd-health-rum","anthrax"]
+  ["herd-health-rum","anthrax",[[94509,94510]]],
+  // end ["herd-health-rum","anthrax"]
+  // ["herd-health-rum","babesiosis"]
+  ["herd-health-rum","babesiosis",[94516]],
+  // end ["herd-health-rum","babesiosis"]
+  // ["herd-health-rum","brdc"]
+  ["herd-health-rum","brdc",[94521]],
+  // end ["herd-health-rum","brdc"]
+  // ["herd-health-rum","brucellosis"]
+  ["herd-health-rum","brucellosis",[[94513,94514]]],
+  // end ["herd-health-rum","brucellosis"]
+  // ["herd-health-rum","bvd-persistent-infection"]
+  ["herd-health-rum","bvd-persistent-infection",[94522]],
+  // end ["herd-health-rum","bvd-persistent-infection"]
+  // ["herd-health-rum","enzootic-bovine-leukosis"]
+  ["herd-health-rum","enzootic-bovine-leukosis",[94519]],
+  // end ["herd-health-rum","enzootic-bovine-leukosis"]
+  // ["herd-health-rum","ephemeral-fever"]
+  ["herd-health-rum","ephemeral-fever",[94518]],
+  // end ["herd-health-rum","ephemeral-fever"]
+  // ["herd-health-rum","fec-anthelmintic-resistance"]
+  ["herd-health-rum","fec-anthelmintic-resistance",[94532]],
+  // end ["herd-health-rum","fec-anthelmintic-resistance"]
+  // ["herd-health-rum","fertility-kpi"]
+  ["herd-health-rum","fertility-kpi",[94531]],
+  // end ["herd-health-rum","fertility-kpi"]
+  // ["herd-health-rum","fluid-therapy"]
+  ["herd-health-rum","fluid-therapy",[94528]],
+  // end ["herd-health-rum","fluid-therapy"]
+  // ["herd-health-rum","fmd"]
+  ["herd-health-rum","fmd",[[94506,94507]]],
+  // end ["herd-health-rum","fmd"]
+  // ["herd-health-rum","grass-tetany"]
+  ["herd-health-rum","grass-tetany",[94526]],
+  // end ["herd-health-rum","grass-tetany"]
+  // ["herd-health-rum","hemorrhagic-septicemia"]
+  ["herd-health-rum","hemorrhagic-septicemia",[94523]],
+  // end ["herd-health-rum","hemorrhagic-septicemia"]
+  // ["herd-health-rum","incidence-rate-calculation"]
+  ["herd-health-rum","incidence-rate-calculation",[94538]],
+  // end ["herd-health-rum","incidence-rate-calculation"]
+  // ["herd-health-rum","ketosis"]
+  ["herd-health-rum","ketosis",[94524]],
+  // end ["herd-health-rum","ketosis"]
+  // ["herd-health-rum","lumpy-skin-disease"]
+  ["herd-health-rum","lumpy-skin-disease",[94508]],
+  // end ["herd-health-rum","lumpy-skin-disease"]
+  // ["herd-health-rum","malignant-catarrhal-fever"]
+  ["herd-health-rum","malignant-catarrhal-fever",[94520]],
+  // end ["herd-health-rum","malignant-catarrhal-fever"]
+  // ["herd-health-rum","mastitis-treatment-clinical"]
+  ["herd-health-rum","mastitis-treatment-clinical",[94534]],
+  // end ["herd-health-rum","mastitis-treatment-clinical"]
+  // ["herd-health-rum","mastitis-treatment-drycow"]
+  ["herd-health-rum","mastitis-treatment-drycow",[94533]],
+  // end ["herd-health-rum","mastitis-treatment-drycow"]
+  // ["herd-health-rum","milk-fever"]
+  ["herd-health-rum","milk-fever",[94525]],
+  // end ["herd-health-rum","milk-fever"]
+  // ["herd-health-rum","milk-quality-standard"]
+  ["herd-health-rum","milk-quality-standard",[94536]],
+  // end ["herd-health-rum","milk-quality-standard"]
+  // ["herd-health-rum","on-farm-culture"]
+  ["herd-health-rum","on-farm-culture",[94535]],
+  // end ["herd-health-rum","on-farm-culture"]
+  // ["herd-health-rum","paratuberculosis"]
+  ["herd-health-rum","paratuberculosis",[94515]],
+  // end ["herd-health-rum","paratuberculosis"]
+  // ["herd-health-rum","pregnancy-toxemia"]
+  ["herd-health-rum","pregnancy-toxemia",[[94500,94501]]],
+  // end ["herd-health-rum","pregnancy-toxemia"]
+  // ["herd-health-rum","responsible-amr"]
+  ["herd-health-rum","responsible-amr",[94530]],
+  // end ["herd-health-rum","responsible-amr"]
+  // ["herd-health-rum","subacute-ruminal-acidosis"]
+  ["herd-health-rum","subacute-ruminal-acidosis",[94527]],
+  // end ["herd-health-rum","subacute-ruminal-acidosis"]
+  // ["herd-health-rum","toxic-mastitis"]
+  ["herd-health-rum","toxic-mastitis",[94529]],
+  // end ["herd-health-rum","toxic-mastitis"]
+  // ["herd-health-rum","transition-cow-management"]
+  ["herd-health-rum","transition-cow-management",[94537]],
+  // end ["herd-health-rum","transition-cow-management"]
+  // ["herd-health-rum","tuberculosis-bovine"]
+  ["herd-health-rum","tuberculosis-bovine",[[94511,94512]]],
+  // end ["herd-health-rum","tuberculosis-bovine"]
+  // ["herd-health-rum","urinary-calculi"]
+  ["herd-health-rum","urinary-calculi",[[94504,94505]]],
+  // end ["herd-health-rum","urinary-calculi"]
+  // ["livestock-pathology","lpath-avian"]
+  ["livestock-pathology","lpath-avian",[8034,[8229,8231],[8247,8248],[8255,8258]]],
+  // end ["livestock-pathology","lpath-avian"]
+  // ["livestock-pathology","lpath-slaughter"]
+  ["livestock-pathology","lpath-slaughter",[8205,8260,8264]],
+  // end ["livestock-pathology","lpath-slaughter"]
+  // ["livestock-pathology","lpath-swine-systemic"]
+  ["livestock-pathology","lpath-swine-systemic",[[8201,8204],[8206,8228],[8232,8246],[8249,8254],8259,[8261,8263],8265]],
+  // end ["livestock-pathology","lpath-swine-systemic"]
+  // ["livestock-pathology","lpath-systemic"]
+  ["livestock-pathology","lpath-systemic",[8002]],
+  // end ["livestock-pathology","lpath-systemic"]
+  // ["milk-meat-hygiene","meat-ante-post-mortem"]
+  ["milk-meat-hygiene","meat-ante-post-mortem",[[212001,212013],212016,[212023,212026],[212138,212141],[214000,214001],214004,[214008,214041],[214233,214236]]],
+  // end ["milk-meat-hygiene","meat-ante-post-mortem"]
+  // ["milk-meat-hygiene","meat-cutting-grading"]
+  ["milk-meat-hygiene","meat-cutting-grading",[[212018,212019],[212069,212075],212086,212134,212147,[214187,214212],[214230,214232]]],
+  // end ["milk-meat-hygiene","meat-cutting-grading"]
+  // ["milk-meat-hygiene","meat-egg-micro"]
+  ["milk-meat-hygiene","meat-egg-micro",[[212043,212057],[214220,214222]]],
+  // end ["milk-meat-hygiene","meat-egg-micro"]
+  // ["milk-meat-hygiene","meat-hygiene-intro"]
+  ["milk-meat-hygiene","meat-hygiene-intro",[212114,212117,212120,212122,212124,212129,212137,214071,[214110,214119]]],
+  // end ["milk-meat-hygiene","meat-hygiene-intro"]
+  // ["milk-meat-hygiene","meat-microbiology"]
+  ["milk-meat-hygiene","meat-microbiology",[[212058,212068],[212087,212095],212146,[214002,214003],[214005,214007],[214042,214070],[214224,214226],214228]],
+  // end ["milk-meat-hygiene","meat-microbiology"]
+  // ["milk-meat-hygiene","meat-molecular"]
+  ["milk-meat-hygiene","meat-molecular",[[212108,212110],[212131,212132],[214145,214146],[214162,214164]]],
+  // end ["milk-meat-hygiene","meat-molecular"]
+  // ["milk-meat-hygiene","meat-pest-control"]
+  ["milk-meat-hygiene","meat-pest-control",[[212029,212042],[212142,212144],212148,[214213,214219]]],
+  // end ["milk-meat-hygiene","meat-pest-control"]
+  // ["milk-meat-hygiene","meat-quality"]
+  ["milk-meat-hygiene","meat-quality",[[212106,212107],212130,[214155,214161]]],
+  // end ["milk-meat-hygiene","meat-quality"]
+  // ["milk-meat-hygiene","meat-seafood"]
+  ["milk-meat-hygiene","meat-seafood",[[212111,212113],[212115,212116],[212118,212119],212121,212123,[212125,212128],212145,[214072,214073],[214120,214142]]],
+  // end ["milk-meat-hygiene","meat-seafood"]
+  // ["milk-meat-hygiene","meat-slaughter"]
+  ["milk-meat-hygiene","meat-slaughter",[212000,[212014,212015],212017,[212020,212022],[212027,212028],[212076,212082],212133,[212135,212136],214147,[214165,214186]]],
+  // end ["milk-meat-hygiene","meat-slaughter"]
+  // ["milk-meat-hygiene","meat-storage"]
+  ["milk-meat-hygiene","meat-storage",[[212096,212105],[214143,214144],[214148,214154],214223,214229]],
+  // end ["milk-meat-hygiene","meat-storage"]
+  // ["milk-meat-hygiene","milk-biosec-dairy"]
+  ["milk-meat-hygiene","milk-biosec-dairy",[[105762,105771],[106285,106286],[207169,207174],[207250,207260],[207471,207473]]],
+  // end ["milk-meat-hygiene","milk-biosec-dairy"]
+  // ["milk-meat-hygiene","milk-borne-pathogens"]
+  ["milk-meat-hygiene","milk-borne-pathogens",[[101086,101099],104518,104520,104522,104576,104726,[105713,105717],[106266,106270],[207204,207213],207322,[207434,207435],207440,207445]],
+  // end ["milk-meat-hygiene","milk-borne-pathogens"]
+  // ["milk-meat-hygiene","milk-cleaning"]
+  ["milk-meat-hygiene","milk-cleaning",[104728,104730,104736,104776,104788,[105744,105753],202274,[207224,207229],207350,[207448,207451],207453,[207459,207460],207468,[212083,212085],[214074,214109],214227,[214237,214238]]],
+  // end ["milk-meat-hygiene","milk-cleaning"]
+  // ["milk-meat-hygiene","milk-industry-std"]
+  ["milk-meat-hygiene","milk-industry-std",[[101100,101114],104516,104636,104638,104640,104646,104658,104660,104664,104732,104740,104742,104746,104748,104770,104784,104786,104804,[105754,105761],106261,[106271,106272],[207214,207223],207336,[207339,207342],[207465,207467],[207469,207470]]],
+  // end ["milk-meat-hygiene","milk-industry-std"]
+  // ["milk-meat-hygiene","milk-mastitis"]
+  ["milk-meat-hygiene","milk-mastitis",[[101008,101019],104524,104542,104544,104550,104552,104554,104556,104558,104560,104562,104564,104568,104570,104572,104578,104582,104584,104586,104588,104590,104592,104594,104596,104598,104600,104602,104604,104606,104608,104610,104612,104614,104616,104618,104620,104706,104734,104790,[105718,105727],[106273,106277],203001,[203005,203007],[207135,207150],[207262,207265]]],
+  // end ["milk-meat-hygiene","milk-mastitis"]
+  // ["milk-meat-hygiene","milk-microbiology"]
+  ["milk-meat-hygiene","milk-microbiology",[[101074,101077],[101079,101085],104500,104526,104528,104530,104532,104534,104536,104538,104580,104626,104628,104650,104654,104680,104690,104692,104718,104722,104772,104774,[105706,105712],[106263,106264],[207195,207203],[207248,207249],[207318,207321],[207323,207332],207381,[207385,207388],[207436,207439],[207441,207444]]],
+  // end ["milk-meat-hygiene","milk-microbiology"]
+  // ["milk-meat-hygiene","milk-overview"]
+  ["milk-meat-hygiene","milk-overview",[101000,[101002,101007],104502,104632,104644,104652,104738,104744,104752,104754,104764,104792,104796,104798,[106283,106284],202272,[207164,207168],207261]],
+  // end ["milk-meat-hygiene","milk-overview"]
+  // ["milk-meat-hygiene","milk-processing"]
+  ["milk-meat-hygiene","milk-processing",[[101116,101123],101125,[101127,101135],104506,104508,104540,104574,104624,104630,104634,104642,104648,104662,104670,104672,104674,104676,104684,104688,104696,104698,104712,104714,104716,104750,104756,104758,104760,104766,104802,104812,[105728,105729],[105731,105743],106265,106282,203003,[207230,207243],[207333,207335],[207337,207338],[207343,207349],[207351,207352],[207446,207447],207452,[207454,207458],[207461,207464],207474]],
+  // end ["milk-meat-hygiene","milk-processing"]
+  // ["milk-meat-hygiene","milk-products-storage"]
+  ["milk-meat-hygiene","milk-products-storage",[[101031,101039],104762,106281,[207159,207163],207365]],
+  // end ["milk-meat-hygiene","milk-products-storage"]
+  // ["milk-meat-hygiene","milk-quality-composition"]
+  ["milk-meat-hygiene","milk-quality-composition",[[101040,101057],104514,104546,104548,104566,104622,104666,104668,104678,104682,104694,104702,104708,104720,104724,104780,104782,104794,104800,104806,104808,104810,[105644,105661],106255,[207175,207184],[207288,207302],[207420,207427],207429]],
+  // end ["milk-meat-hygiene","milk-quality-composition"]
+  // ["milk-meat-hygiene","milk-quality-determination"]
+  ["milk-meat-hygiene","milk-quality-determination",[104504,104510,104512,104656,104704,[105695,105705],203002,[207105,207134],[207367,207380],[207382,207384],[207389,207417],207484]],
+  // end ["milk-meat-hygiene","milk-quality-determination"]
+  // ["milk-meat-hygiene","milk-raw-std"]
+  ["milk-meat-hygiene","milk-raw-std",[[101058,101073],104700,[105662,105672],[106256,106260],106262,203004,[207185,207194],[207303,207317],[207418,207419],207428,[207430,207433]]],
+  // end ["milk-meat-hygiene","milk-raw-std"]
+  // ["milk-meat-hygiene","milk-raw-storage"]
+  ["milk-meat-hygiene","milk-raw-storage",[[101020,101024],[101026,101030],104686,104710,104768,104778,[105673,105694],[106278,106280],202273,[207151,207158],[207244,207247],[207353,207363],207366]],
+  // end ["milk-meat-hygiene","milk-raw-storage"]
+  // ["one-health","oh-amr"]
+  ["one-health","oh-amr",[[105953,105962],[210000,210002],[215005,215007],[218606,218610]]],
+  // end ["one-health","oh-amr"]
+  // ["one-health","oh-collaboration"]
+  ["one-health","oh-collaboration",[108002,[202318,202320],[206171,206173]]],
+  // end ["one-health","oh-collaboration"]
+  // ["one-health","oh-communication"]
+  ["one-health","oh-communication",[108004,[202314,202317],[206168,206170]]],
+  // end ["one-health","oh-communication"]
+  // ["one-health","oh-concept"]
+  ["one-health","oh-concept",[105970,108000,[202312,202313],[206163,206167]]],
+  // end ["one-health","oh-concept"]
+  // ["one-health","oh-disease-prevention"]
+  ["one-health","oh-disease-prevention",[105938,105940,105943,[202301,202311],[206174,206210]]],
+  // end ["one-health","oh-disease-prevention"]
+  // ["one-health","oh-env-carcinogen"]
+  ["one-health","oh-env-carcinogen",[[105967,105968],105971,105974,[210003,210015],[215008,215009]]],
+  // end ["one-health","oh-env-carcinogen"]
+  // ["one-health","oh-env-mutagen"]
+  ["one-health","oh-env-mutagen",[105973,[105975,105981],[210016,210026],215010]],
+  // end ["one-health","oh-env-mutagen"]
+  // ["one-health","oh-foodborne"]
+  ["one-health","oh-foodborne",[[105946,105950],105952,[210027,210028],[218601,218603]]],
+  // end ["one-health","oh-foodborne"]
+  // ["one-health","oh-global-network"]
+  ["one-health","oh-global-network",[102010,102015,[102018,102019],[105944,105945],[107500,107503],[107505,107506],107508,[107510,107513],[107515,107519],[202287,202300]]],
+  // end ["one-health","oh-global-network"]
+  // ["one-health","oh-gmo"]
+  ["one-health","oh-gmo",[[105963,105966],[210029,210037],210049,[218604,218605]]],
+  // end ["one-health","oh-gmo"]
+  // ["one-health","oh-import-risk"]
+  ["one-health","oh-import-risk",[[106000,106004],[215000,215004],218600]],
+  // end ["one-health","oh-import-risk"]
+  // ["one-health","oh-livestock-waste"]
+  ["one-health","oh-livestock-waste",[[105982,105987],[210038,210045],[215011,215013],[218611,218625]]],
+  // end ["one-health","oh-livestock-waste"]
+  // ["one-health","oh-risk-analysis"]
+  ["one-health","oh-risk-analysis",[[105988,105999],[210046,210048]]],
+  // end ["one-health","oh-risk-analysis"]
+  // ["one-health","oh-vet-role"]
+  ["one-health","oh-vet-role",[[102000,102009],[202275,202286]]],
+  // end ["one-health","oh-vet-role"]
+  // ["poa-clinical","poa-diarrhea"]
+  ["poa-clinical","poa-diarrhea",[[107308,107321]]],
+  // end ["poa-clinical","poa-diarrhea"]
+  // ["poa-clinical","poa-edema"]
+  ["poa-clinical","poa-edema",[[105000,105001],[105003,105015]]],
+  // end ["poa-clinical","poa-edema"]
+  // ["poa-clinical","poa-intro"]
+  ["poa-clinical","poa-intro",[[107300,107307]]],
+  // end ["poa-clinical","poa-intro"]
+  // ["poa-clinical","poa-red-urine"]
+  ["poa-clinical","poa-red-urine",[[106300,106302]]],
+  // end ["poa-clinical","poa-red-urine"]
+  // ["poa-clinical","poa-respiratory"]
+  ["poa-clinical","poa-respiratory",[[106287,106299],[107336,107339]]],
+  // end ["poa-clinical","poa-respiratory"]
+  // ["poa-clinical","poa-vomiting"]
+  ["poa-clinical","poa-vomiting",[[107322,107335]]],
+  // end ["poa-clinical","poa-vomiting"]
+  // ["poultry","avian-drugs"]
+  ["poultry","avian-drugs",[1940,[1944,1951],[1956,1957],2201]],
+  // end ["poultry","avian-drugs"]
+  // ["poultry","avian-zoonosis"]
+  ["poultry","avian-zoonosis",[1755,[1918,1923],[1958,1959],2200]],
+  // end ["poultry","avian-zoonosis"]
+  // ["poultry","biosecurity"]
+  ["poultry","biosecurity",[1766,[1906,1908],[1924,1929],[1931,1937],2202]],
+  // end ["poultry","biosecurity"]
+  // ["poultry","first-week-mortality"]
+  ["poultry","first-week-mortality",[[1900,1905],[1909,1917],1930,1938]],
+  // end ["poultry","first-week-mortality"]
+  // ["poultry","mahahon-poultry-biosec"]
+  ["poultry","mahahon-poultry-biosec",[[4001,4006],[4049,4050]]],
+  // end ["poultry","mahahon-poultry-biosec"]
+  // ["poultry","mahahon-poultry-drugs"]
+  ["poultry","mahahon-poultry-drugs",[[4007,4011],[4046,4048]]],
+  // end ["poultry","mahahon-poultry-drugs"]
+  // ["poultry","mahahon-poultry-firstweek"]
+  ["poultry","mahahon-poultry-firstweek",[[4023,4030],[4051,4052]]],
+  // end ["poultry","mahahon-poultry-firstweek"]
+  // ["poultry","mahahon-poultry-nutrition"]
+  ["poultry","mahahon-poultry-nutrition",[[4031,4045],[4056,4058]]],
+  // end ["poultry","mahahon-poultry-nutrition"]
+  // ["poultry","mahahon-poultry-qa"]
+  ["poultry","mahahon-poultry-qa",[[4012,4016],[4053,4055]]],
+  // end ["poultry","mahahon-poultry-qa"]
+  // ["poultry","mahahon-poultry-zoonosis"]
+  ["poultry","mahahon-poultry-zoonosis",[[4017,4022],[4059,4060]]],
+  // end ["poultry","mahahon-poultry-zoonosis"]
+  // ["poultry","midterm-disease"]
+  ["poultry","midterm-disease",[[1764,1765]]],
+  // end ["poultry","midterm-disease"]
+  // ["poultry","physiology"]
+  ["poultry","physiology",[[1760,1762]]],
+  // end ["poultry","physiology"]
+  // ["poultry","quality-assurance"]
+  ["poultry","quality-assurance",[[1752,1754],[1756,1758],1939,[1941,1943],[1952,1955],2203]],
+  // end ["poultry","quality-assurance"]
+  // ["poultry","uncertain-scope"]
+  ["poultry","uncertain-scope",[[1700,1701],[1703,1706],[1708,1713],[1715,1718],[1720,1727],1730,[1732,1735],[1737,1740],[1742,1746],[1748,1749],1751]],
+  // end ["poultry","uncertain-scope"]
+  // ["practrum","animal-nutrition"]
+  ["practrum","animal-nutrition",[[2024,2025],[2047,2049]]],
+  // end ["practrum","animal-nutrition"]
+  // ["practrum","bovine-anesthesia"]
+  ["practrum","bovine-anesthesia",[[2000,2007],[2035,2039],2211]],
+  // end ["practrum","bovine-anesthesia"]
+  // ["practrum","cow-restraint"]
+  ["practrum","cow-restraint",[[2026,2027],[2050,2052]]],
+  // end ["practrum","cow-restraint"]
+  // ["practrum","dehorning"]
+  ["practrum","dehorning",[[2013,2016]]],
+  // end ["practrum","dehorning"]
+  // ["practrum","hoof-trim"]
+  ["practrum","hoof-trim",[[2017,2020],2042,[2044,2046]]],
+  // end ["practrum","hoof-trim"]
+  // ["practrum","mahahon-practrum-dystocia"]
+  ["practrum","mahahon-practrum-dystocia",[[3020,3034],[3065,3067]]],
+  // end ["practrum","mahahon-practrum-dystocia"]
+  // ["practrum","mahahon-practrum-feed"]
+  ["practrum","mahahon-practrum-feed",[[3015,3019],[3041,3049],[3053,3056]]],
+  // end ["practrum","mahahon-practrum-feed"]
+  // ["practrum","mahahon-practrum-penile"]
+  ["practrum","mahahon-practrum-penile",[[3035,3040]]],
+  // end ["practrum","mahahon-practrum-penile"]
+  // ["practrum","mahahon-practrum-silage"]
+  ["practrum","mahahon-practrum-silage",[[3010,3014],[3050,3052],3057]],
+  // end ["practrum","mahahon-practrum-silage"]
+  // ["practrum","mahahon-practrum-surgery"]
+  ["practrum","mahahon-practrum-surgery",[3002,3006,3008,[3060,3064],[3068,3071]]],
+  // end ["practrum","mahahon-practrum-surgery"]
+  // ["practrum","parturition-fetotomy"]
+  ["practrum","parturition-fetotomy",[[2028,2031]]],
+  // end ["practrum","parturition-fetotomy"]
+  // ["practrum","penile-deviation"]
+  ["practrum","penile-deviation",[[2021,2023]]],
+  // end ["practrum","penile-deviation"]
+  // ["practrum","rumenotomy"]
+  ["practrum","rumenotomy",[[2008,2012],[2032,2034],[2040,2041],2210]],
+  // end ["practrum","rumenotomy"]
+  // ["rec-adv-bioscience","ravb-bacterial-dx"]
+  ["rec-adv-bioscience","ravb-bacterial-dx",[8049]],
+  // end ["rec-adv-bioscience","ravb-bacterial-dx"]
+  // ["rec-adv-bioscience","ravb-helminths"]
+  ["rec-adv-bioscience","ravb-helminths",[[8050,8051]]],
+  // end ["rec-adv-bioscience","ravb-helminths"]
+  // ["rec-adv-bioscience","ravb-protozoa-blood"]
+  ["rec-adv-bioscience","ravb-protozoa-blood",[8044]],
+  // end ["rec-adv-bioscience","ravb-protozoa-blood"]
+  // ["repro","__unassigned__"]
+  ["repro","__unassigned__",[66,[70,71],[75,79],238]],
+  // end ["repro","__unassigned__"]
+  // ["repro","dystocia"]
+  ["repro","dystocia",[62,65,[230,231],233,240]],
+  // end ["repro","dystocia"]
+  // ["repro","repro-exam"]
+  ["repro","repro-exam",[[68,69],[235,237],239]],
+  // end ["repro","repro-exam"]
+  // ["repro","semen-ai"]
+  ["repro","semen-ai",[232,234,241]],
+  // end ["repro","semen-ai"]
+  // ["repro","vaginal-cytology"]
+  ["repro","vaginal-cytology",[[60,61],64,67,[72,74]]],
+  // end ["repro","vaginal-cytology"]
+  // ["repro-lect","biotech"]
+  ["repro-lect","biotech",[[1820,1824],[1870,1873],[1892,1896]]],
+  // end ["repro-lect","biotech"]
+  // ["repro-lect","exotic-repro"]
+  ["repro-lect","exotic-repro",[[1825,1829],[1897,1899],[52000,52003]]],
+  // end ["repro-lect","exotic-repro"]
+  // ["repro-lect","genetics"]
+  ["repro-lect","genetics",[[1830,1834]]],
+  // end ["repro-lect","genetics"]
+  // ["repro-lect","gonadectomy-risk"]
+  ["repro-lect","gonadectomy-risk",[[1840,1844],[1881,1885]]],
+  // end ["repro-lect","gonadectomy-risk"]
+  // ["repro-lect","group01-nutrition-neutered"]
+  ["repro-lect","group01-nutrition-neutered",[52057]],
+  // end ["repro-lect","group01-nutrition-neutered"]
+  // ["repro-lect","group02-bph-pharmacology"]
+  ["repro-lect","group02-bph-pharmacology",[52058]],
+  // end ["repro-lect","group02-bph-pharmacology"]
+  // ["repro-lect","group03-gene-editing"]
+  ["repro-lect","group03-gene-editing",[52059]],
+  // end ["repro-lect","group03-gene-editing"]
+  // ["repro-lect","group04-dermato-repro"]
+  ["repro-lect","group04-dermato-repro",[52060]],
+  // end ["repro-lect","group04-dermato-repro"]
+  // ["repro-lect","group05-felidae-infertility"]
+  ["repro-lect","group05-felidae-infertility",[2204]],
+  // end ["repro-lect","group05-felidae-infertility"]
+  // ["repro-lect","group06-iugr-piglet"]
+  ["repro-lect","group06-iugr-piglet",[2205]],
+  // end ["repro-lect","group06-iugr-piglet"]
+  // ["repro-lect","group07-ruminant-us-CL"]
+  ["repro-lect","group07-ruminant-us-CL",[2206]],
+  // end ["repro-lect","group07-ruminant-us-CL"]
+  // ["repro-lect","group08-PAGs-ruminant"]
+  ["repro-lect","group08-PAGs-ruminant",[2207]],
+  // end ["repro-lect","group08-PAGs-ruminant"]
+  // ["repro-lect","group09-placenta"]
+  ["repro-lect","group09-placenta",[2208]],
+  // end ["repro-lect","group09-placenta"]
+  // ["repro-lect","group10-heat-stress"]
+  ["repro-lect","group10-heat-stress",[2209]],
+  // end ["repro-lect","group10-heat-stress"]
+  // ["repro-lect","group11-buserelin-pig"]
+  ["repro-lect","group11-buserelin-pig",[52061]],
+  // end ["repro-lect","group11-buserelin-pig"]
+  // ["repro-lect","group12-NEB-dairy"]
+  ["repro-lect","group12-NEB-dairy",[52062]],
+  // end ["repro-lect","group12-NEB-dairy"]
+  // ["repro-lect","hormonal-applications"]
+  ["repro-lect","hormonal-applications",[[1800,1804],1863,1869,[1886,1889],1891,2230]],
+  // end ["repro-lect","hormonal-applications"]
+  // ["repro-lect","infertility"]
+  ["repro-lect","infertility",[[1815,1819],1856,2231]],
+  // end ["repro-lect","infertility"]
+  // ["repro-lect","mahahon-art"]
+  ["repro-lect","mahahon-art",[[52044,52053]]],
+  // end ["repro-lect","mahahon-art"]
+  // ["repro-lect","mahahon-exotic"]
+  ["repro-lect","mahahon-exotic",[[2053,2059],[52054,52056]]],
+  // end ["repro-lect","mahahon-exotic"]
+  // ["repro-lect","mahahon-genetic"]
+  ["repro-lect","mahahon-genetic",[[2070,2079]]],
+  // end ["repro-lect","mahahon-genetic"]
+  // ["repro-lect","mahahon-hormone"]
+  ["repro-lect","mahahon-hormone",[[52004,52013]]],
+  // end ["repro-lect","mahahon-hormone"]
+  // ["repro-lect","mahahon-risk-benefit"]
+  ["repro-lect","mahahon-risk-benefit",[[2060,2069]]],
+  // end ["repro-lect","mahahon-risk-benefit"]
+  // ["repro-lect","mahahon-semen-eval"]
+  ["repro-lect","mahahon-semen-eval",[[52034,52043]]],
+  // end ["repro-lect","mahahon-semen-eval"]
+  // ["repro-lect","mahahon-semen-freezing"]
+  ["repro-lect","mahahon-semen-freezing",[[52024,52033]]],
+  // end ["repro-lect","mahahon-semen-freezing"]
+  // ["repro-lect","mahahon-surgical"]
+  ["repro-lect","mahahon-surgical",[[2080,2089]]],
+  // end ["repro-lect","mahahon-surgical"]
+  // ["repro-lect","mahahon-ultrasound"]
+  ["repro-lect","mahahon-ultrasound",[[52014,52023]]],
+  // end ["repro-lect","mahahon-ultrasound"]
+  // ["repro-lect","repro-ultrasound"]
+  ["repro-lect","repro-ultrasound",[[1845,1849],1890]],
+  // end ["repro-lect","repro-ultrasound"]
+  // ["repro-lect","semen-ai"]
+  ["repro-lect","semen-ai",[[1805,1809],1850,[1852,1854],[1857,1862],[1864,1868]]],
+  // end ["repro-lect","semen-ai"]
+  // ["repro-lect","semen-preservation"]
+  ["repro-lect","semen-preservation",[[1810,1814],1851,1855]],
+  // end ["repro-lect","semen-preservation"]
+  // ["repro-lect","surgical-neutering"]
+  ["repro-lect","surgical-neutering",[[1835,1839],[1874,1880]]],
+  // end ["repro-lect","surgical-neutering"]
+  // ["ruminant-clinical","rum-hattakan"]
+  ["ruminant-clinical","rum-hattakan",[[8320,8321]]],
+  // end ["ruminant-clinical","rum-hattakan"]
+  // ["ruminant-clinical","rum-hhm"]
+  ["ruminant-clinical","rum-hhm",[[8300,8305]]],
+  // end ["ruminant-clinical","rum-hhm"]
+  // ["ruminant-clinical","rum-hhm-clinical"]
+  ["ruminant-clinical","rum-hhm-clinical",[8033]],
+  // end ["ruminant-clinical","rum-hhm-clinical"]
+  // ["ruminant-clinical","rum-mastitis"]
+  ["ruminant-clinical","rum-mastitis",[[8330,8331]]],
+  // end ["ruminant-clinical","rum-mastitis"]
+  // ["ruminant-clinical","rum-reproduction"]
+  ["ruminant-clinical","rum-reproduction",[[8310,8313]]],
+  // end ["ruminant-clinical","rum-reproduction"]
+  // ["surg1","brachial-plexus-block"]
+  ["surg1","brachial-plexus-block",[[94208,94209],94211]],
+  // end ["surg1","brachial-plexus-block"]
+  // ["surg1","breathing-circuit"]
+  ["surg1","breathing-circuit",[[94225,94226]]],
+  // end ["surg1","breathing-circuit"]
+  // ["surg1","dental-nerve-block"]
+  ["surg1","dental-nerve-block",[[94201,94202],[94220,94221]]],
+  // end ["surg1","dental-nerve-block"]
+  // ["surg1","endotracheal-intubation"]
+  ["surg1","endotracheal-intubation",[94212,94216]],
+  // end ["surg1","endotracheal-intubation"]
+  // ["surg1","epidural-block"]
+  ["surg1","epidural-block",[94200,[94213,94215],94227]],
+  // end ["surg1","epidural-block"]
+  // ["surg1","incisional-line-block"]
+  ["surg1","incisional-line-block",[94205]],
+  // end ["surg1","incisional-line-block"]
+  // ["surg1","intercostal-block"]
+  ["surg1","intercostal-block",[[94206,94207],94228]],
+  // end ["surg1","intercostal-block"]
+  // ["surg1","intubation-cat"]
+  ["surg1","intubation-cat",[94217]],
+  // end ["surg1","intubation-cat"]
+  // ["surg1","iv-catheter"]
+  ["surg1","iv-catheter",[94210,94222]],
+  // end ["surg1","iv-catheter"]
+  // ["surg1","iv-fluid-calculation"]
+  ["surg1","iv-fluid-calculation",[[94218,94219]]],
+  // end ["surg1","iv-fluid-calculation"]
+  // ["surg1","local-infiltration"]
+  ["surg1","local-infiltration",[94204]],
+  // end ["surg1","local-infiltration"]
+  // ["surg1","oxygen-flow-rate"]
+  ["surg1","oxygen-flow-rate",[[94223,94224]]],
+  // end ["surg1","oxygen-flow-rate"]
+  // ["surg1","testicular-block"]
+  ["surg1","testicular-block",[94203]],
+  // end ["surg1","testicular-block"]
+  // ["surg2","__unassigned__"]
+  ["surg2","__unassigned__",[[1,2],4,6,12]],
+  // end ["surg2","__unassigned__"]
+  // ["surg2","abdominal-surgery"]
+  ["surg2","abdominal-surgery",[9,213]],
+  // end ["surg2","abdominal-surgery"]
+  // ["surg2","aural-hematoma"]
+  ["surg2","aural-hematoma",[[200,201]]],
+  // end ["surg2","aural-hematoma"]
+  // ["surg2","bandage-drain"]
+  ["surg2","bandage-drain",[3,7,10]],
+  // end ["surg2","bandage-drain"]
+  // ["surg2","dental-scaling-muzzle"]
+  ["surg2","dental-scaling-muzzle",[5,205]],
+  // end ["surg2","dental-scaling-muzzle"]
+  // ["surg2","ophthalmology-lab"]
+  ["surg2","ophthalmology-lab",[[202,204]]],
+  // end ["surg2","ophthalmology-lab"]
+  // ["surg2","patient-prep-wound"]
+  ["surg2","patient-prep-wound",[214]],
+  // end ["surg2","patient-prep-wound"]
+  // ["surg3","__unassigned__"]
+  ["surg3","__unassigned__",[29,[40,42],211]],
+  // end ["surg3","__unassigned__"]
+  // ["surg3","approach-hip"]
+  ["surg3","approach-hip",[[25,26],28,43,206]],
+  // end ["surg3","approach-hip"]
+  // ["surg3","approach-humerus"]
+  ["surg3","approach-humerus",[27]],
+  // end ["surg3","approach-humerus"]
+  // ["surg3","approach-stifle"]
+  ["surg3","approach-stifle",[52]],
+  // end ["surg3","approach-stifle"]
+  // ["surg3","bone-plate"]
+  ["surg3","bone-plate",[34,51]],
+  // end ["surg3","bone-plate"]
+  // ["surg3","cerclage-wire"]
+  ["surg3","cerclage-wire",[33,[35,36]]],
+  // end ["surg3","cerclage-wire"]
+  // ["surg3","esf"]
+  ["surg3","esf",[[20,23],44]],
+  // end ["surg3","esf"]
+  // ["surg3","external-coaptation"]
+  ["surg3","external-coaptation",[32,[47,50],212]],
+  // end ["surg3","external-coaptation"]
+  // ["surg3","oral-wiring"]
+  ["surg3","oral-wiring",[45]],
+  // end ["surg3","oral-wiring"]
+  // ["surg3","ortho-exam"]
+  ["surg3","ortho-exam",[31,46,[207,210]]],
+  // end ["surg3","ortho-exam"]
+  // ["surg3","pinning"]
+  ["surg3","pinning",[24,30]],
+  // end ["surg3","pinning"]
+  // ["surg3","tension-band-wire"]
+  ["surg3","tension-band-wire",[[37,39]]],
+  // end ["surg3","tension-band-wire"]
+  // ["swine-clinic","swine-asf"]
+  ["swine-clinic","swine-asf",[[105591,105592],105594,[209007,209015],[209033,209036],209051,209109,209111,209123,[209138,209146]]],
+  // end ["swine-clinic","swine-asf"]
+  // ["swine-clinic","swine-cns"]
+  ["swine-clinic","swine-cns",[[105614,105620],202352]],
+  // end ["swine-clinic","swine-cns"]
+  // ["swine-clinic","swine-control-dx"]
+  ["swine-clinic","swine-control-dx",[209133,[209157,209160],[216105,216109]]],
+  // end ["swine-clinic","swine-control-dx"]
+  // ["swine-clinic","swine-csf"]
+  ["swine-clinic","swine-csf",[8028,105593,105595,[209000,209006],[209020,209026],209048,209050,209110,209137,209400]],
+  // end ["swine-clinic","swine-csf"]
+  // ["swine-clinic","swine-fmd"]
+  ["swine-clinic","swine-fmd",[[105587,105590],[209063,209064],209113,[209134,209135],[209169,209176]]],
+  // end ["swine-clinic","swine-fmd"]
+  // ["swine-clinic","swine-gi-viral"]
+  ["swine-clinic","swine-gi-viral",[8017,8354,[105600,105607],202350,202487]],
+  // end ["swine-clinic","swine-gi-viral"]
+  // ["swine-clinic","swine-greasypig"]
+  ["swine-clinic","swine-greasypig",[[105598,105599],[209037,209047],209049,209112,209403]],
+  // end ["swine-clinic","swine-greasypig"]
+  // ["swine-clinic","swine-ileitis-bacti"]
+  ["swine-clinic","swine-ileitis-bacti",[8351,[105576,105577],[105579,105580],105582,[209058,209061],209122,[209161,209168]]],
+  // end ["swine-clinic","swine-ileitis-bacti"]
+  // ["swine-clinic","swine-pcv2"]
+  ["swine-clinic","swine-pcv2",[8016,8020,8040,8042,[105583,105586],209062,209136,[209177,209181]]],
+  // end ["swine-clinic","swine-pcv2"]
+  // ["swine-clinic","swine-pornchalit-set"]
+  ["swine-clinic","swine-pornchalit-set",[8019,8023,8350,8353,8356,[8358,8359],[105621,105643],[202353,202356],[202478,202486],202488,209101,209103,[209107,209108],209115,[209117,209120],[209124,209129],[209148,209150]]],
+  // end ["swine-clinic","swine-pornchalit-set"]
+  // ["swine-clinic","swine-prv-je"]
+  ["swine-clinic","swine-prv-je",[8357,[105596,105597],[209016,209019],[209027,209032],[209052,209053],209100,209102,[209104,209106],209114,209116,209147,[209401,209402]]],
+  // end ["swine-clinic","swine-prv-je"]
+  // ["swine-clinic","swine-repro"]
+  ["swine-clinic","swine-repro",[8352,8355,[209054,209057],209121,[209130,209132],[209151,209156]]],
+  // end ["swine-clinic","swine-repro"]
+  // ["swine-clinic","swine-resp-viral"]
+  ["swine-clinic","swine-resp-viral",[8018,8022,[8025,8026],8046,[105608,105613],202351]],
+  // end ["swine-clinic","swine-resp-viral"]
+  // ["swine-clinic","swine-trichinosis"]
+  ["swine-clinic","swine-trichinosis",[[216100,216104],[216700,216702]]],
+  // end ["swine-clinic","swine-trichinosis"]
+  // ["swine-herd","adg-calculation"]
+  ["swine-herd","adg-calculation",[92008]],
+  // end ["swine-herd","adg-calculation"]
+  // ["swine-herd","aflatoxin-source-effect"]
+  ["swine-herd","aflatoxin-source-effect",[92006]],
+  // end ["swine-herd","aflatoxin-source-effect"]
+  // ["swine-herd","all-in-all-out-system"]
+  ["swine-herd","all-in-all-out-system",[92032]],
+  // end ["swine-herd","all-in-all-out-system"]
+  // ["swine-herd","asf-acute-signs"]
+  ["swine-herd","asf-acute-signs",[92001]],
+  // end ["swine-herd","asf-acute-signs"]
+  // ["swine-herd","biosecurity-segregation-sanitation-resistance"]
+  ["swine-herd","biosecurity-segregation-sanitation-resistance",[92000]],
+  // end ["swine-herd","biosecurity-segregation-sanitation-resistance"]
+  // ["swine-herd","blup-breeding-value"]
+  ["swine-herd","blup-breeding-value",[92021]],
+  // end ["swine-herd","blup-breeding-value"]
+  // ["swine-herd","boar-restraint-snare"]
+  ["swine-herd","boar-restraint-snare",[92018]],
+  // end ["swine-herd","boar-restraint-snare"]
+  // ["swine-herd","breeding-system-3-breed-cross"]
+  ["swine-herd","breeding-system-3-breed-cross",[92019]],
+  // end ["swine-herd","breeding-system-3-breed-cross"]
+  // ["swine-herd","contagious-vs-environmental-mastitis-pathogens"]
+  ["swine-herd","contagious-vs-environmental-mastitis-pathogens",[92028]],
+  // end ["swine-herd","contagious-vs-environmental-mastitis-pathogens"]
+  // ["swine-herd","cross-sectional-vs-case-control"]
+  ["swine-herd","cross-sectional-vs-case-control",[92025]],
+  // end ["swine-herd","cross-sectional-vs-case-control"]
+  // ["swine-herd","epidemic-vs-endemic"]
+  ["swine-herd","epidemic-vs-endemic",[92024]],
+  // end ["swine-herd","epidemic-vs-endemic"]
+  // ["swine-herd","feeding-pregnancy-stage"]
+  ["swine-herd","feeding-pregnancy-stage",[92034]],
+  // end ["swine-herd","feeding-pregnancy-stage"]
+  // ["swine-herd","halothane-gene-pss"]
+  ["swine-herd","halothane-gene-pss",[92020]],
+  // end ["swine-herd","halothane-gene-pss"]
+  // ["swine-herd","inbreeding-depression"]
+  ["swine-herd","inbreeding-depression",[92033]],
+  // end ["swine-herd","inbreeding-depression"]
+  // ["swine-herd","iron-deficiency-anemia-piglet"]
+  ["swine-herd","iron-deficiency-anemia-piglet",[92003]],
+  // end ["swine-herd","iron-deficiency-anemia-piglet"]
+  // ["swine-herd","isolation-acclimatization-new-gilts"]
+  ["swine-herd","isolation-acclimatization-new-gilts",[92026]],
+  // end ["swine-herd","isolation-acclimatization-new-gilts"]
+  // ["swine-herd","mastitis-subclinical-scc"]
+  ["swine-herd","mastitis-subclinical-scc",[92027]],
+  // end ["swine-herd","mastitis-subclinical-scc"]
+  // ["swine-herd","milk-letdown-oxytocin"]
+  ["swine-herd","milk-letdown-oxytocin",[92030]],
+  // end ["swine-herd","milk-letdown-oxytocin"]
+  // ["swine-herd","milking-machine-pulsation"]
+  ["swine-herd","milking-machine-pulsation",[92029]],
+  // end ["swine-herd","milking-machine-pulsation"]
+  // ["swine-herd","mycotoxin-zearalenone"]
+  ["swine-herd","mycotoxin-zearalenone",[92005]],
+  // end ["swine-herd","mycotoxin-zearalenone"]
+  // ["swine-herd","npd-calculation"]
+  ["swine-herd","npd-calculation",[92012]],
+  // end ["swine-herd","npd-calculation"]
+  // ["swine-herd","parakeratosis-zinc-deficiency"]
+  ["swine-herd","parakeratosis-zinc-deficiency",[92004]],
+  // end ["swine-herd","parakeratosis-zinc-deficiency"]
+  // ["swine-herd","parity-structure-management"]
+  ["swine-herd","parity-structure-management",[92011]],
+  // end ["swine-herd","parity-structure-management"]
+  // ["swine-herd","production-tree-low-total-born"]
+  ["swine-herd","production-tree-low-total-born",[92010]],
+  // end ["swine-herd","production-tree-low-total-born"]
+  // ["swine-herd","prrs-vaccination-program"]
+  ["swine-herd","prrs-vaccination-program",[92002]],
+  // end ["swine-herd","prrs-vaccination-program"]
+  // ["swine-herd","psy-calculation"]
+  ["swine-herd","psy-calculation",[92007]],
+  // end ["swine-herd","psy-calculation"]
+  // ["swine-herd","return-to-estrus-pattern"]
+  ["swine-herd","return-to-estrus-pattern",[92013]],
+  // end ["swine-herd","return-to-estrus-pattern"]
+  // ["swine-herd","sensitivity-specificity-calculation"]
+  ["swine-herd","sensitivity-specificity-calculation",[92023]],
+  // end ["swine-herd","sensitivity-specificity-calculation"]
+  // ["swine-herd","sow-feeding-lactation"]
+  ["swine-herd","sow-feeding-lactation",[92015]],
+  // end ["swine-herd","sow-feeding-lactation"]
+  // ["swine-herd","swine-dysentery-brachyspira"]
+  ["swine-herd","swine-dysentery-brachyspira",[92022]],
+  // end ["swine-herd","swine-dysentery-brachyspira"]
+  // ["swine-herd","swine-euthanasia-method"]
+  ["swine-herd","swine-euthanasia-method",[92017]],
+  // end ["swine-herd","swine-euthanasia-method"]
+  // ["swine-herd","swine-house-count-calculation"]
+  ["swine-herd","swine-house-count-calculation",[92009]],
+  // end ["swine-herd","swine-house-count-calculation"]
+  // ["swine-herd","swine-welfare-5-freedoms"]
+  ["swine-herd","swine-welfare-5-freedoms",[92016]],
+  // end ["swine-herd","swine-welfare-5-freedoms"]
+  // ["swine-herd","thin-sow-syndrome"]
+  ["swine-herd","thin-sow-syndrome",[92031]],
+  // end ["swine-herd","thin-sow-syndrome"]
+  // ["swine-herd","vitamin-e-selenium-deficiency"]
+  ["swine-herd","vitamin-e-selenium-deficiency",[92035]],
+  // end ["swine-herd","vitamin-e-selenium-deficiency"]
+  // ["swine-herd","wsi-fertility-relationship"]
+  ["swine-herd","wsi-fertility-relationship",[92014]],
+  // end ["swine-herd","wsi-fertility-relationship"]
+  // ["swine-repro","artificial-insemination"]
+  ["swine-repro","artificial-insemination",[[91507,91508],91527]],
+  // end ["swine-repro","artificial-insemination"]
+  // ["swine-repro","boar-anatomy"]
+  ["swine-repro","boar-anatomy",[[91500,91502]]],
+  // end ["swine-repro","boar-anatomy"]
+  // ["swine-repro","boar-management"]
+  ["swine-repro","boar-management",[[91503,91505],91521,91526]],
+  // end ["swine-repro","boar-management"]
+  // ["swine-repro","embryo-development"]
+  ["swine-repro","embryo-development",[91514]],
+  // end ["swine-repro","embryo-development"]
+  // ["swine-repro","estrus-detection"]
+  ["swine-repro","estrus-detection",[91510]],
+  // end ["swine-repro","estrus-detection"]
+  // ["swine-repro","estrus-synchronization"]
+  ["swine-repro","estrus-synchronization",[91511]],
+  // end ["swine-repro","estrus-synchronization"]
+  // ["swine-repro","farrowing-management"]
+  ["swine-repro","farrowing-management",[91519]],
+  // end ["swine-repro","farrowing-management"]
+  // ["swine-repro","gilt-puberty"]
+  ["swine-repro","gilt-puberty",[91509]],
+  // end ["swine-repro","gilt-puberty"]
+  // ["swine-repro","lactation"]
+  ["swine-repro","lactation",[91520]],
+  // end ["swine-repro","lactation"]
+  // ["swine-repro","mma-syndrome"]
+  ["swine-repro","mma-syndrome",[91522]],
+  // end ["swine-repro","mma-syndrome"]
+  // ["swine-repro","parturition"]
+  ["swine-repro","parturition",[[91515,91518]]],
+  // end ["swine-repro","parturition"]
+  // ["swine-repro","piglet-survival"]
+  ["swine-repro","piglet-survival",[91523]],
+  // end ["swine-repro","piglet-survival"]
+  // ["swine-repro","pregnancy-diagnosis"]
+  ["swine-repro","pregnancy-diagnosis",[91512]],
+  // end ["swine-repro","pregnancy-diagnosis"]
+  // ["swine-repro","pregnancy-recognition"]
+  ["swine-repro","pregnancy-recognition",[91513]],
+  // end ["swine-repro","pregnancy-recognition"]
+  // ["swine-repro","reproductive-surgery"]
+  ["swine-repro","reproductive-surgery",[91525]],
+  // end ["swine-repro","reproductive-surgery"]
+  // ["swine-repro","returns-to-estrus"]
+  ["swine-repro","returns-to-estrus",[91524]],
+  // end ["swine-repro","returns-to-estrus"]
+  // ["swine-repro","semen-evaluation"]
+  ["swine-repro","semen-evaluation",[91506,91528]],
+  // end ["swine-repro","semen-evaluation"]
+  // ["vca","anatomy"]
+  ["vca","anatomy",[692010,692012,692063,694075,694137,694530,694686]],
+  // end ["vca","anatomy"]
+  // ["vca","aquatic"]
+  ["vca","aquatic",[[6001,6007],[6010,6013],[6020,6025],[6030,6031],[6040,6044],[6050,6051],[6060,6064],[6070,6075],692034,692040,692087,692112,692132,[693069,693070],[694711,694716],[694718,694727],[694729,694733],[694736,694742],694744,[694746,694747],694749,694753,[694755,694758],[694760,694768],[694770,694774],694776,[694778,694779],[694781,694782],694784]],
+  // end ["vca","aquatic"]
+  // ["vca","clinical-pathology"]
+  ["vca","clinical-pathology",[200253,200262,200266,200269,200273,[200296,200297],200299,200305,[200307,200308],[200310,200311],200313,[200315,200317],200319,200322,692037,[692042,692043],[693040,693041],693043,694133,694161,694169,694210,694575]],
+  // end ["vca","clinical-pathology"]
+  // ["vca","dogcat"]
+  ["vca","dogcat",[[7001,7003],[7005,7006],[7010,7012],[7020,7023],[7030,7032],[7040,7045],[7050,7053],[7060,7067],[7070,7074],[7080,7084],[7090,7092],[7100,7102],[7110,7112],[7120,7121],[7130,7136],[7140,7142],[7150,7152],[7160,7162],8001,[8004,8005],[8007,8012],[8014,8015],8038,8043,8045,8052,8054,8060,692008,692018,692047,692058,692074,692078,692082,692095,692106,692115,692131,[693011,693012],[693024,693025],693036,693122,[693127,693133],693135,694156,694158,[694162,694164],694168,[694171,694183],[694186,694193],[694195,694200],[694204,694209],[694211,694214],[694216,694220],[694223,694225],[694228,694230],694232,[694234,694243],694245,694248,[694250,694251],[694253,694256],694258,694261,694263,[694265,694266],[694269,694274],694276,[694278,694285],694287,[694289,694290],694293,[694296,694298],[694301,694307],694339,694341,694343,[694345,694346],694348,[694351,694352],694354,[694357,694358],[694402,694403],[694406,694412],[694414,694420],[694422,694424],694431,694439,[694455,694456],[694459,694477],[694480,694484],[694486,694490],[694492,694497],[694499,694504],[694506,694507],[694509,694510],[694514,694515],[694517,694518],[694520,694521],[694523,694525],[694531,694536],[694538,694539],[694541,694544],[694546,694552],[694554,694565],694567,694570,694574]],
+  // end ["vca","dogcat"]
+  // ["vca","epidemiology"]
+  ["vca","epidemiology",[200036,692004,692023,692028,692033,692036,692068,692077,692099,692125,692128,[693002,693003]]],
+  // end ["vca","epidemiology"]
+  // ["vca","equine"]
+  ["vca","equine",[6601,6603,[6610,6612],[6620,6621],6630,6640,[6642,6644],[6650,6653],[6660,6661],[6670,6671],[6681,6682],[6690,6693],[6700,6703],[6710,6711],[6720,6721],[6730,6731],692001,692007,692024,692105,692133,[693083,693086],693089,694066,[694068,694074],694076,[694078,694079],[694081,694082],[694084,694089],694091,694093,694095,[694097,694100],[694102,694104],694106,[694108,694109],[694111,694116],[694118,694120],694122,[694124,694131],[694138,694140],694142,[694144,694147],694149,694151,[694153,694155]]],
+  // end ["vca","equine"]
+  // ["vca","exotic"]
+  ["vca","exotic",[[6101,6104],[6110,6116],[6120,6122],[6130,6136],[6140,6145],[6150,6157],692002,692009,692027,692055,[692061,692062],692092,692098,[693020,693023],[694001,694004],[694006,694008],[694011,694020],[694022,694024],694026,694028,694031,694033,[694035,694037],694040,694042,694044,[694046,694052],694055,[694057,694059],[694062,694063]]],
+  // end ["vca","exotic"]
+  // ["vca","food-hygiene"]
+  ["vca","food-hygiene",[6080,6403,[693114,693121],[693123,693125],694780]],
+  // end ["vca","food-hygiene"]
+  // ["vca","imaging"]
+  ["vca","imaging",[[693014,693019],693064,694034,694043,694083,694132,694336,694340,694342,694344,[694349,694350],[694355,694356],[694359,694360],694519,694522]],
+  // end ["vca","imaging"]
+  // ["vca","immunology"]
+  ["vca","immunology",[[200221,200225],[200234,200235],200238,200242,692022,692035,692073,692075,692081,692090,692113,[693026,693027],694405,694568,[694572,694573],694734]],
+  // end ["vca","immunology"]
+  // ["vca","juris"]
+  ["vca","juris",[692066,692070,692084,[692110,692111],[692119,692120],692126,[693005,693007]]],
+  // end ["vca","juris"]
+  // ["vca","microbiology"]
+  ["vca","microbiology",[200067,692014,692021,692032,692046,692057,692080,692094,[693037,693038],694498]],
+  // end ["vca","microbiology"]
+  // ["vca","neurology"]
+  ["vca","neurology",[200216,692029,692048,692067,[693066,693068],[694441,694443],[694445,694454]]],
+  // end ["vca","neurology"]
+  // ["vca","ophthalmology"]
+  ["vca","ophthalmology",[200193,[200195,200197],[200202,200207],200211,692059,692127,[693008,693010],694135,694259,694294,[694426,694429],[694432,694437]]],
+  // end ["vca","ophthalmology"]
+  // ["vca","parasitology"]
+  ["vca","parasitology",[6602,200045,200051,200081,200383,692003,692020,692038,692041,692049,692051,692086,692096,692121,[692129,692130],693039,[694064,694065],694159,[694165,694167],694170,694260,694268,694275,694404,694585,[694587,694590],[694609,694611],694619]],
+  // end ["vca","parasitology"]
+  // ["vca","pathology"]
+  ["vca","pathology",[[693029,693032],693035,694141,694413,694569,[694577,694578],694600,694621]],
+  // end ["vca","pathology"]
+  // ["vca","pharmacology"]
+  ["vca","pharmacology",[692005,692017,692056,692071,692079,692085,693045,693126,694257,694277,694286,694295,694299,[694579,694583]]],
+  // end ["vca","pharmacology"]
+  // ["vca","poultry"]
+  ["vca","poultry",[[6201,6205],[6210,6215],[6220,6223],[6230,6231],[6240,6243],[6250,6251],[6260,6262],[6270,6272],[6280,6281],[6290,6292],[6300,6303],[6310,6312],[6320,6322],200325,200329,200333,200337,[200339,200343],[200348,200349],200351,200353,[200357,200359],200362,200364,[200372,200373],200376,200380,200382,200385,200388,[200395,200396],200400,200402,200406,200409,200412,692015,692060,692069,692097,692104,692114,693033,[693075,693080]]],
+  // end ["vca","poultry"]
+  // ["vca","ruminant"]
+  ["vca","ruminant",[[6801,6803],[6810,6814],[6820,6823],[6830,6834],[6840,6843],[6850,6852],[6860,6861],[6870,6873],[6880,6885],[6890,6892],[6900,6903],[6910,6911],[6920,6922],200092,[200095,200096],[200103,200104],200108,200123,[200126,200127],200130,200132,200135,200139,200142,200145,[200147,200149],200151,200153,200160,200168,200176,200184,692016,692026,692039,692065,692072,692083,692100,692102,692117,693004,[693099,693104],693107]],
+  // end ["vca","ruminant"]
+  // ["vca","surgery"]
+  ["vca","surgery",[692013,692064,692088,693044,[693046,693051],[693053,693062],694105,694222,694227,694262,694264,[694309,694324],[694326,694330],[694333,694334],694338,[694361,694362],[694364,694370],[694372,694374],[694376,694378],[694380,694385],694387,[694389,694391],[694393,694400],694440,694566,694576]],
+  // end ["vca","surgery"]
+  // ["vca","swine"]
+  ["vca","swine",[[6401,6402],6404,[6410,6415],[6420,6422],[6430,6432],[6440,6442],[6450,6454],[6460,6461],[6470,6471],[6480,6483],[6490,6493],[6500,6502],[200017,200018],200021,200024,200027,[200031,200032],200038,200047,[200059,200060],200065,[200068,200069],200071,200080,200084,200087,692025,692093,692108,692118,[693091,693098],694586,[694591,694599],[694601,694603],[694605,694608],[694612,694618],694620,[694622,694623],[694626,694630],[694632,694635],[694637,694639],[694641,694646],[694648,694653],[694655,694656],694658,[694660,694664],[694668,694669],694671,[694673,694676],694678,[694680,694685],[694687,694690],694696,[694699,694701],[694704,694709]]],
+  // end ["vca","swine"]
+  // ["vca","theriogenology"]
+  ["vca","theriogenology",[200298,692011,692019,692030,692045,692053,692076,692103,692107,692109,692116,692124,693001,693108,693112,694221,694363,[694526,694529],[694691,694695],[694697,694698]]],
+  // end ["vca","theriogenology"]
+  // ["vca","zoonoses"]
+  ["vca","zoonoses",[692101,693028,694010,694029,694053,694157]],
+  // end ["vca","zoonoses"]
+  // ["vet-dev-anat","vd-cardio"]
+  ["vet-dev-anat","vd-cardio",[[71017,71026]]],
+  // end ["vet-dev-anat","vd-cardio"]
+  // ["vet-dev-anat","vd-git"]
+  ["vet-dev-anat","vd-git",[71001,[71003,71004],71006,71009,[71011,71013],71015]],
+  // end ["vet-dev-anat","vd-git"]
+  // ["vet-dev-anat","vd-pharyngeal"]
+  ["vet-dev-anat","vd-pharyngeal",[71002,71005,[71007,71008],71010,71014,71016]],
+  // end ["vet-dev-anat","vd-pharyngeal"]
+  // ["vet-histo","histo--avian"]
+  ["vet-histo","histo--avian",[[106624,106626],[106628,106629]]],
+  // end ["vet-histo","histo--avian"]
+  // ["vet-histo","histo--bone-marrow"]
+  ["vet-histo","histo--bone-marrow",[[106638,106642]]],
+  // end ["vet-histo","histo--bone-marrow"]
+  // ["vet-histo","histo--bone-marrow-laboratory"]
+  ["vet-histo","histo--bone-marrow-laboratory",[106633]],
+  // end ["vet-histo","histo--bone-marrow-laboratory"]
+  // ["vet-histo","histo--circulatory-system"]
+  ["vet-histo","histo--circulatory-system",[[106643,106644],[106647,106649],106651]],
+  // end ["vet-histo","histo--circulatory-system"]
+  // ["vet-histo","histo--cytology"]
+  ["vet-histo","histo--cytology",[[106660,106664],106667]],
+  // end ["vet-histo","histo--cytology"]
+  // ["vet-histo","histo--digestive-system-i"]
+  ["vet-histo","histo--digestive-system-i",[106668,106670]],
+  // end ["vet-histo","histo--digestive-system-i"]
+  // ["vet-histo","histo--digestive-system-iii"]
+  ["vet-histo","histo--digestive-system-iii",[106674,[106677,106679]]],
+  // end ["vet-histo","histo--digestive-system-iii"]
+  // ["vet-histo","histo--endocrine"]
+  ["vet-histo","histo--endocrine",[[106680,106683],[106685,106686]]],
+  // end ["vet-histo","histo--endocrine"]
+  // ["vet-histo","histo--epithelium"]
+  ["vet-histo","histo--epithelium",[[106690,106692]]],
+  // end ["vet-histo","histo--epithelium"]
+  // ["vet-histo","histo--female-lab-manual"]
+  ["vet-histo","histo--female-lab-manual",[[106694,106698],[106700,106702]]],
+  // end ["vet-histo","histo--female-lab-manual"]
+  // ["vet-histo","histo--female-reproductive-organ"]
+  ["vet-histo","histo--female-reproductive-organ",[[106703,106705],[106707,106712]]],
+  // end ["vet-histo","histo--female-reproductive-organ"]
+  // ["vet-histo","histo--fish"]
+  ["vet-histo","histo--fish",[[106713,106719]]],
+  // end ["vet-histo","histo--fish"]
+  // ["vet-histo","histo--histo-lab-block-ii"]
+  ["vet-histo","histo--histo-lab-block-ii",[106722,[106725,106727]]],
+  // end ["vet-histo","histo--histo-lab-block-ii"]
+  // ["vet-histo","histo--integument"]
+  ["vet-histo","histo--integument",[[106729,106731]]],
+  // end ["vet-histo","histo--integument"]
+  // ["vet-histo","histo--laboratory-of-nervous-system-histology"]
+  ["vet-histo","histo--laboratory-of-nervous-system-histology",[106733]],
+  // end ["vet-histo","histo--laboratory-of-nervous-system-histology"]
+  // ["vet-histo","histo--lymphatic-organ-i"]
+  ["vet-histo","histo--lymphatic-organ-i",[106741]],
+  // end ["vet-histo","histo--lymphatic-organ-i"]
+  // ["vet-histo","histo--lymphatic-organs-ii"]
+  ["vet-histo","histo--lymphatic-organs-ii",[106743,106745,[106747,106750]]],
+  // end ["vet-histo","histo--lymphatic-organs-ii"]
+  // ["vet-histo","histo--male-reproductive-system"]
+  ["vet-histo","histo--male-reproductive-system",[106751,106758]],
+  // end ["vet-histo","histo--male-reproductive-system"]
+  // ["vet-histo","histo--nervous-system"]
+  ["vet-histo","histo--nervous-system",[106762]],
+  // end ["vet-histo","histo--nervous-system"]
+  // ["vet-histo","histo--placenta"]
+  ["vet-histo","histo--placenta",[106776]],
+  // end ["vet-histo","histo--placenta"]
+  // ["vet-histo","histo--placenta-lab-manual"]
+  ["vet-histo","histo--placenta-lab-manual",[[106769,106770]]],
+  // end ["vet-histo","histo--placenta-lab-manual"]
+  // ["vet-histo","histo--respiratory-system"]
+  ["vet-histo","histo--respiratory-system",[[106777,106778],106780]],
+  // end ["vet-histo","histo--respiratory-system"]
+  // ["vet-histo","histo--special-sense"]
+  ["vet-histo","histo--special-sense",[[106783,106790]]],
+  // end ["vet-histo","histo--special-sense"]
+  // ["vet-histo","histo--tissue-preparation"]
+  ["vet-histo","histo--tissue-preparation",[[106793,106795]]],
+  // end ["vet-histo","histo--tissue-preparation"]
+  // ["vet-histo","histo--urinary-system"]
+  ["vet-histo","histo--urinary-system",[[106797,106799],[106801,106804]]],
+  // end ["vet-histo","histo--urinary-system"]
+  // ["vet-imaging","abdomen-radiograph"]
+  ["vet-imaging","abdomen-radiograph",[[91026,91028]]],
+  // end ["vet-imaging","abdomen-radiograph"]
+  // ["vet-imaging","ct-basics"]
+  ["vet-imaging","ct-basics",[[91011,91015]]],
+  // end ["vet-imaging","ct-basics"]
+  // ["vet-imaging","echocardiography"]
+  ["vet-imaging","echocardiography",[91029]],
+  // end ["vet-imaging","echocardiography"]
+  // ["vet-imaging","mri-basics"]
+  ["vet-imaging","mri-basics",[[91016,91021]]],
+  // end ["vet-imaging","mri-basics"]
+  // ["vet-imaging","musculoskeletal-imaging"]
+  ["vet-imaging","musculoskeletal-imaging",[[91024,91025],91030]],
+  // end ["vet-imaging","musculoskeletal-imaging"]
+  // ["vet-imaging","radiograph-projections"]
+  ["vet-imaging","radiograph-projections",[[91031,91033]]],
+  // end ["vet-imaging","radiograph-projections"]
+  // ["vet-imaging","thorax-radiograph"]
+  ["vet-imaging","thorax-radiograph",[[91022,91023]]],
+  // end ["vet-imaging","thorax-radiograph"]
+  // ["vet-imaging","ultrasound-basics"]
+  ["vet-imaging","ultrasound-basics",[[91000,91010],91034]],
+  // end ["vet-imaging","ultrasound-basics"]
+  // ["vet-juris","animal-epidemic-act-2558"]
+  ["vet-juris","animal-epidemic-act-2558",[[93027,93036],93040]],
+  // end ["vet-juris","animal-epidemic-act-2558"]
+  // ["vet-juris","animal-hospital-act-2557"]
+  ["vet-juris","animal-hospital-act-2557",[[93000,93011]]],
+  // end ["vet-juris","animal-hospital-act-2557"]
+  // ["vet-juris","animal-welfare-act-2557"]
+  ["vet-juris","animal-welfare-act-2557",[[218712,218731]]],
+  // end ["vet-juris","animal-welfare-act-2557"]
+  // ["vet-juris","drug-act-2510"]
+  ["vet-juris","drug-act-2510",[[93012,93026]]],
+  // end ["vet-juris","drug-act-2510"]
+  // ["vet-juris","slaughter-act-2559"]
+  ["vet-juris","slaughter-act-2559",[[93038,93039],93041]],
+  // end ["vet-juris","slaughter-act-2559"]
+  // ["vet-juris","vet-practice-act-2545"]
+  ["vet-juris","vet-practice-act-2545",[[218700,218711]]],
+  // end ["vet-juris","vet-practice-act-2545"]
+  // ["vet-juris","vet-professional-ethics"]
+  ["vet-juris","vet-professional-ethics",[218732]],
+  // end ["vet-juris","vet-professional-ethics"]
+  // ["vet-juris","wildlife-act-2562"]
+  ["vet-juris","wildlife-act-2562",[[93042,93046]]],
+  // end ["vet-juris","wildlife-act-2562"]
+  // ["vet-neuroanat","neuroanat--basal-nuclei"]
+  ["vet-neuroanat","neuroanat--basal-nuclei",[106805,106810]],
+  // end ["vet-neuroanat","neuroanat--basal-nuclei"]
+  // ["vet-neuroanat","neuroanat--diencephalon"]
+  ["vet-neuroanat","neuroanat--diencephalon",[106813,[106817,106819]]],
+  // end ["vet-neuroanat","neuroanat--diencephalon"]
+  // ["vet-neuroanat","neuroanat--limbic-system-nonolfactory-rhinencephalon"]
+  ["vet-neuroanat","neuroanat--limbic-system-nonolfactory-rhinencephalon",[[106820,106824]]],
+  // end ["vet-neuroanat","neuroanat--limbic-system-nonolfactory-rhinencephalon"]
+  // ["vet-neuroanat","neuroanat--metencephalon"]
+  ["vet-neuroanat","neuroanat--metencephalon",[[106825,106832]]],
+  // end ["vet-neuroanat","neuroanat--metencephalon"]
+  // ["vet-neuroanat","neuroanat--midbrain"]
+  ["vet-neuroanat","neuroanat--midbrain",[[106833,106836],[106838,106839]]],
+  // end ["vet-neuroanat","neuroanat--midbrain"]
+  // ["vet-neuroanat","neuroanat--myelencephalon"]
+  ["vet-neuroanat","neuroanat--myelencephalon",[[106840,106841],[106843,106847]]],
+  // end ["vet-neuroanat","neuroanat--myelencephalon"]
+  // ["vet-neuroanat","neuroanat--neuro-exam-anatomy2024"]
+  ["vet-neuroanat","neuroanat--neuro-exam-anatomy2024",[[106850,106851],106855]],
+  // end ["vet-neuroanat","neuroanat--neuro-exam-anatomy2024"]
+  // ["vet-neuroanat","neuroanat--visual-vestibular-systems"]
+  ["vet-neuroanat","neuroanat--visual-vestibular-systems",[106860,106862,106864,[106868,106869]]],
+  // end ["vet-neuroanat","neuroanat--visual-vestibular-systems"]
+  // ["vet-pharm-2","antibiotics"]
+  ["vet-pharm-2","antibiotics",[[53001,53002],53007]],
+  // end ["vet-pharm-2","antibiotics"]
+  // ["vet-pharm-2","antiparasitic"]
+  ["vet-pharm-2","antiparasitic",[53004,[53009,53036]]],
+  // end ["vet-pharm-2","antiparasitic"]
+  // ["vet-pharm-2","autonomic"]
+  ["vet-pharm-2","autonomic",[53005,[53037,53062]]],
+  // end ["vet-pharm-2","autonomic"]
+  // ["vet-pharm-2","cardio-renal"]
+  ["vet-pharm-2","cardio-renal",[53006]],
+  // end ["vet-pharm-2","cardio-renal"]
+  // ["vet-pharm-2","nsaids"]
+  ["vet-pharm-2","nsaids",[53003,53008]],
+  // end ["vet-pharm-2","nsaids"]
+  // ["zoonoses","zoo-ai-basic"]
+  ["zoonoses","zoo-ai-basic",[[106100,106105],[202015,202018],[202332,202333],208006,[208030,208032],[208048,208050],[208104,208106]]],
+  // end ["zoonoses","zoo-ai-basic"]
+  // ["zoonoses","zoo-bacterial"]
+  ["zoonoses","zoo-bacterial",[8031,8036,[106005,106033],[106035,106038],[210552,210576],[216800,216841]]],
+  // end ["zoonoses","zoo-bacterial"]
+  // ["zoonoses","zoo-corona"]
+  ["zoonoses","zoo-corona",[[106068,106069],[106109,106116],[107606,107607],[202020,202021],[202336,202338],[208027,208029],208051]],
+  // end ["zoonoses","zoo-corona"]
+  // ["zoonoses","zoo-ebola-nipah"]
+  ["zoonoses","zoo-ebola-nipah",[[106065,106067],[106087,106093],107603,107605,[202005,202007],[202329,202331],[208004,208005],[208055,208056],208101]],
+  // end ["zoonoses","zoo-ebola-nipah"]
+  // ["zoonoses","zoo-eid-cuvet"]
+  ["zoonoses","zoo-eid-cuvet",[[107608,107611]]],
+  // end ["zoonoses","zoo-eid-cuvet"]
+  // ["zoonoses","zoo-eid-wildlife"]
+  ["zoonoses","zoo-eid-wildlife",[[106051,106059],[210577,210586],[216860,216863]]],
+  // end ["zoonoses","zoo-eid-wildlife"]
+  // ["zoonoses","zoo-epi-approach"]
+  ["zoonoses","zoo-epi-approach",[[104000,104015],[210500,210551],[216855,216859]]],
+  // end ["zoonoses","zoo-epi-approach"]
+  // ["zoonoses","zoo-helminthic"]
+  ["zoonoses","zoo-helminthic",[[106070,106071],[106137,106147],202027,[202029,202030],[202345,202349],[208013,208026],[208036,208037],208044,[208058,208059],[208112,208115],[208117,208136]]],
+  // end ["zoonoses","zoo-helminthic"]
+  // ["zoonoses","zoo-intro"]
+  ["zoonoses","zoo-intro",[[106043,106050],[106082,106086],[202000,202002],[202321,202324],208100]],
+  // end ["zoonoses","zoo-intro"]
+  // ["zoonoses","zoo-mycoses"]
+  ["zoonoses","zoo-mycoses",[[106148,106164],[210587,210593],[216851,216854]]],
+  // end ["zoonoses","zoo-mycoses"]
+  // ["zoonoses","zoo-outbreak"]
+  ["zoonoses","zoo-outbreak",[[208141,208152]]],
+  // end ["zoonoses","zoo-outbreak"]
+  // ["zoonoses","zoo-prion"]
+  ["zoonoses","zoo-prion",[[106039,106042],[210594,210602],[216842,216850]]],
+  // end ["zoonoses","zoo-prion"]
+  // ["zoonoses","zoo-protozoal"]
+  ["zoonoses","zoo-protozoal",[[106126,106136],202028,202344,[208007,208012],[208107,208111],[208137,208140]]],
+  // end ["zoonoses","zoo-protozoal"]
+  // ["zoonoses","zoo-rabies"]
+  ["zoonoses","zoo-rabies",[[106060,106064],[106117,106125],[202022,202026],[202339,202343],[208045,208047],208116]],
+  // end ["zoonoses","zoo-rabies"]
+  // ["zoonoses","zoo-rickettsial"]
+  ["zoonoses","zoo-rickettsial",[106034,[106072,106081],[107612,107613],[202003,202004],[202325,202328],[208000,208003],208043,208057]],
+  // end ["zoonoses","zoo-rickettsial"]
+  // ["zoonoses","zoo-siv-civ"]
+  ["zoonoses","zoo-siv-civ",[[106106,106108],[107600,107602],202019,[202334,202335],[208033,208034]]],
+  // end ["zoonoses","zoo-siv-civ"]
+  // ["zoonoses","zoo-vbz"]
+  ["zoonoses","zoo-vbz",[[106094,106099],[107614,107616],[202008,202014],208035,[208038,208042],[208052,208054],[208102,208103]]],
+  // end ["zoonoses","zoo-vbz"]
+];
+
+// One subject's runs: its topics' runs, sorted and joined where they touch.
+const runsBySubject = new Map();
+for (const [subject, , runs] of LEAVES) {
+  if (!runsBySubject.has(subject)) runsBySubject.set(subject, []);
+  for (const run of runs) runsBySubject.get(subject).push(typeof run === 'number' ? [run, run] : run);
+}
+const joined = (runs) => {
+  const out = [];
+  for (const [first, last] of [...runs].sort((a, b) => a[0] - b[0])) {
+    const prev = out[out.length - 1];
+    if (prev && first <= prev[1] + 1) prev[1] = Math.max(prev[1], last);
+    else out.push([first, last]);
+  }
+  return out;
+};
+
+export const SHARE_BANK = Object.fromEntries(Object.entries(NAMES).map(([subject, name]) => [
+  subject, { name, runs: joined(runsBySubject.get(subject) || []) },
+]));

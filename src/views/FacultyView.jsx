@@ -259,7 +259,7 @@ export default function FacultyView({ goHome }) {
                 aria-pressed={deptFilter === dc.id}
                 onClick={() => setDeptFilter(dc.id)}
               >
-                {dc.icon} {dc.label} <span style={{ opacity: 0.6 }}>{dc.count}</span>
+                {dc.icon} {dc.label} <span>{dc.count}</span>
               </button>
             ))}
             {hiddenDeptCount > 0 && (
@@ -295,7 +295,7 @@ export default function FacultyView({ goHome }) {
                 aria-pressed={statusFilter === item.id}
                 onClick={() => setStatusFilter(item.id)}
               >
-                {item.icon} {item.label} <span style={{ opacity: 0.6 }}>{item.count}</span>
+                {item.icon} {item.label} <span>{item.count}</span>
               </button>
             ))}
           </div>

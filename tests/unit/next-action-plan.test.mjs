@@ -40,7 +40,8 @@ test('imminent exam is first and the plan explains its budget and actual pool li
     nextExam: { subject: 'com3', subject_name: 'COM III', date: '2026-09-26', daysLeft: 0 },
   });
   assert.deepEqual([...html.matchAll(/data-kind="(\w+)"/g)].map(m => m[1]), ['exam', 'sr']);
-  assert.match(html, /เตรียม COM III 3 ข้อ/);
+  // The count and "ข้อ" are joined by a no-break space, so they never land on two lines.
+  assert.match(html, /เตรียม COM III 3 ข้อ/);
   assert.match(html, /เผื่ออ่านเฉลย 12 นาที/);
 });
 

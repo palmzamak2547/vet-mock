@@ -83,3 +83,16 @@ test('a cold Dashboard scopes legacy history by the curriculum before question b
   assert.doesNotMatch(chart(html, 'กราฟความแม่นยำรายวิชา'), /COM V/);
   assert.equal(history.length, 10, 'other-year history is filtered only for this view');
 });
+
+test('the learning curve prints its dates as page text at 14 px, a few of them and never two neighbours', (t) => {
+  const date = Date.now();
+  const html = render(Array.from({ length: 6 }, (_, i) => row(i + 1, date - i * 86400000, i < 4)), t);
+  assert.doesNotMatch(chart(html, 'กราฟความแม่นยำรายวิชา'), /<text[^>]*>[^<]*[฀-๿]/, 'no Thai date inside the scaled chart');
+  const strip = html.match(/<div class="vmx-curve-days" style="([^"]*)">([\s\S]*?)<\/div>/);
+  assert.ok(strip, 'the dates sit under the chart');
+  assert.match(strip[1], /font-size:14px/);
+  const lefts = [...strip[2].matchAll(/left:([\d.]+)%/g)].map((m) => Number(m[1]));
+  assert.ok(lefts.length >= 2 && lefts.length <= 4, `${lefts.length} dates`);
+  // 14 days across the chart: neighbours would be about 7 % apart.
+  for (let i = 1; i < lefts.length; i += 1) assert.ok(lefts[i] - lefts[i - 1] > 20, `dates ${lefts[i - 1]} and ${lefts[i]} too close`);
+});

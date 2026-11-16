@@ -1,17 +1,17 @@
 {
-  "about": "Findings per detector that no allow-list row explains, over one sweep of the built app (npm run sweep:defects). Set 16 Nov 2026 as a ceiling: per detector the larger of the first complete pass of every route (with the first, noisier detectors) and the refined pass of 16 Nov. It only falls: --write lowers it after a full run.",
+  "about": "Findings per detector that no allow-list row explains, over one sweep of the built app (npm run sweep:defects). It only falls: --write lowers it after a full run. Lowered 16 Nov 2026 to the full run on 5.274.0 less what 5.273.0 removes on the routes it fixes (atlas, progress, year, contribute, landing), measured by a rerun of those routes.",
   "counts": {
-    "overlap": 3106,
-    "overflow-x": 80,
-    "clipped": 180,
+    "overlap": 18,
+    "overflow-x": 0,
+    "clipped": 174,
     "off-screen": 0,
-    "target": 4708,
+    "target": 175,
     "raw": 0,
     "console": 416,
-    "shift": 4094,
-    "dead": 49,
-    "stuck": 174,
-    "contrast": 1351,
-    "focus": 128
+    "shift": 3202,
+    "dead": 0,
+    "stuck": 119,
+    "contrast": 0,
+    "focus": 0
   }
 }

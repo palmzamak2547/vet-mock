@@ -7,7 +7,7 @@ export const QUESTIONS_Y5_EPID_FINAL_MARKED = [
   {
     "id": 214500,
     "subject": "epidemiology",
-    "topic": "epidem-basic-concepts",
+    "topic": "epidem-outbreak-investigation",
     "year": 5,
     "type": "mcq",
     "q": "ชนิดของการเกิดโรค (types of outbreak) ข้อใดจับคู่ชื่อกับความหมายได้ถูกต้อง",
@@ -25,7 +25,7 @@ export const QUESTIONS_Y5_EPID_FINAL_MARKED = [
     "examOrigin": "Veterinary Epidemiology final จุดที่รุ่นพี่มาร์คว่าเคยออก",
     "tags": [
       "อิงแนวข้อสอบ",
-      "epidem-basic-concepts",
+      "epidem-outbreak-investigation",
       "types-of-outbreak",
       "endemic",
       "sporadic",
@@ -1743,7 +1743,7 @@ export const QUESTIONS_Y5_EPID_FINAL_MARKED = [
   {
     "id": 214534,
     "subject": "epidemiology",
-    "topic": "epidem-causation",
+    "topic": "epidem-disease-transmission",
     "year": 5,
     "type": "mcq",
     "q": "การได้รับเชื้อไม่ได้แปลว่าจะติดเชื้อเสมอ เพราะต้องได้รับเชื้อถึงจำนวนหนึ่งที่เอาชนะภูมิคุ้มกันของร่างกายได้ก่อนจึงเริ่มการติดเชื้อ จำนวนเชื้อนี้เรียกว่าอะไร",
@@ -1761,7 +1761,7 @@ export const QUESTIONS_Y5_EPID_FINAL_MARKED = [
     "examOrigin": "Veterinary Epidemiology final จุดที่รุ่นพี่มาร์คในสไลด์",
     "tags": [
       "อิงแนวข้อสอบ",
-      "epidem-causation",
+      "epidem-disease-transmission",
       "infective-dose",
       "threshold-level",
       "minimal-infective-dose"
@@ -3889,18 +3889,18 @@ export const QUESTIONS_Y5_EPID_FINAL_MARKED = [
     "topic": "epidem-test-agreement",
     "year": 5,
     "type": "mcq",
-    "q": "จากตาราง ได้ kappa = 0.460 ข้อใดสรุปได้ถูกต้อง",
-    "say": "เปรียบเทียบการตรวจ atrophic rhinitis ในหัวสุกร 248 หัวด้วยการตัดตามยาว (longitudinal) กับการตัดตามขวาง (cross-sectional) ทั้งสองวิธีพบรอยโรค 8 หัว ตัดตามยาวพบแต่ตัดตามขวางไม่พบ 1 หัว ตัดตามขวางพบแต่ตัดตามยาวไม่พบ 16 หัว และทั้งสองวิธีไม่พบ 223 หัว ได้ kappa = 0.460 ข้อใดสรุปได้ถูกต้อง",
+    "q": "จากตาราง ได้ kappa = 0.456 ข้อใดสรุปได้ถูกต้อง",
+    "say": "เปรียบเทียบการตรวจ atrophic rhinitis ในหัวสุกร 248 หัวด้วยการตัดตามยาว (longitudinal) กับการตัดตามขวาง (cross-sectional) ทั้งสองวิธีพบรอยโรค 8 หัว ตัดตามยาวพบแต่ตัดตามขวางไม่พบ 1 หัว ตัดตามขวางพบแต่ตัดตามยาวไม่พบ 16 หัว และทั้งสองวิธีไม่พบ 223 หัว ได้ kappa = 0.456 ข้อใดสรุปได้ถูกต้อง",
     "passage": "เปรียบเทียบการตรวจ atrophic rhinitis ในหัวสุกร 248 หัวด้วยการตัดตามยาว (longitudinal) กับการตัดตามขวาง (cross-sectional) ตารางแสดงจำนวนหัวที่แต่ละวิธีพบหรือไม่พบรอยโรค\n\n| | ตามขวาง: พบ | ตามขวาง: ไม่พบ |\n|---|---|---|\n| ตามยาว: พบ | 8 | 1 |\n| ตามยาว: ไม่พบ | 16 | 223 |",
     "passage_title": "การตรวจ atrophic rhinitis ด้วยการตัดสองแบบ",
     "options": [
       "Moderate agreement และการตัดตามยาวพลาดหัวที่มีรอยโรคไป 16 หัว",
       "Moderate agreement และการตัดตามขวางพลาดหัวที่มีรอยโรคไป 16 หัว",
-      "Substantial agreement เพราะสัดส่วนที่ผลตรงกันสูงถึง 0.932",
+      "Substantial agreement เพราะสัดส่วนที่ผลตรงกันสูงถึง 0.931",
       "Fair agreement และการตัดตามยาวพลาดหัวที่มีรอยโรคไปเพียง 1 หัว"
     ],
     "answer": 0,
-    "explain": "kappa หักส่วนที่ผลตรงกันโดยบังเอิญออก สัดส่วนที่ตรงกันจริงคือ (8 + 223)/248 = 0.932 และสัดส่วนที่คาดว่าตรงกันโดยบังเอิญคือ 0.874 จึงได้ kappa = (0.932 - 0.874)/(1 - 0.874) = 0.460 ซึ่งอยู่ในช่วง 0.40 ถึง 0.59 คือ moderate agreement สัดส่วนที่ตรงกัน 0.932 ดูสูงเพราะหัวส่วนใหญ่ไม่มีรอยโรคทั้งสองวิธี จึงใช้แทน kappa ไม่ได้ ความไม่ตรงกันส่วนใหญ่คือ 16 หัวที่ตัดตามขวางพบรอยโรคแต่ตัดตามยาวไม่พบ การตัดตามยาวจึงดูเหมือนจะพลาดสุกรที่ป่วยด้วย atrophic rhinitis ไปค่อนข้างมากเมื่อเทียบกับการตัดตามขวาง",
+    "explain": "kappa หักส่วนที่ผลตรงกันโดยบังเอิญออก สัดส่วนที่ตรงกันจริงคือ (8 + 223)/248 = 0.9315 และสัดส่วนที่คาดว่าตรงกันโดยบังเอิญคือ (9 × 24 + 239 × 224)/248² = 0.8740 จึงได้ kappa = (0.9315 - 0.8740)/(1 - 0.8740) = 0.456 ซึ่งอยู่ในช่วง 0.40 ถึง 0.59 คือ moderate agreement สัดส่วนที่ตรงกัน 0.931 ดูสูงเพราะหัวส่วนใหญ่ไม่มีรอยโรคทั้งสองวิธี จึงใช้แทน kappa ไม่ได้ ความไม่ตรงกันส่วนใหญ่คือ 16 หัวที่ตัดตามขวางพบรอยโรคแต่ตัดตามยาวไม่พบ การตัดตามยาวจึงดูเหมือนจะพลาดสุกรที่ป่วยด้วย atrophic rhinitis ไปค่อนข้างมากเมื่อเทียบกับการตัดตามขวาง",
     "source": "Measurement of disease frequency- measurement of association- diagnostic test หน้า 102; 7_vet_epidem_Dx_and_Screening_070824 deck 2024 หน้า 32-36",
     "verified": "สไลด์ Screening and Diagnostic tests ชุดปี 2567 (7_vet_epidem_Dx_and_Screening_070824) หน้า 36 มาร์คในสำเนาจากโฟลเดอร์ของ Vet 84 (รุ่นอนุมานจากโฟลเดอร์ ไม่ได้ระบุบนหน้า)",
     "sourceType": "exam-aligned",
@@ -9007,7 +9007,7 @@ export const QUESTIONS_Y5_EPID_FINAL_MARKED = [
   {
     "id": 214648,
     "subject": "epidemiology",
-    "topic": "epidem-data-analysis",
+    "topic": "epidem-sample-size",
     "year": 5,
     "type": "mcq",
     "q": "ข้อใดถูกต้องเกี่ยวกับการหาขนาดตัวอย่าง (sample size) ในงานระบาดวิทยา",
@@ -9025,7 +9025,7 @@ export const QUESTIONS_Y5_EPID_FINAL_MARKED = [
     "examOrigin": "Veterinary Epidemiology final จุดที่รุ่นพี่มาร์คในสไลด์",
     "tags": [
       "อิงแนวข้อสอบ",
-      "epidem-data-analysis",
+      "epidem-sample-size",
       "sample-size",
       "study-design"
     ],
@@ -9075,7 +9075,7 @@ export const QUESTIONS_Y5_EPID_FINAL_MARKED = [
   {
     "id": 214649,
     "subject": "epidemiology",
-    "topic": "epidem-data-analysis",
+    "topic": "epidem-sample-size",
     "year": 5,
     "type": "mcq",
     "q": "Epi Info ซึ่งเป็นชุดซอฟต์แวร์สาธารณะสำหรับผู้ปฏิบัติงานด้านสาธารณสุขและนักวิจัย และใช้คำนวณขนาดตัวอย่างได้ เป็นซอฟต์แวร์ของหน่วยงานใด",
@@ -9093,7 +9093,7 @@ export const QUESTIONS_Y5_EPID_FINAL_MARKED = [
     "examOrigin": "Veterinary Epidemiology final จุดที่รุ่นพี่มาร์คในสไลด์",
     "tags": [
       "อิงแนวข้อสอบ",
-      "epidem-data-analysis",
+      "epidem-sample-size",
       "epi-info",
       "software",
       "sample-size"
@@ -9129,7 +9129,7 @@ export const QUESTIONS_Y5_EPID_FINAL_MARKED = [
   {
     "id": 214650,
     "subject": "epidemiology",
-    "topic": "epidem-data-analysis",
+    "topic": "epidem-sample-size",
     "year": 5,
     "type": "mcq",
     "q": "ต้องการสำรวจความชุกของโรคในประชากรขนาดใหญ่ (descriptive cross-sectional study) แต่ไม่ทราบความถี่ที่คาดไว้จากการศึกษาก่อนหน้า กำหนดค่าความคลาดเคลื่อนที่ยอมรับได้ 5% และระดับความเชื่อมั่น 95% ขนาดตัวอย่างที่ต้องใช้คือเท่าใด",
@@ -9148,7 +9148,7 @@ export const QUESTIONS_Y5_EPID_FINAL_MARKED = [
     "examOrigin": "Veterinary Epidemiology final จุดที่รุ่นพี่มาร์คในสไลด์",
     "tags": [
       "อิงแนวข้อสอบ",
-      "epidem-data-analysis",
+      "epidem-sample-size",
       "sample-size",
       "prevalence",
       "calculation"
@@ -9169,7 +9169,7 @@ export const QUESTIONS_Y5_EPID_FINAL_MARKED = [
   {
     "id": 214651,
     "subject": "epidemiology",
-    "topic": "epidem-data-analysis",
+    "topic": "epidem-sample-size",
     "year": 5,
     "type": "mcq",
     "q": "ต้องการคำนวณขนาดตัวอย่างของ cohort study เรื่องการทำหมันก่อนการเป็นสัดครั้งแรกกับการเกิดปัสสาวะเล็ดในสุนัขเพศเมีย ด้วย Epi Info StatCalc (Unmatched Cohort and Cross-Sectional Studies) ข้อมูลเดิมพบปัสสาวะเล็ด 9.7% ในสุนัขที่ทำหมันก่อนการเป็นสัด ถ้ากำหนดให้กลุ่มที่ไม่ทำหมันเป็น exposed group ค่า 9.7% ต้องใส่ในช่องใด",
@@ -9187,7 +9187,7 @@ export const QUESTIONS_Y5_EPID_FINAL_MARKED = [
     "examOrigin": "Veterinary Epidemiology final จุดที่รุ่นพี่มาร์คในสไลด์",
     "tags": [
       "อิงแนวข้อสอบ",
-      "epidem-data-analysis",
+      "epidem-sample-size",
       "sample-size",
       "cohort",
       "epi-info"
@@ -9233,7 +9233,7 @@ export const QUESTIONS_Y5_EPID_FINAL_MARKED = [
   {
     "id": 214652,
     "subject": "epidemiology",
-    "topic": "epidem-data-analysis",
+    "topic": "epidem-sample-size",
     "year": 5,
     "type": "mcq",
     "q": "วางแผน unmatched case-control study เรื่องการทำหมัน (neutering) กับโรคอ้วนในแมว จากข้อมูลเดิมพบว่าแมวอ้วนเป็นแมวที่ทำหมัน 71% และแมวไม่อ้วนเป็นแมวที่ทำหมัน 38% ในสูตรขนาดตัวอย่าง ค่า p2 คือข้อใด",
@@ -9251,7 +9251,7 @@ export const QUESTIONS_Y5_EPID_FINAL_MARKED = [
     "examOrigin": "Veterinary Epidemiology final จุดที่รุ่นพี่มาร์คในสไลด์",
     "tags": [
       "อิงแนวข้อสอบ",
-      "epidem-data-analysis",
+      "epidem-sample-size",
       "sample-size",
       "case-control"
     ],
@@ -10245,20 +10245,22 @@ export const QUESTIONS_Y5_EPID_FINAL_MARKED = [
     "topic": "epidem-govt-policy",
     "year": 5,
     "type": "short",
-    "q": "แผนปฏิบัติการเฝ้าระวัง ป้องกัน ควบคุมและกำจัดโรคของประเทศไทยแบ่งการเตรียมและวิเคราะห์ข้อมูลในการป้องกันและควบคุมโรคออกเป็น 8 มาตรการ จงระบุมาตรการเหล่านั้น",
+    "q": "แผนปฏิบัติการเฝ้าระวัง ป้องกัน ควบคุมและกำจัดโรคของประเทศไทยแบ่งการเตรียมและวิเคราะห์ข้อมูลในการป้องกันและควบคุมโรคออกเป็น 10 มาตรการ จงระบุมาตรการเหล่านั้น",
     "keywords": [
       "การเฝ้าระวังโรค",
       "การเสริมสร้างภูมิคุ้มกันโรค",
       "การควบคุมเคลื่อนย้ายสัตว์",
       "การปรับระบบการป้องกันโรคในสถานที่เลี้ยงสัตว์",
       "การควบคุมโรค",
-      "การสร้างฟาร์มและพื้นที่ปลอดโรค",
+      "การสร้างฟาร์ม พื้นที่ปลอดโรค และคอมพาร์ทเมนต์",
       "การบันทึกข้อมูลการผลิตและการตลาด",
-      "การเตือนภัย การเผยแพร่และประชาสัมพันธ์"
+      "การให้คำปรึกษาผ่านระบบบริการสัตวแพทย์ทางไกล",
+      "การเตือนภัย การเผยแพร่และประชาสัมพันธ์",
+      "การวิเคราะห์ความเสี่ยง"
     ],
-    "model_answer": "8 มาตรการ ได้แก่ 1) การเฝ้าระวังโรค 2) การเสริมสร้างภูมิคุ้มกันโรค 3) การควบคุมเคลื่อนย้ายสัตว์ 4) การปรับระบบการป้องกันโรคระบาดในสถานที่เลี้ยงสัตว์ 5) การควบคุมโรค 6) การสร้างฟาร์มและพื้นที่ปลอดโรค 7) การบันทึกข้อมูลการผลิตและการตลาด 8) การสร้างระบบการเตือนภัย การเผยแพร่และประชาสัมพันธ์ แผนนี้ขับเคลื่อนด้วยกฎหมาย ร่วมกับงานวิจัย การบริการ และงานพัฒนา ภายใต้แนวคิด One Health",
+    "model_answer": "10 มาตรการ ได้แก่ 1) การเฝ้าระวังโรค 2) การเสริมสร้างภูมิคุ้มกันโรค 3) การควบคุมเคลื่อนย้ายสัตว์ 4) การปรับระบบการป้องกันโรคระบาดในสถานที่เลี้ยงสัตว์ 5) การควบคุมโรค 6) การสร้างฟาร์ม พื้นที่ปลอดโรค และคอมพาร์ทเมนต์ 7) การบันทึกข้อมูลการผลิตและการตลาด 8) การให้คำปรึกษาผ่านระบบบริการสัตวแพทย์ทางไกล (DLD-Televet) 9) การสร้างระบบการเตือนภัย การเผยแพร่และประชาสัมพันธ์ 10) การวิเคราะห์ความเสี่ยง แผนนี้ขับเคลื่อนด้วยกฎหมาย ร่วมกับงานวิจัย การบริการ และงานพัฒนา ภายใต้แนวคิด One Health",
     "explain": "การเสริมสร้างภูมิคุ้มกันโรคคือการฉีดวัคซีนประจำปี (mass vaccination) และการฉีดวัคซีนควบคุมโรค (emergency vaccination) การควบคุมโรคคือมาตรการเมื่อเกิดการระบาดแล้ว เช่น การกัก การทำลายสัตว์ป่วย และการฉีดวัคซีนรอบจุดเกิดโรค การบันทึกข้อมูลการผลิตและการตลาดเป็นฐานของการตรวจสอบย้อนกลับ ซึ่งในประเทศไทยยังมีข้อมูลน้อยและย้อนกลับได้ยาก ทุกมาตรการมาจากแนวคิด One Health และต้องอาศัยกฎหมายเป็นเครื่องมือ เพราะการปฏิบัติตามด้วยความสมัครใจมีน้อย",
-    "source": "นโยบายภาครัฐ และการป้องกัน ควบคุมและกำจัดโรคระบาดสัตว์ หน้า 35, 43, 47, 50, 52, 55, 57, 61; 12 - นโยบายภาครัฐ และการป้องกัน ควบคุมและกำจัดโรคระบาดสัตว์ deck 2024 หน้า 22, 25",
+    "source": "นโยบายภาครัฐ และการป้องกัน ควบคุมและกำจัดโรคระบาดสัตว์ หน้า 29, 35, 43, 47, 50, 52, 55, 57, 61; 12 - นโยบายภาครัฐ และการป้องกัน ควบคุมและกำจัดโรคระบาดสัตว์ deck 2024 หน้า 22, 25",
     "verified": "สไลด์นโยบายภาครัฐและการป้องกัน ควบคุมและกำจัดโรคระบาดสัตว์ ชุดปี 2567 หน้า 22 (แผนภาพแผนปฏิบัติการ ไฮไลต์การปรับระบบการป้องกันโรคในสถานที่เลี้ยงสัตว์ ดาวและบันทึก 'สำคัญนะ' ที่การบันทึกข้อมูลการผลิตและการตลาด และบันทึกว่าทั้งหมดมาจากแนวคิด One Health) และหน้า 25 (แผนภาพเดียวกัน วงกฎหมายพร้อมบันทึก '1st' และเหตุผลที่ต้องใช้กฎหมาย) ในชุดไฟล์ของ Vet 84 (รุ่นที่มาร์คไม่ได้ระบุบนหน้า อนุมานจากโฟลเดอร์)",
     "sourceType": "exam-aligned",
     "examOrigin": "Veterinary Epidemiology final จุดที่รุ่นพี่มาร์คในสไลด์",
@@ -10266,10 +10268,15 @@ export const QUESTIONS_Y5_EPID_FINAL_MARKED = [
       "อิงแนวข้อสอบ",
       "epidem-govt-policy",
       "action-plan",
-      "eight-measures",
+      "ten-measures",
       "one-health"
     ],
     "sourcePages": [
+      {
+        "doc": "epid-gov-policy-2569",
+        "edition": "63p",
+        "page": 29
+      },
       {
         "doc": "epid-gov-policy-2569",
         "edition": "63p",

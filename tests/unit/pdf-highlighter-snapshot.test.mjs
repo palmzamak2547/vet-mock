@@ -23,6 +23,7 @@ import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import { readFileSync } from 'node:fs';
 import * as ink from '../../src/lib/ink.js';
+import { createInkEngine } from '../../src/lib/ink/engine.js';
 
 const SRC = readFileSync(new URL('../../src/views/PdfAnnotateView.jsx', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 
@@ -34,11 +35,12 @@ function cut(start, end) {
   return SRC.slice(a, b);
 }
 
+// The pointer loop is lib/ink/engine.js; the reader hands it a host (which
+// page, how ink is painted and committed). Both run here: the real engine,
+// and the reader's own host cut from the view.
 const HANDLERS = [
   cut('  function redrawOverlay(', '\n  // ── Pointer handlers'),
-  cut('  function onPointerMove(e) {', '\n  function onPointerUp(e) {'),
-  cut('  function onPointerUp(e) {', '\n  // ── Autosave'),
-  cut('  function gestureDown(e) {', '\n  function gestureMove(e) {'),
+  cut('  function inkHost() {', '\n  // ── Autosave'),
 ].join('\n');
 
 // A 2D context that counts what it is asked to do and remembers nothing.
@@ -73,14 +75,8 @@ function reader(canvas, settled, { scale = 1.5 } = {}) {
     drawingRef: { current: { on: false, points: [] } },
     currentStrokesRef: { current: settled },
     hlCopyRef: { current: {} },
-    panRef: { current: null },
-    tapRef: { current: { at: 0, x: 0, y: 0 } },
     holdTimerRef: { current: null },
     lastStrokePageRef: { current: null },
-    gestureRef: { current: null },
-    activePointers: { current: new Map() },
-    gestureMove: () => false,
-    gestureUp: () => false,
     hoverRing() {},
     scheduleShapeSnap() {},
     maybePullAfterStroke() {},
@@ -88,12 +84,16 @@ function reader(canvas, settled, { scale = 1.5 } = {}) {
     setRedoStack() {},
     // Only the stroke's own coordinates matter here; the event carries them.
     pointFromEvent: (e) => [e.x, e.y],
-    withTilt: (pt) => pt,
-    tiltOf: () => 0,
   };
   ctx.setStrokesByPage = (fn) => { ctx.committed = fn({ 1: ctx.currentStrokesRef.current }); };
   vm.createContext(ctx);
   vm.runInContext(HANDLERS, ctx);
+  const engine = createInkEngine();
+  engine.setHost(vm.runInContext('inkHost()', ctx));
+  ctx.drawingRef = engine.drawingRef;
+  ctx.onPointerMove = engine.onPointerMove;
+  ctx.onPointerUp = engine.onPointerUp;
+  ctx.gestureDown = engine.gestureDown;
   const begin = () => {
     ctx.drawingRef.current = {
       on: true,

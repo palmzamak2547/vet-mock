@@ -1275,5 +1275,534 @@ export const QB_Y5_EPIDEMIOLOGY_2026C = [
       "non-response",
       "sample-size-calculation"
     ]
+  },
+  {
+    "id": 218400,
+    "subject": "epidemiology",
+    "topic": "epidem-current-research",
+    "year": 5,
+    "type": "mcq",
+    "q": "ระบบคัดกรองอัตโนมัติประเมินสัตว์ 1,000 ตัว ซึ่งมีสัตว์ป่วยจริง 10 ตัว ระบบรายงานว่าสัตว์ทุกตัวปกติ ข้อใดถูกต้อง",
+    "options": [
+      "accuracy เท่ากับ 99% และ sensitivity เท่ากับ 99% เพราะผลส่วนใหญ่ถูกต้อง",
+      "accuracy เท่ากับ 99% และ specificity เท่ากับ 0% เพราะไม่มีผลบวกเลย",
+      "accuracy เท่ากับ 99% แต่ sensitivity เท่ากับ 0% เพราะตรวจไม่พบสัตว์ป่วยเลย",
+      "accuracy เท่ากับ 1% และ specificity เท่ากับ 0% เพราะไม่มีผลบวกเลย"
+    ],
+    "answer": 2,
+    "explain": "ระบบตอบว่าปกติทั้ง 1,000 ตัว จึงถูกในสัตว์ไม่ป่วย 990 ตัว accuracy = 990/1,000 = 99% แต่สัตว์ป่วย 10 ตัวไม่ถูกตรวจพบเลย sensitivity = 0/10 = 0% เมื่อโรคพบน้อย ตัวเลข accuracy สูงจึงซ่อน sensitivity ที่เป็นศูนย์ไว้ได้ การประเมินเครื่องมือจึงต้องดู sensitivity และ specificity แยกกัน\n\nทำไมข้ออื่นผิด\nsensitivity 99%: sensitivity คิดจากสัตว์ป่วยเท่านั้น ซึ่งตรวจพบ 0 จาก 10 ตัว\nspecificity 0%: สัตว์ไม่ป่วยทั้ง 990 ตัวได้ผลลบ specificity จึงเป็น 100%\naccuracy 1%: ผลที่ตรงกับความจริงมี 990 จาก 1,000 ตัว",
+    "source": "The Future Veterinarian: Epidemiology in the Age of Big Data, AI,One Health and AMR หน้า 8; 23AwFruxQQc [45:56-49:01]",
+    "verified": "The Future Veterinarian: Epidemiology in the Age of Big Data, AI,One Health and AMR หน้า 8 (1,000 animals, ten diseased, labels every animal healthy: 99% accurate, sensitivity 0%); 23AwFruxQQc [45:56-49:01] (990 accuracy ถูกต้อง 99%)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Epidemiology ปี 2569 เรื่อง The Future Veterinarian",
+    "tags": [
+      "epidem-current-research",
+      "accuracy-trap",
+      "sensitivity"
+    ],
+    "sourcePages": [
+      {
+        "doc": "epid-future-vet-2569",
+        "edition": "19p",
+        "page": 8
+      }
+    ]
+  },
+  {
+    "id": 218401,
+    "subject": "epidemiology",
+    "topic": "epidem-current-research",
+    "year": 5,
+    "type": "mcq",
+    "q": "โมเดลตรวจจับความผิดปกติของการเดินในโคนมรายงานค่าความถูกต้องสูงมาก แต่ข้อมูลจากโคตัวเดียวกันอยู่ทั้งในชุดข้อมูลที่ใช้ฝึก (training) และชุดที่ใช้ทดสอบ (testing) ข้อใดอธิบายได้ถูกต้องที่สุด",
+    "options": [
+      "ค่าที่รายงานอาจสูงเกินจริงจาก data leakage และควรทดสอบซ้ำกับข้อมูลจากฟาร์มใหม่",
+      "ค่าที่รายงานน่าเชื่อถือมากขึ้น เพราะโมเดลได้เรียนรู้จากโคตัวเดิมซ้ำหลายครั้ง",
+      "ค่าที่รายงานต่ำกว่าความจริง เพราะข้อมูลซ้ำทำให้โมเดลแยกโคแต่ละตัวไม่ได้",
+      "ค่าที่รายงานไม่ได้รับผลกระทบ หากชุดข้อมูลรวมมีมากกว่าหนึ่งหมื่นค่าสังเกต"
+    ],
+    "answer": 0,
+    "explain": "เมื่อข้อมูลจากสัตว์ตัวเดียวกันอยู่ทั้งในชุดฝึกและชุดทดสอบ โมเดลได้เห็นสัตว์ตัวนั้นมาก่อนแล้ว ผลทดสอบจึงอาจดีเกินจริง เรียกว่า data leakage การทดสอบกับฟาร์มใหม่ที่โมเดลไม่เคยเห็นเป็นการประเมินที่เข้มกว่า และใกล้กับการนำไปใช้จริงมากกว่า\n\nทำไมข้ออื่นผิด\nน่าเชื่อถือมากขึ้น: การเห็นตัวเดิมซ้ำทำให้ผลดูดีขึ้น ไม่ได้ทำให้ประเมินได้ตรงขึ้น\nต่ำกว่าความจริง: ทิศทางของความคลาดเคลื่อนคือสูงเกินจริง ไม่ใช่ต่ำ\nไม่ได้รับผลกระทบ: ค่าสังเกตจำนวนมากจากสัตว์ชุดเดิมไม่ได้เป็นหลักฐานอิสระจากสัตว์ตัวใหม่",
+    "source": "The Future Veterinarian: Epidemiology in the Age of Big Data, AI,One Health and AMR หน้า 6, 8; 23AwFruxQQc [53:40-54:25]",
+    "verified": "The Future Veterinarian: Epidemiology in the Age of Big Data, AI,One Health and AMR หน้า 8 (Data leakage: the same cow in training and testing gives overly optimistic performance; testing on new farms is more demanding), The Future Veterinarian: Epidemiology in the Age of Big Data, AI,One Health and AMR หน้า 6 (10,000 observations from one cow are still one cow); 23AwFruxQQc [53:40-54:25] (เทรนจากฟาร์ม A แล้วไปเทสฟาร์ม B ฟาร์ม C)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Epidemiology ปี 2569 เรื่อง The Future Veterinarian",
+    "tags": [
+      "epidem-current-research",
+      "data-leakage",
+      "ai-evaluation"
+    ],
+    "sourcePages": [
+      {
+        "doc": "epid-future-vet-2569",
+        "edition": "19p",
+        "page": 6
+      },
+      {
+        "doc": "epid-future-vet-2569",
+        "edition": "19p",
+        "page": 8
+      }
+    ]
+  },
+  {
+    "id": 218402,
+    "subject": "epidemiology",
+    "topic": "epidem-current-research",
+    "year": 5,
+    "type": "mcq",
+    "q": "ฐานข้อมูลเวชระเบียนพบจำนวนเคสของโรคหนึ่งในปีนี้มากเป็นสองเท่าของปีก่อน ข้อสรุปใดเหมาะสมที่สุด",
+    "options": [
+      "ความเสี่ยงของโรคเพิ่มเป็นสองเท่า เพราะจำนวนเคสที่บันทึกเป็นตัววัดความเสี่ยงโดยตรง",
+      "ยังสรุปไม่ได้ เพราะประชากรที่ติดตาม การตรวจ การรายงาน หรือนิยามผู้ป่วยอาจเปลี่ยนไป",
+      "อุบัติการณ์เพิ่มเป็นสองเท่า เพราะเคสในฐานข้อมูลเป็นเคสใหม่ที่เกิดในปีนั้นทั้งหมด",
+      "ความชุกเพิ่มเป็นสองเท่า เพราะฐานข้อมูลขนาดใหญ่เป็นตัวแทนของสัตว์ทุกกลุ่มในพื้นที่"
+    ],
+    "answer": 1,
+    "explain": "จำนวนเคสเป็นเพียงตัวตั้ง ความเสี่ยงต้องมีตัวหารคือจำนวนสัตว์ที่อยู่ในการติดตาม ถ้าปีนี้มีสัตว์เข้ามาในฐานข้อมูลมากขึ้น ตรวจมากขึ้น รายงานดีขึ้น หรือเปลี่ยนนิยามผู้ป่วย จำนวนเคสก็เพิ่มได้โดยที่ความเสี่ยงไม่เปลี่ยน จึงต้องดูตัวหารและวิธีเก็บข้อมูลก่อนสรุป\n\nทำไมข้ออื่นผิด\nความเสี่ยงเพิ่มเป็นสองเท่า: จำนวนเคสที่ไม่มีตัวหารบอกความเสี่ยงไม่ได้\nอุบัติการณ์เพิ่มเป็นสองเท่า: อุบัติการณ์ต้องมีตัวหารเป็นประชากรเสี่ยงในช่วงเวลา และเวชระเบียนอาจมีทั้งเคสเก่าและเคสใหม่\nความชุกเพิ่มเป็นสองเท่า: ข้อมูลจากสถานพยาบาลอาจไม่เป็นตัวแทนของสัตว์ที่เจ้าของเข้าไม่ถึงการรักษา",
+    "source": "The Future Veterinarian: Epidemiology in the Age of Big Data, AI,One Health and AMR หน้า 6; 23AwFruxQQc [36:02-36:07]",
+    "verified": "The Future Veterinarian: Epidemiology in the Age of Big Data, AI,One Health and AMR หน้า 6 (A count needs a denominator; mini-exercise: twice as many cases, has risk doubled? Not necessarily: population under observation, testing intensity, reporting, or case definitions may have changed; hospital records may poorly represent animals whose owners cannot access care); 23AwFruxQQc [36:02-36:07] (ตัวหารยังเป็น population เดิมอยู่มั้ยถ้าดับเบิลขึ้นมา)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Epidemiology ปี 2569 เรื่อง The Future Veterinarian",
+    "tags": [
+      "epidem-current-research",
+      "denominator",
+      "big-data"
+    ],
+    "sourcePages": [
+      {
+        "doc": "epid-future-vet-2569",
+        "edition": "19p",
+        "page": 6
+      }
+    ]
+  },
+  {
+    "id": 218403,
+    "subject": "epidemiology",
+    "topic": "epidem-current-research",
+    "year": 5,
+    "type": "mcq",
+    "q": "ข้อมูลจากหลายฟาร์มพบว่าฟาร์มที่ใช้ยาต้านจุลชีพมากมีโรคมากกว่าฟาร์มที่ใช้น้อย ข้อใดเป็นการแปลผลที่เหมาะสมที่สุด",
+    "options": [
+      "ยาต้านจุลชีพเป็นสาเหตุของโรค เพราะพบความสัมพันธ์ระหว่างสองตัวแปรอย่างชัดเจน",
+      "การใช้ยาไม่เกี่ยวกับโรคเลย เพราะความสัมพันธ์จากข้อมูลเชิงสังเกตไม่มีความหมาย",
+      "ควรลดการใช้ยาทุกฟาร์มทันที เพราะโรคจะลดลงตามสัดส่วนของยาที่ลดลง",
+      "ความสัมพันธ์อาจกลับทิศ คือโรคทำให้ใช้ยามาก หรือมีปัจจัยของฟาร์มที่ส่งผลต่อทั้งสองอย่าง"
+    ],
+    "answer": 3,
+    "explain": "ความสัมพันธ์จากข้อมูลเชิงสังเกตยังไม่ใช่เหตุและผล ในกรณีนี้ทิศทางอาจกลับกัน คือฟาร์มที่มีโรคมากจึงต้องใช้ยามาก หรืออาจมีลักษณะอื่นของฟาร์ม เช่น การจัดการหรือโรงเรือน ที่ทำให้ทั้งโรคและการใช้ยาสูงขึ้นพร้อมกัน (confounding)\n\nทำไมข้ออื่นผิด\nยาเป็นสาเหตุ: ความสัมพันธ์อย่างเดียวไม่บอกทิศทางของเหตุและผล\nไม่เกี่ยวกันเลย: ความสัมพันธ์ที่พบยังมีความหมาย เพียงต้องแปลผลด้วยความระวัง\nลดยาทุกฟาร์มทันที: ถ้าโรคเป็นตัวที่ทำให้ใช้ยา การลดยาอย่างเดียวไม่ได้ลดโรค",
+    "source": "The Future Veterinarian: Epidemiology in the Age of Big Data, AI,One Health and AMR หน้า 10; 23AwFruxQQc [58:05]",
+    "verified": "The Future Veterinarian: Epidemiology in the Age of Big Data, AI,One Health and AMR หน้า 10 (Farms using more antibiotics have more disease, do antibiotics cause the disease? The direction may be reversed, or other farm characteristics affect both); 23AwFruxQQc [58:05] (ทำให้โรคมากขึ้น หรือมีโรคมากขึ้นก็เลยใช้ยามากขึ้น)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Epidemiology ปี 2569 เรื่อง The Future Veterinarian",
+    "tags": [
+      "epidem-current-research",
+      "reverse-causation",
+      "confounding"
+    ],
+    "sourcePages": [
+      {
+        "doc": "epid-future-vet-2569",
+        "edition": "19p",
+        "page": 10
+      }
+    ]
+  },
+  {
+    "id": 218404,
+    "subject": "epidemiology",
+    "topic": "epidem-current-research",
+    "year": 5,
+    "type": "mcq",
+    "q": "ห้องปฏิบัติการรายงานว่า isolate ของแบคทีเรียที่ส่งตรวจ 40 จาก 100 isolate เข้าเกณฑ์ดื้อยา ข้อสรุปใดถูกต้อง",
+    "options": [
+      "40% ของ isolate ที่ส่งตรวจเข้าเกณฑ์ดื้อยา ซึ่งไม่ได้บอกสัดส่วนของสัตว์ในพื้นที่ที่มีเชื้อดื้อยา",
+      "40% ของสัตว์ในพื้นที่มีเชื้อดื้อยา เพราะแต่ละ isolate เป็นตัวแทนของสัตว์หนึ่งตัวในพื้นที่",
+      "สัตว์ 40 ตัวที่ให้ isolate นั้นดื้อยาเอง จึงต้องแยกสัตว์เหล่านั้นออกจากฝูงทันที",
+      "ความชุกของเชื้อดื้อยาในภูมิภาคอยู่ระหว่าง 40% ถึง 60% ตามช่วงความเชื่อมั่นของการสุ่ม"
+    ],
+    "answer": 0,
+    "explain": "ตัวหารของตัวเลขนี้คือ isolate ที่ถูกส่งตรวจ ไม่ใช่สัตว์ทั้งหมดในพื้นที่ ตัวอย่างอาจถูกส่งมาหลังรักษาไม่หาย อาจมี isolate ซ้ำจากสัตว์ตัวเดียว และสัตว์ที่ไม่เคยถูกเก็บตัวอย่างก็ไม่อยู่ในตัวเลขนี้ จึงสรุปได้เพียงว่า 40% ของ isolate ที่ส่งตรวจเข้าเกณฑ์ดื้อยา\n\nทำไมข้ออื่นผิด\n40% ของสัตว์ในพื้นที่: ตัวอย่างที่ส่งตรวจไม่ได้สุ่มจากสัตว์ทั้งพื้นที่\nสัตว์ดื้อยาเอง: การดื้อยาเป็นคุณสมบัติของเชื้อ ตัวสัตว์ไม่ได้ดื้อยา\nช่วง 40% ถึง 60%: ไม่มีการสุ่มจากประชากรในภูมิภาค จึงไม่มีช่วงความเชื่อมั่นของความชุกให้สรุป",
+    "source": "The Future Veterinarian: Epidemiology in the Age of Big Data, AI,One Health and AMR หน้า 12; 23AwFruxQQc [63:10-63:56]",
+    "verified": "The Future Veterinarian: Epidemiology in the Age of Big Data, AI,One Health and AMR หน้า 12 (resistance in 40 of 100 submitted isolates means 40% of those isolates met the resistance definition, not that 40% of all animals in the region carry resistant bacteria; the animal itself does not become antibiotic-resistant; ask about submission after treatment failure, repeat isolates, animals never sampled); 23AwFruxQQc [63:10-63:56] (40 จาก 100 ไม่ได้หมายความว่าสัตว์ 40 ตัวดื้อยา)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Epidemiology ปี 2569 เรื่อง The Future Veterinarian",
+    "tags": [
+      "epidem-current-research",
+      "amr",
+      "denominator"
+    ],
+    "sourcePages": [
+      {
+        "doc": "epid-future-vet-2569",
+        "edition": "19p",
+        "page": 12
+      }
+    ]
+  },
+  {
+    "id": 218405,
+    "subject": "epidemiology",
+    "topic": "epidem-current-research",
+    "year": 5,
+    "type": "mcq",
+    "q": "หลังโครงการลดการใช้ยาต้านจุลชีพในฟาร์ม ข้อมูลต่อสัตว์ 100 ตัวพบว่าจำนวนรอบการรักษาด้วยยาต้านจุลชีพลดจาก 25 เป็น 10 แต่จำนวนสัตว์ตายเพิ่มจาก 3 เป็น 8 ข้อสรุปใดเหมาะสมที่สุด",
+    "options": [
+      "โครงการสำเร็จ เพราะเป้าหมายเดียวของการใช้ยาอย่างสมเหตุผลคือการลดรอบการรักษา",
+      "โครงการสำเร็จบางส่วน เพราะการตายที่เพิ่มขึ้นไม่เกี่ยวกับการใช้ยาต้านจุลชีพ",
+      "ยังไม่ถือว่าสำเร็จ เพราะต้องวัดสุขภาพและการตายของสัตว์ควบคู่กับปริมาณการใช้ยา",
+      "ยังสรุปไม่ได้ เพราะต้องรายงานการใช้ยาเป็นกิโลกรัมเท่านั้นจึงจะเปรียบเทียบกันได้"
+    ],
+    "answer": 2,
+    "explain": "การใช้ยาที่ลดลงอย่างเดียวไม่ได้แสดงว่าโครงการสำเร็จ ในกรณีนี้การตายเพิ่มขึ้นมากกว่าสองเท่า ตัวเลขการใช้ยาที่ลดลงจึงซ่อนผลเสียต่อสุขภาพสัตว์ไว้ การประเมินต้องวัดสุขภาพและสวัสดิภาพสัตว์ควบคู่กับการใช้ยา และต้องเทียบในประชากรที่เทียบกันได้\n\nทำไมข้ออื่นผิด\nเป้าหมายเดียวคือลดรอบการรักษา: เป้าหมายคือรักษาได้ผลพร้อมกับลดการใช้ยาที่ไม่จำเป็น\nการตายไม่เกี่ยวกับยา: ข้อมูลนี้ไม่ได้ตัดความเกี่ยวข้องนั้นออก และการตายที่เพิ่มต้องถูกนำมาพิจารณา\nต้องใช้กิโลกรัมเท่านั้น: กิโลกรัมของยา รอบการรักษา และวันที่ได้รับยาตอบคำถามต่างกัน ไม่มีหน่วยใดเป็นหน่วยเดียวที่ใช้ได้",
+    "source": "The Future Veterinarian: Epidemiology in the Age of Big Data, AI,One Health and AMR หน้า 13; 23AwFruxQQc [65:25-66:33]",
+    "verified": "The Future Veterinarian: Epidemiology in the Age of Big Data, AI,One Health and AMR หน้า 13 (Scenario B: treatment courses 25 to 10, deaths 3 to 8; reduced use alone would not establish success; measure health and welfare alongside antimicrobial use; kilograms, courses and treatment-days answer different questions); 23AwFruxQQc [65:25-66:33] (ใช้ยาปฏิชีวนะน้อยลง แต่มีการตายมากขึ้น)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Epidemiology ปี 2569 เรื่อง The Future Veterinarian",
+    "tags": [
+      "epidem-current-research",
+      "amr-stewardship",
+      "outcome-measures"
+    ],
+    "sourcePages": [
+      {
+        "doc": "epid-future-vet-2569",
+        "edition": "19p",
+        "page": 13
+      }
+    ]
+  },
+  {
+    "id": 218406,
+    "subject": "epidemiology",
+    "topic": "epidem-software",
+    "year": 5,
+    "type": "mcq",
+    "q": "การสำรวจเพื่อแสดงความปลอดโรคในประชากรโคขนาดใหญ่ กำหนด design prevalence 5% และชุดตรวจมี sensitivity 90% สุ่มตรวจ 10 ตัวได้ผลลบทั้งหมด ข้อใดถูกต้อง",
+    "options": [
+      "ถ้ามีโรคจริงที่ 5% โอกาสตรวจพบอย่างน้อย 1 ตัวมีราว 90% จึงถือได้ว่าฝูงน่าจะปลอดโรค",
+      "ถ้ามีโรคจริงที่ 5% โอกาสตรวจพบอย่างน้อย 1 ตัวมีเพียงราว 37% จึงยังสรุปว่าปลอดโรคไม่ได้",
+      "ถ้ามีโรคจริงที่ 5% โอกาสตรวจพบอย่างน้อย 1 ตัวมีราว 95% จึงถือได้ว่าฝูงปลอดโรค 95%",
+      "ถ้ามีโรคจริงที่ 5% โอกาสตรวจพบอย่างน้อย 1 ตัวมีราว 50% จึงควรตรวจซ้ำในโค 10 ตัวเดิม"
+    ],
+    "answer": 1,
+    "explain": "โอกาสที่โคหนึ่งตัวทั้งติดเชื้อและตรวจพบ = 0.05 x 0.90 = 0.045 โอกาสตรวจพบอย่างน้อย 1 ตัวจาก n ตัว = 1 - (1 - 0.045)^n เมื่อ n = 10 ได้ 1 - 0.955^10 = ประมาณ 0.369 หรือราว 37% ผลลบทั้ง 10 ตัวจึงยังพลาดการติดเชื้อได้มาก การแสดงความปลอดโรคต้องคิดขนาดตัวอย่าง (n = 65 ให้ราว 95%) และแม้ถึงระดับนั้นก็ไม่ได้แปลว่าฝูงปลอดโรคแน่นอน\n\nทำไมข้ออื่นผิด\nราว 90%: 90% เป็น sensitivity ของการตรวจหนึ่งตัวที่ติดเชื้อ ไม่ใช่โอกาสตรวจพบในฝูง\nราว 95%: ต้องตรวจประมาณ 65 ตัวจึงได้ราว 95% และค่านี้ไม่ใช่ความน่าจะเป็นที่ฝูงปลอดโรค\nราว 50% และตรวจซ้ำตัวเดิม: ตัวเลขไม่ตรงกับการคำนวณ และการตรวจซ้ำในสัตว์ชุดเดิมไม่ได้เพิ่มจำนวนสัตว์ที่สุ่ม",
+    "source": "Intro. to Module 1: Diagnostic Tool หน้า 18, 25; 23AwFruxQQc [113:00-114:10]",
+    "verified": "Intro. to Module 1: Diagnostic Tool หน้า 18 (design prevalence 5%, sensitivity 90%: P(infected and detected) = 0.045; P(detect at least 1 in n) = 1 - (1 - 0.045)^n; n = 10: 36.9%, n = 65: 95.0%; negative results do not establish a 95% probability that the herd is free), Intro. to Module 1: Diagnostic Tool หน้า 25 (negative results from 10 sampled cattle do not prove herd freedom); 23AwFruxQQc [113:00-114:10] (เก็บตัวอย่างน้อย ตรวจไม่เจอไม่ได้หมายความว่าไม่มีโรค)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Epidemiology ปี 2569 เรื่อง Module 1 Diagnostic Tools",
+    "tags": [
+      "epidem-software",
+      "freedom-from-infection",
+      "detection-probability",
+      "calculation"
+    ],
+    "sourcePages": [
+      {
+        "doc": "epid-module1-diagnostic-2569",
+        "edition": "27p",
+        "page": 18
+      },
+      {
+        "doc": "epid-module1-diagnostic-2569",
+        "edition": "27p",
+        "page": 25
+      }
+    ]
+  },
+  {
+    "id": 218407,
+    "subject": "epidemiology",
+    "topic": "epidem-software",
+    "year": 5,
+    "type": "mcq",
+    "q": "ฟาร์มโคนมติดตามผลคัดกรองเต้านมอักเสบทุกเดือน เดือนมกราคมพบผลบวก 10 จากโคที่ตรวจ 100 ตัว เดือนกุมภาพันธ์พบผลบวก 30 จากโคที่ตรวจ 300 ตัว ข้อสรุปใดถูกต้อง",
+    "options": [
+      "สัดส่วนผลบวกเพิ่มขึ้นสามเท่า เพราะจำนวนผลบวกเพิ่มจาก 10 เป็น 30 ตัว",
+      "สัดส่วนผลบวกลดลงครึ่งหนึ่ง เพราะจำนวนโคที่ตรวจเพิ่มเร็วกว่าผลบวก",
+      "สัดส่วนผลบวกเพิ่มเป็น 20% เพราะต้องรวมผลบวกของสองเดือนเข้าด้วยกัน",
+      "สัดส่วนผลบวกเท่าเดิมที่ 10% จำนวนผลบวกเพิ่มเพราะตรวจโคมากขึ้น"
+    ],
+    "answer": 3,
+    "explain": "มกราคม 10/100 = 10% และกุมภาพันธ์ 30/300 = 10% สัดส่วนผลบวกจึงไม่เปลี่ยน จำนวนผลบวกที่เพิ่มขึ้นมาจากจำนวนโคที่ตรวจมากขึ้น ก่อนเทียบสองเดือนยังต้องดูด้วยว่าโคที่ตรวจ ตัวอย่าง ชุดตรวจ และเหตุผลที่ส่งตรวจเทียบกันได้หรือไม่ การวัดซ้ำแบบนี้เรียกว่า monitoring ส่วน surveillance ต้องเชื่อมการเก็บและวิเคราะห์ข้อมูลเข้ากับการตัดสินใจและการลงมือทำ\n\nทำไมข้ออื่นผิด\nเพิ่มสามเท่า: ดูเฉพาะตัวตั้งโดยไม่ดูตัวหาร\nลดลงครึ่งหนึ่ง: ตัวตั้งและตัวหารเพิ่มสามเท่าเท่ากัน\nเพิ่มเป็น 20%: การรวมสองเดือนได้ 40/400 ซึ่งยังเป็น 10%",
+    "source": "Intro. to Module 1: Diagnostic Tool หน้า 19; 23AwFruxQQc [96:13-97:42]",
+    "verified": "Intro. to Module 1: Diagnostic Tool หน้า 19 (Monitoring: repeated measurement, monthly mastitis screening; Surveillance: connected to decisions and action; January 10/100 = 10%, February 30/300 = 10%: the number of positives increased because more animals were tested); 23AwFruxQQc [96:13-97:42] (monitor ติดตามวัดไปเรื่อย ๆ ส่วน surveillance คาดหวัง action)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Epidemiology ปี 2569 เรื่อง Module 1 Diagnostic Tools",
+    "tags": [
+      "epidem-software",
+      "monitoring",
+      "surveillance",
+      "denominator"
+    ],
+    "sourcePages": [
+      {
+        "doc": "epid-module1-diagnostic-2569",
+        "edition": "27p",
+        "page": 19
+      }
+    ]
+  },
+  {
+    "id": 218408,
+    "subject": "epidemiology",
+    "topic": "epidem-software",
+    "year": 5,
+    "type": "mcq",
+    "q": "ลูกโคสัมผัสเชื้อในวันที่ 0 และตรวจหาแอนติบอดีในวันที่ 3 ได้ผลลบ ข้อใดถูกต้องที่สุด",
+    "options": [
+      "ยังตัดการติดเชื้อที่เพิ่งเกิดไม่ได้ เพราะแอนติบอดีอาจยังไม่ถึงระดับที่ชุดตรวจตรวจพบ",
+      "ตัดการติดเชื้อได้ เพราะผลลบจากชุดตรวจที่มี specificity สูงยืนยันว่าไม่ติดเชื้อ",
+      "ผลนี้เป็น true negative เพราะการตรวจทำหลังการสัมผัสเชื้อแล้วถึง 3 วัน",
+      "ลูกโคไม่ได้รับเชื้อ เพราะการติดเชื้อจะทำให้ตรวจพบแอนติบอดีได้ภายในวันเดียว"
+    ],
+    "answer": 0,
+    "explain": "การตรวจแอนติบอดีวัดการตอบสนองของร่างกาย ซึ่งต้องใช้เวลาหลังสัมผัสเชื้อจึงขึ้นถึงระดับที่ตรวจได้ ผลลบในวันที่ 3 จึงตัดการติดเชื้อที่เพิ่งเกิดไม่ได้ ช่วงเวลาตรวจซ้ำขึ้นกับเชื้อ ชุดตรวจ และแนวทางที่ใช้\n\nทำไมข้ออื่นผิด\nspecificity สูงยืนยันว่าไม่ติดเชื้อ: specificity บอกความสามารถในการให้ผลลบในตัวที่ไม่ติดเชื้อ ไม่ได้แก้ปัญหาการตรวจเร็วเกินไป\ntrue negative: 3 วันอาจยังสั้นเกินกว่าที่แอนติบอดีจะขึ้น ผลลบจึงอาจเป็น false negative\nตรวจพบได้ภายในวันเดียว: การตอบสนองทางภูมิคุ้มกันต้องใช้เวลา ไม่ได้ขึ้นทันทีหลังสัมผัสเชื้อ",
+    "source": "Intro. to Module 1: Diagnostic Tool หน้า 20, 25; 23AwFruxQQc [99:50-101:00]",
+    "verified": "Intro. to Module 1: Diagnostic Tool หน้า 20 (Day 0 calf exposed, Day 3 tested antibody negative: the day-3 result cannot confidently exclude recent infection; follow-up timing reflects pathogen, assay and protocol), Intro. to Module 1: Diagnostic Tool หน้า 25 (a negative result shortly after exposure does not necessarily exclude infection); 23AwFruxQQc [99:50-101:00] (ตรวจอิมมูนต้องรอ 1 ถึง 2 สัปดาห์อิมมูนถึงจะขึ้น)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Epidemiology ปี 2569 เรื่อง Module 1 Diagnostic Tools",
+    "tags": [
+      "epidem-software",
+      "timing-of-testing",
+      "antibody-test"
+    ],
+    "sourcePages": [
+      {
+        "doc": "epid-module1-diagnostic-2569",
+        "edition": "27p",
+        "page": 20
+      },
+      {
+        "doc": "epid-module1-diagnostic-2569",
+        "edition": "27p",
+        "page": 25
+      }
+    ]
+  },
+  {
+    "id": 218409,
+    "subject": "epidemiology",
+    "topic": "epidem-test-agreement",
+    "year": 5,
+    "type": "mcq",
+    "q": "ชุดตรวจเดิม A ราคาชุดละ 1,000 บาท ชุดตรวจใหม่ B ราคาชุดละ 100 บาท เมื่อตรวจตัวอย่างชุดเดียวกันด้วยทั้งสองชุด ได้ Cohen's kappa ระหว่าง A กับ B เท่ากับ 0.11 ข้อใดสรุปได้ถูกต้อง",
+    "options": [
+      "agreement อยู่ในระดับ fair จึงใช้ B แทน A ได้ เพราะราคาถูกกว่าถึงสิบเท่า",
+      "agreement อยู่ในระดับ moderate จึงใช้ B คัดกรองก่อนแล้วยืนยันผลด้วย A",
+      "agreement อยู่ในระดับ poor จึงไม่ควรใช้ B แทน A แม้ราคาจะถูกกว่ามาก",
+      "agreement อยู่ในระดับ substantial จึงใช้ B แทน A ได้ทันทีในงานประจำ"
+    ],
+    "answer": 2,
+    "explain": "kappa 0.11 อยู่ในช่วง 0.00 ถึง 0.19 คือ poor agreement หมายความว่าผลของ B ตรงกับ A เกินกว่าที่คาดจากความบังเอิญเพียงเล็กน้อย B จึงใช้แทน A ไม่ได้แม้จะถูกกว่า ถ้า kappa สูงมาก เช่นใกล้ 1 ชุดตรวจที่ถูกกว่าจึงจะเป็นทางเลือกที่ใช้แทนกันได้\n\nทำไมข้ออื่นผิด\nfair: ช่วง fair คือ 0.20 ถึง 0.39\nmoderate: ช่วง moderate คือ 0.40 ถึง 0.59\nsubstantial: ช่วง substantial คือ 0.60 ถึง 0.79",
+    "source": "Measurement of disease frequency- measurement of association- diagnostic test หน้า 100, 102; OPoCv_-EfpQ [136:11-137:00]",
+    "verified": "Measurement of disease frequency- measurement of association- diagnostic test หน้า 100 (Test A, Test B new test: agreement of the test), Measurement of disease frequency- measurement of association- diagnostic test หน้า 102 (Cohen's kappa 0.00-0.19 poor, 0.20-0.39 fair, 0.40-0.59 moderate, 0.60-0.79 substantial, 0.80-1.00 almost perfect); OPoCv_-EfpQ [136:11-137:00] (ชุด B 100 บาท แต่ kappa 0.11 ก็ไม่ใช้ ยอมใช้ 1,000 บาท)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Epidemiology ปี 2569 เรื่อง Agreement of test",
+    "tags": [
+      "epidem-test-agreement",
+      "kappa",
+      "method-comparison"
+    ],
+    "sourcePages": [
+      {
+        "doc": "epid-frequency-association-dx-2569",
+        "edition": "112p",
+        "page": 100
+      },
+      {
+        "doc": "epid-frequency-association-dx-2569",
+        "edition": "112p",
+        "page": 102
+      }
+    ]
+  },
+  {
+    "id": 218800,
+    "subject": "epidemiology",
+    "topic": "epidem-software",
+    "year": 5,
+    "type": "mcq",
+    "q": "ใช้เครื่องคำนวณขนาดตัวอย่างออนไลน์เพื่อประมาณความชุกของโรค โดยคาดว่าความชุกราว 20% ข้อใดเป็นการใช้เครื่องมือที่ถูกต้อง",
+    "options": [
+      "กรอกความชุกใน OpenEpi เป็น 0.20 เพราะสูตร n = Z²p(1 − p)/d² ใช้ค่าสัดส่วน",
+      "ได้ n = 245.86 ให้ปัดเป็น 245 เพราะใกล้กว่า แล้วจึงปรับ design effect ภายหลัง",
+      "OpenEpi รับความชุกเป็นร้อยละ (20) ไม่ใช่สัดส่วน (0.20) จึงต้องดูรูปแบบที่แต่ละเครื่องมือรับ",
+      "ปรับ design effect และ finite population ก่อน แล้วจึงคำนวณ n พื้นฐานของการสุ่มอย่างง่าย"
+    ],
+    "answer": 2,
+    "explain": "เครื่องคำนวณแต่ละตัวรับค่าในรูปแบบต่างกัน OpenEpi รับความชุกเป็นร้อยละ เช่น 20 ส่วนสูตรใช้สัดส่วน 0.20 ก่อนกรอกจึงต้องดูว่าเครื่องมือนั้นรับค่าแบบใด ลำดับที่ถูกคือคำนวณ n พื้นฐานก่อน แล้วจึงปรับ design effect, finite population correction และการสูญหายที่คาดไว้ และปัดขึ้นเสมอ\n\nทำไมข้ออื่นผิด\nกรอก 0.20 ใน OpenEpi: สูตรใช้สัดส่วนจริง แต่ OpenEpi รับเป็นร้อยละ กรอก 0.20 จะได้ความชุก 0.2%\nปัดเป็น 245: ขนาดตัวอย่างต้องปัดขึ้นเสมอ 245.86 เป็น 246 ปัดลงจะได้ความแม่นยำต่ำกว่าที่ตั้งไว้\nปรับ design effect ก่อน: การปรับทั้งหมดทำหลังได้ n พื้นฐานของการสุ่มอย่างง่าย",
+    "source": "Module 2 FMD Planning studies, sampling & sample size หน้า 22, 24",
+    "verified": "Module 2 FMD Planning studies, sampling & sample size หน้า 22 (always round up: 245.86 becomes 246, never 245), Module 2 FMD Planning studies, sampling & sample size หน้า 24 (OpenEpi enters percentages (e.g. 20) rather than proportions (0.20); check the input format of each tool; apply the adjustments in 7.2 to 7.5 after the basic calculation)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเอกสาร Epidemiology ปี 2569 เรื่อง Module 2 Planning studies, sampling and sample size",
+    "tags": [
+      "epidem-software",
+      "sample-size",
+      "online-calculator"
+    ],
+    "sourcePages": [
+      {
+        "doc": "epid-module2-planning-2569",
+        "edition": "45p",
+        "page": 22
+      },
+      {
+        "doc": "epid-module2-planning-2569",
+        "edition": "45p",
+        "page": 24
+      }
+    ]
+  },
+  {
+    "id": 218801,
+    "subject": "epidemiology",
+    "topic": "epidem-software",
+    "year": 5,
+    "type": "mcq",
+    "q": "ศึกษาการเลี้ยงลูกโคในคอกรวมเทียบกับคอกเดี่ยวกับการเกิดปอดอักเสบ โดยแบ่ง stratum ตามอายุแล้วใช้เครื่องคำนวณ Mantel–Haenszel แต่การทดสอบ homogeneity (Woolf หรือ Breslow–Day) ได้ p = 0.01 ควรทำอย่างไรต่อ",
+    "options": [
+      "รวมทุก stratum เป็น MH OR ค่าเดียวได้ เพราะ p < 0.05 แสดงว่า OR ของทุก stratum เท่ากัน",
+      "รายงาน OR แยกตาม stratum เพราะ OR ต่างกันระหว่างกลุ่มอายุ ซึ่งบ่งชี้ effect modification",
+      "รายงาน crude OR แทน เพราะเมื่อ stratum ไม่เป็นเนื้อเดียวกัน การแบ่ง stratum ก็ไม่มีความหมาย",
+      "ใช้ chi-square ของตารางรวมแทน เพราะ MH ใช้ได้เฉพาะเมื่อมีตัวกวนแบบต่อเนื่องหลายตัว"
+    ],
+    "answer": 1,
+    "explain": "การทดสอบ homogeneity มีสมมติฐานหลักว่า OR ของทุก stratum เท่ากัน p ที่น้อยกว่า 0.05 จึงบอกว่า OR ต่างกันระหว่างกลุ่มอายุ ซึ่งเป็น effect modification (interaction) ไม่ใช่การกวนธรรมดา จึงไม่ควรรวมเป็น MH OR ค่าเดียว ให้รายงาน OR ของแต่ละ stratum แยกกัน การรวมด้วย Mantel–Haenszel ทำได้เมื่อ p ของการทดสอบนี้ไม่น้อยกว่า 0.05\n\nทำไมข้ออื่นผิด\nรวมได้เพราะ p < 0.05: อ่านกลับด้าน p น้อยแปลว่า OR ไม่เท่ากัน\nรายงาน crude OR: crude OR ไม่ได้จัดการตัวกวนและซ่อนความต่างระหว่างกลุ่มอายุไว้\nใช้ chi-square แทน: Mantel–Haenszel เหมาะกับตัวกวนเชิงกลุ่มตัวเดียว ส่วนตัวกวนหลายตัวหรือแบบต่อเนื่องใช้ multivariable logistic regression",
+    "source": "Module 2 FMD Planning studies, sampling & sample size หน้า 33, 35",
+    "verified": "Module 2 FMD Planning studies, sampling & sample size หน้า 33 (Woolf or Breslow–Day test before pooling; H0: the odds ratios in all strata are equal; small p-value means they differ, so do not pool, effect modification; MH ideal for a single categorical confounder, logistic regression for multiple or continuous ones), Module 2 FMD Planning studies, sampling & sample size หน้า 35 (Epitools Mantel–Haenszel stratified 2x2 tables; homogeneity p = 0.01: report each stratum OR separately)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเอกสาร Epidemiology ปี 2569 เรื่อง Module 2 Planning studies, sampling and sample size",
+    "tags": [
+      "epidem-software",
+      "mantel-haenszel",
+      "effect-modification"
+    ],
+    "sourcePages": [
+      {
+        "doc": "epid-module2-planning-2569",
+        "edition": "45p",
+        "page": 33
+      },
+      {
+        "doc": "epid-module2-planning-2569",
+        "edition": "45p",
+        "page": 35
+      }
+    ]
+  },
+  {
+    "id": 218802,
+    "subject": "epidemiology",
+    "topic": "epidem-current-research",
+    "year": 5,
+    "type": "mcq",
+    "q": "การสอบสวนการระบาดของ FMD ในฟาร์มโคนมที่ทำวัคซีนแล้วในเคนยา ปี 2012 (Lyons et al. 2015) โคทุกตัวที่อยู่ในฟาร์มในวันทำวัคซีนได้รับวัคซีนไม่ว่าอายุเท่าใด โคอายุมากกว่า 18 เดือนมี risk เป็น 2.34 เท่าของโคที่อายุน้อยกว่า (95% CI 1.95–2.81) และพบว่า risk เพิ่มตามจำนวนโดสวัคซีนที่ได้รับตลอดชีวิต ข้อใดอธิบายได้เหมาะสมที่สุด",
+    "options": [
+      "วัคซีนเป็นสาเหตุของโรค เพราะ risk เพิ่มขึ้นตามจำนวนโดสอย่างเป็นขั้นบันได",
+      "เป็น reverse causation เพราะโคที่ป่วยถูกเลือกให้ได้รับวัคซีนบ่อยกว่าโคปกติ",
+      "เป็น effect modification เพราะวัคซีนป้องกันโรคได้เฉพาะในโคอายุน้อย",
+      "อายุเป็นตัวกวน เพราะโคอายุมากได้วัคซีนหลายโดสกว่า และมี risk สูงกว่าด้วย"
+    ],
+    "answer": 3,
+    "explain": "ในฟาร์มนี้โคทุกตัวที่อยู่ในวันทำวัคซีนได้รับวัคซีน โคที่อายุมากจึงได้วัคซีนมาแล้วหลายโดสกว่า ขณะเดียวกันโคอายุมากกว่า 18 เดือนมี risk ของ FMD สูงกว่าโคอายุน้อย (RR 2.34, 95% CI 1.95–2.81) อายุจึงสัมพันธ์กับทั้งจำนวนโดสและการเกิดโรค ความสัมพันธ์ระหว่างจำนวนโดสกับ risk จึงเป็นผลของการกวนจากอายุ ไม่ได้แปลว่าวัคซีนทำให้เกิดโรค\n\nทำไมข้ออื่นผิด\nวัคซีนเป็นสาเหตุ: ความสัมพันธ์ตามขนาด (dose-response) ที่มีตัวกวนอยู่ไม่ได้พิสูจน์ความเป็นเหตุ\nreverse causation: การทำวัคซีนให้ทุกตัวที่อยู่ในฟาร์มในวันนั้น ไม่ได้เลือกตามการป่วย\neffect modification: ข้อมูลไม่ได้แสดงว่าวัคซีนให้ผลต่างกันตามอายุ สิ่งที่เห็นคืออายุสัมพันธ์กับทั้งจำนวนโดสและ risk ซึ่งเป็นลักษณะของตัวกวน",
+    "source": "Module 3 FMD outbreak investigation หน้า 48, 49",
+    "verified": "Module 3 FMD outbreak investigation หน้า 48 (over 18 months vs 18 months or less: 319/404 vs 81/240, RR 2.34, 95% CI 1.95 to 2.81, CI above 1), Module 3 FMD outbreak investigation หน้า 49 (all animals present on each vaccination day were vaccinated, whatever their age, so older animals have had more doses; risk increases with the number of lifetime vaccine doses: does the vaccine cause FMD?)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเอกสาร Epidemiology ปี 2569 เรื่อง Module 3 Outbreak investigation",
+    "tags": [
+      "epidem-current-research",
+      "confounding",
+      "fmd",
+      "vaccine"
+    ],
+    "sourcePages": [
+      {
+        "doc": "epid-module3-outbreak-2569",
+        "edition": "50p",
+        "page": 48
+      },
+      {
+        "doc": "epid-module3-outbreak-2569",
+        "edition": "50p",
+        "page": 49
+      }
+    ]
+  },
+  {
+    "id": 218803,
+    "subject": "epidemiology",
+    "topic": "epidem-current-research",
+    "year": 5,
+    "type": "mcq",
+    "q": "การสอบสวนการระบาดของ FMD ในฟาร์มโคนมในเคนยา ปี 2012 ทดสอบว่าวัคซีนรอบวันที่ 22 พ.ค. 2012 ป้องกันโรคได้หรือไม่ โดยเทียบโคที่ได้รับวัคซีนรอบนั้นกับโคที่พลาดรอบนั้น และตัดลูกโคที่เกิดหลังวันที่ 22 พ.ค. 2012 ออก เหตุผลที่ต้องตัดออกคือข้อใด",
+    "options": [
+      "ลูกโคเหล่านี้ยังไม่เกิดในวันทำวัคซีน จึงไม่มีโอกาสได้รับวัคซีนรอบนั้น และไม่ใช่กลุ่มที่พลาดวัคซีน",
+      "ลูกโคเหล่านี้มีภูมิจากแม่ที่ยับยั้งการตอบสนองต่อวัคซีน จึงต้องตัดออกไม่ให้ผลวัคซีนต่ำเกินจริง",
+      "ลูกโคเหล่านี้เลี้ยงแยกจากฝูงโคนม จึงไม่ได้สัมผัสเชื้อเลย และต้องตัดออกจาก cohort ทั้งหมด",
+      "ลูกโคเหล่านี้ป่วยมากที่สุดในฟาร์ม จึงต้องตัดออกเพื่อให้ risk ของกลุ่มอ้างอิงไม่สูงเกินไป"
+    ],
+    "answer": 0,
+    "explain": "การเทียบกลุ่มที่ได้วัคซีนกับกลุ่มที่พลาดวัคซีนต้องทำเฉพาะสัตว์ที่มีสิทธิ์ได้รับวัคซีนในวันนั้น ลูกโคที่เกิดหลังวันทำวัคซีนยังไม่มีชีวิตอยู่ในวันนั้น จึงไม่ได้ \"พลาด\" วัคซีน หากรวมไว้ในกลุ่มอ้างอิงจะได้กลุ่มที่ต่างทั้งอายุและประวัติภูมิคุ้มกัน การจำกัด (restriction) ให้เหลือเฉพาะสัตว์ที่มีสิทธิ์ทำให้การเปรียบเทียบเป็นธรรม\n\nทำไมข้ออื่นผิด\nภูมิจากแม่: ภูมิจากแม่ยับยั้งการตอบสนองต่อวัคซีนได้จริง แต่ลูกโคกลุ่มนี้ไม่ได้รับวัคซีนรอบนั้นเลย เหตุผลของการตัดออกจึงเป็นเรื่องสิทธิ์ได้รับวัคซีน\nเลี้ยงแยกและไม่สัมผัสเชื้อ: การตัดออกไม่ได้อาศัยการสัมผัสเชื้อ และไม่ได้ตัดลูกโคออกจาก cohort ทั้งหมด\nตัดเพื่อให้ผลออกมาตามต้องการ: การเลือกตัดสัตว์ตามผลลัพธ์ทำให้เกิด bias",
+    "source": "Module 3 FMD outbreak investigation หน้า 48, 49, 31",
+    "verified": "Module 3 FMD outbreak investigation หน้า 48 (H6: vaccinated 22/05 vs missed round; restrictions: H6 excludes calves 'Not eligible (born after 22/05/2012)'), Module 3 FMD outbreak investigation หน้า 49 (Restriction in H6: why must calves born after 22/05/2012 be excluded?), Module 3 FMD outbreak investigation หน้า 31 (maternal antibodies can block the response to vaccine in young calves; animals born after a round are unprotected)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเอกสาร Epidemiology ปี 2569 เรื่อง Module 3 Outbreak investigation",
+    "tags": [
+      "epidem-current-research",
+      "restriction",
+      "cohort",
+      "fmd",
+      "vaccine"
+    ],
+    "sourcePages": [
+      {
+        "doc": "epid-module3-outbreak-2569",
+        "edition": "50p",
+        "page": 48
+      },
+      {
+        "doc": "epid-module3-outbreak-2569",
+        "edition": "50p",
+        "page": 49
+      },
+      {
+        "doc": "epid-module3-outbreak-2569",
+        "edition": "50p",
+        "page": 31
+      }
+    ]
+  },
+  {
+    "id": 218804,
+    "subject": "epidemiology",
+    "topic": "epidem-intro",
+    "year": 5,
+    "type": "mcq",
+    "q": "ระบาดวิทยาทางสัตวแพทย์ (veterinary epidemiology) ตามนิยามครอบคลุมเรื่องใด",
+    "options": [
+      "การวินิจฉัยและรักษาโรคในสัตว์แต่ละตัว โดยอาศัยอาการและผลตรวจทางห้องปฏิบัติการ",
+      "การกระจายและปัจจัยกำหนดของภาวะสุขภาพในประชากร และการนำผลไปใช้ควบคุมปัญหาสุขภาพ",
+      "การนับจำนวนสัตว์ป่วยและสัตว์ตายในประชากร โดยไม่ต้องหาปัจจัยที่ทำให้เกิดโรค",
+      "การศึกษากลไกการก่อโรคของเชื้อในระดับเซลล์ เพื่อใช้พัฒนาวัคซีนและยาต้านจุลชีพ"
+    ],
+    "answer": 1,
+    "explain": "ระบาดวิทยาคือการศึกษาการกระจาย (distribution) และปัจจัยกำหนด (determinants) ของภาวะหรือเหตุการณ์ที่เกี่ยวกับสุขภาพในประชากรที่กำหนด และการนำผลการศึกษานั้นไปใช้ควบคุมปัญหาสุขภาพ หน่วยที่ศึกษาคือประชากร ไม่ใช่สัตว์ตัวเดียว และต้องถามทั้งว่าโรคเกิดที่ใด เมื่อใด กับใคร เพราะอะไร แล้วจึงลงมือควบคุม\n\nทำไมข้ออื่นผิด\nวินิจฉัยและรักษาสัตว์แต่ละตัว: เป็นงานคลินิกระดับตัวสัตว์ ไม่ใช่ระดับประชากร\nนับสัตว์ป่วยโดยไม่หาปัจจัย: การวัดความถี่ของโรคเป็นเพียงส่วนหนึ่ง นิยามรวมปัจจัยกำหนดและการควบคุมด้วย\nกลไกระดับเซลล์: เป็นเรื่องของพยาธิกำเนิดและจุลชีววิทยา",
+    "source": "Summary Epidemiology: course map หน้า 1",
+    "verified": "Summary Epidemiology: course map หน้า 1 (Veterinary Epidemiology: the study of the distribution and determinants of health-related states or events in specified populations, and the application of this study to the control of health problems; ask what, who, when, why and how, then act)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเอกสาร Epidemiology ปี 2569 เรื่อง Course Map",
+    "tags": [
+      "epidem-intro",
+      "definition"
+    ],
+    "sourcePages": [
+      {
+        "doc": "epid-course-map-2569",
+        "edition": "1p",
+        "page": 1
+      }
+    ]
   }
 ];

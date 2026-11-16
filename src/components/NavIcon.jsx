@@ -139,6 +139,8 @@ const PATHS = {
   // compact navigation trigger / dismiss
   menu: <path d="M4 7h16M4 12h16M4 17h16" />,
   close: <path d="m5 5 14 14M19 5 5 19" />,
+  // the way back: a chevron pointing left
+  back: <path d="M15 5 8 12l7 7" />,
   check: <path d="m5 12 5 5L20 7" />,
   // account / sign in
   user: (
@@ -166,6 +168,14 @@ const PATHS = {
     <>
       <circle cx="12" cy="12" r="3" />
       <path d="M19.4 15a1.8 1.8 0 0 0 .4 2l.1.1-2.8 2.8-.1-.1a1.8 1.8 0 0 0-2-.4 1.8 1.8 0 0 0-1 1.7V21h-4v-.1a1.8 1.8 0 0 0-1-1.7 1.8 1.8 0 0 0-2 .4l-.1.1-2.8-2.8.1-.1a1.8 1.8 0 0 0 .4-2A1.8 1.8 0 0 0 3 14H3v-4h.1a1.8 1.8 0 0 0 1.7-1 1.8 1.8 0 0 0-.4-2l-.1-.1 2.8-2.8.1.1a1.8 1.8 0 0 0 2 .4A1.8 1.8 0 0 0 10 3V3h4v.1a1.8 1.8 0 0 0 1 1.7 1.8 1.8 0 0 0 2-.4l.1-.1 2.8 2.8-.1.1a1.8 1.8 0 0 0-.4 2A1.8 1.8 0 0 0 21 10h.1v4H21a1.8 1.8 0 0 0-1.6 1Z" />
+    </>
+  ),
+  // sliders / the read-aloud's voice settings (speed, tone, voice).
+  tune: (
+    <>
+      <path d="M4 7h9M17 7h3M4 17h3M11 17h9" />
+      <circle cx="15" cy="7" r="2" />
+      <circle cx="9" cy="17" r="2" />
     </>
   ),
   logout: (

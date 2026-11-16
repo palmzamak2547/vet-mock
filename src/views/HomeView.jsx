@@ -1,10 +1,11 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 import { lazyWithRetry } from '../lib/lazy-retry.js';
 import OptionalFeature from '../components/OptionalFeature.jsx';
 import { shownName, shownPicture } from '../lib/public-display.js';
 import { isAutoName } from '../lib/identity-gate.js';
 import { subjectText, streakShown, bangkokDayNumber } from '../hooks/utils.js';
-import { QB, isQBYearLoaded } from '../data/questions.js';
+import { QB, isQBYearLoaded, onQBMerged } from '../data/questions.js';
+import { planWaiting as planWaitingNow, welcomeShown } from '../lib/home-plan-wait.js';
 // Phase 2 perf: lightweight precomputed Q counts for header/total
 // displays — keeps "1,612 ข้อ" labels cheap and doesn't require the
 // full QB to be scanned on every re-render.
@@ -116,7 +117,7 @@ const shortThaiDate = (dateStr) => {
   return Number.isNaN(d.getTime()) ? '' : `${d.getUTCDate()} ${TH_MONTHS[d.getUTCMonth()]}`;
 };
 
-export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, onStartSubjectPanic = null, srCards, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, phaseStatus = null, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, onSketch, onVoiceSettings, onOpenTour, isAdmin = false, accountUnread = false }) {
+export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, onStartSubjectPanic = null, srCards, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, phaseStatus = null, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, onSketch, onVoiceSettings, onOpenTour, isAdmin = false, accountUnread = false, accountReading = false }) {
   // Compute the Home badge here, in its lazy view, from the same context as
   // the review planner. Returning from a personal-card editor rereads it too.
   // Due counts follow the device's scheduler preference; the subscription
@@ -321,7 +322,23 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   // already saw + dismissed the old auto-modal don't need the banner).
   const [legacyOnboardingSeen] = useLocalStorage('vmx-onboarding-seen', false);
   // An account that could not be read is not a first visit: the header's sync line says so.
-  const showWelcome = history.length === 0 && !accountUnread && !welcomeDismissed && !legacyOnboardingSeen;
+  // Nor is an account still being read: the banner would show for a moment
+  // and then make way for the tour button, moving the whole page.
+  // The day's plan is built from the account's history and this year's
+  // questions. Until both are here it holds its place instead of drawing a
+  // first plan that changes, and grows, a second later; at most 6 s (a bank
+  // that cannot load offline must not hold it for good).
+  // The same cap holds the welcome banner (lib/home-plan-wait.js), and a plan
+  // once drawn on this visit is never replaced by the placeholder.
+  const [planHold, setPlanHold] = useState(true);
+  useEffect(() => { const t = setTimeout(() => setPlanHold(false), 6000); return () => clearTimeout(t); }, []);
+  const planShown = useRef(false);
+  // Read as a store: Home draws the plan the moment the year's bank lands,
+  // whether or not anything above it renders again.
+  const bankLoaded = useSyncExternalStore(onQBMerged, () => isQBYearLoaded(selectedYear), () => false);
+  const planWaiting = planWaitingNow({ capped: !planHold, shown: planShown.current, pendingResume: Boolean(pendingResume), accountReading, historyLength: history.length, bankLoaded });
+  if (!planWaiting) planShown.current = true;
+  const showWelcome = welcomeShown({ historyLength: history.length, accountUnread, accountReading, capped: !planHold, dismissed: welcomeDismissed, legacySeen: legacyOnboardingSeen });
 
   // Email-verify banner dismiss — session-only state. We don't persist
   // because we WANT a gentle re-nag if they ignore it across sessions
@@ -1206,6 +1223,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                 history={history}
                 pendingResume={pendingResume}
                 countdown={countdown}
+                waiting={planWaiting}
                 onPickResume={() => resumePendingExam && resumePendingExam()}
                 onDismissResume={dismissPendingExam ? () => dismissPendingExam() : null}
                 onPickExamPrep={(exam) => {

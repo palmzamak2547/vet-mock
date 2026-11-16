@@ -707,7 +707,7 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
       "ภายในราว 24 เดือนหลังคลอด"
     ],
     "answer": 0,
-    "explain": "อัณฑะม้าเคลื่อนลงถุงตั้งแต่ช่วงท้ายของการตั้งท้องจนถึงราว 2 สัปดาห์ถึง 1 เดือนหลังคลอด ถ้าเลยช่วงนี้แล้วยังคลำไม่พบให้เริ่มสงสัยภาวะทองแดง แม้บางตัวอาจลงช้ากว่านั้นก็ยังควรตรวจติดตาม ไม่ใช่การรอถึง 1 หรือ 2 ปีโดยไม่ทำอะไร",
+    "explain": "อัณฑะม้าเคลื่อนผ่าน inguinal canal ลงถุงในช่วง 30 วันสุดท้ายของการตั้งท้องจนถึง 10 วันแรกหลังคลอด ถ้าอายุราว 1 เดือนแล้วยังคลำไม่พบในถุง ให้สงสัยภาวะทองแดง แม้บางตัวอาจลงช้ากว่านั้นก็ยังควรตรวจติดตาม ไม่ใช่การรอถึง 1 หรือ 2 ปีโดยไม่ทำอะไร",
     "verified": "Repro horse final น.40",
     "sourcePages": [{ "doc": "repro-horse-final85", "edition": "71p", "page": 40 }],
     "sourceType": "past-paper",
@@ -3628,6 +3628,1072 @@ export const QUESTIONS_Y5_EQREPRO_2026 = [
       "cem",
       "taylorella",
       "past-paper"
+    ]
+  },
+  {
+    "id": 218100,
+    "subject": "equine-repro",
+    "topic": "eqrepro-male",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "exam-aligned",
+    "q": "องคชาตของพ่อม้าจัดเป็นแบบใด และลักษณะนี้มีผลทางคลินิกอย่างไร",
+    "options": [
+      "แบบ fibroelastic มี sigmoid flexure ยืดออกได้โดยไม่ต้องพองตัว จึงบาดเจ็บได้ยาก",
+      "แบบ vascular มี erectile tissue และเลือดมาก พองตัวได้มาก จึงเกิด hematoma ได้ง่าย",
+      "แบบ fibroelastic มีเนื้อเยื่อเกี่ยวพันหนา จึงไม่เกิด hematoma แม้ถูกแม่ม้าเตะ",
+      "แบบ vascular ที่มีกระดูก os penis ค้ำอยู่ จึงหักได้เมื่อถูกเตะขณะขึ้นผสม",
+      "แบบผสมของทั้งสองชนิด ขยายตัวได้น้อย จึงต้องใช้ artificial vagina ขนาดเล็ก"
+    ],
+    "answer": 1,
+    "explain": "องคชาตของม้าเป็นแบบ vascular (musculocavernous) มี erectile tissue และเลือดมาเลี้ยงมาก เวลาแข็งตัวจึงพองขยายได้มาก ต่างจากแบบ fibroelastic ของโค สุกร และสุนัขที่ยืดออกด้วย sigmoid flexure โดยขนาดเปลี่ยนไม่มาก ผลทางคลินิกคือเมื่อองคชาตที่แข็งตัวถูกกระแทก เช่น ถูกแม่ม้าเตะขณะขึ้นผสม หลอดเลือดแตกและเกิด hematoma ได้ง่าย ซึ่งเป็นภาวะฉุกเฉิน ม้าไม่มีกระดูก os penis",
+    "source": "Lecture 8 9 Anatomy function and clinical exam stallion หน้า 6; Fqgp8DoPDws [18:13], [20:23]",
+    "verified": "male reproductive organ_functions (Vet 84 annotated) หน้า 4 ดอกจันแดงและบันทึก hematoma ER; K1-4 Final mind maps (Vet 84 folder) หน้า 1 ดาวชมพู; สรุปปลายภาค Equine Repro ของ Vet 83 หน้า 2 ไฮไลต์; สรุปปลายภาค Equine Repro ของ Vet 81 หน้า 1 เน้นสีส้ม",
+    "sourcePages": [
+      {
+        "doc": "eqrepro-stallion-anatomy-2569",
+        "edition": "24p",
+        "page": 6
+      },
+      {
+        "doc": "eqrepro-male-2024-vet84",
+        "edition": "24p",
+        "page": 4
+      },
+      {
+        "doc": "eqrepro-k14-maps-vet84",
+        "edition": "4p",
+        "page": 1
+      },
+      {
+        "doc": "eqrepro-final-summary-vet83",
+        "edition": "4p",
+        "page": 2
+      },
+      {
+        "doc": "eqrepro-final-summary-vet81",
+        "edition": "14p",
+        "page": 1
+      }
+    ],
+    "examOrigin": "Equine Repro final: จุดที่รุ่นพี่ติดดาว ขีดเส้นใต้ หรือไฮไลต์ในสไลด์และสรุปของตน",
+    "tags": [
+      "eqrepro-male",
+      "penis-type",
+      "penile-hematoma",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 218101,
+    "subject": "equine-repro",
+    "topic": "eqrepro-male",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "exam-aligned",
+    "q": "ข้อใดอธิบายการควบคุมอุณหภูมิของอัณฑะพ่อม้าได้ถูกต้อง",
+    "options": [
+      "ผิวถุงอัณฑะมีไขมันใต้ผิวหนาเก็บความร้อน ให้อัณฑะอุ่นกว่าอุณหภูมิกาย 1-2 องศาเซลเซียส",
+      "ผิวถุงอัณฑะมีขนหนาและต่อมเหงื่อน้อย ทำให้อัณฑะเท่ากับอุณหภูมิกายอยู่ตลอดเวลา",
+      "อัณฑะสร้างอสุจิได้ดีที่สุดที่อุณหภูมิกาย ถุงอัณฑะจึงมีหน้าที่กันการกระแทกเท่านั้น",
+      "ผิวถุงอัณฑะมีต่อมเหงื่อและต่อมไขมันมาก ช่วยระบายความร้อนให้อัณฑะต่ำกว่าอุณหภูมิกาย 3-5 องศาเซลเซียส",
+      "อัณฑะต้องต่ำกว่าอุณหภูมิกาย 10-15 องศาเซลเซียส จึงต้องประคบเย็นพ่อม้าทุกวันในหน้าร้อน"
+    ],
+    "answer": 3,
+    "explain": "การสร้างอสุจิต้องการอุณหภูมิต่ำกว่าอุณหภูมิกายราว 3-5 องศาเซลเซียส ผิวหนังถุงอัณฑะของม้าจึงมีต่อมเหงื่อและต่อมไขมันจำนวนมากไว้ระบายความร้อน ส่วนการสร้างฮอร์โมนเพศไม่ต้องพึ่งอุณหภูมิต่ำ อัณฑะที่ค้างอยู่ในช่องท้องจึงยังสร้าง testosterone ได้แต่สร้างอสุจิไม่ได้ ข้อที่ให้อัณฑะอุ่นกว่าหรือเท่ากับอุณหภูมิกายจึงขัดกับหลักนี้ และไม่ต้องต่ำถึง 10-15 องศา",
+    "source": "Lecture 8 9 Anatomy function and clinical exam stallion หน้า 8; Fqgp8DoPDws [33:51]",
+    "verified": "male reproductive organ_functions (Vet 84 annotated) หน้า 8 ไฮไลต์ ควรต่ำกว่า body temp 3-5 องศา; K1-4 Final mind maps (Vet 84 folder) หน้า 1 ดาวชมพู; สรุปปลายภาค Equine Repro ของ Vet 83 หน้า 2 ไฮไลต์",
+    "sourcePages": [
+      {
+        "doc": "eqrepro-stallion-anatomy-2569",
+        "edition": "24p",
+        "page": 8
+      },
+      {
+        "doc": "eqrepro-male-2024-vet84",
+        "edition": "24p",
+        "page": 8
+      },
+      {
+        "doc": "eqrepro-k14-maps-vet84",
+        "edition": "4p",
+        "page": 1
+      },
+      {
+        "doc": "eqrepro-final-summary-vet83",
+        "edition": "4p",
+        "page": 2
+      }
+    ],
+    "examOrigin": "Equine Repro final: จุดที่รุ่นพี่ติดดาว ขีดเส้นใต้ หรือไฮไลต์ในสไลด์และสรุปของตน",
+    "tags": [
+      "eqrepro-male",
+      "scrotum",
+      "thermoregulation",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 218102,
+    "subject": "equine-repro",
+    "topic": "eqrepro-male",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "exam-aligned",
+    "q": "ลูกม้าเพศผู้อายุ 6 เดือน คลำพบอัณฑะในถุงหุ้มอัณฑะเพียงข้างเดียว ควรให้คำแนะนำเจ้าของอย่างไร",
+    "options": [
+      "เป็นทองแดงแน่นอนแล้ว เพราะอัณฑะต้องลงครบภายใน 10 วันหลังคลอด ควรผ่าตัดทันที",
+      "ฉีด hCG ทุกวันจนกว่าอัณฑะจะลง เพราะเป็นการรักษาทองแดงที่ได้ผลแน่นอนในม้า",
+      "ยังสรุปว่าเป็นทองแดงไม่ได้ เพราะอัณฑะม้าลงช้าได้ ควรติดตามจนอายุราว 1 ปี",
+      "ยังสรุปไม่ได้ ควรรอจนอายุราว 5 ปี เพราะอัณฑะม้าเคลื่อนลงได้ตลอดวัยเจริญพันธุ์",
+      "เป็น monorchidism แน่นอน เพราะหลังอายุ 3 เดือนอัณฑะไม่เคลื่อนลงอีก"
+    ],
+    "answer": 2,
+    "explain": "โดยปกติอัณฑะม้าเคลื่อนลงถุงในช่วง 30 วันสุดท้ายของการตั้งท้องจนถึงราว 10 วันหลังคลอด แต่ม้ามีการเคลื่อนลงช้า (delayed testicular descent) ได้ อัณฑะที่ยังค้างอยู่ช่วงขวบปีแรกจึงอาจลงมาเองภายหลัง การจะสรุปว่าเป็นทองแดง (cryptorchidism) จึงรอให้อายุราว 1 ปีก่อน หลังจากนั้นโดยมากจะไม่เคลื่อนลงอีก การผ่าตัดทันทีหรือการรอถึง 5 ปีจึงไม่เหมาะ และการไม่พบอัณฑะในถุงไม่ได้แปลว่าไม่มีอัณฑะ (monorchidism) ต้องพิสูจน์ด้วยการทดสอบฮอร์โมน",
+    "source": "Lecture 8 9 Anatomy function and clinical exam stallion หน้า 9 และ 15; Fqgp8DoPDws [43:37]",
+    "verified": "male reproductive organ_functions (Vet 84 annotated) หน้า 9 บันทึกในกรอบ สามารถรอได้ถึง 1 ปี; equine reproductive surgery 2024 (Vet 84 annotated) หน้า 2 บันทึก delay testicular descent; K1-4 Final mind maps (Vet 84 folder) หน้า 1 ดาวชมพู; สรุปปลายภาค Equine Repro ของ Vet 83 หน้า 2 ไฮไลต์",
+    "sourcePages": [
+      {
+        "doc": "eqrepro-stallion-anatomy-2569",
+        "edition": "24p",
+        "page": 9
+      },
+      {
+        "doc": "eqrepro-stallion-anatomy-2569",
+        "edition": "24p",
+        "page": 15
+      },
+      {
+        "doc": "eqrepro-male-2024-vet84",
+        "edition": "24p",
+        "page": 9
+      },
+      {
+        "doc": "eqrepro-surgery-2024-vet84",
+        "edition": "24p",
+        "page": 2
+      },
+      {
+        "doc": "eqrepro-k14-maps-vet84",
+        "edition": "4p",
+        "page": 1
+      },
+      {
+        "doc": "eqrepro-final-summary-vet83",
+        "edition": "4p",
+        "page": 2
+      }
+    ],
+    "examOrigin": "Equine Repro final: จุดที่รุ่นพี่ติดดาว ขีดเส้นใต้ หรือไฮไลต์ในสไลด์และสรุปของตน",
+    "tags": [
+      "eqrepro-male",
+      "cryptorchidism",
+      "testicular-descent",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 218103,
+    "subject": "equine-repro",
+    "topic": "eqrepro-male",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "exam-aligned",
+    "q": "พ่อม้าที่ไม่ได้ใช้ผสมพันธุ์มานาน รีดน้ำเชื้อได้ปริมาตรปกติแต่แทบไม่มีอสุจิ คลำทางทวารพบ ampulla ขยายใหญ่และแข็งเป็นลำ ควรจัดการอย่างไร",
+    "options": [
+      "รีดน้ำเชื้อบ่อยขึ้น นวด ampulla และฉีด oxytocin ก่อนรีดน้ำเชื้อราว 10 นาที",
+      "ตัดอัณฑะข้างที่สงสัยออก เพราะภาวะนี้คืออัณฑะเสื่อมจากการไม่ได้ใช้งานนาน",
+      "ให้ยาปฏิชีวนะเข้ากล้ามนาน 3 สัปดาห์ เพราะภาวะนี้คือต่อมเสริมติดเชื้อเรื้อรัง",
+      "พักการรีดน้ำเชื้ออย่างน้อย 2 เดือน เพื่อให้ ampulla ยุบลงเองก่อนตรวจซ้ำ",
+      "ฉีด GnRH ทุกวันนาน 1 เดือน เพื่อเร่งให้อัณฑะสร้างอสุจิเพิ่มขึ้นก่อนรีด"
+    ],
+    "answer": 0,
+    "explain": "ภาพนี้เข้ากับการอุดตันของ ampulla (spermiostasis) ซึ่งพบในพ่อม้าที่ไม่ได้หลั่งน้ำเชื้อนาน อสุจิคั่งค้างใน ampulla จนคลำได้เป็นลำโต น้ำเชื้อที่ได้จึงมีส่วนของเหลวจากต่อมอื่นแต่แทบไม่มีอสุจิ การรักษาคือระบายสิ่งที่อุดตันออก ด้วยการรีดน้ำเชื้อบ่อยขึ้น นวด ampulla ทางทวาร และให้ oxytocin ก่อนรีดเพื่อช่วยบีบท่อ การพักการรีดยิ่งทำให้คั่งมากขึ้น ส่วนการตัดอัณฑะ ยาปฏิชีวนะ หรือ GnRH ไม่ได้แก้ที่ต้นเหตุ เพราะอัณฑะยังสร้างอสุจิได้ตามปกติ",
+    "source": "Infertility_infectious disease stallion หน้า 16; Lecture 8 9 Anatomy function and clinical exam stallion หน้า 17; Y9vHebIx5_E [71:25]",
+    "verified": "male reproductive organ_functions (Vet 84 annotated) หน้า 17 ไฮไลต์ ampullary blockage และ tx ฉีด oxytocin ก่อน ejaculation; K1-4 Final mind maps (Vet 84 folder) หน้า 1 ดอกจันชมพูสองดวงที่ Ampulla; สรุปปลายภาค Equine Repro ของ Vet 83 หน้า 2 ไฮไลต์",
+    "sourcePages": [
+      {
+        "doc": "eqrepro-stallion-infect-2569",
+        "edition": "40p",
+        "page": 16
+      },
+      {
+        "doc": "eqrepro-stallion-anatomy-2569",
+        "edition": "24p",
+        "page": 17
+      },
+      {
+        "doc": "eqrepro-male-2024-vet84",
+        "edition": "24p",
+        "page": 17
+      },
+      {
+        "doc": "eqrepro-k14-maps-vet84",
+        "edition": "4p",
+        "page": 1
+      },
+      {
+        "doc": "eqrepro-final-summary-vet83",
+        "edition": "4p",
+        "page": 2
+      }
+    ],
+    "examOrigin": "Equine Repro final: จุดที่รุ่นพี่ติดดาว ขีดเส้นใต้ หรือไฮไลต์ในสไลด์และสรุปของตน",
+    "tags": [
+      "eqrepro-male",
+      "ampulla",
+      "spermiostasis",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 218104,
+    "subject": "equine-repro",
+    "topic": "eqrepro-ai",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "exam-aligned",
+    "q": "การกระตุ้นให้พ่อม้าหลั่งน้ำเชื้อด้วยยา เช่น xylazine หรือ imipramine มีข้อจำกัดอย่างไร",
+    "options": [
+      "สำเร็จเกือบทุกครั้ง แต่อสุจิในน้ำเชื้อที่ได้ตายทั้งหมดจึงใช้ผสมเทียมไม่ได้",
+      "ใช้ได้เฉพาะในพ่อม้าที่ตอนแล้ว เพราะยาทั้งสองออกฤทธิ์ผ่าน testosterone",
+      "ได้ผลดีกว่า artificial vagina จึงเป็นวิธีมาตรฐานของฟาร์มผสมพันธุ์ทั่วไป",
+      "ทำให้เกิด priapism ทุกราย จึงห้ามใช้ในพ่อม้าไม่ว่ากรณีใดทั้งสิ้น",
+      "ผลคาดเดาไม่ได้และสำเร็จต่ำราวหนึ่งในสี่ จึงไม่ใช้เป็นวิธีเก็บน้ำเชื้อประจำ"
+    ],
+    "answer": 4,
+    "explain": "การกระตุ้นด้วยยา (pharmacological stimulation) เช่น xylazine, imipramine หรือ prostaglandin ทำให้หลั่งน้ำเชื้อได้เพียงราว 25% ของครั้งและคาดเดาผลไม่ได้ จึงเก็บไว้ใช้กับพ่อม้าที่ขึ้นผสมไม่ได้ เช่น บาดเจ็บที่ขาหลังหรือหลัง วิธีที่ใช้ประจำคือ artificial vagina ซึ่งสำเร็จสูงและเหมาะกับโปรแกรมผสมพันธุ์ อสุจิที่ได้จากการกระตุ้นด้วยยายังมีชีวิตและใช้ได้ ยาทั้งสองออกฤทธิ์ต่อระบบประสาทและกล้ามเนื้อเรียบ ไม่ได้ผ่าน testosterone",
+    "source": "Artificial insemination (2569) หน้า 6; Infertility_infectious disease stallion หน้า 10",
+    "verified": "K1-4 Final mind maps (Vet 84 folder) หน้า 2 ดอกจันแดงที่ Xylazine, Imipramine; สรุปปลายภาค Equine Repro ของ Vet 83 หน้า 2 ไฮไลต์ ใช้ยากระตุ้น ejaculation ไม่นิยม success ต่ำ",
+    "sourcePages": [
+      {
+        "doc": "eqrepro-ai-2569",
+        "edition": "30p",
+        "page": 6
+      },
+      {
+        "doc": "eqrepro-stallion-infect-2569",
+        "edition": "40p",
+        "page": 10
+      },
+      {
+        "doc": "eqrepro-k14-maps-vet84",
+        "edition": "4p",
+        "page": 2
+      },
+      {
+        "doc": "eqrepro-final-summary-vet83",
+        "edition": "4p",
+        "page": 2
+      }
+    ],
+    "examOrigin": "Equine Repro final: จุดที่รุ่นพี่ติดดาว ขีดเส้นใต้ หรือไฮไลต์ในสไลด์และสรุปของตน",
+    "tags": [
+      "eqrepro-ai",
+      "semen-collection",
+      "pharmacological-ejaculation",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 218105,
+    "subject": "equine-repro",
+    "topic": "eqrepro-ai",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "exam-aligned",
+    "q": "แผนการผสมเทียมข้อใดเหมาะกับชนิดของน้ำเชื้อที่ใช้",
+    "options": [
+      "น้ำเชื้อแช่แข็งผสมทุก 2 วันก่อนตกไข่ ส่วนน้ำเชื้อสดตรวจทุก 4-6 ชั่วโมงแล้วผสมหลังตกไข่",
+      "น้ำเชื้อสดหรือแช่เย็นผสมทุก 2 วันก่อนตกไข่ ส่วนน้ำเชื้อแช่แข็งตรวจทุก 4-6 ชั่วโมงแล้วผสมใกล้การตกไข่",
+      "น้ำเชื้อทุกชนิดผสมเพียงครั้งเดียวในวันที่พบฟอลลิเคิลขนาด 2.5 เซนติเมตร โดยไม่ต้องตรวจซ้ำ",
+      "น้ำเชื้อสดผสมทุกวันจนกว่าจะหมดสัด ส่วนน้ำเชื้อแช่แข็งผสมทุก 2 วันจนกว่าไข่จะตก",
+      "น้ำเชื้อแช่เย็นผสมหลังตกไข่ 24 ชั่วโมง ส่วนน้ำเชื้อแช่แข็งผสมก่อนตกไข่ราว 3 วัน"
+    ],
+    "answer": 1,
+    "explain": "ความถี่ของการผสมขึ้นกับว่าอสุจิอยู่รอดในระบบสืบพันธุ์แม่ม้าได้นานเท่าใด อสุจิจากน้ำเชื้อสดหรือแช่เย็นอยู่ได้ราว 2 วัน จึงผสมทุก 2 วันจนกว่าจะตกไข่ ส่วนอสุจิจากน้ำเชื้อแช่แข็งมีชีวิตสั้น ต้องตรวจอัลตราซาวนด์ทุก 4-6 ชั่วโมงแล้วผสมก่อนหรือหลังตกไข่ไม่นาน ข้อที่สลับชนิดน้ำเชื้อ หรือผสมแช่แข็งล่วงหน้าหลายวัน จึงไม่ตรงกับอายุของอสุจิ ส่วนฟอลลิเคิล 2.5 เซนติเมตรยังเล็กเกินกว่าจะใกล้ตกไข่",
+    "source": "Artificial insemination (2569) หน้า 27; Y9vHebIx5_E [55:16]",
+    "verified": "artificial insemination (Vet 84 annotated) หน้า 30 บันทึก Every 2 days และ Every 4-6 h; K1-4 Final mind maps (Vet 84 folder) หน้า 2 ขีดเส้นใต้หยักสีชมพูที่ ต้องตรวจ U/S ทุก 4-6 ชม.; สรุปปลายภาค Equine Repro ของ Vet 81 หน้า 6 เน้นสีส้ม",
+    "sourcePages": [
+      {
+        "doc": "eqrepro-ai-2569",
+        "edition": "30p",
+        "page": 27
+      },
+      {
+        "doc": "eqrepro-ai-2024-vet84",
+        "edition": "33p",
+        "page": 30
+      },
+      {
+        "doc": "eqrepro-k14-maps-vet84",
+        "edition": "4p",
+        "page": 2
+      },
+      {
+        "doc": "eqrepro-final-summary-vet81",
+        "edition": "14p",
+        "page": 6
+      }
+    ],
+    "examOrigin": "Equine Repro final: จุดที่รุ่นพี่ติดดาว ขีดเส้นใต้ หรือไฮไลต์ในสไลด์และสรุปของตน",
+    "tags": [
+      "eqrepro-ai",
+      "insemination-timing",
+      "frozen-semen",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 218106,
+    "subject": "equine-repro",
+    "topic": "eqrepro-stallion-infect",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "exam-aligned",
+    "q": "ข้อใดถูกต้องเกี่ยวกับการควบคุม equine viral arteritis ในฟาร์มพ่อม้า",
+    "options": [
+      "วัคซีนเป็นชนิดเชื้อตาย ฉีดได้ทันทีโดยไม่ต้องตรวจก่อนและไม่ทำให้ผลตรวจแอนติบอดีเปลี่ยน",
+      "ไม่มีวัคซีนสำหรับโรคนี้ การควบคุมทำได้เพียงล้างอวัยวะเพศภายนอกด้วยยาฆ่าเชื้อ",
+      "พ่อม้าพาหะกำจัดเชื้อได้ด้วยยาปฏิชีวนะเฉพาะที่ จึงไม่ต้องแยกม้าใหม่ก่อนเข้าฝูง",
+      "วัคซีนเป็นชนิดเชื้อเป็นอ่อนฤทธิ์ ควรตรวจ serology ก่อนฉีดเพื่อยืนยันว่าม้ายังไม่เคยติดเชื้อ",
+      "แยกม้าที่นำเข้าใหม่เพียง 24 ชั่วโมงก็พอ เพราะไวรัสไม่ติดต่อทางระบบหายใจ"
+    ],
+    "answer": 3,
+    "explain": "วัคซีน EVA ที่ใช้เป็นชนิดเชื้อเป็นอ่อนฤทธิ์ (modified live) และทำให้ม้ามีแอนติบอดีเหมือนม้าที่เคยติดเชื้อ จึงควรตรวจ serology ก่อนฉีด เพื่อยืนยันว่าม้ายังเป็นลบและมีหลักฐานไว้แยกจากการติดเชื้อภายหลัง ซึ่งสำคัญกับพ่อม้าที่ต้องส่งน้ำเชื้อหรือส่งตัวออกนอกประเทศ การควบคุมอื่นคือหาพ่อม้าพาหะ แยกม้าใหม่ 3-4 สัปดาห์ แยกแม่ม้าท้องและลูกม้า และตอนหรือกดฮอร์โมน testosterone ในพ่อม้าพาหะ เพราะการติดเชื้อเรื้อรังในพ่อม้าขึ้นกับ testosterone ไวรัสติดต่อได้ทั้งทางลมหายใจและน้ำเชื้อ ส่วนข้อที่ว่าไม่มีวัคซีนและให้ล้างอวัยวะเพศคือแนวทางของ contagious equine metritis",
+    "source": "Infertility_infectious disease stallion หน้า 33 และ 36",
+    "verified": "reproductive infectious diseases in stallion 2024 (Vet 84 annotated) หน้า 10 ไฮไลต์ Control and vaccination; K1-4 Final mind maps (Vet 84 folder) หน้า 3 บันทึกสีแดง มี vac. ทำ serology ก่อนให้",
+    "sourcePages": [
+      {
+        "doc": "eqrepro-stallion-infect-2569",
+        "edition": "40p",
+        "page": 33
+      },
+      {
+        "doc": "eqrepro-stallion-infect-2569",
+        "edition": "40p",
+        "page": 36
+      },
+      {
+        "doc": "eqrepro-stallion-infect-2024-vet84",
+        "edition": "28p",
+        "page": 10
+      },
+      {
+        "doc": "eqrepro-k14-maps-vet84",
+        "edition": "4p",
+        "page": 3
+      }
+    ],
+    "examOrigin": "Equine Repro final: จุดที่รุ่นพี่ติดดาว ขีดเส้นใต้ หรือไฮไลต์ในสไลด์และสรุปของตน",
+    "tags": [
+      "eqrepro-stallion-infect",
+      "EVA",
+      "vaccination",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 218107,
+    "subject": "equine-repro",
+    "topic": "eqrepro-surgery",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "exam-aligned",
+    "q": "การตอนม้าในท่านอน (recumbent castration) ควรใช้ยาชุดใดตามลำดับ",
+    "options": [
+      "ให้ xylazine เป็นยาสงบประสาทก่อน แล้วนำสลบด้วย ketamine ร่วมกับ diazepam",
+      "ให้ acepromazine ขนาดสูงเพียงตัวเดียว เพื่อให้ม้าล้มนอนลงเองอย่างนุ่มนวล",
+      "ให้ ketamine เดี่ยวเข้าหลอดเลือดดำทันที โดยไม่ต้องให้ยาสงบประสาทก่อน",
+      "ฉีด lidocaine เข้าอัณฑะเพียงอย่างเดียว แล้วใช้เชือกบังคับให้ม้าล้มนอน",
+      "ให้ diazepam นำสลบก่อน แล้วตามด้วย xylazine ขนาดสูงเพื่อคงการสลบ"
+    ],
+    "answer": 0,
+    "explain": "การตอนในท่านอนใช้ alpha-2 agonist เช่น xylazine (ราว 1.1 mg/kg) หรือ detomidine ให้ม้าสงบก่อน แล้วนำสลบด้วย ketamine (ราว 2.2 mg/kg) ซึ่งมักให้ร่วมกับ diazepam เพื่อให้กล้ามเนื้อคลายและล้มลงนุ่มนวล ketamine เดี่ยวโดยไม่มียาสงบประสาทนำทำให้กล้ามเนื้อเกร็งและตื่นเต้น acepromazine ไม่ทำให้ม้าล้มนอนและในม้าเพศผู้เสี่ยงต่อองคชาตหย่อนหรือ priapism ส่วน lidocaine เข้าอัณฑะเป็นยาชาเฉพาะที่เสริม ไม่ใช่ยาสลบ",
+    "source": "Equine reproductive surgery (2569) หน้า 5 และ 7; Lecture 8 9 Anatomy function and clinical exam stallion หน้า 5",
+    "verified": "equine reproductive surgery 2024 (Vet 84 annotated) หน้า 7 ไฮไลต์ Xylazine 1.1 mg/kg followed by ketamine 2.2 mg/kg combined with diazepam; สรุปปลายภาค Equine Repro ของ Vet 83 หน้า 3 ไฮไลต์; สรุปปลายภาค Equine Repro ของ Vet 81 หน้า 9 เน้นสีส้ม",
+    "sourcePages": [
+      {
+        "doc": "eqrepro-surgery-2569",
+        "edition": "30p",
+        "page": 5
+      },
+      {
+        "doc": "eqrepro-surgery-2569",
+        "edition": "30p",
+        "page": 7
+      },
+      {
+        "doc": "eqrepro-stallion-anatomy-2569",
+        "edition": "24p",
+        "page": 5
+      },
+      {
+        "doc": "eqrepro-surgery-2024-vet84",
+        "edition": "24p",
+        "page": 7
+      },
+      {
+        "doc": "eqrepro-final-summary-vet83",
+        "edition": "4p",
+        "page": 3
+      },
+      {
+        "doc": "eqrepro-final-summary-vet81",
+        "edition": "14p",
+        "page": 9
+      }
+    ],
+    "examOrigin": "Equine Repro final: จุดที่รุ่นพี่ติดดาว ขีดเส้นใต้ หรือไฮไลต์ในสไลด์และสรุปของตน",
+    "tags": [
+      "eqrepro-surgery",
+      "castration",
+      "anesthesia",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 218108,
+    "subject": "equine-repro",
+    "topic": "eqrepro-surgery",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "exam-aligned",
+    "q": "ภาวะแทรกซ้อนหลังตอนม้าที่พบบ่อยที่สุด ซึ่งมักเกิดจากการผูกหรือหนีบ spermatic cord ไม่แน่นพอ คือข้อใด",
+    "options": [
+      "ลำไส้หรือ omentum ไหลออกทางแผล (eventration)",
+      "ของเหลวใสสะสมในถุงหุ้มอัณฑะ (hydrocele)",
+      "ตอ spermatic cord ติดเชื้อเรื้อรัง (scirrhous cord)",
+      "เลือดออกจากตอ cord ที่ตัดจนเกิด hematoma",
+      "เยื่อบุช่องท้องอักเสบทั่วไป (peritonitis)"
+    ],
+    "answer": 3,
+    "explain": "ภาวะแทรกซ้อนที่พบบ่อยที่สุดหลังตอนคือเลือดออกจากตอ spermatic cord จนเป็น hematoma ซึ่งสัมพันธ์กับการผูกหรือการหนีบด้วย emasculator ที่ไม่แน่นหรือนานพอ จึงต้องเฝ้าดูเลือดออกและการบวมใน 6-12 ชั่วโมงแรก ภาวะอื่นในตัวเลือกพบได้จริงแต่มีกลไกต่างกัน eventration เกี่ยวกับช่องเปิด inguinal ที่กว้าง scirrhous cord เป็นการติดเชื้อเรื้อรังของตอ hydrocele เป็นของเหลวสะสม และ peritonitis เป็นผลจากการติดเชื้อที่ลามเข้าช่องท้อง",
+    "source": "Equine reproductive surgery (2569) หน้า 9, 15 และ 17; 4la33MLOYhM [40:29]",
+    "verified": "equine reproductive surgery 2024 (Vet 84 annotated) หน้า 15 ไฮไลต์ hematoma เจอบ่อยสุด จากการผูกไม่แน่น",
+    "sourcePages": [
+      {
+        "doc": "eqrepro-surgery-2569",
+        "edition": "30p",
+        "page": 9
+      },
+      {
+        "doc": "eqrepro-surgery-2569",
+        "edition": "30p",
+        "page": 15
+      },
+      {
+        "doc": "eqrepro-surgery-2569",
+        "edition": "30p",
+        "page": 17
+      },
+      {
+        "doc": "eqrepro-surgery-2024-vet84",
+        "edition": "24p",
+        "page": 15
+      }
+    ],
+    "examOrigin": "Equine Repro final: จุดที่รุ่นพี่ติดดาว ขีดเส้นใต้ หรือไฮไลต์ในสไลด์และสรุปของตน",
+    "tags": [
+      "eqrepro-surgery",
+      "castration",
+      "complications",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 218109,
+    "subject": "equine-repro",
+    "topic": "eqrepro-surgery",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "exam-aligned",
+    "q": "แม่ม้าหลังคลอดมีแผลฉีกที่หลังคาของ vestibule ลึกถึงชั้นใต้เยื่อบุและกล้ามเนื้อของ perineal body แต่ผนังไส้ตรงยังสมบูรณ์ จัดเป็นการฉีกขาดแบบใด",
+    "options": [
+      "ระดับที่ 1 เพราะขาดเพียงเยื่อบุ vestibule และผิวหนังที่มุมบนของปากช่องคลอด",
+      "ระดับที่ 2 เพราะขาดถึงชั้นใต้เยื่อบุและกล้ามเนื้อ perineal body โดยไส้ตรงยังดี",
+      "rectovestibular fistula เพราะเกิดรูเชื่อมระหว่างไส้ตรงกับ vestibule แล้ว",
+      "ระดับที่ 3 เพราะการฉีกขาดที่ลึกถึงชั้นกล้ามเนื้อทุกกรณีนับเป็นระดับสูงสุด",
+      "cervical laceration เพราะแรงเบ่งคลอดทำให้คอมดลูกฉีกต่อเนื่องลงมาถึงฝีเย็บ"
+    ],
+    "answer": 1,
+    "explain": "การฉีกขาดของฝีเย็บหลังคลอดแบ่งเป็นสามระดับ ระดับที่ 1 ขาดเฉพาะเยื่อบุ vestibule และผิวหนังที่มุมบนของปากช่องคลอด ระดับที่ 2 ขาดลึกถึงชั้นใต้เยื่อบุและกล้ามเนื้อของ perineal body (มักเป็น constrictor vulvae) แต่ไส้ตรงยังไม่ขาด ระดับที่ 3 ขาดทะลุหลังคา vestibule ผนังกั้น และผนังล่างของไส้ตรงจนสองช่องต่อกัน อาจรวมถึงหูรูดทวาร ส่วน rectovestibular fistula คือรูเชื่อมระหว่างไส้ตรงกับ vestibule ที่ฝีเย็บด้านนอกยังอยู่ แผลในโจทย์ไส้ตรงยังสมบูรณ์จึงเป็นระดับที่ 2",
+    "source": "Equine reproductive surgery (2569) หน้า 28; 4la33MLOYhM [57:12]",
+    "verified": "Postpartum_complication_horse_2567 (Vet 84 annotated) หน้า 19, 20 และ 21 ไฮไลต์เรื่อง rectovestibular laceration",
+    "sourcePages": [
+      {
+        "doc": "eqrepro-surgery-2569",
+        "edition": "30p",
+        "page": 28
+      },
+      {
+        "doc": "eqrepro-postpartum-2567-vet84",
+        "edition": "21p",
+        "page": 19
+      },
+      {
+        "doc": "eqrepro-postpartum-2567-vet84",
+        "edition": "21p",
+        "page": 20
+      },
+      {
+        "doc": "eqrepro-postpartum-2567-vet84",
+        "edition": "21p",
+        "page": 21
+      }
+    ],
+    "examOrigin": "Equine Repro final: จุดที่รุ่นพี่ติดดาว ขีดเส้นใต้ หรือไฮไลต์ในสไลด์และสรุปของตน",
+    "tags": [
+      "eqrepro-surgery",
+      "perineal-laceration",
+      "foaling-injury",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 218110,
+    "subject": "equine-repro",
+    "topic": "eqrepro-endometritis",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "exam-aligned",
+    "q": "ข้อใดแยก contamination ออกจาก infection ของมดลูกแม่ม้าได้ถูกต้อง",
+    "options": [
+      "การปนเปื้อนหลังผสมถือเป็นโรคทุกครั้ง จึงต้องให้ยาปฏิชีวนะเข้ามดลูกทุกรายหลังผสม",
+      "infection เกิดได้เฉพาะเมื่อคอมดลูกปิดสนิท ส่วนการปนเปื้อนเกิดได้เฉพาะเมื่อคอมดลูกเปิด",
+      "ทั้งสองคำหมายถึงภาวะเดียวกัน ต่างกันเพียงจำนวนโคโลนีที่เพาะได้จาก swab",
+      "การปนเปื้อนหลังผสมหรือหลังคลอดเป็นเรื่องปกติ ส่วน infection คือเชื้อเกาะ แทรก และตั้งรกรากในเยื่อบุ",
+      "การปนเปื้อนเกิดจากเชื้อราเท่านั้น ส่วน infection เกิดจากเชื้อแบคทีเรียเท่านั้น"
+    ],
+    "answer": 3,
+    "explain": "ทุกครั้งที่คอมดลูกเปิด เช่น ช่วงผสมพันธุ์และคลอด เชื้อจะปนเปื้อนเข้ามดลูกได้ตามปกติ แม่ม้าที่กลไกป้องกันดีจะกำจัดออกได้เอง infection เกิดเมื่อเชื้อเกาะ แทรกเข้า และตั้งรกรากในเยื่อบุได้ ซึ่งขึ้นกับสมดุลระหว่างตัวแม่ม้า ตัวเชื้อ และสิ่งแวดล้อม การแยกสองภาวะนี้ทำให้ไม่ต้องให้ยาปฏิชีวนะกับทุกรายหลังผสม และเชื้อทั้งแบคทีเรียและเชื้อราทำให้เกิดได้ทั้งสองภาวะ",
+    "source": "Lecture 7 Endometritis in mare (2569) หน้า 10",
+    "verified": "ENDOMETRITIS in MARE 2024 (Vet 84 annotated) หน้า 10 ไฮไลต์ contamination and infection of the tract พร้อมลูกศรแดงไปที่ Important to differentiate",
+    "sourcePages": [
+      {
+        "doc": "eqrepro-endometritis-2569",
+        "edition": "41p",
+        "page": 10
+      },
+      {
+        "doc": "eqrepro-endometritis-2024-vet84",
+        "edition": "38p",
+        "page": 10
+      }
+    ],
+    "examOrigin": "Equine Repro final: จุดที่รุ่นพี่ติดดาว ขีดเส้นใต้ หรือไฮไลต์ในสไลด์และสรุปของตน",
+    "tags": [
+      "eqrepro-endometritis",
+      "contamination-vs-infection",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 218111,
+    "subject": "equine-repro",
+    "topic": "eqrepro-endometritis",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "exam-aligned",
+    "q": "แม่ม้าลักษณะใดเสี่ยงต่อ endometritis มากที่สุด (susceptible mare)",
+    "options": [
+      "แม่ม้าสาวอายุ 4 ปีที่ยังไม่เคยผสม ฝีเย็บและปากช่องคลอดอยู่ในแนวปกติ",
+      "แม่ม้าที่ได้รับวัคซีนบาดทะยักและไข้หวัดม้าครบตามโปรแกรมก่อนผสม",
+      "แม่ม้าอายุมาก ผ่านการคลอดหลายครั้ง และมีฝีเย็บผิดรูปทรง",
+      "แม่ม้าที่ได้รับอาหารข้นเสริมอย่างพอเหมาะในช่วงท้องแก่",
+      "แม่ม้าที่มี CL ทำงานปกติและไม่พบของเหลวในโพรงมดลูก"
+    ],
+    "answer": 2,
+    "explain": "ปัจจัยโน้มนำของ endometritis คือแม่ม้าอายุมาก ผ่านการคลอดหลายครั้ง ภูมิคุ้มกันของมดลูกลดลง โครงสร้างฝีเย็บผิดรูปจนลมและสิ่งสกปรกเข้าช่องคลอด และมีรกค้าง แม่ม้ากลุ่มนี้กำจัดเชื้อและของเหลวหลังผสมได้ช้า จึงเรียกว่า susceptible mare ต่างจาก resistant mare ที่มักเป็นแม่ม้าสาวและมีโครงสร้างปกติ วัคซีน อาหาร และ CL ที่ทำงานปกติไม่ได้เพิ่มความเสี่ยงในลักษณะนี้",
+    "source": "Lecture 7 Endometritis in mare (2569) หน้า 16",
+    "verified": "ENDOMETRITIS in MARE 2024 (Vet 84 annotated) หน้า 16 ไฮไลต์ทุกปัจจัยเสี่ยง",
+    "sourcePages": [
+      {
+        "doc": "eqrepro-endometritis-2569",
+        "edition": "41p",
+        "page": 16
+      },
+      {
+        "doc": "eqrepro-endometritis-2024-vet84",
+        "edition": "38p",
+        "page": 16
+      }
+    ],
+    "examOrigin": "Equine Repro final: จุดที่รุ่นพี่ติดดาว ขีดเส้นใต้ หรือไฮไลต์ในสไลด์และสรุปของตน",
+    "tags": [
+      "eqrepro-endometritis",
+      "susceptible-mare",
+      "risk-factors",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 218112,
+    "subject": "equine-repro",
+    "topic": "eqrepro-endometritis",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "exam-aligned",
+    "q": "แม่ม้าผสมไม่ติดซ้ำหลายรอบ ตรวจเซลล์จากมดลูกพบยีสต์จำนวนมาก เชื้อกลุ่มใดเป็นสาเหตุที่พบได้ของภาวะนี้",
+    "options": [
+      "Microsporum spp. และ Trichophyton spp.",
+      "Streptococcus zooepidemicus และ Escherichia coli",
+      "Equine herpesvirus type 3 และ equine arteritis virus",
+      "Taylorella equigenitalis และ Klebsiella pneumoniae",
+      "Candida spp. และ Aspergillus spp."
+    ],
+    "answer": 4,
+    "explain": "สาเหตุของ endometritis ในแม่ม้ามีทั้งแบคทีเรีย เชื้อรา และยีสต์ กลุ่มเชื้อราและยีสต์ที่พบคือ Candida spp. และ Aspergillus spp. มักเกิดในแม่ม้าที่ได้ยาปฏิชีวนะเข้ามดลูกซ้ำหลายครั้ง จึงต้องรักษาด้วยยาต้านเชื้อรา Microsporum และ Trichophyton เป็นเชื้อราผิวหนัง Streptococcus zooepidemicus, E. coli, Taylorella และ Klebsiella เป็นแบคทีเรีย ส่วน EHV-3 และ EAV เป็นไวรัส",
+    "source": "Lecture 7 Endometritis in mare (2569) หน้า 17, 18 และ 34",
+    "verified": "ENDOMETRITIS in MARE 2024 (Vet 84 annotated) หน้า 19 ไฮไลต์ Fungi and yeast, Candida sp., Aspergillus sp.",
+    "sourcePages": [
+      {
+        "doc": "eqrepro-endometritis-2569",
+        "edition": "41p",
+        "page": 17
+      },
+      {
+        "doc": "eqrepro-endometritis-2569",
+        "edition": "41p",
+        "page": 18
+      },
+      {
+        "doc": "eqrepro-endometritis-2569",
+        "edition": "41p",
+        "page": 34
+      },
+      {
+        "doc": "eqrepro-endometritis-2024-vet84",
+        "edition": "38p",
+        "page": 19
+      }
+    ],
+    "examOrigin": "Equine Repro final: จุดที่รุ่นพี่ติดดาว ขีดเส้นใต้ หรือไฮไลต์ในสไลด์และสรุปของตน",
+    "tags": [
+      "eqrepro-endometritis",
+      "fungal-endometritis",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 218113,
+    "subject": "equine-repro",
+    "topic": "eqrepro-endometritis",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "exam-aligned",
+    "q": "การอักเสบของเยื่อบุมดลูกลดความสมบูรณ์พันธุ์ของแม่ม้าผ่านกลไกใด",
+    "options": [
+      "สร้าง reactive oxygen species ที่ทำลายการทำงานของไข่และอสุจิ",
+      "เพิ่มการหลั่ง LH จนไข่ตกเร็วเกินไปก่อนถึงเวลาผสมพันธุ์",
+      "เพิ่ม progesterone จนมดลูกไม่ตอบสนองต่อ estrogen ตลอดวงรอบ",
+      "เร่งให้ฟอลลิเคิลโตเร็วและสร้าง estradiol มากเกินปกติ",
+      "ทำให้คอมดลูกปิดถาวรจนอสุจิผ่านเข้าไปในมดลูกไม่ได้"
+    ],
+    "answer": 0,
+    "explain": "การอักเสบของเยื่อบุมดลูกทำให้เม็ดเลือดขาวมารวมกันและสร้าง reactive oxygen species ซึ่งทำลายการทำงานของไข่และอสุจิ และทำให้เซลล์เยื่อบุตาย การอักเสบยังกดการหลั่ง LH จนโอกาสตกไข่ลดลง ฟอลลิเคิลโตช้า สร้าง estradiol และ progesterone น้อยลง และการสลาย CL ผิดปกติ ตัวเลือกที่บอกว่า LH, progesterone หรือ estradiol เพิ่มขึ้นจึงกลับทิศ ส่วนคอมดลูกไม่ได้ปิดถาวรจากการอักเสบ",
+    "source": "Lecture 7 Endometritis in mare (2569) หน้า 20",
+    "verified": "ENDOMETRITIS in MARE 2024 (Vet 84 annotated) หน้า 21 ไฮไลต์ ROS generation impair ova and sperm และบันทึกสีเขียว Decrease chance to ovulate",
+    "sourcePages": [
+      {
+        "doc": "eqrepro-endometritis-2569",
+        "edition": "41p",
+        "page": 20
+      },
+      {
+        "doc": "eqrepro-endometritis-2024-vet84",
+        "edition": "38p",
+        "page": 21
+      }
+    ],
+    "examOrigin": "Equine Repro final: จุดที่รุ่นพี่ติดดาว ขีดเส้นใต้ หรือไฮไลต์ในสไลด์และสรุปของตน",
+    "tags": [
+      "eqrepro-endometritis",
+      "ROS",
+      "fertility-effect",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 218114,
+    "subject": "equine-repro",
+    "topic": "eqrepro-endometritis",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "exam-aligned",
+    "q": "เกณฑ์ทางเซลล์วิทยาของตัวอย่างจากมดลูกข้อใดบ่งชี้ subclinical endometritis ในแม่ม้า",
+    "options": [
+      "พบ lymphocyte มากกว่า 2% ของเซลล์ทั้งหมดในตัวอย่าง",
+      "พบ eosinophil มากกว่า 5% ร่วมกับเส้นใยเชื้อราทุกครั้ง",
+      "พบ neutrophil มากกว่า 20% ของเซลล์ในทุกตัวอย่างที่เก็บ",
+      "ไม่พบเซลล์เยื่อบุมดลูกเลยในตัวอย่างที่เก็บด้วย cytobrush",
+      "พบ neutrophil มากกว่า 2% ของเซลล์ทั้งหมดในตัวอย่าง"
+    ],
+    "answer": 4,
+    "explain": "subclinical endometritis มักไม่มีหนองไหลให้เห็น การวินิจฉัยจึงอาศัยอัลตราซาวนด์ดูของเหลวในมดลูกทุกวันหรือวันเว้นวันช่วงเป็นสัดและหลังผสม ร่วมกับเซลล์วิทยาของมดลูก ซึ่งถือว่าอักเสบเมื่อพบ neutrophil มากกว่า 2% ของเซลล์ (หรือมากกว่า 2 เซลล์ต่อหนึ่งช่องภาพกำลังขยาย 400 เท่า) และเพาะเชื้อพร้อมทดสอบความไวต่อยาจาก guarded swab ที่กันการปนเปื้อนจากช่องคลอด ส่วน clinical endometritis เห็นหนองไหลจากช่องคลอดและต้องแยกจาก vaginitis ด้วยเซลล์วิทยา เกณฑ์ 20% สูงเกินไป และ lymphocyte หรือ eosinophil ไม่ใช่เกณฑ์นี้",
+    "source": "Lecture 7 Endometritis in mare (2569) หน้า 21 และ 24",
+    "verified": "ENDOMETRITIS in MARE 2024 (Vet 84 annotated) หน้า 22 และ 25 ไฮไลต์ Clinical, Subclinical endometritis, Vaginitis rule out by cytology, Guarded swab; Repro horse มีของ TS (mind map Vet 79) หน้า 1 ไฮไลต์ ปกติ neutrophil ไม่เกิน 2%",
+    "sourcePages": [
+      {
+        "doc": "eqrepro-endometritis-2569",
+        "edition": "41p",
+        "page": 21
+      },
+      {
+        "doc": "eqrepro-endometritis-2569",
+        "edition": "41p",
+        "page": 24
+      },
+      {
+        "doc": "eqrepro-endometritis-2024-vet84",
+        "edition": "38p",
+        "page": 22
+      },
+      {
+        "doc": "eqrepro-endometritis-2024-vet84",
+        "edition": "38p",
+        "page": 25
+      },
+      {
+        "doc": "eqrepro-ts-maps-vet79",
+        "edition": "6p",
+        "page": 1
+      }
+    ],
+    "examOrigin": "Equine Repro final: จุดที่รุ่นพี่ติดดาว ขีดเส้นใต้ หรือไฮไลต์ในสไลด์และสรุปของตน",
+    "tags": [
+      "eqrepro-endometritis",
+      "uterine-cytology",
+      "diagnosis",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 218115,
+    "subject": "equine-repro",
+    "topic": "eqrepro-endometritis",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "exam-aligned",
+    "q": "การล้างมดลูก (uterine lavage) เพื่อรักษา endometritis ในแม่ม้าทำอย่างไร",
+    "options": [
+      "ใช้น้ำเกลือปลอดเชื้ออุ่น 1-2 ลิตรต่อครั้งผ่านสายสวนขนาดใหญ่ ล้างซ้ำจนน้ำที่ไหลกลับใส",
+      "ใช้น้ำเกลือเย็นจัด 50 มิลลิลิตรผ่านสายสวนขนาดเล็ก ล้างครั้งเดียวแล้วทิ้งไว้ในมดลูก",
+      "ใช้ povidone-iodine เข้มข้น 10% ปริมาณ 1-2 ลิตร แช่ไว้ในมดลูกข้ามคืนก่อนปล่อยออก",
+      "ใช้น้ำเกลือผสมยาปฏิชีวนะ 1-2 ลิตรล้างก่อนเก็บ swab เพื่อให้ผลเพาะเชื้อแม่นยำขึ้น",
+      "ใช้น้ำกลั่นอุ่น 10 ลิตรต่อครั้งผ่านสายสวนขนาดเล็ก ล้างวันละครั้งตลอดการตั้งท้อง"
+    ],
+    "answer": 0,
+    "explain": "เป้าหมายแรกของการรักษา endometritis คือเอาของเหลว เชื้อ และเศษเซลล์ออกจากมดลูก ทำโดยล้างด้วยน้ำเกลือปลอดเชื้ออุ่นครั้งละ 1-2 ลิตรผ่านสายสวนขนาดใหญ่ (ราว 30 French หรือเส้นผ่านศูนย์กลาง 10 มิลลิเมตร) แล้วปล่อยไหลกลับ ล้างซ้ำจนน้ำใส อาจให้ยาบีบมดลูก เช่น oxytocin ร่วมด้วย ปริมาตรน้อยหรือสายเล็กล้างได้ไม่ทั่ว ไอโอดีนเข้มข้นระคายเยื่อบุ การล้างด้วยยาปฏิชีวนะก่อนเก็บ swab ทำให้เพาะเชื้อไม่ขึ้น และน้ำกลั่นไม่ใช่สารละลายที่ใช้ล้าง",
+    "source": "Lecture 7 Endometritis in mare (2569) หน้า 29 และ 30",
+    "verified": "ENDOMETRITIS in MARE 2024 (Vet 84 annotated) หน้า 28 ไฮไลต์ Uterine lavage with warm 1-2 litres sterile saline by using catheter",
+    "sourcePages": [
+      {
+        "doc": "eqrepro-endometritis-2569",
+        "edition": "41p",
+        "page": 29
+      },
+      {
+        "doc": "eqrepro-endometritis-2569",
+        "edition": "41p",
+        "page": 30
+      },
+      {
+        "doc": "eqrepro-endometritis-2024-vet84",
+        "edition": "38p",
+        "page": 28
+      }
+    ],
+    "examOrigin": "Equine Repro final: จุดที่รุ่นพี่ติดดาว ขีดเส้นใต้ หรือไฮไลต์ในสไลด์และสรุปของตน",
+    "tags": [
+      "eqrepro-endometritis",
+      "uterine-lavage",
+      "treatment",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 218116,
+    "subject": "equine-repro",
+    "topic": "eqrepro-endometritis",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "exam-aligned",
+    "q": "สารใดจัดเป็น chemical curettage ที่ใช้ลดมูกและ biofilm ในแม่ม้าที่เป็น endometritis เรื้อรัง",
+    "options": [
+      "oxytocin หรือ cloprostenol",
+      "gentamicin หรือ polymyxin B",
+      "DMSO หรือ hydrogen peroxide",
+      "amphotericin B หรือ clotrimazole",
+      "plasma หรือ platelet rich plasma"
+    ],
+    "answer": 2,
+    "explain": "chemical curettage คือการใส่สารที่ระคายเยื่อบุมดลูกแบบควบคุม เพื่อลอกมูกและ biofilm ที่ห่อหุ้มเชื้อและกระตุ้นการอักเสบเฉียบพลันให้มดลูกกำจัดเชื้อได้ สารที่ใช้ได้แก่ DMSO, hydrogen peroxide, magnesium sulfate, kerosene และ povidone-iodine 0.2% oxytocin และ cloprostenol เป็นยาบีบมดลูกเพื่อไล่ของเหลว gentamicin และ polymyxin B เป็นยาปฏิชีวนะ amphotericin B และ clotrimazole เป็นยาต้านเชื้อรา ส่วน plasma และ PRP ใช้เสริมภูมิคุ้มกันในมดลูก",
+    "source": "Lecture 7 Endometritis in mare (2569) หน้า 30-34",
+    "verified": "ENDOMETRITIS in MARE 2024 (Vet 84 annotated) หน้า 30 วงเล็บแดงที่ Chemical curettage พร้อมบันทึก ทำให้ biofilm หายไป และไฮไลต์ DMSO, hydrogen peroxide",
+    "sourcePages": [
+      {
+        "doc": "eqrepro-endometritis-2569",
+        "edition": "41p",
+        "page": 30
+      },
+      {
+        "doc": "eqrepro-endometritis-2569",
+        "edition": "41p",
+        "page": 31
+      },
+      {
+        "doc": "eqrepro-endometritis-2569",
+        "edition": "41p",
+        "page": 32
+      },
+      {
+        "doc": "eqrepro-endometritis-2569",
+        "edition": "41p",
+        "page": 33
+      },
+      {
+        "doc": "eqrepro-endometritis-2569",
+        "edition": "41p",
+        "page": 34
+      },
+      {
+        "doc": "eqrepro-endometritis-2024-vet84",
+        "edition": "38p",
+        "page": 30
+      }
+    ],
+    "examOrigin": "Equine Repro final: จุดที่รุ่นพี่ติดดาว ขีดเส้นใต้ หรือไฮไลต์ในสไลด์และสรุปของตน",
+    "tags": [
+      "eqrepro-endometritis",
+      "chemical-curettage",
+      "biofilm",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 218117,
+    "subject": "equine-repro",
+    "topic": "eqrepro-endometritis",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "exam-aligned",
+    "q": "แนวทางระยะยาวข้อใดมุ่งลดปัญหา endometritis ในประชากรแม่ม้า",
+    "options": [
+      "ให้ยาปฏิชีวนะเข้ามดลูกแม่ม้าทุกตัวหลังการผสมทุกครั้งเป็นกิจวัตร",
+      "ผสมแม่ม้าเฉพาะใน foal heat เพื่อให้มดลูกกลับสู่สภาพปกติเร็วขึ้น",
+      "ตัดมดลูกออกในแม่ม้าทุกตัวที่เคยเป็น endometritis มาก่อนหนึ่งครั้ง",
+      "งดใช้น้ำเชื้อทุกชนิดและเลิกการผสมเทียมในฟาร์มแม่ม้าทั้งหมด",
+      "คัดเลือกทางพันธุกรรมให้ได้แม่ม้าที่ไวต่อการติดเชื้อน้อยหรือคุมการอักเสบได้ดี"
+    ],
+    "answer": 4,
+    "explain": "แนวทางการวิจัยเพื่อลดปัญหา endometritis คือคัดเลือกทางพันธุกรรมให้ได้แม่ม้าที่ไวต่อการติดเชื้อน้อยหรือควบคุมการอักเสบหลังคลอดได้ดี หาวิธีตรวจพบ subclinical endometritis ได้เร็วและทำได้ในฟาร์ม และพัฒนาวิธีป้องกันและรักษาใหม่ การให้ยาปฏิชีวนะทุกรายหลังผสมเร่งให้เชื้อดื้อยาและเพิ่มการติดเชื้อรา การผสมใน foal heat ให้อัตราตั้งท้องต่ำลงเพราะมดลูกยังคืนสภาพไม่หมด และการตัดมดลูกหรือเลิกผสมไม่ใช่แนวทางที่ใช้",
+    "source": "Lecture 7 Endometritis in mare (2569) หน้า 39; Equine pregnancy and neonatal care (2569) หน้า 38",
+    "verified": "ENDOMETRITIS in MARE 2024 (Vet 84 annotated) หน้า 36 ไฮไลต์ทุกบรรทัด",
+    "sourcePages": [
+      {
+        "doc": "eqrepro-endometritis-2569",
+        "edition": "41p",
+        "page": 39
+      },
+      {
+        "doc": "eqrepro-pregnancy-2569",
+        "edition": "40p",
+        "page": 38
+      },
+      {
+        "doc": "eqrepro-endometritis-2024-vet84",
+        "edition": "38p",
+        "page": 36
+      }
+    ],
+    "examOrigin": "Equine Repro final: จุดที่รุ่นพี่ติดดาว ขีดเส้นใต้ หรือไฮไลต์ในสไลด์และสรุปของตน",
+    "tags": [
+      "eqrepro-endometritis",
+      "prevention",
+      "genetic-selection",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 218118,
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "exam-aligned",
+    "q": "ลูกม้าแรกเกิดที่ปกติดีควรดูดนมแม่บ่อยเพียงใด",
+    "options": [
+      "ทุก 4-6 ชั่วโมง ครั้งละราว 15-20 นาที",
+      "ทุก 2-3 ชั่วโมง ครั้งละราว 10 นาที",
+      "ทุก 30-60 นาที ครั้งละราว 1-2 นาที",
+      "วันละ 2 ครั้ง ครั้งละราว 30 นาที",
+      "ทุก 8-12 ชั่วโมง ครั้งละราว 5 นาที"
+    ],
+    "answer": 2,
+    "explain": "ลูกม้าแรกเกิดปกติดูดนมถี่มาก ราวทุก 30-60 นาที ครั้งละ 1-2 นาที สลับกับหลับหลายช่วงทั้งท่านอนคว่ำและนอนตะแคง เดินและวิ่งเหยาะได้ภายในไม่กี่ชั่วโมง เริ่มเล่นในวันที่ 2-3 และเดินตามแม่ ลูกม้าที่ซึม แยกตัว หรือไม่ดูดนมจึงเป็นสัญญาณผิดปกติที่ต้องตรวจทันที เพราะดูดนมห่างกว่านี้มากแสดงว่าได้พลังงานและน้ำไม่พอ",
+    "source": "Equine pregnancy and neonatal care (2569) หน้า 32",
+    "verified": "สรุปปลายภาค Equine Repro ของ Vet 85 หน้า 7 ดาวชมพูและวงเล็บที่ พฤติกรรมลูก",
+    "sourcePages": [
+      {
+        "doc": "eqrepro-pregnancy-2569",
+        "edition": "40p",
+        "page": 32
+      },
+      {
+        "doc": "eqrepro-final-summary-vet85",
+        "edition": "7p",
+        "page": 7
+      }
+    ],
+    "examOrigin": "Equine Repro final: จุดที่รุ่นพี่ติดดาว ขีดเส้นใต้ หรือไฮไลต์ในสไลด์และสรุปของตน",
+    "tags": [
+      "eqrepro-pregnancy",
+      "neonatal-foal",
+      "foal-behavior",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 218119,
+    "subject": "equine-repro",
+    "topic": "eqrepro-pregnancy",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "exam-aligned",
+    "q": "ลูกม้ากำพร้าอายุ 3 วัน ได้รับนมน้ำเหลืองครบแล้ว การเลี้ยงต่อข้อใดเหมาะสมที่สุด",
+    "options": [
+      "ป้อนนมวัวเย็นวันละ 2 มื้อ และเลี้ยงแยกเดี่ยวให้ห่างจากสัตว์อื่นทั้งหมด",
+      "งดนมและให้อาหารข้นสำหรับลูกม้า (creep feed) เต็มที่ตั้งแต่วันนี้เป็นต้นไป",
+      "ให้คนเลี้ยงอุ้มและอยู่ด้วยตลอดเวลา เพื่อให้ลูกม้าผูกพันกับคนมากที่สุด",
+      "ป้อนนมทดแทนนมม้าอุ่นราว 38 องศาเซลเซียสทุก 1-2 ชั่วโมง และหาแพะหรือม้าแคระเป็นเพื่อน",
+      "ป้อนนมทุก 6-8 ชั่วโมง และเลื่อนการหาเพื่อนไปจนหย่านมเมื่ออายุ 6 เดือน"
+    ],
+    "answer": 3,
+    "explain": "ลูกม้ากำพร้าในสัปดาห์แรกต้องได้นมทดแทนนมม้า (หรือนมแพะ) อุ่นราว 38 องศาเซลเซียสทุก 1-2 ชั่วโมง แล้วค่อยห่างเป็นทุก 3-4 ชั่วโมงในสัปดาห์ที่ 1-3 การจับต้องควรนุ่มนวลแต่ไม่ให้ผูกพันกับคนมากเกินไป เพราะลูกม้าที่โตมากับคนอาจมีปัญหาพฤติกรรมเมื่อโต จึงหาแพะหรือม้าแคระมาเป็นเพื่อนให้เรียนรู้พฤติกรรมทางสังคม creep feed เริ่มเสริมได้เมื่ออายุ 2-3 สัปดาห์ ไม่ใช่ใช้แทนนมในวันที่ 3 และนมวัววันละ 2 มื้อหรือทุก 6-8 ชั่วโมงห่างเกินไป",
+    "source": "Equine pregnancy and neonatal care (2569) หน้า 32 และ 33; 4la33MLOYhM [146:09]",
+    "verified": "Pregnancy_parturition_horse_2566 (Vet 84 annotated) หน้า 29 ไฮไลต์ An orphan foal, start at 1-2 month of age with an easy going pony, group with other foals at 4-5 months old",
+    "sourcePages": [
+      {
+        "doc": "eqrepro-pregnancy-2569",
+        "edition": "40p",
+        "page": 32
+      },
+      {
+        "doc": "eqrepro-pregnancy-2569",
+        "edition": "40p",
+        "page": 33
+      },
+      {
+        "doc": "eqrepro-pregnancy-2566-vet84",
+        "edition": "32p",
+        "page": 29
+      }
+    ],
+    "examOrigin": "Equine Repro final: จุดที่รุ่นพี่ติดดาว ขีดเส้นใต้ หรือไฮไลต์ในสไลด์และสรุปของตน",
+    "tags": [
+      "eqrepro-pregnancy",
+      "orphan-foal",
+      "neonatal-care",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 218120,
+    "subject": "equine-repro",
+    "topic": "eqrepro-postpartum",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "exam-aligned",
+    "q": "แม่ม้าหลังคลอด 12 ชั่วโมง ซึม เยื่อเมือกซีด ชีพจรเร็ว อัลตราซาวนด์พบก้อนเลือดและของเหลวในช่องท้อง สงสัยตกเลือดหลังคลอด แนวทางใดเหมาะสมที่สุด",
+    "options": [
+      "ล้วงตรวจทางทวารซ้ำเพื่อหาตำแหน่งเลือดออก แล้วใช้มือกดห้ามเลือดโดยตรง",
+      "ให้สารน้ำหรือถ่ายเลือดเพื่อคงปริมาตรเลือด ร่วมกับยาบีบมดลูกและยาลดปวด",
+      "ให้ยาขับปัสสาวะเป็นอันดับแรก เพื่อลดของเหลวในช่องท้องให้เร็วที่สุด",
+      "จูงเดินออกกำลังเบาๆ เพื่อกระตุ้นการไหลเวียนเลือดกลับสู่หัวใจ",
+      "ให้ยาปฏิชีวนะเพียงอย่างเดียว เพราะอาการเหล่านี้มาจากมดลูกอักเสบหลังคลอด"
+    ],
+    "answer": 1,
+    "explain": "การตกเลือดหลังคลอดในม้ามักมาจากหลอดเลือดแดงของมดลูกหรือใน broad ligament เกิดในแม่ม้าที่อายุมากและคลอดหลายครั้ง อาการคือช็อก ซีด ชีพจรเร็ว CRT นาน อัลตราซาวนด์เห็นก้อนเลือดหรือของเหลวในช่องท้อง การรักษาเป็นแบบประคับประคองเป็นหลัก คือให้สารน้ำหรือถ่ายเลือดเพื่อคงปริมาตรเลือด ให้ยาบีบมดลูก ลดปวด และป้องกันการติดเชื้อ ผ่าตัดเมื่อรุนแรง ควรเลี่ยงการล้วงตรวจทางทวารและการกระตุ้นให้ม้าเคลื่อนไหว เพราะทำให้ก้อนเลือดหลุดและเลือดออกมากขึ้น ยาขับปัสสาวะยิ่งลดปริมาตรเลือด",
+    "source": "Equine pregnancy and neonatal care (2569) หน้า 21",
+    "verified": "Postpartum_complication_horse_2567 (Vet 84 annotated) หน้า 7, 8 และ 9 ไฮไลต์เรื่อง post-parturient haemorrhage",
+    "sourcePages": [
+      {
+        "doc": "eqrepro-pregnancy-2569",
+        "edition": "40p",
+        "page": 21
+      },
+      {
+        "doc": "eqrepro-postpartum-2567-vet84",
+        "edition": "21p",
+        "page": 7
+      },
+      {
+        "doc": "eqrepro-postpartum-2567-vet84",
+        "edition": "21p",
+        "page": 8
+      },
+      {
+        "doc": "eqrepro-postpartum-2567-vet84",
+        "edition": "21p",
+        "page": 9
+      }
+    ],
+    "examOrigin": "Equine Repro final: จุดที่รุ่นพี่ติดดาว ขีดเส้นใต้ หรือไฮไลต์ในสไลด์และสรุปของตน",
+    "tags": [
+      "eqrepro-postpartum",
+      "postpartum-hemorrhage",
+      "supportive-care",
+      "อิงแนวข้อสอบ"
+    ]
+  },
+  {
+    "id": 218121,
+    "subject": "equine-repro",
+    "topic": "eqrepro-postpartum",
+    "year": 5,
+    "type": "mcq",
+    "sourceType": "exam-aligned",
+    "q": "แม่ม้าคลอดลูกได้ 4 ชั่วโมงแล้วรกยังไม่หลุดออกมา ยาที่ควรเลือกใช้เป็นอันดับแรกคือข้อใด",
+    "options": [
+      "oxytocin",
+      "altrenogest",
+      "dexamethasone",
+      "xylazine",
+      "equine chorionic gonadotropin"
+    ],
+    "answer": 0,
+    "explain": "รกที่ไม่หลุดภายใน 3 ชั่วโมงหลังคลอดถือเป็นรกค้าง (retained fetal membranes) ยาที่เลือกใช้ก่อนคือ oxytocin เพื่อให้มดลูกบีบตัวขับรกออก ให้ซ้ำขนาดต่ำหรือหยดเข้าหลอดเลือดดำช้าๆ ร่วมกับยาปฏิชีวนะ ยาต้านการอักเสบ และล้างมดลูกเมื่อจำเป็น การดึงรกออกด้วยมือแรงๆ เสี่ยงให้รกขาดค้างและมดลูกบาดเจ็บ จึงทำด้วยความระมัดระวัง รกค้างที่ปล่อยไว้นำไปสู่ metritis, endotoxemia และ laminitis altrenogest เป็น progestagen ที่ทำให้มดลูกสงบ dexamethasone และ xylazine ไม่ได้ช่วยขับรก ส่วน eCG ใช้กระตุ้นรังไข่",
+    "source": "Equine pregnancy and neonatal care (2569) หน้า 18 และ 22; 4la33MLOYhM [112:58]",
+    "verified": "Postpartum_complication_horse_2567 (Vet 84 annotated) หน้า 10 และ 11 ไฮไลต์เรื่อง retained fetal membranes",
+    "sourcePages": [
+      {
+        "doc": "eqrepro-pregnancy-2569",
+        "edition": "40p",
+        "page": 18
+      },
+      {
+        "doc": "eqrepro-pregnancy-2569",
+        "edition": "40p",
+        "page": 22
+      },
+      {
+        "doc": "eqrepro-postpartum-2567-vet84",
+        "edition": "21p",
+        "page": 10
+      },
+      {
+        "doc": "eqrepro-postpartum-2567-vet84",
+        "edition": "21p",
+        "page": 11
+      }
+    ],
+    "examOrigin": "Equine Repro final: จุดที่รุ่นพี่ติดดาว ขีดเส้นใต้ หรือไฮไลต์ในสไลด์และสรุปของตน",
+    "tags": [
+      "eqrepro-postpartum",
+      "retained-fetal-membranes",
+      "oxytocin",
+      "อิงแนวข้อสอบ"
     ]
   },
 ];

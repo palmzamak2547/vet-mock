@@ -76,7 +76,10 @@ export default defineConfig({
     // pre-warm. For statically-imported chunks (Q banks) it's neutral.
     modulePreload: {
       polyfill: true,
-      resolveDependencies(_filename, deps) {
+      resolveDependencies(_filename, deps, { hostId } = {}) {
+        // The case pane's lazy parts (its hand, tools and sheet): every other chunk they import is loaded
+        // with the pane already, and naming each one in the exam's own chunk cost it about 300 B gzip.
+        if (/(^|\/)CasePane-[^/]*\.js$/.test(hostId || '')) return deps.filter((dep) => /\/(case-|Case)/.test(dep));
         const SKIP_PRELOAD_PATTERNS = [
           /vendor-cornerstone/,        // Practical Imaging Lab only
           /vendor-atlas/,              // Anatomy viewer only

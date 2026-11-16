@@ -22,6 +22,8 @@ import { readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 
 const SRC = readFileSync(join(resolve(process.cwd()), 'src/views/PdfAnnotateView.jsx'), 'utf8');
+// The pen loop (pinch bookkeeping, eraser hit test) moved to the ink engine.
+const ENGINE = readFileSync(join(resolve(process.cwd()), 'src/lib/ink/engine.js'), 'utf8');
 
 test('the thumbnail rail is keyed by document, so a new file gets new thumbnails', () => {
   const at = SRC.indexOf('<PdfThumbnailSidebar');
@@ -31,9 +33,10 @@ test('the thumbnail rail is keyed by document, so a new file gets new thumbnails
 });
 
 test('in pen-only mode the stylus is never booked as a pinch finger', () => {
-  const at = SRC.indexOf('function gestureDown(e)');
+  const at = ENGINE.indexOf('function gestureDown(e)');
   assert.notEqual(at, -1);
-  const body = SRC.slice(at, SRC.indexOf('function gestureMove', at));
+  const body = ENGINE.slice(at, ENGINE.indexOf('function gestureMove', at));
+  assert.match(body, /const penOnly = h\.penOnly;/);
   assert.match(body, /if \(penOnly && e\.pointerType === 'pen'\) return false;/);
   assert.match(
     body,
@@ -43,8 +46,8 @@ test('in pen-only mode the stylus is never booked as a pinch finger', () => {
 });
 
 test('a pinch only discards a stroke that one of its two fingers is drawing', () => {
-  const at = SRC.indexOf('function gestureDown(e)');
-  const body = SRC.slice(at, SRC.indexOf('function gestureMove', at));
+  const at = ENGINE.indexOf('function gestureDown(e)');
+  const body = ENGINE.slice(at, ENGINE.indexOf('function gestureMove', at));
   assert.match(
     body,
     /if \(d\?\.on && activePointers\.current\.has\(d\.pointerId\)\)/,
@@ -56,8 +59,10 @@ test('the whole-stroke eraser skips pixel-eraser strokes', () => {
   const at = SRC.indexOf('function eraseAt(e)');
   assert.notEqual(at, -1);
   const body = SRC.slice(at, SRC.indexOf('function scheduleShapeSnap', at));
+  assert.match(body, /const gone = strokesUnder\(list, x, y, reach, aspect\);/);
+  const hit = ENGINE.slice(ENGINE.indexOf('export function strokesUnder('), ENGINE.indexOf('export function coalescedSamples('));
   assert.match(
-    body,
+    hit,
     /st\.mode !== 'eraser' && strokeHit\(/,
     'deleting a pixel-eraser stroke un-erases the ink beneath it',
   );

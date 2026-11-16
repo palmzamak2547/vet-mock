@@ -37,7 +37,8 @@ import { confirmDialog, alertDialog } from '../lib/dialog.js';
 import PdfThumbnailSidebar from '../components/PdfThumbnailSidebar.jsx';
 import NavIcon from '../components/NavIcon.jsx';
 import PdfPage from '../components/PdfPage.jsx';
-import { drawStroke, applyBrush, resetBrush, widthAt, redrawInk, paintLiveHighlighter, releaseHighlighterCopy, tiltOf, inkDpr } from '../lib/ink.js';
+import { drawStroke, applyBrush, resetBrush, widthAt, redrawInk, paintLiveHighlighter, releaseHighlighterCopy, inkDpr } from '../lib/ink.js';
+import { createInkEngine, coalescedSamples, pushRedo, strokesUnder } from '../lib/ink/engine.js';
 import {
   hashFile,
   loadAnnotations as loadOwnedAnnotations,
@@ -53,7 +54,7 @@ import {
 } from '../lib/pdf-annotations.js';
 import * as annotationSync from '../lib/annotation-sync.js';
 import { searchPages, pageTextFromItems } from '../lib/thai-search.js';
-import { fitShape, strokeHit } from '../lib/shape-fit.js';
+import { fitShape } from '../lib/shape-fit.js';
 import { exportAnnotatedPdf, exportFileName, downloadBlob, readSourceBytes } from '../lib/pdf-export.js';
 import { useFullscreen } from '../hooks/useFullscreen.js';
 import LassoLayer from '../components/LassoLayer.jsx';
@@ -61,7 +62,8 @@ import TapeLayer from '../components/TapeLayer.jsx';
 import { TAPE_COLORS, isTape, makeTape } from '../lib/tape.js';
 import TextNoteEditor from '../components/TextNoteEditor.jsx';
 import { makeTextNote, textNoteAt } from '../lib/textnote.js';
-import NotebookShelf from '../components/NotebookShelf.jsx';
+import NotebookShelf, { NOT_SAVED } from '../components/NotebookShelf.jsx';
+import { reportFailure } from '../lib/report-failure.js';
 import { buildNotebookPdf, notebookKey, updateNotebook, NOTEBOOK_MAX_PAGES } from '../lib/notebook.js';
 import { selectStrokes, boundsOf, transformStroke } from '../lib/lasso.js';
 import { RangedPdfSource, rangeableLength, RANGE_CHUNK } from '../lib/pdf-range-source.js';
@@ -228,7 +230,12 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
 
   const fileInputRef = useRef(null);
   const wrapperRef = useRef(null);
-  const drawingRef = useRef({ on: false, points: [] });
+  // The pen loop's state lives in the engine; the reader keeps one engine
+  // for its lifetime and reads the stroke in progress through drawingRef.
+  const inkEngineRef = useRef(null);
+  if (!inkEngineRef.current) inkEngineRef.current = createInkEngine();
+  const inkEngine = inkEngineRef.current;
+  const drawingRef = inkEngine.drawingRef;
   // Lasso: the loop being drawn, what it took ({ page, ids, box }), and the
   // move or resize being dragged (previewed, not yet committed).
   const [lassoLoop, setLassoLoop] = useState(null);
@@ -272,20 +279,12 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // GPU memory and a phone will not forgive a dozen of them.
   const pageCacheRef = useRef(new Map()); // `${hash}:${page}@${scale}x${dpr}` -> ImageBitmap
   const prerenderRef = useRef(null);
-  const panRef = useRef(null);
   // The page a stroke is being drawn ON, which is NOT necessarily the page
   // the toolbar calls current: `currentPage` follows the reader's eye down
   // the column, and a slow stroke near a page boundary would otherwise be
   // filed under whichever page happened to scroll into view while the pen was
   // still down.
   const drawPageRef = useRef(1);
-  // Apple Pencil's own double-tap is native-only: it arrives through
-  // UIPencilInteraction in UIKit and is not exposed to JavaScript in Safari
-  // web content at all. What a page CAN see is the nib itself tapping the
-  // glass, so the same gesture is offered from the same hand — two quick taps
-  // of the tip toggles the eraser, which is what the Pencil's default setting
-  // does natively.
-  const tapRef = useRef({ at: 0, x: 0, y: 0 });
   const [sawDoubleTap, setSawDoubleTap] = useState(false);
   // What to come back to when the eraser is toggled off.
   const lastPenToolRef = useRef('pen');
@@ -369,7 +368,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // The store moved to IndexedDB, so the recent list arrives a tick late
   // instead of during render. Nothing depends on it being there immediately.
   const refreshRecent = useCallback(() => {
-    listRecentPdfs().then((all) => setRecent(all.filter((r) => !String(r.hash || '').startsWith('nb:')))).catch(() => {});
+    listRecentPdfs().then((all) => setRecent(all.filter((r) => !String(r.hash || '').startsWith('nb:')))).catch((error) => reportFailure('load', error));
   }, [listRecentPdfs]);
   useEffect(() => { refreshRecent(); }, [refreshRecent]);
   useEffect(() => onSyncState(setSync), [onSyncState]);
@@ -913,28 +912,6 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   }
 
   // ── Pointer handlers (annotation overlay) ─────────────────
-  // How far from upright the stylus is, 0 (vertical) to 1 (almost flat).
-  // Safari has reported altitudeAngle since 16.4 and it is the accurate
-  // source; tiltX/tiltY are the older, wider-support fallback. Anything that
-  // reports neither returns 0 and the brush behaves exactly as before.
-  // Tilt rides as a fourth component, so a point stays [x, y] on hardware
-  // that reports nothing and never grows for a mouse or a finger.
-  function withTilt(pt, tilt) {
-    if (!tilt || pt.length < 3) return pt;
-    return [pt[0], pt[1], pt[2], Math.round(tilt * 100) / 100];
-  }
-
-  function tiltOf(e) {
-    if (typeof e.altitudeAngle === 'number' && e.altitudeAngle > 0) {
-      // altitudeAngle is radians from the surface: PI/2 is upright.
-      return Math.min(1, Math.max(0, 1 - e.altitudeAngle / (Math.PI / 2)));
-    }
-    const tx = e.tiltX || 0;
-    const ty = e.tiltY || 0;
-    if (!tx && !ty) return 0;
-    return Math.min(1, Math.hypot(tx, ty) / 90);
-  }
-
   function pointFromEvent(e, pressure = 0) {
     // The event's own target is the page it happened on. Using a single
     // stored canvas would put every stroke in the column into page 1's
@@ -1026,13 +1003,13 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       const list = prev[page] || [];
       // A pixel-eraser stroke is a hole, not ink. Deleting one un-erases:
       // touching a rubbed-out area brought the erased ink straight back.
-      const gone = list.filter((st) => st.mode !== 'eraser' && strokeHit(st, x, y, reach, aspect));
+      const gone = strokesUnder(list, x, y, reach, aspect);
       if (!gone.length) return prev;
       const kept = list.filter((st) => !gone.includes(st));
       const next = { ...prev, [page]: kept };
       currentStrokesRef.current = kept;
       redrawOverlay(kept, page);
-      setRedoStack((r) => [...r, ...gone.map((st) => ({ page, stroke: st }))].slice(-40));
+      setRedoStack((r) => pushRedo(r, ...gone.map((st) => ({ page, stroke: st }))));
       scheduleSave(next, addTomb(...gone.map((st) => st.id).filter(Boolean)));
       return next;
     });
@@ -1079,8 +1056,45 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     }
   }
 
-  function onPointerDown(e) {
-    if (!pdfDoc) return;
+  // ── The pen loop: lib/ink/engine.js ───────────────────────
+  // What a pointer is for (pen-only and palm rule, finger pan, pinch with
+  // stroke discard, coalesced sampling, barrel eraser, double tap) is the
+  // engine's. Below is what belongs to this reader: which page the pen is on,
+  // its own tools, and how ink is painted and committed. Rebuilt every render
+  // so its getters and callbacks see that render's state.
+  function inkHost() {
+    return {
+      get penOnly() { return penOnly; },
+      get sawPen() { return sawPen; },
+      get zoom() { return zoom; },
+      get tool() { return tool; },
+      get eraserMode() { return eraserMode; },
+      get size() { return size; },
+      beforeDown: (e) => inkBeforeDown(e),
+      onPenSeen: () => inkPenSeen(),
+      scroller: () => scroller(),
+      toStored: (e, pressure) => pointFromEvent(e, pressure),
+      newId: () => newStrokeId(),
+      colorFor: (t) => resolveToolColor(t),
+      startTool: (t, e) => inkStartTool(t, e),
+      moveTool: (ref, e) => inkMoveTool(ref, e),
+      endTool: (ref) => inkEndTool(ref),
+      eraseAt: (e) => eraseAt(e),
+      hoverRing: (x, y) => hoverRing(x, y),
+      surface: () => inkSurface(),
+      grow: (stroke, added, surface) => inkGrow(stroke, added, surface),
+      commit: (stroke) => inkCommit(stroke),
+      discardLive: () => inkDiscardLive(),
+      onUp: () => clearTimeout(holdTimerRef.current),
+      onStrokeEnd: () => releaseHighlighterCopy(hlCopyRef.current),
+      afterStroke: () => maybePullAfterStroke(),
+      onDoubleTap: () => inkDoubleTap(),
+      pinchTo: (want, x, y) => inkPinchTo(want, x, y),
+    };
+  }
+
+  function inkBeforeDown(e) {
+    if (!pdfDoc) return false;
     const onPage = Number(e.currentTarget?.dataset?.page || e.currentTarget?.parentElement?.dataset?.page || 0);
     if (onPage) {
       // currentStrokesRef means "the committed strokes of the page under the
@@ -1099,59 +1113,32 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     // listener so it cannot fight the toolbar's own buttons.
     if (menuOpen) setMenuOpen(false);
     if (optionsOpen) setOptionsOpen(false);
-    if (gestureDown(e)) return;
-    // A stylus anywhere on the page proves this device has one, which is what
-    // makes offering pen-only mode honest rather than a setting for hardware
-    // that may not exist.
-    if (e.pointerType === 'pen' && !sawPen) {
-      setSawPen(true);
-      // Seeing a stylus for the first time turns on palm rejection, because
-      // the reason someone picks up an Apple Pencil is to rest their hand on
-      // the glass. Announced rather than silent, and one tap undoes it.
-      setPenOnly(true);
-      showToast('พบปากกา เปิดโหมดเฉพาะปากกาให้แล้ว วางมือบนจอได้ (ปิดได้ที่แถบเครื่องมือ)', 5000);
-    }
-    // Palm rejection: with a stylus in hand, a hand resting on the glass is
-    // not a drawing gesture. But a finger still has a job — it scrolls, the
-    // way it does in every notes app that offers this mode. Without that,
-    // `touch-action: none` would leave a zoomed page with no way to move
-    // around it except two-finger pinching.
-    if (penOnly && e.pointerType !== 'pen') {
-      const wrap = scroller();
-      if (wrap) {
-        panRef.current = {
-          id: e.pointerId, el: wrap, x: e.clientX, y: e.clientY,
-          left: wrap.scrollLeft, top: wrap.scrollTop,
-        };
-      }
-      return;
-    }
-    // A hand that settled on the glass before the pen came down was booked
-    // as a scrolling finger. Once the pen is drawing, that hand must not drag
-    // the page under the nib.
-    if (penOnly && e.pointerType === 'pen' && panRef.current) panRef.current = null;
-    e.preventDefault();
-    // Capture on the canvas the stroke started on, so a line that runs past
-    // the bottom of a page keeps reporting to that page instead of jumping to
-    // the next one mid-stroke.
-    try { e.currentTarget?.setPointerCapture?.(e.pointerId); } catch { /* synthetic pointer */ }
-    const usePressure = e.pointerType === 'pen';
-    const useTilt = usePressure;
-    // Surface, Wacom and S Pen styluses report the eraser barrel as button 5
-    // / buttons bit 32. Flipping the stylus over is how people expect to
-    // erase, and honouring it costs one test — the toolbar selection stays, so
-    // turning the pen back over resumes drawing with the same pen.
-    const barrelEraser = e.pointerType === 'pen' && (e.button === 5 || (e.buttons & 32) !== 0);
-    const usedTool = barrelEraser ? 'eraser' : tool;
+    return true;
+  }
+
+  // A stylus anywhere on the page proves this device has one, which is what
+  // makes offering pen-only mode honest rather than a setting for hardware
+  // that may not exist.
+  function inkPenSeen() {
+    setSawPen(true);
+    // Seeing a stylus for the first time turns on palm rejection, because
+    // the reason someone picks up an Apple Pencil is to rest their hand on
+    // the glass. Announced rather than silent, and one tap undoes it.
+    setPenOnly(true);
+    showToast('พบปากกา เปิดโหมดเฉพาะปากกาให้แล้ว วางมือบนจอได้ (ปิดได้ที่แถบเครื่องมือ)', 5000);
+  }
+
+  // Text, tape and lasso are this reader's own tools on the shared loop.
+  function inkStartTool(usedTool, e) {
     if (usedTool === 'text') {
       openTextAt(drawPageRef.current, pointFromEvent(e).slice(0, 2), e.currentTarget);
-      return;
+      return true;
     }
     if (usedTool === 'tape') {
       const start = pointFromEvent(e).slice(0, 2);
       drawingRef.current = { on: true, pointerId: e.pointerId, tape: true, page: drawPageRef.current, start, end: start };
       setTapeDraft({ page: drawPageRef.current, stroke: makeTape(start, start, { id: 'draft', color: tapeColor }) });
-      return;
+      return true;
     }
     if (usedTool === 'lasso') {
       setSelection(null);
@@ -1159,50 +1146,12 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       const start = pointFromEvent(e).slice(0, 2);
       drawingRef.current = { on: true, pointerId: e.pointerId, lasso: true, page: drawPageRef.current, points: [start] };
       setLassoLoop([start]);
-      return;
+      return true;
     }
-    if (usedTool === 'eraser' && eraserMode === 'stroke') {
-      drawingRef.current = { on: true, pointerId: e.pointerId, erase: true, points: [] };
-      eraseAt(e);
-      return;
-    }
-    const pt = withTilt(pointFromEvent(e, usePressure ? e.pressure : 0), useTilt ? tiltOf(e) : 0);
-    drawingRef.current = {
-      on: true,
-      pointerId: e.pointerId,
-      stroke: {
-        id: newStrokeId(),
-        mode: usedTool,
-        color: resolveToolColor(usedTool),
-        size,
-        pressure: usePressure,
-        points: [pt],
-      },
-    };
+    return false;
   }
 
-  function onPointerMove(e) {
-    if (gestureMove(e)) return;
-    const pan = panRef.current;
-    if (pan && e.pointerId === pan.id) {
-      const wrap = panRef.current.el || scroller();
-      if (wrap) {
-        wrap.scrollLeft = pan.left - (e.clientX - pan.x);
-        wrap.scrollTop = pan.top - (e.clientY - pan.y);
-      }
-      return;
-    }
-    // A hovering Apple Pencil (M2 iPad Pro and later) reports movement with no
-    // buttons pressed. Showing where the nib will land, at the real brush
-    // size, is the difference between aiming and guessing.
-    if (e.pointerType === 'pen' && e.buttons === 0) {
-      hoverRing(e.clientX, e.clientY);
-      return;
-    }
-    const ref = drawingRef.current;
-    if (!ref?.on || e.pointerId !== ref.pointerId) return;
-    e.preventDefault();
-    if (ref.erase) { eraseAt(e); return; }
+  function inkMoveTool(ref, e) {
     if (ref.tape) {
       ref.end = pointFromEvent(e).slice(0, 2);
       if (!lassoFrameRef.current) {
@@ -1212,11 +1161,10 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
           if (d.tape) setTapeDraft({ page: d.page, stroke: makeTape(d.start, d.end, { id: 'draft', color: tapeColor }) });
         });
       }
-      return;
+      return true;
     }
     if (ref.lasso) {
-      const raw = typeof e.getCoalescedEvents === 'function' ? e.getCoalescedEvents() : [];
-      for (const se of (raw.length ? raw : [e])) {
+      for (const se of coalescedSamples(e)) {
         const pt = pointFromEvent(se).slice(0, 2);
         const last = ref.points[ref.points.length - 1];
         if (Math.abs(last[0] - pt[0]) + Math.abs(last[1] - pt[1]) > 0.002) ref.points.push(pt);
@@ -1227,34 +1175,51 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
           setLassoLoop(drawingRef.current.lasso ? drawingRef.current.points.slice() : null);
         });
       }
-      return;
+      return true;
     }
-    const stroke = ref.stroke;
-    const c = overlayFor(drawPageRef.current);
-    if (!c) return;
-    const ctx = inkCtxFor(drawPageRef.current);
-    if (!ctx) return;
-    const dpr = inkDpr();
+    return false;
+  }
 
-    // getCoalescedEvents returns every sample the digitiser took since the
-    // last frame. A pen runs at ~240 Hz against a 60 Hz screen, so without
-    // this three of every four points a student writes are thrown away, which
-    // is the single biggest reason fast handwriting comes out angular.
-    const raw = typeof e.getCoalescedEvents === 'function' ? e.getCoalescedEvents() : [];
-    const samples = raw.length ? raw : [e];
-    let added = 0;
-    for (const se of samples) {
-      const pt = withTilt(
-        pointFromEvent(se, stroke.pressure ? se.pressure : 0),
-        stroke.pressure ? tiltOf(se) : 0,
-      );
-      const last = stroke.points[stroke.points.length - 1];
-      // Drop near-duplicates so a still hand does not grow the array.
-      if (Math.abs(last[0] - pt[0]) < 0.0004 && Math.abs(last[1] - pt[1]) < 0.0004) continue;
-      stroke.points.push(pt);
-      added++;
+  function inkEndTool(ref) {
+    if (ref.tape) {
+      cancelAnimationFrame(lassoFrameRef.current);
+      lassoFrameRef.current = 0;
+      setTapeDraft(null);
+      const tape = makeTape(ref.start, ref.end, { id: newStrokeId(), color: tapeColor });
+      if (!tape) {
+        showToast('ลากเป็นแถบเพื่อแปะเทปปิดคำตอบ', 2500);
+        return true;
+      }
+      replaceOnPage(ref.page, [], [tape]);
+      setRedoStack([]);
+      return true;
     }
-    if (!added || stroke.points.length < 2) return;
+    if (ref.lasso) {
+      cancelAnimationFrame(lassoFrameRef.current);
+      lassoFrameRef.current = 0;
+      setLassoLoop(null);
+      const list = (latestRef.current.strokesByPage || {})[ref.page] || [];
+      const took = ref.points.length > 2 ? selectStrokes(list, ref.points) : [];
+      if (took.length) {
+        setSelection({ page: ref.page, ids: took.map((st) => st.id), box: boundsOf(took, 0.01) });
+      } else if (ref.points.length > 2) {
+        showToast('วงนี้ไม่ได้ล้อมเส้นไหนไว้ ลองวาดวงรอบเส้นที่ต้องการ', 3000);
+      }
+      return true;
+    }
+    return false;
+  }
+
+  function inkSurface() {
+    const c = overlayFor(drawPageRef.current);
+    if (!c) return null;
+    const ctx = inkCtxFor(drawPageRef.current);
+    if (!ctx) return null;
+    return { c, ctx };
+  }
+
+  function inkGrow(stroke, added, { c, ctx }) {
+    const dpr = inkDpr();
     scheduleShapeSnap();
 
     if (stroke.mode === 'highlighter') {
@@ -1287,121 +1252,73 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     resetBrush(ctx);
   }
 
-  function onPointerUp(e) {
-    // A tap is a pointer that went down and came up in the same place, quickly
-    // and without drawing anything worth keeping. Two of them in a row, from a
-    // stylus, mean the reader wants the eraser.
-    clearTimeout(holdTimerRef.current);
-    if (e?.pointerType === 'pen' && drawingRef.current?.on && !drawingRef.current.erase) {
-      const st = drawingRef.current.stroke;
-      const moved = st?.points?.length > 1
-        ? Math.hypot(st.points[st.points.length - 1][0] - st.points[0][0],
-                     st.points[st.points.length - 1][1] - st.points[0][1])
-        : 0;
-      const now = Date.now();
-      const near = Math.hypot(e.clientX - tapRef.current.x, e.clientY - tapRef.current.y);
-      if (moved < 0.01) {
-        if (now - tapRef.current.at < 400 && near < 36) {
-          // Second tap: switch, and take back the two dots the taps left.
-          tapRef.current = { at: 0, x: 0, y: 0 };
-          drawingRef.current = { on: false, points: [] };
-          releaseHighlighterCopy(hlCopyRef.current);
-          setStrokesByPage((prev) => {
-            const list = prev[drawPageRef.current] || [];
-            // The FIRST tap was committed as a stroke; drop it too.
-            const trimmed = list.length && (list[list.length - 1].points || []).length <= 2
-              ? list.slice(0, -1) : list;
-            const next = { ...prev, [drawPageRef.current]: trimmed };
-            currentStrokesRef.current = trimmed;
-            redrawOverlay(trimmed, drawPageRef.current);
-            const dropped = list.length !== trimmed.length ? list[list.length - 1] : null;
-            scheduleSave(next, dropped?.id ? addTomb(dropped.id) : undefined);
-            return next;
-          });
-          setTool((t) => (t === 'eraser' ? (lastPenToolRef.current || 'pen') : (lastPenToolRef.current = t, 'eraser')));
-          if (!sawDoubleTap) {
-            setSawDoubleTap(true);
-            showToast('เคาะปลายปากกาสองทีเพื่อสลับยางลบ (Apple Pencil ไม่ส่งการเคาะที่ตัวปากกามาให้เว็บ)', 5000);
-          }
-          return;
-        }
-        tapRef.current = { at: now, x: e.clientX, y: e.clientY };
-      } else {
-        tapRef.current = { at: 0, x: 0, y: 0 };
-      }
-    }
-    if (e && panRef.current && e.pointerId === panRef.current.id) {
-      panRef.current = null;
-      // onPointerDown registers EVERY pointer with the pinch bookkeeping
-      // before it decides what the pointer is for, so the scrolling finger is
-      // in that map and has to come back out. Returning without this left it
-      // there as a phantom contact: the next single finger down counted as
-      // the SECOND finger of a pinch, so one finger dragging zoomed the
-      // document (measured: 800px page to 2400px) and scrolling was over for
-      // the rest of the session. The return value is deliberately ignored —
-      // a finished pan ends here either way.
-      gestureUp(e);
-      return;
-    }
-    if (e && gestureUp(e)) return;
-    const ref = drawingRef.current;
-    if (!ref?.on) return;
-    if (e && e.pointerId !== undefined && e.pointerId !== ref.pointerId) return;
-    drawingRef.current = { on: false, points: [] };
-    releaseHighlighterCopy(hlCopyRef.current);
-    if (ref.erase) { maybePullAfterStroke(); return; }
-    if (ref.tape) {
-      cancelAnimationFrame(lassoFrameRef.current);
-      lassoFrameRef.current = 0;
-      setTapeDraft(null);
-      const tape = makeTape(ref.start, ref.end, { id: newStrokeId(), color: tapeColor });
-      if (!tape) {
-        showToast('ลากเป็นแถบเพื่อแปะเทปปิดคำตอบ', 2500);
-        return;
-      }
-      replaceOnPage(ref.page, [], [tape]);
-      setRedoStack([]);
-      return;
-    }
-    if (ref.lasso) {
-      cancelAnimationFrame(lassoFrameRef.current);
-      lassoFrameRef.current = 0;
-      setLassoLoop(null);
-      const list = (latestRef.current.strokesByPage || {})[ref.page] || [];
-      const took = ref.points.length > 2 ? selectStrokes(list, ref.points) : [];
-      if (took.length) {
-        setSelection({ page: ref.page, ids: took.map((st) => st.id), box: boundsOf(took, 0.01) });
-      } else if (ref.points.length > 2) {
-        showToast('วงนี้ไม่ได้ล้อมเส้นไหนไว้ ลองวาดวงรอบเส้นที่ต้องการ', 3000);
-      }
-      return;
-    }
-    if (!ref.stroke || ref.stroke.points.length < 1) { maybePullAfterStroke(); return; }
+  function inkCommit(stroke) {
     // A tap never reaches onPointerMove, which is the only thing that paints a
     // stroke as it is made — so a single-point stroke went into the record and
     // never appeared until something else forced a redraw (a page flip, an
     // undo, a zoom). Pre-existing; the dot is drawn here instead.
-    if (ref.stroke.points.length < 2) {
+    if (stroke.points.length < 2) {
       const c = overlayFor(drawPageRef.current);
       const ctx = c && inkCtxFor(drawPageRef.current);
-      if (ctx) drawStroke(ctx, ref.stroke, c.width, c.height, inkDpr() * pageScale);
+      if (ctx) drawStroke(ctx, stroke, c.width, c.height, inkDpr() * pageScale);
     }
     setStrokesByPage((prev) => {
       const page = drawPageRef.current;
       lastStrokePageRef.current = page;
-      const pageList = [...(prev[page] || []), ref.stroke];
+      const pageList = [...(prev[page] || []), stroke];
       const next = { ...prev, [page]: pageList };
       currentStrokesRef.current = pageList;
       // A finished highlighter stroke is repainted from scratch: drawn
       // incrementally its own overlaps multiply into a dark smear, drawn once
       // it is the flat wash a highlighter actually makes.
-      if (ref.stroke.mode === 'highlighter') redrawOverlay(pageList, drawPageRef.current);
+      if (stroke.mode === 'highlighter') redrawOverlay(pageList, drawPageRef.current);
       scheduleSave(next);
       return next;
     });
     // A new stroke is a new branch, so anything undone before it is now gone.
     setRedoStack([]);
     maybePullAfterStroke();
+  }
+
+  // The pinch threw the live stroke away: repaint the page without it.
+  function inkDiscardLive() {
+    clearTimeout(holdTimerRef.current);
+    releaseHighlighterCopy(hlCopyRef.current);
+    redrawOverlay(currentStrokesRef.current, drawPageRef.current);
+  }
+
+  // Apple Pencil's own double-tap is native-only: it arrives through
+  // UIPencilInteraction in UIKit and is not exposed to Safari web content. The
+  // nib tapping the glass twice toggles the eraser instead, and the two dots
+  // the taps left are taken back.
+  function inkDoubleTap() {
+    releaseHighlighterCopy(hlCopyRef.current);
+    setStrokesByPage((prev) => {
+      const list = prev[drawPageRef.current] || [];
+      // The FIRST tap was committed as a stroke; drop it too.
+      const trimmed = list.length && (list[list.length - 1].points || []).length <= 2
+        ? list.slice(0, -1) : list;
+      const next = { ...prev, [drawPageRef.current]: trimmed };
+      currentStrokesRef.current = trimmed;
+      redrawOverlay(trimmed, drawPageRef.current);
+      const dropped = list.length !== trimmed.length ? list[list.length - 1] : null;
+      scheduleSave(next, dropped?.id ? addTomb(dropped.id) : undefined);
+      return next;
+    });
+    setTool((t) => (t === 'eraser' ? (lastPenToolRef.current || 'pen') : (lastPenToolRef.current = t, 'eraser')));
+    if (!sawDoubleTap) {
+      setSawDoubleTap(true);
+      showToast('เคาะปลายปากกาสองทีเพื่อสลับยางลบ (Apple Pencil ไม่ส่งการเคาะที่ตัวปากกามาให้เว็บ)', 5000);
+    }
+  }
+
+  // Snap to the same fixed steps the buttons use, so a pinch and a tap can
+  // never leave the page at two slightly different scales — and so the
+  // rendered-page cache keeps hitting.
+  function inkPinchTo(want, x, y) {
+    const nearest = ZOOM_STEPS.reduce((best, v) =>
+      (Math.abs(v - want) < Math.abs(best - want) ? v : best), ZOOM_STEPS[0]);
+    setZoomAt(nearest, x, y);
   }
 
   // ── Autosave (debounced) ───────────────────────────────────
@@ -1478,7 +1395,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       lassoOpsRef.current = lassoOpsRef.current.slice(0, -1);
       const restored = op.removed.map((st) => ({ ...st, id: newStrokeId() }));
       replaceOnPage(op.page, op.added, restored);
-      setRedoStack((r) => [...r, { page: op.page, lasso: { op, restoredIds: restored.map((st) => st.id) } }].slice(-40));
+      setRedoStack((r) => pushRedo(r, { page: op.page, lasso: { op, restoredIds: restored.map((st) => st.id) } }));
       setSelection(null);
       return;
     }
@@ -1495,7 +1412,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       redrawOverlay(trimmed, page);
       const tombs = undone?.id ? addTomb(undone.id) : latestRef.current.deleted;
       scheduleSave(next, tombs);
-      setRedoStack((r) => [...r, { page: page, stroke: undone }].slice(-40));
+      setRedoStack((r) => pushRedo(r, { page: page, stroke: undone }));
       return next;
     });
   }
@@ -1534,7 +1451,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     setStrokesByPage((prev) => {
       const cleared = prev[currentPage] || [];
       if (cleared.length) {
-        setRedoStack((r) => [...r, ...cleared.map((st) => ({ page: currentPage, stroke: st }))].slice(-40));
+        setRedoStack((r) => pushRedo(r, ...cleared.map((st) => ({ page: currentPage, stroke: st }))));
       }
       const next = { ...prev, [currentPage]: [] };
       currentStrokesRef.current = [];
@@ -1543,70 +1460,6 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
       scheduleSave(next, tombs);
       return next;
     });
-  }
-
-  // Two-finger pinch. `touch-action: none` on the overlay is what makes
-  // single-finger drawing possible, and it also swallows the browser's own
-  // pinch — so on the one device this feature is really for, an iPad with a
-  // Pencil, there would otherwise be no way to zoom except the toolbar.
-  const gestureRef = useRef(null);
-  const activePointers = useRef(new Map());
-
-  function gestureDown(e) {
-    // Pen-only mode: the stylus draws and never pinches, and a touch that
-    // lands while the pen is down is the hand settling on the glass — the
-    // very thing this mode exists to ignore. Both used to be booked as pinch
-    // fingers, so a palm resting mid-stroke threw the stroke away and started
-    // zooming against the hand.
-    if (penOnly && e.pointerType === 'pen') return false;
-    if (penOnly && e.pointerType !== 'pen' && drawingRef.current?.on) return true;
-    activePointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
-    if (activePointers.current.size !== 2) return false;
-    // A second finger means this was never a stroke — when the stroke belongs
-    // to one of these two pointers. Throw it away rather than leaving a stray
-    // mark behind every pinch.
-    const d = drawingRef.current;
-    if (d?.on && activePointers.current.has(d.pointerId)) {
-      clearTimeout(holdTimerRef.current);
-      drawingRef.current = { on: false, points: [] };
-      releaseHighlighterCopy(hlCopyRef.current);
-      redrawOverlay(currentStrokesRef.current, drawPageRef.current);
-    }
-    const [a, b] = [...activePointers.current.values()];
-    gestureRef.current = {
-      startDist: Math.hypot(a.x - b.x, a.y - b.y),
-      startZoom: zoom,
-      // The midpoint between the fingers is the point the reader expects to
-      // stay put — it is the thing they are pinching.
-      cx: (a.x + b.x) / 2,
-      cy: (a.y + b.y) / 2,
-    };
-    return true;
-  }
-
-  function gestureMove(e) {
-    if (!activePointers.current.has(e.pointerId)) return false;
-    activePointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
-    const g = gestureRef.current;
-    if (!g || activePointers.current.size < 2) return false;
-    const [a, b] = [...activePointers.current.values()];
-    const dist = Math.hypot(a.x - b.x, a.y - b.y);
-    if (g.startDist > 0) {
-      const want = g.startZoom * (dist / g.startDist);
-      // Snap to the same fixed steps the buttons use, so a pinch and a tap
-      // can never leave the page at two slightly different scales — and so
-      // the rendered-page cache keeps hitting.
-      const nearest = ZOOM_STEPS.reduce((best, v) =>
-        (Math.abs(v - want) < Math.abs(best - want) ? v : best), ZOOM_STEPS[0]);
-      setZoomAt(nearest, (a.x + b.x) / 2, (a.y + b.y) / 2);
-    }
-    return true;
-  }
-
-  function gestureUp(e) {
-    activePointers.current.delete(e.pointerId);
-    if (activePointers.current.size < 2) gestureRef.current = null;
-    return activePointers.current.size > 0;
   }
 
   useEffect(() => {
@@ -2147,7 +2000,13 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // changes — which is what lets React.memo skip all of them when this view
   // re-renders for a toast, a sync badge, or a panel.
   const handlersRef = useRef({});
-  handlersRef.current = { onPointerDown, onPointerMove, onPointerUp, hoverRing, lassoDelete, lassoDuplicate };
+  inkEngine.setHost(inkHost());
+  handlersRef.current = {
+    onPointerDown: inkEngine.onPointerDown,
+    onPointerMove: inkEngine.onPointerMove,
+    onPointerUp: inkEngine.onPointerUp,
+    hoverRing, lassoDelete, lassoDuplicate,
+  };
   const pageHandlers = useMemo(() => ({
     onPointerDown: (e) => handlersRef.current.onPointerDown(e),
     onPointerMove: (e) => handlersRef.current.onPointerMove(e),
@@ -2376,7 +2235,10 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // so its ink survives the paper being made again with more pages.
   const notebookRef = useRef(null);
   const openNotebook = useCallback(async (nb, { page = 0 } = {}) => {
-    nb = updateNotebook(nb.id, {}) || nb; // "เปิดล่าสุด" on the shelf
+    const touched = updateNotebook(nb.id, {}); // "เปิดล่าสุด" on the shelf
+    // A refused write means this notebook is not being kept: say so here.
+    if (!touched) alertDialog(NOT_SAVED);
+    nb = touched || nb;
     const bytes = await buildNotebookPdf({ paper: nb.paper, pages: nb.pages });
     notebookRef.current = nb;
     ingestRemote({
@@ -2394,7 +2256,10 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     if (!nb) return;
     if (nb.pages >= NOTEBOOK_MAX_PAGES) { showToast(`สมุดหนึ่งเล่มมีได้ ${NOTEBOOK_MAX_PAGES} หน้า`, 3000); return; }
     saveNow();
-    const next = updateNotebook(nb.id, { pages: nb.pages + 1 }) || { ...nb, pages: nb.pages + 1 };
+    const next = updateNotebook(nb.id, { pages: nb.pages + 1 });
+    // A page the device refused to keep would vanish at the next open, with
+    // anything written on it: add none, and say why.
+    if (!next) { alertDialog(NOT_SAVED); return; }
     openNotebook(next, { page: next.pages });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [openNotebook, showToast]);

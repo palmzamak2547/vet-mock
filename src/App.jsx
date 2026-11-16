@@ -835,6 +835,8 @@ export default function App() {
           // from it returns there (5.144.5 review: their back went Home).
           // Always written, since the state above spreads the previous entry.
           vmxRestReturn: REST_TOOLS.has(next) && previous === 'mochi' ? true : null,
+          // The case sheet's marker belongs to the sheet's own entry (lib/case-entry.js), never to a page after it.
+          vmxCaseSheet: null,
         };
         // Wiki, Practical, and stable app destinations own canonical URLs.
         // Stateful flows return to root so refresh never reconstructs a
@@ -936,7 +938,11 @@ export default function App() {
       // An exam entry whose set is gone (finished, or cleared by Home) has
       // nothing to show: drawn as it was, it was a loading screen with no end
       // and no navigation, since the exam hides the bars.
-      if (next === 'exam' && viewRef.current !== 'exam' && !sessionRef.current?.questions?.length) {
+      // So has the entry of a paper already handed in: the results can stand one entry past it (they replace
+      // the case sheet's entry when the paper ended under the sheet), and drawn live again it took answers and
+      // wrote the paper back as not submitted.
+      if (next === 'exam' && viewRef.current !== 'exam'
+        && (!sessionRef.current?.questions?.length || finishingRef.current || completedAtRef.current != null)) {
         try { window.history.replaceState({ ...(window.history.state || {}), vmxView: 'home' }, '', '/'); } catch {}
         viewRef.current = 'home';
         withTransition(() => setViewRaw('home'));
@@ -1161,6 +1167,8 @@ export default function App() {
       import('./components/ImageAnnotator.jsx').catch(() => {});
       import('./components/QComments.jsx').catch(() => {});
       import('./components/ReminderPicker.jsx').catch(() => {});
+      // Review's read-aloud (loaded once the answers open, never on Home).
+      import('./components/ReadAloudListen.jsx').catch(() => {});
       // The 3D mascot viewer is the one exception: it carries all of three.js,
       // loads only on a tap and sits behind its own ErrorBoundary in Results.
       // Confetti is cosmetic, but its import is a bare .then() in ResultsView,
@@ -3465,7 +3473,7 @@ export default function App() {
               {AUTH_REQUIRED_VIEWS.has(view) && !user && (
                 <AuthRequiredState page={viewTitle(view)} onSignIn={() => setView('auth')} onHome={goHome} />
               )}
-              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, srCards, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, phaseStatus, pendingResume: resumeBusy && pendingResume ? { ...pendingResume, busy: true } : pendingResume, resumePendingExam, dismissPendingExam, history, streakData, setFeedbackPrefill, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true), onOpenTour: openTour, isAdmin, accountUnread: isAccountUnread(Boolean(user), userDataSync) }} onStartPanic={startPanicSession} onStartSubjectPanic={startSubjectPanic} onOpenWrapUp={openWrapUp} />}
+              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, srCards, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, phaseStatus, pendingResume: resumeBusy && pendingResume ? { ...pendingResume, busy: true } : pendingResume, resumePendingExam, dismissPendingExam, history, streakData, setFeedbackPrefill, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true), onOpenTour: openTour, isAdmin, accountUnread: isAccountUnread(Boolean(user), userDataSync), accountReading: Boolean(user) && !userDataSync.lastSyncedAt && !userDataSync.recovery && !isAccountUnread(Boolean(user), userDataSync) }} onStartPanic={startPanicSession} onStartSubjectPanic={startSubjectPanic} onOpenWrapUp={openWrapUp} />}
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} user={user} />}
               {view === 'auth' && !hasSupabase && <AuthUnavailableState onHome={goHome} />}
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}
@@ -3488,7 +3496,7 @@ export default function App() {
                   selectedPhase={paperPhase}
                 />
               )}
-{view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} setSubject={setSubject} goBack={returnFromNotes} backLabel={NOTES_RETURN_LABELS.get(notesReturnRef.current.view) || 'เลือกหัวข้ออื่น'} goHome={goHome} onOpenWiki={openWiki} />}
+{view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} setSubject={setSubject} goBack={returnFromNotes} backLabel={(notesReturnRef.current.view === 'knowledge' && /^\/wiki\/?$/.test(notesReturnRef.current.path || '') ? 'สารบัญ VetWiki' : NOTES_RETURN_LABELS.get(notesReturnRef.current.view)) || 'เลือกหัวข้ออื่น'} goHome={goHome} onOpenWiki={openWiki} />}
               {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, openNonce: wikiOpenNonce, setView, setSubject, setTopic, goHome, startExam, readingChecklist, setReadingChecklist, onOpenDoc: openLibraryReader }} />}
               {view === 'config' && <ConfigView {...{ practiceMode, setPracticeMode, subject, setSubject, topic, setTopic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, setMode, selectedYear, selectedPhase, panicPending, setPanicPending }} hasHistory={(history?.length || 0) > 0} showCategoryPicker={categoryPickerShown(subject, practiceMode)} availableCount={configAvailableCount} availablePool={configServedPool} onBack={goBackFromConfig} />}
               {view === 'exam' && !currentQ && <ViewFallback />}

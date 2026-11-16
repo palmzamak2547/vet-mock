@@ -1,6 +1,5 @@
 import { test, expect } from './fixtures.js';
-import { readFileSync } from 'node:fs';
-import { parse } from '@babel/parser';
+import { legacyPassageHash, caseKey, marksStorageKey } from '../../src/lib/case-marks.js';
 import { QB_ENGPROF } from '../../src/data/questions-engprof.js';
 
 // Both tests drive time with page.clock, which does not stack with the pinned
@@ -98,15 +97,14 @@ test('an exam clock is a budget for the paper, not a refill per question', async
   await expect(page.getByText(/Auto-graded Score|คะแนนตรวจอัตโนมัติ/)).toBeVisible();
 });
 
-test('a per-question expiry retires passage clear while preserving the next passage annotations', async ({ page }) => {
+test('a per-question expiry while a clear can still be taken back returns the marks to their own passage', async ({ page }) => {
+  // 5.240.0: a clear asks nothing and offers its way back for 8 seconds. The timed paper may move to the
+  // next question inside those seconds: the way back must restore the first passage's marks to the first
+  // passage, leave the second's as they are, and never write or remove a mark saved before the release.
   const first = QB_ENGPROF.find(q => q.passage);
   const second = QB_ENGPROF.find(q => q.passage && q.passage !== first.passage);
   expect(first.passage).not.toBe(second.passage);
-  const source = readFileSync(new URL('../../src/components/SmartPassage.jsx', import.meta.url), 'utf8');
-  const hashNode = parse(source, { sourceType: 'module', plugins: ['jsx'] }).program.body
-    .find(node => node.type === 'FunctionDeclaration' && node.id.name === 'hashPassage');
-  const hashPassage = new Function(`return (${source.slice(hashNode.start, hashNode.end)});`)();
-  const keyA = `vmx-pass-${hashPassage(first.passage)}`, keyB = `vmx-pass-${hashPassage(second.passage)}`;
+  const keyA = `vmx-pass-${legacyPassageHash(first.passage)}`, keyB = `vmx-pass-${legacyPassageHash(second.passage)}`;
   const annotations = {};
   for (const [key, id, color] of [[keyA, 'A', '#1a1a1a'], [keyB, 'B', '#1e6fc7']]) {
     annotations[`${key}-hl`] = JSON.stringify([{ id, start: 0, end: 8, color: 'yellow' }]);
@@ -135,26 +133,41 @@ test('a per-question expiry retires passage clear while preserving the next pass
   await expect(page.locator('.vmx-timer')).toBeVisible();
   await expect(page.locator('.vmx-sr-only[role="status"]')).toHaveText('ข้อ 1 จาก 2');
   const passage = page.locator('.vmx-q-passage-pane');
+  const oldKeys = () => page.evaluate(keys => Object.fromEntries(keys.map(key => [key, localStorage.getItem(key)])), Object.keys(annotations));
+  // The visitor on the device when the release first ran adopts the old marks as a copy.
   await expect(passage.locator('mark')).toHaveText(first.passage.slice(0, 8));
-  expect(await page.evaluate(keys => Object.fromEntries(keys.map(key => [key, localStorage.getItem(key)])), Object.keys(annotations))).toEqual(annotations);
-  await passage.getByTitle('ลบทั้งหมด', { exact: true }).click();
-  const confirmation = page.getByRole('dialog', { name: 'ล้าง highlight ทั้งหมด?', exact: true });
-  await expect(confirmation).toBeVisible();
+  expect(await oldKeys()).toEqual(annotations);
+  const toast = page.locator('.vmx-case-toast');
+  // The way back stays 8 seconds: the page's clock is ours from here, so a slow engine cannot run it out.
   await page.clock.install();
+  // The pane's tools load with the case.
+  await expect(page.locator('.vmx-case-tools.is-waiting')).toHaveCount(0);
+  const clear = passage.getByRole('button', { name: 'ล้างทั้งหมด', exact: true });
+  const inPane = await clear.isVisible();
+  if (inPane) {
+    await clear.click();
+  } else {
+    // A phone's pane carries no tools: the sheet does.
+    await passage.getByRole('button', { name: 'อ่านเต็มจอ' }).click();
+    const sheet = page.getByRole('dialog');
+    await sheet.getByRole('button', { name: 'เพิ่มเติม' }).click();
+    await sheet.getByRole('button', { name: 'ล้างทั้งหมด', exact: true }).click();
+    await sheet.getByRole('button', { name: 'กลับไปที่คำถาม' }).click();
+  }
+  await expect(passage.locator('mark')).toHaveCount(0);
+  // Its highlight and its old pen stroke, on both paths: a phone has no pen tools, so the sheet's clear is
+  // its only way to remove a stroke an older release let it draw.
+  await expect(toast).toContainText('ล้างแล้ว 2 รอย');
   await page.clock.setSystemTime(Date.now() + 120_000);
   await page.clock.runFor(1100);
   await expect(page.locator('.vmx-sr-only[role="status"]')).toHaveText('ข้อ 2 จาก 2');
   await expect(passage.locator('mark')).toHaveText(second.passage.slice(0, 8));
-  await expect(confirmation).toBeVisible();
-  await confirmation.getByRole('button', { name: 'ล้างทั้งหมด', exact: true }).click();
-  await expect(confirmation).toHaveCount(0);
+  await toast.getByRole('button', { name: 'ย้อนกลับ' }).click();
+  await expect(toast).toHaveCount(0);
+  // The second passage is as it was; the first has its two marks back, under its own case.
   await expect(passage.locator('mark')).toHaveText(second.passage.slice(0, 8));
-  expect(await page.evaluate(keys => Object.fromEntries(keys.map(key => [key, localStorage.getItem(key)])), Object.keys(annotations))).toEqual(annotations);
-  await passage.getByTitle('ลบทั้งหมด', { exact: true }).click();
-  await expect(confirmation).toBeVisible();
-  await confirmation.getByRole('button', { name: 'ล้างทั้งหมด', exact: true }).click();
-  await expect(confirmation).toHaveCount(0);
-  await expect(passage.locator('mark')).toHaveCount(0);
-  expect(await page.evaluate(keys => Object.fromEntries(keys.map(key => [key, localStorage.getItem(key)])), Object.keys(annotations)))
-    .toEqual({ ...annotations, [`${keyB}-hl`]: null, [`${keyB}-dr`]: null });
+  const restored = await page.evaluate((key) => JSON.parse(localStorage.getItem(key)).marks.length,
+    marksStorageKey(null, caseKey({ subject: first.subject, title: first.passage_title, passage: first.passage })));
+  expect(restored).toBe(2);
+  expect(await oldKeys()).toEqual(annotations);
 });

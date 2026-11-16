@@ -30,6 +30,7 @@ import ThemePicker from '../components/ThemePicker.jsx';
 import PWAInstallChip from '../components/PWAInstallChip.jsx';
 import NavIcon from '../components/NavIcon.jsx';
 import IdentityEditor from '../components/IdentityEditor.jsx';
+import { confirmDialog } from '../lib/dialog.js';
 import ActivityFigure from '../components/ActivityFigure.jsx';
 import { storage } from '../hooks/useStorage.js';
 import { SUBJECTS, SUBJECTS_BY_YEAR, CURRENT_YEAR } from '../data/curriculum.js';
@@ -340,7 +341,7 @@ export default function ProfileView({
 
           <section className="vmx-dash-card vmx-profile-card" aria-labelledby="hub-settings">
             <h2 id="hub-settings">การตั้งค่า</h2>
-            <Row label="ตั้งค่าเสียงอ่าน" note="ความเร็วและช่วงพักของเสียงอ่าน" onClick={onVoiceSettings} />
+            <Row label="ตั้งค่าเสียงอ่าน" note="ความเร็ว โทนเสียง และเสียงที่อ่าน" onClick={onVoiceSettings} />
             {/* Theme + motion: ThemePicker is the app's one owner of both, and it
                 lives in the header as a popover. Mounting the same component here
                 keeps them from drifting instead of growing a second copy. */}
@@ -383,6 +384,32 @@ function IdentityCard({ user, profile, year, cohort, onSaved, onYear }) {
   const picture = shownPicture(profile?.avatar_emoji);
   const shown = showsOnBoards(user);
   const headingId = 'hub-identity';
+  const [photoNote, setPhotoNote] = useState(null);
+  // The picture code loads with the card, not with the hub's idle prefetch
+  // from Home, so a first visit to Home asks for nothing more than before.
+  const [photo, setPhoto] = useState(null);
+  const [own, setOwn] = useState(null);
+  useEffect(() => {
+    if (!user?.id) return undefined;
+    let alive = true;
+    let stop = () => {};
+    import('../lib/profile-picture.js').then((lib) => {
+      if (!alive) return;
+      setPhoto(lib);
+      const read = () => lib.picturesFor([user.id]).then((found) => { if (alive) setOwn(found[user.id] || null); }, () => {});
+      read();
+      stop = lib.onPicturesChanged(read);
+    }, () => {});
+    return () => { alive = false; stop(); };
+  }, [user?.id]);
+  // A picture that does not load falls back to the ready-made one, and says so.
+  const [photoBroken, setPhotoBroken] = useState('');
+  const photoUrl = own?.url && own.url !== photoBroken ? own.url : null;
+  const photoFailed = () => {
+    photo?.forgetPictureUrl(own?.url);
+    setPhotoBroken(own?.url || '');
+    setPhotoNote('broken');
+  };
 
   // The confirmation stays where the change was made, then gets out of the way.
   useEffect(() => {
@@ -418,7 +445,9 @@ function IdentityCard({ user, profile, year, cohort, onSaved, onYear }) {
             aria-label={`แก้ชื่อและรูปที่เพื่อนเห็น ตอนนี้ ${auto ? 'ยังไม่ได้ตั้งชื่อ' : shownName(name)} รูป${pictureLabel(picture)}`}
             data-testid="hub-identity"
           >
-            <span key={picture} className={`vmx-hub-pic${saved ? ' is-fresh' : ''}`} aria-hidden="true">{picture}</span>
+            <span key={photoUrl || picture} className={`vmx-hub-pic${saved || photoNote === 'saved' ? ' is-fresh' : ''}${photoUrl ? ' has-photo' : ''}`} aria-hidden="true">
+              {photoUrl ? <img className="vmx-profile-photo" src={photoUrl} alt="" width={56} height={56} decoding="async" referrerPolicy="no-referrer" onError={photoFailed} data-testid="profile-photo" /> : picture}
+            </span>
             <span className="vmx-hub-who">
               <span className="vmx-hub-name">{auto ? 'ยังไม่ได้ตั้งชื่อ' : shownName(name)}</span>
               <span className="vmx-hub-meta">ปี {year}{cohort ? ` รุ่น ${cohort}` : ''}</span>
@@ -434,6 +463,7 @@ function IdentityCard({ user, profile, year, cohort, onSaved, onYear }) {
               {name ? `ตอนนี้เพื่อนเห็นคุณเป็น ${name} ซึ่งระบบตั้งให้` : 'ยังไม่มีชื่อที่คุณตั้งเอง'} แตะการ์ดเพื่อเลือกชื่อของคุณ
             </p>
           )}
+          {photo && <PhotoControls lib={photo} user={user} own={own} note={photoNote} setNote={setPhotoNote} />}
           <div className="vmx-hub-id-foot">
             <span className="vmx-hub-meta">ประวัติ การ์ดทบทวน และรายการอ่านเก็บในบัญชี</span>
             <button type="button" className="vmx-hub-link" onClick={onYear}>เปลี่ยนชั้นปี</button>
@@ -455,6 +485,71 @@ function IdentityCard({ user, profile, year, cohort, onSaved, onYear }) {
         />
       )}
     </section>
+  );
+}
+
+// ── The student's own picture ────────────────────────────────────────
+// Pick or take a picture (the phone offers its camera for an image input),
+// replace it, or remove it and go back to the ready-made picture. Every
+// outcome is said on this line, beside the buttons the student pressed.
+function PhotoControls({ lib, user, own, note, setNote }) {
+  const { uploadPicture, removePicture, PICTURE_WORDS } = lib;
+  const inputRef = useRef(null);
+  const [busy, setBusy] = useState(false);
+  const has = Boolean(own?.url);
+  const hidden = ['hidden_reports', 'hidden_admin', 'blocked'].includes(own?.state) ? own.state : null;
+
+  const choose = async (event) => {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+    if (!file) return;
+    setBusy(true);
+    setNote('uploading');
+    const done = await uploadPicture(file, user.id);
+    setBusy(false);
+    setNote(done.ok ? 'saved' : done.problem);
+  };
+  const remove = async () => {
+    const yes = await confirmDialog({
+      title: 'ลบรูปของคุณ',
+      body: 'เพื่อนจะเห็นรูปสำเร็จรูปที่คุณเลือกไว้แทน',
+      confirmLabel: 'ลบรูป',
+      tone: 'danger',
+    });
+    if (!yes) return;
+    setBusy(true);
+    const done = await removePicture(user.id);
+    setBusy(false);
+    setNote(done.ok ? 'removed' : done.problem);
+  };
+
+  const message = note ? PICTURE_WORDS[note] || PICTURE_WORDS.failed : '';
+  const good = note === 'saved' || note === 'removed' || note === 'uploading';
+  return (
+    <div className="vmx-hub-photo" data-testid="profile-photo-controls">
+      {hidden && !note && <p className="vmx-hub-auto" role="status">{PICTURE_WORDS[hidden]}</p>}
+      <div className="vmx-hub-photo-row">
+        <input
+          ref={inputRef}
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          className="vmx-sr-only"
+          tabIndex={-1}
+          aria-hidden="true"
+          onChange={choose}
+          data-testid="profile-photo-input"
+        />
+        <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" disabled={busy} onClick={() => inputRef.current?.click()}>
+          {has ? 'เปลี่ยนรูป' : 'ใส่รูปของคุณ'}
+        </button>
+        {has && (
+          <button type="button" className="vmx-hub-link" disabled={busy} onClick={remove}>
+            ลบรูป กลับไปใช้รูปสำเร็จรูป
+          </button>
+        )}
+      </div>
+      <p className={`vmx-hub-photo-note${good ? '' : ' is-problem'}`} role="status" aria-live="polite">{message}</p>
+    </div>
   );
 }
 

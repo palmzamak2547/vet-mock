@@ -302,6 +302,10 @@ jobs:
         env:
           PG_CONTAINER: ${{ job.services.postgres.id }}
         run: node scripts/test-failure-record-db.mjs --backend=postgres
+      - name: Verify profile pictures (server-only writes, who sees a picture, three reporters hide it, admin hide and restore, the undo)
+        env:
+          PG_CONTAINER: ${{ job.services.postgres.id }}
+        run: node scripts/test-profile-pictures-db.mjs --backend=postgres
 
   # The unit suite with the wall clock moved into the windows where a test that reads the real clock or
   # the runner's zone breaks (scripts/unit-clock-windows.mjs: 17:05 and 23:55 UTC today, the last day of
@@ -590,8 +594,10 @@ jobs:
             tests/e2e/chula-wall.spec.js \
             tests/e2e/database-failure.spec.js \
             tests/e2e/external-doc-recovery.spec.js \
+            tests/e2e/header-no-overlap.spec.js \
             tests/e2e/pdf-recent-delete.spec.js \
             tests/e2e/private-notes-reader.spec.js \
+            tests/e2e/profile-picture.spec.js \
             tests/e2e/student-profile.spec.js
 
       - name: The connected specs ran, none skipped

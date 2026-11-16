@@ -120,15 +120,22 @@ export default function HeaderBar({
       </div>
 
       <div className="vmx-header-right">
-        <button
-          className="vmx-cmdk-btn"
-          onClick={() => setPaletteOpen(true)}
-          title={`ค้นหาทุกอย่าง (${shortcutLabel})`}
-          aria-label="ค้นหา"
-        >
-          <NavIcon name="search" size={16} />
-          <kbd className="vmx-cmdk-kbd">{shortcutLabel}</kbd>
-        </button>
+        {/* What arrives after the first paint sits left of search: the group is
+            pinned to the right edge, so a late chip grows into the empty middle
+            of the row, and search, the account and the theme button never move
+            under a finger. The level comes first, as it is usually the last to
+            arrive (its code loads on its own): it moves nothing when it lands. */}
+        <OptionalFeature>
+          <XpChip history={history} srCards={srCards} user={user} ready={xpReady} />
+        </OptionalFeature>
+        {/* As of today (streakShown): a run that ended weeks ago is not
+            "ติดต่อกัน" any more. */}
+        {streakNow > 0 && (
+          <div className={`vmx-streak ${streakNow >= 3 ? 'vmx-streak-pulse' : ''}`} title={`ทำข้อสอบติดต่อกัน ${streakNow} วัน`}>
+            <NavIcon name="flame" size={15} />
+            {streakNow}
+          </div>
+        )}
         {/* Saved questions — only when there is something saved. A
             permanently-disabled button is clutter, not an affordance. */}
         {savedCount > 0 && (
@@ -146,18 +153,15 @@ export default function HeaderBar({
             <span className="vmx-saved-count">{savedCount}</span>
           </button>
         )}
-
-        {/* As of today (streakShown): a run that ended weeks ago is not
-            "ติดต่อกัน" any more. */}
-        {streakNow > 0 && (
-          <div className={`vmx-streak ${streakNow >= 3 ? 'vmx-streak-pulse' : ''}`} title={`ทำข้อสอบติดต่อกัน ${streakNow} วัน`}>
-            <NavIcon name="flame" size={15} />
-            {streakNow}
-          </div>
-        )}
-        <OptionalFeature>
-          <XpChip history={history} srCards={srCards} user={user} ready={xpReady} />
-        </OptionalFeature>
+        <button
+          className="vmx-cmdk-btn"
+          onClick={() => setPaletteOpen(true)}
+          title={`ค้นหาทุกอย่าง (${shortcutLabel})`}
+          aria-label="ค้นหา"
+        >
+          <NavIcon name="search" size={16} />
+          <kbd className="vmx-cmdk-kbd">{shortcutLabel}</kbd>
+        </button>
 
         {user && (
           <UserMenu

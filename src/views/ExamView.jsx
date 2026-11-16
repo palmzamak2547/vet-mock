@@ -222,10 +222,15 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
         showNote={showNote}
         setShowNote={setShowNote}
         revealAnswer={revealAnswer}
+        timed={Boolean(useTimer)}
         answerRun={answerRun}
         onOpenWiki={revealAnswer ? onOpenWiki : undefined}
         english={lang === 'en' && translationsById ? (translationsById[String(currentQ.id)] ?? null) : null}
         englishNote={lang === 'en' ? englishNoteFor(questions, currentIdx, translationsById) : null}
+        ownerId={user?.id || null}
+        // The clock as an element: the case sheet shows it without importing it, so the clock stays in
+        // this chunk and is not split into a file of its own that Home fetches when it warms this view.
+        clock={useTimer && questionDeadline ? <ExamClock deadline={questionDeadline} /> : null}
       />
       </div>
 

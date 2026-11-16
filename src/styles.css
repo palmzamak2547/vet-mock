@@ -46,6 +46,11 @@
      rendered in Fraunces. Naming the Thai faces here keeps both in the same
      family, and having one token means the stack can be changed in one place. */
   --vmx-display: 'Fraunces', 'Sarabun', 'IBM Plex Sans Thai', serif;
+  /* The case reader's marks (CasePane, CaseSheet): no green, red or pink, which are the verdicts' colours. */
+  --clr-case-ink: #2b2419; --clr-case-ocean: #2f5d7c; --clr-case-plum: #7d4a7d;
+  --clr-case-lemon: rgba(255, 214, 10, 0.40); --clr-case-sky: rgba(90, 170, 230, 0.32); --clr-case-lilac: rgba(176, 128, 220, 0.32);
+  --clr-case-lemon-dot: #f2c200; --clr-case-sky-dot: #5aaae6; --clr-case-lilac-dot: #b080dc;
+  --clr-case-blend: multiply;
 
   --clr-bg: #f6efe4;
   --clr-surface: #fdf8ef;
@@ -198,6 +203,9 @@
 }
 
 [data-theme="dark"] {
+  --clr-case-ink: #f0e6d2; --clr-case-ocean: #8fb8d4; --clr-case-plum: #d4a3d4;
+  --clr-case-lemon: rgba(255, 214, 10, 0.30); --clr-case-sky: rgba(90, 170, 230, 0.34); --clr-case-lilac: rgba(176, 128, 220, 0.36);
+  --clr-case-blend: normal;
   --clr-bg: #1a1612;
   --clr-surface: #2b2419;
   --clr-surface-2: #3a3126;
@@ -769,7 +777,7 @@ html, body {
   }
 
   .vmx-nav-row.is-secondary {
-    min-height: 38px;
+    min-height: var(--touch-min);
     font-size: 14px;
     font-weight: 500;
   }
@@ -940,7 +948,8 @@ html, body {
 
 .vmx-logo-btn { border: 0; background: transparent; color: var(--clr-ink); padding: 8px 2px; min-height: 44px; display: inline-flex; align-items: center; gap: 9px; }
 .vmx-logo-btn:hover .vmx-wordmark-tail { color: var(--clr-rose-text); }
-.vmx-header-right { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+/* The rest of the row, its controls packed to the right edge: its left edge is where the context ends, so a chip that arrives late grows into the gap and moves nothing already drawn. */
+.vmx-header-right { display: flex; flex: 1 1 0; justify-content: flex-end; gap: 10px; align-items: center; flex-wrap: nowrap; }
 .vmx-subtitle { font-size: 14px; color: var(--clr-ink-soft); letter-spacing: 0.08em; text-transform: uppercase; }
 .vmx-streak { display: inline-flex; align-items: center; gap: 5px; padding: 6px 12px; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-pill); font-size: 14px; font-weight: 600; color: var(--clr-gold-text); }
 
@@ -1393,9 +1402,15 @@ html, body {
   gap: var(--space-2);
   min-width: 0;
 }
-.vmx-next-actions-secondary {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
+/* Two to a row, the button word an arrow: beside "เริ่มฝึก" a course name
+   wrapped its count onto a line of its own. The whole card is the button. */
+.vmx-next-actions-secondary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.vmx-next-action-cta-arrow { display: none; }
+.vmx-next-actions-secondary .vmx-next-action-cta { padding-inline: 4px; }
+.vmx-next-actions-secondary .vmx-next-action-cta-arrow { display: inline; font-size: var(--text-md); }
+.vmx-next-actions-secondary .vmx-next-action-cta-word { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+/* Where the plan will be: a primary step, two more and the note under them. */
+.vmx-next-actions-wait { min-height: 200px; align-content: center; justify-items: center; }
 .vmx-next-action {
   width: 100%;
   min-height: 58px;
@@ -2433,6 +2448,10 @@ html.dark .vmx-panic-scrim {
   text-decoration: none;
 }
 
+/* Avatar and level only, as on a phone, up to 1199 px: with the name and the XP bar the row ran past 820 px and wrapped once the level arrived, and from 1024 px, where the rail takes 272 px, a streak and a five-digit level drew the XP chip over the paper pill. tests/e2e/header-no-overlap.spec.js measures every width from 320 to 1440 px. */
+@media (min-width: 601px) and (max-width: 1199px) {
+  .vmx-usermenu-name, .vmx-xp-chip-total, .vmx-xp-chip-progress { display: none !important; }
+}
 @media (min-width: 601px) and (max-width: 900px) {
   .vmx-header { flex-wrap: wrap; }
   .vmx-feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -2888,7 +2907,8 @@ html.dark .vmx-panic-scrim {
 @media (min-width: 1024px) {
   .vmx-q-with-passage {
     display: grid;
-    grid-template-columns: minmax(300px, 42%) 1fr;
+    /* 320 px holds the pane's seven 44 px tools on one row: a second row hid the text under it. */
+    grid-template-columns: minmax(320px, 42%) 1fr;
     gap: 24px;
     align-items: start;
   }
@@ -3064,7 +3084,25 @@ html.dark .vmx-panic-scrim {
 /* Full screen: the pad takes all the height the actions leave. */
 .vmx-hand.is-fullscreen { border: 0; border-radius: 0; padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)); }
 .vmx-hand.is-fullscreen .vmx-hand-hint { display: none; }
+.vmx-hand.is-fullscreen .vmx-hand-stage { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
 .vmx-hand.is-fullscreen .vmx-hand-pad { flex: 1 1 0; min-height: 0; height: auto; }
+/* The pad before its pointer loop has loaded, or when it could not be: a note
+   over the paper, so a stroke that would be dropped is never drawn on blind.
+   The loading note waits a moment, so a quick load does not flash it. */
+.vmx-hand-stage { position: relative; }
+.vmx-hand-wait {
+  position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 10px; padding: 16px; border-radius: 8px; text-align: center;
+  background: rgba(255, 255, 255, .88); color: #3a3a3a; font-size: 14px; line-height: 1.45;
+  animation: vmx-hand-wait-in var(--vm-dur-fade) var(--vm-ease-tap) .35s both;
+}
+.vmx-hand-wait.is-failed { animation: none; color: #141414; }
+.vmx-hand-wait button {
+  appearance: none; font: inherit; font-size: 14px; min-height: 44px; padding: 6px 18px; border-radius: 999px;
+  border: 1px solid #141414; background: #141414; color: #fff; cursor: pointer;
+}
+@keyframes vmx-hand-wait-in { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .vmx-hand-wait { animation-duration: 0s; } }
 .vmx-hand { margin-top: 8px; padding: 10px; border: 1px solid var(--clr-border); border-radius: 10px; background: var(--clr-surface); }
 .vmx-hand-hint { margin: 0 0 8px; font-size: 14px; line-height: 1.45; color: var(--clr-ink-soft); }
 .vmx-hand-pad {
@@ -3240,6 +3278,15 @@ html.dark .vmx-panic-scrim {
 .vmx-qtable .num { text-align: right; }
 .vmx-qtable-wrap.is-wide .has-names tr > :first-child { position: sticky; left: 0; z-index: 1; background: var(--clr-surface); }
 .vmx-qtable-hint { margin: -6px 0 12px; font-size: 14px; font-style: normal; color: var(--clr-ink-soft); }
+/* A note table wider than its frame (ScrollFrame.jsx): the edge still to be
+   scrolled to fades, and a line under it says the table scrolls sideways. */
+.vmx-scroll-frame { overflow-x: auto; }
+.vmx-scroll-frame.is-wide:not(.is-at-end) {
+  -webkit-mask-image: linear-gradient(to right, currentColor calc(100% - 40px), transparent);
+  mask-image: linear-gradient(to right, currentColor calc(100% - 40px), transparent);
+}
+.vmx-scroll-frame:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: -2px; }
+.vmx-scroll-hint { margin: -6px 0 12px; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
 @media (max-width: 640px) {
   .vmx-qtable th, .vmx-qtable td { padding: 5px 6px; min-width: 2.5em; }
   .vmx-qtable tbody th { min-width: 5em; }
@@ -4004,6 +4051,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   .vmx-next-actions-header { align-items: start; margin-bottom: var(--space-2); }
   .vmx-next-actions-note { display: none; }
   .vmx-next-actions-secondary { grid-template-columns: 1fr; }
+  .vmx-next-actions-wait { min-height: 270px; }
   .vmx-next-action { grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-2); }
   .vmx-next-action.is-primary { min-height: 84px; padding: 10px 12px; }
   .vmx-next-action-cta { grid-column: 2; justify-self: start; min-height: 36px; padding: 5px 10px; }
@@ -5114,6 +5162,33 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
 .vmx-qtext.is-reading, .vmx-qstem.is-reading, .vmx-instant-feedback .w.is-reading { box-shadow: inset 3px 0 0 var(--clr-ocean); }
 /* A stem read together with the numbers of its table: the table carries the edge too. */
 .vmx-q-passage-pane.is-reading { box-shadow: -3px 0 0 var(--clr-ocean); }
+
+/* ── The case pane (components/case/CasePane.jsx) ─────────────
+   One scroller: from 1024 px the sticky pane column scrolls, below it the
+   page does. The text box has no height of its own, so pen strokes on its
+   canvas scroll with the words. The full-screen sheet is styles-case.css,
+   with what shows only once a tool is in use (cursors, the wet stroke, the
+   toast after a clear): the tools bring that file. */
+.vmx-case-pane { border: 1px solid var(--clr-border); border-radius: var(--r-md); background: var(--clr-surface-2); }
+.vmx-case-top { position: sticky; top: 0; z-index: var(--z-raised); background: var(--clr-surface); border-radius: var(--r-md) var(--r-md) 0 0; }
+.vmx-case-head { display: flex; align-items: center; gap: 8px; padding: 0 6px 0 14px; background: var(--clr-surface); border-bottom: 1px solid var(--clr-border); border-radius: var(--r-md) var(--r-md) 0 0; }
+.vmx-case-toggle { all: unset; box-sizing: border-box; cursor: pointer; flex: 1 1 auto; min-width: 0; min-height: 44px; display: flex; align-items: center; gap: 8px; padding: 6px 0; }
+.vmx-case-title { font-size: 14px; font-weight: 600; line-height: 1.5; color: var(--clr-ink-soft); min-width: 0; }
+.vmx-case-toggle-word { margin-left: auto; font-size: 14px; color: var(--clr-ink-soft); white-space: nowrap; }
+.vmx-case-full { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; min-width: 44px; padding: 0 10px; border: 0; border-radius: var(--r-sm); background: transparent; color: var(--clr-ink); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; touch-action: manipulation; }
+.vmx-case-full:hover { background: var(--clr-gold-soft); }
+.vmx-case-note { margin: 0; padding: 8px 14px; font-size: 14px; color: var(--clr-rose-text); }
+.vmx-case-tools.is-row { box-sizing: border-box; min-height: 49px; display: flex; flex-wrap: wrap; align-items: center; gap: 0; padding: 2px; background: var(--clr-surface); border-bottom: 1px solid var(--clr-border); }
+.vmx-case-tools.is-retry { width: 100%; border: 0; font: inherit; color: var(--clr-ink); cursor: pointer; }
+.vmx-case-surface { position: relative; padding: 14px 16px; color: var(--clr-ink); font-size: 16px; line-height: 1.75; touch-action: manipulation; }
+.vmx-case-text .vmx-rb-p, .vmx-case-text .vmx-rb-lead { white-space: pre-wrap; }
+.vmx-case-mark { color: inherit; padding: 0; border-radius: 2px; mix-blend-mode: var(--clr-case-blend); }
+.vmx-case-mark.is-lemon { background: var(--clr-case-lemon); }
+.vmx-case-mark.is-sky { background: var(--clr-case-sky); }
+.vmx-case-mark.is-lilac { background: var(--clr-case-lilac); }
+.vmx-case-wet { position: absolute; inset: 0; pointer-events: none; }
+.vmx-case-ink { position: absolute; left: 0; top: 0; pointer-events: none; }
+
 .vmx-option.is-reading { border-color: var(--clr-ocean); box-shadow: inset 0 0 0 1px var(--clr-ocean); }
 ::highlight(vmx-reading) { background-color: var(--clr-gold-soft); color: var(--clr-ink); }
 
@@ -5645,17 +5720,17 @@ html.vmx-read-open body::after { content: ''; display: block; height: var(--vmx-
 }
 
 /* ── PDF reader toolbar ─────────────────────────────────────────────────
-   Icon-only buttons so the whole toolbar fits one row. 40px is the tap
-   target; the glyph inside is 20. The active state is a filled tint rather
+   Icon-only buttons so the whole toolbar fits one row. 44px is the tap
+   target (a narrow window scrolls the row); the glyph inside is 20. The active state is a filled tint rather
    than a border, so a pressed tool reads at a glance without the row
    growing by 2px when it changes. */
 .vmx-pdf-tool {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  min-width: 40px;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  min-width: var(--touch-min);
   flex-shrink: 0;
   padding: 0;
   border: 1px solid transparent;
@@ -7070,13 +7145,15 @@ body.vmx-reading .vmx-pdf-body {
   outline: 2px solid var(--clr-sage);
   outline-offset: 2px;
 }
+/* The subject tag sits on its own line under the names: beside them, a long
+   Thai name (one unbroken word) ran under the tag. */
 .vmx-fac-card-head {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
-  justify-content: space-between;
-  gap: 10px;
+  gap: 8px 10px;
 }
-.vmx-fac-card-names { flex: 1; min-width: 0; }
+.vmx-fac-card-names { flex: 1 1 calc(100% - 50px); min-width: 0; }
 /* A lecturer's portrait, or the initials when there is none to show: one box,
    the same size either way (InstructorPortrait.jsx). */
 .vmx-portrait {
@@ -7095,7 +7172,7 @@ body.vmx-reading .vmx-pdf-body {
   user-select: none;
 }
 /* Beside the portrait the names keep room for a two-word Thai name. */
-.vmx-fac-card-portrait ~ .vmx-fac-card-tag { max-width: 40%; }
+.vmx-fac-card-portrait ~ .vmx-fac-card-tag { margin-left: 50px; max-width: calc(100% - 100px); }
 .vmx-portrait img {
   display: block;
   width: 100%;
