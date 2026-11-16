@@ -12,9 +12,6 @@ import { test, expect } from './fixtures.js';
 import { bankFiles, readBank } from '../../scripts/lib/bank-file.mjs';
 import { splitBlocks } from '../../src/lib/rich-blocks.js';
 
-// The clock runs on real time here: a pinned calendar holds Date.now still,
-// and a deadline that cannot move proves nothing.
-test.use({ pinCalendar: false });
 test.use({ serviceWorkers: 'block' });
 
 const blocks = (text, type) => splitBlocks(text).filter((b) => b.type === type);
