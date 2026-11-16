@@ -565,7 +565,7 @@ async function one(key) {
         else {
           const c = compare(text, heard);
           check = c.ok ? 'pass' : `fail: ${c.problems.map((p) => `${p.kind} ${p.want ?? ''}`).join(', ')}`;
-          ledger?.write(JSON.stringify({ at: new Date().toISOString(), question: q?.id, subject: q?.subject, piece: kindOf.get(key), key, chars: text.length, credits: said.cost, provider: G.provider, model: G.model, voice: G.voice, try: tries + 1, check, heard: c.ok ? undefined : heard }) + '\n');
+          ledger?.write(JSON.stringify({ at: new Date().toISOString(), question: q?.id, subject: q?.subject, piece: kindOf.get(key), key, chars: text.length, credits: said.cost, provider: G.provider, model: G.model, voice: G.voice, try: tries + 1, check, unverified: c.unverified?.length ? c.unverified : undefined, heard: c.ok && !c.unverified?.length ? undefined : heard }) + '\n');
           if (!c.ok) { lastCheck = check; continue; }
         }
       }

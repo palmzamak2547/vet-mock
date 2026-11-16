@@ -6,8 +6,9 @@
 // word ("APP" as "แอป"), so capitals are spelled letter by letter.
 // Used by scripts/tts-clips.mjs; tests/unit/tts-respell.test.mjs.
 
-// Acronyms said as a word in class, kept whole.
-const AS_WORDS = new Set(['COVID', 'HACCP', 'WOAH', 'NASA', 'AIDS', 'SARS', 'MERS']);
+// Acronyms said as a word in class, kept whole. ELISA: the voice says it as a
+// word and two transcribers wrote it back as the word (16 Nov 2026).
+const AS_WORDS = new Set(['COVID', 'HACCP', 'WOAH', 'NASA', 'AIDS', 'SARS', 'MERS', 'ELISA']);
 
 export function respell(text) {
   return String(text)

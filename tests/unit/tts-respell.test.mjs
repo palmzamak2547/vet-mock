@@ -11,5 +11,5 @@ test('acronyms are spelled letter by letter', () => {
 });
 
 test('drug names, Latin names, numbers and the acronyms said as words stay as written', () => {
-  for (const s of ['ให้ Amoxicillin 10 มิลลิกรัม', 'Brachyspira hyodysenteriae', 'ApxIV', 'COVID-19', 'ระบบ HACCP', 'M. hyorhinis']) assert.equal(respell(s), s);
+  for (const s of ['ให้ Amoxicillin 10 มิลลิกรัม', 'Brachyspira hyodysenteriae', 'ApxIV', 'COVID-19', 'ระบบ HACCP', 'M. hyorhinis', 'ELISA ตรวจแอนติบอดี']) assert.equal(respell(s), s);
 });
