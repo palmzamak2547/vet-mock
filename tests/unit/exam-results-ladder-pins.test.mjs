@@ -74,8 +74,10 @@ test('the instant verdict and the results seal speak Thai, with no English kicke
   // 5.282.0: the seal is the verdict word in the score card; the bar's one tick reads "60%".
   assert.match(results, /: reached \? 'ถึงเกณฑ์ซ้อมแล้ว' : 'ยังไม่ถึงเกณฑ์ซ้อม'/);
   assert.match(results, /<div className="vmx-benchmark-flag">\{PRACTICE_PASS_PCT\}%<\/div>/);
-  assert.match(night, /\.vmx-clinical-seal \{ font-family: var\(--vmx-sans\); letter-spacing: 0; text-transform: none;/);
-  assert.match(night, /\.vmx-clinical-seal \.vmx-seal-sub \{[^}]*opacity: 1;/);
+  // The seal element is gone with it, so its rules are too: nothing on the screen wears them.
+  for (const gone of ['vmx-clinical-seal', 'vmx-results-seal-wrapper', 'vmx-results-primary', 'vmx-share-cta']) {
+    assert.equal(results.includes(gone) || css.includes(`.${gone}`), false, `${gone} is back without an element to style`);
+  }
 });
 
 test('the results screen reads the rung off the set and judges it with the app\'s own bar', () => {
