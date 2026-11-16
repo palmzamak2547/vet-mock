@@ -56,6 +56,7 @@ export const NAV_ITEMS = [
 // names a screen differently from the menu that opened it. 'home' is null
 // (the base title is restored); VetWiki and the atlas own their titles.
 const TITLE_EXTRAS = Object.freeze({
+  'card-studio': 'ปรับแต่งการ์ด',
   'topic-select': 'เลือกหัวข้อ',
   config: 'ตั้งค่าชุดข้อสอบ',
   'mock-exam': 'โหมดสอบ',

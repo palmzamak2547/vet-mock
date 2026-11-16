@@ -9,7 +9,7 @@
 // identity card, so they are not offered here.
 // Never reachable from a question set: its only entry is the profile hub.
 // ============================================================
-import { lazy, Suspense, useCallback, useMemo, useState } from 'react';
+import { Suspense, useCallback, useMemo, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import StudentCard from '../components/StudentCard.jsx';
 import { useMyCard } from '../hooks/useMyCard.js';
@@ -21,7 +21,8 @@ import {
 import { BADGE_ART } from '../data/art.js';
 import '../styles-studio.css';
 
-const ShareCardSheet = lazy(() => import('../components/ShareCardSheet.jsx'));
+import { lazyWithRetry } from '../lib/lazy-retry.js';
+const ShareCardSheet = lazyWithRetry(() => import('../components/ShareCardSheet.jsx'));
 
 const STATUS = {
   loading: 'กำลังโหลดการ์ดที่บันทึกไว้',

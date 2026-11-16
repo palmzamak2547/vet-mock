@@ -165,7 +165,7 @@ function layout(card, face, art, gap) {
   const brandSize = Math.max(14 * 2.4, 4.2 * u);
   const brandBase = top + brandSize;
   card.text(face.brand, left, brandBase, { weight: 600, size: brandSize, family: FAMILY.serif, color: c.brand }, 'brand');
-  if (face.yearLine) card.text(face.yearLine, right, brandBase, { weight: 400, size: Math.max(36, 3.9 * u), family: FAMILY.label, color: c.soft, align: 'right' }, 'year');
+  if (face.yearLine) card.text(face.yearLine, right, brandBase, { weight: 500, size: Math.max(36, 3.9 * u), family: FAMILY.label, color: c.soft, align: 'right' }, 'year');
 
   // Foot: the numbers on the left, the trophies on the right, under a rule.
   const labelSize = Math.max(36, 3.9 * u);
@@ -185,9 +185,9 @@ function layout(card, face, art, gap) {
   }
   let x = left;
   for (const s of face.stats) {
-    const lb = card.text(s.label, x, ruleY + 2.2 * u + labelSize, { weight: 400, size: labelSize, family: FAMILY.label, color: c.soft }, 'stat');
+    const lb = card.text(s.label, x, ruleY + 2.2 * u + labelSize, { weight: 500, size: labelSize, family: FAMILY.label, color: c.soft }, 'stat');
     const vb = card.text(s.value, x, bottom - valueSize * 0.25, { weight: 600, size: valueSize, family: FAMILY.numeral, color: c.ink }, 'stat');
-    const ub = card.text(s.unit, vb.right + 3 * (box.w / 360), bottom - valueSize * 0.25, { weight: 400, size: Math.max(36, 14 * (box.w / 360)), family: FAMILY.label, color: c.soft }, 'stat');
+    const ub = card.text(s.unit, vb.right + 3 * (box.w / 360), bottom - valueSize * 0.25, { weight: 500, size: Math.max(36, 14 * (box.w / 360)), family: FAMILY.label, color: c.soft }, 'stat');
     x = Math.max(lb.right, ub.right) + 5 * u;
   }
   if (!card.dry) {
