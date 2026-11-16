@@ -3790,4 +3790,123 @@ export const QUESTIONS_Y5_AVIAN_FINAL_RECALL = [
       }
     ]
   },
+  {
+    "id": 218200,
+    "subject": "avian-medicine",
+    "topic": "avian-nds",
+    "year": 5,
+    "type": "short",
+    "q": "New duck syndrome: จงบอกเชื้อสาเหตุ อาการ รอยโรค และการทำวัคซีน",
+    "keywords": [
+      "Riemerella anatipestifer",
+      "แกรมลบ",
+      "ลูกเป็ดอายุ 1-7 สัปดาห์",
+      "น้ำมูก น้ำตา ไอ จาม",
+      "หัวและคอสั่น เดินเซ นอนหงายตีขา",
+      "fibrinous pericarditis, perihepatitis, airsacculitis",
+      "fibrinous meningitis",
+      "bacterin หรือวัคซีนเชื้อเป็น",
+      "autogenous oil-emulsion bacterin",
+      "วัคซีนแม่พันธุ์คุ้มลูกถึง 2-3 สัปดาห์"
+    ],
+    "model_answer": "เชื้อสาเหตุ: Riemerella anatipestifer แบคทีเรียแกรมลบ ไม่สร้างสปอร์ ไม่เคลื่อนที่ catalase และ oxidase บวก เจริญในสภาพ microaerophilic บนอาหารเลี้ยงเชื้อที่เสริมสารอาหาร มีมากกว่า 20 serotype และไม่ป้องกันข้ามกัน\nอาการ: พบในลูกเป็ดอายุราว 1-7 สัปดาห์ ระยะฟักตัว 2-5 วัน มีน้ำตาและน้ำมูก ไอและจามเล็กน้อย หัวและคอสั่น เดินเซ แคระแกร็น รายที่เป็นแบบฉบับนอนหงายตีขา อัตราตายราว 2-50% ในไก่งวง (5-15 สัปดาห์) หายใจลำบาก คอบิด หลังโก่ง ขาเจ็บ\nรอยโรค: fibrinous exudate คลุมเยื่อหุ้มหัวใจและผิวตับ ถุงลมอักเสบแบบ fibrinous เยื่อหุ้มสมองอักเสบแบบ fibrinous ตับและม้ามโต ปอดอักเสบ และผิวหนังอักเสบเนื้อตายที่หลังส่วนล่าง\nวัคซีน: ใช้ bacterin หรือวัคซีนเชื้อเป็นเชิงการค้า หรือ autogenous oil-emulsion bacterin จากเชื้อในฟาร์มนั้น วัคซีนชนิด homologous กับ serotype ในฟาร์มให้ผลดีที่สุด การทำวัคซีนเป็ดพ่อแม่พันธุ์ให้ภูมิคุ้มกันแก่ลูกเป็ดได้ถึงอายุ 2-3 สัปดาห์ ร่วมกับ biosecurity ทำความสะอาดฆ่าเชื้อระหว่างรุ่นและแยกฝูงต่างอายุ",
+    "explain": "รอยโรคชุด fibrinous polyserositis (เยื่อหุ้มหัวใจ ตับ ถุงลม) ร่วมกับเยื่อหุ้มสมองอักเสบในลูกเป็ด คล้ายกับรอยโรคของ colibacillosis จึงต้องยืนยันด้วยการแยกเชื้อบน chocolate agar หรือ sheep blood agar บ่มที่ 37 องศาเซลเซียสในโถเทียนหรือ CO2 5% แล้วพิสูจน์ด้วยชีวเคมีและ PCR การหา serotype จำเป็นต่อการเลือกวัคซีน เพราะ serotype ต่างกันไปตามฟาร์ม พื้นที่ และช่วงเวลา",
+    "source": "Duck RA DVE DVH DTMUV GP AI Yr5 2026 หน้า 6, 9, 10, 11, 13, 15, 19 และ 20",
+    "verified": "บันทึกข้อสอบ Avian Medicine ของรุ่น 80 ในแฟ้มกลางภาคของรุ่น 84 หน้า 1 และ 3 (หน้า 1 ข้อเขียนของส่วน Mycoplasma, coryza, fowl cholera และ new duck syndrome และหน้า 3 ตาราง Form รวมๆ: New duck syndrome เชื้อ Riemerella anatipestifer อาการ รอยโรค); ข้อเดียวกันในภาพรวมโน้ต key mid 5.1 และ avian med mid ในแฟ้มเดียวกัน (new duck syn เชื้อ อาการ รอยโรค วัคซีนทำยังไง); คำตอบที่บันทึกไว้มีเพียงชื่อเชื้อ ส่วนอาการ รอยโรค และวัคซีนเขียนจากสไลด์ปี 2569",
+    "sourceType": "student-compilation",
+    "examOrigin": "Avian Medicine Vet 80 บันทึกข้อสอบเก่า ไม่ระบุว่ากลางภาคหรือปลายภาค",
+    "tags": [
+      "avian-nds",
+      "riemerella",
+      "written"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 6
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 9
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 10
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 11
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 13
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 15
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 19
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 20
+      },
+      {
+        "doc": "avian-recall-vet80",
+        "edition": "5p",
+        "page": 1
+      },
+      {
+        "doc": "avian-recall-vet80",
+        "edition": "5p",
+        "page": 3
+      }
+    ]
+  },
+  {
+    "id": 218201,
+    "subject": "avian-medicine",
+    "topic": "avian-nds",
+    "year": 5,
+    "type": "tf",
+    "q": "Riemerella anatipestifer ติดเข้าสู่เป็ดได้ทางระบบหายใจผ่านเยื่อบุทางเดินหายใจที่เสียหาย และทางบาดแผลที่ฝ่าเท้า",
+    "answer": true,
+    "explain": "ถูก เป็ดและไก่งวงรับเชื้อจากสิ่งแวดล้อมได้ทางระบบหายใจ เมื่อเยื่อบุทางเดินหายใจเสียหาย และทางบาดแผลที่พังผืดระหว่างนิ้วเท้า ละอองและฝุ่นในอากาศพาเชื้อไปได้ แหล่งเชื้อคือสัตว์ป่วย สัตว์ที่เป็นพาหะโดยไม่แสดงอาการ สัตว์เลี้ยงลูกด้วยนมที่ติดเชื้อ และสิ่งแวดล้อมที่ปนเปื้อน โรคนี้จึงมักกลายเป็นโรคประจำถิ่นของฟาร์ม",
+    "source": "Duck RA DVE DVH DTMUV GP AI Yr5 2026 หน้า 7 และ 8",
+    "verified": "บันทึกข้อสอบ Avian Medicine ของรุ่น 80 ในแฟ้มกลางภาคของรุ่น 84 หน้า 4 (ภาพแปะรายการที่ถามในส่วนถูกผิด Transmission ของทุกเชื้อ มีคำตอบเขียนมือ NDS: Respi, แผล); เขียนเป็นข้อถูกผิดตามรูปแบบของส่วนนั้น คำตอบตรงกับที่บันทึก",
+    "sourceType": "student-compilation",
+    "examOrigin": "Avian Medicine Vet 80 บันทึกข้อสอบเก่า ไม่ระบุว่ากลางภาคหรือปลายภาค",
+    "tags": [
+      "avian-nds",
+      "riemerella",
+      "transmission"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 7
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 8
+      },
+      {
+        "doc": "avian-recall-vet80",
+        "edition": "5p",
+        "page": 4
+      }
+    ]
+  },
 ];

@@ -2398,7 +2398,7 @@ const LEAVES = [
  [105772],
  // end ["salmonella|universal","avian-medicine","avian-nds"]
  // ["salmonella|universal","avian-medicine","avian-ort"]
- [105819,212522],
+ [105819,212522,218217],
  // end ["salmonella|universal","avian-medicine","avian-ort"]
  // ["salmonella|universal","avian-medicine","avian-salmonella"]
  [202242,206125,206126,206127,206128,206129,206130,206131,206132,206133,206134,206135,206136,206029,206031,206033,109090],
@@ -2594,7 +2594,7 @@ const LEAVES = [
  [105772],
  // end ["pasteurella|universal","avian-medicine","avian-nds"]
  // ["pasteurella|universal","avian-medicine","avian-ort"]
- [105819,212521],
+ [105819,212521,218217],
  // end ["pasteurella|universal","avian-medicine","avian-ort"]
  // ["pasteurella|universal","epidemiology","epidem-basic-concepts"]
  [214511,100010],
@@ -2956,6 +2956,9 @@ const LEAVES = [
  // ["ascites syndrome|avian","avian-medicine","avian-goose-parvo"]
  [105776,212517],
  // end ["ascites syndrome|avian","avian-medicine","avian-goose-parvo"]
+ // ["ascites syndrome|avian","avian-medicine","avian-mycosis"]
+ [218245,218253],
+ // end ["ascites syndrome|avian","avian-medicine","avian-mycosis"]
  // end of "ascites syndrome|avian"
  "avian influenza|avian",
  // ["avian influenza|avian","avian-medicine","avian-ai"]
@@ -2970,6 +2973,9 @@ const LEAVES = [
  // ["avian influenza|avian","avian-medicine","avian-myco"]
  [202222,202234],
  // end ["avian influenza|avian","avian-medicine","avian-myco"]
+ // ["avian influenza|avian","avian-medicine","avian-mycosis"]
+ [218235],
+ // end ["avian influenza|avian","avian-medicine","avian-mycosis"]
  // ["avian influenza|avian","avian-medicine","avian-nd"]
  [105820,105063,109108],
  // end ["avian influenza|avian","avian-medicine","avian-nd"]
@@ -3064,6 +3070,9 @@ const LEAVES = [
  // ["bursa of fabricius|avian","avian-medicine","avian-cia"]
  [206159,106194,106204,107100],
  // end ["bursa of fabricius|avian","avian-medicine","avian-cia"]
+ // ["bursa of fabricius|avian","avian-medicine","avian-duck-plague"]
+ [218203,218205],
+ // end ["bursa of fabricius|avian","avian-medicine","avian-duck-plague"]
  // ["bursa of fabricius|avian","avian-medicine","avian-fowl-cholera"]
  [202223],
  // end ["bursa of fabricius|avian","avian-medicine","avian-fowl-cholera"]
@@ -3080,7 +3089,7 @@ const LEAVES = [
  [206161,106199,106203,106206,107118,107120,109062,109136],
  // end ["bursa of fabricius|avian","avian-medicine","avian-marek"]
  // ["bursa of fabricius|avian","avian-medicine","avian-mycosis"]
- [105799,212543],
+ [105799,212543,218253],
  // end ["bursa of fabricius|avian","avian-medicine","avian-mycosis"]
  // ["bursa of fabricius|avian","avian-medicine","avian-nd"]
  [105070,109072],
@@ -3158,6 +3167,9 @@ const LEAVES = [
  // ["coccidiosis|avian","avian-medicine","avian-cocci"]
  [206162,105863,105864,106212,106213,106214,106215,106216,106217,106219,205001,205003,205004,205005,205006,205007,205008,205009,109014,109032],
  // end ["coccidiosis|avian","avian-medicine","avian-cocci"]
+ // ["coccidiosis|avian","avian-medicine","avian-duck-plague"]
+ [218205],
+ // end ["coccidiosis|avian","avian-medicine","avian-duck-plague"]
  // ["coccidiosis|avian","avian-medicine","avian-histomoniasis"]
  [105793],
  // end ["coccidiosis|avian","avian-medicine","avian-histomoniasis"]
@@ -3167,6 +3179,9 @@ const LEAVES = [
  // ["coccidiosis|avian","avian-medicine","avian-malaria"]
  [106218,205028,205032,205033],
  // end ["coccidiosis|avian","avian-medicine","avian-malaria"]
+ // ["coccidiosis|avian","avian-medicine","avian-mycosis"]
+ [218235],
+ // end ["coccidiosis|avian","avian-medicine","avian-mycosis"]
  // ["coccidiosis|avian","avian-medicine","avian-ne"]
  [202221,105868,106211,205011,205012,205014],
  // end ["coccidiosis|avian","avian-medicine","avian-ne"]
@@ -3211,6 +3226,12 @@ const LEAVES = [
  // ["crd|avian","avian-medicine","avian-myco"]
  [202222,202227,202229,202230,202231,202232,202233,206041,105843],
  // end ["crd|avian","avian-medicine","avian-myco"]
+ // ["crd|avian","avian-medicine","avian-mycosis"]
+ [218235],
+ // end ["crd|avian","avian-medicine","avian-mycosis"]
+ // ["crd|avian","avian-medicine","avian-ort"]
+ [218217],
+ // end ["crd|avian","avian-medicine","avian-ort"]
  // ["crd|avian","avian-medicine","avian-pox"]
  [105080],
  // end ["crd|avian","avian-medicine","avian-pox"]
@@ -3314,6 +3335,9 @@ const LEAVES = [
  // ["ibd|avian","avian-medicine","avian-myco"]
  [105846],
  // end ["ibd|avian","avian-medicine","avian-myco"]
+ // ["ibd|avian","avian-medicine","avian-mycosis"]
+ [218240],
+ // end ["ibd|avian","avian-medicine","avian-mycosis"]
  // ["ibd|avian","avian-medicine","avian-nd"]
  [105070],
  // end ["ibd|avian","avian-medicine","avian-nd"]
@@ -3327,7 +3351,7 @@ const LEAVES = [
  [206035],
  // end ["ibd|avian","avian-medicine","avian-salmonella"]
  // ["ibd|avian","avian-medicine","avian-serology"]
- [212558],
+ [212558,218255],
  // end ["ibd|avian","avian-medicine","avian-serology"]
  // ["ibd|avian","avian-medicine","avian-vaccine-prog"]
  [105804,105805],
@@ -3486,6 +3510,9 @@ const LEAVES = [
  // ["marek's disease|avian","avian-medicine","avian-myco"]
  [105846],
  // end ["marek's disease|avian","avian-medicine","avian-myco"]
+ // ["marek's disease|avian","avian-medicine","avian-mycosis"]
+ [218235,218248],
+ // end ["marek's disease|avian","avian-medicine","avian-mycosis"]
  // ["marek's disease|avian","avian-medicine","avian-nd"]
  [105070],
  // end ["marek's disease|avian","avian-medicine","avian-nd"]

@@ -80,6 +80,7 @@ export const EXAM_ORIGINS = Object.freeze({
   "Milk Hygiene & Meat Inspection final และ midterm รุ่นก่อนหน้า (ไม่ระบุรุ่น) บันทึกหลังสอบ": { kind: 'paper', cohort: null, paper: null },
   "Avian Medicine Vet 81 บันทึกข้อสอบเก่า ไม่ระบุว่ากลางภาคหรือปลายภาค": { kind: 'paper', cohort: 81, paper: null },
   "Avian Medicine บันทึกข้อสอบเก่า ไม่ระบุรุ่นและช่วงสอบ": { kind: 'paper', cohort: null, paper: null },
+  "Avian Medicine Vet 80 บันทึกข้อสอบเก่า ไม่ระบุว่ากลางภาคหรือปลายภาค": { kind: 'paper', cohort: 80, paper: null },
   "Avian Medicine final Vet 84 บันทึกหลังสอบ": { kind: 'paper', cohort: 84, paper: 'final' },
   "Avian Medicine final Vet 84, Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: [84, 85], paper: 'final' },
   "Avian Medicine final Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: 85, paper: 'final' },
@@ -287,6 +288,10 @@ export const EXAM_ORIGINS = Object.freeze({
   "Equine Med & Surg POA practice case (Vet 84 class session)": { kind: 'aligned' },
   "Swine Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก": { kind: 'aligned' },
   "Swine Medicine final จุดที่รุ่นพี่มาร์คในสไลด์": { kind: 'aligned' },
+  // Avian Medicine final: points a senior marked (star, red pen, highlight, a fact list headed ออกสอบ) on final topics
+  // that no question asked yet (finals gap pass, 16 Nov 2026). A mark, not a paper.
+  "Avian Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก": { kind: 'aligned' },
+  "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป": { kind: 'aligned' },
   // Milk & Meat and Epidemiology finals: questions written from the points seniors marked (5.190.0 marks pass).
   "Milk Hygiene & Meat Inspection final จุดที่รุ่นพี่มาร์คว่าเคยออก": { kind: 'aligned' },
   "Milk Hygiene & Meat Inspection final จุดที่รุ่นพี่มาร์คในสไลด์": { kind: 'aligned' },
@@ -369,6 +374,7 @@ export const EXAM_ORIGINS = Object.freeze({
   "Equine Sx concept deck (Vet 85 annotated slides)": { kind: 'source-doc' },
   "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2569 เรื่อง infectious diseases and biosecurity": { kind: 'source-doc' },
   "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2569 เรื่อง pythiosis": { kind: 'source-doc' },
+  "เขียนขึ้นจากเลคเชอร์ Avian Medicine ปี 2569 เรื่อง histomoniasis": { kind: 'source-doc' },
   "เขียนขึ้นจากเลคเชอร์ Epidemiology ปี 2569 เรื่อง The Future Veterinarian": { kind: 'source-doc' },
   "เขียนขึ้นจากเลคเชอร์ Epidemiology ปี 2569 เรื่อง Module 1 Diagnostic Tools": { kind: 'source-doc' },
   "เขียนขึ้นจากเลคเชอร์ Epidemiology ปี 2569 เรื่อง Agreement of test": { kind: 'source-doc' },

@@ -71,7 +71,7 @@ const LEAVES = [
   ["avian-medicine","avian-ai",24,{"1-mid":[15,2,0,7]},{"1-mid":[1,0,0,6]}], // e1fc1794156a
   // end ["avian-medicine","avian-ai"]
   // ["avian-medicine","avian-campy"]
-  ["avian-medicine","avian-campy",6,{"1-final":[6,0,0,0]},{"1-final":[3,0,0,0]}], // 95833f540793
+  ["avian-medicine","avian-campy",10,{"1-final":[10,0,0,0]},{"1-final":[3,0,0,0]}], // ad4d59f6acd5
   // end ["avian-medicine","avian-campy"]
   // ["avian-medicine","avian-cia"]
   ["avian-medicine","avian-cia",14,{"1-mid":[12,1,1,0,1]},{"1-mid":[2,0,0,0]}], // bd7ea0044c7b
@@ -86,13 +86,13 @@ const LEAVES = [
   ["avian-medicine","avian-coryza",18,{"1-mid":[8,10,0,0]},{}], // aa926592366a
   // end ["avian-medicine","avian-coryza"]
   // ["avian-medicine","avian-duck-flavi"]
-  ["avian-medicine","avian-duck-flavi",2,{"1-final":[2,0,0,0]},{"1-final":[1,0,0,0]}], // dad8a395da03
+  ["avian-medicine","avian-duck-flavi",6,{"1-final":[2,4,0,0]},{"1-final":[1,0,0,0]}], // a43ce779b414
   // end ["avian-medicine","avian-duck-flavi"]
   // ["avian-medicine","avian-duck-plague"]
-  ["avian-medicine","avian-duck-plague",5,{"1-final":[5,0,0,0]},{"1-final":[4,0,0,0]}], // d33dc77267fd
+  ["avian-medicine","avian-duck-plague",10,{"1-final":[5,5,0,0]},{"1-final":[4,0,0,0]}], // 54b1f329f1f3
   // end ["avian-medicine","avian-duck-plague"]
   // ["avian-medicine","avian-dvh"]
-  ["avian-medicine","avian-dvh",11,{"1-final":[11,0,0,0]},{"1-final":[10,0,0,0]}], // b8790942ed55
+  ["avian-medicine","avian-dvh",15,{"1-final":[11,4,0,0]},{"1-final":[10,0,0,0]}], // b73a72bd2500
   // end ["avian-medicine","avian-dvh"]
   // ["avian-medicine","avian-egg-breakout"]
   ["avian-medicine","avian-egg-breakout",1,{"1-mid":[0,0,0,1]},{}], // 4a6f2889e2bb
@@ -101,10 +101,10 @@ const LEAVES = [
   ["avian-medicine","avian-fowl-cholera",18,{"1-mid":[7,10,1,0]},{"1-mid":[1,0,0,0]}], // 6016715d316c
   // end ["avian-medicine","avian-fowl-cholera"]
   // ["avian-medicine","avian-goose-parvo"]
-  ["avian-medicine","avian-goose-parvo",7,{"1-final":[7,0,0,0]},{"1-final":[6,0,0,0]}], // d7de9326c16c
+  ["avian-medicine","avian-goose-parvo",8,{"1-final":[7,1,0,0]},{"1-final":[6,0,0,0]}], // f266b805f82f
   // end ["avian-medicine","avian-goose-parvo"]
   // ["avian-medicine","avian-histomoniasis"]
-  ["avian-medicine","avian-histomoniasis",2,{"1-final":[2,0,0,0]},{}], // 925d753dbd1a
+  ["avian-medicine","avian-histomoniasis",5,{"1-final":[5,0,0,0]},{}], // bea29e709073
   // end ["avian-medicine","avian-histomoniasis"]
   // ["avian-medicine","avian-ib"]
   ["avian-medicine","avian-ib",19,{"1-mid":[19,0,0,0,1]},{}], // d8eec5376d64
@@ -119,7 +119,7 @@ const LEAVES = [
   ["avian-medicine","avian-leuko",14,{"1-mid":[12,1,1,0,1]},{"1-mid":[2,0,0,0]}], // 88a0ec25b323
   // end ["avian-medicine","avian-leuko"]
   // ["avian-medicine","avian-listeria"]
-  ["avian-medicine","avian-listeria",3,{"1-final":[3,0,0,0]},{"1-final":[2,0,0,0]}], // 8960c783681f
+  ["avian-medicine","avian-listeria",7,{"1-final":[7,0,0,0]},{"1-final":[2,0,0,0]}], // 5a1d9b0c806d
   // end ["avian-medicine","avian-listeria"]
   // ["avian-medicine","avian-lt"]
   ["avian-medicine","avian-lt",16,{"1-mid":[16,0,0,0,1]},{}], // 1c082e14f6fe
@@ -137,19 +137,19 @@ const LEAVES = [
   ["avian-medicine","avian-myco",35,{"1-mid":[18,17,0,0]},{"1-mid":[0,3,0,0]}], // 8e6317dde263
   // end ["avian-medicine","avian-myco"]
   // ["avian-medicine","avian-mycosis"]
-  ["avian-medicine","avian-mycosis",32,{"1-final":[32,0,0,0]},{"1-final":[23,0,0,0]}], // 74cc790c758b
+  ["avian-medicine","avian-mycosis",56,{"1-final":[56,0,0,0]},{"1-final":[23,0,0,0]}], // e8de22946be9
   // end ["avian-medicine","avian-mycosis"]
   // ["avian-medicine","avian-nd"]
   ["avian-medicine","avian-nd",24,{"1-mid":[23,0,1,0]},{}], // 0472bcdb238e
   // end ["avian-medicine","avian-nd"]
   // ["avian-medicine","avian-nds"]
-  ["avian-medicine","avian-nds",1,{"1-final":[1,0,0,0]},{}], // 8f85b5519534
+  ["avian-medicine","avian-nds",7,{"1-final":[1,5,0,1]},{"1-final":[0,1,0,1]}], // ab1fc4534a95
   // end ["avian-medicine","avian-nds"]
   // ["avian-medicine","avian-ne"]
   ["avian-medicine","avian-ne",13,{"1-mid":[13,0,0,0,2]},{"1-mid":[1,0,0,0]}], // d263b76826d2
   // end ["avian-medicine","avian-ne"]
   // ["avian-medicine","avian-ort"]
-  ["avian-medicine","avian-ort",9,{"1-final":[9,0,0,0]},{"1-final":[7,0,0,0]}], // b2e46c01c823
+  ["avian-medicine","avian-ort",14,{"1-final":[14,0,0,0]},{"1-final":[7,0,0,0]}], // 98efe2a9228b
   // end ["avian-medicine","avian-ort"]
   // ["avian-medicine","avian-pox"]
   ["avian-medicine","avian-pox",18,{"1-mid":[18,0,0,0,2]},{"1-mid":[2,0,0,0]}], // 3aa687c55455
@@ -164,7 +164,7 @@ const LEAVES = [
   ["avian-medicine","avian-salmonella",27,{"1-mid":[14,13,0,0]},{}], // 2e324f2d3042
   // end ["avian-medicine","avian-salmonella"]
   // ["avian-medicine","avian-serology"]
-  ["avian-medicine","avian-serology",16,{"1-final":[13,0,1,2]},{"1-final":[6,0,0,2]}], // 1772c1d71da8
+  ["avian-medicine","avian-serology",17,{"1-final":[14,0,1,2]},{"1-final":[6,0,0,2]}], // bba2e989bba2
   // end ["avian-medicine","avian-serology"]
   // ["avian-medicine","avian-vaccine-prog"]
   ["avian-medicine","avian-vaccine-prog",15,{"1-final":[8,1,1,5]},{"1-final":[3,0,0,5]}], // 63484f4b994f
