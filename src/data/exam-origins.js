@@ -275,6 +275,8 @@ export const EXAM_ORIGINS = Object.freeze({
   // ── aligned: Written from exam guidance a cohort marked, not from a paper ──
   // rows that carry a sourceType
   "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC": { kind: 'aligned' },
+  // FIQC final: points a senior highlighted, starred or underlined on their copy of a deck, with no exam word beside it.
+  "Food Industry QC final จุดที่รุ่นพี่มาร์คในสไลด์": { kind: 'aligned' },
   "จุดที่รุ่นพี่บันทึกว่าออกสอบในโน้ต Aquatic Med": { kind: 'aligned' },
   "ควิซในคาบ Aquatic Med ของ Vet 83": { kind: 'aligned' },
   "ควิซทบทวนที่ Vet 83 แต่งเอง": { kind: 'aligned' },
@@ -324,6 +326,10 @@ export const EXAM_ORIGINS = Object.freeze({
   "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides": { kind: 'aligned' },
   // Highlights, underlines and stars on Vet 84's own copies of the 2567 One Health decks; a mark, not a paper.
   "One Health final: จุดที่รุ่นพี่ Vet 84 ไฮไลต์ ขีดเส้นใต้ หรือติดดาวในสไลด์ของตน": { kind: 'aligned' },
+  // Equine Repro final marked points (5.254.0): a star, asterisk, underline or highlight on a senior's copy of a
+  // final-topic deck or summary (Vet 84 annotated decks, the starred K1-4 mind maps, the Vet 81, 83 and 85
+  // summaries). A mark, not a paper.
+  "Equine Repro final: จุดที่รุ่นพี่ติดดาว ขีดเส้นใต้ หรือไฮไลต์ในสไลด์และสรุปของตน": { kind: 'aligned' },
   // Zoonoses final marked points (5.247.0). "ว่าเคยออก": a mark whose own legend ties it to a cohort's paper (the
   // Vet 84 bacterial map's "ออกสอบ 84" stars, the Vet 83 notebook's "สอบ vet 83" stars and Vet 84's red stars on it,
   // Vet 85's post-exam pink notes). "ในสไลด์หรือสรุป": a star, asterisk or "!!!" in a senior's deck or summary with
@@ -368,6 +374,9 @@ export const EXAM_ORIGINS = Object.freeze({
   "Equine Sx concept deck (Vet 85 annotated slides)": { kind: 'source-doc' },
   "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2569 เรื่อง infectious diseases and biosecurity": { kind: 'source-doc' },
   "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2569 เรื่อง pythiosis": { kind: 'source-doc' },
+  "เขียนขึ้นจากเลคเชอร์ Epidemiology ปี 2569 เรื่อง The Future Veterinarian": { kind: 'source-doc' },
+  "เขียนขึ้นจากเลคเชอร์ Epidemiology ปี 2569 เรื่อง Module 1 Diagnostic Tools": { kind: 'source-doc' },
+  "เขียนขึ้นจากเลคเชอร์ Epidemiology ปี 2569 เรื่อง Agreement of test": { kind: 'source-doc' },
   "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2568 เรื่อง pathological conditions of the equine foot": { kind: 'source-doc' },
   "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2568 เรื่อง tendon and ligament injuries and treatment": { kind: 'source-doc' },
   "เขียนขึ้นจากเลคเชอร์ Swine Medicine ปี 2569 เรื่อง trichinosis": { kind: 'source-doc' },

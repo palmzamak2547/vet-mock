@@ -204,7 +204,7 @@ const LENGTH_STRATEGY_BUDGET = Object.freeze({
     poultry: 44,
     practrum: 44,
     'repro-lect': 41,
-    'food-industry': 38,
+    'food-industry': 36,
     surg3: 38,
     'vet-juris': 36,
     exotic: 35,
