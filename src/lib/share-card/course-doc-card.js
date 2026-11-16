@@ -400,7 +400,8 @@ function teachingBody(card, doc, rows, y, o) {
     }
     // At the smallest Latin size: "09:00–09:30" one size up filled the column
     // to within a few pixels, and an engine whose digits set wider cut it.
-    if (r.time && r.kind !== 'exam') d = para(card, cut, r.time, COL.date, d + 4, dateW, { weight: 400, size: MIN.latin, family: FAMILY.numeral, color: pal.soft }, { maxLines: 1 }).lineBottom;
+    // Hours set in the numeral face; "ไม่ทราบเวลา" in the Thai text face at the Thai minimum.
+    if (r.time && r.kind !== 'exam') d = para(card, cut, r.time, COL.date, d + 4, dateW, /^\d/.test(r.time) ? { weight: 400, size: MIN.latin, family: FAMILY.numeral, color: pal.soft } : { weight: 500, size: MIN.thai, color: pal.soft }, { maxLines: 1 }).lineBottom;
     const w = r.lecturers ? names(card, cut, r.lecturers, COL.who, y0, whoW, { weight: 500, size: MIN.thai, color: r.kind === 'exam' ? pal.ink : pal.soft }).lineBottom : y0;
     // A note and an announced change run under the title and the lecturers,
     // title to edge, beside a date column that may run longer.
