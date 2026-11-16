@@ -575,6 +575,11 @@ export async function scanContrast({ maxScreens = 6 } = {}) {
   for (let step = 0; step < steps; step += 1) {
     window.scrollTo(0, step * vh);
     await frame();
+    // Text that fades in as it scrolls into view was read halfway through its fade (the landing at
+    // 1.0 to 1.6:1): wait, up to 2.5 s, for every animation of a set length that is running now.
+    await frame();
+    const fading = document.getAnimations().filter((an) => an.playState === 'running' && Number.isFinite(an.effect?.getComputedTiming?.().endTime));
+    if (fading.length) await Promise.race([Promise.all(fading.map((an) => an.finished.catch(() => {}))), new Promise((r) => setTimeout(r, 2500))]);
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
     const range = document.createRange();
     for (let n = walker.nextNode(); n; n = walker.nextNode()) {

@@ -127,7 +127,10 @@ export default function ExamCountdown({ window: w, subjects = [], onOpenSchedule
         </span>
         {!hoursOnly && (
           <span className="vmx-countdown-num" aria-hidden="true">
-            {shown}<span className="vmx-countdown-unit">วัน</span>
+            {/* The count rolls up from 0: its box holds the final number's
+                width, so the unit beside it does not slide as digits are added. */}
+            <span style={{ display: 'inline-block', minWidth: `${String(clock.days).length}ch`, textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>{shown}</span>
+            <span className="vmx-countdown-unit">วัน</span>
           </span>
         )}
         <span className="vmx-countdown-clock" aria-hidden="true">

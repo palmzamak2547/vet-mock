@@ -25,6 +25,8 @@ export default function NextActionCard({
   history,
   pendingResume,
   countdown,
+  // The account or this year's questions are still arriving (HomeView).
+  waiting = false,
   onPickResume,
   onDismissResume,
   onPickExamPrep,
@@ -137,11 +139,11 @@ export default function NextActionCard({
       exam, examUrgent: exam && nextExam.daysLeft <= 1, weakSubject: weak?.[0],
       practiceAvailable: available(exam ? nextExam.subject : weak?.[0] || 'all') });
     return { plan, actions: plan.steps.map(step => ({ kind: step.kind, cta: step.kind === 'sr' ? 'เริ่มทบทวน' : 'เริ่มฝึก',
-      title: step.kind === 'sr' ? `ทบทวนตามรอบ ${step.count} ข้อ`
-        : step.kind === 'wrong' ? `ทบทวนข้อผิด ${step.count} ข้อ`
-        : step.kind === 'exam' ? `เตรียม ${examName} ${step.count} ข้อ`
-        : step.kind === 'weak' ? `ฝึก ${subjects?.find(s => s.id === step.subject)?.name || step.subject} ${step.count} ข้อ`
-        : `ฝึกโจทย์ ${step.count} ข้อ`,
+      title: step.kind === 'sr' ? `ทบทวนตามรอบ ${step.count}\u00a0ข้อ`
+        : step.kind === 'wrong' ? `ทบทวนข้อผิด ${step.count}\u00a0ข้อ`
+        : step.kind === 'exam' ? `เตรียม ${examName} ${step.count}\u00a0ข้อ`
+        : step.kind === 'weak' ? `ฝึก ${subjects?.find(s => s.id === step.subject)?.name || step.subject} ${step.count}\u00a0ข้อ`
+        : `ฝึกโจทย์ ${step.count}\u00a0ข้อ`,
       sub: `${step.kind === 'exam' ? `กำหนดสอบ ${fmtThaiDate(nextExam.date)}`
         : step.kind === 'sr' ? 'ถึงรอบทบทวนในช่วงที่เลือก'
         : step.kind === 'wrong' ? 'ข้อที่ยังตอบผิดจากประวัติการฝึก'
@@ -265,6 +267,13 @@ export default function NextActionCard({
       </header>
 
       <div className={`vmx-next-actions-layout${showExamContext ? ' has-exam' : ''}`}>
+        {waiting ? (
+          // The place of a plan of three steps, the common one for a student
+          // with history, so the page does not move when it is drawn.
+          <div className="vmx-next-actions-plan vmx-next-actions-wait" role="status" aria-busy="true">
+            <span style={{ color: 'var(--clr-ink-soft)', fontSize: 'var(--text-sm)' }}>กำลังจัดแผนจากประวัติการฝึก</span>
+          </div>
+        ) : (
         <div className="vmx-next-actions-plan">
           {renderAction(primaryAction, { primary: true })}
 
@@ -274,6 +283,7 @@ export default function NextActionCard({
             </div>
           )}
         </div>
+        )}
 
         {showExamContext && (
           <button
@@ -304,7 +314,7 @@ export default function NextActionCard({
         )}
       </div>
 
-      {plan && <p role="status" style={{ margin: 'var(--space-3) 0 0', color: 'var(--clr-ink-soft)', fontSize: 'var(--text-sm)', lineHeight: 1.6 }}>
+      {plan && !waiting && <p role="status" style={{ margin: 'var(--space-3) 0 0', color: 'var(--clr-ink-soft)', fontSize: 'var(--text-sm)', lineHeight: 1.6 }}>
         เผื่ออ่านเฉลย {plan.reviewMinutes} นาที, แผนปรับตามผลหลังฝึกแต่ละชุด
       </p>}
 

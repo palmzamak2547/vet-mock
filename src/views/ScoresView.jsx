@@ -104,7 +104,9 @@ export default function ScoresView({ goHome }) {
 function ScoreCell({ label, value, color }) {
   if (value === null || value === undefined) {
     return (
-      <div style={{ padding: 10, background: 'var(--clr-bg)', borderRadius: 8, textAlign: 'center', opacity: 0.4 }}>
+      // A part this course does not have: an outline instead of a fill, so it
+      // reads as empty without fading its words below a readable contrast.
+      <div style={{ padding: 9, background: 'transparent', border: '1px dashed var(--clr-border)', borderRadius: 8, textAlign: 'center' }}>
         <div style={{ fontSize: 14, fontFamily: 'var(--vmx-sans)', color: 'var(--clr-ink-soft)', marginBottom: 4 }}>{label}</div>
         <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>—</div>
       </div>
