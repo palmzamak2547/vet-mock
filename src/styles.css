@@ -2896,7 +2896,8 @@ html.dark .vmx-panic-scrim {
 @media (min-width: 1024px) {
   .vmx-q-with-passage {
     display: grid;
-    grid-template-columns: minmax(300px, 42%) 1fr;
+    /* 320 px holds the pane's seven 44 px tools on one row: a second row hid the text under it. */
+    grid-template-columns: minmax(320px, 42%) 1fr;
     gap: 24px;
     align-items: start;
   }
@@ -5136,7 +5137,8 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
 .vmx-case-full { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; min-width: 44px; padding: 0 10px; border: 0; border-radius: var(--r-sm); background: transparent; color: var(--clr-ink); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; touch-action: manipulation; }
 .vmx-case-full:hover { background: var(--clr-gold-soft); }
 .vmx-case-note { margin: 0; padding: 8px 14px; font-size: 14px; color: var(--clr-rose-text); }
-.vmx-case-tools.is-row { box-sizing: border-box; min-height: 49px; display: flex; flex-wrap: wrap; align-items: center; gap: 0; padding: 2px 4px; background: var(--clr-surface); border-bottom: 1px solid var(--clr-border); }
+.vmx-case-tools.is-row { box-sizing: border-box; min-height: 49px; display: flex; flex-wrap: wrap; align-items: center; gap: 0; padding: 2px; background: var(--clr-surface); border-bottom: 1px solid var(--clr-border); }
+.vmx-case-tools.is-retry { width: 100%; border: 0; font: inherit; color: var(--clr-ink); cursor: pointer; }
 .vmx-case-tool { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 6px; box-sizing: border-box; width: 44px; height: 44px; padding: 0; border: 0; border-radius: var(--r-sm); background: transparent; color: var(--clr-ink); font: inherit; font-size: 14px; cursor: pointer; touch-action: manipulation; }
 .vmx-case-tool[aria-pressed="true"] { background: var(--clr-gold-soft); color: var(--clr-ink); }
 .vmx-case-tool:disabled { opacity: 0.4; cursor: not-allowed; }

@@ -10,7 +10,7 @@ import { loadModule, mount as mountNow, settle, findAll, textOf } from '../helpe
 // The pane's tools load with the case, a moment after it draws.
 async function mount(Comp, props) { const inst = mountNow(Comp, props); await settle(inst); return inst; }
 import { QB_ENGPROF } from '../../src/data/questions-engprof.js';
-import { legacyPassageHash, caseKey, marksStorageKey } from '../../src/lib/case-marks.js';
+import { legacyPassageHash, caseKey, marksStorageKey, quoteAt } from '../../src/lib/case-marks.js';
 
 const A = QB_ENGPROF.find((q) => q.passage);
 const B = QB_ENGPROF.find((q) => q.passage && q.passage !== A.passage);
@@ -76,6 +76,14 @@ test('the way back from a clear returns the marks to their own case after the ca
   assert.equal(JSON.parse(values.get(keyOf(A))).marks.length, 2, 'A has its marks back');
   pane.update(props(A));
   assert.equal(textOf(marks(pane.tree)[0]), A.passage.slice(0, 8));
+  // Back on A, the restore is the last thing done there: undo takes it back, redo brings it again.
+  button(pane.tree, 'ย้อนกลับ').props.onClick();
+  pane.flush();
+  assert.equal(marks(pane.tree).length, 0, 'undo takes back the restore, not the clear before it');
+  button(pane.tree, 'ทำซ้ำ').props.onClick();
+  pane.flush();
+  assert.equal(marks(pane.tree).length, 1);
+  assert.equal(JSON.parse(values.get(keyOf(A))).marks.length, 2);
   pane.unmount();
 });
 
@@ -151,5 +159,52 @@ test('an undo after a clear ends its way back, so the way back can never take th
   pane.flush();
   assert.equal(marks(pane.tree).length, 1);
   assert.equal(JSON.parse(values.get(keyOf(A))).marks.length, 2);
+  pane.unmount();
+});
+
+test('the toast\'s own ย้อนกลับ brings the cleared marks back, under a name of its own', async () => {
+  const values = seeded();
+  const { CasePane } = await setup(values);
+  const pane = await mount(CasePane, props(A));
+  button(pane.tree, 'ล้างทั้งหมด').props.onClick();
+  pane.flush();
+  const toast = button(pane.tree, 'ย้อนกลับการล้างทั้งหมด');
+  assert.ok(toast, 'the toast names what it takes back');
+  assert.equal(textOf(toast), 'ย้อนกลับ', 'and its name holds the word it shows');
+  assert.equal(findAll(pane.tree, (n) => n.type === 'button' && n.props['aria-label'] === 'ย้อนกลับ').length, 1, 'one button named ย้อนกลับ, the toolbar\'s');
+  toast.props.onClick();
+  pane.flush();
+  assert.equal(marks(pane.tree).length, 1);
+  assert.doesNotMatch(textOf(pane.tree), /ล้างแล้ว/);
+  assert.equal(JSON.parse(values.get(keyOf(A))).marks.length, 2);
+  pane.unmount();
+});
+
+test('undo in an earlier stage of a case never removes a later stage\'s mark', async () => {
+  // The stages of a case share its first 200 characters, so they share one record of marks.
+  const stage1 = A.passage;
+  const stage3 = `${A.passage}
+Rechecked two days later: the swelling had spread to the hock.`;
+  const at = stage3.indexOf('swelling');
+  const early = { id: 'early', kind: 'range', style: 'wash', start: 0, end: 8, color: 'lemon', quote: quoteAt(stage3, 0, 8) };
+  const late = { id: 'late', kind: 'range', style: 'wash', start: at, end: at + 8, color: 'lemon', quote: quoteAt(stage3, at, at + 8) };
+  const values = new Map([[keyOf(A), JSON.stringify({ v: 1, marks: [early, late] })]]);
+  const { CasePane } = await setup(values);
+  const pane = await mount(CasePane, { ...props(A), text: stage3 });
+  assert.equal(marks(pane.tree).length, 2);
+  // At stage 3: clear, then the toast's way back (an op that adds both marks, on stage 3's undo).
+  button(pane.tree, 'ล้างทั้งหมด').props.onClick();
+  pane.flush();
+  button(pane.tree, 'ย้อนกลับการล้างทั้งหมด').props.onClick();
+  pane.flush();
+  assert.equal(marks(pane.tree).length, 2);
+  // Back to stage 1, which shows only the early mark: its undo has nothing of stage 3's to undo.
+  pane.update({ ...props(A), text: stage1 });
+  assert.equal(marks(pane.tree).length, 1);
+  button(pane.tree, 'ย้อนกลับ').props.onClick();
+  pane.flush();
+  assert.deepEqual(JSON.parse(values.get(keyOf(A))).marks.map((m) => m.id).sort(), ['early', 'late'], 'the later stage keeps its mark');
+  pane.update({ ...props(A), text: stage3 });
+  assert.equal(marks(pane.tree).length, 2);
   pane.unmount();
 });

@@ -2,10 +2,11 @@
 // case-marks.js — the marks a student lays on a case
 // ============================================================
 // The case reader (slice 1 of its design): ranges and their
-// quotes, the undo history, the storage key and the one-time adoption of the
-// marks saved before this release. This is what the pane needs to draw a case
-// with its marks; what a hand needs to make them (the word snap, offsets of a
-// point, the reading place) is in ink/case-hand.js, loaded with the case.
+// quotes, the storage key and the one-time adoption of the marks saved before
+// this release. This is what the pane needs to draw a case with its marks;
+// what a hand needs to make them (the word snap, offsets of a point, the
+// reading place, new marks and their undo in case-ops.js) is in
+// ink/case-hand.js, loaded with the case.
 //
 // A highlight is a text range, never a page position:
 //   { id, kind: 'range', style: 'wash', start, end, color, quote: { pre, exact, post } }
@@ -48,30 +49,6 @@ export function marksStorageKey(ownerId, key) {
 /** Who took the marks saved before owner-scoped keys: `{ owner, at }`, set once per device. */
 export const ADOPT_KEY = 'vmx-case-adopt';
 
-// ── colours ─────────────────────────────────────────────────
-// None collides with a verdict (right sage, partial gold, wrong rose). The
-// values are tokens in styles.css (--clr-case-*), so a theme can move them.
-export const RANGE_COLORS = [
-  { id: 'lemon', label: 'เหลือง', dot: 'var(--clr-case-lemon-dot)' },
-  { id: 'sky', label: 'ฟ้า', dot: 'var(--clr-case-sky-dot)' },
-  { id: 'lilac', label: 'ม่วง', dot: 'var(--clr-case-lilac-dot)' },
-];
-export const PEN_COLORS = [
-  { id: 'ink', label: 'ดำ', value: 'var(--clr-case-ink)', token: '--clr-case-ink' },
-  { id: 'ocean', label: 'น้ำเงิน', value: 'var(--clr-case-ocean)', token: '--clr-case-ocean' },
-  { id: 'plum', label: 'ม่วง', value: 'var(--clr-case-plum)', token: '--clr-case-plum' },
-];
-
-/** A pen colour as the canvas needs it: the token's value now, in this theme. */
-export function penInk(id) {
-  const c = PEN_COLORS.find((x) => x.id === id) || PEN_COLORS[0];
-  try {
-    const v = getComputedStyle(document.documentElement).getPropertyValue(c.token).trim();
-    if (v) return v;
-  } catch { /* no document */ }
-  return 'currentColor';
-}
-
 // ── ranges and quotes ───────────────────────────────────────
 const CONTEXT = 16;
 
@@ -91,9 +68,11 @@ const commonHead = (a, b) => { let n = 0; while (n < a.length && n < b.length &&
  * quote. A range past the end of `text` belongs to a longer stage of the case
  * and is not shown here. Otherwise the quote's words are looked for, and a place
  * counts only where enough of the words around them match too: the same word
- * elsewhere in the passage is not the place the student marked.
+ * elsewhere in the passage is not the place the student marked. Half of the 32
+ * characters a quote keeps must match: 8 was met by chance (" in the ", or a
+ * few short Thai syllables), which moved a mark onto the same word elsewhere.
  */
-export const CONTEXT_NEEDED = 8;
+export const CONTEXT_NEEDED = 16;
 export function placeRange(text, mark) {
   const str = String(text ?? '');
   const { start, end, quote } = mark || {};
@@ -155,14 +134,6 @@ export function segmentsFor(str, off, ranges) {
 const isRange = (m) => m && m.kind === 'range' && Number.isInteger(m.start) && Number.isInteger(m.end) && m.end > m.start;
 const isPx = (m) => m && m.kind === 'px' && Array.isArray(m.points);
 
-let idSeq = 0;
-export const newMarkId = () => `m${Date.now().toString(36)}${(idSeq++).toString(36)}${Math.random().toString(36).slice(2, 6)}`;
-
-/** A highlight, the snapped range of `text`, in `color`. */
-export function makeRange(text, { start, end }, color = 'lemon') {
-  return { id: newMarkId(), kind: 'range', style: 'wash', start, end, color, quote: quoteAt(text, start, end) };
-}
-
 const isRecord = (rec) => Boolean(rec) && Array.isArray(rec.marks);
 
 /**
@@ -204,47 +175,3 @@ export function writeCaseMarks(storage, key, marks) {
     return false;
   }
 }
-
-// ── undo and redo ───────────────────────────────────────────
-// One history per case for every kind of mark. An op adds and removes whole
-// marks; undoing it removes what it added and puts back what it removed.
-export const HISTORY_LIMIT = 100;
-
-export function applyOp(marks, op, backward = false) {
-  const add = backward ? op.remove : op.add;
-  const remove = backward ? op.add : op.remove;
-  const gone = new Set((remove || []).map((m) => m.id));
-  const kept = marks.filter((m) => !gone.has(m.id));
-  const have = new Set(kept.map((m) => m.id));
-  return [...kept, ...(add || []).filter((m) => !have.has(m.id))];
-}
-
-export function createHistory(limit = HISTORY_LIMIT) {
-  let done = [];
-  let undone = [];
-  return {
-    /** Records an op already applied. A new op ends the redo trail. */
-    push(op) {
-      if (!op || (!op.add?.length && !op.remove?.length)) return;
-      done.push(op);
-      if (done.length > limit) done = done.slice(done.length - limit);
-      undone = [];
-    },
-    undo(marks) {
-      const op = done.pop();
-      if (!op) return null;
-      undone.push(op);
-      return applyOp(marks, op, true);
-    },
-    redo(marks) {
-      const op = undone.pop();
-      if (!op) return null;
-      done.push(op);
-      return applyOp(marks, op, false);
-    },
-    get canUndo() { return done.length > 0; },
-    get canRedo() { return undone.length > 0; },
-    clear() { done = []; undone = []; },
-  };
-}
-

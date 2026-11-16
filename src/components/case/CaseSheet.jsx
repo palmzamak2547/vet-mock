@@ -2,12 +2,11 @@ import { useEffect, useLayoutEffect, useRef, useState, useId } from 'react';
 import { createPortal } from 'react-dom';
 import NavIcon from '../NavIcon.jsx';
 import CaseText from './CaseText.jsx';
-import CaseTools, { MarkBar, PickBar } from './CaseTools.jsx';
 import RichBlocks from '../RichBlocks.jsx';
 import ZoomableImage from '../ZoomableImage.jsx';
 import ExamClock from '../ExamClock.jsx';
 import { useModalFocus } from '../../hooks/useModalFocus.js';
-import { attachCaseSurface, readingPlace, placeDelta, dropEntry } from '../../lib/ink/case-hand.js';
+import { leaveEntry, ownPop, dropEntry } from '../../lib/case-entry.js';
 import '../../styles-case.css';
 
 // ============================================================
@@ -22,6 +21,9 @@ import '../../styles-case.css';
 // character at the top of the pane sits at its top; closing hands back the
 // character at the top of the sheet, and a rotation keeps it there.
 //
+// What a hand needs (ink/case-hand.js and the tools) comes from the pane as `hand`, the modules the
+// pane loaded: imported here, a download that failed once would keep the sheet shut until a reload.
+//
 // The marks are the pane's (CasePane owns them, their storage and their undo):
 // the sheet shows the same ranges and adds to the same history. Pen strokes
 // stay in the pane until slice 3 anchors them to the words.
@@ -30,8 +32,9 @@ import '../../styles-case.css';
 export default function CaseSheet({
   text, title, ranges, ask, stemBody, figure, clockDeadline, place, onClose,
   policy, penSeen, coarse, phone, rangeColor, penColor, onColor, onRange, onErase, onRecolor, onPenSeen,
-  canUndo, canRedo, onUndo, onRedo, onClear, toast, onUndoClear, entry = { on: false },
+  canUndo, canRedo, onUndo, onRedo, onClear, toast, onUndoClear, entry = { on: false }, hand,
 }) {
+  const { attachCaseSurface, readingPlace, placeDelta, Tools: CaseTools, MarkBar, PickBar } = hand;
   const scrollRef = useRef(null);
   const textRef = useRef(null);
   const wetRef = useRef(null);
@@ -47,26 +50,25 @@ export default function CaseSheet({
     const sc = scrollRef.current;
     return sc && textRef.current ? readingPlace(textRef.current, sc.getBoundingClientRect().top) : placeRef.current;
   };
-  // Back closes the sheet first, in practice and in a paper, and never leaves the set: the sheet stands on
-  // a history entry of its own, and the popstate that leaves it is the sheet's alone. Its buttons and
-  // Escape go back through that entry, so the browser's history stays as it was before the sheet.
+  // Back closes the sheet first, in practice and in a paper, and never leaves the set (lib/case-entry.js).
+  // Its buttons and Escape go back through its entry, so the browser's history stays as it was before it.
   const closeRef = useRef(null);
   closeRef.current = () => onClose(here());
   useEffect(() => {
     const onPop = (e) => {
-      if (!entry.on) return;
-      entry.on = false;
+      if (!ownPop(entry)) return;
       e.stopImmediatePropagation();
       closeRef.current();
     };
     window.addEventListener('popstate', onPop, true);
     return () => {
       window.removeEventListener('popstate', onPop, true);
-      // Closed from the card (another question): take the entry back without the app hearing it.
+      // Closed from the card (another question, the paper's end), or while its own close is on the way
+      // back: the entry goes without the app hearing it, and never twice.
       dropEntry(entry);
     };
   }, [entry]);
-  const close = () => { if (entry.on) window.history.back(); else closeRef.current(); };
+  const close = () => { if (!leaveEntry(entry)) closeRef.current(); };
   const dialogRef = useModalFocus({ active: true, onClose: close, initialFocusRef: backRef });
 
   // Open at the pane's character; keep it on top through a rotation or a resize.
@@ -206,7 +208,7 @@ export default function CaseSheet({
       {toast && (
         <div className="vmx-case-toast is-sheet" role="status">
           <span>ล้างแล้ว {toast.n} รอย</span>
-          <button type="button" className="vmx-case-toast-undo" onClick={onUndoClear}>ย้อนกลับ</button>
+          <button type="button" className="vmx-case-toast-undo" onClick={onUndoClear} aria-label="ย้อนกลับการล้างทั้งหมด">ย้อนกลับ</button>
         </div>
       )}
     </div>

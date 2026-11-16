@@ -7,7 +7,7 @@
 import { test, expect } from './fixtures.js';
 import { bankFiles, readBank } from '../../scripts/lib/bank-file.mjs';
 import { splitBlocks } from '../../src/lib/rich-blocks.js';
-import { caseKey, marksStorageKey } from '../../src/lib/case-marks.js';
+import { caseKey, marksStorageKey, legacyPassageHash } from '../../src/lib/case-marks.js';
 
 test.setTimeout(120_000);
 
@@ -201,6 +201,21 @@ async function dragAcross(page, rootSel, fromOff, toOff, pointerType = 'mouse') 
   const vh = await page.evaluate(() => window.innerHeight);
   if (first.top < 80 || first.bottom > vh - 120) await page.evaluate((dy) => window.scrollBy(0, dy), first.top - vh / 3);
   await page.evaluate(() => new Promise((done) => requestAnimationFrame(() => requestAnimationFrame(done))));
+  // In the pane, the words must also lie below its top bar (which the text scrolls under) and above the
+  // bottom of the pane where the pane scrolls on its own.
+  if (rootSel === PANE) {
+    const seen = await page.evaluate(() => {
+      const pane = document.querySelector('.vmx-q-passage-pane');
+      const scrolls = pane.scrollHeight > pane.clientHeight + 1 && getComputedStyle(pane).overflowY !== 'visible';
+      return { top: document.querySelector('.vmx-case-top').getBoundingClientRect().bottom, bottom: scrolls ? pane.getBoundingClientRect().bottom : window.innerHeight, scrolls };
+    });
+    const now = await charBox(page, rootSel, fromOff);
+    if (now.top < seen.top + 8 || now.bottom > seen.bottom - 40) {
+      const dy = now.top - (seen.top + 40);
+      await page.evaluate(([dy, scrolls]) => { if (scrolls) document.querySelector('.vmx-q-passage-pane').scrollTop += dy; else window.scrollBy(0, dy); }, [dy, seen.scrolls]);
+      await page.evaluate(() => new Promise((done) => requestAnimationFrame(() => requestAnimationFrame(done))));
+    }
+  }
   const a = await charBox(page, rootSel, fromOff);
   const b = await charBox(page, rootSel, toOff);
   const ax = a.left + 2; const ay = a.top + a.height / 2;
@@ -247,6 +262,8 @@ for (const size of SIZES) {
       await expect(page.getByRole('dialog')).toBeVisible();
       root = SHEET;
     } else {
+      // The pane's seven tools sit on one row: a second row covered the first lines of the case.
+      expect(await page.locator('.vmx-q-passage-pane .vmx-case-tools').evaluate((el) => el.offsetHeight)).toBeLessThan(60);
       await page.locator('.vmx-q-passage-pane').getByRole('button', { name: 'ปากกาไฮไลต์' }).click();
     }
     await dragAcross(page, root, from, to, size.width >= 768 && size.width < 1280 ? 'pen' : 'mouse');
@@ -265,9 +282,12 @@ for (const size of SIZES) {
     }, q.passage);
     expect(bounds).toContain(range[0]);
     expect(bounds).toContain(range[1]);
-    // And it covers the words dragged across: from inside the first to inside the last, both whole.
+    // And it covers the words dragged across, from inside the first to inside the last, both whole,
+    // and no more: from the boundary at or before the drag's start to the first one after its end.
     expect(range[0]).toBeLessThanOrEqual(from);
     expect(range[1]).toBeGreaterThan(to - 1);
+    expect(range[0]).toBeGreaterThanOrEqual(Math.max(...bounds.filter((b) => b <= from)));
+    expect(range[1]).toBeLessThanOrEqual(Math.min(...bounds.filter((b) => b > to - 1)));
     expect(text).toContain('สัตวแพทย์');
     expect((await marks.allTextContents()).join('')).toBe(text);
 
@@ -389,8 +409,10 @@ test('inside a running timed exam the sheet changes neither the clock nor the an
   await expect(page.locator('.vmx-sr-only[role="status"]')).toHaveText('ข้อ 1 จาก 2');
   await page.keyboard.press('Escape');
   await expect(sheet).toHaveCount(0);
-  // The deadline as the session keeps it: the same instant (a re-save may round it below a millisecond).
-  expect(Math.abs((await deadline()) - deadlineBefore)).toBeLessThan(5);
+  // The deadline as the session keeps it: the same instant. A re-save converts the exam's own clock to the
+  // wall clock (deadlineOnWall), and Firefox's two clocks disagree by up to a frame (16 ms seen); a sheet that
+  // reset or paused the clock would move it by seconds.
+  expect(Math.abs((await deadline()) - deadlineBefore)).toBeLessThan(50);
   expect(await page.locator('.vmx-option[aria-pressed="true"], .vmx-option.selected, .vmx-option[aria-checked="true"]').count()).toBe(picked);
   await expect(page.locator('.vmx-sr-only[role="status"]')).toHaveText('ข้อ 1 จาก 2');
   await expect(timer).toBeVisible();
@@ -489,12 +511,28 @@ test.describe('with the page clock in the test\'s hand', () => {
   // page.clock does not stack with the pinned calendar of fixtures.js.
   test.use({ pinCalendar: false });
 
-  test('a question whose time runs out with the sheet open closes the sheet, and its notice is in view', async ({ page }) => {
-    await resumePaper(page, { timePerQ: 60 });
+  for (const size of [{ width: 1180, height: 820 }, { width: 390, height: 664 }]) test(`${size.width}: a question whose time runs out with the sheet open closes the sheet, and its notice is in view`, async ({ page }) => {
+    await resumePaper(page, { timePerQ: 60, size });
     await page.clock.install();
-    await page.locator('.vmx-q-passage-pane').getByRole('button', { name: 'อ่านเต็มจอ' }).click();
+    // The student had read on down the case before opening it: the paper's notice is above the window.
+    // The page may still be growing (its table, its fonts), and the paper's own first frame puts it at the top:
+    // scroll, let two frames pass, and again until the place holds.
+    await expect.poll(() => page.locator('.vmx-q-passage-pane .vmx-case-text').evaluate(async (el) => {
+      window.scrollTo(0, window.scrollY + el.getBoundingClientRect().top - 40);
+      await new Promise((done) => requestAnimationFrame(() => requestAnimationFrame(done)));
+      return window.scrollY;
+    }), { timeout: 15_000 }).toBeGreaterThan(100);
+    // A tap where the button sits, stuck at the top of the window (a scripted click scrolls it to its own place first).
+    await page.locator('.vmx-q-passage-pane').getByRole('button', { name: 'อ่านเต็มจอ' }).evaluate((el) => el.click());
     const sheet = page.getByRole('dialog');
     await expect(sheet).toBeVisible();
+    // The page under the sheet stays down the case (headless WebKit now and then reports it at the top once the
+    // sheet is up; the sheet covers it, and its own close puts the page back): hold it there before time runs out.
+    await expect.poll(() => page.locator('.vmx-q-passage-pane .vmx-case-text').evaluate(async (el) => {
+      if (window.scrollY < 100) window.scrollTo(0, window.scrollY + el.getBoundingClientRect().top - 40);
+      await new Promise((done) => requestAnimationFrame(() => requestAnimationFrame(done)));
+      return window.scrollY;
+    }), { timeout: 15_000 }).toBeGreaterThan(100);
     await page.clock.setSystemTime(Date.now() + 120_000);
     await page.clock.runFor(1100);
     await expect(page.locator('.vmx-sr-only[role="status"]')).toHaveText('ข้อ 2 จาก 2');
@@ -563,3 +601,46 @@ test('in finger writing, a second finger that lands late still turns the stroke 
   }
   expect(await scroller.evaluate((el) => el.scrollTop)).toBeGreaterThan(before + 40);
 });
+
+// A download of the hand's code that fails (an offline moment, a release between page load and tap):
+// the pane says so where its tools go, a tap tries again, and the marks saved before 5.240.0 then appear.
+test('a failed download of the case code is tried again, and the old marks then appear', async ({ page, browserName }) => {
+  test.skip(browserName === 'webkit', 'Playwright WebKit never asks again for a module that failed once');
+  await page.setViewportSize({ width: 1280, height: 800 });
+  const q = await byId(209588);
+  const at = q.passage.indexOf('ไร่ฝึกสัตวแพทย์');
+  await page.addInitScript(([key, at]) => {
+    if (localStorage.getItem(`${key}-hl`)) return;
+    localStorage.setItem(`${key}-hl`, JSON.stringify([{ id: 'old', start: at, end: at + 6, color: 'yellow' }]));
+  }, [`vmx-pass-${legacyPassageHash(q.passage)}`, at]);
+  let blocked = true;
+  await page.route(/\/assets\/case-hand-[^/]*\.js/, (route) => (blocked ? route.abort('internetdisconnected') : route.continue()));
+  const pin = { id: 1, type: 'question', label: 'เคสที่ปักไว้', payload: { id: q.id, subject: q.subject, stem: q.q }, addedAt: 1 };
+  await page.addInitScript(([seed, year]) => {
+    if (localStorage.getItem('case-reader-seeded')) return;
+    localStorage.setItem('case-reader-seeded', '1');
+    localStorage.setItem('vmx-selected-year', String(year));
+    localStorage.setItem('vmx-seen-landing', '1');
+    localStorage.setItem('vmx-consent', JSON.stringify('essential'));
+    localStorage.setItem('vmx-pinboard', JSON.stringify([seed]));
+  }, [pin, q.year]);
+  await page.goto('/app/pinboard', { waitUntil: 'domcontentloaded' });
+  await page.getByRole('button').filter({ has: page.getByText('เคสที่ปักไว้', { exact: true }) }).click();
+  await expect(page.locator('.vmx-q-passage-pane [data-off]').first()).toBeVisible({ timeout: 30_000 });
+  const retry = page.locator('.vmx-q-passage-pane').getByRole('button', { name: /โหลดเครื่องมือเขียนไม่สำเร็จ/ });
+  await expect(retry).toBeVisible();
+  blocked = false;
+  await retry.click();
+  await expect(page.locator('.vmx-q-passage-pane').getByRole('button', { name: 'ปากกาไฮไลต์' })).toBeVisible();
+  await expect(page.locator(`${PANE} mark`).first()).toBeVisible();
+  // The sheet opens too, with the same mark, and its close leaves no extra Back step.
+  const before = await page.evaluate(() => window.history.length);
+  await page.locator('.vmx-q-passage-pane').getByRole('button', { name: 'อ่านเต็มจอ' }).click();
+  await expect(page.getByRole('dialog')).toBeVisible();
+  await expect(page.locator(`${SHEET} mark`).first()).toBeVisible();
+  await page.getByRole('button', { name: 'กลับไปที่คำถาม' }).click();
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  expect(await page.evaluate(() => Boolean(window.history.state?.vmxCaseSheet))).toBe(false);
+  expect(await page.evaluate(() => window.history.length)).toBe(before + 1);
+});
+

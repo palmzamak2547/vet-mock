@@ -13,8 +13,11 @@
 // the finger switch on, one finger marks and two fingers scroll; a stroke
 // that a second finger joins, at any moment before it is committed, is dropped.
 // ============================================================
-import { quoteAt, legacyPassageHash, ADOPT_KEY } from '../case-marks.js';
+import { quoteAt, legacyPassageHash, ADOPT_KEY, writeCaseMarks } from '../case-marks.js';
+import { applyOp, historyFor, makeRange, newMarkId, penInk } from '../case-ops.js';
 import { readStoredJson } from '../stored-json.js';
+
+export { applyOp, historyFor, makeRange, newMarkId, penInk } from '../case-ops.js';
 
 // ── the word snap ───────────────────────────────────────────
 // Thai has no spaces: word boundaries come from the segmenter. A browser
@@ -407,7 +410,13 @@ export function attachCaseSurface(root, wet, opts) {
     opts.onRange(r);
     window.getSelection?.().removeAllRanges();
   };
-  const onTouchEnd = () => { setTimeout(() => opts.onPicked?.(selectedRange(root, opts.state().text)), 0); };
+  const onTouchEnd = (e) => {
+    // Every finger is off the glass: no finger is down, whatever its pointerup missed. A finger whose
+    // capture a dropped stroke released can lift outside the text, and its stale entry would make the
+    // next single touch a "second finger", so one finger would never write again.
+    if (!e.touches?.length) { fingers.clear(); pan = null; }
+    setTimeout(() => opts.onPicked?.(selectedRange(root, opts.state().text)), 0);
+  };
 
   root.addEventListener('pointerdown', onDown);
   root.addEventListener('pointermove', onMove);
@@ -554,17 +563,137 @@ export function restoreOp(marks, removed) {
 
 /**
  * The way back from a clear, for a case the card has left: its marks go back under its own key, unless
- * its record cannot be read, which is never written over.
+ * its record cannot be read, which is never written over. The restore goes on that view's undo history
+ * (`history`) as the toast's own restore does, so its next undo takes back the restore, not the clear.
  */
-export function restoreElsewhere(storage, key, removed, { readStoredJson, writeCaseMarks, applyOp }) {
+export function restoreElsewhere(storage, key, removed, history) {
   try {
     const present = storage.getItem(key) != null;
     const rec = readStoredJson(key, null, { storage, accept: (r) => Array.isArray(r?.marks) });
     if (present && !rec) return;
     const marks = rec ? rec.marks : [];
     const op = restoreOp(marks, removed);
-    if (op) writeCaseMarks(storage, key, applyOp(marks, op));
+    if (op && writeCaseMarks(storage, key, applyOp(marks, op))) history?.push(op);
   } catch { /* storage refused: nothing else to do */ }
+}
+
+// ── the pane's actions on its marks ─────────────────────────
+// What the pane does with a mark once a hand made one: kept here, loaded with the hand, so none of it is in
+// the exam's own chunk. `p` is the pane's: { cur (its marks: { key, marks, ok }), set(next), text, ranges,
+// strokes, saveFailed(), bump(), toast (the clear's way back, or null), setToast(t), timer, storage }.
+
+/** Writes the marks; a record that could not be read is never written over: marks made then live in memory. */
+function saveMarks(p, cur, marks) {
+  const s = p.storage();
+  if (!cur.ok || !s || !writeCaseMarks(s, cur.key, marks)) p.saveFailed();
+}
+
+/** Any other change ends a clear's way back: its marks may be back already, or meant to stay gone. */
+export function dropToast(p) {
+  clearTimeout(p.timer);
+  if (p.toast) p.setToast(null);
+}
+
+function put(p, cur, marks) {
+  const next = { ...cur, marks };
+  p.set(next);
+  saveMarks(p, cur, marks);
+  p.bump();
+}
+
+/** Applies an op to the pane's marks, saves them, and records it on this case's undo (per text). */
+export function commitOp(p, op, { record = true, fromToast = false } = {}) {
+  const cur = p.cur;
+  if (!cur.key) return;
+  if (!fromToast) dropToast(p);
+  put(p, cur, applyOp(cur.marks, op));
+  if (record) historyFor(cur.key, p.text).push(op);
+}
+
+/** Undo and redo hand back the whole set of marks. */
+export function replaceMarks(p, marks) {
+  if (!p.cur.key || !marks) return;
+  dropToast(p);
+  put(p, p.cur, marks);
+}
+
+/** A highlight; a range already wholly marked adds nothing (a tap that ran a little long would stack a hidden copy). */
+export function addRange(p, range, color) {
+  if (p.ranges.some((m) => m.start <= range.start && m.end >= range.end)) return;
+  commitOp(p, { add: [makeRange(p.text, range, color)], remove: [] });
+}
+
+export function eraseIds(p, ids) {
+  const gone = new Set(ids);
+  commitOp(p, { add: [], remove: p.cur.marks.filter((m) => gone.has(m.id)) });
+}
+
+export function recolor(p, id, color) {
+  const m = p.cur.marks.find((x) => x.id === id);
+  if (!m || m.color === color) return;
+  commitOp(p, { add: [{ ...m, color, id: newMarkId() }], remove: [m] });
+}
+
+/**
+ * Clear removes what this view shows: the marks of another stage of the case, unseen here, stay. The sheet
+ * clears its highlights only, since it does not show the pane's pen strokes. Its way back stays 8 seconds.
+ */
+export function clearAll(p, strokesToo = true) {
+  const cur = p.cur;
+  const visible = new Set([...p.ranges.map((m) => m.id), ...(strokesToo ? p.strokes.map((m) => m.id) : [])]);
+  const removed = cur.marks.filter((m) => visible.has(m.id));
+  if (!removed.length) return;
+  commitOp(p, { add: [], remove: removed });
+  const t = { key: cur.key, text: p.text, removed, n: removed.length };
+  p.setToast(t);
+  p.timer = setTimeout(() => p.setToast(null), 8000);
+}
+
+/** The clear's way back: onto this case, or, after the card moved on, onto the case it came from and its undo. */
+export function undoClear(p) {
+  const t = p.toast;
+  dropToast(p);
+  if (!t) return;
+  if (t.key === p.cur.key) {
+    const op = restoreOp(p.cur.marks, t.removed);
+    if (op) commitOp(p, op, { fromToast: true });
+    return;
+  }
+  const s = p.storage();
+  if (s) restoreElsewhere(s, t.key, t.removed, historyFor(t.key, t.text));
+}
+
+/** The pane's pen strokes on its canvas, drawn now and again whenever the text box changes size. */
+export function watchStrokes(p, box, canvas) {
+  const redraw = () => drawPixelStrokes(canvas, box, p.strokes);
+  redraw();
+  if (!box || typeof ResizeObserver === 'undefined') return undefined;
+  const ro = new ResizeObserver(redraw);
+  ro.observe(box);
+  return () => ro.disconnect();
+}
+
+/** The hand on the pane's text: the tool and colours the pane holds now, its pen on the pane's canvas. */
+export function attachPane(p, root, wet, box, canvas, policy) {
+  if (!box) return undefined;
+  return attachCaseSurface(root, wet, {
+    policy,
+    state: () => ({ tool: p.phone ? 'none' : p.tool, writeSwitch: false, penEnabled: true, text: p.text, ranges: p.ranges, scroller: scrollerOf(box) || window }),
+    onRange: (range) => addRange(p, range, p.rangeColor),
+    onErase: (ids) => eraseIds(p, ids),
+    onMarkTap: (id, rect) => p.markTap({ id, rect }),
+    onPicked: (r) => p.picked(r || null),
+    onPenSeen: () => p.penSeen(),
+    pen: pixelPen({
+      box,
+      canvas: () => canvas,
+      strokes: () => p.strokes,
+      color: () => penInk(p.penColor),
+      commit: (stroke) => commitOp(p, { add: [stroke], remove: [] }),
+      redraw: () => drawPixelStrokes(canvas, box, p.strokes),
+      newId: newMarkId,
+    }),
+  });
 }
 
 // ── the marks saved before owner-scoped keys ────────────────
@@ -589,22 +718,6 @@ export function convertLegacy(text, hlRaw, drRaw) {
     marks.push({ id: `legacy-dr-${i}`, kind: 'px', color: s.color, width: s.width, points: s.points, legacy: 1 });
   });
   return marks;
-}
-
-/**
- * Takes the sheet's history entry back without the app hearing the popstate (the app reads Back in a
- * paper as leaving the set). For a sheet closed by the card, not by Back.
- */
-export function dropEntry(entry) {
-  if (!entry?.on) return;
-  entry.on = false;
-  // Only while the sheet's entry is still the one the page stands on: if the app moved on to a page of
-  // its own (the results), going back would take the student off it.
-  if (!window.history.state?.vmxCaseSheet) return;
-  const swallow = (e) => { e.stopImmediatePropagation(); window.removeEventListener('popstate', swallow, true); };
-  window.addEventListener('popstate', swallow, true);
-  setTimeout(() => window.removeEventListener('popstate', swallow, true), 1000);
-  window.history.back();
 }
 
 /**

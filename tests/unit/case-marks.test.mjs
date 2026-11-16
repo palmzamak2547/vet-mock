@@ -6,8 +6,9 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import {
   legacyPassageHash, caseKey, marksStorageKey, ADOPT_KEY, readCaseMarks, writeCaseMarks,
-  quoteAt, placeRange, resolveRanges, segmentsFor, makeRange, createHistory, applyOp, HISTORY_LIMIT,
+  quoteAt, placeRange, resolveRanges, segmentsFor,
 } from '../../src/lib/case-marks.js';
+import { makeRange, createHistory, applyOp, HISTORY_LIMIT } from '../../src/lib/case-ops.js';
 import { createHandPolicy, PEN_SEEN_KEY } from '../../src/lib/handwriting-pad.js';
 import { snapRange, adoptLegacy } from '../../src/lib/ink/case-hand.js';
 import { proseBlocks } from '../../src/lib/rich-blocks.js';
@@ -101,6 +102,21 @@ test('a mark is never moved onto the same word elsewhere when nothing around it 
   assert.equal(placeRange(edited.slice(0, at - 10) + 'ZZZZZZZZZZ lameness QQQQQQQQ', mark), null);
   const { shown, unplaced } = resolveRanges(stage1, [mark]);
   assert.deepEqual([shown.length, unplaced.length], [0, 1]);
+});
+
+test('eight characters that match by chance do not place a mark', () => {
+  // The marked words were cut by a release edit. The same word further on shares " in the " (8
+  // characters) with the quote's context and nothing else: it is not the place the student marked.
+  const before = 'Grade 2 lameness in the left fore after work. The farrier saw grade 3 lameness in the right hind.';
+  const at = before.indexOf('lameness');
+  const mark = makeRange(before, { start: at, end: at + 'lameness'.length });
+  const after = before.slice(before.indexOf('The farrier'));
+  assert.equal(placeRange(after, mark), null, 'hidden, never moved');
+  // The same edit that leaves the words and their context in place still finds the mark.
+  const kept = `Seen on Monday. ${before}`;
+  const found = placeRange(kept, mark);
+  assert.equal(kept.slice(found.start, found.end), 'lameness');
+  assert.equal(found.start, kept.indexOf('lameness'));
 });
 
 test('every order of clear, undo, redo and the way back of a clear leaves the marks right', async () => {

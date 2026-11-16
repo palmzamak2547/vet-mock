@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import NavIcon from '../NavIcon.jsx';
-import { PEN_COLORS, RANGE_COLORS } from '../../lib/case-marks.js';
+import { PEN_COLORS, RANGE_COLORS } from '../../lib/case-ops.js';
 
 // ============================================================
 // CaseTools — the case reader's tools, in the three places they sit
