@@ -559,6 +559,24 @@ test.describe('with the page clock in the test\'s hand', () => {
       await new Promise((done) => requestAnimationFrame(() => requestAnimationFrame(done)));
       return window.scrollY;
     }), { timeout: 15_000 }).toBeGreaterThan(100);
+    // A frame callback asked for while the sheet's entry leaves runs at once, before the browser has done anything
+    // of its own for that popstate: the earliest it can run, as when the machine is too busy to draw. The browser
+    // puts the page's old scroll back after it, and the notice must still end in view.
+    await page.evaluate(() => {
+      const frame = window.requestAnimationFrame;
+      let leaving = false;
+      window.addEventListener('popstate', () => {
+        leaving = true;
+        const after = new MessageChannel();
+        after.port1.onmessage = () => { leaving = false; };
+        after.port2.postMessage(0);
+      }, true);
+      window.requestAnimationFrame = (fn) => {
+        if (!leaving) return frame(fn);
+        queueMicrotask(() => fn(performance.now()));
+        return 0;
+      };
+    });
     await page.clock.setSystemTime(Date.now() + 120_000);
     await page.clock.runFor(1100);
     await expect(page.locator('.vmx-sr-only[role="status"]')).toHaveText('ข้อ 2 จาก 2');
