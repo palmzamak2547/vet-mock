@@ -142,6 +142,27 @@ export const SOURCE_DOCS = [
     match: /\bEquine Sx concept\b/,
     editions: [{ id: '62p', pages: 62 }],
   },
+  // Vet 84's own 2567 copies of four Equine decks, with their highlights, underlines, stars and notes.
+  {
+    slug: 'equine-infectious-v84', subject: 'equine-medicine', title: "Eq inf dz 67 (Vet 84 annotated copy)",
+    match: /Eq inf dz 67 ของรุ่นพี่ Vet 84/,
+    editions: [{ id: '75p', pages: 75 }],
+  },
+  {
+    slug: 'equine-ophthalmology-v84', subject: 'equine-medicine', title: "Equine Ophthalmology 67 (Vet 84 annotated copy)",
+    match: /Equine Ophthalmology 67 ของรุ่นพี่ Vet 84/,
+    editions: [{ id: '57p', pages: 57 }],
+  },
+  {
+    slug: 'equine-lameness-v84', subject: 'equine-medicine', title: "Eq lame (Vet 84 annotated copy)",
+    match: /Eq lame ของรุ่นพี่ Vet 84/,
+    editions: [{ id: '84p', pages: 84 }],
+  },
+  {
+    slug: 'equine-diag-analgesia-v84', subject: 'equine-medicine', title: "Diagnostic analgesia in horses (Vet 84 annotated copy)",
+    match: /Diagnostic analgesia ของรุ่นพี่ Vet 84/,
+    editions: [{ id: '41p', pages: 41 }],
+  },
   {
     slug: 'equine-dermatology85', subject: 'equine-medicine', title: 'Equine Dermatology',
     match: /\bEquine Dermatology\b/,
@@ -572,6 +593,11 @@ export const SOURCE_DOCS = [
     slug: 'oh-risk-analysis-2024', subject: 'one-health', title: "Animal and Human Health Risk Analysis (deck 2024)",
     match: /Animal and Human Health Risk Analysis deck 2024/i,
     editions: [{ id: '34p', pages: 34 }],
+  },
+  {
+    slug: 'oh-amr-2024', subject: 'one-health', title: "One health AMR (deck 2024, Vet 84 copy)",
+    match: /One health AMR deck 2024/i,
+    editions: [{ id: '46p', pages: 46 }],
   },
   {
     slug: 'oh-final-summary-vet83', subject: 'one-health', title: "One Health final (Vet 83 summary)",

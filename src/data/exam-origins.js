@@ -331,6 +331,11 @@ export const EXAM_ORIGINS = Object.freeze({
   // Vet 85 drew a star beside single statements in their copy of the 2568 dermatology deck, and their final summary
   // (p. 6) says the dermatology and surgery points were added in the starred slides. A mark, not a paper.
   "Equine Dermatology (Vet 85) stars this point; their summary of the paper refers to the starred slides": { kind: 'aligned' },
+  "Equine Sx concept (Vet 85) stars this point; their summary of the paper refers to the starred slides": { kind: 'aligned' },
+  // Highlights, underlines, stars and red pen on Vet 84's own copies of the 2567 Equine decks; a mark, not a paper.
+  "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides": { kind: 'aligned' },
+  // Highlights, underlines and stars on Vet 84's own copies of the 2567 One Health decks; a mark, not a paper.
+  "One Health final: จุดที่รุ่นพี่ Vet 84 ไฮไลต์ ขีดเส้นใต้ หรือติดดาวในสไลด์ของตน": { kind: 'aligned' },
   // Equine Repro final marked points (5.254.0): a star, asterisk, underline or highlight on a senior's copy of a
   // final-topic deck or summary (Vet 84 annotated decks, the starred K1-4 mind maps, the Vet 81, 83 and 85
   // summaries). A mark, not a paper.

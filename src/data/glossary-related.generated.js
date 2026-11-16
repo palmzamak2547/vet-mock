@@ -2484,6 +2484,9 @@ const LEAVES = [
  // ["salmonella|universal","one-health","oh-amr"]
  [105958],
  // end ["salmonella|universal","one-health","oh-amr"]
+ // ["salmonella|universal","one-health","oh-foodborne"]
+ [218603],
+ // end ["salmonella|universal","one-health","oh-foodborne"]
  // ["salmonella|universal","one-health","oh-risk-analysis"]
  [210046],
  // end ["salmonella|universal","one-health","oh-risk-analysis"]
@@ -4265,6 +4268,9 @@ const LEAVES = [
  // ["colic|equine","equine-medicine","equine-gi"]
  [107414,107415,209625,209626],
  // end ["colic|equine","equine-medicine","equine-gi"]
+ // ["colic|equine","equine-medicine","equine-infectious"]
+ [218504],
+ // end ["colic|equine","equine-medicine","equine-infectious"]
  // ["colic|equine","equine-medicine","equine-nutrition"]
  [202066,207515,209624],
  // end ["colic|equine","equine-medicine","equine-nutrition"]
@@ -4302,7 +4308,7 @@ const LEAVES = [
  // end of "ehv-1|equine"
  "eia|equine",
  // ["eia|equine","equine-medicine","equine-infectious"]
- [216001,216002,216004,209567,209641],
+ [216001,216002,216004,218504,218511,218512,218515,209567,209641],
  // end ["eia|equine","equine-medicine","equine-infectious"]
  // ["eia|equine","equine-medicine","equine-poa"]
  [105273,209599],
@@ -4414,6 +4420,9 @@ const LEAVES = [
  // ["sarcoid|equine","equine-medicine","equine-derm"]
  [105228,105236,105237,105242,105243,105246,105250],
  // end ["sarcoid|equine","equine-medicine","equine-derm"]
+ // ["sarcoid|equine","equine-medicine","equine-ophth"]
+ [218526],
+ // end ["sarcoid|equine","equine-medicine","equine-ophth"]
  // ["sarcoid|equine","equine-medicine","equine-poa"]
  [105281],
  // end ["sarcoid|equine","equine-medicine","equine-poa"]
@@ -4423,7 +4432,7 @@ const LEAVES = [
  // end of "sarcoid|equine"
  "strangles|equine",
  // ["strangles|equine","equine-medicine","equine-infectious"]
- [216004,209643],
+ [216004,218512,218515,218516,218517,218518,218519,209643],
  // end ["strangles|equine","equine-medicine","equine-infectious"]
  // ["strangles|equine","equine-medicine","equine-intro"]
  [105289],
@@ -4572,6 +4581,9 @@ const LEAVES = [
  // ["haccp|public-health","milk-meat-hygiene","milk-industry-std"]
  [207214,207215,207216,207217,207218,207339,207340,207341,207465,207466,105754,105755,105756,106271,106272,101100,101102,101113,101114,104658,104784],
  // end ["haccp|public-health","milk-meat-hygiene","milk-industry-std"]
+ // ["haccp|public-health","one-health","oh-foodborne"]
+ [218603],
+ // end ["haccp|public-health","one-health","oh-foodborne"]
  // ["haccp|public-health","zoonoses","zoo-epi-approach"]
  [210500,210506,210512],
  // end ["haccp|public-health","zoonoses","zoo-epi-approach"]
@@ -5234,7 +5246,7 @@ const LEAVES = [
  [210006],
  // end ["vector|public-health","one-health","oh-env-carcinogen"]
  // ["vector|public-health","one-health","oh-foodborne"]
- [105948],
+ [105948,218601],
  // end ["vector|public-health","one-health","oh-foodborne"]
  // ["vector|public-health","one-health","oh-global-network"]
  [202293],
@@ -5242,6 +5254,9 @@ const LEAVES = [
  // ["vector|public-health","one-health","oh-gmo"]
  [210032],
  // end ["vector|public-health","one-health","oh-gmo"]
+ // ["vector|public-health","one-health","oh-livestock-waste"]
+ [218622],
+ // end ["vector|public-health","one-health","oh-livestock-waste"]
  // ["vector|public-health","one-health","oh-vet-role"]
  [202284,102009],
  // end ["vector|public-health","one-health","oh-vet-role"]
