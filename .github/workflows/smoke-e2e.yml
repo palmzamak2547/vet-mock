@@ -428,6 +428,7 @@ jobs:
             --reporter=github,json,html \
             tests/e2e/admin-recovery.spec.js \
             tests/e2e/chula-wall.spec.js \
+            tests/e2e/custom-studio-group.spec.js \
             tests/e2e/database-failure.spec.js \
             tests/e2e/external-doc-recovery.spec.js \
             tests/e2e/header-no-overlap.spec.js \

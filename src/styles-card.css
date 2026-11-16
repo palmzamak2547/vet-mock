@@ -1,0 +1,104 @@
+/* ============================================================
+   styles-card.css: "การ์ดของฉัน" (components/StudentCard.jsx)
+   ============================================================
+   Loaded with the card, never on Home or in a question set. Colours come in
+   as --sc-* from cardFace() (lib/card-style.js), the same values the share
+   image paints, so the preview and the picture match in light and dark.
+   Geometry is in container units of a 360 px card, so the share image can
+   draw the same proportions: padding 14/16, ring 84, name 24, stats 18.
+   Card shadow from 8 px elevation (blur 8, y 3.2, spread -2) plus 1 px
+   ambient. Tilt at most 6 deg x 4 deg; sheen smoothing in lib/card-sheen.js.
+   ============================================================ */
+.vmx-scard {
+  --px: 0; --py: 0; --glint: 0;
+  container-type: inline-size;
+  position: relative;
+  isolation: isolate;
+  width: min(100%, 360px);
+  aspect-ratio: 1.586;
+  margin: 0;
+  padding: 3.9cqi 4.45cqi 3.4cqi;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  border-radius: var(--r-lg);
+  background: var(--sc-stock, var(--clr-surface));
+  color: var(--sc-ink, var(--clr-ink));
+  border: 1px solid var(--sc-rule, var(--clr-border));
+  box-shadow: 0 3.2px 8px -2px rgb(0 0 0 / 0.22), 0 1px 1px rgb(0 0 0 / 0.08);
+  overflow: hidden;
+  transform: perspective(900px) rotateX(calc(var(--py, 0) * -4deg)) rotateY(calc(var(--px, 0) * 6deg));
+  touch-action: pan-y;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.vmx-scard__bd {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: 50% 100%;
+  opacity: var(--sc-plate, 0.35); filter: var(--sc-plate-filter, none); z-index: -1; pointer-events: none;
+}
+.vmx-scard__sheen {
+  position: absolute; inset: -20% -40%; z-index: 2; pointer-events: none;
+  background: linear-gradient(112deg, transparent 38%, rgb(255 255 255 / 0.7) 50%, transparent 62%);
+  mix-blend-mode: soft-light;
+  opacity: calc(0.1 + var(--glint, 0) * 0.4);
+  transform: translateX(calc(var(--px, 0) * 35%)) translateY(calc(var(--py, 0) * 8%));
+}
+.vmx-scard.is-frame-gilt .vmx-scard__sheen, .vmx-scard.is-frame-foil .vmx-scard__sheen { opacity: calc(0.22 + var(--glint, 0) * 0.5); }
+
+/* ── Frames: the free thin rule, then the earned ones ── */
+.vmx-scard.is-frame-ledger { box-shadow: inset 0 0 0 1.1cqi var(--sc-stock, var(--clr-surface)), inset 0 0 0 1.4cqi var(--sc-soft, var(--clr-ink-soft)), 0 3.2px 8px -2px rgb(0 0 0 / 0.22); }
+.vmx-scard.is-frame-gilt { border: 2px solid var(--sc-gold, var(--clr-gold)); box-shadow: inset 0 0 0 0.85cqi var(--sc-stock, var(--clr-surface)), inset 0 0 0 1.15cqi var(--sc-gold, var(--clr-gold)), 0 3.2px 8px -2px rgb(0 0 0 / 0.22); }
+.vmx-scard.is-frame-foil { border: 3px solid transparent; background: linear-gradient(var(--sc-stock, var(--clr-surface)), var(--sc-stock, var(--clr-surface))) padding-box, var(--sc-foil, var(--clr-gold)) border-box; }
+.vmx-scard.is-frame-seal::after {
+  content: ''; position: absolute; right: 4cqi; top: 34%; width: 13cqi; height: 13cqi; border-radius: 50%;
+  border: 1.5px dashed var(--sc-seal, var(--clr-rose-text)); transform: rotate(-12deg); z-index: 1; opacity: 0.75;
+}
+
+.vmx-scard__top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; position: relative; z-index: 1; }
+.vmx-scard__brand { font-family: var(--vmx-display); font-style: italic; font-weight: 600; font-size: max(14px, 4.2cqi); color: var(--sc-brand, var(--clr-sage-text)); }
+.vmx-scard__year { font-size: max(14px, 3.9cqi); color: var(--sc-soft, var(--clr-ink-soft)); }
+.vmx-scard__body { display: flex; align-items: center; gap: 3.9cqi; position: relative; z-index: 1; min-width: 0; }
+.vmx-scard__ring {
+  position: relative; flex: none; width: 23.3cqi; height: 23.3cqi; border-radius: 50%;
+  display: grid; place-items: center; font-size: 12cqi; line-height: 1;
+  background: color-mix(in srgb, var(--sc-stock, var(--clr-surface)) 70%, var(--sc-rule, var(--clr-border)));
+  box-shadow: 0 0 0 1px var(--sc-rule, var(--clr-border)), 0 0 0 1.4cqi var(--sc-stock, var(--clr-surface)), 0 0 0 calc(1.4cqi + 1px) var(--sc-soft, var(--clr-ink-soft));
+}
+.vmx-scard__ring > img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+.vmx-scard__who { min-width: 0; }
+.vmx-scard__name {
+  font-family: var(--vmx-display); font-weight: 600; font-size: max(17px, 6.7cqi); line-height: 1.2; letter-spacing: 0;
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; overflow-wrap: anywhere;
+}
+.vmx-scard__title { margin: 1cqi 0 0; font-size: max(14px, 3.9cqi); font-weight: 600; color: var(--sc-title, var(--clr-gold-text)); line-height: 1.3; }
+.vmx-scard__foot {
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; position: relative; z-index: 1;
+  padding-top: 2.2cqi; border-top: 1px solid var(--sc-rule, var(--clr-border)); min-height: calc(2.2cqi + 32px);
+}
+.vmx-scard__stats { margin: 0; display: flex; gap: 5cqi; }
+.vmx-scard__stats dt { font-size: max(14px, 3.9cqi); color: var(--sc-soft, var(--clr-ink-soft)); line-height: 1.2; }
+.vmx-scard__stats dd { margin: 0; font-family: var(--vmx-mono); font-size: max(15px, 5cqi); font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.3; }
+.vmx-scard__stats small { font-family: var(--vmx-sans); font-size: 14px; font-weight: 400; color: var(--sc-soft, var(--clr-ink-soft)); margin-left: 3px; }
+.vmx-scard__shelf { margin: 0 0 0 auto; padding: 0; list-style: none; display: flex; gap: 2px; }
+.vmx-scard__shelf img { display: block; width: max(26px, 8.9cqi); height: max(26px, 8.9cqi); }
+
+/* A classmate's card in a group grid: no numbers, so the foot is the shelf. */
+.vmx-scard.is-compact .vmx-scard__foot:not(:has(dl, ul)) { border-top: 0; min-height: 0; padding: 0; }
+
+/* The profile hub's tile (components/MyCardTile.jsx). */
+.vmx-hub-card { display: grid; gap: 10px; }
+.vmx-hub-card h2 { margin: 0; }
+.vmx-hub-card-stage { display: grid; justify-items: start; }
+.vmx-hub-card-stage .vmx-scard { width: min(100%, 340px); }
+.vmx-hub-card .vmx-hub-meta { margin: 0; }
+.vmx-hub-card-open { justify-self: start; min-height: 44px; }
+
+/* A classmate's card in a group's member grid (views/GroupDetailView.jsx). */
+.vmx-member-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: 14px; }
+.vmx-member-card { display: grid; gap: 6px; justify-items: start; margin: 0; }
+.vmx-member-card .vmx-scard { width: 100%; }
+.vmx-member-card-note { display: flex; gap: 10px; font-size: 14px; color: var(--clr-ink-soft); }
+.vmx-member-card-note .is-admin { color: var(--clr-gold-text); }
+
+:root[data-vmx-motion="quiet"] .vmx-scard, :root[data-vmx-motion="off"] .vmx-scard { transform: none; }
+@media (prefers-reduced-motion: reduce) { .vmx-scard { transform: none; } }
