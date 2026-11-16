@@ -45,6 +45,7 @@ import { EVIDENCE_LOADERS } from '../data/evidence/loaders.generated.js';
 import '../styles-wrap.css';
 import { topicPractice } from '../lib/lecturer-count.js';
 import { isChunkLoadError } from '../lib/chunk-error.js';
+import { useReadAloud, ListenButton, shownText } from '../components/ReadAloudListen.jsx';
 
 const TH_MONTH = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
 function thaiDate(iso) {
@@ -156,6 +157,14 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
   const [failed, setFailed] = useState(null);
   const [attempt, setAttempt] = useState(0);
   const [mode, setMode] = useState(readMode);
+  // Read-aloud per item: the words the item shows in the mode on screen (its
+  // title, keywords and lines), without its buttons, slides and citations.
+  const voice = useReadAloud(`wrap:${subject}:`);
+  const listenItem = (id, el) => {
+    const text = shownText(el, 'button, a, img, figure, [aria-hidden="true"], .vmx-wrap-slide, .vmx-wrap-src, .vmx-wrap-actions');
+    if (!text) return;
+    voice.speak({ id, what: 'explain', title: 'อ่านหัวข้อ', album: subjectName, subject, explain: text, block: () => el });
+  };
   const pickMode = (m) => {
     setMode(m);
     try { localStorage.setItem(MODE_KEY, m); } catch {}
@@ -502,6 +511,8 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
                         <div className="vmx-wrap-seen"><b>เคยออก {seen.length} รุ่น</b> <span>({cohortList(seen)})</span></div>
                       )}
                     </div>
+                    <ListenButton what="item" className="vmx-wrap-listen" on={voice.readingId === `wrap:${subject}:${anchorId(it.topic, n - 1)}`} onPointerDown={voice.preload}
+                      onClick={(e) => listenItem(`wrap:${subject}:${anchorId(it.topic, n - 1)}`, e.currentTarget.closest('.vmx-wrap-item'))} />
                     {art && <img className="vmx-wrap-cover" src={art.src} alt="" loading="lazy" decoding="async" />}
                   </div>
 
@@ -562,6 +573,8 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
       <footer className="vmx-wrap-foot">
         ทุกบรรทัดอ้างคลิปบันทึกคาบ สไลด์ หรือข้อสอบเก่าที่ระบุไว้ ถ้าเนื้อหาในคาบกับสไลด์ต่างกัน ยึดสไลด์เป็นหลักและตัดที่ยืนยันไม่ได้ออก
       </footer>
+      {voice.note && <p className="vmx-tts-note" role="status">{voice.note.text}</p>}
+      {voice.bar}
     </div>
     </WrapCiteContext.Provider>
   );

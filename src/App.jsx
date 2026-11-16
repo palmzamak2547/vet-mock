@@ -1161,6 +1161,8 @@ export default function App() {
       import('./components/ImageAnnotator.jsx').catch(() => {});
       import('./components/QComments.jsx').catch(() => {});
       import('./components/ReminderPicker.jsx').catch(() => {});
+      // Review's read-aloud (loaded once the answers open, never on Home).
+      import('./components/ReadAloudListen.jsx').catch(() => {});
       // The 3D mascot viewer is the one exception: it carries all of three.js,
       // loads only on a tap and sits behind its own ErrorBoundary in Results.
       // Confetti is cosmetic, but its import is a bare .then() in ResultsView,

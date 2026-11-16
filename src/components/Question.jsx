@@ -23,7 +23,13 @@ import HandwritingInput from './HandwritingInput.jsx';
 import { useRevealTiming, RevealTimingToggle, REVEAL_ROW, REVEAL_LABELS, WrittenReveal } from './AnswerReveal.jsx';
 import { unlockAudio } from '../lib/audio-unlock.js';
 import { readAloud, primePlayer } from '../lib/read-aloud-store.js';
-import ReadAloudBar from './ReadAloudBar.jsx';
+import { lazyWithRetry } from '../lib/lazy-retry.js';
+import OptionalFeature from './OptionalFeature.jsx';
+// The read-aloud bar loads when the card opens, not inside the card's own
+// chunk: Home fetches that chunk ahead on a first visit, and the bar is shared
+// with the other screens that read aloud (ReadAloudListen.jsx), so kept static
+// it became one more request on Home (perf-budget.spec.js).
+const ReadAloudBar = lazyWithRetry(() => import('./ReadAloudBar.jsx'));
 import QSourceChip from './QSourceChip.jsx';
 import { followsExamPattern, holdsTopicChip, topicChipText, TOPIC_CHIP_WAIT, cautionChipShown } from '../lib/source-line.js';
 import PinButton from './PinButton.jsx';
@@ -927,7 +933,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 
       </div>
       {ttsNote?.what === 'q' && <p className="vmx-tts-note" role="status">{ttsNote.text}</p>}
-      <ReadAloudBar jobPrefix={jobPrefix} engine={engine} timed={timed} />
+      <OptionalFeature label="เสียงอ่าน"><ReadAloudBar jobPrefix={jobPrefix} engine={engine} timed={timed} /></OptionalFeature>
 
       {figureSrc && (
         <ZoomableImage
