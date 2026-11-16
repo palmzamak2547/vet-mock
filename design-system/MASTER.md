@@ -88,7 +88,7 @@ These DON'T use the token system and will not flip in dark mode:
 - 16px — `.vmx-progress strong`, `.vmx-timer`, `.vmx-sr-btn .label`, **all inputs (iOS no-zoom rule `styles.js:448`)**
 - 17px — `.vmx-qtext`, `.vmx-flashcard .back`
 - 18px — `.vmx-subject-card .title`, `.vmx-dash-card h3`, `.vmx-md-h2`
-- 20px — `.vmx-mode-card .title`, `.vmx-tf-btn`, `.vmx-flashcard .front`, `.vmx-score-msg`, `.vmx-modal h2 (mobile)`
+- 20px — `.vmx-mode-card .title`, `.vmx-tf-btn`, `.vmx-flashcard .front`, `.vmx-modal h2 (mobile)`
 - 22px — `.vmx-logo`, `.vmx-score-frac`, `.vmx-flashcard .back .answer`, `.vmx-md-h1`
 - 24px — `.vmx-modal h2`
 - 32px — `.vmx-stat-num`
@@ -176,7 +176,7 @@ Inferred from `padding` / `margin` / `gap`:
 | **Timer chip** | `.vmx-timer` + `.warn` (`285`) | `ExamView.jsx` |
 | **Option — MCQ** | `.vmx-option` + `.selected` (`358`) | `Question.jsx` |
 | **Option — T/F** | `.vmx-tf-btn` + `.selected-true/false` (`366`) | `Question.jsx` true-false |
-| **Option — match** | `.vmx-match-item`, `.vmx-match-select` (`377`) | `Question.jsx` match-pairs |
+| **Option — match** | `.vmx-match-select` (`377`) | `Question.jsx` match-pairs |
 | **SR grade row** | `.vmx-sr-grade` + `.vmx-sr-btn.again/hard/good/easy` (`425`) | `SRSessionView.jsx` |
 
 ---

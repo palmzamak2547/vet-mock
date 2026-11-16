@@ -80,9 +80,14 @@ test('openQuestionById resolves across years and is not pinned to the first rend
   assert.ok(open.includes('return false'), 'not-found must be reported so callers can say so');
 });
 
-test('the review screen shows the share link when the clipboard refuses it', () => {
-  const s = src('src/views/ReviewView.jsx');
-  assert.ok(s.includes("'คัดลอกไม่ได้: ' + (res.url || '')"), 'the built link must be shown, like ResultsView');
+// The review's own แชร์ชุดนี้ went in 5.282.0: a set is sent from the results
+// screen's one sheet, which shows the link itself, so a clipboard that refuses
+// (LINE and Instagram webviews) still leaves it there to press and hold.
+test('the share sheet shows the link, and says how to copy it when the clipboard refuses', () => {
+  assert.equal(src('src/views/ReviewView.jsx').includes('copyShareUrl'), false, 'the review has no share entry of its own');
+  const sheet = src('src/components/ShareSetSheet.jsx');
+  assert.ok(sheet.includes('<p className="vmx-send-link" data-testid="share-link">{url}</p>'), 'the built link is on the sheet');
+  assert.ok(sheet.includes("'คัดลอกไม่สำเร็จ กดค้างที่ลิงก์ด้านบนเพื่อคัดลอก'"));
 });
 
 test('group and account error panels speak Thai', () => {

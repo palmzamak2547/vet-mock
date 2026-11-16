@@ -21,7 +21,7 @@ test('the burst fires only for a strong score over at least three graded questio
   // use correct/total directly (found in post-merge review of #8).
   assert.match(results, /const celebrate = autoQs\.length >= 3 && score\.total > 0 && score\.correct \/ score\.total >= 0\.8;/);
   assert.match(results, /const perfect = score\.total > 0 && score\.correct === score\.total;/);
-  assert.match(results, /<div className=\{`vmx-results-hero[^`]*`\}>\n\s*\{celebrate && <ScoreBurst strong=\{perfect\} \/>\}/);
+  assert.match(results, /<section className=\{`vmx-res-card[^`]*`\}[^>]*>\n\s*\{celebrate && <ScoreBurst strong=\{perfect\} \/>\}/);
   assert.doesNotMatch(results, /strong=\{score\.pct === 100\}/);
 });
 
@@ -38,7 +38,8 @@ test('the burst never gets in the way and sits behind the score text', () => {
   // Longhand offsets before the inset shorthand (STABILITY rule 6).
   assert.match(rule, /top: 0; right: 0; bottom: 0; left: 0; inset: 0;/);
   // z-index -1 only stays inside the card because the hero isolates.
-  const hero = css.match(/\.vmx-results-hero \{[^}]*\}/)?.[0] || '';
+  // The score card (5.282.0) took the hero's place and keeps its isolation.
+  const hero = css.match(/\.vmx-res-card \{[^}]*\}/)?.[0] || '';
   assert.match(hero, /position: relative; isolation: isolate; overflow: hidden;/);
 });
 

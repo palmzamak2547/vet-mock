@@ -237,7 +237,7 @@ test.describe('performance budgets', () => {
         await expect(toResults).toBeVisible();
         await markShifts(page);
         await toResults.click();
-        await expect(page.getByText(/Auto-graded Score|Writing Practice Done|คะแนนตรวจอัตโนมัติ|ฝึกข้อเขียนเสร็จแล้ว/)).toBeVisible();
+        await expect(page.getByRole('region', { name: 'ผลชุดนี้' })).toBeVisible();
         await settlePage(page, network);
         results.push(await readShifts(page));
       } finally {

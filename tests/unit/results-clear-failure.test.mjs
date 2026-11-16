@@ -19,7 +19,7 @@ import { inflightExamKey } from '../../src/lib/exam-recovery.js';
 
 const nothing = 'export default function Stub() { return null; }';
 const stubs = [
-  ...['BackBar', 'ExamSaveNotice', 'DigitRoll', 'ScoreBurst', 'MochiLive', 'StreakMoment', 'ShareCardSheet', 'WeakSpots', 'NavIcon', 'LadderStrip']
+  ...['BackBar', 'ExamSaveNotice', 'DigitRoll', 'ScoreBurst', 'MochiLive', 'StreakMoment', 'ShareSetSheet', 'WeakSpots', 'NavIcon', 'LadderStrip']
     .map((name) => ({ match: `/${name}\\.jsx$`, contents: nothing })),
   { match: '/hooks/useMotionPreferences\\.js$', contents: 'export const useMotionPreferences = () => ({ preferences: { mode: "auto", companion: true, haptics: false }, reduced: true });' },
   { match: '/lib/haptics\\.js$', contents: 'export const haptic = () => false;' },
@@ -60,13 +60,13 @@ function browser({ refuseRemove }) {
   return { store, failures };
 }
 
-// The page drew its score seal (found by class, without expanding child components).
+// The page drew its score card (found by class, without expanding child components).
 function scoreShown(tree) {
   let hit = false;
   const go = (n) => {
     if (hit || n == null || typeof n !== 'object') return;
     if (Array.isArray(n)) { n.forEach(go); return; }
-    if (String(n.props?.className || '').includes('vmx-results-seal-wrapper')) { hit = true; return; }
+    if (String(n.props?.className || '').split(/\s+/).includes('vmx-res-card')) { hit = true; return; }
     go(n.props?.children);
   };
   go(tree);

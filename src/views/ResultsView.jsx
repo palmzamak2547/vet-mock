@@ -16,21 +16,19 @@ import StreakMoment from '../components/StreakMoment.jsx';
 import { mochiResultPose } from '../lib/mochi-presence.js';
 import { readStreakMoment, markStreakMomentSeen } from '../lib/streak-moment.js';
 import { haptic } from '../lib/haptics.js';
-import { buildShareUrl, copyShareUrl, shareableQuestions } from '../lib/share-link.js';
-import { copyText } from '../lib/clipboard.js';
+import { shareableQuestions } from '../lib/share-link.js';
 import { SUBJECTS } from '../data/curriculum.js';
-import ShareCardSheet from '../components/ShareCardSheet.jsx';
+import ShareSetSheet from '../components/ShareSetSheet.jsx';
 import { drawScoreCard, SCORE_STRIP } from '../lib/share-card/score-card.js';
 import { picture } from '../lib/share-card/kit.js';
 import { MOCHI_POSE_ASSETS } from '../data/mochi-poses.generated.js';
-import { NIGHT_RANK_EVENT, takePromotion } from '../lib/night-rank.js';
 import { hasTopic, articleForQuestion } from '../lib/vetwiki/registry-lite.js';
 import { FEATURE_FLAGS } from '../lib/feature-registry.js';
 import WeakSpots from '../components/WeakSpots.jsx';
 import NavIcon from '../components/NavIcon.jsx';
 import { useMotionPreferences } from '../hooks/useMotionPreferences.js';
 import LadderStrip from '../components/LadderStrip.jsx';
-import { ladderStep, ladderStepFor, ladderVerdict, rememberLadderStep, STEP_UP_RATIO, STEP_MIN_SET } from '../lib/practice-ladder.js';
+import { ladderStep, ladderStepFor, ladderVerdict, rememberLadderStep } from '../lib/practice-ladder.js';
 
 // Offered once ever, after the first set of a day: its own chunk, not every result's (1.7 KB gzip).
 const ReminderOffer = lazy(() => import('../components/ReminderPicker.jsx').then((m) => ({ default: m.ReminderOffer })));
@@ -105,25 +103,9 @@ export default function ResultsView({
     try { clearCompletedExam(window.localStorage, saveStatus.owner, saveStatus.sessionId); } catch (error) { reportFailure('save', error); }
   }, [saveStatus?.committed, saveStatus?.owner, saveStatus?.sessionId]);
 
-  // Night-rank promotion banner — App.jsx's finishExam compares the
-  // rank ladder before/after the session and fires NIGHT_RANK_EVENT
-  // when this late-night session pushed the user UP a rank. The
-  // banner rides on ResultsView (where the user lands right after
-  // submitting at 2 AM). No persistence: if the event is missed, the
-  // rank itself is still visible on the Dashboard card.
-  const [rankPromo, setRankPromo] = useState(null);
-  useEffect(() => {
-    // finishExam decided the promotion before this view existed; it left it
-    // in the stash. The listener below covers any event fired later.
-    const pending = takePromotion();
-    if (pending) setRankPromo(pending);
-    const onPromo = (e) => {
-      const { from, to } = e?.detail || {};
-      if (from?.label && to?.label) setRankPromo({ from, to });
-    };
-    window.addEventListener(NIGHT_RANK_EVENT, onPromo);
-    return () => window.removeEventListener(NIGHT_RANK_EVENT, onPromo);
-  }, []);
+  // A late-night promotion is no longer said here: the score is what a student
+  // came to this screen for. finishExam leaves it in the stash, and the night
+  // rank card on Progress takes it (components/NightRankCard.jsx).
 
   // One mascot on the result, Mochi's reaction beside the score: the Study
   // Squad companion card under it (with its 3D model) went on 11 Nov 2026,
@@ -143,9 +125,8 @@ export default function ResultsView({
 
   // mount in dev doesn't trigger the burst twice.
   // Personal-best tracking — per-subject highest pct ever recorded in
-  // a 5+ Q session. Surfaced as a "🏆 NEW PERSONAL BEST" banner +
-  // independent confetti burst on top of the score-based celebration.
-  const [personalBest, setPersonalBest] = useState(null);
+  // a 5+ Q session. A new best of 60% and up gets its own confetti burst
+  // on top of the score-based one; no banner, the score is said once.
   const firedRef = useRef(false);
   useEffect(() => {
     if (firedRef.current) return;
@@ -177,7 +158,6 @@ export default function ResultsView({
           // see "NEW PERSONAL BEST" since the prior baseline was just 0.
           if (pct >= 60) {
             isPB = true;
-            setPersonalBest({ subj, pct, prev });
           }
         }
       }
@@ -245,25 +225,13 @@ export default function ResultsView({
     : score.pct >= 40 ? 'ยังมีจุดที่ควรทบทวน เริ่มจากข้อที่ผิดในรอบนี้'
     : 'กลับไปทบทวนหัวข้อนี้ แล้วลองชุดสั้นอีกครั้ง';
 
-  const showMsg = autoQs.length === 0 || (score.total > 0 && score.correct / score.total >= 0.8);
   const isExam = mode === 'exam';
-  // pass/fail only meaningful for auto-graded sessions; pure-writing
-  // mocks (autoQs.length === 0) get neither banner since the engine
-  // can't actually compute pass/fail without manual grading
-  const passed = autoQs.length > 0 && reached;
   // A strong result over a real set earns a one-shot confetti burst behind
   // the score. Three questions is the floor so 1/1 does not throw a party.
   // Both gates use the exact counts, not the rounded pct: 199/200 rounds to
   // 100 and 79.5% rounds to 80, and neither should count.
   const celebrate = autoQs.length >= 3 && score.total > 0 && score.correct / score.total >= 0.8;
   const perfect = score.total > 0 && score.correct === score.total;
-
-  // The ladder's verdict, read the same way NextPlayPanel reads it, so the
-  // buddy's words and the ladder under them say one thing: past the practice
-  // mark but under the bar to climb is "almost", not "very good".
-  const ladder = sessionKind === 'redo' ? null
-    : ladderVerdict({ stepId: ladderStepFor({ mode, useTimer: Boolean(useTimer) }), correct: score.correct, total: score.total, passPct: PRACTICE_PASS_PCT });
-  const holdBar = ladder?.kind === 'hold' ? Math.round((STEP_UP_RATIO[ladder.step] || 0) * 100) : null;
 
   // A genuine high point, once: a perfect set of five or more, or a round
   // day count. The phone ticks; inside the Android app the app may offer a
@@ -282,358 +250,31 @@ export default function ResultsView({
   }, []); // eslint-disable-line react-hooks/exhaustive-deps -- once per first look
   const resultPose = mochiResultPose(score, autoQs.length);
 
-  return (
-    <>
-      <BackBar onBack={goHome} label="หน้าแรก" mochi={false} />
-      {/* The score and what to do next come first (owner decision, 11 Nov
-          2026): no year pill above it, and the practice mark is stated once,
-          on the bar under the score. The seal says whether it was reached. */}
-      {isExam && autoQs.length === 0 && writingQs.length > 0 && (
-        <div className="vmx-eyebrow" style={{ textAlign: 'center', marginBottom: 16, color: 'var(--clr-gold-text)' }}>
-          ชุดข้อเขียน, รอตรวจให้คะแนน
-        </div>
-      )}
-      {personalBest && (
-        <div style={{
-          marginBottom: 16, padding: '10px 16px', borderRadius: 12,
-          background: 'var(--clr-gold-soft)',
-          border: '1px solid var(--clr-gold)', textAlign: 'center',
-          fontSize: 14, fontVariantNumeric: 'tabular-nums',
-          color: 'var(--clr-gold-text)', fontWeight: 700,
-        }}>
-          สถิติใหม่ของคุณ {personalBest.pct}% (เดิม {personalBest.prev}%)
-        </div>
-      )}
+  // ── What to do next (work/results-design, direction 1) ──────────────
+  // One filled button under the thumb, then at most three choices: the
+  // answers, sending the set to a friend, and one next-step row. Everything
+  // here comes from the set in memory; nothing waits on the network.
+  const subj0 = questions[0]?.subject || null;
+  const topic0 = questions[0]?.topic || null;
+  const ctxSubj = subj0 && questions.every((q) => q.subject === subj0) ? subj0 : null;
+  const ctxTopic = ctxSubj && topic0 && questions.every((q) => q.topic === topic0) ? topic0 : null;
+  const subjMeta = ctxSubj ? SUBJECTS.find((s) => s.id === ctxSubj) : null;
+  const subjLabel = subjMeta?.name || ctxSubj || '';
+  const topicMeta = ctxTopic ? subjMeta?.topics?.find((item) => item.id === ctxTopic) : null;
+  const topicLabel = topicMeta?.label ? topicMeta.label.replace(/^[\d\s.\-]+/, '').trim().slice(0, 42) : 'หัวข้อนี้';
+  const scopeLine = ctxSubj ? (ctxTopic && topicMeta ? `${subjLabel}, ${topicLabel}` : subjLabel) : '';
 
-      <div className={`vmx-results-hero vmx-res-step${firstLook ? ' is-paced' : ''}`}>
-        {celebrate && <ScoreBurst strong={perfect} />}
-        <div className="vmx-results-seal-wrapper">
-          {/* Mochi reacts once to this result on the rig and settles on the
-              still: celebrating from 80%, encouraging below. */}
-          <MochiLive pose={resultPose} play={firstLook ? resultPose : null} size={84} slot="result" className="vmx-result-mochi" />
-          {/* The seal says the verdict in the words the rest of the screen
-              uses. It used to be a mono English stamp above a Thai message
-              that said the same thing. */}
-          {autoQs.length > 0 ? (
-            <div className={`vmx-clinical-seal ${reached ? 'is-pass' : 'is-review'}`}>
-              <span className="vmx-seal-title">{reached ? 'ถึงเกณฑ์ซ้อมแล้ว' : 'ยังไม่ถึงเกณฑ์ซ้อม'}</span>
-            </div>
-          ) : (
-            <div className="vmx-clinical-seal is-writing">
-              <span className="vmx-seal-title">ชุดข้อเขียน</span>
-              <span className="vmx-seal-sub">ตรวจเองตามเกณฑ์ในหน้าเฉลย</span>
-            </div>
-          )}
-        </div>
-        {autoQs.length > 0 ? (
-          <>
-            <h2 className={`vmx-score-big ${reached ? 'pass' : 'fail'}`}>
-              <DigitRoll value={score.pct} /><span style={{ fontSize: '0.4em', fontWeight: 400 }}>%</span>
-            </h2>
-            <div className="vmx-score-label">คะแนนตรวจอัตโนมัติ</div>
-            <div className="vmx-score-frac">{score.correct} / {autoQs.length} ถูก</div>
-
-            {/* Clinical Benchmark Telemetry */}
-            <div className="vmx-benchmark-container" aria-label={`เกณฑ์ซ้อมของแอป ${PRACTICE_PASS_PCT}% ทำได้ ${score.pct}%`}>
-              <div className="vmx-benchmark-track">
-                <div
-                  className={`vmx-benchmark-fill ${reached ? 'is-pass' : 'is-review'}`}
-                  style={{ width: `${Math.min(100, Math.max(0, score.pct))}%` }}
-                />
-                <div className="vmx-benchmark-target" style={{ left: `${PRACTICE_PASS_PCT}%` }}>
-                  <div className="vmx-benchmark-flag">เกณฑ์ {PRACTICE_PASS_PCT}%</div>
-                </div>
-              </div>
-              {/* The bar's ends only: the line itself is the mark, and the flag above it names it.
-                  A middle label sat at 50% under a mark at 60% and said the same thing a third time. */}
-              <div className="vmx-benchmark-legend">
-                <span>0%</span>
-                <span>100%</span>
-              </div>
-            </div>
-          </>
-        ) : (
-          <>
-            <h2 className="vmx-score-big" style={{ color: 'var(--clr-gold-text)' }}>
-              <NavIcon name="pen" size={72} /><span className="vmx-sr-only">ข้อเขียน</span>
-            </h2>
-            <div className="vmx-score-label">ฝึกข้อเขียนเสร็จแล้ว</div>
-            <div className="vmx-score-frac">{writingAttempted} / {writingQs.length} ข้อเขียนเสร็จ</div>
-          </>
-        )}
-        {writingQs.length > 0 && autoQs.length > 0 && (
-          <div style={{ marginTop: 8, padding: '6px 12px', borderRadius: 999, background: 'rgba(184, 137, 64, 0.12)', border: '1px solid var(--clr-gold)', display: 'inline-block', fontSize: 14, color: 'var(--clr-ink)' }}>
-            <NavIcon name="pen" size={13} /> มีข้อเขียน {writingQs.length} ข้อ — ตรวจด้วย rubric ใน "ดูเฉลย"
-          </div>
-        )}
-        {/* The line under the score only where no card below says what to do
-            first: a writing-only set, or 80% and up. Under that the first card
-            (redo the misses) is the advice, and the line said it again or said
-            something else. */}
-        {showMsg && <div className="vmx-score-msg">{msg}</div>}
-
-        {/* Pacing Telemetry */}
-        {receiverDurationSec != null && receiverDurationSec > 0 && (
-          <div className="vmx-pacing-telemetry">
-            <NavIcon name="exam" size={13} />
-            {/* One text run: as two flex items the gap put a space before the comma. */}
-            <span>{`เวลารวม ${fmtTimeSec(receiverDurationSec)}${questions?.length > 0 ? `, เฉลี่ย ${Math.max(1, Math.round(receiverDurationSec / questions.length))} วิ/ข้อ` : ''}`}</span>
-          </div>
-        )}
-      </div>
-
-      {/* What to do next, right under the score: the first viewport holds both. */}
-      <NextPlayPanel
-        part="primary"
-        autoQs={autoQs}
-        wrongCount={wrongCount}
-        score={score}
-        mode={mode}
-        useTimer={useTimer}
-        sessionKind={sessionKind}
-        goHome={goHome}
-        setView={setView}
-        questions={questions}
-        answers={answers}
-        startExam={startExam}
-        setSubject={setSubject}
-        setTopic={setTopic}
-        setPracticeMode={setPracticeMode}
-        setMode={setMode}
-        setNumQuestions={setNumQuestions}
-        setUseTimer={setUseTimer}
-        replayQuestions={replayQuestions}
-        receiverDurationSec={receiverDurationSec}
-      />
-      {/* A result that could not be saved says so right under the first action:
-          above the score it pushed the score and the action off a phone's first screen. */}
-      <ExamSaveNotice status={saveStatus} />
-
-      {/* The first set of a day: what it did to the day count, right under
-          the score (lib/streak-moment.js); nothing for a second set. */}
-      <StreakMoment moment={moment} className={`vmx-res-step${firstLook ? ' is-paced' : ''}`} style={{ '--res-delay': '70ms' }} />
-      {/* Right after the day count, once ever: a daily reminder. */}
-      {moment && (
-        <Suspense fallback={null}>
-          <ReminderOffer usual={moment.usual} className={`vmx-res-step${firstLook ? ' is-paced' : ''}`} style={{ '--res-delay': '126ms' }} />
-        </Suspense>
-      )}
-
-      <div className="vmx-stat-grid">
-        <div className="vmx-stat-card">
-          <div className="vmx-stat-num" style={{ color: 'var(--clr-right-text)' }}>{score.correct}</div>
-          <div className="vmx-stat-lbl">ถูก</div>
-        </div>
-        <div className="vmx-stat-card">
-          <div className="vmx-stat-num" style={{ color: 'var(--clr-rose-text)' }}>{wrongCount}</div>
-          <div className="vmx-stat-lbl">ผิด</div>
-        </div>
-        <div className="vmx-stat-card">
-          <div className="vmx-stat-num" style={{ color: 'var(--clr-gold-text)' }}>{skipCount}</div>
-          <div className="vmx-stat-lbl">ข้าม</div>
-        </div>
-        {writingQs.length > 0 && (
-          <div className="vmx-stat-card">
-            <div className="vmx-stat-num" style={{ color: 'var(--clr-plum-text)' }}>{writingAttempted}/{writingQs.length}</div>
-            <div className="vmx-stat-lbl">ข้อเขียน</div>
-          </div>
-        )}
-      </div>
-
-      {/* A late-night promotion is a note under the result, not a banner over
-          it: the score is what a student came to this screen for. */}
-      {rankPromo && (
-        <div className="vmx-night-rank-promo" role="status">
-          <span className="vmx-night-rank-promo-icon" aria-hidden="true">{rankPromo.to.icon}</span>
-          <div className="vmx-night-rank-promo-text">
-            <div className="vmx-night-rank-promo-title">เลื่อนยศโต้รุ้ง! {rankPromo.to.label}</div>
-            <div className="vmx-night-rank-promo-sub">
-              จาก {rankPromo.from.label} เป็น {rankPromo.to.label}, {rankPromo.to.blurb}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Challenge comparison — shown ONLY when receiver finishes a
-          challenge link with sender's score embedded. Round 2B 2026-05-18.
-          Round 3 (Phase 5 "เทียบคะแนน/เวลา"): also passes the receiver's
-          elapsed time when available so the box can show side-by-side
-          score AND time. */}
-      {challengeSender?.senderScore && autoQs.length > 0 && (
-        <ChallengeComparisonBox
-          sender={challengeSender}
-          receiverScore={{ correct: score.correct, total: autoQs.length }}
-          receiverTimeSec={receiverDurationSec}
-        />
-      )}
-
-      <NextPlayPanel
-        part="rest"
-        autoQs={autoQs}
-        wrongCount={wrongCount}
-        score={score}
-        mode={mode}
-        useTimer={useTimer}
-        sessionKind={sessionKind}
-        goHome={goHome}
-        setView={setView}
-        questions={questions}
-        answers={answers}
-        startExam={startExam}
-        setSubject={setSubject}
-        setTopic={setTopic}
-        setPracticeMode={setPracticeMode}
-        setMode={setMode}
-        setNumQuestions={setNumQuestions}
-        setUseTimer={setUseTimer}
-        replayQuestions={replayQuestions}
-        receiverDurationSec={receiverDurationSec}
-      />
-
-      {/* The pattern across the misses, before the standing advice about what
-          the system does next — the specific thing is the reason to read on. */}
-      <WeakSpots
-        wrongQs={autoQs.filter((q) => answerOutcome(q, answers[q.id]) === 'wrong')}
-        answers={answers}
-      />
-
-      <RecommendationsBox
-        autoQs={autoQs}
-        wrongCount={wrongCount}
-        questions={questions}
-        answers={answers}
-        score={score}
-      />
-
-      {/* Share tier — high scores get IG Story share (people share wins).
-          Threshold 70% per Palm spec 2026-05-18. Low/mid scores no longer
-          get a second challenge callout here — the same ท้าเพื่อน button
-          already sits in the NextPlayPanel action row, and showing both
-          read as a duplicate. */}
-      {(autoQs.length === 0 || score.pct >= 70) && (
-        <ShareToIGRow
-          pct={score.pct}
-          correct={score.correct}
-          total={autoQs.length}
-          subject={new Set(questions.map((q) => q.subject)).size === 1 ? questions[0].subject : 'all'}
-          mode={mode}
-          isWritingOnly={autoQs.length === 0}
-          writingDone={writingAttempted}
-          writingTotal={writingQs.length}
-          completedAt={completedAt}
-        />
-      )}
-    </>
-  );
-}
-
-// ─── NextPlayPanel — Phase 2 (2026-05-18) ──────────────────────────
-// Priority-ordered CTAs based on (a) did they get any wrong? (b) was
-// this a single-subject set? Goal: turn ResultsView from a dead-end
-// ("← กลับหน้าแรก") into a 1-tap continuation that compounds the
-// study session. Mirrors NextActionCard's priority pattern.
-function NextPlayPanel({
-  autoQs,
-  wrongCount,
-  score,
-  mode,
-  useTimer,
-  sessionKind,
-  goHome,
-  setView,
-  questions,
-  answers,
-  startExam,
-  setSubject,
-  setTopic,
-  setPracticeMode,
-  setMode,
-  setNumQuestions,
-  setUseTimer,
-  replayQuestions,
-  // Round 4 hotfix 2026-05-18: receiverDurationSec lives in parent
-  // ResultsView scope. Sub-component (this one) was referencing it
-  // unresolved → ReferenceError at runtime crashed every Results view.
-  // Pass through as prop so the ChallengeQuizButton + SendToGroupButton
-  // calls below get the correct elapsed time for sender-side URL.
-  receiverDurationSec,
-  // 'primary': only the first thing to do, drawn right under the score;
-  // 'rest': everything else, where the panel always sat; 'all': both.
-  part = 'all',
-}) {
-  // Detect single-subject + single-topic context so we can offer
-  // "continue this topic" buttons rather than generic "random".
-  const ctx = useMemo(() => {
-    if (!questions || questions.length === 0) return { subj: null, topic: null };
-    const subj = questions[0]?.subject || null;
-    const topic = questions[0]?.topic || null;
-    const allSameSubj = subj && questions.every((q) => q.subject === subj);
-    const allSameTopic = topic && questions.every((q) => q.topic === topic);
-    return {
-      subj: allSameSubj ? subj : null,
-      topic: allSameSubj && allSameTopic ? topic : null,
-    };
-  }, [questions]);
-
-  const subjMeta = ctx.subj ? SUBJECTS.find((s) => s.id === ctx.subj) : null;
-  const subjLabel = subjMeta?.name || ctx.subj || '';
-  // Truncate long topic labels (Thai labels often have leading number/dot)
-  const topicMeta = ctx.topic
-    ? subjMeta?.topics?.find((item) => item.id === ctx.topic)
-    : null;
-  const topicLabel = topicMeta?.label
-    ? topicMeta.label.replace(/^[\d\s.·\-]+/, '').trim().slice(0, 42)
-    : 'หัวข้อนี้';
-
-  // Hooks must run before the writing-only early return. goHome clears the
-  // finished question array one render before ResultsView unmounts; when this
-  // memo lived below the branch React saw fewer hooks and crashed with #300.
   // What to do again: the questions answered wrong and the ones left blank
   // (a timed paper leaves blanks, and they are misses the student can fix
   // now too), in the set's order.
-  const missedQs = useMemo(
-    () => autoQs.filter((q) => answerOutcome(q, answers[q.id]) !== 'correct'),
-    [autoQs, answers],
-  );
+  const missedQs = autoQs.filter((q) => answerOutcome(q, answers[q.id]) !== 'correct');
   const skippedMissed = missedQs.filter((q) => answerOutcome(q, answers[q.id]) === 'skipped').length;
+  const hasMissed = missedQs.length > 0;
   const missedLabel = skippedMissed === 0
-    ? { title: `แก้ข้อที่ผิด ${missedQs.length} ข้อ ทันที`, sub: 'ทำซ้ำเฉพาะข้อในรอบนี้ที่ตอบผิด', short: `แก้ข้อที่ผิด ${missedQs.length} ข้อ` }
+    ? { title: `แก้ข้อที่ผิด ${missedQs.length} ข้อ`, sub: 'ทำซ้ำเฉพาะข้อที่ผิดในรอบนี้', key: `ดูเฉลยข้อที่ผิด ${missedQs.length} ข้อ` }
     : skippedMissed === missedQs.length
-      ? { title: `ทำข้อที่ข้ามไป ${missedQs.length} ข้อ`, sub: 'ข้อในรอบนี้ที่ยังไม่ได้ตอบ', short: `ทำข้อที่ข้ามไป ${missedQs.length} ข้อ` }
-      : { title: `ทำข้อที่ผิดและข้ามไป ${missedQs.length} ข้อ`, sub: `ผิด ${missedQs.length - skippedMissed} ข้อ ยังไม่ได้ตอบ ${skippedMissed} ข้อ`, short: `ทำข้อที่ผิดและข้ามไป ${missedQs.length} ข้อ` };
-
-  // ── The practice ladder: which rung this set was, and what it earned ──
-  // The rung is read off the set's own settings (exam mode, the clock), the
-  // verdict off exact counts against the stated bars. A redo round reuses
-  // questions the student just saw, so it never climbs.
-  const stepId = ladderStepFor({ mode, useTimer: Boolean(useTimer) });
-  const verdict = sessionKind === 'redo'
-    ? { kind: 'redo', step: stepId, next: stepId, ratio: score.total > 0 ? score.correct / score.total : 0 }
-    : ladderVerdict({ stepId, correct: score.correct, total: score.total, passPct: PRACTICE_PASS_PCT });
-  const pctExact = Math.round(verdict.ratio * 100);
-  const nextStep = ladderStep(verdict.next);
-  const climbs = verdict.kind === 'up';
-  // A link carries only bank questions: one the student wrote lives in their
-  // own store and a friend's app cannot find it (lib/share-link.js).
-  const shareable = shareableQuestions(questions);
-  const unshareableNote = shareable.length === 0
-    ? 'ข้อที่สร้างเองแชร์ผ่านลิงก์ไม่ได้'
-    : shareable.length < (questions?.length || 0)
-      ? `ลิงก์มีเฉพาะข้อจากคลัง ${shareable.length} ข้อ ข้อที่สร้างเองแชร์ผ่านลิงก์ไม่ได้`
-      : '';
-
-  // Pure-writing → keep classic flow (review needed for self-grading)
-  if (autoQs.length === 0) {
-    if (part === 'rest') return null;
-    return (
-      <div className="vmx-btn-row is-stack" style={{ marginTop: 16 }}>
-        <button className="vmx-btn vmx-btn-primary" onClick={() => setView('review')} style={{ minHeight: 44 }}>ดูเฉลย + ให้คะแนนข้อเขียน →</button>
-        <ShareQuizButton questions={shareable} />
-        {unshareableNote && <span className="vmx-invite-note">{unshareableNote}</span>}
-        <button className="vmx-btn vmx-btn-ghost" onClick={goHome} style={{ minHeight: 44 }}>← กลับหน้าแรก</button>
-      </div>
-    );
-  }
+      ? { title: `ทำข้อที่ข้ามไป ${missedQs.length} ข้อ`, sub: 'ข้อในรอบนี้ที่ยังไม่ได้ตอบ', key: `ดูเฉลยข้อที่ข้ามไป ${missedQs.length} ข้อ` }
+      : { title: `ทำข้อที่ผิดและข้ามไป ${missedQs.length} ข้อ`, sub: `ผิด ${missedQs.length - skippedMissed} ข้อ ยังไม่ได้ตอบ ${skippedMissed} ข้อ`, key: `ดูเฉลยข้อที่ผิดและข้ามไป ${missedQs.length} ข้อ` };
 
   const handleRedoWrong = () => {
     if (missedQs.length === 0) return;
@@ -642,50 +283,43 @@ function NextPlayPanel({
     } else {
       // Fallback: cross-history wrong via practiceMode='wrong'
       startExam?.({
-        practiceMode: 'wrong',
-        subject: 'all',
-        topic: null,
-        questionCategory: 'all',
-        numQuestions: Math.max(5, Math.min(missedQs.length, 20)),
-        useTimer: false,
+        practiceMode: 'wrong', subject: 'all', topic: null, questionCategory: 'all',
+        numQuestions: Math.max(5, Math.min(missedQs.length, 20)), useTimer: false,
       });
     }
   };
-
   const handleContinueMore = (n) => {
     if (!startExam) return;
     startExam({
-      mode: 'quick',
-      practiceMode: 'all',
-      subject: ctx.subj || 'all',
-      topic: ctx.topic || null,
-      questionCategory: 'all',
-      numQuestions: n,
-      useTimer: false,
-      // "ต่ออีก" means more, not again. A topic can hold fewer questions than
-      // the button offers — one, in the case of com1:left-sided-heart-failure
-      // — and without this the set was padded out with the questions the
-      // student had just finished answering.
+      mode: 'quick', practiceMode: 'all', subject: ctxSubj || 'all', topic: ctxTopic || null,
+      questionCategory: 'all', numQuestions: n, useTimer: false,
+      // "อีก" means more, not again: a topic can hold fewer questions than the
+      // row offers, and the set was padded with the ones just answered.
       excludeIds: new Set((questions || []).map((q) => `${q.subject}:${q.id}`)),
     });
   };
 
-  // Start the next rung on the same material: the subject (and topic) this
-  // set drew from, the rung's own count, clock and mode. An exam rung is the
-  // whole subject, because a paper is a subject, not one topic of it.
+  // ── The practice ladder: which rung this set was, and what it earned ──
+  // A redo round reuses questions the student just saw, so it never climbs.
+  const stepId = ladderStepFor({ mode, useTimer: Boolean(useTimer) });
+  const verdict = sessionKind === 'redo'
+    ? { kind: 'redo', step: stepId, next: stepId, ratio: score.total > 0 ? score.correct / score.total : 0 }
+    : ladderVerdict({ stepId, correct: score.correct, total: score.total, passPct: PRACTICE_PASS_PCT });
+  const nextStep = ladderStep(verdict.next);
   const launchStep = (id) => {
     rememberLadderStep(id);
     if (!startExam) return;
     const step = ladderStep(id);
     if (id === 'exam') {
+      // An exam rung is the whole subject: a paper is a subject, not one topic.
       startExam({
-        mode: 'exam', practiceMode: 'all', subject: ctx.subj || 'all', topic: null, questionCategory: 'all',
+        mode: 'exam', practiceMode: 'all', subject: ctxSubj || 'all', topic: null, questionCategory: 'all',
         numQuestions: step.count, useTimer: true, timePerQ: 60,
       });
       return;
     }
     startExam({
-      mode: 'quick', practiceMode: 'all', subject: ctx.subj || 'all', topic: ctx.topic || null, questionCategory: 'all',
+      mode: 'quick', practiceMode: 'all', subject: ctxSubj || 'all', topic: ctxTopic || null, questionCategory: 'all',
       numQuestions: step.count, useTimer: step.useTimer, timePerQ: 60,
       ...(id === 'understand' ? { gentle: true } : {}),
     });
@@ -697,513 +331,265 @@ function NextPlayPanel({
     setNumQuestions?.(50); setUseTimer?.(true);
     setView('config');
   };
-  const scopeName = ctx.topic ? topicLabel : ctx.subj ? subjLabel : 'ทุกวิชาในปีนี้';
-  const upBar = Math.round((STEP_UP_RATIO[verdict.step] || 0) * 100);
-  const ladderNote = verdict.kind === 'up'
-    ? `ได้ ${pctExact}% ในขั้น${ladderStep(verdict.step).label} (เกณฑ์ขึ้นขั้น ${upBar}%) พร้อม${nextStep.label}แล้ว`
-    : verdict.kind === 'hold'
-      ? `ได้ ${pctExact}% ยังไม่ถึง ${upBar}% ที่จะขึ้นขั้นต่อไป ทำขั้นนี้อีกชุดให้แม่นก่อน`
-      : verdict.kind === 'back'
-        ? (verdict.next === verdict.step
-          ? `ได้ ${pctExact}% ยังไม่ถึงเกณฑ์ซ้อม ${PRACTICE_PASS_PCT}% แก้ข้อที่ผิดก่อน แล้วทำขั้นนี้อีกชุด`
-          : `ได้ ${pctExact}% ยังไม่ถึงเกณฑ์ซ้อม ${PRACTICE_PASS_PCT}% กลับไปขั้น${nextStep.label}ก่อน แล้วค่อยขึ้นมาใหม่`)
-        : verdict.kind === 'done'
-          ? `ถึงเกณฑ์ซ้อม ${PRACTICE_PASS_PCT}% ในขั้นซ้อมสอบแล้ว ซ้อมอีกชุดหรือเปลี่ยนวิชาได้เลย`
-          : verdict.kind === 'redo'
-            ? 'รอบแก้ข้อที่ผิดไม่นับเป็นขั้น ทำชุดใหม่เพื่อวัดอีกครั้ง'
-            : `ชุดนี้สั้นกว่า ${STEP_MIN_SET} ข้อ ยังบอกไม่ได้ว่าพร้อมขั้นต่อไปหรือยัง ลองชุด ${ladderStep(verdict.step).count} ข้อ`;
-
-  // Misses come first whenever there are any: fixing them now is the step
-  // that pays most, and a climb waits one card below. Without misses the
-  // ladder leads, then "more of the same".
-  const hasWrong = missedQs.length > 0;
-  const continueLabel = ctx.topic
-    ? `ทำหัวข้อนี้ต่ออีก 5 ข้อ`
-    : ctx.subj
-      ? `ทำ${subjLabel}ต่ออีก 5 ข้อ`
-      : `ทำต่ออีก 5 ข้อ`;
-  const continueSub = ctx.topic
-    ? topicLabel
-    : ctx.subj
-      ? subjLabel
-      : 'สุ่มจากทุกวิชาในปีนี้';
-
-  const ladderCta = climbs
+  const scopeName = ctxTopic ? topicLabel : ctxSubj ? subjLabel : 'ทุกวิชาในปีนี้';
+  const ladderRow = verdict.kind === 'up'
     ? {
-        onClick: () => launchStep(verdict.next),
-        label: `ขึ้นขั้น ${nextStep.n} ${nextStep.label} ${nextStep.count} ข้อ`,
-        sub: verdict.next === 'exam' ? `ทั้งวิชา ${subjLabel || 'ที่เลือก'}, นาฬิกาเดียวทั้งชุด เฉลยหลังส่ง` : `${scopeName}, จับเวลาต่อข้อ`,
+        icon: 'progress', onClick: () => launchStep(verdict.next),
+        label: `ขั้นต่อไป ${nextStep.label} ${nextStep.count} ข้อ`,
+        sub: verdict.next === 'exam' ? `ทั้งวิชา ${subjLabel || 'ที่เลือก'} นาฬิกาเดียวทั้งชุด` : `${scopeName} จับเวลาต่อข้อ`,
       }
     : verdict.kind === 'done'
-      ? { onClick: openExamConfig, label: 'ซ้อมสอบชุดต่อไป', sub: 'เลือกวิชาได้ในหน้าถัดไป' }
-      : null;
-  const ladderCard = ladderCta && (
-    <button
-      type="button"
-      onClick={ladderCta.onClick}
-      className="vmx-next-primary is-ladder"
-      aria-label={ladderCta.label}
-    >
-      <span className="vmx-results-card-icon is-more" aria-hidden="true"><NavIcon name="progress" size={26} /></span>
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>
-          {ladderCta.label}
-        </div>
-        <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
-          {ladderCta.sub}
-        </div>
-      </div>
-      <div className="vmx-next-primary-go">ลุย →</div>
-    </button>
-  );
+      ? { icon: 'progress', onClick: openExamConfig, label: 'ซ้อมสอบชุดต่อไป', sub: 'เลือกวิชาได้ในหน้าถัดไป' }
+      : verdict.kind === 'redo'
+        ? null
+        : {
+            icon: 'progress', onClick: () => launchStep(verdict.next),
+            label: verdict.kind === 'back' && verdict.next !== verdict.step
+              ? `กลับขั้น ${nextStep.n} ${nextStep.label}`
+              : `ทำขั้น ${nextStep.n} อีกชุด ${nextStep.count} ข้อ`,
+            sub: scopeName,
+          };
+  const moreRow = startExam ? {
+    icon: 'practice', onClick: () => handleContinueMore(5),
+    label: ctxTopic ? 'ทำหัวข้อนี้อีก 5 ข้อ' : ctxSubj ? `ทำ${subjLabel}อีก 5 ข้อ` : 'ทำต่ออีก 5 ข้อ',
+    sub: ctxTopic ? topicLabel : ctxSubj ? subjLabel : 'สุ่มจากทุกวิชาในปีนี้',
+  } : null;
 
-  const primaryCard = !hasWrong && ladderCard ? ladderCard : hasWrong ? (
-          <button
-            type="button"
-            onClick={handleRedoWrong}
-            style={{
-              all: 'unset',
-              cursor: 'pointer',
-              padding: '14px 16px',
-              borderRadius: 14,
-              background: 'var(--clr-surface)',
-              border: '2px solid var(--clr-rose)',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 14,
-              minHeight: 56,
-            }}
-            aria-label={`${missedLabel.title} ${missedLabel.sub}`}
-          >
-            <span className="vmx-results-card-icon is-retry" aria-hidden="true"><NavIcon name="repeat" size={26} /></span>
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>
-                {missedLabel.title}
-              </div>
-              <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
-                {missedLabel.sub}
-              </div>
-            </div>
-            <div style={{
-              padding: '6px 12px',
-              borderRadius: 999,
-              background: 'var(--clr-rose)',
-              color: 'var(--clr-rose-on)',
-              fontSize: 14,
-              fontWeight: 700,
-              flexShrink: 0,
-            }}>
-              ลุย →
-            </div>
-          </button>
-        ) : (
-          <button
-            type="button"
-            onClick={() => handleContinueMore(5)}
-            style={{
-              all: 'unset',
-              cursor: 'pointer',
-              padding: '14px 16px',
-              borderRadius: 14,
-              background: 'var(--clr-surface)',
-              border: '2px solid var(--clr-sage)',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 14,
-              minHeight: 56,
-            }}
-            aria-label={continueLabel}
-          >
-            <span className="vmx-results-card-icon is-more" aria-hidden="true"><NavIcon name="practice" size={26} /></span>
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16, color: 'var(--clr-ink)' }}>
-                {continueLabel}
-              </div>
-              <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', marginTop: 2 }}>
-                {continueSub}
-              </div>
-            </div>
-            <div style={{
-              padding: '6px 12px',
-              borderRadius: 999,
-              background: 'var(--clr-sage)',
-              color: 'var(--clr-sage-on)',
-              fontSize: 14,
-              fontWeight: 700,
-              flexShrink: 0,
-            }}>
-              ลุย →
-            </div>
-          </button>
-        );
-  // The first thing to do sits right under the score (owner decision, 11 Nov
-  // 2026); the ladder and the other choices stay where they were.
-  if (part === 'primary') return <div className="vmx-results-primary">{primaryCard}</div>;
+  // The set's VetWiki page, when the whole set is one governed topic
+  // (articleForQuestion is the judged mapping, so past-paper compilations
+  // whose topic is the compilation's name still find theirs).
+  const article = useMemo(() => {
+    if (FEATURE_FLAGS.VETWIKI_ENABLED === false) return null;
+    if (ctxSubj && ctxTopic && hasTopic(ctxSubj, ctxTopic)) return { subject: ctxSubj, topic: ctxTopic };
+    const seen = new Map();
+    for (const q of questions || []) {
+      const a = articleForQuestion(q);
+      if (a) seen.set(`${a.subject}|${a.topic}`, a);
+      if (seen.size > 1) return null;
+    }
+    return seen.size === 1 ? [...seen.values()][0] : null;
+  }, [questions, ctxSubj, ctxTopic]);
+  const openArticle = () => { setSubject?.(article.subject); setTopic?.(article.topic); setView('knowledge'); };
+  const openReview = () => setView('review');
+
+  // One filled button, by what the moment needs. Practice showed every key
+  // during the set, so fixing the misses leads; an exam showed none, so its
+  // key leads. More than half wrong means the gap is the topic: its summary
+  // first, the redo as the next step.
+  const lowScore = autoQs.length > 0 && score.total > 0 && score.correct / score.total < 0.5;
+  const redoRow = hasMissed ? { icon: 'repeat', onClick: handleRedoWrong, label: missedLabel.title, sub: missedLabel.sub } : null;
+  let primary;
+  let side = { label: 'ดูเฉลย', onClick: openReview };
+  let nextRow;
+  if (autoQs.length === 0) {
+    primary = { label: 'ดูเฉลยและให้คะแนนข้อเขียน', sub: 'ตรวจเองตามเกณฑ์ในหน้าเฉลย', onClick: openReview };
+    side = null;
+    nextRow = null;
+  } else if (isExam && hasMissed) {
+    primary = { label: missedLabel.key, sub: 'คำตอบที่ถูกพร้อมเหตุผล', onClick: openReview };
+    side = { label: missedLabel.title, onClick: handleRedoWrong };
+    nextRow = ladderRow;
+  } else if (hasMissed && lowScore && article) {
+    primary = { label: 'อ่านสรุปเรื่องนี้ก่อน', sub: scopeLine || 'สรุปที่ตรวจที่มาได้ทุกส่วน', onClick: openArticle };
+    nextRow = { ...redoRow, label: `แล้ว${missedLabel.title}` };
+  } else if (hasMissed) {
+    primary = redoRow;
+    nextRow = ladderRow || moreRow;
+  } else if (ladderRow && verdict.kind !== 'hold' && verdict.kind !== 'back') {
+    primary = ladderRow;
+    nextRow = moreRow;
+  } else {
+    primary = moreRow || { label: 'ดูเฉลย', sub: 'คำตอบที่ถูกพร้อมเหตุผล', onClick: openReview };
+    nextRow = ladderRow;
+  }
+
+  // A link carries only bank questions: one the student wrote lives in their
+  // own store and a friend's app cannot find it (lib/share-link.js).
+  const shareable = shareableQuestions(questions);
+  const unshareableNote = shareable.length === 0
+    ? 'ข้อที่สร้างเองแชร์ผ่านลิงก์ไม่ได้'
+    : shareable.length < (questions?.length || 0)
+      ? `ลิงก์มีเฉพาะข้อจากคลัง ${shareable.length} ข้อ ข้อที่สร้างเองแชร์ผ่านลิงก์ไม่ได้`
+      : '';
+  const [sharing, setSharing] = useState(false);
+  // The score picture, an option of the share sheet where it was offered
+  // before (a writing set, or 70% and up). The picture is drawn when opened.
+  const storySubject = new Set(questions.map((q) => q.subject)).size === 1 ? questions[0].subject : 'all';
+  const storySubjectName = storySubject !== 'all' ? (SUBJECTS.find((s) => s.id === storySubject)?.name || null) : null;
+  const storyDraw = useCallback(async (theme) => {
+    const total = autoQs.length;
+    const isWritingOnly = total === 0;
+    const [mochi, strip] = await Promise.all([
+      picture(MOCHI_POSE_ASSETS[isWritingOnly ? 'read' : mochiResultPose({ correct: score.correct, total }, total)]),
+      picture(SCORE_STRIP),
+    ]);
+    return drawScoreCard({
+      pct: score.pct, correct: score.correct, total, passPct: PRACTICE_PASS_PCT, mode, subjectName: storySubjectName,
+      isWritingOnly, writingDone: writingAttempted, writingTotal: writingQs.length, completedAt,
+    }, { theme, mochi, strip });
+  }, [score.pct, score.correct, autoQs.length, mode, storySubjectName, writingAttempted, writingQs.length, completedAt]);
+  const story = (autoQs.length === 0 || score.pct >= 70) ? {
+    draw: storyDraw,
+    fileBase: `vetmock-score-${storySubject}-${score.pct}`,
+    shareText: autoQs.length === 0
+      ? `เขียนตอบ ${writingAttempted}/${writingQs.length} ข้อใน VetMock ลองดูที่ vetmock.com`
+      : `ทำข้อสอบ${storySubjectName ? ` ${storySubjectName}` : ''} ใน VetMock ได้ ${score.pct}% (${score.correct}/${autoQs.length}) ลองดูที่ vetmock.com`,
+    alt: autoQs.length === 0
+      ? `เขียนตอบ ${writingAttempted} จาก ${writingQs.length} ข้อ`
+      : `${storySubjectName || 'หลายวิชา'} ได้ ${score.pct}% ถูก ${score.correct} จาก ${autoQs.length} ข้อ`,
+  } : null;
+
+  const paced = firstLook ? ' is-paced' : '';
+  const timeWords = receiverDurationSec != null && receiverDurationSec > 0 ? ` ใน ${fmtDuration(receiverDurationSec)}` : '';
+  const verdictWord = autoQs.length === 0 ? 'ชุดข้อเขียน' : reached ? 'ถึงเกณฑ์ซ้อมแล้ว' : 'ยังไม่ถึงเกณฑ์ซ้อม';
 
   return (
-    <div style={{ marginTop: 18 }}>
-      {/* Where this set sits on the ladder, and what it earned. The rung
-          just climbed is marked, the recommended one is named, and the
-          sentence under the strip states the bar in numbers. */}
-      <section className="vmx-next-ladder" aria-labelledby="vmx-next-ladder-title">
-        <h3 id="vmx-next-ladder-title" className="vmx-next-ladder-title">บันไดฝึก</h3>
-        <LadderStrip
-          done={verdict.step}
-          doneLabel={`ได้ ${pctExact}%`}
-          next={verdict.next !== verdict.step ? verdict.next : null}
-          labelledBy="vmx-next-ladder-title"
+    <div className="vmx-results">
+      <BackBar onBack={goHome} label="หน้าแรก" mochi={false} />
+      <div className="vmx-results-grid">
+        {/* The score, said once: verdict word, number, the fraction with the
+            time, and the bar with one tick at the practice mark. */}
+        <section className={`vmx-res-card vmx-res-step${paced}`} aria-label="ผลชุดนี้">
+          {celebrate && <ScoreBurst strong={perfect} />}
+          <div className="vmx-res-card-head">
+            <div className="vmx-res-card-words">
+              {scopeLine ? <p className="vmx-res-scope">{scopeLine}</p> : null}
+              <p className={`vmx-res-verdict ${autoQs.length === 0 ? 'is-writing' : reached ? 'is-pass' : 'is-review'}`}>{verdictWord}</p>
+              {autoQs.length > 0 ? (
+                <h2 className={`vmx-score-big${reached ? ' pass' : ''}`}>
+                  <DigitRoll value={score.pct} /><span className="vmx-score-unit">%</span>
+                </h2>
+              ) : (
+                <h2 className="vmx-score-big is-writing">
+                  <NavIcon name="pen" size={56} /><span className="vmx-sr-only">ข้อเขียน</span>
+                </h2>
+              )}
+            </div>
+            {/* Mochi reacts once to this result on the rig and settles on the
+                still: celebrating from 80%, encouraging below. */}
+            <MochiLive pose={resultPose} play={firstLook ? resultPose : null} size={72} slot="result" className="vmx-result-mochi" />
+          </div>
+          {autoQs.length > 0 ? (
+            <>
+              <p className="vmx-score-frac">
+                {`ถูก ${score.correct} จาก ${autoQs.length} ข้อ${timeWords}${skipCount > 0 ? ` ข้าม ${skipCount} ข้อ` : ''}`}
+              </p>
+              <div className="vmx-benchmark-container" aria-label={`เกณฑ์ซ้อมของแอป ${PRACTICE_PASS_PCT}% ทำได้ ${score.pct}%`}>
+                <div className="vmx-benchmark-track">
+                  <div
+                    className={`vmx-benchmark-fill ${reached ? 'is-pass' : 'is-review'}`}
+                    style={{ width: `${Math.min(100, Math.max(0, score.pct))}%` }}
+                  />
+                  <div className="vmx-benchmark-target" style={{ left: `${PRACTICE_PASS_PCT}%` }}>
+                    <div className="vmx-benchmark-flag">{PRACTICE_PASS_PCT}%</div>
+                  </div>
+                </div>
+              </div>
+              {writingQs.length > 0 ? <p className="vmx-res-note">{`มีข้อเขียน ${writingQs.length} ข้อ ตรวจเองตามเกณฑ์ในหน้าเฉลย`}</p> : null}
+            </>
+          ) : (
+            <>
+              <p className="vmx-score-frac">{`เขียนเสร็จ ${writingAttempted} จาก ${writingQs.length} ข้อ${timeWords}`}</p>
+              <p className="vmx-res-note">{msg}</p>
+            </>
+          )}
+        </section>
+
+        <div className="vmx-res-actions">
+          {/* A result that could not be saved says so right under the score. */}
+          <ExamSaveNotice status={saveStatus} />
+
+          {/* The one filled button: pinned under the thumb on a phone, at the
+              top of this column on a wide screen. */}
+          {primary ? (
+            <div className={`vmx-res-thumb vmx-res-step${paced}`} style={{ '--res-delay': '70ms' }}>
+              <button type="button" className="vmx-res-primary" onClick={primary.onClick}>
+                <span className="vmx-res-primary-words">
+                  <span className="vmx-res-primary-label">{primary.label}</span>
+                  {primary.sub ? <span className="vmx-res-primary-sub">{primary.sub}</span> : null}
+                </span>
+                <span className="vmx-res-primary-arrow" aria-hidden="true">→</span>
+              </button>
+            </div>
+          ) : null}
+
+          <div className={`vmx-res-pair vmx-res-step${paced}`} style={{ '--res-delay': '126ms' }}>
+            {side ? (
+              <button type="button" className="vmx-btn vmx-btn-ghost" onClick={side.onClick}>{side.label}</button>
+            ) : null}
+            <button type="button" className="vmx-btn vmx-btn-ghost" onClick={() => setSharing(true)} aria-haspopup="dialog">
+              <NavIcon name="users" size={16} /> ส่งให้เพื่อน
+            </button>
+          </div>
+
+          {nextRow ? (
+            <button type="button" className={`vmx-res-next vmx-res-step${paced}`} style={{ '--res-delay': '182ms' }} onClick={nextRow.onClick}>
+              <span className="vmx-res-next-icon" aria-hidden="true"><NavIcon name={nextRow.icon} size={20} /></span>
+              <span className="vmx-res-next-words">
+                <span className="vmx-res-next-label">{nextRow.label}</span>
+                {nextRow.sub ? <span className="vmx-res-next-sub">{nextRow.sub}</span> : null}
+              </span>
+              <span className="vmx-res-next-go" aria-hidden="true">›</span>
+            </button>
+          ) : null}
+
+          {/* Old challenge links (`?qset=...&sc=`) still carry the sender's
+              score, and the friend still sees the comparison. */}
+          {challengeSender?.senderScore && autoQs.length > 0 && (
+            <ChallengeComparisonBox
+              sender={challengeSender}
+              receiverScore={{ correct: score.correct, total: autoQs.length }}
+              receiverTimeSec={receiverDurationSec}
+            />
+          )}
+
+          {/* The pattern across the misses, on tap only. */}
+          <WeakSpots
+            wrongQs={autoQs.filter((q) => answerOutcome(q, answers[q.id]) === 'wrong')}
+            answers={answers}
+          />
+          {wrongCount > 0 ? <p className="vmx-res-note">ข้อที่พลาดซ้ำครั้งที่สองจะกลับมาในคิวทบทวนเอง</p> : null}
+
+          {autoQs.length > 0 && sessionKind !== 'redo' ? (
+            <section className="vmx-next-ladder" aria-labelledby="vmx-next-ladder-title">
+              <h3 id="vmx-next-ladder-title" className="vmx-next-ladder-title">บันไดฝึก</h3>
+              <LadderStrip
+                done={verdict.step}
+                next={verdict.next !== verdict.step ? verdict.next : null}
+                labelledBy="vmx-next-ladder-title"
+              />
+            </section>
+          ) : null}
+
+          {/* Not about this result, so after it: the first set of a day's
+              day count, and once ever a daily reminder. */}
+          <StreakMoment moment={moment} />
+          {moment && (
+            <Suspense fallback={null}>
+              <ReminderOffer usual={moment.usual} />
+            </Suspense>
+          )}
+        </div>
+      </div>
+      {sharing && (
+        <ShareSetSheet
+          questions={shareable}
+          note={unshareableNote}
+          story={story}
+          onRace={() => { setSharing(false); setView('race'); }}
+          onClose={() => setSharing(false)}
         />
-        <p className="vmx-next-ladder-note">{ladderNote}</p>
-      </section>
-
-      {/* Action stack — primary card on top, secondary row below. */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-        {part !== 'rest' && primaryCard}
-        {/* With misses on top, a climb the set earned is the next card. */}
-        {hasWrong && ladderCard}
-
-        {/* Secondary row, in the order a student reaches for it: the answers,
-            the summary, more of the same topic. A stack, so a phone does not
-            reverse it (.vmx-btn-row alone is a Back/Next pair). The three ways
-            to bring a friend sit behind one disclosure at the end. */}
-        <div className="vmx-btn-row is-stack" style={{ gap: 8 }}>
-          <button className="vmx-btn vmx-btn-ghost" onClick={() => setView('review')} style={{ minHeight: 44 }}>
-            ดูเฉลย
-          </button>
-          {/* Without a climb, the rung the verdict named is one tap away. */}
-          {!ladderCta && verdict.kind !== 'redo' && (
-            <button
-              type="button"
-              className="vmx-btn vmx-btn-ghost"
-              onClick={() => launchStep(verdict.next)}
-              style={{ minHeight: 44 }}
-              title={`${nextStep.hint}, ${scopeName}`}
-            >
-              {verdict.kind === 'back' && verdict.next !== verdict.step
-                ? `กลับขั้น ${nextStep.n} ${nextStep.label}`
-                : `ทำขั้น ${nextStep.n} อีกชุด ${nextStep.count} ข้อ`}
-            </button>
-          )}
-          {/* If this whole set resolves to one governed topic, offer its
-              VetWiki page — the natural "I got this wrong, let me read the
-              checked version". articleForQuestion (the judged mapping), not
-              a bare topic match, so past-paper compilations whose topic is
-              the compilation's name still find their article. */}
-          {FEATURE_FLAGS.VETWIKI_ENABLED !== false && (() => {
-            let article = ctx.subj && ctx.topic && hasTopic(ctx.subj, ctx.topic)
-              ? { subject: ctx.subj, topic: ctx.topic }
-              : null;
-            if (!article) {
-              const seen = new Map();
-              for (const q of questions || []) {
-                const a = articleForQuestion(q);
-                if (a) seen.set(`${a.subject}|${a.topic}`, a);
-                if (seen.size > 1) return null; // mixed set — no single page to offer
-              }
-              article = seen.size === 1 ? [...seen.values()][0] : null;
-            }
-            if (!article) return null;
-            return (
-              <button
-                type="button"
-                className="vmx-btn vmx-btn-ghost"
-                onClick={() => { setSubject?.(article.subject); setTopic?.(article.topic); setView('knowledge'); }}
-                style={{ minHeight: 44 }}
-                title="อ่านสรุปหัวข้อนี้แบบตรวจสอบที่มาได้ทุกส่วน"
-              >
-                อ่านสรุปเรื่องนี้
-              </button>
-            );
-          })()}
-          {hasWrong && ctx.subj && (
-            <button
-              type="button"
-              className="vmx-btn vmx-btn-ghost"
-              onClick={() => handleContinueMore(5)}
-              style={{ minHeight: 44 }}
-              title={ctx.topic ? `สุ่ม 5 ข้อใหม่ในหัวข้อ ${topicLabel}` : `สุ่ม 5 ข้อใหม่ในวิชา ${subjLabel}`}
-            >
-              ทำ{ctx.topic ? 'หัวข้อ' : 'วิชา'}นี้อีก 5 ข้อ
-            </button>
-          )}
-          <details className="vmx-invite">
-            <summary className="vmx-btn vmx-btn-ghost">ชวนเพื่อน</summary>
-            <div className="vmx-invite-actions">
-              {/* The two link makers only when a link can be made; a set of
-                  the student's own questions gets the reason instead. */}
-              {shareable.length > 0 ? (
-                <ChallengeQuizButton questions={shareable} score={score} senderTimeSec={receiverDurationSec} />
-              ) : null}
-              {/* Round 2B 2026-05-18: race-room shortcut. Skips the Race
-                  entry page — just routes to RaceView (it handles its own
-                  flow). Future enhancement: pass current questions[] as
-                  seed when RaceView accepts a seed prop. */}
-              <button
-                type="button"
-                className="vmx-btn vmx-btn-ghost"
-                onClick={() => setView('race')}
-                style={{ minHeight: 44 }}
-                title="ไปหน้า Race mode — สร้างห้องแข่งกับเพื่อนแบบ realtime"
-              >
-                <NavIcon name="users" size={16} /> สร้างห้องแข่ง
-              </button>
-              {/* Round 2B 2026-05-18: "send to group" — same primitive as
-                  ChallengeQuizButton but explicitly invokes navigator.share
-                  first (mobile system picker → LINE/IG group chat target). */}
-              {shareable.length > 0 ? (
-                <SendToGroupButton questions={shareable} score={score} senderTimeSec={receiverDurationSec} />
-              ) : null}
-              {unshareableNote && <span className="vmx-invite-note">{unshareableNote}</span>}
-            </div>
-          </details>
-        </div>
-      </div>
+      )}
     </div>
   );
 }
 
-// ─── RecommendationsBox — Phase 2 (2026-05-18) ──────────────────────
-// Short "ต่อจากนี้แนะนำ" panel under the action stack. Tells the user
-// what the system is doing in the background (SR queue, weak-topic
-// signal) so the loop feels intelligent rather than opaque.
-function RecommendationsBox({ autoQs, wrongCount, questions, answers, score }) {
-  // Compute a couple of structured hints. Only render box if we have
-  // at least one substantive hint — never render an empty card.
-  const hints = useMemo(() => {
-    const out = [];
-    if (autoQs.length === 0) return out;
-    if (wrongCount > 0) {
-      // This used to read "ข้อที่ผิด N ข้อถูกเพิ่มเข้า SR queue แล้ว", which was
-      // not true: promotion needs the SAME question missed twice (threshold 2
-      // in App.jsx), so a first miss is never queued. One miss is noise, two is
-      // a pattern — the rule is right, the sentence was wrong. It now states
-      // the rule instead of announcing something that did not happen.
-      out.push({
-        icon: 'repeat',
-        text: `ผิด ${wrongCount} ข้อ — ข้อไหนที่พลาดซ้ำเป็นครั้งที่สอง จะถูกดึงเข้าคิวทบทวนอัตโนมัติ`,
-      });
-      out.push({
-        icon: 'exam',
-        text: 'คิวทบทวนจะปล่อยข้อนั้นกลับมาเองตามจังหวะ spaced repetition ไม่ต้องจำเองว่าต้องกลับมาเมื่อไหร่',
-      });
-    }
-    // Topic-level pattern: ≥2 wrong in same topic → flag it
-    if (wrongCount >= 2) {
-      const topicTally = {};
-      for (const q of autoQs) {
-        if (answerOutcome(q, answers[q.id]) !== 'wrong') continue;
-        const key = q.topic;
-        if (!key) continue;
-        topicTally[key] = (topicTally[key] || 0) + 1;
-      }
-      const entries = Object.entries(topicTally).sort((a, b) => b[1] - a[1]);
-      if (entries.length > 0 && entries[0][1] >= 2) {
-        const [topic, count] = entries[0];
-        const representative = autoQs.find((q) => q.topic === topic);
-        const subjectMeta = SUBJECTS.find((item) => item.id === representative?.subject);
-        const resolvedTopic = subjectMeta?.topics?.find((item) => item.id === topic)?.label;
-        const cleaned = (resolvedTopic || 'หัวข้อนี้')
-          .replace(/^[\d\s.·\-]+/, '')
-          .trim()
-          .slice(0, 40);
-        out.push({
-          icon: 'progress',
-          text: `คุณพลาด ${count} ข้อในหัวข้อ "${cleaned}" — ลองทบทวนเนื้อหานี้ก่อน`,
-        });
-      }
-    }
-    if (score.pct >= 90 && autoQs.length >= 5) {
-      out.push({
-        icon: 'flame',
-        text: 'คะแนนสูงในรอบนี้ ลองเพิ่มจำนวนข้อรอบหน้าเพื่อท้าทายตัวเองดู',
-      });
-    }
-    return out.slice(0, 3);
-  }, [autoQs, answers, wrongCount, score.pct]);
-
-  if (hints.length === 0) return null;
-
-  return (
-    <div style={{
-      marginTop: 18,
-      padding: '12px 14px',
-      borderRadius: 12,
-      background: 'rgba(184, 137, 64, 0.06)',
-      border: '1px dashed var(--clr-gold)',
-    }}>
-      <div className="vmx-kicker" style={{ color: 'var(--clr-gold-text)', marginBottom: 8 }}>
-        ต่อจากนี้แนะนำ
-      </div>
-      <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 6 }}>
-        {hints.map((h, i) => (
-          <li
-            key={i}
-            style={{
-              display: 'flex',
-              alignItems: 'flex-start',
-              gap: 10,
-              fontSize: 14,
-              lineHeight: 1.5,
-              color: 'var(--clr-ink)',
-            }}
-          >
-            <span style={{ display: 'inline-flex', flexShrink: 0, marginTop: 2, color: 'var(--clr-gold-text)' }} aria-hidden><NavIcon name={h.icon} size={16} /></span>
-            <span style={{ flex: 1 }}>{h.text}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+// "6 นาที" for the line under the score; under a minute in seconds.
+function fmtDuration(sec) {
+  if (sec < 60) return `${sec} วินาที`;
+  return `${Math.round(sec / 60)} นาที`;
 }
 
-// One-click share. We render the score card to a Blob, then prefer the
-// Web Share API (mobile, lets user pick IG Story / IG Direct / DM /
-// any installed app). On desktop or browsers without share-with-files,
-// we fall back to PNG download — user can airdrop / save and upload to
-// IG manually. Either way we add a footer link to the IG profile so
-// the share has a destination beyond just the screenshot.
-// Compact button that copies a shareable quiz URL (`?qset=...`) so the
-// user can paste it in LINE/IG and a friend opens the same Q set.
-// Different from ShareToIGRow (which generates a screenshot for stories);
-// this is for "lets do this exact quiz together".
-function ShareQuizButton({ questions }) {
-  const [hint, setHint] = useState('');
-  if (!questions || questions.length === 0) return null;
-  return (
-    <button
-      type="button"
-      className="vmx-btn vmx-btn-ghost"
-      style={{ minHeight: 44 }}
-      onClick={async () => {
-        const res = await copyShareUrl(questions);
-        if (res.ok) setHint('คัดลอกลิงก์แล้ว, วางส่งเพื่อนได้เลย');
-        else setHint('คัดลอกไม่ได้: ' + (res.url || ''));
-        setTimeout(() => setHint(''), 3500);
-      }}
-      title="แชร์ชุดโจทย์นี้ให้เพื่อน — เปิดลิงก์แล้วได้ข้อเดียวกัน เรียงเดียวกัน"
-    >
-      แชร์ชุดนี้
-      {hint && <span style={{ marginLeft: 8, fontSize: 14, color: 'var(--clr-sage-text)' }}>{hint}</span>}
-    </button>
-  );
-}
-
-// Same primitive as ShareQuizButton but reframes the action as
-// "challenge friend" — Palm spec 2026-05-18: people share questions
-// (low embarrassment) more readily than they share bad scores.
-// We use the Web Share API where available (mobile native share sheet)
-// with a copy-paste fallback to clipboard so LINE/IG webviews work too.
-//
-// Round 2B (2026-05-18): when `score` is provided we embed the sender
-// score in BOTH the URL (?sc=12_15) and the share text ("เราได้ 12/15")
-// — Palm spec wants the bragging-rights framing + per-message comparison.
-function ChallengeQuizButton({ questions, label = 'ท้าเพื่อนทำชุดนี้', score, senderName, senderTimeSec }) {
-  const [hint, setHint] = useState('');
-  if (!questions || questions.length === 0) return null;
-
-  const buildChallengeText = () => {
-    const n = questions.length;
-    const senderScore = score && Number.isFinite(score.correct) && Number.isFinite(score.total)
-      ? { correct: score.correct, total: score.total }
-      : null;
-    const url = buildShareUrl(questions, { senderScore, senderName, senderTimeSec });
-    if (!url) return null;
-    // Sender-score baked into the text body so the message preview
-    // (LINE/IG inline link card) carries the challenge framing even
-    // when the receiver doesn't open the URL right away.
-    const fragment = senderScore
-      ? `เราได้ ${senderScore.correct}/${senderScore.total} ลองทำดู — ตอบถูกมากกว่ามั้ย?`
-      : `ลองทำข้อนี้ดิ 📚 ${n} ข้อจาก VetMock — ใครตอบถูกมากกว่ากัน?`;
-    return `${fragment}\n${url}`;
-  };
-
-  const handleClick = async () => {
-    const text = buildChallengeText();
-    if (!text) {
-      setHint('สร้างลิงก์ไม่ได้');
-      setTimeout(() => setHint(''), 3000);
-      return;
-    }
-    try {
-      if (typeof navigator !== 'undefined' && typeof navigator.share === 'function') {
-        await navigator.share({ title: 'VetMock challenge', text });
-        setHint('ส่งให้เพื่อนแล้ว');
-        setTimeout(() => setHint(''), 3000);
-        return;
-      }
-    } catch (err) {
-      if (err?.name === 'AbortError') return; // user cancelled
-    }
-    // Fallback: copy text (URL embedded)
-    const res = await copyText(text);
-    setHint(res.ok ? 'คัดลอกแล้ว วางใน LINE หรือ IG ได้เลย' : 'คัดลอกไม่สำเร็จ');
-    setTimeout(() => setHint(''), 3500);
-  };
-
-  return (
-    <button
-      type="button"
-      className="vmx-btn vmx-btn-ghost"
-      onClick={handleClick}
-      style={{ minHeight: 44 }}
-      title="แชร์ลิงก์ชุดโจทย์ + ข้อความท้าทาย — เพื่อนเปิดลิงก์แล้วทำชุดเดียวกัน"
-    >
-      {label}
-      {hint && <span style={{ marginLeft: 8, fontSize: 14, color: 'var(--clr-sage-text)' }}>{hint}</span>}
-    </button>
-  );
-}
-
-// Send-to-group variant — Round 2B 2026-05-18. Forces the native share
-// sheet (no clipboard fallback) so on mobile the user lands on the
-// LINE/IG/Telegram group picker directly. On desktop, falls back to
-// clipboard with a hint to paste into the group chat.
-function SendToGroupButton({ questions, score, senderTimeSec }) {
-  const [hint, setHint] = useState('');
-  if (!questions || questions.length === 0) return null;
-
-  const handleClick = async () => {
-    const senderScore = score && Number.isFinite(score.correct) && Number.isFinite(score.total)
-      ? { correct: score.correct, total: score.total }
-      : null;
-    const url = buildShareUrl(questions, { senderScore, senderTimeSec });
-    if (!url) {
-      setHint('สร้างลิงก์ไม่ได้');
-      setTimeout(() => setHint(''), 3000);
-      return;
-    }
-    const fragment = senderScore
-      ? `เราได้ ${senderScore.correct}/${senderScore.total} ใครได้มากกว่ามั้ย 📚`
-      : `ลองทำชุดนี้กัน VetMock`;
-    const text = `${fragment}\n${url}`;
-    try {
-      if (typeof navigator !== 'undefined' && typeof navigator.share === 'function') {
-        await navigator.share({ title: 'VetMock challenge', text });
-        setHint('เลือกกลุ่มหรือแชทได้เลย');
-        setTimeout(() => setHint(''), 3000);
-        return;
-      }
-    } catch (err) {
-      if (err?.name === 'AbortError') return;
-    }
-    const res = await copyText(text);
-    setHint(res.ok ? 'คัดลอกแล้ว วางในกลุ่มได้เลย' : 'ส่งไม่สำเร็จ');
-    setTimeout(() => setHint(''), 3500);
-  };
-
-  return (
-    <button
-      type="button"
-      className="vmx-btn vmx-btn-ghost"
-      onClick={handleClick}
-      style={{ minHeight: 44 }}
-      title="ส่งลิงก์ชุดโจทย์เข้ากลุ่ม LINE / IG / chat"
-    >
-      ส่งเข้ากลุ่ม
-      {hint && <span style={{ marginLeft: 8, fontSize: 14, color: 'var(--clr-sage-text)' }}>{hint}</span>}
-    </button>
-  );
-}
 
 // Format seconds → "M:SS" for human-readable elapsed time.
 function fmtTimeSec(n) {
@@ -1300,45 +686,6 @@ function ChallengeComparisonBox({ sender, receiverScore, receiverTimeSec }) {
             </div>
           </div>
         </div>
-      )}
-    </div>
-  );
-}
-
-function ShareToIGRow({ pct, correct, total, subject, mode, isWritingOnly, writingDone, writingTotal, completedAt }) {
-  const [open, setOpen] = useState(false);
-  const subjectName = subject && subject !== 'all' ? (SUBJECTS.find((s) => s.id === subject)?.name || null) : null;
-  // The picture (lib/share-card/score-card.js) is drawn when the sheet opens,
-  // so the share tap itself hands over a finished file.
-  const draw = useCallback(async (theme) => {
-    const [mochi, strip] = await Promise.all([
-      picture(MOCHI_POSE_ASSETS[isWritingOnly ? 'read' : mochiResultPose({ correct, total }, total)]),
-      picture(SCORE_STRIP),
-    ]);
-    return drawScoreCard({
-      pct, correct, total, passPct: PRACTICE_PASS_PCT, mode, subjectName,
-      isWritingOnly, writingDone, writingTotal, completedAt,
-    }, { theme, mochi, strip });
-  }, [pct, correct, total, mode, subjectName, isWritingOnly, writingDone, writingTotal, completedAt]);
-  const shareText = isWritingOnly
-    ? `เขียนตอบ ${writingDone}/${writingTotal} ข้อใน VetMock ลองดูที่ vetmock.com`
-    : `ทำข้อสอบ${subjectName ? ` ${subjectName}` : ''} ใน VetMock ได้ ${pct}% (${correct}/${total}) ลองดูที่ vetmock.com`;
-
-  return (
-    <div className="vmx-share-cta">
-      <p>เก็บคะแนนชุดนี้ไว้เป็นรูป หรือแชร์ให้เพื่อน</p>
-      <button type="button" className="vmx-btn vmx-btn-primary" onClick={() => setOpen(true)}>
-        สร้างรูปคะแนน
-      </button>
-      {open && (
-        <ShareCardSheet
-          title="รูปคะแนน"
-          onClose={() => setOpen(false)}
-          draw={draw}
-          fileBase={`vetmock-score-${subject || 'all'}-${pct}`}
-          shareText={shareText}
-          alt={isWritingOnly ? `เขียนตอบ ${writingDone} จาก ${writingTotal} ข้อ` : `${subjectName || 'หลายวิชา'} ได้ ${pct}% ถูก ${correct} จาก ${total} ข้อ`}
-        />
       )}
     </div>
   );

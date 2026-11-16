@@ -559,8 +559,18 @@ test.describe('with the page clock in the test\'s hand', () => {
       await new Promise((done) => requestAnimationFrame(() => requestAnimationFrame(done)));
       return window.scrollY;
     }), { timeout: 15_000 }).toBeGreaterThan(100);
-    await page.clock.setSystemTime(Date.now() + 120_000);
-    await page.clock.runFor(1100);
+    // From here the test alone moves the page's clock. The popstate of the sheet's entry comes in the browser's
+    // own time, and a clock left running counts that wait against the page's timers: on a busy machine a whole
+    // second of it went by before the popstate did.
+    await page.clock.pauseAt(Date.now() + 120_000);
+    // The paper's tick has seen the time run out; step on only until the card has moved.
+    await expect.poll(async () => {
+      await page.clock.runFor(100);
+      return page.locator('.vmx-sr-only[role="status"]').textContent();
+    }, { intervals: [50], timeout: 15_000 }).toBe('ข้อ 2 จาก 2');
+    // The sheet's entry leaves with a popstate the browser sends in its own time; the frame after it puts the page at its top.
+    await expect.poll(() => page.evaluate(() => Boolean(window.history.state?.vmxCaseSheet)), { timeout: 15_000 }).toBe(false);
+    await page.clock.runFor(100);
     await expect(page.locator('.vmx-sr-only[role="status"]')).toHaveText('ข้อ 2 จาก 2');
     // The sheet is gone, with the question it was asking; the notice says why the card moved on.
     await expect(sheet).toHaveCount(0);
