@@ -20,6 +20,7 @@
 
 import { thaiError } from '../lib/errors.js';
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { lazyWithRetry } from '../lib/lazy-retry.js';
 import FeatureTip from '../components/FeatureTip.jsx';
 import ReadingEffects from '../components/ReadingEffects.jsx';
 import { RichText, keepSilentFinals } from '../lib/richtext.jsx';
@@ -55,9 +56,9 @@ import { Q_COUNTS_BY_TOPIC } from '../data/q-counts.js';
 import { SHELF_TOTALS, SHELF_RELATED } from '../lib/vetwiki/shelf.generated.js';
 import '../styles-wiki.css';
 
-const ConflictNote = React.lazy(() => import('../components/ConflictNote.jsx'));
+const ConflictNote = lazyWithRetry(() => import('../components/ConflictNote.jsx'));
 // The card kit, the bookplate and Mochi load only when a card is asked for.
-const WikiTopicCard = React.lazy(() => import('../components/WikiTopicCard.jsx'));
+const WikiTopicCard = lazyWithRetry(() => import('../components/WikiTopicCard.jsx'));
 
 const TONE = {
   strong: 'var(--clr-right-text)',
@@ -794,9 +795,9 @@ const Section = React.memo(function Section({ s, i, chips, knowledgeId, copiedSt
             extracted slides already show. */}
         <SlideFigures sectionId={s.id} source={noteRef?.locator || ''} />
         {(s.corrections || []).map((c, k) => (
-          <React.Suspense key={k} fallback={<div className="vmx-skeleton" style={{ height: 72, borderRadius: 10, marginTop: 12 }} />}>
+          <OptionalFeature key={k} pending={<div className="vmx-skeleton" style={{ height: 72, borderRadius: 10, marginTop: 12 }} />}>
             <ConflictNote item={c} />
-          </React.Suspense>
+          </OptionalFeature>
         ))}
         {/* One folded row per section, closed (5.226): where the text came
             from, what it was checked against and the report control were four

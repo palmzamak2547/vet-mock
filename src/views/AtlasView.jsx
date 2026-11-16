@@ -1,4 +1,5 @@
-import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { lazyWithRetry } from '../lib/lazy-retry.js';
 import {
   ArrowLeft,
   ArrowLeftRight,
@@ -36,7 +37,7 @@ import {
 import '../styles-atlas.css';
 import AtlasPartDirectory from '../components/AtlasPartDirectory.jsx';
 import { useAtlasOffline } from '../lib/atlas-offline.js';
-const AtlasScene = lazy(() => import('../components/AtlasScene.jsx'));
+const AtlasScene = lazyWithRetry(() => import('../components/AtlasScene.jsx'));
 const formatBytes = (value) =>
   value < 1000000 ? `${Math.round(value / 1000)} KB` : `${(value / 1000000).toFixed(1)} MB`;
 

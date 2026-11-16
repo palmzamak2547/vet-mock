@@ -1,4 +1,5 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
+import { lazyWithRetry } from '../lib/lazy-retry.js';
 import BackBar from '../components/BackBar.jsx';
 import MotionSettings from '../components/MotionSettings.jsx';
 import MotionSurface from '../components/MotionSurface.jsx';
@@ -13,7 +14,7 @@ import ErrorBoundary from '../components/ErrorBoundary.jsx';
 import MascotStill from '../components/MascotStill.jsx';
 import '../styles-buddy.css';
 
-const MascotSquad3DViewer = lazy(() => import('../components/MascotSquad3DViewer.jsx'));
+const MascotSquad3DViewer = lazyWithRetry(() => import('../components/MascotSquad3DViewer.jsx'));
 
 export default function MochiView({ goHome, onOpenFocus, onOpenGame }) {
   const { buddy } = useBuddy();

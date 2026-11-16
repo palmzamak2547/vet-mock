@@ -82,7 +82,7 @@ const NOT_A_SCREEN = {
 };
 
 test('every screen App.jsx draws is a lazy view, and every lazy view is drawn', () => {
-  const lazyViews = new Map([...LAZY.matchAll(/export const (\w+) = lazy\(\(\) => import\('\.\.\/views\/(\w+)\.jsx'\)\)/g)]
+  const lazyViews = new Map([...LAZY.matchAll(/export const (\w+) = lazyWithRetry\(\(\) => import\('\.\.\/views\/(\w+)\.jsx'\)\)/g)]
     .map((m) => [m[1], m[2]]));
   assert.ok(lazyViews.size > 40, `lazy views found: ${lazyViews.size}`);
   for (const [view, comps] of RENDERED) {
