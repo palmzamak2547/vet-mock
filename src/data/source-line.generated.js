@@ -87,6 +87,7 @@ export const TOPIC_CHIP_HELD = new Set([
   "exotic:94041",
   "exotic:94043",
   "food-industry:109560",
+  "food-industry:218301",
   "food-safety-y4:92514",
   "herd-health-rum:94500",
   "herd-health-rum:94502",

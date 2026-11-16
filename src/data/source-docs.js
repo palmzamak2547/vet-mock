@@ -1155,6 +1155,47 @@ export const SOURCE_DOCS = [
     match: /สไลด์ HACCP ปี 2022 ฉบับที่หน้าปกมีรายการ/i,
     editions: [{ id: '35p', pages: 35 }],
   },
+  // FIQC finals gap pass, 16 พ.ย. 2569: this year's aquatic deck and the seniors' marked copies the new rows cite.
+  {
+    slug: 'fiqc-aquatic-2569', subject: 'food-industry', title: "Quality control of aquatic animals and aquatic animal products (deck 2569)",
+    match: /FIQC aquatic animals products 2026 SJ/i,
+    editions: [{ id: '70p', pages: 70 }],
+  },
+  {
+    slug: 'fiqc-haccp-2024-vet84', subject: 'food-industry', title: "HACCP for livestock (deck Nov 2024 ที่มีโน้ตและไฮไลต์ ในโฟลเดอร์ Vet 84)",
+    match: /สไลด์ HACCP ฉบับ Nov 2024 ในโฟลเดอร์ Vet 84/i,
+    editions: [{ id: '55p', pages: 55 }],
+  },
+  {
+    slug: 'fiqc-aquatic-handout-2024-vet84', subject: 'food-industry', title: "FIQC aquatic products handout 2024 (ในโฟลเดอร์ Vet 84)",
+    match: /เอกสารสัตว์น้ำปี 2024 ในโฟลเดอร์ Vet 84/i,
+    editions: [{ id: '57p', pages: 57 }],
+  },
+  {
+    slug: 'fiqc-poultry-export-2022-o10-vet84', subject: 'food-industry', title: "Poultry standard for export (deck 2022 ฉบับ 'ออก 10 ข้อ' ในโฟลเดอร์ Vet 84)",
+    match: /สไลด์ส่งออกปี 2022 ฉบับ 'ออก 10 ข้อ'/i,
+    editions: [{ id: '69p', pages: 69 }],
+  },
+  {
+    slug: 'fiqc-poultry-export-2022-star-vet84', subject: 'food-industry', title: "Poultry standard for export (deck 2022 ฉบับติดดาว ในโฟลเดอร์ Vet 84)",
+    match: /สไลด์ส่งออกปี 2022 ฉบับติดดาว/i,
+    editions: [{ id: '70p', pages: 70 }],
+  },
+  {
+    slug: 'fiqc-poultry-export-2022-list-vet84', subject: 'food-industry', title: "Poultry standard for export (deck 2022 ฉบับมีรายการหัวข้อที่หน้าปก ในโฟลเดอร์ Vet 84)",
+    match: /สไลด์ส่งออกปี 2022 ฉบับมีรายการหัวข้อที่หน้าปก/i,
+    editions: [{ id: '69p', pages: 69 }],
+  },
+  {
+    slug: 'fiqc-haccp-2022-star-vet84', subject: 'food-industry', title: "HACCP for livestock (deck 2022 ฉบับดาวแดง 'ช้อย 10 ข้อ' ในโฟลเดอร์ Vet 84)",
+    match: /สไลด์ HACCP ปี 2022 ฉบับดาวแดง/i,
+    editions: [{ id: '35p', pages: 35 }],
+  },
+  {
+    slug: 'fiqc-final-kit-vet84', subject: 'food-industry', title: "[final] mini survival kit FIQC (ในโฟลเดอร์ Vet 84)",
+    match: /mini survival kit ปลายภาค FIQC ในโฟลเดอร์ Vet 84/i,
+    editions: [{ id: '9p', pages: 9 }],
+  },
   // Veterinary Epidemiology FINAL sources, 1 พ.ย. 2569: the 2569 library decks by their titles, the older decks and the seniors' files.
   {
     slug: 'epid-surveillance-2569', subject: 'epidemiology', title: "1. Animal disease surveillance SJ 2026",
