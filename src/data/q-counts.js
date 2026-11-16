@@ -10,8 +10,8 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 8986;
-export const QB_SOURCE_TOTAL = 9198;
+export const QB_TOTAL = 9019;
+export const QB_SOURCE_TOTAL = 9231;
 export const QB_BLOCKED_TOTAL = 212;
 
 export const Q_COUNTS_BY_SUBJECT = {
@@ -54,7 +54,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'vet-dev-anat': 26,
   'vet-histo': 104,
   'vet-imaging': 35,
-  'vet-juris': 46,
+  'vet-juris': 79,
   'vet-neuroanat': 40,
   'vet-pharm-2': 62,
   'zoonoses': 534,
@@ -104,7 +104,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'vet-dev-anat': 26,
   'vet-histo': 104,
   'vet-imaging': 35,
-  'vet-juris': 46,
+  'vet-juris': 79,
   'vet-neuroanat': 40,
   'vet-pharm-2': 62,
   'zoonoses': 534,
@@ -152,7 +152,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'vca': 950,
   'vet-dev-anat': 26,
   'vet-imaging': 35,
-  'vet-juris': 46,
+  'vet-juris': 79,
   'zoonoses': 460,
 };
 
@@ -196,6 +196,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'vca': 950,
     'vet-dev-anat': 26,
     'vet-imaging': 5,
+    'vet-juris': 33,
     'zoonoses': 321,
   },
   final: {
@@ -263,6 +264,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'vca': 1341,
     'vet-histo': 104,
     'vet-imaging': 5,
+    'vet-juris': 33,
     'zoonoses': 382,
   },
   '1-final': {
@@ -346,7 +348,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
     1: 297,
     2: 104,
     3: 62,
-    4: 139,
+    4: 172,
     5: 4267,
   },
   '1-final': {
@@ -621,6 +623,11 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
     },
     'vet-imaging': {
       'ct-basics': 5,
+    },
+    'vet-juris': {
+      'animal-welfare-act-2557': 20,
+      'vet-practice-act-2545': 12,
+      'vet-professional-ethics': 1,
     },
     'zoonoses': {
       'zoo-ai-basic': 22,
@@ -1725,6 +1732,11 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
     'vet-imaging': {
       'ct-basics': 5,
     },
+    'vet-juris': {
+      'animal-welfare-act-2557': 20,
+      'vet-practice-act-2545': 12,
+      'vet-professional-ethics': 1,
+    },
     'zoonoses': {
       'zoo-ai-basic': 9,
       'zoo-corona': 13,
@@ -2402,7 +2414,7 @@ export const Q_COUNTS_BY_YEAR = {
   1: 297,
   2: 144,
   3: 62,
-  4: 2076,
+  4: 2109,
   5: 6407,
 };
 
@@ -2414,7 +2426,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   1: 297,
   2: 144,
   3: 62,
-  4: 1981,
+  4: 2014,
   5: 6407,
 };
 
@@ -3104,8 +3116,11 @@ export const Q_COUNTS_BY_TOPIC = {
   "vet-juris": {
     "animal-epidemic-act-2558": 11,
     "animal-hospital-act-2557": 12,
+    "animal-welfare-act-2557": 20,
     "drug-act-2510": 15,
     "slaughter-act-2559": 3,
+    "vet-practice-act-2545": 12,
+    "vet-professional-ethics": 1,
     "wildlife-act-2562": 5,
   },
   "vet-neuroanat": {
@@ -3671,8 +3686,11 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
   "vet-juris": {
     "animal-epidemic-act-2558": 11,
     "animal-hospital-act-2557": 12,
+    "animal-welfare-act-2557": 20,
     "drug-act-2510": 15,
     "slaughter-act-2559": 3,
+    "vet-practice-act-2545": 12,
+    "vet-professional-ethics": 1,
     "wildlife-act-2562": 5,
   },
   "zoonoses": {
@@ -3744,4 +3762,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-11-15T23:57:24.159Z
+// Built: 2026-11-16T02:55:52.136Z

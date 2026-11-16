@@ -846,6 +846,36 @@ export const SOURCE_DOCS = [
     editions: [{ id: '23p', pages: 23 }],
   },
   {
+    slug: 'juris-mid-recall-vet85-86', subject: 'vet-juris', title: "Midterm pp's JURIS ETH WELFARE (บันทึกข้อสอบกลางภาคของ Vet 85 ที่ Vet 86 ทำเครื่องหมายต่อ)",
+    match: /บันทึกข้อสอบกลางภาค Vet Juris ของ Vet 85 ที่ Vet 86 ทำเครื่องหมายต่อ/,
+    editions: [{ id: '11p', pages: 11 }],
+  },
+  {
+    slug: 'juris-mid-retype-key-vet86', subject: 'vet-juris', title: 'Juris midterm ฉบับพิมพ์ใหม่ของ Vet 86 พร้อมเฉลย',
+    match: /ฉบับพิมพ์ใหม่ของ Vet 86 พร้อมเฉลย/,
+    editions: [{ id: '13p', pages: 13 }],
+  },
+  {
+    slug: 'juris-vet-practice-act-2568', subject: 'vet-juris', title: 'พระราชบัญญัติวิชาชีพการสัตวแพทย์และกฎหมายที่เกี่ยวข้อง (2568)',
+    match: /พระราชบัญญัติวิชาชีพการสัตวแพทย์และกฎหมายที่เกี่ยวข้อง deck 2568/,
+    editions: [{ id: '58p', pages: 58 }],
+  },
+  {
+    slug: 'juris-welfare-week1-2568', subject: 'vet-juris', title: 'Welfare week 1 (2568)',
+    match: /Animal welfare week 1 deck 2568/,
+    editions: [{ id: '72p', pages: 72 }],
+  },
+  {
+    slug: 'juris-welfare-week2-2568', subject: 'vet-juris', title: 'Animal welfare week 2 (2568)',
+    match: /Animal welfare week 2 deck 2568/,
+    editions: [{ id: '89p', pages: 89 }],
+  },
+  {
+    slug: 'juris-ethics-2568', subject: 'vet-juris', title: 'จรรยาบรรณของวิชาชีพการสัตวแพทย์ (2568)',
+    match: /จรรยาบรรณของวิชาชีพการสัตวแพทย์ deck 2568/,
+    editions: [{ id: '63p', pages: 63 }],
+  },
+  {
     slug: 'aqua-final-screens', subject: 'aquatic-clinic', title: "Aqua (2) (2) (ภาพหน้าจอข้อสอบออนไลน์ Final วิชา Aquatic Animal Medicine part สัตว์น้ำเศรษฐกิจ)",
     match: /ภาพหน้าจอข้อสอบออนไลน์ Final วิชา Aquatic Animal Medicine part สัตว์น้ำเศรษฐกิจ/i,
     editions: [{ id: '24p', pages: 24 }],

@@ -98,6 +98,11 @@ export const EXAM_ORIGINS = Object.freeze({
   // Vet 80 wrote down their Aquatic Med midterm by lecturer (a 2-page sheet kept in the Vet 84 midterm folder); the
   // marine-mammal part of that midterm is taught for the final in 2569, so the row sits in a final topic.
   "Aquatic Med midterm Vet 80 บันทึกหลังสอบ": { kind: 'paper', cohort: 80, paper: 'midterm' },
+  // Vet 85 typed up their Vet Juris midterm after the paper (practice act, ethics, welfare, keys in red); Vet 86
+  // marked the same copy: the practice-act part matched their paper item for item, and each welfare item they sat is
+  // ticked. Rows Vet 86 marked as not on their paper, and the written ethics case, name Vet 85 alone.
+  "Vet Juris midterm Vet 85, Vet 86 บันทึกหลังสอบ": { kind: 'paper', cohort: [85, 86], paper: 'midterm' },
+  "Vet Juris midterm Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: 85, paper: 'midterm' },
   "One Health final Vet 82 บันทึกหลังสอบ": { kind: 'paper', cohort: 82, paper: 'final' },
   "One Health final Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: 85, paper: 'final' },
   "One Health final บันทึกหลังสอบ (ไม่ระบุรุ่น)": { kind: 'paper', cohort: null, paper: 'final' },

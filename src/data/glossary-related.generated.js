@@ -206,6 +206,8 @@ export const GLOSSARY_RELATED = {
   94215,
   94227,
   92033,
+  218725,
+  218729,
   202222,
   694170,
   209516,
@@ -3933,6 +3935,7 @@ export const GLOSSARY_RELATED = {
  ],
  "post-mortem inspection|public-health": [
   93038,
+  218713,
   202255,
   207002,
   207008,

@@ -9,19 +9,19 @@ Generated from the working tree at the time of the run.
 
 | | |
 |---|---|
-| **Questions ready for learners** | **8,986** |
+| **Questions ready for learners** | **9,019** |
 | Questions retained but fail-closed pending answer, scope, or figure review | 212 |
-| Total questions in source banks | 9,198 |
+| Total questions in source banks | 9,231 |
 | Question banks (files) | 108 |
 | Subjects with questions | 43 |
 | Years covered | 1, 2, 3, 4, 5 |
 | — year 1 | 297 |
 | — year 2 | 144 |
 | — year 3 | 62 |
-| — year 4 | 2,076 |
+| — year 4 | 2,109 |
 | — year 5 | 6,407 |
 
-Consistency: source banks **9198**, learner-ready **8986**, fail-closed **212**, registry sums to **9198**, files missing from the registry: **0** → ✅ consistent
+Consistency: source banks **9231**, learner-ready **9019**, fail-closed **212**, registry sums to **9231**, files missing from the registry: **0** → ✅ consistent
 
 ## Study notes
 
@@ -95,8 +95,8 @@ Learner-ready questions that open an article, through their own topic or a judge
 | vet-dev-anat | 26 | 0 | 0 | 0.0% |
 | vet-histo | 104 | 0 | 0 | 0.0% |
 | vet-imaging | 35 | 0 | 0 | 0.0% |
-| vet-juris | 46 | 0 | 0 | 0.0% |
+| vet-juris | 79 | 0 | 0 | 0.0% |
 | vet-neuroanat | 40 | 40 | 0 | 100.0% |
 | vet-pharm-2 | 62 | 0 | 0 | 0.0% |
 | zoonoses | 534 | 522 | 0 | 97.8% |
-| **All** | 8986 | 5841 | 324 | 65.0% |
+| **All** | 9019 | 5841 | 324 | 64.8% |
