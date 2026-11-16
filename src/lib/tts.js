@@ -50,6 +50,8 @@
 import { thaiPhoneticTranslit } from './tts-phonetic.js';
 import { normalizeSymbols, expandUnits, questionLang, stripForSpeech, clipText, clipSegments, optionLabel, segmentStarts } from './tts-text.js';
 import { sharedPlan, getSharedAudio } from './tts-shared.js';
+import { getVoicePrefs } from './voice-prefs.js';
+import { chosenVoice, voiceChoices } from './voice-choices.js';
 import {
   speakViaEdge,
   stopAllEdgeAudio,
@@ -787,8 +789,7 @@ export async function livePlan({ stem, options = [] }) {
   // first list the device gives within the wait.
   const now = typeof window !== 'undefined' ? window.speechSynthesis?.getVoices?.() : null;
   const voices = now?.length ? now : await Promise.race([ensureVoices(), pause(VOICE_WAIT_MS).then(() => [])]);
-  const voice = pickVoice(voices, lang);
-  const tier = voiceTier(voice);
+  const { voice, tier, rate, chosen } = deviceVoice(voices, lang);
   const parts = [];
   const add = (full, kind, option = -1) => {
     if (!full) return;
@@ -805,7 +806,72 @@ export async function livePlan({ stem, options = [] }) {
     add(optionLabel(i, lang), 'label', i);
     add(t, 'option', i);
   });
-  return { lang, voice, tier, rate: rateFor(lang, tier), parts: parts.filter((p) => p.say) };
+  return { lang, voice, tier, rate, chosen, parts: parts.filter((p) => p.say) };
+}
+
+// The device voice for a language: the one the listener chose in the voice
+// settings while this device still has it, else the best one it has. `rate`
+// is that voice's natural pace; the listener's speed multiplies it.
+function deviceVoice(voices, lang) {
+  const picked = chosenVoice(voices, lang);
+  const voice = picked || pickVoice(voices, lang);
+  const tier = voiceTier(voice);
+  return { voice, tier, rate: rateFor(lang, tier), chosen: Boolean(picked) };
+}
+
+/** The device voice for a language with the voices the device lists now
+ *  (a change in the voice settings while it reads). */
+export function voiceNow(lang) {
+  const voices = typeof window !== 'undefined' ? window.speechSynthesis?.getVoices?.() || [] : [];
+  return deviceVoice(voices, lang);
+}
+
+/** The device's own voices, Thai and English, for the voice settings. */
+export async function deviceVoices() {
+  const now = typeof window !== 'undefined' ? window.speechSynthesis?.getVoices?.() : null;
+  const voices = now?.length ? now : await Promise.race([ensureVoices(), pause(VOICE_WAIT_MS).then(() => [])]);
+  return voiceChoices(voices);
+}
+
+// The voice settings' sample: one fixed sentence, said by the device's own
+// voice with the settings as they are. Never the cloud voice, so a sample
+// costs nothing and works offline.
+export const SAMPLE_TEXT = {
+  th: 'นี่คือเสียงอ่านตามที่ตั้งไว้ ความเร็วและโทนเสียงจะเป็นแบบนี้',
+  en: 'This is how a question in English will sound.',
+};
+let sampleUtter = null;
+export function stopSample() {
+  if (!sampleUtter) return;
+  sampleUtter = null;
+  try { window.speechSynthesis?.cancel(); } catch { /* no speech */ }
+}
+/** Resolves { ok: true } once the device has said it (or was stopped), else { ok: false, reason: 'no-voice' | 'no-speech' }. */
+export async function speakSample(lang = 'th') {
+  const synth = typeof window !== 'undefined' ? window.speechSynthesis : null;
+  if (!synth || typeof SpeechSynthesisUtterance === 'undefined') return { ok: false, reason: 'no-speech' };
+  const now = synth.getVoices?.();
+  const voices = now?.length ? now : await Promise.race([ensureVoices(), pause(VOICE_WAIT_MS).then(() => [])]);
+  const { voice, rate } = deviceVoice(voices, lang);
+  if (!voice) return { ok: false, reason: 'no-voice' };
+  stopSample();
+  if (synth.speaking || synth.pending) { try { synth.cancel(); } catch { /* no speech */ } }
+  const prefs = getVoicePrefs();
+  const u = new SpeechSynthesisUtterance(SAMPLE_TEXT[lang] || SAMPLE_TEXT.th);
+  u.voice = voice;
+  u.lang = voice.lang;
+  u.rate = Math.max(0.5, Math.min(2, rate * prefs.rate));
+  u.pitch = prefs.pitch;
+  sampleUtter = u;
+  return new Promise((resolve) => {
+    let done = false;
+    const finish = (res) => { if (!done) { done = true; clearTimeout(t); resolve(res); } };
+    const t = setTimeout(() => { if (sampleUtter === u) stopSample(); finish({ ok: false, reason: 'no-voice' }); }, 6000);
+    u.onstart = () => clearTimeout(t); // resolves when it ends
+    u.onend = () => { if (sampleUtter === u) sampleUtter = null; finish({ ok: true }); };
+    u.onerror = (e) => { if (sampleUtter === u) sampleUtter = null; finish(e?.error === 'interrupted' || e?.error === 'canceled' ? { ok: true } : { ok: false, reason: 'no-voice' }); };
+    try { synth.speak(u); } catch { finish({ ok: false, reason: 'no-speech' }); }
+  });
 }
 
 // The first Thai spelling builds its word list (about 0.3 s on a laptop):

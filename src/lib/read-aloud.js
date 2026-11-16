@@ -21,6 +21,7 @@
 // ============================================================
 
 import { playerElement, readAloud, RATES, savedRate } from './read-aloud-store.js';
+import { getVoicePrefs, setVoicePrefs, subscribeVoicePrefs } from './voice-prefs.js';
 import { sharedPlan, getSharedAudio, loadWords } from './tts-shared.js';
 import { questionLang } from './tts-text.js';
 
@@ -262,15 +263,47 @@ function jump(dir) {
 
 export function setRate(rate) {
   if (!RATES.includes(rate)) return;
-  try { window.localStorage.setItem('vmx-read-aloud-rate', String(rate)); } catch { /* private mode */ }
-  const el = playerElement();
-  if (el) { el.defaultPlaybackRate = rate; el.playbackRate = rate; }
-  readAloud.set({ rate });
-  // The device voice takes a rate per sentence: the one it is saying starts
-  // again at the new speed.
-  const r = run;
-  if (r?.plan?.[r.i]?.src === 'speech' && r.utter && !r.paused) playPart(r, r.i, 0);
+  setVoicePrefs({ rate }); // applyPrefs below does the rest
 }
+
+// A stored clip plays faster or slower with its pitch kept (the browsers'
+// default, set here so no engine drops it).
+function setElementRate(el, rate) {
+  el.defaultPlaybackRate = rate;
+  el.playbackRate = rate;
+  try { el.preservesPitch = true; el.mozPreservesPitch = true; el.webkitPreservesPitch = true; } catch { /* read-only in an old engine */ }
+}
+
+// The voice settings changed (the bar's sheet, or another tab): the speed
+// applies at once, to a clip mid-word and to the device voice; a new tone or
+// voice applies to the device voice from the sentence it is saying, which
+// starts again. Tone does not change a stored clip: shifting a clip's pitch
+// on the device without changing its speed would cost its quality.
+let applied = getVoicePrefs();
+function applyPrefs() {
+  const prefs = getVoicePrefs();
+  const was = applied;
+  applied = prefs;
+  const el = playerElement();
+  if (prefs.rate !== readAloud.get().rate) {
+    if (el) setElementRate(el, prefs.rate);
+    readAloud.set({ rate: prefs.rate });
+  }
+  const r = run;
+  if (!r?.live || r.plan?.[r.i]?.src !== 'speech') return;
+  const voiceChanged = prefs.voiceTh !== was.voiceTh || prefs.voiceEn !== was.voiceEn;
+  const sound = voiceChanged || prefs.pitch !== was.pitch || prefs.rate !== was.rate;
+  if (!sound) return;
+  const restart = () => { if (run === r && r.utter && !r.paused && r.plan?.[r.i]?.src === 'speech') playPart(r, r.i, 0); };
+  if (!voiceChanged) { restart(); return; }
+  loadLive().then((m) => {
+    if (run !== r) return;
+    const v = m.voiceNow?.(r.live.lang);
+    if (v?.voice) Object.assign(r.live, v);
+    restart();
+  }).catch(() => {});
+}
+subscribeVoicePrefs(applyPrefs);
 
 /** For a student who has used read-aloud: the manifests ahead of the tap, and
  *  with clip, the first clip and its timings too (never on Save-Data). */
@@ -334,8 +367,7 @@ async function playPart(r, i, offset = 0) {
   el.muted = false;
   el.src = r.url;
   r.onElement = i;
-  el.defaultPlaybackRate = readAloud.get().rate;
-  el.playbackRate = readAloud.get().rate;
+  setElementRate(el, readAloud.get().rate);
   // r.offset, not offset: a seek made while the piece downloaded moved it.
   const at = r.offset;
   if (at > 0) el.addEventListener('loadedmetadata', () => { if (run === r && r.i === i) el.currentTime = Math.min(at, el.duration || at); }, { once: true });
@@ -420,7 +452,8 @@ async function device(r) {
   if (run !== r) return;
   if (!live?.parts.length) { dead(r, noVoiceNote(live?.lang)); return; }
   r.live = live;
-  const good = live.voice && live.tier !== 'standard';
+  // A voice the listener chose in the voice settings reads, plain or not.
+  const good = live.voice && (live.chosen || live.tier !== 'standard');
   const speechOk = typeof window !== 'undefined' && Boolean(window.speechSynthesis) && typeof SpeechSynthesisUtterance !== 'undefined';
   const first = good && speechOk ? 'speech' : cloudRefused && speechOk && live.voice ? 'speech' : 'cloud';
   // The cloud voice already refused this visitor and the device has no voice:
@@ -454,6 +487,7 @@ function speakPart(r, i) {
   const v = r.live.voice;
   if (v) { u.voice = v; u.lang = v.lang; } else u.lang = r.live.lang === 'en' ? 'en-US' : 'th-TH';
   u.rate = Math.max(0.5, Math.min(2, (r.live.rate || 1) * (readAloud.get().rate || 1)));
+  u.pitch = getVoicePrefs().pitch;
   r.utter = u;
   const mine = () => run === r && r.utter === u;
   let started = false;

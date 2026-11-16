@@ -6,19 +6,27 @@
 // state: loading, playing, paused, an error and the live voices only change
 // what its parts say. The engine (lib/read-aloud.js) is passed in once loaded.
 // ============================================================
-import { useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react';
+import { Suspense, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
 import NavIcon from './NavIcon.jsx';
 import { readAloud, RATES } from '../lib/read-aloud-store.js';
+import { lazyWithRetry } from '../lib/lazy-retry.js';
+
+// The voice settings load on the tap that opens them.
+const VoiceSettings = lazyWithRetry(() => import('./VoiceSettings.jsx'));
 
 const clock = (s) => {
   const t = Math.max(0, Math.round(s || 0));
   return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`;
 };
 
-export default function ReadAloudBar({ jobPrefix, engine, optionLetter = (i) => String.fromCharCode(65 + i) }) {
+// timed: the card is inside a timed paper; the speed button then steps the
+// speed as before instead of opening the voice settings.
+export default function ReadAloudBar({ jobPrefix, engine, timed = false, optionLetter = (i) => String.fromCharCode(65 + i) }) {
   const st = useSyncExternalStore(readAloud.subscribe, readAloud.get, readAloud.get);
   const [drag, setDrag] = useState(null);
+  // The voice settings, open over the page; they stay open if the reading ends meanwhile.
+  const [tuning, setTuning] = useState(false);
   const [place, setPlace] = useState({ lift: 12, nav: null });
   const barRef = useRef(null);
   const rangeRef = useRef(null);
@@ -61,7 +69,15 @@ export default function ReadAloudBar({ jobPrefix, engine, optionLetter = (i) => 
     };
   }, [mine, engine]);
 
-  if (!mine || typeof document === 'undefined') return null;
+  if (typeof document === 'undefined') return null;
+  // Its own portal: the bar's transform would hold a fixed dialog inside it.
+  const sheet = tuning && !timed ? createPortal(
+    <Suspense fallback={null}>
+      <VoiceSettings onClose={() => setTuning(false)} onBeforeSample={() => engine?.pause()} />
+    </Suspense>,
+    document.body,
+  ) : null;
+  if (!mine) return sheet;
   const busy = st.status === 'playing' || st.status === 'loading';
   // Clips and the live voices have the same controls: pause, resume, points, speed.
   const clipControls = Boolean(engine);
@@ -78,7 +94,7 @@ export default function ReadAloudBar({ jobPrefix, engine, optionLetter = (i) => 
   const commit = () => { if (drag != null) { engine?.seek(drag); setDrag(null); } };
   const nextRate = RATES[(RATES.indexOf(st.rate) + 1) % RATES.length];
 
-  return createPortal(
+  return <>{sheet}{createPortal(
     <div ref={barRef} className={`vmx-read-bar is-${st.status}`} role="region" aria-label="เสียงอ่าน" style={{ '--vmx-read-bar-lift': `${place.lift}px`, ...(place.nav ? { '--vmx-bottom-nav-h': place.nav } : {}) }}>
       <div className="vmx-read-bar-ctrl">
         <button type="button" className="vmx-read-btn" disabled={!clipControls}
@@ -104,11 +120,22 @@ export default function ReadAloudBar({ jobPrefix, engine, optionLetter = (i) => 
         <span className="vmx-read-state" role="status" aria-live="polite">{say}</span>
       </div>
       <div className="vmx-read-bar-end">
-        <button type="button" className="vmx-read-btn vmx-read-rate" disabled={!clipControls}
-          aria-label={`ความเร็ว ${st.rate} เท่า แตะเพื่อเปลี่ยนเป็น ${nextRate} เท่า`} title="ความเร็วเสียงอ่าน"
-          onClick={() => engine?.setRate(nextRate)}>
-          {st.rate}x
-        </button>
+        {timed ? (
+          // A timed paper keeps the bar as it was: the speed steps on a tap,
+          // and no dialog opens over a running clock.
+          <button type="button" className="vmx-read-btn vmx-read-rate" disabled={!clipControls}
+            aria-label={`ความเร็ว ${st.rate} เท่า แตะเพื่อเปลี่ยนเป็น ${nextRate} เท่า`} title="ความเร็วเสียงอ่าน"
+            onClick={() => engine?.setRate(nextRate)}>
+            {st.rate}x
+          </button>
+        ) : (
+          <button type="button" className="vmx-read-btn vmx-read-rate" aria-haspopup="dialog" aria-expanded={tuning}
+            aria-label={`ปรับเสียงอ่าน ความเร็ว ${st.rate} เท่า`} title="ปรับเสียงอ่าน"
+            onClick={() => setTuning(true)}>
+            {st.rate}x
+            <span aria-hidden="true" style={{ display: 'inline-flex', marginLeft: 3, opacity: 0.75 }}><NavIcon name="tune" size={15} /></span>
+          </button>
+        )}
         <button type="button" className="vmx-read-btn" aria-label="ปิดเสียงอ่าน" title="ปิดเสียงอ่าน" onClick={() => engine?.stop()}>
           <NavIcon name="close" size={18} />
         </button>
@@ -124,5 +151,5 @@ export default function ReadAloudBar({ jobPrefix, engine, optionLetter = (i) => 
       </div>
     </div>,
     document.body,
-  );
+  )}</>;
 }

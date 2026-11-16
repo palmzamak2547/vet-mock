@@ -80,7 +80,7 @@ const TYPE_LABEL = {
 // set (ExamView renders the card without a key) and a set may be revisited.
 const FILL_CHECKED = new Set();
 
-export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote, revealAnswer, onOpenWiki, answerRun = 0, english = null, englishNote = null }) {
+export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote, revealAnswer, onOpenWiki, answerRun = 0, english = null, englishNote = null, timed = false }) {
   // A verdict is fresh when this visit to the question began unanswered: the
   // student answered it just now. Coming back to a question answered earlier
   // shows its verdict again, but Mochi does not react and the phone stays
@@ -927,7 +927,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 
       </div>
       {ttsNote?.what === 'q' && <p className="vmx-tts-note" role="status">{ttsNote.text}</p>}
-      <ReadAloudBar jobPrefix={jobPrefix} engine={engine} />
+      <ReadAloudBar jobPrefix={jobPrefix} engine={engine} timed={timed} />
 
       {figureSrc && (
         <ZoomableImage

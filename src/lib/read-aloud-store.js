@@ -9,6 +9,8 @@
 // locked, where a new element per clip would need a new tap.
 // ============================================================
 
+import { getVoicePrefs } from './voice-prefs.js';
+
 const SILENT_WAV = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAVFYAAFRWAAABAAgAZGF0YQAAAAA=';
 let audio = null;
 
@@ -61,11 +63,9 @@ export const readAloud = {
   },
 };
 
-// The clip speeds a student can pick, and the one they picked last.
-export const RATES = [0.75, 1, 1.25, 1.5, 2];
+// The speeds a student can pick, and the one they picked last (voice-prefs.js
+// keeps it with the rest of the voice settings).
+export { RATES } from './voice-prefs.js';
 export function savedRate() {
-  try {
-    const r = Number(window.localStorage.getItem('vmx-read-aloud-rate'));
-    return RATES.includes(r) ? r : 1;
-  } catch { return 1; }
+  return getVoicePrefs().rate;
 }

@@ -1,0 +1,168 @@
+// The listener's voice settings — e2e
+// ============================================================
+// The read-aloud bar's speed button opens one small dialog: named settings,
+// speed, the device voice's tone, which device voice reads, and ลองฟัง. The
+// device's speech engine is a stub here (an iPad's voices: two Thai, one
+// English), so what is checked is what the page asks of it: the voice, the
+// speed and the tone of each sentence, and that nothing in the dialog ever
+// asks the network for a voice. Inside a timed paper the button keeps its
+// old job (the next speed) and no dialog opens over the clock.
+// ============================================================
+import { test, expect, openAdjust } from './fixtures.js';
+
+test.setTimeout(60_000);
+
+const SUBJECT = 'exotic';
+const TOPIC_HAS_TEXT = 'โรคติดเชื้อในนก';
+
+async function stubSpeech(page) {
+  await page.addInitScript(() => {
+    window.__said = [];
+    const voices = [
+      { name: 'Kanya', lang: 'th-TH', voiceURI: 'Kanya', localService: true, default: true },
+      { name: 'Narisa', lang: 'th-TH', voiceURI: 'Narisa', localService: true, default: false },
+      { name: 'Samantha', lang: 'en-US', voiceURI: 'Samantha', localService: true, default: false },
+    ];
+    let current = null;
+    const synth = {
+      speak(u) {
+        current = u;
+        window.__said.push({ text: u.text, rate: u.rate, pitch: u.pitch, voice: u.voice?.name || null });
+        setTimeout(() => { if (current !== u) return; u.onstart?.(); u.t = setTimeout(() => { if (current === u) { current = null; u.onend?.(); } }, 900); }, 5);
+      },
+      cancel() { const u = current; current = null; if (u) { clearTimeout(u.t); u.onerror?.({ error: 'interrupted' }); } },
+      getVoices: () => voices, pause() {}, resume() {},
+      get speaking() { return Boolean(current); }, pending: false,
+      addEventListener() {}, removeEventListener() {},
+    };
+    Object.defineProperty(window, 'speechSynthesis', { configurable: true, get: () => synth });
+    window.SpeechSynthesisUtterance = function (text) { this.text = text; };
+  });
+}
+
+// No stored clips anywhere: the device voice reads. Every request for a
+// voice (the clip host, the cloud voice) is counted.
+async function routeVoices(page) {
+  const seen = { clipHost: 0, cloud: 0 };
+  await page.route('https://tts.vetmock.com/**', (route) => { seen.clipHost += 1; return route.fulfill({ status: 404, headers: { 'access-control-allow-origin': '*' }, body: 'not found' }); });
+  await page.route('**/api/tts*', (route) => { seen.cloud += 1; return route.fulfill({ status: 502, body: 'no' }); });
+  return seen;
+}
+
+async function openPractice(page) {
+  await page.addInitScript(() => { try { window.localStorage.setItem('vmx-selected-year', '4'); } catch {} });
+  await page.goto('/app/study');
+  await page.locator(`[data-subject="${SUBJECT}"]`).click();
+  await page.locator('.vmx-topic-main', { hasText: TOPIC_HAS_TEXT }).click();
+  await openAdjust(page);
+  await page.getByRole('spinbutton', { name: /จำนวนข้อ.*กำหนดเอง/ }).fill('2');
+  await page.getByRole('button', { name: /เริ่มฝึก/ }).click();
+  await expect(page.locator('.vmx-question-card')).toBeVisible({ timeout: 30_000 });
+}
+
+test('the bar opens the voice settings; speed, tone and voice are heard at once and kept on the device', async ({ page }) => {
+  await stubSpeech(page);
+  const seen = await routeVoices(page);
+  await openPractice(page);
+  await page.getByRole('button', { name: 'อ่านคำถามออกเสียง' }).click();
+  const bar = page.getByRole('region', { name: 'เสียงอ่าน' });
+  await expect(bar.getByRole('status')).toHaveText('เสียงอ่านของเครื่อง');
+  const barBox = await bar.boundingBox();
+  const card = page.locator('.vmx-question-card');
+  const cardBox = await card.boundingBox();
+
+  // Two taps from the bar to any speed: the button, then the speed.
+  const tune = bar.getByRole('button', { name: /ปรับเสียงอ่าน ความเร็ว 1 เท่า/ });
+  await expect(tune).toHaveAttribute('aria-haspopup', 'dialog');
+  await tune.click();
+  const sheet = page.getByRole('dialog', { name: 'ตั้งค่าเสียงอ่าน' });
+  await expect(sheet).toBeVisible();
+  await expect(sheet.getByRole('radio', { name: /ปกติ/ }).first()).toHaveAttribute('aria-checked', 'true');
+  // Opening it moved nothing on the card.
+  expect(await card.boundingBox()).toEqual(cardBox);
+
+  // A named setting: slow and clear.
+  await sheet.getByRole('radio', { name: /ช้าและชัด/ }).click();
+  await expect(sheet.getByRole('radio', { name: '0.75 เท่า' })).toHaveAttribute('aria-checked', 'true');
+  await expect(bar.getByRole('button', { name: /ความเร็ว 0.75 เท่า/ })).toHaveText('0.75x');
+  await expect.poll(() => page.evaluate(() => window.__said.at(-1).rate)).toBeLessThan(0.8);
+
+  // The tone: one step up is สูง, and the sentence being said starts again in it.
+  const pitch = sheet.getByRole('slider', { name: /โทนเสียง/ });
+  await pitch.focus();
+  await page.keyboard.press('ArrowRight');
+  await expect(pitch).toHaveAttribute('aria-valuetext', 'สูง');
+  await expect.poll(() => page.evaluate(() => window.__said.at(-1).pitch)).toBe(1.15);
+  await expect(sheet.getByRole('radio', { name: /ช้าและชัด/ })).toHaveAttribute('aria-checked', 'false');
+
+  // Which device voice: the Thai ones by name.
+  const thai = sheet.getByRole('combobox', { name: 'เสียงของเครื่อง ภาษาไทย' });
+  await expect(thai.locator('option')).toHaveText(['เลือกให้อัตโนมัติ', 'Kanya', 'Narisa']);
+  await thai.selectOption('Narisa');
+  await expect.poll(() => page.evaluate(() => window.__said.at(-1).voice)).toBe('Narisa');
+  await expect(sheet.getByRole('combobox', { name: /ภาษาอังกฤษ/ }).locator('option')).toHaveText(['เลือกให้อัตโนมัติ', 'Samantha']);
+
+  // ลองฟัง: one fixed sentence, the device voice, the settings as they are.
+  await sheet.getByRole('button', { name: 'ลองฟัง' }).click();
+  await expect.poll(() => page.evaluate(() => window.__said.at(-1).text)).toContain('นี่คือเสียงอ่านตามที่ตั้งไว้');
+  const last = await page.evaluate(() => window.__said.at(-1));
+  expect(last).toMatchObject({ voice: 'Narisa', pitch: 1.15 });
+  expect(last.rate).toBeLessThan(0.8);
+  // The reading paused for the sample.
+  await expect(bar.getByRole('status')).toHaveText('หยุดชั่วคราว');
+
+  await sheet.getByRole('button', { name: 'เสร็จ' }).click();
+  await expect(sheet).toHaveCount(0);
+  expect((await bar.boundingBox()).height).toBe(barBox.height);
+  // Nothing in the dialog asked for a voice from the network.
+  expect(seen.cloud).toBe(0);
+
+  // Kept on this device, read back after a reload.
+  const stored = await page.evaluate(() => JSON.parse(window.localStorage.getItem('vmx-tts-prefs')));
+  expect(stored).toMatchObject({ v: 2, rate: 0.75, pitch: 1.15, voiceTh: 'Narisa' });
+  await openPractice(page);
+  await page.getByRole('button', { name: 'อ่านคำถามออกเสียง' }).click();
+  await expect(page.getByRole('region', { name: 'เสียงอ่าน' }).getByRole('button', { name: /ความเร็ว 0.75 เท่า/ })).toBeVisible();
+  await expect.poll(() => page.evaluate(() => window.__said.at(-1)?.voice)).toBe('Narisa');
+
+  // คืนค่าเริ่มต้น puts everything back.
+  await page.getByRole('region', { name: 'เสียงอ่าน' }).getByRole('button', { name: /ปรับเสียงอ่าน/ }).click();
+  await page.getByRole('dialog', { name: 'ตั้งค่าเสียงอ่าน' }).getByRole('button', { name: 'คืนค่าเริ่มต้น' }).click();
+  await expect(page.getByRole('dialog', { name: 'ตั้งค่าเสียงอ่าน' }).getByRole('radio', { name: /ปกติ/ }).first()).toHaveAttribute('aria-checked', 'true');
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('dialog', { name: 'ตั้งค่าเสียงอ่าน' })).toHaveCount(0);
+  await page.evaluate(() => window.localStorage.removeItem('vmx-tts-prefs'));
+});
+
+test('inside a timed paper the speed button steps the speed and opens nothing', async ({ page }) => {
+  await stubSpeech(page);
+  await routeVoices(page);
+  await page.addInitScript(() => {
+    localStorage.setItem('vmx-selected-year', '4');
+    localStorage.setItem('vmx-seen-landing', '1');
+    localStorage.setItem('vmx-consent', JSON.stringify('essential'));
+    if (!sessionStorage.getItem('voice-timed-fixture')) {
+      sessionStorage.setItem('voice-timed-fixture', '1');
+      const now = Date.now();
+      localStorage.setItem('vmx-inflight-exam:guest', JSON.stringify({
+        ownerId: null,
+        questions: [{ id: 6201, subject: 'vca', type: 'mcq', q: 'สุกรป่วยด้วยโรคใดมากที่สุดในฤดูฝน', options: ['โรคปากและเท้าเปื่อย', 'โรคพิษสุนัขบ้า', 'โรคบิด'], answer: 0, explain: 'ตัวอย่างสำหรับตรวจเสียงอ่าน' }],
+        answers: {}, currentIdx: 0, useTimer: true, timePerQ: 600,
+        questionDeadline: now + 600_000, examStartTime: now,
+        savedAt: now, mode: 'exam', clock: 'session', selectedYear: 4,
+      }));
+    }
+  });
+  await page.goto('/app');
+  await page.getByRole('button', { name: /ทำต่อจากครั้งล่าสุด/ }).click();
+  await expect(page.locator('.vmx-timer')).toBeVisible();
+  await page.getByRole('button', { name: 'อ่านคำถามออกเสียง' }).click();
+  const bar = page.getByRole('region', { name: 'เสียงอ่าน' });
+  await expect(bar.getByRole('status')).toHaveText('เสียงอ่านของเครื่อง');
+  await expect(bar.getByRole('button', { name: /ปรับเสียงอ่าน/ })).toHaveCount(0);
+  await bar.getByRole('button', { name: /ความเร็ว 1 เท่า แตะเพื่อเปลี่ยนเป็น 1.25 เท่า/ }).click();
+  await expect(bar.getByRole('button', { name: /ความเร็ว 1.25 เท่า/ })).toHaveText('1.25x');
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  await bar.getByRole('button', { name: 'ปิดเสียงอ่าน' }).click();
+  await page.evaluate(() => window.localStorage.removeItem('vmx-tts-prefs'));
+});
