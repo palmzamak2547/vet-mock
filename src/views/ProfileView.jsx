@@ -30,8 +30,6 @@ import ThemePicker from '../components/ThemePicker.jsx';
 import PWAInstallChip from '../components/PWAInstallChip.jsx';
 import NavIcon from '../components/NavIcon.jsx';
 import IdentityEditor from '../components/IdentityEditor.jsx';
-import ProfilePicture, { usePictures } from '../components/ProfilePicture.jsx';
-import { uploadPicture, removePicture, PICTURE_WORDS } from '../lib/profile-picture.js';
 import { confirmDialog } from '../lib/dialog.js';
 import ActivityFigure from '../components/ActivityFigure.jsx';
 import { storage } from '../hooks/useStorage.js';
@@ -386,8 +384,24 @@ function IdentityCard({ user, profile, year, cohort, onSaved, onYear }) {
   const picture = shownPicture(profile?.avatar_emoji);
   const shown = showsOnBoards(user);
   const headingId = 'hub-identity';
-  const own = usePictures([user?.id], Boolean(user?.id))[user?.id] || null;
   const [photoNote, setPhotoNote] = useState(null);
+  // The picture code loads with the card, not with the hub's idle prefetch
+  // from Home, so a first visit to Home asks for nothing more than before.
+  const [photo, setPhoto] = useState(null);
+  const [own, setOwn] = useState(null);
+  useEffect(() => {
+    if (!user?.id) return undefined;
+    let alive = true;
+    let stop = () => {};
+    import('../lib/profile-picture.js').then((lib) => {
+      if (!alive) return;
+      setPhoto(lib);
+      const read = () => lib.picturesFor([user.id]).then((found) => { if (alive) setOwn(found[user.id] || null); }, () => {});
+      read();
+      stop = lib.onPicturesChanged(read);
+    }, () => {});
+    return () => { alive = false; stop(); };
+  }, [user?.id]);
 
   // The confirmation stays where the change was made, then gets out of the way.
   useEffect(() => {
@@ -424,7 +438,7 @@ function IdentityCard({ user, profile, year, cohort, onSaved, onYear }) {
             data-testid="hub-identity"
           >
             <span key={own?.url || picture} className={`vmx-hub-pic${saved || photoNote === 'saved' ? ' is-fresh' : ''}${own?.url ? ' has-photo' : ''}`} aria-hidden="true">
-              {own?.url ? <ProfilePicture picture={own} emoji={picture} size={56} ownerView /> : picture}
+              {own?.url ? <img className="vmx-profile-photo" src={own.url} alt="" width={56} height={56} decoding="async" referrerPolicy="no-referrer" data-testid="profile-photo" /> : picture}
             </span>
             <span className="vmx-hub-who">
               <span className="vmx-hub-name">{auto ? 'ยังไม่ได้ตั้งชื่อ' : shownName(name)}</span>
@@ -441,7 +455,7 @@ function IdentityCard({ user, profile, year, cohort, onSaved, onYear }) {
               {name ? `ตอนนี้เพื่อนเห็นคุณเป็น ${name} ซึ่งระบบตั้งให้` : 'ยังไม่มีชื่อที่คุณตั้งเอง'} แตะการ์ดเพื่อเลือกชื่อของคุณ
             </p>
           )}
-          <PhotoControls user={user} own={own} note={photoNote} setNote={setPhotoNote} />
+          {photo && <PhotoControls lib={photo} user={user} own={own} note={photoNote} setNote={setPhotoNote} />}
           <div className="vmx-hub-id-foot">
             <span className="vmx-hub-meta">ประวัติ การ์ดทบทวน และรายการอ่านเก็บในบัญชี</span>
             <button type="button" className="vmx-hub-link" onClick={onYear}>เปลี่ยนชั้นปี</button>
@@ -470,7 +484,8 @@ function IdentityCard({ user, profile, year, cohort, onSaved, onYear }) {
 // Pick or take a picture (the phone offers its camera for an image input),
 // replace it, or remove it and go back to the ready-made picture. Every
 // outcome is said on this line, beside the buttons the student pressed.
-function PhotoControls({ user, own, note, setNote }) {
+function PhotoControls({ lib, user, own, note, setNote }) {
+  const { uploadPicture, removePicture, PICTURE_WORDS } = lib;
   const inputRef = useRef(null);
   const [busy, setBusy] = useState(false);
   const has = Boolean(own?.url);

@@ -98,8 +98,10 @@ const setPicture = async (user, pictureKey, { purpose = 'profile-picture', signa
 };
 const report = (reporter, owner) => read('authenticated', reporter, `select public.report_profile_picture(${q(owner)})::text`);
 const stateOf = (user) => run(`select picture_state from public.profiles where id = ${q(user)};`);
-const visibleTo = (viewer, users) => read('authenticated', viewer,
-  `select coalesce(string_agg(user_id::text || ':' || picture_state, ',' order by user_id), '') from public.profile_pictures_for(array[${users.map((u) => `${q(u)}::uuid`).join(',')}])`);
+// Bracketed, then unwrapped: psql -At prints an empty value as an empty line,
+// which the native adapter drops, so a bare '' would read back as null there.
+const visibleTo = async (viewer, users) => (await read('authenticated', viewer,
+  `select '[' || coalesce(string_agg(user_id::text || ':' || picture_state, ',' order by user_id), '') || ']' from public.profile_pictures_for(array[${users.map((u) => `${q(u)}::uuid`).join(',')}])`)).slice(1, -1);
 
 try {
   for (const role of ['anon', 'authenticated']) {
