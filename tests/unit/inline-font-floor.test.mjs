@@ -36,7 +36,6 @@ const BUDGET = {
   'src/components/UserMenu.jsx': 1,
   'src/components/VetCalculator.jsx': 3,
   'src/components/VideoNotePanel.jsx': 3,
-  'src/components/VoiceSettings.jsx': 2,
   'src/components/XpChip.jsx': 1,
   'src/views/AuthView.jsx': 1,
   'src/views/ContributeView.jsx': 7,
