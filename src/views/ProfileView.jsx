@@ -402,6 +402,14 @@ function IdentityCard({ user, profile, year, cohort, onSaved, onYear }) {
     }, () => {});
     return () => { alive = false; stop(); };
   }, [user?.id]);
+  // A picture that does not load falls back to the ready-made one, and says so.
+  const [photoBroken, setPhotoBroken] = useState('');
+  const photoUrl = own?.url && own.url !== photoBroken ? own.url : null;
+  const photoFailed = () => {
+    photo?.forgetPictureUrl(own?.url);
+    setPhotoBroken(own?.url || '');
+    setPhotoNote('broken');
+  };
 
   // The confirmation stays where the change was made, then gets out of the way.
   useEffect(() => {
@@ -437,8 +445,8 @@ function IdentityCard({ user, profile, year, cohort, onSaved, onYear }) {
             aria-label={`แก้ชื่อและรูปที่เพื่อนเห็น ตอนนี้ ${auto ? 'ยังไม่ได้ตั้งชื่อ' : shownName(name)} รูป${pictureLabel(picture)}`}
             data-testid="hub-identity"
           >
-            <span key={own?.url || picture} className={`vmx-hub-pic${saved || photoNote === 'saved' ? ' is-fresh' : ''}${own?.url ? ' has-photo' : ''}`} aria-hidden="true">
-              {own?.url ? <img className="vmx-profile-photo" src={own.url} alt="" width={56} height={56} decoding="async" referrerPolicy="no-referrer" data-testid="profile-photo" /> : picture}
+            <span key={photoUrl || picture} className={`vmx-hub-pic${saved || photoNote === 'saved' ? ' is-fresh' : ''}${photoUrl ? ' has-photo' : ''}`} aria-hidden="true">
+              {photoUrl ? <img className="vmx-profile-photo" src={photoUrl} alt="" width={56} height={56} decoding="async" referrerPolicy="no-referrer" onError={photoFailed} data-testid="profile-photo" /> : picture}
             </span>
             <span className="vmx-hub-who">
               <span className="vmx-hub-name">{auto ? 'ยังไม่ได้ตั้งชื่อ' : shownName(name)}</span>
@@ -489,7 +497,7 @@ function PhotoControls({ lib, user, own, note, setNote }) {
   const inputRef = useRef(null);
   const [busy, setBusy] = useState(false);
   const has = Boolean(own?.url);
-  const hidden = own?.state === 'hidden_reports' || own?.state === 'hidden_admin' ? own.state : null;
+  const hidden = ['hidden_reports', 'hidden_admin', 'blocked'].includes(own?.state) ? own.state : null;
 
   const choose = async (event) => {
     const file = event.target.files?.[0];

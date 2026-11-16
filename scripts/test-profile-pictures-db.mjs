@@ -90,10 +90,10 @@ async function check(name, fn) {
 
 const ADMIN = uid(), OWNER = uid(), R1 = uid(), R2 = uid(), R3 = uid(), OUTSIDER = uid();
 // A request as api/_lib/app-backend.js signs it; the signature comes from the database's own hmac.
-const setPicture = async (user, pictureKey, { purpose = 'profile-picture', signature } = {}) => {
-  const payload = JSON.stringify({ purpose, issuedAt: Math.floor(Date.now() / 1000), data: { user_id: user, key: pictureKey } });
+const setPicture = async (user, pictureKey, { purpose = 'profile-picture', signature, caller = user, issuedAt = Math.floor(Date.now() / 1000) } = {}) => {
+  const payload = JSON.stringify({ purpose, ...(issuedAt === null ? {} : { issuedAt }), data: { user_id: user, key: pictureKey } });
   const sig = signature || await run(`select encode(extensions.hmac(${q(payload)}, 'k', 'sha256'), 'hex');`);
-  return run(`begin; set local role authenticated; set local "request.jwt.claim.sub" = ${q(user)};
+  return run(`begin; set local role authenticated; set local "request.jwt.claim.sub" = ${q(caller)};
     select public.set_profile_picture(${q(payload)}, ${q(sig)})::text; commit;`);
 };
 const report = (reporter, owner) => read('authenticated', reporter, `select public.report_profile_picture(${q(owner)})::text`);
@@ -183,6 +183,8 @@ try {
   await check('only a signed server request sets a picture, and the key must be one the server makes', async () => {
     await assert.rejects(setPicture(OWNER, key(), { signature: '0'.repeat(64) }), /invalid picture request/);
     await assert.rejects(setPicture(OWNER, key(), { purpose: 'client-diagnostic' }), /invalid picture request/);
+    await assert.rejects(setPicture(OWNER, key(), { caller: R1 }), /invalid picture request/, 'signed for someone else');
+    await assert.rejects(setPicture(OWNER, key(), { issuedAt: null }), /invalid picture request/, 'no issuedAt');
     await assert.rejects(setPicture(OWNER, 'profile-pictures/../library/deck.pdf'), /profiles_picture_key_shape/);
     assert.match(await setPicture(OWNER, key()), /"ok": ?true/);
     assert.equal(await stateOf(OWNER), 'shown');
@@ -243,6 +245,23 @@ try {
     assert.equal(await visibleTo(R2, [OWNER]), `${OWNER}:shown`);
   });
 
+  await check("the admin's hide survives removing the picture and uploading again", async () => {
+    assert.match(await read('authenticated', ADMIN, `select public.admin_set_profile_picture('${OWNER}', 'hidden_admin')::text`), /"ok": ?true/);
+    assert.match(await setPicture(OWNER, null), /"ok": ?true/);
+    assert.equal(await stateOf(OWNER), 'none');
+    assert.match(await setPicture(OWNER, key()), /"refused"/);
+    assert.equal(await stateOf(OWNER), 'none');
+    assert.equal(await visibleTo(OWNER, [OWNER]), `${OWNER}:none`, 'the owner reads the block');
+    assert.equal(await visibleTo(R2, [OWNER]), '', 'nobody else does');
+    assert.equal(await read('authenticated', OWNER, `select coalesce(bool_or(blocked), false)::text from public.profile_pictures_for(array['${OWNER}'::uuid])`), 'true');
+    assert.match(await as('authenticated', OWNER, `update public.profiles set picture_blocked = false where id = '${OWNER}'`), /^42501 /);
+    const listed = JSON.parse(await read('authenticated', ADMIN, 'select public.admin_profile_pictures()::text'));
+    assert.equal(listed.find((r) => r.user_id === OWNER)?.blocked, true, 'a blocked account with no picture stays on the admin list');
+    assert.match(await read('authenticated', ADMIN, `select public.admin_set_profile_picture('${OWNER}', 'shown')::text`), /"ok": ?true/);
+    assert.match(await setPicture(OWNER, key()), /"ok": ?true/);
+    assert.equal(await stateOf(OWNER), 'shown');
+  });
+
   await check('clearing a picture goes back to none', async () => {
     assert.match(await setPicture(R2, key()), /"ok": ?true/);
     assert.match(await setPicture(R2, null), /"previous_key": ?"profile-pictures/);
@@ -271,7 +290,7 @@ try {
     assert.equal(await run(`select (to_regclass('public.profile_picture_reports') is null)::text;`), 'true');
     assert.equal(await run(`select count(*)::text from pg_proc where proname like '%profile_picture%';`), '0');
     await run(MIGRATION);
-    assert.equal(await run(`select count(*)::text from information_schema.columns where table_name = 'profiles' and column_name like 'picture%';`), '3');
+    assert.equal(await run(`select count(*)::text from information_schema.columns where table_name = 'profiles' and column_name like 'picture%';`), '4');
   });
 } catch (error) {
   checks.push({ name: 'setup', ok: false, error: String(error.message).slice(0, 1500) });
@@ -282,4 +301,4 @@ try {
 const failed = checks.filter((c) => !c.ok);
 for (const c of checks) console.log(`${c.ok ? 'ok  ' : 'FAIL'} ${c.name}${c.ok ? '' : `\n     ${c.error}`}`);
 console.log(JSON.stringify({ backend, passed: checks.length - failed.length, failed: failed.length }));
-process.exitCode = failed.length || checks.length < 13 ? 1 : 0;
+process.exitCode = failed.length || checks.length < 14 ? 1 : 0;

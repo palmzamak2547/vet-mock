@@ -201,6 +201,35 @@ test('a picture the admin hid cannot be replaced until it is restored', async ()
   assert.equal(log.stored.length, 0);
 });
 
+test("the admin's block outlives the picture: removed, then a new upload is still refused", async () => {
+  const { handler, log } = harness({ own: { picture_key: null, picture_state: 'none', blocked: true } });
+  const answer = await call(handler, request('POST', { body: b64(fixture('valid.png')) }));
+  assert.equal(answer.status, 403);
+  assert.equal(answer.body.error, 'refused');
+  assert.equal(log.stored.length + log.signed.length, 0, 'nothing stored, nothing signed');
+  const read = await call(handler, request('GET', { query: `?users=${ME}` }));
+  assert.deepEqual(read.body.pictures[ME], { url: null, state: 'blocked' });
+});
+
+test('removing is never refused by the rate limit, so account deletion can always clear the picture', async () => {
+  const { handler, log } = harness({ own: { picture_key: 'profile-pictures/00000000-0000-4000-8000-000000000000.webp', picture_state: 'shown' }, limited: { ok: false, retryAfter: 600 } });
+  const answer = await call(handler, request('DELETE'));
+  assert.equal(answer.status, 200);
+  assert.equal(log.route, undefined);
+});
+
+test('every link comes with its real expiry, at least 5 and at most 20 minutes away', async () => {
+  const { handler } = harness({ rows: [{ user_id: OTHER, picture_key: 'profile-pictures/11111111-0000-4000-8000-000000000000.webp', picture_state: 'shown' }] });
+  const answer = await call(handler, request('GET', { query: `?users=${OTHER}` }));
+  const { url, expiresAt } = answer.body.pictures[OTHER];
+  const params = new URL(url, 'http://x').searchParams;
+  assert.equal(verifyBlobToken(params.get('t'), params.get('s'), { env }).e * 1000, expiresAt);
+  const left = expiresAt - Date.now();
+  assert.ok(left >= 5 * 60 * 1000 - 2000 && left <= 20 * 60 * 1000, String(left));
+  const uploaded = await uploads('valid.png');
+  assert.ok(uploaded.answer.body.expiresAt > Date.now());
+});
+
 test('a replaced picture is deleted from storage, and so is a removed one', async () => {
   const old = 'profile-pictures/00000000-0000-4000-8000-000000000000.webp';
   const replaced = harness({ own: { picture_key: old, picture_state: 'shown' }, signedResult: { ok: true, previous_key: old } });

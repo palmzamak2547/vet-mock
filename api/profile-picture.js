@@ -42,8 +42,9 @@ export const RATES = Object.freeze({
 export const MAX_ACCOUNTS = 60;
 // Base64 of the largest picture accepted, its 'b64:' prefix and a little slack.
 const MAX_BODY_CHARS = Math.ceil(PICTURE_LIMITS.maxBytes / 3) * 4 + 16;
-// Links live on fixed windows so a picture seen twice in one window is the
-// same address (the browser keeps it in memory), and never more than 20 minutes.
+// Links live on fixed windows so a picture asked for twice in one window gets
+// the same address, between 5 and 20 minutes; each answer carries its expiry
+// and the browser keeps a link no longer than that.
 const WINDOW_SEC = 900;
 const GRACE_SEC = 300;
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
@@ -81,6 +82,7 @@ export function createHandler({
   makeKey = () => `profile-pictures/${randomUUID()}.webp`,
 } = {}) {
   const bucket = () => r2Config(env).bucket;
+  // A link and the moment it stops working (ms), so the browser keeps it no longer.
   const link = (key, userId) => {
     const nowSec = Math.floor(now() / 1000);
     const expiresAtSec = (Math.floor(nowSec / WINDOW_SEC) + 1) * WINDOW_SEC + GRACE_SEC;
@@ -88,7 +90,7 @@ export function createHandler({
       { storage_bucket: bucket(), storage_key: key, mime: 'image/webp', status: 'restricted', file_name: 'picture.webp' },
       { expiresAtSec, env, now: now(), user: userId },
     );
-    return token ? `/api/library-blob?t=${token.t}&s=${token.s}` : null;
+    return token ? { url: `/api/library-blob?t=${token.t}&s=${token.s}`, expiresAt: expiresAtSec * 1000 } : null;
   };
   const ownRow = async (who) => {
     const asked = await rpc('profile_pictures_for', { p_users: [who.userId] }, who.token);
@@ -114,10 +116,14 @@ export function createHandler({
     if (who.member !== true) return send(res, CHULA_REQUIRED.status, CHULA_REQUIRED.body);
 
     const report = url.searchParams.get('report');
-    const route = method === 'GET' ? 'read' : report !== null ? 'report' : 'write';
-    const rate = RATES[route];
-    const limited = await limit(req, who, `profile-picture-${route}`, rate.max, rate.windowMs);
-    if (!limited.ok) return sendRateLimitFailure(res, limited);
+    // Removing is not counted: it is cheap, repeats harmlessly, and account
+    // deletion relies on it after a student has tried several pictures.
+    if (method !== 'DELETE') {
+      const route = method === 'GET' ? 'read' : report !== null ? 'report' : 'write';
+      const rate = RATES[route];
+      const limited = await limit(req, who, `profile-picture-${route}`, rate.max, rate.windowMs);
+      if (!limited.ok) return sendRateLimitFailure(res, limited);
+    }
 
     try {
       if (method === 'GET') {
@@ -129,13 +135,18 @@ export function createHandler({
         if (!Array.isArray(asked.data)) return send(res, 502, { error: 'database_unavailable' });
         const pictures = {};
         for (const row of asked.data) {
-          if (!row?.picture_key || !UUID.test(row.user_id)) continue;
+          if (!UUID.test(row?.user_id)) continue;
+          if (!row.picture_key) {
+            // The owner's own account under the admin's block, with no picture.
+            if (row.blocked === true && row.user_id === who.userId) pictures[row.user_id] = { url: null, state: 'blocked' };
+            continue;
+          }
           const shown = row.picture_state === 'shown';
           // Hidden pictures reach only their owner (and the admin): the database
           // already filtered, and the owner is the one who needs to see which.
           const address = link(row.picture_key, who.userId);
           if (!address) return send(res, 503, { error: 'storage_not_configured' });
-          pictures[row.user_id] = { url: address, state: shown ? 'shown' : row.picture_state };
+          pictures[row.user_id] = { url: address.url, expiresAt: address.expiresAt, state: shown ? 'shown' : row.picture_state };
         }
         return send(res, 200, { pictures, ready: true });
       }
@@ -167,7 +178,8 @@ export function createHandler({
       const own = await ownRow(who);
       if (own.missing) return send(res, 503, { error: 'not_ready' });
       if (own.failed) return send(res, 502, { error: 'database_unavailable' });
-      if (own.row?.picture_state === 'hidden_admin') return send(res, 403, { error: 'refused' });
+      // The admin's block outlives the picture: refused before anything is stored.
+      if (own.row?.blocked === true || own.row?.picture_state === 'hidden_admin') return send(res, 403, { error: 'refused' });
       const made = await remake(body.bytes);
       if (!made.ok) {
         const status = made.reason === 'too_large' ? 413 : made.reason === 'too_many_pixels' ? 422 : 415;
@@ -189,7 +201,8 @@ export function createHandler({
         return send(res, result?.reason === 'refused' ? 403 : 502, { error: result?.reason === 'refused' ? 'refused' : 'database_unavailable' });
       }
       if (result.previous_key && result.previous_key !== key) await store('DELETE', result.previous_key).catch(() => false);
-      return send(res, 200, { url: link(key, who.userId), state: 'shown' });
+      const address = link(key, who.userId);
+      return send(res, 200, { url: address?.url || null, expiresAt: address?.expiresAt || null, state: 'shown' });
     } catch {
       return send(res, 502, { error: 'database_unavailable' });
     }

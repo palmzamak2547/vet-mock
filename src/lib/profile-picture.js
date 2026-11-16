@@ -10,7 +10,11 @@ import { authHeader } from './api-auth.js';
 
 export const SHRINK_TO = 512;
 export const MAX_UPLOAD_BYTES = 2 * 1024 * 1024;
-const LINK_LIFE_MS = 10 * 60 * 1000;
+// A link is kept until a minute before the server says it stops working; an
+// answer with no link (no picture, or a failure) is asked again after this.
+const LINK_MARGIN_MS = 60 * 1000;
+const NO_LINK_LIFE_MS = 4 * 60 * 1000;
+const keepUntil = (expiresAt, now) => (Number(expiresAt) > now ? Number(expiresAt) - LINK_MARGIN_MS : now + NO_LINK_LIFE_MS);
 
 // What the student reads, by what happened. 14 px or more where shown.
 export const PICTURE_WORDS = Object.freeze({
@@ -29,6 +33,9 @@ export const PICTURE_WORDS = Object.freeze({
   failed: 'บันทึกรูปไม่สำเร็จ ลองอีกครั้ง',
   hidden_reports: 'รูปของคุณถูกซ่อนจากเพื่อน เพราะมีเพื่อนหลายคนรายงานรูปนี้ เปลี่ยนรูปใหม่หรือกลับไปใช้รูปสำเร็จรูปได้',
   hidden_admin: 'ผู้ดูแล VetMock ซ่อนรูปของคุณจากเพื่อนไว้ ตอนนี้เพื่อนเห็นรูปสำเร็จรูปแทน',
+  blocked: 'ผู้ดูแล VetMock ปิดการใส่รูปเองของบัญชีนี้ไว้ ตอนนี้ใช้รูปสำเร็จรูป',
+  broken: 'โหลดรูปไม่ขึ้น จึงแสดงรูปสำเร็จรูปแทน เปิดหน้านี้ใหม่เพื่อลองอีกครั้ง',
+  broken_some: 'บางรูปโหลดไม่ขึ้น จึงแสดงรูปสำเร็จรูปแทน',
   reported: 'รายงานแล้ว ขอบคุณที่ช่วยดูแล',
   report_failed: 'รายงานไม่สำเร็จ ลองอีกครั้ง',
 });
@@ -92,6 +99,21 @@ export function forgetPictures() {
   links.clear();
   announce();
 }
+/** A link that failed to load is not handed out again; the next ask mints a new one. */
+export function forgetPictureUrl(url) {
+  for (const [id, entry] of links) if (entry.url === url) links.delete(id);
+}
+
+// Links are minted for one signed-in account: another account on the same
+// browser starts with none of them.
+let viewer = '';
+async function sameViewer() {
+  const header = await authHeader();
+  const token = String(/** @type {any} */ (header)?.Authorization || /** @type {any} */ (header)?.authorization || '').replace(/^Bearer\s+/i, '');
+  let sub = '';
+  try { sub = JSON.parse(atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))).sub || ''; } catch { sub = ''; }
+  if (sub !== viewer) { viewer = sub; links.clear(); }
+}
 
 async function call(method, query = '', body) {
   if (offline()) return { ok: false, problem: 'offline' };
@@ -118,9 +140,10 @@ export async function uploadPicture(file, userId) {
   } catch (error) {
     return { ok: false, problem: /** @type {any} */ (error)?.code || 'not_picture' };
   }
+  await sameViewer();
   const sent = await call('POST', '', `b64:${await asBase64(blob)}`);
   if (!sent.ok) return sent;
-  links.set(userId, { url: sent.data.url || null, state: 'shown', until: Date.now() + LINK_LIFE_MS });
+  links.set(userId, { url: sent.data.url || null, state: 'shown', until: keepUntil(sent.data.expiresAt, Date.now()) });
   announce();
   return { ok: true };
 }
@@ -129,7 +152,7 @@ export async function uploadPicture(file, userId) {
 export async function removePicture(userId) {
   const done = await call('DELETE');
   if (!done.ok) return done;
-  links.set(userId, { url: null, state: 'none', until: Date.now() + LINK_LIFE_MS });
+  links.set(userId, { url: null, state: 'none', until: Date.now() + NO_LINK_LIFE_MS });
   announce();
   return { ok: true };
 }
@@ -145,6 +168,7 @@ export async function reportPicture(ownerId) {
 
 /** The pictures of these accounts as { [id]: { url, state } }; one request for those not known yet. */
 export async function picturesFor(ids) {
+  await sameViewer();
   const now = Date.now();
   const wanted = [...new Set(ids.filter((id) => typeof id === 'string' && id))];
   const missing = wanted.filter((id) => !(links.get(id)?.until > now));
@@ -155,7 +179,7 @@ export async function picturesFor(ids) {
     // again on every redraw: the next try comes when these entries expire.
     for (const id of chunk) {
       const row = got.ok ? got.data.pictures?.[id] : null;
-      links.set(id, { url: row?.url || null, state: row?.state || 'none', until: now + LINK_LIFE_MS });
+      links.set(id, { url: row?.url || null, state: row?.state || 'none', until: keepUntil(row?.url ? row.expiresAt : 0, now) });
     }
   }
   /** @type {Record<string, { url: string | null, state: string }>} */

@@ -9,7 +9,9 @@ import { adminRpc } from '../lib/admin-api.js';
 import { picturesFor, forgetPictures } from '../lib/profile-picture.js';
 import ProfilePicture from './ProfilePicture.jsx';
 
-const STATE = { shown: 'แสดงอยู่', hidden_reports: 'ซ่อนเพราะถูกรายงาน', hidden_admin: 'ผู้ดูแลซ่อน' };
+const STATE = { shown: 'แสดงอยู่', hidden_reports: 'ซ่อนเพราะถูกรายงาน', hidden_admin: 'ผู้ดูแลซ่อน', none: 'ไม่มีรูปแล้ว' };
+// The admin's block outlives the picture: an account with none still shows it.
+const stateLabel = (r) => (r.blocked && r.state === 'none' ? 'ปิดการใส่รูปไว้ ไม่มีรูป' : STATE[r.state] || r.state);
 const missing = (error) => /admin_profile_pictures|PGRST202|does not exist|404/i.test(String(error?.message || error?.code || ''));
 
 export default function AdminProfilePictures({ tick }) {
@@ -69,14 +71,14 @@ export default function AdminProfilePictures({ tick }) {
                     <tr key={r.user_id}>
                       <td><ProfilePicture picture={pictures[r.user_id]} emoji={null} size={48} ownerView /></td>
                       <td>{r.username || <span className="ad-muted">ไม่มีชื่อ</span>}</td>
-                      <td>{STATE[r.state] || r.state}</td>
-                      <td className="num">{Number(r.reports || 0)}</td>
+                      <td>{stateLabel(r)}</td>
+                      <td className="num">{Number(r.reports || 0)}{Number(r.reports_30d || 0) > Number(r.reports || 0) ? ` (30 วัน ${Number(r.reports_30d)})` : ''}</td>
                       <td>
-                        {r.state === 'shown' || r.state === 'hidden_reports' ? (
-                          <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" disabled={busy === r.user_id} onClick={() => setState(r.user_id, 'hidden_admin')}>ซ่อน</button>
+                        {!r.blocked && r.state !== 'hidden_admin' ? (
+                          <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" disabled={busy === r.user_id} onClick={() => setState(r.user_id, 'hidden_admin')}>{r.state === 'none' ? 'ปิดการใส่รูป' : 'ซ่อน'}</button>
                         ) : null}
-                        {r.state !== 'shown' ? (
-                          <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" disabled={busy === r.user_id} onClick={() => setState(r.user_id, 'shown')}>แสดงอีกครั้ง</button>
+                        {r.blocked || (r.state !== 'shown' && r.state !== 'none') ? (
+                          <button type="button" className="vmx-btn vmx-btn-ghost vmx-btn-sm" disabled={busy === r.user_id} onClick={() => setState(r.user_id, 'shown')}>{r.state === 'none' ? 'เปิดให้ใส่รูป' : 'แสดงอีกครั้ง'}</button>
                         ) : null}
                       </td>
                     </tr>

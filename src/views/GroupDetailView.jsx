@@ -53,6 +53,7 @@ export default function GroupDetailView({ group, user, goBack, onEditIdentity = 
   const [tab, setTab] = useState('leaderboard'); // 'leaderboard' | 'members'
   const [members, setMembers] = useState([]);
   const pictures = usePictures(members.map((m) => m.id), tab === 'members');
+  const [picturesBroken, setPicturesBroken] = useState(false);
   const [leaderboard, setLeaderboard] = useState([]);
   // Each section loads, fails and retries on its own. One Promise.allSettled
   // behind one spinner made the tab on screen wait for the slowest hidden
@@ -218,12 +219,15 @@ export default function GroupDetailView({ group, user, goBack, onEditIdentity = 
         </div>
       )}
 
+      {status === 'ready' && tab === 'members' && picturesBroken && (
+        <p role="status" style={{ fontSize: 14, color: 'var(--clr-ink-soft)', margin: '0 0 12px' }}>{PICTURE_WORDS.broken_some}</p>
+      )}
       {status === 'ready' && tab === 'members' && (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 12 }}>
           {members.map((m) => (
             <div key={m.id} className="vmx-dash-card" style={{ textAlign: 'center' }}>
               <div style={{ fontSize: 40, marginBottom: 8, display: 'flex', justifyContent: 'center' }}>
-                <ProfilePicture picture={pictures[m.id]} emoji={m.avatar_emoji} size={56} className="vmx-member-pic" />
+                <ProfilePicture picture={pictures[m.id]} emoji={m.avatar_emoji} size={56} className="vmx-member-pic" onBroken={() => setPicturesBroken(true)} />
               </div>
               <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16 }}>
                 {shownName(m.username)}

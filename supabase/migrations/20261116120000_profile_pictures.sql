@@ -22,7 +22,8 @@
 --     drop constraint if exists profiles_picture_key_state,
 --     drop column if exists picture_key,
 --     drop column if exists picture_state,
---     drop column if exists picture_changed_at;
+--     drop column if exists picture_changed_at,
+--     drop column if exists picture_blocked;
 --   commit;
 --   The stored pictures (keys under profile-pictures/ in the private bucket) are
 --   then signed by nothing and reach nobody; delete that prefix to remove them.
@@ -33,8 +34,12 @@
 --                                       (no account id, no file name).
 --   public.profiles.picture_state       none | shown | hidden_reports | hidden_admin.
 --   public.profiles.picture_changed_at  when the key or state last changed.
+--   public.profiles.picture_blocked     the admin's block on the account, kept
+--                                       apart from the key and state: removing
+--                                       the picture leaves it, so no new upload
+--                                       shows until the admin lifts it.
 --   private.guard_profile_picture       a client's own token never writes these
---                                       three columns (insert or update), so only
+--                                       four columns (insert or update), so only
 --                                       the functions below move them. It is NOT
 --                                       security definer on purpose: it reads
 --                                       current_user, which inside a definer
@@ -57,32 +62,43 @@
 --   public.set_profile_picture(p,s)     signed by /api/profile-picture
 --                                       (VETMOCK_RPC_SIGNING_KEY, purpose
 --                                       'profile-picture', five minutes): sets
---                                       or clears the key. A picture the admin
---                                       hid stays hidden: a new upload is
---                                       refused until the admin restores it.
+--                                       or clears the caller's own key (the
+--                                       signed user_id must be auth.uid()).
+--                                       While picture_blocked is set a new key
+--                                       is refused; removing is allowed and
+--                                       keeps the block.
 --   public.report_profile_picture(uuid) a member reports a shown picture that is
 --                                       not their own; at PICTURE_REPORT_LIMIT
 --                                       (3) distinct reporters of the same
 --                                       picture it becomes hidden_reports. Its
 --                                       owner reads that state on their profile.
 --   public.admin_profile_pictures()     is_admin() only: reported or hidden
---                                       pictures, with counts.
---   public.admin_set_profile_picture()  is_admin() only: hide (hidden_admin) or
---                                       restore (shown, the reports of that
+--                                       pictures, blocked accounts, and accounts
+--                                       with any report in the last 30 days
+--                                       (a re-upload does not drop them), with
+--                                       counts.
+--   public.admin_set_profile_picture()  is_admin() only: hide (hidden_admin and
+--                                       picture_blocked) or restore (shown, the
+--                                       block lifted, the reports of that
 --                                       picture cleared so it is not re-hidden
---                                       at once).
+--                                       at once). Works on an account with no
+--                                       picture too, by the block alone.
 --
 -- GRANTS
 --   profile_picture_reports: SELECT to authenticated (a reporter reads only
 --   their own rows, by policy); no insert, update or delete for any client role.
 --   Functions: execute to authenticated only (admin ones check is_admin()).
---   picture_key is readable where profiles already is. A key alone opens
---   nothing: the bucket is private and only the server signs a link, after
---   asking profile_pictures_for.
+--   The picture columns get no column grant: the column grants on profiles
+--   (20260824180000) leave them unreadable and unwritable to anon and
+--   authenticated, and that is intended. Do not add a grant; read them through
+--   profile_pictures_for. Even a key alone opens nothing: the bucket is private
+--   and only the server signs a link.
 --
 -- LOCKS
 --   One transaction with lock_timeout 3s. ADD COLUMN with a constant default
 --   rewrites no row. A timeout fails the whole file cleanly; run it again as is.
+--   A run after a successful one fails at ADD CONSTRAINT (no IF NOT EXISTS) and
+--   rolls back whole; harmless, but "again as is" means after a failed run.
 --
 -- COUNT QUERIES (before and after; counts only)
 --   select count(*) as pictures_shown from public.profiles where picture_state = 'shown';
@@ -95,7 +111,8 @@ set local lock_timeout = '3s';
 alter table public.profiles
   add column if not exists picture_key text,
   add column if not exists picture_state text not null default 'none',
-  add column if not exists picture_changed_at timestamptz;
+  add column if not exists picture_changed_at timestamptz,
+  add column if not exists picture_blocked boolean not null default false;
 
 alter table public.profiles
   add constraint profiles_picture_key_shape
@@ -110,12 +127,14 @@ language plpgsql set search_path = '' as $$
 begin
   if current_user in ('anon', 'authenticated') then
     if tg_op = 'INSERT' then
-      if new.picture_key is not null or new.picture_state <> 'none' or new.picture_changed_at is not null then
+      if new.picture_key is not null or new.picture_state <> 'none' or new.picture_changed_at is not null
+        or new.picture_blocked then
         raise exception 'profile picture columns are written by the server' using errcode = '42501';
       end if;
     elsif new.picture_key is distinct from old.picture_key
       or new.picture_state is distinct from old.picture_state
-      or new.picture_changed_at is distinct from old.picture_changed_at then
+      or new.picture_changed_at is distinct from old.picture_changed_at
+      or new.picture_blocked is distinct from old.picture_blocked then
       raise exception 'profile picture columns are written by the server' using errcode = '42501';
     end if;
   end if;
@@ -156,9 +175,9 @@ create policy "chula members only" on public.profile_picture_reports
   with check ((select public.chula_access()));
 
 create or replace function public.profile_pictures_for(p_users uuid[])
-returns table (user_id uuid, picture_key text, picture_state text)
+returns table (user_id uuid, picture_key text, picture_state text, blocked boolean)
 language plpgsql stable security definer set search_path = '' as $$
-declare me uuid := auth.uid();
+declare me uuid := auth.uid(); admin boolean := public.is_admin();
 begin
   if me is null or not public.chula_allowed(me) then
     raise exception 'chula_member_required' using errcode = '42501';
@@ -166,12 +185,15 @@ begin
   if p_users is null or cardinality(p_users) > 60 then
     raise exception 'between 0 and 60 accounts' using errcode = '22023';
   end if;
+  -- The block is told only to its owner and the admin; the owner's own row
+  -- comes back even with no picture, so an upload is refused before it is stored.
   return query
-    select p.id, p.picture_key, p.picture_state
+    select p.id, p.picture_key, p.picture_state,
+           case when p.id = me or admin then p.picture_blocked else false end
     from public.profiles p
     where p.id = any (p_users)
-      and p.picture_key is not null
-      and (p.picture_state = 'shown' or p.id = me or public.is_admin());
+      and ((p.picture_key is not null and (p.picture_state = 'shown' or p.id = me or admin))
+        or (p.id = me and p.picture_blocked));
 end $$;
 revoke all on function public.profile_pictures_for(uuid[]) from public, anon;
 grant execute on function public.profile_pictures_for(uuid[]) to authenticated;
@@ -192,16 +214,18 @@ begin
   envelope := p_payload::jsonb;
   body := envelope->'data';
   if envelope->>'purpose' is distinct from 'profile-picture'
-    or not ((envelope->>'issuedAt')::numeric between extract(epoch from now()) - 300 and extract(epoch from now()) + 30) then
+    or not coalesce((envelope->>'issuedAt')::numeric between extract(epoch from now()) - 300 and extract(epoch from now()) + 30, false)
+    or auth.uid() is null
+    or body->>'user_id' is distinct from auth.uid()::text then
     raise exception 'invalid picture request' using errcode = '42501';
   end if;
   owner := (body->>'user_id')::uuid;
   next_key := nullif(body->>'key', '');
-  select p.picture_key, p.picture_state into row_now from public.profiles p where p.id = owner for update;
+  select p.picture_key, p.picture_state, p.picture_blocked into row_now from public.profiles p where p.id = owner for update;
   if not found then
     return jsonb_build_object('ok', false, 'reason', 'no_profile');
   end if;
-  if next_key is not null and row_now.picture_state = 'hidden_admin' then
+  if next_key is not null and (row_now.picture_blocked or row_now.picture_state = 'hidden_admin') then
     return jsonb_build_object('ok', false, 'reason', 'refused');
   end if;
   update public.profiles
@@ -255,15 +279,20 @@ begin
     select jsonb_agg(row_to_json(x) order by x.hidden desc, x.reports desc, x.changed_at desc)
     from (
       select p.id as user_id, p.username, p.picture_state as state, p.picture_changed_at as changed_at,
-             p.picture_state like 'hidden%' as hidden,
+             p.picture_blocked as blocked,
+             (p.picture_state like 'hidden%' or p.picture_blocked) as hidden,
              (select count(*) from public.profile_picture_reports r
                where r.owner_id = p.id and r.picture_key = p.picture_key) as reports,
+             (select count(*) from public.profile_picture_reports r
+               where r.owner_id = p.id and r.created_at > now() - interval '30 days') as reports_30d,
              (select max(r.created_at) from public.profile_picture_reports r
-               where r.owner_id = p.id and r.picture_key = p.picture_key) as last_report_at
+               where r.owner_id = p.id) as last_report_at
       from public.profiles p
-      where p.picture_key is not null
-        and (p.picture_state like 'hidden%'
-          or exists (select 1 from public.profile_picture_reports r where r.owner_id = p.id and r.picture_key = p.picture_key))
+      where p.picture_blocked
+        or (p.picture_key is not null and p.picture_state like 'hidden%')
+        or exists (select 1 from public.profile_picture_reports r
+                    where r.owner_id = p.id
+                      and (r.picture_key = p.picture_key or r.created_at > now() - interval '30 days'))
       limit 200
     ) x), '[]'::jsonb);
 end $$;
@@ -280,11 +309,18 @@ begin
     raise exception 'state is shown or hidden_admin' using errcode = '22023';
   end if;
   select p.picture_key into current_key from public.profiles p where p.id = p_owner for update;
-  if current_key is null then return jsonb_build_object('ok', false, 'reason', 'no_picture'); end if;
+  if not found then return jsonb_build_object('ok', false, 'reason', 'no_profile'); end if;
+  if current_key is null then
+    -- No picture: the block alone is set or lifted.
+    update public.profiles set picture_blocked = (p_state = 'hidden_admin'), picture_changed_at = now() where id = p_owner;
+    return jsonb_build_object('ok', true, 'state', 'none', 'blocked', p_state = 'hidden_admin');
+  end if;
   if p_state = 'shown' then
     delete from public.profile_picture_reports r where r.owner_id = p_owner and r.picture_key = current_key;
   end if;
-  update public.profiles set picture_state = p_state, picture_changed_at = now() where id = p_owner;
+  update public.profiles
+    set picture_state = p_state, picture_blocked = (p_state = 'hidden_admin'), picture_changed_at = now()
+    where id = p_owner;
   return jsonb_build_object('ok', true, 'state', p_state);
 end $$;
 revoke all on function public.admin_set_profile_picture(uuid, text) from public, anon;

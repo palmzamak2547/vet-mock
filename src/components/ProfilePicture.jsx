@@ -3,7 +3,7 @@
 // usePictures asks once for a whole list (a group's members) and redraws when a
 // picture changes anywhere in the app.
 import { useEffect, useState } from 'react';
-import { picturesFor, onPicturesChanged } from '../lib/profile-picture.js';
+import { picturesFor, onPicturesChanged, forgetPictureUrl } from '../lib/profile-picture.js';
 import { shownPicture } from '../lib/public-display.js';
 
 export function usePictures(ids, enabled = true) {
@@ -22,11 +22,12 @@ export function usePictures(ids, enabled = true) {
 
 /**
  * @param {{ picture?: { url: string | null, state: string } | null, emoji?: string | null,
- *           size?: number, className?: string, ownerView?: boolean }} props
+ *           size?: number, className?: string, ownerView?: boolean, onBroken?: () => void }} props
  * ownerView: the owner sees their own hidden picture (with the notice beside it);
- * everyone else sees only a shown one.
+ * everyone else sees only a shown one. onBroken: the picture did not load and the
+ * ready-made one shows instead; the caller says so in words.
  */
-export default function ProfilePicture({ picture, emoji, size = 40, className = '', ownerView = false }) {
+export default function ProfilePicture({ picture, emoji, size = 40, className = '', ownerView = false, onBroken }) {
   const [broken, setBroken] = useState(false);
   const url = picture?.url && (picture.state === 'shown' || ownerView) ? picture.url : null;
   useEffect(() => setBroken(false), [url]);
@@ -40,7 +41,7 @@ export default function ProfilePicture({ picture, emoji, size = 40, className = 
         height={size}
         decoding="async"
         referrerPolicy="no-referrer"
-        onError={() => setBroken(true)}
+        onError={() => { forgetPictureUrl(url); setBroken(true); onBroken?.(); }}
         style={{ width: size, height: size, borderRadius: '50%', objectFit: 'cover', display: 'block' }}
         data-testid="profile-photo"
       />
