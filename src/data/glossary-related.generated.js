@@ -1773,6 +1773,7 @@ export const GLOSSARY_RELATED = {
   109086,
   109090,
   109128,
+  218217,
   213506,
   100036,
   209542,
@@ -1909,6 +1910,7 @@ export const GLOSSARY_RELATED = {
   109026,
   109034,
   109112,
+  218217,
   214511,
   100010,
   8016,
@@ -2225,7 +2227,9 @@ export const GLOSSARY_RELATED = {
   105779,
   206019,
   206022,
-  212517
+  212517,
+  218245,
+  218253
  ],
  "avian influenza|avian": [
   1703,
@@ -2265,7 +2269,8 @@ export const GLOSSARY_RELATED = {
   109076,
   109080,
   109108,
-  109116
+  109116,
+  218235
  ],
  "avian reovirus|avian": [
   1765,
@@ -2382,6 +2387,9 @@ export const GLOSSARY_RELATED = {
   109086,
   109126,
   109136,
+  218203,
+  218205,
+  218253,
   8029,
   8030
  ],
@@ -2480,6 +2488,8 @@ export const GLOSSARY_RELATED = {
   109006,
   109014,
   109032,
+  218205,
+  218235,
   8029
  ],
  "crd|avian": [
@@ -2508,7 +2518,9 @@ export const GLOSSARY_RELATED = {
   109066,
   109068,
   109070,
-  109112
+  109112,
+  218217,
+  218235
  ],
  "fowlpox|avian": [
   1909,
@@ -2619,6 +2631,8 @@ export const GLOSSARY_RELATED = {
   109094,
   109116,
   109126,
+  218240,
+  218255,
   8029,
   8030
  ],
@@ -2809,6 +2823,8 @@ export const GLOSSARY_RELATED = {
   109102,
   109124,
   109136,
+  218235,
+  218248,
   8029,
   8048
  ],

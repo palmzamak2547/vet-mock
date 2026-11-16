@@ -1124,6 +1124,72 @@ export const SOURCE_DOCS = [
     match: /สรุปปลายภาค Avian Medicine ของรุ่น 85/i,
     editions: [{ id: '17p', pages: 17 }],
   },
+  // Avian Medicine final gap pass, 16 Nov 2026: the seniors' files and 2024 decks whose marks or records the new rows cite.
+  {
+    slug: 'avian-fact-list-part2-vet84', subject: 'avian-medicine', title: "รายการจุดออกสอบ PART2 (9 ชีท ออกสอบ 25 ข้อ) ในแฟ้มของรุ่น 84",
+    match: /รายการจุดออกสอบ PART2 ในแฟ้มของรุ่น 84/i,
+    editions: [{ id: '6p', pages: 6 }],
+  },
+  {
+    slug: 'avian-final-summary-vet83', subject: 'avian-medicine', title: "สรุป avian med final ของรุ่น 83 (ในแฟ้มของรุ่น 84)",
+    match: /สรุป avian med final ของรุ่น 83 ในแฟ้มของรุ่น 84/i,
+    editions: [{ id: '38p', pages: 38 }],
+  },
+  {
+    slug: 'avian-duck-flavi-2024', subject: 'avian-medicine', title: "Duck flavivirus (deck 2024)",
+    match: /Duck flavivirus deck 2024/i,
+    editions: [{ id: '10p', pages: 10 }],
+  },
+  {
+    slug: 'avian-mycosis-2024', subject: 'avian-medicine', title: "Mycotic infection (deck 2024)",
+    match: /Mycotic infection deck 2024/i,
+    editions: [{ id: '60p', pages: 60 }],
+  },
+  {
+    slug: 'avian-mycotoxicosis-2024', subject: 'avian-medicine', title: "Mycotoxicosis (deck 2024)",
+    match: /Mycotoxicosis deck 2024/i,
+    editions: [{ id: '75p', pages: 75 }],
+  },
+  {
+    slug: 'avian-ort-2024', subject: 'avian-medicine', title: "ORT (deck 2024)",
+    match: /ORT deck 2024/i,
+    editions: [{ id: '32p', pages: 32 }],
+  },
+  {
+    slug: 'avian-campy-2024', subject: 'avian-medicine', title: "Campylobacteriosis (deck 2024)",
+    match: /Campylobacteriosis deck 2024/i,
+    editions: [{ id: '17p', pages: 17 }],
+  },
+  {
+    slug: 'avian-listeria-2024', subject: 'avian-medicine', title: "Listeriosis (deck 2024)",
+    match: /Listeriosis deck 2024/i,
+    editions: [{ id: '13p', pages: 13 }],
+  },
+  {
+    slug: 'avian-histomoniasis-2024', subject: 'avian-medicine', title: "Histomoniasis (deck 2024)",
+    match: /Histomoniasis deck 2024/i,
+    editions: [{ id: '9p', pages: 9 }],
+  },
+  {
+    slug: 'avian-nds-2024', subject: 'avian-medicine', title: "New Duck Syndrome (deck 2024, แฟ้มกลางภาคของรุ่น 84)",
+    match: /New Duck Syndrome deck 2024/i,
+    editions: [{ id: '11p', pages: 11 }],
+  },
+  {
+    slug: 'avian-recall-vet80', subject: 'avian-medicine', title: "บันทึกข้อสอบ Avian Medicine ของรุ่น 80 (ในแฟ้มกลางภาคของรุ่น 84)",
+    match: /บันทึกข้อสอบ Avian Medicine ของรุ่น 80/i,
+    editions: [{ id: '5p', pages: 5 }],
+  },
+  {
+    slug: 'avian-mycosis-table-vet79', subject: 'avian-medicine', title: "ตารางสรุป Mycotic disease และ Mycotoxin ของรุ่น 79 (ในแฟ้มกลางภาคของรุ่น 84)",
+    match: /ตารางสรุป Mycotic disease และ Mycotoxin ของรุ่น 79/i,
+    editions: [{ id: '2p', pages: 2 }],
+  },
+  {
+    slug: 'avian-serology-sum-vet84', subject: 'avian-medicine', title: "สรุปการแปลผลซีรัมวิทยา (ในแฟ้มกลางภาคของรุ่น 84)",
+    match: /สรุปการแปลผลซีรัมวิทยาในแฟ้มกลางภาคของรุ่น 84/i,
+    editions: [{ id: '2p', pages: 2 }],
+  },
   // FIQC final sources, 1 พ.ย. 2569: the two 2569 decks by their file names, the Nov 2024 export deck and the seniors' files.
   {
     slug: 'fiqc-haccp-2569', subject: 'food-industry', title: "HACCP for livestock and product production (deck 2569)",

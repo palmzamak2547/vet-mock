@@ -164,7 +164,7 @@ export const BANK_REGISTRY = [
   { file: 'questions-y5-avian-2026-c.js', export: 'QUESTIONS_Y5_AVIAN_2026_C', year: 5, count: 28,
     subjects: ['avian-medicine'],
     load: () => import('./questions-y5-avian-2026-c.js').then((m) => m.QUESTIONS_Y5_AVIAN_2026_C) },
-  { file: 'questions-y5-avian-2026-d.js', export: 'QUESTIONS_Y5_AVIAN_2026_D', year: 5, count: 40,
+  { file: 'questions-y5-avian-2026-d.js', export: 'QUESTIONS_Y5_AVIAN_2026_D', year: 5, count: 42,
     subjects: ['avian-medicine'],
     load: () => import('./questions-y5-avian-2026-d.js').then((m) => m.QUESTIONS_Y5_AVIAN_2026_D) },
   { file: 'questions-y5-avian-2026.js', export: 'QB_Y5_AVIAN_2026', year: 5, count: 59,
@@ -173,13 +173,13 @@ export const BANK_REGISTRY = [
   { file: 'questions-y5-avian-ae-bacterial.js', export: 'QUESTIONS_Y5_AVIAN_AE_BACTERIAL', year: 5, count: 38,
     subjects: ['avian-medicine'],
     load: () => import('./questions-y5-avian-ae-bacterial.js').then((m) => m.QUESTIONS_Y5_AVIAN_AE_BACTERIAL) },
-  { file: 'questions-y5-avian-final-recall.js', export: 'QUESTIONS_Y5_AVIAN_FINAL_RECALL', year: 5, count: 62,
+  { file: 'questions-y5-avian-final-recall.js', export: 'QUESTIONS_Y5_AVIAN_FINAL_RECALL', year: 5, count: 64,
     subjects: ['avian-medicine'],
     load: () => import('./questions-y5-avian-final-recall.js').then((m) => m.QUESTIONS_Y5_AVIAN_FINAL_RECALL) },
   { file: 'questions-y5-avian-parasitic.js', export: 'QB_Y5_AVIAN_PARASITIC', year: 5, count: 35,
     subjects: ['avian-medicine'],
     load: () => import('./questions-y5-avian-parasitic.js').then((m) => m.QB_Y5_AVIAN_PARASITIC) },
-  { file: 'questions-y5-avian-pastpaper.js', export: 'QB_Y5_AVIAN_PASTPAPER', year: 5, count: 70,
+  { file: 'questions-y5-avian-pastpaper.js', export: 'QB_Y5_AVIAN_PASTPAPER', year: 5, count: 127,
     subjects: ['avian-medicine'],
     load: () => import('./questions-y5-avian-pastpaper.js').then((m) => m.QB_Y5_AVIAN_PASTPAPER) },
   { file: 'questions-y5-epid-final-marked.js', export: 'QUESTIONS_Y5_EPID_FINAL_MARKED', year: 5, count: 206,
@@ -334,4 +334,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-11-15T23:57:01.531Z — 108 banks · 9198 Qs
+// Built: 2026-11-16T03:12:28.041Z — 108 banks · 9259 Qs

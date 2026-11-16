@@ -9,9 +9,9 @@ Generated from the working tree at the time of the run.
 
 | | |
 |---|---|
-| **Questions ready for learners** | **8,986** |
+| **Questions ready for learners** | **9,047** |
 | Questions retained but fail-closed pending answer, scope, or figure review | 212 |
-| Total questions in source banks | 9,198 |
+| Total questions in source banks | 9,259 |
 | Question banks (files) | 108 |
 | Subjects with questions | 43 |
 | Years covered | 1, 2, 3, 4, 5 |
@@ -19,9 +19,9 @@ Generated from the working tree at the time of the run.
 | — year 2 | 144 |
 | — year 3 | 62 |
 | — year 4 | 2,076 |
-| — year 5 | 6,407 |
+| — year 5 | 6,468 |
 
-Consistency: source banks **9198**, learner-ready **8986**, fail-closed **212**, registry sums to **9198**, files missing from the registry: **0** → ✅ consistent
+Consistency: source banks **9259**, learner-ready **9047**, fail-closed **212**, registry sums to **9259**, files missing from the registry: **0** → ✅ consistent
 
 ## Study notes
 
@@ -57,7 +57,7 @@ Learner-ready questions that open an article, through their own topic or a judge
 | Subject | Questions | Reach an article | Via a judged link | Coverage |
 |---|---|---|---|---|
 | aquatic-clinic | 548 | 455 | 12 | 83.0% |
-| avian-medicine | 581 | 431 | 0 | 74.2% |
+| avian-medicine | 642 | 492 | 0 | 76.6% |
 | biochem-1 | 271 | 0 | 0 | 0.0% |
 | cliapprum | 136 | 95 | 51 | 69.9% |
 | com1 | 31 | 0 | 0 | 0.0% |
@@ -99,4 +99,4 @@ Learner-ready questions that open an article, through their own topic or a judge
 | vet-neuroanat | 40 | 40 | 0 | 100.0% |
 | vet-pharm-2 | 62 | 0 | 0 | 0.0% |
 | zoonoses | 534 | 522 | 0 | 97.8% |
-| **All** | 8986 | 5841 | 324 | 65.0% |
+| **All** | 9047 | 5902 | 324 | 65.2% |

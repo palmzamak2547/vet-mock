@@ -167,7 +167,7 @@ export const EXAM_RECURRENCE = {
   },
   "avian-medicine": {
     "cohorts": [80, 81, 84, 85],
-    "items": 131,
+    "items": 133,
     "topics": {
       "avian-ae": {
         "cohorts": [],
@@ -392,6 +392,18 @@ export const EXAM_RECURRENCE = {
           },
           "85": {
             "final": ["avian-medicine:212561"],
+          },
+        },
+        "unattributed": [],
+      },
+      "avian-nds": {
+        "cohorts": [80],
+        "first": 80,
+        "last": 80,
+        "items": 2,
+        "sat": {
+          "80": {
+            "unknown": ["avian-medicine:218200", "avian-medicine:218201"],
           },
         },
         "unattributed": [],
