@@ -5164,7 +5164,9 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
 /* ── The case pane (components/case/CasePane.jsx) ─────────────
    One scroller: from 1024 px the sticky pane column scrolls, below it the
    page does. The text box has no height of its own, so pen strokes on its
-   canvas scroll with the words. The full-screen sheet is styles-case.css. */
+   canvas scroll with the words. The full-screen sheet is styles-case.css,
+   with what shows only once a tool is in use (cursors, the wet stroke, the
+   toast after a clear): the tools bring that file. */
 .vmx-case-pane { border: 1px solid var(--clr-border); border-radius: var(--r-md); background: var(--clr-surface-2); }
 .vmx-case-top { position: sticky; top: 0; z-index: var(--z-raised); background: var(--clr-surface); border-radius: var(--r-md) var(--r-md) 0 0; }
 .vmx-case-head { display: flex; align-items: center; gap: 8px; padding: 0 6px 0 14px; background: var(--clr-surface); border-bottom: 1px solid var(--clr-border); border-radius: var(--r-md) var(--r-md) 0 0; }
@@ -5177,19 +5179,13 @@ input[type="checkbox"], input[type="radio"] { width: 20px; height: 20px; accent-
 .vmx-case-tools.is-row { box-sizing: border-box; min-height: 49px; display: flex; flex-wrap: wrap; align-items: center; gap: 0; padding: 2px; background: var(--clr-surface); border-bottom: 1px solid var(--clr-border); }
 .vmx-case-tools.is-retry { width: 100%; border: 0; font: inherit; color: var(--clr-ink); cursor: pointer; }
 .vmx-case-surface { position: relative; padding: 14px 16px; color: var(--clr-ink); font-size: 16px; line-height: 1.75; touch-action: manipulation; }
-.vmx-case-surface.is-pen, .vmx-case-surface.is-eraser { cursor: crosshair; }
-.vmx-case-surface.is-highlighter { cursor: text; }
 .vmx-case-text .vmx-rb-p, .vmx-case-text .vmx-rb-lead { white-space: pre-wrap; }
 .vmx-case-mark { color: inherit; padding: 0; border-radius: 2px; mix-blend-mode: var(--clr-case-blend); }
 .vmx-case-mark.is-lemon { background: var(--clr-case-lemon); }
 .vmx-case-mark.is-sky { background: var(--clr-case-sky); }
 .vmx-case-mark.is-lilac { background: var(--clr-case-lilac); }
-.vmx-case-mark.is-erasing { opacity: 0.25; }
 .vmx-case-wet { position: absolute; inset: 0; pointer-events: none; }
-.vmx-case-wet-box { position: absolute; left: 0; top: 0; background: var(--clr-case-lemon); mix-blend-mode: var(--clr-case-blend); border-radius: 2px; }
 .vmx-case-ink { position: absolute; left: 0; top: 0; pointer-events: none; }
-.vmx-case-toast { position: fixed; left: 50%; bottom: calc(var(--vmx-bottom-nav-h, 0px) + env(safe-area-inset-bottom, 0px) + 84px); transform: translateX(-50%); z-index: var(--z-toast); display: flex; align-items: center; gap: 12px; padding: 4px 4px 4px 16px; background: var(--clr-ink); color: var(--clr-surface); border-radius: var(--r-pill); font-size: 14px; box-shadow: var(--shadow-md); }
-.vmx-case-toast-undo { min-height: 44px; padding: 0 14px; border: 0; border-radius: var(--r-pill); background: transparent; color: inherit; font: inherit; font-weight: 600; text-decoration: underline; cursor: pointer; }
 
 .vmx-option.is-reading { border-color: var(--clr-ocean); box-shadow: inset 0 0 0 1px var(--clr-ocean); }
 ::highlight(vmx-reading) { background-color: var(--clr-gold-soft); color: var(--clr-ink); }

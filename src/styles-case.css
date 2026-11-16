@@ -4,10 +4,19 @@
    The sheet (components/case/CaseSheet.jsx) and the tool buttons, loaded
    with the tools (CaseTools.jsx, chunk-scoped), which the sheet's opening
    waits for. The pane and the marks are in styles.css, since the pane is
-   drawn with the question.
+   drawn with the question; what the pane shows only once a tool is in use
+   is the first block here.
    Measures from the case reader design, section 1:
      phone        17 px, 20 px each side, tools in a bar at the bottom
      tablet/desk  18 px, 34 to 36 em, tools in a rail at the left edge  */
+
+/* The pane, once a tool is in use: the cursors, the mark under the eraser, the wet stroke, the toast after a clear. */
+.vmx-case-surface.is-pen, .vmx-case-surface.is-eraser { cursor: crosshair; }
+.vmx-case-surface.is-highlighter { cursor: text; }
+.vmx-case-mark.is-erasing { opacity: 0.25; }
+.vmx-case-wet-box { position: absolute; left: 0; top: 0; background: var(--clr-case-lemon); mix-blend-mode: var(--clr-case-blend); border-radius: 2px; }
+.vmx-case-toast { position: fixed; left: 50%; bottom: calc(var(--vmx-bottom-nav-h, 0px) + env(safe-area-inset-bottom, 0px) + 84px); transform: translateX(-50%); z-index: var(--z-toast); display: flex; align-items: center; gap: 12px; padding: 4px 4px 4px 16px; background: var(--clr-ink); color: var(--clr-surface); border-radius: var(--r-pill); font-size: 14px; box-shadow: var(--shadow-md); }
+.vmx-case-toast-undo { min-height: 44px; padding: 0 14px; border: 0; border-radius: var(--r-pill); background: transparent; color: inherit; font: inherit; font-weight: 600; text-decoration: underline; cursor: pointer; }
 
 /* The tool buttons, in the pane's row, the sheet's rail and the phone's bar. */
 .vmx-case-tool { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 6px; box-sizing: border-box; width: 44px; height: 44px; padding: 0; border: 0; border-radius: var(--r-sm); background: transparent; color: var(--clr-ink); font: inherit; font-size: 14px; cursor: pointer; touch-action: manipulation; }
