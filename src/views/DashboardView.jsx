@@ -90,10 +90,13 @@ function LearningCurveChart({ data }) {
   const days = data.dayLabels.length;
   const xFor = (i) => PADL + (days <= 1 ? innerW / 2 : (innerW * i) / (days - 1));
   const yFor = (pct) => PADT + innerH * (1 - pct / 100);
-  const labelStride = Math.max(1, Math.ceil(days / 6));
+  const shownDays = curveDayLabels(days);
 
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: 'auto', maxHeight: 260, display: 'block' }} aria-label="กราฟความแม่นยำรายวิชา">
+    // One width for the chart and its dates, as tall as 260 px at most, so the
+    // dates stay under the days they name.
+    <div style={{ maxWidth: Math.round((260 * W) / (H - PADB + 4)), margin: '0 auto' }}>
+    <svg viewBox={`0 0 ${W} ${H - PADB + 4}`} style={{ width: '100%', height: 'auto', maxHeight: 260, display: 'block' }} aria-label="กราฟความแม่นยำรายวิชา">
       {[0, 50, 70, 100].map((y) => (
         <g key={y}>
           <line x1={PADL} y1={yFor(y)} x2={W - PADR} y2={yFor(y)} stroke="var(--clr-border)" strokeDasharray={y === 70 ? '0' : '2 4'} opacity={y === 70 ? 0.5 : 0.4} />
@@ -117,11 +120,42 @@ function LearningCurveChart({ data }) {
           </g>
         );
       })}
-      {data.dayLabels.map((label, i) => (i === 0 || i === days - 1 || i % labelStride === 0) && (
-        <text key={i} x={xFor(i)} y={H - 6} textAnchor="middle" fontSize="9" fontFamily="var(--vmx-mono)" fill="var(--clr-ink-soft)">{label}</text>
-      ))}
     </svg>
+    {/* The dates sit under the chart as page text at 14 px: inside the SVG they
+        shrank with it, and the last two were printed over each other. */}
+    <div className="vmx-curve-days" style={{ position: 'relative', height: 22, fontSize: 14, color: 'var(--clr-ink-soft)', whiteSpace: 'nowrap' }}>
+      {shownDays.map((i) => (
+        <span
+          key={i}
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: `${(xFor(i) / W) * 100}%`,
+            transform: i === 0 ? 'translateX(-20%)' : i === days - 1 ? 'translateX(-80%)' : 'translateX(-50%)',
+          }}
+        >
+          {data.dayLabels[i]}
+        </span>
+      ))}
+    </div>
+    </div>
   );
+}
+
+/**
+ * Which days of the learning curve carry a date under it: the first, the last
+ * and evenly spaced ones between, at most four, never two neighbours.
+ */
+export function curveDayLabels(days) {
+  if (days <= 0) return [];
+  if (days === 1) return [0];
+  const stride = Math.max(1, Math.ceil((days - 1) / 3));
+  const out = [];
+  for (let i = 0; i < days - 1; i += stride) {
+    if (i === 0 || days - 1 - i >= stride / 2 + 1) out.push(i);
+  }
+  out.push(days - 1);
+  return out;
 }
 
 // Compute last-7-days bucket — returns one entry per day (oldest →

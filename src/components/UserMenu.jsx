@@ -67,7 +67,9 @@ export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard, o
             and the header controls ended up overlapping, so a tap on the
             phase pill opened search or this menu instead. The name still
             reaches assistive tech through the button's aria-label. */}
-        <span className="vmx-usermenu-name" style={{ width: 100, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+        {/* The slot keeps its width so the header does not move when the name arrives; a short
+            name sits in its middle instead of leaving an empty run before the arrow. */}
+        <span className="vmx-usermenu-name" style={{ width: 100, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', textAlign: 'center' }} title={shownName(profile.username)}>
           {shownName(profile.username)}
         </span>
         <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>{open ? '▴' : '▾'}</span>

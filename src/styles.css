@@ -1397,8 +1397,10 @@ html, body {
 /* Two to a row, the button word an arrow: beside "เริ่มฝึก" a course name
    wrapped its count onto a line of its own. The whole card is the button. */
 .vmx-next-actions-secondary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.vmx-next-actions-secondary .vmx-next-action-cta { font-size: 0; padding-inline: 4px; }
-.vmx-next-actions-secondary .vmx-next-action-cta::after { content: "\2192"; font-size: var(--text-md); }
+.vmx-next-action-cta-arrow { display: none; }
+.vmx-next-actions-secondary .vmx-next-action-cta { padding-inline: 4px; }
+.vmx-next-actions-secondary .vmx-next-action-cta-arrow { display: inline; font-size: var(--text-md); }
+.vmx-next-actions-secondary .vmx-next-action-cta-word { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
 /* Where the plan will be: a primary step, two more and the note under them. */
 .vmx-next-actions-wait { min-height: 200px; align-content: center; justify-items: center; }
 .vmx-next-action {
