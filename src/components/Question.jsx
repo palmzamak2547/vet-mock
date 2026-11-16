@@ -769,8 +769,8 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
             <div style={{ fontVariantNumeric: 'tabular-nums', fontSize: 14, color: 'var(--clr-ink-soft)' }}>
               <strong style={{ color: essayTextColor }}>{essayWords}</strong>
               <span> / target {target} words</span>
-              {essayWords > hardMax && <span style={{ color: 'var(--clr-rose-text)', marginLeft: 8 }}>, −2 pts (เกิน {hardMax})</span>}
-              {essayWords > softMax && essayWords <= hardMax && <span style={{ color: 'var(--clr-gold-text)', marginLeft: 8 }}>, −1 pt (เกิน {softMax})</span>}
+              {essayWords > hardMax && <span style={{ color: 'var(--clr-rose-text)' }}>, −2 pts (เกิน {hardMax})</span>}
+              {essayWords > softMax && essayWords <= hardMax && <span style={{ color: 'var(--clr-gold-text)' }}>, −1 pt (เกิน {softMax})</span>}
             </div>
           </div>
           <textarea
@@ -782,7 +782,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
             maxLength={5000}
             style={{
               width: '100%', boxSizing: 'border-box',
-              minHeight: 240, padding: 12, fontFamily: 'inherit', fontSize: 14, lineHeight: 1.6,
+              minHeight: 240, padding: 12, fontFamily: 'inherit', fontSize: 16, lineHeight: 1.6,
               border: '1px solid var(--clr-border)', borderRadius: 10, background: 'var(--clr-bg)', color: 'var(--clr-ink)',
               resize: 'vertical',
             }}

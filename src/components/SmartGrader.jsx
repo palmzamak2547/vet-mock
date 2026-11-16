@@ -1,6 +1,11 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import AiGradePanel from './AiGradePanel.jsx';
 import { keywordHit } from '../hooks/utils.js';
+import { reportFailure } from '../lib/report-failure.js';
+
+// Said under the grader when the browser refused to keep its ticks or the
+// prediction: they would be gone the next time this question opens.
+export const GRADE_NOT_SAVED = 'คะแนนที่ตรวจไว้ยังไม่ได้บันทึกในเครื่อง เบราว์เซอร์นี้เก็บข้อมูลไม่ได้ เปิดการเก็บข้อมูลของเว็บนี้ หรือออกจากโหมดส่วนตัว';
 
 // ============================================================
 // SmartGrader — rubric-based self-grading without an LLM
@@ -128,6 +133,17 @@ export default function SmartGrader({ q, userAnswer }) {
   const [predicted, setPredicted] = useState('');
   const [predictedSubmitted, setPredictedSubmitted] = useState(false);
   const [shortGrade, setShortGrade] = useState({});
+  // Which of the two writes the browser last refused. Each failure is counted
+  // once, when a write that worked starts failing, not on every tick after it.
+  const [notSaved, setNotSaved] = useState(false);
+  const failedRef = useRef({ grade: false, calibration: false });
+  const noteSave = (part, error) => {
+    const failed = error != null;
+    if (failedRef.current[part] === failed) return;
+    failedRef.current = { ...failedRef.current, [part]: failed };
+    if (failed) reportFailure('save', error);
+    setNotSaved(failedRef.current.grade || failedRef.current.calibration);
+  };
 
   useEffect(() => {
     try {
@@ -149,7 +165,8 @@ export default function SmartGrader({ q, userAnswer }) {
     const id = setTimeout(() => {
       try {
         localStorage.setItem(storageKey, JSON.stringify({ checks, shortGrade, predicted, predictedSubmitted }));
-      } catch {}
+        noteSave('grade', null);
+      } catch (error) { noteSave('grade', error); }
     }, 400);
     return () => clearTimeout(id);
   }, [storageKey, checks, shortGrade, predicted, predictedSubmitted]);
@@ -208,7 +225,8 @@ export default function SmartGrader({ q, userAnswer }) {
       // Cap history at 50 most recent
       const trimmed = arr.slice(-50);
       localStorage.setItem('vmx-grade-calibration', JSON.stringify(trimmed));
-    } catch {}
+      noteSave('calibration', null);
+    } catch (error) { noteSave('calibration', error); }
   }, [predictedSubmitted, checks, shortGrade, total, predicted, q.id, maxScore]);
 
   // Calibration is a small derived stat. The previous version did
@@ -249,6 +267,7 @@ export default function SmartGrader({ q, userAnswer }) {
         </div>
         <ScoreBadge total={total} max={maxScore} pct={pct} touched={Object.keys(checks).length + Object.keys(shortGrade).length > 0} />
       </div>
+      {notSaved && <div role="alert" className="vmx-grade-not-saved" style={{ marginBottom: 10, fontSize: 14, lineHeight: 1.5, color: 'var(--clr-rose-text)' }}>{GRADE_NOT_SAVED}</div>}
 
       {/* ── Auto-analysis dashboard ── */}
       <AutoAnalysis
@@ -306,8 +325,7 @@ function ScoreBadge({ total, max, pct, touched }) {
   return (
     <div style={{ display: 'inline-flex', alignItems: 'baseline', gap: 6, padding: '4px 12px', borderRadius: 999, background: color, color: onColor, fontFamily: 'var(--vmx-mono)', fontWeight: 700 }}>
       <span style={{ fontSize: 16 }}>{total}</span>
-      <span style={{ fontSize: 14, opacity: 0.85 }}>/ {max}</span>
-      <span style={{ fontSize: 14, opacity: 0.85 }}>, {pct}%</span>
+      <span style={{ fontSize: 14, opacity: 0.85 }}>/ {max}, {pct}%</span>
     </div>
   );
 }

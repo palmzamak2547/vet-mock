@@ -2,13 +2,13 @@
 // 11), a separator that used to stand on its own kept its spacing, and the screen hunt of 14 Nov 2026
 // (scripts/screen-hunt.mjs) read "เวลารวม 0:06  , เฉลี่ย 3 วิ/ข้อ" on every practice result. The same
 // fault was in six more places (the offline game's best score, the Lab's measuring hint, the OSCE
-// timer, and the three KNOWN below), in four shapes: a text that ends in a space before an element that opens with the
+// timer, the essay penalty notes and the self-marked score chip), in four shapes: a text that ends in a space before an element that opens with the
 // comma, a `{' '}` before it, an element that opens with the comma and a left margin, and a comma
 // item inside an inline flex row with a gap.
 //
 // This parses every .jsx file under src and fails on each of those shapes. The flex rows it can see
 // are the ones styled inline; ResultsView's pace line is a class, so screen-hunt-wave1.test.mjs holds
-// that one. KNOWN rows sit inside a running set or its marking and wait for a reviewed change.
+// that one. KNOWN is empty since 5.274.0 and only shrinks.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readdirSync, readFileSync } from 'node:fs';
@@ -16,10 +16,7 @@ import { parse } from '@babel/parser';
 
 const ROOT = new URL('../../', import.meta.url);
 
-const KNOWN = {
-  'src/components/Question.jsx': 2, // the essay word count's penalty notes, inside a running set
-  'src/components/SmartGrader.jsx': 1, // the self-marked score chip
-};
+const KNOWN = {};
 
 function jsxFiles(dir) {
   return readdirSync(new URL(dir, ROOT), { withFileTypes: true }).flatMap((e) => {
