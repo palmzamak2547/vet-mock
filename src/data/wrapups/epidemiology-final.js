@@ -1661,7 +1661,7 @@ export const WRAPUP = {
               "src": "แนวข้อสอบ 214564"
             },
             {
-              "text": "kappa = 0.460 จัดเป็น moderate agreement",
+              "text": "kappa = 0.456 จัดเป็น moderate agreement",
               "src": "แนวข้อสอบ 214565"
             }
           ],
