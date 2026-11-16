@@ -148,3 +148,10 @@ test('the "near the end" reading is cleared by a jump and by a topic change', ()
   assert.match(reset.slice(0, reset.indexOf('}, [validTopic, subject]);')), /setEndNear\(false\)/, 'a topic change clears it');
   assert.match(src, /\}, \[notesState\.status, subject, validTopic\]\);\n  const backToTopicHead/, 'and the observers start again for the new topic');
 });
+
+test('a table\'s spoken name collapses white space and keeps every letter', () => {
+  const src = readFileSync(new URL('../../src/components/ScrollFrame.jsx', import.meta.url), 'utf8');
+  const collapses = src.match(/\.replace\(\/[^/]+\/g, ' '\)/g) || [];
+  assert.equal(collapses.length, 2, 'the caption and the header cells are both tidied');
+  for (const c of collapses) assert.equal(c, ".replace(/\\s+/g, ' ')", 'white space, not the letter s');
+});

@@ -12,9 +12,9 @@ import { useLayoutEffect, useRef, useState } from 'react';
  * the table's caption, else its first header cells, else its place on the page.
  */
 export function frameName(el) {
-  const caption = el.querySelector('caption')?.textContent?.replace(/s+/g, ' ').trim();
+  const caption = el.querySelector('caption')?.textContent?.replace(/\s+/g, ' ').trim();
   if (caption) return `ตาราง ${caption}`;
-  const heads = [...el.querySelectorAll('th')].map((th) => th.textContent.replace(/s+/g, ' ').trim()).filter(Boolean).slice(0, 3);
+  const heads = [...el.querySelectorAll('th')].map((th) => th.textContent.replace(/\s+/g, ' ').trim()).filter(Boolean).slice(0, 3);
   if (heads.length) return `ตาราง ${heads.join(', ')}`;
   const all = [...document.querySelectorAll('.vmx-scroll-frame')];
   return `ตารางที่ ${all.indexOf(el) + 1}`;
