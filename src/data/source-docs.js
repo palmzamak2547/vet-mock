@@ -1004,6 +1004,16 @@ export const SOURCE_DOCS = [
     editions: [{ id: '33p', pages: 33 }],
   },
   {
+    slug: 'mm-slaughter-2569', subject: 'milk-meat-hygiene', title: "MI_SP_E2",
+    match: /MI_SP_E2(?!\d| deck 2024)/i,
+    editions: [{ id: '52p', pages: 52 }],
+  },
+  {
+    slug: 'mm-ante-post-mortem-2569', subject: 'milk-meat-hygiene', title: "MI_SP_E3",
+    match: /MI_SP_E3(?!\d| deck 2024)/i,
+    editions: [{ id: '75p', pages: 75 }],
+  },
+  {
     slug: 'mm-slaughter-2024', subject: 'milk-meat-hygiene', title: "Slaughterhouse: Production Facilities & Sanitary Practices (deck 2024)",
     match: /Slaughterhouse: Production Facilities & Sanitary Practices (?:deck 2024|ชุดปี 2567)|MeatHyg_E2SlaugtHygDes_67_1 deck 2024/i,
     editions: [{ id: '52p', pages: 52 }],
@@ -1027,6 +1037,11 @@ export const SOURCE_DOCS = [
     slug: 'mm-egg-micro-2024', subject: 'milk-meat-hygiene', title: "Microbiology of the Avian Egg (deck 2024)",
     match: /Microbiology of the Avian Egg (?:deck 2024|ชุดปี 2567)/i,
     editions: [{ id: '33p', pages: 33 }],
+  },
+  {
+    slug: 'mm-milk-final-screens', subject: 'milk-meat-hygiene', title: "Rum Hygiene Final (milk) (ภาพหน้าจอแบบทดสอบออนไลน์ปลายภาค Milk hygiene ในชุดไฟล์ Vet 84)",
+    match: /บันทึกข้อสอบปลายภาค Milk hygiene แบบออนไลน์ \(ภาพหน้าจอ\) ในชุดไฟล์ Vet 84/i,
+    editions: [{ id: '101p', pages: 101 }],
   },
   {
     slug: 'mm-meat-final-screens', subject: 'milk-meat-hygiene', title: "Meat hygiene final (ภาพหน้าจอแบบทดสอบออนไลน์ในชุดไฟล์ Vet 84)",
