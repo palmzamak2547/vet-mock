@@ -207,19 +207,24 @@ test('the bar pauses, resumes, changes speed, moves by point and closes', async 
   await expect(bar.getByRole('status')).toHaveText('หยุดชั่วคราว');
   await bar.getByRole('button', { name: 'เล่นต่อ' }).click();
   await expect(bar.getByRole('button', { name: 'หยุดชั่วคราว' })).toBeVisible();
-  await bar.getByRole('button', { name: /ความเร็ว 1 เท่า/ }).click();
-  await expect(bar.getByRole('button', { name: /ความเร็ว 1.25 เท่า/ })).toHaveText('1.25x');
   // The next point after the stem is the first row: its label, then its text.
   await bar.getByRole('button', { name: 'ข้ามไปจุดถัดไป' }).click();
   await expect(page.locator('.vmx-option.is-reading')).toHaveCount(1);
   await expect(page.locator('.vmx-option').first()).toHaveClass(/is-reading/);
   await expect(bar).toContainText('ตัวเลือก A');
+  // The speed button opens the voice settings; a speed there is heard at once.
+  await bar.getByRole('button', { name: /ปรับเสียงอ่าน ความเร็ว 1 เท่า/ }).click();
+  const sheet = page.getByRole('dialog', { name: 'ตั้งค่าเสียงอ่าน' });
+  await sheet.getByRole('radio', { name: '1.25 เท่า' }).click();
+  await sheet.getByRole('button', { name: 'เสร็จ' }).click();
+  await expect(sheet).toHaveCount(0);
+  await expect(bar.getByRole('button', { name: /ความเร็ว 1.25 เท่า/ })).toHaveText('1.25x');
   await bar.getByRole('button', { name: 'ปิดเสียงอ่าน' }).click();
   await expect(bar).toHaveCount(0);
   await expect(page.locator('.is-reading')).toHaveCount(0);
   await expect(page.getByRole('button', { name: 'อ่านคำถามออกเสียง' })).toHaveAttribute('aria-pressed', 'false');
   // Back to 1x for the next test on this browser profile.
-  await page.evaluate(() => window.localStorage.removeItem('vmx-read-aloud-rate'));
+  await page.evaluate(() => window.localStorage.removeItem('vmx-tts-prefs'));
 });
 
 test('a subject with no clips never goes silent: the device voice reads, or a note says why', async ({ page }) => {
@@ -270,10 +275,15 @@ test('the device voice has the same controls: play, pause, resume, next point, s
   await bar.getByRole('button', { name: 'เล่นต่อ' }).click();
   await expect(bar.getByRole('button', { name: 'หยุดชั่วคราว' })).toBeVisible();
   await bar.getByRole('button', { name: /ความเร็ว 1 เท่า/ }).click();
+  await page.getByRole('dialog', { name: 'ตั้งค่าเสียงอ่าน' }).getByRole('radio', { name: '1.25 เท่า' }).click();
   await expect.poll(() => page.evaluate(() => window.__said.at(-1).rate)).toBeGreaterThan(1.1);
-  await bar.getByRole('button', { name: 'ข้ามไปจุดถัดไป' }).click();
-  await expect(page.locator('.vmx-option').first()).toHaveClass(/is-reading/);
+  await page.getByRole('dialog', { name: 'ตั้งค่าเสียงอ่าน' }).getByRole('button', { name: 'เสร็จ' }).click();
+  // A stem of several sentences has a point at each: step until the first row reads.
+  await expect(async () => {
+    if (!(await page.locator('.vmx-option.is-reading').count())) await bar.getByRole('button', { name: 'ข้ามไปจุดถัดไป' }).click();
+    await expect(page.locator('.vmx-option.is-reading')).toHaveCount(1, { timeout: 1000 });
+  }).toPass({ timeout: 15_000 });
   await bar.getByRole('button', { name: 'ปิดเสียงอ่าน' }).click();
   await expect(bar).toHaveCount(0);
-  await page.evaluate(() => window.localStorage.removeItem('vmx-read-aloud-rate'));
+  await page.evaluate(() => window.localStorage.removeItem('vmx-tts-prefs'));
 });

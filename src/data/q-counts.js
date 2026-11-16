@@ -969,7 +969,7 @@ const LEAVES = [
   ["exotic","zoo-vet",0,[[21,4,1,0,3,0,0,0],[3,4,1,1,3,1,0,0]]], // d1060984e102
   // end ["exotic","zoo-vet"]
   // ["food-industry","fiqc-aquatic"]
-  ["food-industry","fiqc-aquatic",0,[[16,5,1,0,2,0,0,0],[12,5,1,0,2,1,0,0]]], // d92d92518b61
+  ["food-industry","fiqc-aquatic",0,[[28,5,1,0,2,0,0,0]]], // cea00d53af7d
   // end ["food-industry","fiqc-aquatic"]
   // ["food-industry","fiqc-feed-qc"]
   ["food-industry","fiqc-feed-qc",0,[[18,5,1,0,1,0,0,0],[9,5,1,0,1,0,["2569-1","midterm"],0],[42,5,1,0,1,1,0,0],[2,5,1,1,1,1,0,0]]], // aebe5bfebf32
@@ -1137,7 +1137,7 @@ const LEAVES = [
   ["livestock-pathology","lpath-slaughter",0,[[3,5,1,1,3,1,0,0]]], // bfdaf32e8c34
   // end ["livestock-pathology","lpath-slaughter"]
   // ["livestock-pathology","lpath-swine-systemic"]
-  ["livestock-pathology","lpath-swine-systemic",9,[[53,5,1,1,3,1,0,0]]], // e95336599b84
+  ["livestock-pathology","lpath-swine-systemic",8,[[53,5,1,1,3,1,0,0]]], // 3e2a410d86e7
   // end ["livestock-pathology","lpath-swine-systemic"]
   // ["livestock-pathology","lpath-systemic"]
   ["livestock-pathology","lpath-systemic",1,[[1,5,1,1,3,1,0,0]]], // 5181c3614fbd
@@ -1200,7 +1200,7 @@ const LEAVES = [
   ["milk-meat-hygiene","milk-processing",0,[[32,5,1,0,1,0,0,0],[55,5,1,0,1,1,0,0],[18,5,1,1,1,1,0,0]]], // 42e6285f8400
   // end ["milk-meat-hygiene","milk-processing"]
   // ["milk-meat-hygiene","milk-products-storage"]
-  ["milk-meat-hygiene","milk-products-storage",1,[[15,5,1,0,1,0,0,0],[2,5,1,0,1,1,0,0]]], // 2dcb58bf148e
+  ["milk-meat-hygiene","milk-products-storage",0,[[15,5,1,0,1,0,0,0],[2,5,1,0,1,1,0,0]]], // dbc16bf01045
   // end ["milk-meat-hygiene","milk-products-storage"]
   // ["milk-meat-hygiene","milk-quality-composition"]
   ["milk-meat-hygiene","milk-quality-composition",0,[[29,5,1,0,1,0,0,0],[44,5,1,0,1,1,0,0],[19,5,1,1,1,1,0,0]]], // 78cf06350a2f
