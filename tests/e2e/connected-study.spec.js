@@ -300,7 +300,7 @@ test.describe('connected study experience', () => {
     expect(visualQuestions).toBe(2);
     // Every answer is in and shown, so the last button shows the result.
     await page.getByRole('button', { name: 'ดูผลลัพธ์ →', exact: true }).click();
-    await expect(page.getByText('คะแนนตรวจอัตโนมัติ')).toBeVisible();
+    await expect(page.getByRole('region', { name: 'ผลชุดนี้' })).toBeVisible();
     await expect(page.getByText(new RegExp(`คุณพลาด ${introCount} ข้อในหัวข้อ "Intro to Vet Epidemiology"`))).toBeVisible();
     await expect(page.getByText(/epidem-intro/)).toHaveCount(0);
     await page.getByRole('button', { name: 'หน้าแรก', exact: true }).click();

@@ -2406,19 +2406,6 @@ html.dark .vmx-panic-scrim {
    actions): it starts at the left, and a phone stacks it in DOM order
    instead of reversing it (see the 640px block). */
 .vmx-btn-row.is-stack { justify-content: flex-start; }
-/* "ชวนเพื่อน": the three ways to bring a friend behind one native
-   disclosure, so they stop outranking the answer review. */
-.vmx-invite { flex: 0 0 auto; }
-.vmx-invite[open] { flex-basis: 100%; }
-.vmx-invite > summary { list-style: none; cursor: pointer; }
-.vmx-invite > summary::-webkit-details-marker { display: none; }
-.vmx-invite > summary::after {
-  content: ''; width: 6px; height: 6px; margin-left: 2px;
-  border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
-  transform: translateY(-2px) rotate(45deg);
-}
-.vmx-invite[open] > summary::after { transform: translateY(2px) rotate(-135deg); }
-.vmx-invite-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 
 /* Top back-bar: sticky at top of sub-views so users always know
    how to escape — especially helpful inside long pages (Notes,
@@ -3488,22 +3475,6 @@ html.dark .vmx-panic-scrim {
   font-variant-numeric: tabular-nums;
 }
 
-/* ── Pacing Telemetry ───────────────────────────────────────────────────────
-   Clinical session pacing data (elapsed time + speed per case). */
-.vmx-pacing-telemetry {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 4px 12px;
-  margin-top: 14px;
-  border-radius: 999px;
-  background: var(--clr-surface-2);
-  border: 1px solid var(--clr-border);
-  font-size: 14px;
-  color: var(--clr-ink-soft);
-  font-variant-numeric: tabular-nums;
-}
-
 .vmx-score-big { font-family: var(--vmx-display); font-variant-numeric: tabular-nums; font-weight: 800; font-size: 96px; line-height: 1; letter-spacing: -0.04em; margin: 0; color: var(--clr-ink); }
 .vmx-score-big.pass { color: var(--clr-right-text); }
 .vmx-score-big.fail { color: var(--clr-rose-text); }
@@ -3950,9 +3921,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 }
 
 @media (max-width: 640px) {
-  .vmx-btn-row.is-stack > .vmx-invite { width: 100%; }
   .vmx-btn-row.is-stack { flex-direction: column; align-items: stretch; }
-  .vmx-invite-actions { flex-direction: column; }
 }
 
 @media (max-width: 640px) {
@@ -9317,4 +9286,73 @@ body.vmx-fullscreen .vmx-tools-fab, body.vmx-fullscreen .vmx-tools-fab-wrap { di
   margin: 4px 0 0;
   font-size: 14px;
   color: var(--clr-ink-soft);
+}
+
+/* ── The screen after a set (5.282.0): one card, one thumb ─────────────
+   work/results-design direction 1. The score is said once in one card; one
+   filled button sits under the thumb on a phone (bottom edge, 56 px, full
+   width, above the tab bar and the safe area) and at the top of the right
+   column on a wide screen; then the answers and the share entry side by
+   side, and one next-step row. Spacing 8 12 16 24, type 14 16 and the
+   numeral. */
+.vmx-results { padding-bottom: calc(96px + var(--vmx-bottom-nav-h, 0px) + env(safe-area-inset-bottom, 0px)); }
+.vmx-results-grid { display: grid; gap: 16px; max-width: 520px; margin: 0 auto; }
+.vmx-res-card { position: relative; isolation: isolate; overflow: hidden; padding: 16px 16px 20px; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-xl); box-shadow: var(--shadow-md); }
+.vmx-res-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.vmx-res-card-words { min-width: 0; }
+.vmx-res-scope { margin: 0 0 4px; font-size: 14px; line-height: 1.4; color: var(--clr-ink-soft); }
+.vmx-res-verdict { margin: 0; font-size: 16px; font-weight: 700; line-height: 1.3; color: var(--clr-ink); }
+.vmx-res-verdict.is-pass { color: var(--clr-right-text); }
+.vmx-res-card .vmx-score-big { font-size: 72px; margin: 4px 0 0; text-align: left; }
+.vmx-res-card .vmx-score-big.is-writing { color: var(--clr-gold-text); }
+.vmx-score-unit { font-size: 0.4em; font-weight: 400; }
+.vmx-res-card .vmx-result-mochi { margin: 0; flex-shrink: 0; }
+.vmx-res-card .vmx-score-frac { margin: 8px 0 0; font-size: 16px; font-weight: 600; text-align: left; }
+.vmx-res-card .vmx-benchmark-container { max-width: none; margin: 36px 0 0; }
+/* A low score stings already: the bar under the mark is ink, like the number, not rose. */
+.vmx-res-card .vmx-benchmark-fill.is-review { background: var(--clr-ink-soft); }
+.vmx-res-note { margin: 8px 0 0; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
+.vmx-res-actions { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.vmx-res-actions > .vmx-next-ladder { margin: 12px 0 0; }
+.vmx-res-thumb { position: fixed; z-index: 40; left: 0; right: 0; bottom: 0; padding: 8px max(16px, env(safe-area-inset-left, 0px)) calc(8px + var(--vmx-bottom-nav-h, 0px) + env(safe-area-inset-bottom, 0px)); background: linear-gradient(to top, var(--clr-bg) 70%, transparent); pointer-events: none; }
+.vmx-res-primary { pointer-events: auto; display: flex; align-items: center; gap: 12px; width: 100%; max-width: 520px; min-height: 56px; margin: 0 auto; padding: 8px 16px; border: 0; border-radius: var(--r-lg); background: var(--vmx-color-learning); color: var(--vmx-color-learning-on); font: inherit; text-align: left; cursor: pointer; box-shadow: var(--shadow-md); }
+.vmx-res-primary:hover { filter: brightness(0.95); }
+.vmx-res-primary:focus-visible { outline: 3px solid var(--clr-ink); outline-offset: 2px; }
+.vmx-res-primary-words { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.vmx-res-primary-label { font-size: 16px; font-weight: 700; line-height: 1.3; }
+.vmx-res-primary-sub { font-size: 14px; line-height: 1.4; }
+.vmx-res-primary-arrow { font-size: 20px; flex-shrink: 0; }
+.vmx-res-pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); gap: 8px; }
+.vmx-res-pair > .vmx-btn { min-height: 48px; width: 100%; justify-content: center; }
+.vmx-res-next { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 56px; padding: 8px 16px; border: 1px solid var(--clr-border); border-radius: var(--r-lg); background: var(--clr-surface); color: var(--clr-ink); font: inherit; text-align: left; cursor: pointer; }
+.vmx-res-next:hover { border-color: var(--clr-ink-soft); }
+.vmx-res-next:focus-visible { outline: 3px solid var(--clr-ink); outline-offset: 2px; }
+.vmx-res-next-icon { display: inline-flex; color: var(--clr-ink-soft); flex-shrink: 0; }
+.vmx-res-next-words { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.vmx-res-next-label { font-size: 16px; font-weight: 700; line-height: 1.3; }
+.vmx-res-next-sub { font-size: 14px; line-height: 1.4; color: var(--clr-ink-soft); }
+.vmx-res-next-go { font-size: 20px; color: var(--clr-ink-soft); }
+@media (min-width: 900px) {
+  .vmx-results { padding-bottom: 24px; }
+  .vmx-results-grid { grid-template-columns: minmax(0, 360px) minmax(0, 420px); max-width: 804px; gap: 24px; align-items: start; }
+  .vmx-res-thumb { position: static; padding: 0; background: none; order: -1; }
+  .vmx-res-primary { max-width: none; box-shadow: none; }
+}
+
+/* The share sheet: the set as the friend gets it, then the ways out. */
+.vmx-set-card { display: flex; flex-direction: column; gap: 4px; padding: 16px; border: 1px solid var(--clr-border); border-radius: var(--r-lg); background: var(--clr-bg); text-align: left; }
+.vmx-set-card-title { font-family: var(--vmx-display); font-size: 24px; font-weight: 700; line-height: 1.2; letter-spacing: 0; color: var(--clr-ink); }
+.vmx-set-card-topic { font-size: 16px; line-height: 1.4; color: var(--clr-ink); }
+.vmx-set-card-count { font-size: 14px; line-height: 1.4; color: var(--clr-ink-soft); }
+.vmx-send-sheet { display: flex; flex-direction: column; gap: 12px; }
+.vmx-send-lead { margin: 0; font-size: 14px; color: var(--clr-ink-soft); }
+.vmx-send-link { margin: 0; font-size: 14px; color: var(--clr-ink-soft); overflow-wrap: anywhere; user-select: all; -webkit-user-select: all; }
+.vmx-send-line { min-height: 52px; width: 100%; justify-content: center; text-decoration: none; }
+.vmx-send-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); gap: 8px; }
+.vmx-send-row > .vmx-btn { min-height: 44px; justify-content: center; }
+.vmx-send-hint { margin: 0; min-height: 1.5em; font-size: 14px; color: var(--clr-sage-text); }
+.vmx-send-race { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; padding: 8px 0 0; border: 0; border-top: 1px solid var(--clr-border); background: none; color: var(--clr-ink); font: inherit; font-size: 14px; text-align: left; cursor: pointer; }
+@media (max-width: 599px) {
+  .vmx-sheet-overlay { align-items: flex-end; padding: 0; }
+  .vmx-sheet-overlay > .vmx-send-sheet { max-width: none; border-radius: var(--r-xl) var(--r-xl) 0 0; padding: 20px 16px calc(16px + env(safe-area-inset-bottom, 0px)); }
 }

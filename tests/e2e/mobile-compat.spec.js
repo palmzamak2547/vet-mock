@@ -401,7 +401,7 @@ test.describe('whole-app mobile compatibility', () => {
     await submitDialog.waitFor({ state: 'visible' });
     await recordStage(page, testInfo, failures, 'submit-dialog');
     await submitDialog.locator('.vmx-btn-primary').click();
-    await page.locator('.vmx-results-hero').waitFor({ state: 'visible', timeout: 20_000 });
+    await page.locator('.vmx-res-card').waitFor({ state: 'visible', timeout: 20_000 });
     await recordStage(page, testInfo, failures, 'results');
 
     await gotoSurface(page, '/');

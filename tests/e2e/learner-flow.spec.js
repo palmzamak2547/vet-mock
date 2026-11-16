@@ -38,7 +38,7 @@ async function openResults(page, context, width) {
   const answers = Object.fromEntries(qs.map((q, i) => [q.id, i === 0 ? q.answer : (q.answer + 1) % q.options.length]));
   await resume(page, context, { questions: qs, mode: 'quick', answers, currentIdx: 2 });
   await page.getByRole('button', { name: 'ดูผลลัพธ์ →', exact: true }).click();
-  await expect(page.getByText('คะแนนตรวจอัตโนมัติ')).toBeVisible();
+  await expect(page.getByRole('region', { name: 'ผลชุดนี้' })).toBeVisible();
   await page.evaluate(() => window.scrollTo(0, 0));
 }
 
@@ -231,7 +231,9 @@ for (const scheme of ['light', 'dark']) {
     const flag = await page.locator('.vmx-benchmark-flag').boundingBox();
     const frac = await page.locator('.vmx-score-frac').boundingBox();
     expect(flag.y, 'the 60% flag touches the n / m line').toBeGreaterThanOrEqual(frac.y + frac.height + 2);
-    await expect(page.locator('.vmx-pacing-telemetry')).toHaveText(/^เวลารวม \d+:\d\d, เฉลี่ย \d+ วิ\/ข้อ$/);
+    // 5.282.0: the time joins the fraction line, one phrase with no chip of its own.
+    await expect(page.locator('.vmx-score-frac')).toHaveText(/^ถูก \d+ จาก \d+ ข้อ ใน \d+ (นาที|วินาที)$/);
+    await expect(page.locator('.vmx-pacing-telemetry')).toHaveCount(0);
   });
 }
 
@@ -241,11 +243,11 @@ for (const width of [375, 320]) {
     await openResults(page, context, width);
     const fold = await page.evaluate(() => window.innerHeight);
     const score = await page.locator('.vmx-score-big').boundingBox();
-    const primary = await page.locator('.vmx-results-primary button').first().boundingBox();
+    const primary = await page.locator('.vmx-res-primary').boundingBox();
     expect(score.y + score.height).toBeLessThanOrEqual(fold);
     expect(primary.y + primary.height, 'the next step is below the fold').toBeLessThanOrEqual(fold);
     // The practice mark is stated once on the card.
-    const hero = (await page.locator('.vmx-results-hero').innerText()).replace(/\s+/g, ' ');
+    const hero = (await page.locator('.vmx-res-card').innerText()).replace(/\s+/g, ' ');
     expect(hero.match(/60%/g)?.length).toBe(1);
   });
 }
@@ -266,13 +268,15 @@ test('at 320x812 the score and the next step still open the page with a personal
     };
   });
   await page.getByRole('button', { name: 'ดูผลลัพธ์ →', exact: true }).click();
-  await expect(page.getByText('คะแนนตรวจอัตโนมัติ')).toBeVisible();
-  await expect(page.getByText(/สถิติใหม่ของคุณ/)).toBeVisible();
+  await expect(page.getByRole('region', { name: 'ผลชุดนี้' })).toBeVisible();
+  // 5.282.0: the personal best is still recorded, and no banner says the score a second time.
+  expect(JSON.parse(await page.evaluate(() => localStorage.getItem('vmx-personal-best')))).toMatchObject({ [qs[0].subject]: 80 });
+  await expect(page.getByText(/สถิติใหม่ของคุณ/)).toHaveCount(0);
   await expect(page.getByRole('status', { name: 'สถานะการบันทึกผลสอบ' })).toBeVisible();
   await page.evaluate(() => window.scrollTo(0, 0));
   const fold = await page.evaluate(() => window.innerHeight);
   const score = await page.locator('.vmx-score-big').boundingBox();
-  const primary = await page.locator('.vmx-results-primary button').first().boundingBox();
+  const primary = await page.locator('.vmx-res-primary').boundingBox();
   expect(score.y + score.height).toBeLessThanOrEqual(fold);
   expect(primary.y + primary.height, 'the next step is below the fold').toBeLessThanOrEqual(fold);
 });

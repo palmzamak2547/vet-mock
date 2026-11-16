@@ -136,45 +136,44 @@ const contrast = (fg, bg, tokens) => {
   return (hi + 0.05) / (lo + 0.05);
 };
 
-// The primary action card on Results, in either of its two variants.
-function actionCard(opener) {
-  const at = results.indexOf(opener);
-  assert.ok(at >= 0, `the Results action card opened by ${opener} is gone`);
-  const block = results.slice(at, results.indexOf('</button>', at));
-  return {
-    backgrounds: [...block.matchAll(/background: '([^']+)'/g)].map((m) => m[1]),
-    colors: [...block.matchAll(/(?<![\w-])color: '([^']+)'/g)].map((m) => m[1]),
-  };
-}
+// The filled button and the next-step row on Results (5.282.0: the two action
+// cards with their ลุย pills became one filled button and one plain row).
+const resultsCss = css;
+const ruleOf = (selector) => {
+  const at = resultsCss.indexOf(`${selector} {`);
+  assert.ok(at >= 0, `styles.css no longer has ${selector}`);
+  return resultsCss.slice(at, resultsCss.indexOf('}', at));
+};
+const prop = (selector, name) => ruleOf(selector).match(new RegExp(`(?:^|[;{\\s])${name}: ([^;]+);`))?.[1]?.trim();
 
-test('UI-09: both Results action cards and their ลุย pills read at 4.5:1 in light and dark', () => {
-  for (const opener of ['onClick={handleRedoWrong}', 'onClick={() => handleContinueMore(5)}']) {
-    const { backgrounds, colors } = actionCard(opener);
-    assert.equal(backgrounds.length, 2, `${opener}: one card fill and one pill fill`);
-    assert.equal(colors.length, 3, `${opener}: title, subtitle and pill text`);
-    const [card, pill] = backgrounds;
-    const [title, subtitle, pillText] = colors;
-    for (const [theme, tokens] of Object.entries(THEMES)) {
-      for (const [what, fg, bg] of [['title', title, card], ['subtitle', subtitle, card], ['pill', pillText, pill]]) {
-        const r = contrast(fg, bg, tokens);
-        assert.ok(r >= 4.5, `${opener} ${what} in ${theme}: ${fg} on ${bg} is ${r.toFixed(2)}:1`);
-      }
+test('UI-09: the filled button and the next-step row read at 4.5:1 in light and dark', () => {
+  const fill = prop('.vmx-res-primary', 'background');
+  const label = prop('.vmx-res-primary', 'color');
+  assert.equal(fill, 'var(--vmx-color-learning)');
+  assert.equal(label, 'var(--vmx-color-learning-on)');
+  const rowFill = prop('.vmx-res-next', 'background');
+  const pairs = [
+    ['filled label', label, fill],
+    ['row label', prop('.vmx-res-next', 'color'), rowFill],
+    ['row line under it', prop('.vmx-res-next-sub', 'color'), rowFill],
+  ];
+  for (const [theme, tokens] of Object.entries(THEMES)) {
+    for (const [what, fg, bg] of pairs) {
+      const r = contrast(fg, bg, tokens);
+      assert.ok(r >= 4.5, `${what} in ${theme}: ${fg} on ${bg} is ${r.toFixed(2)}:1`);
     }
   }
+  // The line under the label is drawn at full strength: an opacity would lower it below what is measured here.
+  assert.doesNotMatch(ruleOf('.vmx-res-primary-sub'), /opacity/);
 });
 
-test('UI-09: the ลุย pills take the on-colour token, so every palette keeps its hue and its contrast', () => {
-  const retry = actionCard('onClick={handleRedoWrong}');
-  const more = actionCard('onClick={() => handleContinueMore(5)}');
-  assert.match(retry.backgrounds[1], /^var\(--clr-rose\b/);
-  assert.match(more.backgrounds[1], /^var\(--clr-sage\b/);
-  // The palettes recolour sage only, so the sage pill is the one to walk.
+test('UI-09: the filled button takes the on-colour token, so every palette keeps its hue and its contrast', () => {
   for (const palette of ['ocean', 'plum', 'cherry', 'mono', 'forest']) {
     const light = { ...LIGHT, ...tokensOf(cssBlock(`[data-palette="${palette}"]`)) };
     const dark = { ...DARK, ...tokensOf(cssBlock(`[data-theme="dark"][data-palette="${palette}"]`)) };
     for (const [theme, tokens] of [['light', light], ['dark', dark]]) {
-      const r = contrast(more.colors[2], more.backgrounds[1], tokens);
-      assert.ok(r >= 4.5, `${palette} ${theme}: the sage pill is ${r.toFixed(2)}:1`);
+      const r = contrast('var(--vmx-color-learning-on)', 'var(--vmx-color-learning)', tokens);
+      assert.ok(r >= 4.5, `${palette} ${theme}: the filled button is ${r.toFixed(2)}:1`);
     }
   }
 });
@@ -236,7 +235,8 @@ test('COPY-03: the replacement wording says the same thing, clause for clause', 
   assert.ok(rank.includes('ตอบดึกสะสม {nightCount} ข้อ อีก {progress.needed} ข้อได้เป็น {progress.next.label}'));
   assert.ok(rank.includes('ตอบดึกสะสม {nightCount} ข้อ ได้ยศสูงสุดแล้ว คืนนี้พักได้'));
   assert.ok(rank.includes('นับเฉพาะข้อที่ส่งคำตอบช่วง 23:00–04:59 ถ้าล้างประวัติ ยศจะลดตาม'));
-  assert.ok(results.includes('จาก {rankPromo.from.label} เป็น {rankPromo.to.label}, {rankPromo.to.blurb}'));
+  // The promotion line moved to the night rank card on Progress in 5.282.0.
+  assert.ok(rank.includes('จาก {promo.from.label} เป็น {promo.to.label}, {promo.to.blurb}'));
   const play = read('../../src/lib/motion-kit/play.js');
   // tests/e2e/motion-kit.spec.js reads the fetch status by this prefix.
   assert.ok(play.includes('`เก็บบอลแล้ว ${n} ครั้ง เก่งมาก Mochi!`'));
