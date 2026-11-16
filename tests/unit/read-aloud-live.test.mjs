@@ -74,7 +74,7 @@ const synth = {
   speak(u) {
     current = u;
     if (mute) return;
-    said.push({ text: u.text, rate: u.rate, lang: u.lang });
+    said.push({ text: u.text, rate: u.rate, lang: u.lang, pitch: u.pitch, voice: u.voice?.name || null });
     setTimeout(() => { if (current !== u) return; u.onstart?.(); u.t = setTimeout(() => { if (current === u) { current = null; u.onend?.(); } }, SPEAK_MS); }, 1);
   },
   cancel() { const u = current; current = null; if (u) { clearTimeout(u.t); u.onerror?.({ error: 'interrupted' }); } },
@@ -256,4 +256,67 @@ test('the device voice pauses, resumes on the same sentence, and takes the speed
   await until(() => said.length >= 3);
   eng.stop();
   eng.setRate(1);
+});
+
+// A plain device voice (Windows' Pattara) at the normal tone is read by the
+// cloud voice; a tone makes the device voice read (readerSource). A change
+// made while a question is read moves the rest of it, and the sentence being
+// read starts again in the new voice.
+const pattara = { name: 'Microsoft Pattara - Thai (Thailand)', lang: 'th-TH', voiceURI: 'Pattara', localService: true };
+const cloudOf = (p) => p.replace(/^cloud:/, '').replace(/\.$/, '');
+const LONG = 'สุกรมีไข้สูงและไอเรื้อรัง. '.repeat(8);
+
+test('a tone set while the cloud voice reads: the rest of the question is the device voice with that tone', async () => {
+  reset();
+  voices = [pattara];
+  store.session.cloudRefused = false;
+  await eng.start(job('t1', LONG, ['Influenza A', 'PRRSV']));
+  await until(() => played.length === 2);
+  eng.pause();
+  const heard = played.length;
+  const sentence = cloudOf(played.at(-1));
+  store.setVoicePrefs({ pitch: 0.85 });
+  await sleep(400);
+  assert.equal(said.length, 0, 'nothing spoken while paused');
+  eng.resume();
+  await until(() => store.readAloud.get().status === 'idle', 8000);
+  assert.equal(played.length, heard, 'no cloud piece after the change');
+  assert.ok(said.length >= 2, `${said.length} sentences said`);
+  assert.equal(said[0].text.replace(/\.$/, ''), sentence, 'the interrupted sentence again, from its start');
+  assert.ok(said.every((s) => s.voice === pattara.name && s.pitch === 0.85), JSON.stringify(said[0]));
+  store.setVoicePrefs({ pitch: 1 });
+});
+
+test('the tone put back while the device voice reads: the rest of the question is the cloud voice', async () => {
+  reset();
+  voices = [pattara];
+  store.session.cloudRefused = false;
+  store.setVoicePrefs({ pitch: 0.85 });
+  await eng.start(job('t2', LONG, ['Influenza A', 'PRRSV']));
+  await until(() => said.length === 2);
+  eng.pause();
+  const spoken = said.length;
+  const sentence = said.at(-1).text;
+  store.setVoicePrefs({ pitch: 1 });
+  await sleep(400);
+  eng.resume();
+  await until(() => store.readAloud.get().status === 'idle', 8000);
+  assert.equal(said.length, spoken, 'the device voice said nothing more');
+  assert.ok(played.length >= 2, `${played.length} cloud pieces`);
+  assert.equal(cloudOf(played[0]), sentence.replace(/\.$/, ''), 'the interrupted sentence again, from its start');
+});
+
+test('a tone set while the cloud voice is mid-sentence: the device voice takes over without a pause', async () => {
+  reset();
+  voices = [pattara];
+  store.session.cloudRefused = false;
+  await eng.start(job('t3', LONG, ['Influenza A', 'PRRSV']));
+  await until(() => played.length === 1);
+  store.setVoicePrefs({ pitch: 1.15 });
+  await until(() => store.readAloud.get().status === 'idle', 8000);
+  assert.ok(said.length >= 2, `${said.length} sentences said`);
+  assert.ok(said.every((s) => s.pitch === 1.15));
+  const after = played.length;
+  assert.ok(after < 12, `${after} cloud pieces: the change was taken mid-question`);
+  store.setVoicePrefs({ pitch: 1 });
 });
