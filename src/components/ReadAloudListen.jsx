@@ -67,6 +67,30 @@ export function useReadAloud(prefix, { raised = false } = {}) {
   return { readingId, speak, preload, note, bar };
 }
 
+/**
+ * For a screen whose code Home fetches ahead (results review): the screen
+ * loads this module only once it is open, mounts ReadAloudHost, and gets
+ * { readingId, speak, preload, note, Button } through onVoice. Until then it
+ * draws no listen buttons, and Home's first visit fetches nothing more.
+ */
+export function ReadAloudHost({ prefix, onVoice }) {
+  const voice = useReadAloud(prefix);
+  const latest = useRef(voice);
+  latest.current = voice;
+  const { readingId, note } = voice;
+  useEffect(() => {
+    onVoice({
+      readingId,
+      note,
+      speak: (job) => latest.current.speak(job),
+      preload: () => latest.current.preload(),
+      Button: ListenButton,
+    });
+  }, [readingId, note, onVoice]);
+  useEffect(() => () => onVoice(null), [onVoice]);
+  return voice.bar;
+}
+
 /** The 44 px listen button drawn as a 32 px circle, as on the practice card. */
 export function ListenButton({ on, onClick, onPointerDown, what = 'q', className = '' }) {
   const label = on ? 'หยุดอ่านออกเสียง' : what === 'explain' ? 'อ่านเหตุผลออกเสียง' : what === 'item' ? 'อ่านหัวข้อนี้ออกเสียง' : 'อ่านคำถามออกเสียง';

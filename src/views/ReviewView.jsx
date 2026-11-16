@@ -17,7 +17,11 @@ import ZoomableImage from '../components/ZoomableImage.jsx';
 import EvidenceSlot from '../components/EvidenceSlot.jsx';
 import { copyShareUrl } from '../lib/share-link.js';
 import NavIcon from '../components/NavIcon.jsx';
-import { useReadAloud, ListenButton } from '../components/ReadAloudListen.jsx';
+// Read-aloud loads once this screen is open, never with Home's fetch-ahead of it.
+const ReadAloudHost = lazy(() => import('../components/ReadAloudListen.jsx').then((m) => ({ default: m.ReadAloudHost }))
+  // Offline when the screen opened: the review stays whole, without listen buttons.
+  .catch(() => ({ default: () => null })));
+const NO_VOICE = { readingId: '', note: null, speak: () => {}, preload: () => {}, Button: () => null };
 
 // Annotator is heavy (canvas + image processing) and only mounts on
 // demand — lazy so the review view stays light.
@@ -148,7 +152,9 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
   // Read-aloud for each row (components/ReadAloudListen.jsx): the stem as it
   // shows here, and the เหตุผล where it is open. Reading changes nothing
   // about the scores or the list.
-  const voice = useReadAloud('review:');
+  const [voiceNow, setVoice] = useState(null);
+  const voice = voiceNow || NO_VOICE;
+  const ListenButton = voice.Button;
   const readJob = (q, rowKey, what) => ({
     id: `review:${rowKey}:${what}`,
     what,
@@ -678,7 +684,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
           <ImageAnnotator src={annotateSrc} onClose={() => setAnnotateSrc(null)} />
         </Suspense>
       )}
-      {voice.bar}
+      <Suspense fallback={null}><ReadAloudHost prefix="review:" onVoice={setVoice} /></Suspense>
     </>
   );
 }
