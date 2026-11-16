@@ -756,6 +756,103 @@ export const SOURCE_DOCS = [
     match: /lecture 5 and 6 \(infertility and disease female horse\)/i,
     editions: [{ id: '66p', pages: 66 }],
   },
+  // Equine Repro final, marked points (5.254.0): the 2569 decks the new rows cite and the seniors' marked copies.
+  // the 15 Oct 2569 deck (library), 30 pages.
+  {
+    slug: 'eqrepro-ai-2569', subject: 'equine-repro', title: "Artificial insemination (2569)",
+    match: /Artificial insemination \(2569\)/,
+    editions: [{ id: '30p', pages: 30 }],
+  },
+  // the 1 Oct 2569 deck (library), 41 pages.
+  {
+    slug: 'eqrepro-endometritis-2569', subject: 'equine-repro', title: "Lecture 7 Endometritis in mare (2569)",
+    match: /Lecture 7 Endometritis in mare \(2569\)/,
+    editions: [{ id: '41p', pages: 41 }],
+  },
+  // the 29 Oct 2569 deck (library), 30 pages.
+  {
+    slug: 'eqrepro-surgery-2569', subject: 'equine-repro', title: "Equine reproductive surgery (2569)",
+    match: /Equine reproductive surgery \(2569\)/,
+    editions: [{ id: '30p', pages: 30 }],
+  },
+  // the 29 Oct 2569 deck (library), 40 pages.
+  {
+    slug: 'eqrepro-pregnancy-2569', subject: 'equine-repro', title: "Equine pregnancy and neonatal care (2569)",
+    match: /Equine pregnancy and neonatal care \(2569\)/,
+    editions: [{ id: '40p', pages: 40 }],
+  },
+  // Vet 84 folder, final: the 2024 deck with a Vet 84 student's notes and highlights, 24 pages.
+  {
+    slug: 'eqrepro-male-2024-vet84', subject: 'equine-repro', title: "male reproductive organ_functions (Vet 84 annotated)",
+    match: /male reproductive organ_functions \(Vet 84 annotated\)/,
+    editions: [{ id: '24p', pages: 24 }],
+  },
+  // Vet 84 folder, final: the 2024 deck with a Vet 84 student's notes and highlights, 33 pages.
+  {
+    slug: 'eqrepro-ai-2024-vet84', subject: 'equine-repro', title: "artificial insemination (Vet 84 annotated)",
+    match: /artificial insemination \(Vet 84 annotated\)/,
+    editions: [{ id: '33p', pages: 33 }],
+  },
+  // Vet 84 folder, final: the 2024 deck with a Vet 84 student's notes and highlights, 28 pages.
+  {
+    slug: 'eqrepro-stallion-infect-2024-vet84', subject: 'equine-repro', title: "reproductive infectious diseases in stallion 2024 (Vet 84 annotated)",
+    match: /reproductive infectious diseases in stallion 2024 \(Vet 84 annotated\)/,
+    editions: [{ id: '28p', pages: 28 }],
+  },
+  // Vet 84 folder, final: the 2024 deck with a Vet 84 student's notes and highlights, 24 pages.
+  {
+    slug: 'eqrepro-surgery-2024-vet84', subject: 'equine-repro', title: "equine reproductive surgery 2024 (Vet 84 annotated)",
+    match: /equine reproductive surgery 2024 \(Vet 84 annotated\)/,
+    editions: [{ id: '24p', pages: 24 }],
+  },
+  // Vet 84 folder, final: the 2024 deck with a Vet 84 student's notes and highlights, 38 pages.
+  {
+    slug: 'eqrepro-endometritis-2024-vet84', subject: 'equine-repro', title: "ENDOMETRITIS in MARE 2024 (Vet 84 annotated)",
+    match: /ENDOMETRITIS in MARE 2024 \(Vet 84 annotated\)/,
+    editions: [{ id: '38p', pages: 38 }],
+  },
+  // Vet 84 folder, final: the 2566 deck with a Vet 84 student's notes and highlights, 32 pages.
+  {
+    slug: 'eqrepro-pregnancy-2566-vet84', subject: 'equine-repro', title: "Pregnancy_parturition_horse_2566 (Vet 84 annotated)",
+    match: /Pregnancy_parturition_horse_2566 \(Vet 84 annotated\)/,
+    editions: [{ id: '32p', pages: 32 }],
+  },
+  // Vet 84 folder, final: the 2567 deck with a Vet 84 student's highlights, 21 pages.
+  {
+    slug: 'eqrepro-postpartum-2567-vet84', subject: 'equine-repro', title: "Postpartum_complication_horse_2567 (Vet 84 annotated)",
+    match: /Postpartum_complication_horse_2567 \(Vet 84 annotated\)/,
+    editions: [{ id: '21p', pages: 21 }],
+  },
+  // Vet 84 folder, final: Vet 79 mind maps with stars and notes added; its file name says the stars mark what was examined, 4 pages.
+  {
+    slug: 'eqrepro-k14-maps-vet84', subject: 'equine-repro', title: "K1-4 Final mind maps (Vet 84 folder)",
+    match: /K1-4 Final mind maps \(Vet 84 folder\)/,
+    editions: [{ id: '4p', pages: 4 }],
+  },
+  // Vet 84 folder, final: the clean copy of the Vet 79 mind maps, 6 pages.
+  {
+    slug: 'eqrepro-ts-maps-vet79', subject: 'equine-repro', title: "Repro horse มีของ TS (mind map Vet 79)",
+    match: /Repro horse มีของ TS \(mind map Vet 79\)/,
+    editions: [{ id: '6p', pages: 6 }],
+  },
+  // Vet 84 folder, final: a Vet 83 summary titled เขียน+[recall], 4 pages.
+  {
+    slug: 'eqrepro-final-summary-vet83', subject: 'equine-repro', title: "สรุปปลายภาค Equine Repro ของ Vet 83",
+    match: /สรุปปลายภาค Equine Repro ของ Vet 83/,
+    editions: [{ id: '4p', pages: 4 }],
+  },
+  // Vet 84 folder, final: a typed Vet 81 summary (page headers vet81), 14 pages.
+  {
+    slug: 'eqrepro-final-summary-vet81', subject: 'equine-repro', title: "สรุปปลายภาค Equine Repro ของ Vet 81",
+    match: /สรุปปลายภาค Equine Repro ของ Vet 81/,
+    editions: [{ id: '14p', pages: 14 }],
+  },
+  // Vet 85 folder: their final summary with pink stars, 7 pages.
+  {
+    slug: 'eqrepro-final-summary-vet85', subject: 'equine-repro', title: "สรุปปลายภาค Equine Repro ของ Vet 85",
+    match: /สรุปปลายภาค Equine Repro ของ Vet 85/,
+    editions: [{ id: '7p', pages: 7 }],
+  },
   // Aquatic Medicine FINAL sources, 31 ต.ค. 2569: the 2569 library decks by their titles, the 2024 decks and the seniors' files.
   {
     slug: 'aqua-industry-tech-2569', subject: 'aquatic-clinic', title: "Aquaculture Industry and Technology",
