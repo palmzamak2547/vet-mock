@@ -48,7 +48,9 @@ test('the hub card opens the studio, a pick shows at once and is still there aft
   // A frame not yet earned says how to earn it and changes nothing.
   const gilt = page.getByRole('radiogroup', { name: 'กรอบ' }).getByRole('radio', { name: /ขอบทอง/ });
   await expect(gilt).toContainText('ได้เมื่อมีถ้วย');
-  await gilt.click();
+  await expect(gilt).toHaveAttribute('aria-disabled', 'true');
+  // force: a locked frame is aria-disabled, which Playwright will not click; a finger still can.
+  await gilt.click({ force: true });
   await expect(card).toHaveAttribute('data-frame', 'plain');
 
   // Reset says what it resets and puts the first card back.
@@ -119,7 +121,10 @@ async function signedInGroup(page, context, { column }) {
     localStorage.setItem('sb-mpovsdzdggvksmeehqfj-auth-token', JSON.stringify(session));
   }, { session });
   await page.goto('/app/groups');
-  test.skip(await page.getByText('เครื่องนี้ไม่ได้ต่อกับฐานข้อมูล', { exact: false }).count() > 0, 'Built bundle has no Supabase configuration');
+  // The suite bundle has no database settings and never calls the host; only the connected bundle does.
+  await expect(page.locator('#main, .vmx-gate').first()).toBeVisible();
+  for (let i = 0; i < 30 && asked.length === 0; i++) await page.waitForTimeout(100);
+  test.skip(asked.length === 0, 'Built bundle has no Supabase configuration');
   await page.getByText(group.name).first().click();
   await page.getByRole('button', { name: /สมาชิก/ }).click();
   return asked;

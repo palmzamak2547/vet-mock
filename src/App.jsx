@@ -222,6 +222,7 @@ function withTransition(updateFn) {
 
 
 import TopLoadingBar, { ViewFallback, OverlayPending } from './components/TopLoadingBar.jsx';
+import { PALETTES } from './lib/share-card/palettes.js';
 import { MochiProvider } from './components/MochiContext.jsx';
 import DialogHost from './components/DialogHost.jsx';
 import { confirmDialog, alertDialog } from './lib/dialog.js';
@@ -1436,7 +1437,7 @@ export default function App() {
     // (the anti-FOUC inline script in index.html sets them for first paint;
     // this keeps the overscroll/landing area correct after a theme switch).
     d.style.colorScheme = theme;
-    d.style.background = theme === 'dark' ? '#1a1612' : '#f6efe4';
+    d.style.background = PALETTES[theme === 'dark' ? 'dark' : 'light'].bg;
   }, [theme, visit.theme, themePref]);
   useEffect(() => {
     if (palette && palette !== 'default') {

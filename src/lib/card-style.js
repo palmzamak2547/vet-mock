@@ -25,7 +25,7 @@
 
 import { BADGE_ART, IG_BACKGROUNDS } from '../data/art.js';
 import { earnedBadges, nextBadge } from './badges.js';
-import { PALETTES } from './share-card/kit.js';
+import { PALETTES } from './share-card/palettes.js';
 
 export const CARD_VERSION = 'c1';
 export const CARD_MAX_LEN = 120;

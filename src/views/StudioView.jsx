@@ -9,7 +9,7 @@
 // identity card, so they are not offered here.
 // Never reachable from a question set: its only entry is the profile hub.
 // ============================================================
-import { Suspense, useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import StudentCard from '../components/StudentCard.jsx';
 import { useMyCard } from '../hooks/useMyCard.js';
@@ -21,8 +21,10 @@ import {
 import { BADGE_ART } from '../data/art.js';
 import '../styles-studio.css';
 
-import { lazyWithRetry } from '../lib/lazy-retry.js';
-const ShareCardSheet = lazyWithRetry(() => import('../components/ShareCardSheet.jsx'));
+// Static, inside this lazy screen: as a separate entry the sheet and the drawing split the
+// canvas kit out of the share chunk, one more request on Home (perf-budget.spec.js).
+import ShareCardSheet from '../components/ShareCardSheet.jsx';
+import { drawStudentCard, cardArt } from '../lib/share-card/student-card.js';
 
 const STATUS = {
   loading: 'กำลังโหลดการ์ดที่บันทึกไว้',
@@ -41,7 +43,6 @@ export default function StudioView({ goBack, user = null, profile = null, histor
   const next = useMemo(() => nextTrophy({ history: history || [], srCards: srCards || {}, currentStreak: streak }), [history, srCards, streak]);
   const set = (patch) => save({ ...worn, ...patch });
   const draw = useCallback(async (t) => {
-    const { drawStudentCard, cardArt } = await import('../lib/share-card/student-card.js');
     const { face: f } = ownCard({ card, user, profile, history, srCards, streakData, selectedYear, theme: t });
     return drawStudentCard(f, { art: await cardArt(f) });
   }, [card, user, profile, history, srCards, streakData, selectedYear]);
@@ -148,7 +149,6 @@ export default function StudioView({ goBack, user = null, profile = null, histor
       </div>
 
       {sharing && (
-        <Suspense fallback={null}>
           <ShareCardSheet
             title="แชร์การ์ด"
             onClose={() => setSharing(false)}
@@ -156,7 +156,6 @@ export default function StudioView({ goBack, user = null, profile = null, histor
             fileBase="vetmock-card"
             alt={`การ์ดของ ${face.name}`}
           />
-        </Suspense>
       )}
     </div>
   );
