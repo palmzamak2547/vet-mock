@@ -72,3 +72,22 @@ test('no middle-dot separators reach the reader', () => {
 test('correctionsFor returns an array for a section with none', () => {
   assert.deepEqual(correctionsFor('definitely--not--a-section'), []);
 });
+
+// Six places where the Epidemiology notes follow the slides and the literature
+// says otherwise each carry a card naming what the source found.
+test('the Epidemiology evidence cards are on their sections, each with its source', () => {
+  const want = [
+    ['epidemiology--epidem-test-agreement--cohen-s-kappa', /McHugh/, /0\.80-0\.90 strong/],
+    ['epidemiology--epidem-disease-frequency--health-index-อัตราการตาย', /CDC/, /ไม่ใช่ mortality rate/],
+    ['epidemiology--epidem-applied-stats--hypothesis-testing-และ-p-value', /Altman/, /fail to reject H0/],
+    ['epidemiology--epidem-applied-stats--correlation-และ-linear-regression', /Least Squares/, /Σ\(y − ŷ\)²/],
+    ['epidemiology--epidem-control-prevention--นิยาม-control-eradication-elimination', /Dowdle/, /ทั่วโลกลงเป็นศูนย์อย่างถาวร/],
+    ['epidemiology--epidem-control-prevention--กรณีศึกษาไข้หวัดนก-ความเป็นมาและการระบาดในไทย', /Tiensin/, /89 และ 264 เป็นจำนวนอำเภอ/],
+  ];
+  for (const [id, source, finding] of want) {
+    assert.ok(realSectionIds.has(id), `${id} is not a section`);
+    const card = correctionsFor(id).find((c) => source.test(c.sourceRef));
+    assert.ok(card, `${id} has no card citing ${source}`);
+    assert.match(card.evidenceSays, finding);
+  }
+});

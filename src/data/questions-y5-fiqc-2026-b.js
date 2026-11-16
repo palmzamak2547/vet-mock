@@ -3111,7 +3111,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     "answer": 1,
     "explain": "ปลานิลเลี้ยงในบ่อให้ผลผลิตสูงสุดราว 209,000 ตัน รองลงมาคือปลาดุกในบ่อราว 100,000 ตัน ปลานิลในกระชังราว 50,000 ตัน และปลากะพงในบ่อราว 40,000 ตัน การผลิตปลาของไทยจึงเป็นการเลี้ยงในบ่อเป็นหลัก",
     "source": "FIQC aquatic animals products 2026 SJ หน้า 16",
-    "verified": "จุดที่รุ่นพี่ทำเครื่องหมายไว้: เอกสารสัตว์น้ำปี 2024 ในโฟลเดอร์ Vet 84 หน้า 3 (ปากกาแดง)",
+    "verified": "FIQC aquatic animals products 2026 SJ หน้า 16; จุดที่รุ่นพี่ทำเครื่องหมายไว้: เอกสารสัตว์น้ำปี 2024 ในโฟลเดอร์ Vet 84 หน้า 3 (ปากกาแดง)",
     "sourcePages": [
       {
         "doc": "fiqc-aquatic-2569",
@@ -3124,13 +3124,10 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
         "page": 3
       }
     ],
-    "sourceType": "exam-aligned",
-    "examOrigin": "Food Industry QC final จุดที่รุ่นพี่มาร์คในสไลด์",
     "tags": [
       "fiqc-aquatic",
       "thai-aquaculture",
-      "fish",
-      "อิงแนวข้อสอบ"
+      "fish"
     ]
   },
   {
@@ -3150,7 +3147,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     "answer": 3,
     "explain": "กุ้งขาวแวนนาไมที่เลี้ยงแบบพัฒนาให้ผลผลิตราว 373,000 ตันจากกุ้งที่เลี้ยงแบบพัฒนาทั้งหมดราว 386,000 ตัน กุ้งก้ามกรามในบ่อราว 41,000 ตัน และกุ้งกุลาดำแบบพัฒนาราว 13,000 ตัน การเลี้ยงแบบกึ่งพัฒนาให้ผลผลิตน้อยมาก",
     "source": "FIQC aquatic animals products 2026 SJ หน้า 14",
-    "verified": "จุดที่รุ่นพี่ทำเครื่องหมายไว้: เอกสารสัตว์น้ำปี 2024 ในโฟลเดอร์ Vet 84 หน้า 4 (โน้ต)",
+    "verified": "FIQC aquatic animals products 2026 SJ หน้า 14; จุดที่รุ่นพี่ทำเครื่องหมายไว้: เอกสารสัตว์น้ำปี 2024 ในโฟลเดอร์ Vet 84 หน้า 4 (โน้ต)",
     "sourcePages": [
       {
         "doc": "fiqc-aquatic-2569",
@@ -3163,13 +3160,10 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
         "page": 4
       }
     ],
-    "sourceType": "exam-aligned",
-    "examOrigin": "Food Industry QC final จุดที่รุ่นพี่มาร์คในสไลด์",
     "tags": [
       "fiqc-aquatic",
       "thai-aquaculture",
-      "shrimp",
-      "อิงแนวข้อสอบ"
+      "shrimp"
     ]
   },
   {
@@ -3189,7 +3183,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     "answer": 0,
     "explain": "มาตรฐานสินค้าเกษตร (TAS หรือ มกษ.) กำหนดโดยสำนักงานมาตรฐานสินค้าเกษตรและอาหารแห่งชาติ (มกอช.) กรมประมงมี code of conduct สำหรับการเพาะเลี้ยงสัตว์น้ำอย่างรับผิดชอบระดับฟาร์ม และ อย. กำกับความปลอดภัยและฉลากของอาหารแปรรูปในประเทศ มาตรฐานของไทยออกแบบให้สอดคล้องกับ Codex และข้อกำหนดของตลาดส่งออก",
     "source": "FIQC aquatic animals products 2026 SJ หน้า 65",
-    "verified": "จุดที่รุ่นพี่ทำเครื่องหมายไว้: เอกสารสัตว์น้ำปี 2024 ในโฟลเดอร์ Vet 84 หน้า 6 และ 7 (ไฮไลต์)",
+    "verified": "FIQC aquatic animals products 2026 SJ หน้า 65; จุดที่รุ่นพี่ทำเครื่องหมายไว้: เอกสารสัตว์น้ำปี 2024 ในโฟลเดอร์ Vet 84 หน้า 6 และ 7 (ไฮไลต์)",
     "sourcePages": [
       {
         "doc": "fiqc-aquatic-2569",
@@ -3207,13 +3201,10 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
         "page": 7
       }
     ],
-    "sourceType": "exam-aligned",
-    "examOrigin": "Food Industry QC final จุดที่รุ่นพี่มาร์คในสไลด์",
     "tags": [
       "fiqc-aquatic",
       "thai-standards",
-      "tas",
-      "อิงแนวข้อสอบ"
+      "tas"
     ]
   },
   {
@@ -3233,7 +3224,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     "answer": 2,
     "explain": "มกษ. 7432-2558 เป็นมาตรฐานบังคับสำหรับฟาร์มผลิตลูกกุ้งขาวแวนนาไมปลอดโรค มี 7 หัวข้อ คือ หลักการผลิต บุคลากร การคัดเลือกพ่อแม่พันธุ์กุ้งขาวแวนนาไมปลอดโรค การจัดการทั่วไป การจัดการด้านอาหารของพ่อแม่พันธุ์ การจัดการสุขภาพ และบันทึกข้อมูล การแปรรูปและการติดฉลากอยู่นอกขอบเขตของฟาร์มเพาะฟัก",
     "source": "FIQC aquatic animals products 2026 SJ หน้า 51",
-    "verified": "จุดที่รุ่นพี่ทำเครื่องหมายไว้: เอกสารสัตว์น้ำปี 2024 ในโฟลเดอร์ Vet 84 หน้า 13 และ 15 (ไฮไลต์)",
+    "verified": "FIQC aquatic animals products 2026 SJ หน้า 51; จุดที่รุ่นพี่ทำเครื่องหมายไว้: เอกสารสัตว์น้ำปี 2024 ในโฟลเดอร์ Vet 84 หน้า 13 และ 15 (ไฮไลต์)",
     "sourcePages": [
       {
         "doc": "fiqc-aquatic-2569",
@@ -3251,13 +3242,10 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
         "page": 15
       }
     ],
-    "sourceType": "exam-aligned",
-    "examOrigin": "Food Industry QC final จุดที่รุ่นพี่มาร์คในสไลด์",
     "tags": [
       "fiqc-aquatic",
       "thai-standards",
-      "shrimp-hatchery",
-      "อิงแนวข้อสอบ"
+      "shrimp-hatchery"
     ]
   },
   {
@@ -3277,7 +3265,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     "answer": 4,
     "explain": "ตัวอย่างการใช้ HACCP ในการแปรรูปสัตว์น้ำ ขั้นรับวัตถุดิบมีอันตรายจากเชื้อก่อโรค การเน่าเสีย และยาตกค้าง ขั้นแช่เย็นหรือใส่น้ำแข็งเสี่ยงต่อการเกิดฮิสตามีนและการเพิ่มจำนวนเชื้อก่อโรค ขั้นตรวจโลหะควบคุมการปนเปื้อนทางกายภาพ ขั้นให้ความร้อนของผลิตภัณฑ์พร้อมรับประทานเสี่ยงต่อเชื้อรอดชีวิต ขั้นบรรจุและติดฉลากเสี่ยงต่อการระบุสารก่อภูมิแพ้ผิด และขั้นเก็บและขนส่งเสี่ยงต่อ temperature abuse ในการส่งออก โรงงานต้องผ่านการตรวจ GMP และ HACCP จึงจะได้รับอนุมัติและขึ้นทะเบียน",
     "source": "FIQC aquatic animals products 2026 SJ หน้า 55 และ 67",
-    "verified": "จุดที่รุ่นพี่ทำเครื่องหมายไว้: เอกสารสัตว์น้ำปี 2024 ในโฟลเดอร์ Vet 84 หน้า 25 (ไฮไลต์)",
+    "verified": "FIQC aquatic animals products 2026 SJ หน้า 55 และ 67; จุดที่รุ่นพี่ทำเครื่องหมายไว้: เอกสารสัตว์น้ำปี 2024 ในโฟลเดอร์ Vet 84 หน้า 25 (ไฮไลต์)",
     "sourcePages": [
       {
         "doc": "fiqc-aquatic-2569",
@@ -3295,13 +3283,10 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
         "page": 25
       }
     ],
-    "sourceType": "exam-aligned",
-    "examOrigin": "Food Industry QC final จุดที่รุ่นพี่มาร์คในสไลด์",
     "tags": [
       "fiqc-aquatic",
       "haccp",
-      "seafood-processing",
-      "อิงแนวข้อสอบ"
+      "seafood-processing"
     ]
   },
   {
@@ -3321,7 +3306,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     "answer": 2,
     "explain": "น้ำหนักสุทธิเฉลี่ยต้องไม่น้อยกว่าที่ระบุบนฉลาก หน่วยที่น้ำหนักต่ำกว่าฉลากต้องไม่เกินค่าที่ยอมให้ (tolerable deficiency) หรือจำนวนที่ยอมรับตามแผนการสุ่ม และความสมบูรณ์ของภาชนะต้องเป็นไปตามข้อกำหนดของ Canadian Food Inspection Agency (CFIA) ฉลากต้องมีชื่อชนิด แหล่งที่มา รหัสชุดการผลิต และวันผลิต เพื่อการสอบย้อนกลับ",
     "source": "FIQC aquatic animals products 2026 SJ หน้า 32",
-    "verified": "จุดที่รุ่นพี่ทำเครื่องหมายไว้: เอกสารสัตว์น้ำปี 2024 ในโฟลเดอร์ Vet 84 หน้า 26 และ 33 (ไฮไลต์ และ โน้ต)",
+    "verified": "FIQC aquatic animals products 2026 SJ หน้า 32; จุดที่รุ่นพี่ทำเครื่องหมายไว้: เอกสารสัตว์น้ำปี 2024 ในโฟลเดอร์ Vet 84 หน้า 26 และ 33 (ไฮไลต์ และ โน้ต)",
     "sourcePages": [
       {
         "doc": "fiqc-aquatic-2569",
@@ -3339,13 +3324,10 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
         "page": 33
       }
     ],
-    "sourceType": "exam-aligned",
-    "examOrigin": "Food Industry QC final จุดที่รุ่นพี่มาร์คในสไลด์",
     "tags": [
       "fiqc-aquatic",
       "labeling",
-      "net-weight",
-      "อิงแนวข้อสอบ"
+      "net-weight"
     ]
   },
   {
@@ -3365,7 +3347,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     "answer": 4,
     "explain": "ข้อกำหนดมีสองชั้น น้ำหนักสุทธิเฉลี่ยต้องไม่น้อยกว่าฉลาก และหน่วยที่น้ำหนักต่ำกว่าฉลากต้องไม่เกินค่าที่ยอมให้ (tolerable deficiency) หรือจำนวนที่ยอมรับ (acceptance number) ตามแผนการสุ่ม ล็อตที่ผ่านชั้นแรกแต่ไม่ผ่านชั้นที่สองจึงไม่ผ่าน",
     "source": "FIQC aquatic animals products 2026 SJ หน้า 32",
-    "verified": "จุดที่รุ่นพี่ทำเครื่องหมายไว้: เอกสารสัตว์น้ำปี 2024 ในโฟลเดอร์ Vet 84 หน้า 29 (โน้ต)",
+    "verified": "FIQC aquatic animals products 2026 SJ หน้า 32; จุดที่รุ่นพี่ทำเครื่องหมายไว้: เอกสารสัตว์น้ำปี 2024 ในโฟลเดอร์ Vet 84 หน้า 29 (โน้ต)",
     "sourcePages": [
       {
         "doc": "fiqc-aquatic-2569",
@@ -3378,14 +3360,11 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
         "page": 29
       }
     ],
-    "sourceType": "exam-aligned",
-    "examOrigin": "Food Industry QC final จุดที่รุ่นพี่มาร์คในสไลด์",
     "tags": [
       "fiqc-aquatic",
       "labeling",
       "net-weight",
-      "sampling-plan",
-      "อิงแนวข้อสอบ"
+      "sampling-plan"
     ]
   },
   {
@@ -3405,7 +3384,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     "answer": 1,
     "explain": "เนื้อสัตว์น้ำมีน้ำซึมออกมา และผลิตภัณฑ์แช่แข็งอาจมีน้ำแข็งเคลือบ น้ำหนักรวมจึงมากกว่าเนื้อที่ผู้ซื้อได้จริง ฉลากจึงต้องแยกน้ำหนักสุทธิทั้งหมดกับน้ำหนักเนื้ออย่างเดียว ร่วมกับเกณฑ์ว่าน้ำหนักสุทธิเฉลี่ยต้องไม่น้อยกว่าที่ระบุบนฉลาก",
     "source": "FIQC aquatic animals products 2026 SJ หน้า 32; บันทึกการสอน 28 ต.ค. 2569 นาทีที่ 52",
-    "verified": "จุดที่รุ่นพี่ทำเครื่องหมายไว้: เอกสารสัตว์น้ำปี 2024 ในโฟลเดอร์ Vet 84 หน้า 28 (โน้ต)",
+    "verified": "FIQC aquatic animals products 2026 SJ หน้า 32; บันทึกการสอน 28 ต.ค. 2569 นาทีที่ 52; จุดที่รุ่นพี่ทำเครื่องหมายไว้: เอกสารสัตว์น้ำปี 2024 ในโฟลเดอร์ Vet 84 หน้า 28 (โน้ต)",
     "sourcePages": [
       {
         "doc": "fiqc-aquatic-2569",
@@ -3418,13 +3397,10 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
         "page": 28
       }
     ],
-    "sourceType": "exam-aligned",
-    "examOrigin": "Food Industry QC final จุดที่รุ่นพี่มาร์คในสไลด์",
     "tags": [
       "fiqc-aquatic",
       "labeling",
-      "net-weight",
-      "อิงแนวข้อสอบ"
+      "net-weight"
     ]
   },
   {
@@ -3444,7 +3420,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     "answer": 3,
     "explain": "โลหะหนักหลักคือปรอท ตะกั่ว แคดเมียม และสารหนู มาจากน้ำทิ้งอุตสาหกรรม อาหารหรือน้ำที่ปนเปื้อน และการสะสมในตะกอน สะสมในเนื้อเยื่อและไม่สลายด้วยการปรุงหรือแปรรูป จึงพบสูงในปลาผู้ล่าหรือปลาอายุยืนจากการสะสมทางชีวภาพ ควบคุมด้วยการเฝ้าระวังแหล่งน้ำ ควบคุมคุณภาพอาหาร และเฝ้าระวังสารตกค้าง",
     "source": "FIQC aquatic animals products 2026 SJ หน้า 40",
-    "verified": "จุดที่รุ่นพี่ทำเครื่องหมายไว้: เอกสารสัตว์น้ำปี 2024 ในโฟลเดอร์ Vet 84 หน้า 37 (ไฮไลต์)",
+    "verified": "FIQC aquatic animals products 2026 SJ หน้า 40; จุดที่รุ่นพี่ทำเครื่องหมายไว้: เอกสารสัตว์น้ำปี 2024 ในโฟลเดอร์ Vet 84 หน้า 37 (ไฮไลต์)",
     "sourcePages": [
       {
         "doc": "fiqc-aquatic-2569",
@@ -3457,13 +3433,10 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
         "page": 37
       }
     ],
-    "sourceType": "exam-aligned",
-    "examOrigin": "Food Industry QC final จุดที่รุ่นพี่มาร์คในสไลด์",
     "tags": [
       "fiqc-aquatic",
       "heavy-metals",
-      "chemical-hazard",
-      "อิงแนวข้อสอบ"
+      "chemical-hazard"
     ]
   },
   {
@@ -3483,7 +3456,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     "answer": 0,
     "explain": "ciguatera และพิษอัมพาตจากหอย (PSP) เป็นชีวพิษทางทะเลที่มาจากสาหร่ายพิษ (harmful algal bloom) ชีวพิษหลายชนิดรวมถึงฮิสตามีนไม่ถูกทำลายด้วยการปรุงสุก ควบคุมด้วยการแช่เย็นทันทีหลังจับและเฝ้าระวังพิษในแหล่งจับ ฮิสตามีนเกิดในปลาที่มี histidine สูงเมื่อเกิด temperature abuse ส่วน Anisakis เป็นพยาธิ",
     "source": "FIQC aquatic animals products 2026 SJ หน้า 41",
-    "verified": "จุดที่รุ่นพี่ทำเครื่องหมายไว้: เอกสารสัตว์น้ำปี 2024 ในโฟลเดอร์ Vet 84 หน้า 40 และ 42 (ไฮไลต์)",
+    "verified": "FIQC aquatic animals products 2026 SJ หน้า 41; จุดที่รุ่นพี่ทำเครื่องหมายไว้: เอกสารสัตว์น้ำปี 2024 ในโฟลเดอร์ Vet 84 หน้า 40 และ 42 (ไฮไลต์)",
     "sourcePages": [
       {
         "doc": "fiqc-aquatic-2569",
@@ -3501,13 +3474,10 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
         "page": 42
       }
     ],
-    "sourceType": "exam-aligned",
-    "examOrigin": "Food Industry QC final จุดที่รุ่นพี่มาร์คในสไลด์",
     "tags": [
       "fiqc-aquatic",
       "biotoxin",
-      "ciguatera",
-      "อิงแนวข้อสอบ"
+      "ciguatera"
     ]
   },
   {
@@ -3527,7 +3497,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     "answer": 1,
     "explain": "อันตรายทางกายภาพในสัตว์น้ำ ได้แก่ เศษกระดูก ตะขอ โลหะ แก้ว หรือพลาสติกจากอุปกรณ์ ตรวจด้วยเครื่องตรวจจับโลหะและ X-ray ที่ขั้นตอนสำคัญ และป้องกันด้วยการออกแบบกระบวนการมากกว่าการตรวจผลิตภัณฑ์สุดท้ายอย่างเดียว เช่น บำรุงรักษาอุปกรณ์ แยกสายการผลิต และติดฉลากสารก่อภูมิแพ้ให้ถูกต้อง เพราะโปรตีนปลาและสัตว์เปลือกแข็งเป็นสารก่อภูมิแพ้หลัก",
     "source": "FIQC aquatic animals products 2026 SJ หน้า 42",
-    "verified": "จุดที่รุ่นพี่ทำเครื่องหมายไว้: เอกสารสัตว์น้ำปี 2024 ในโฟลเดอร์ Vet 84 หน้า 50 (โน้ต)",
+    "verified": "FIQC aquatic animals products 2026 SJ หน้า 42; จุดที่รุ่นพี่ทำเครื่องหมายไว้: เอกสารสัตว์น้ำปี 2024 ในโฟลเดอร์ Vet 84 หน้า 50 (โน้ต)",
     "sourcePages": [
       {
         "doc": "fiqc-aquatic-2569",
@@ -3540,12 +3510,9 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
         "page": 50
       }
     ],
-    "sourceType": "exam-aligned",
-    "examOrigin": "Food Industry QC final จุดที่รุ่นพี่มาร์คในสไลด์",
     "tags": [
       "fiqc-aquatic",
-      "physical-hazard",
-      "อิงแนวข้อสอบ"
+      "physical-hazard"
     ]
   },
   {
@@ -3565,7 +3532,7 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
     "answer": 3,
     "explain": "ISO 9001 เป็นมาตรฐานระบบบริหารคุณภาพทั่วไป ไม่เฉพาะด้านความปลอดภัยอาหาร มุ่งให้ผลผลิตมีคุณภาพสม่ำเสมอด้วยการควบคุมกระบวนการและการปรับปรุงต่อเนื่อง มีเอกสารขั้นตอน การตรวจติดตามภายใน การแก้ไข และการทบทวนของฝ่ายบริหาร มักใช้ร่วมกับ ISO 22000 หรือ HACCP ระบบที่รวม HACCP เข้ากับ PRP คือ ISO 22000 และกฎ HACCP ของ US FDA สำหรับสัตว์น้ำคือ 21 CFR Part 123",
     "source": "FIQC aquatic animals products 2026 SJ หน้า 57",
-    "verified": "จุดที่รุ่นพี่ทำเครื่องหมายไว้: สไลด์ HACCP ฉบับ Nov 2024 ในโฟลเดอร์ Vet 84 หน้า 49 (วงกลม)",
+    "verified": "FIQC aquatic animals products 2026 SJ หน้า 57; จุดที่รุ่นพี่ทำเครื่องหมายไว้: สไลด์ HACCP ฉบับ Nov 2024 ในโฟลเดอร์ Vet 84 หน้า 49 (วงกลม)",
     "sourcePages": [
       {
         "doc": "fiqc-aquatic-2569",
@@ -3578,13 +3545,10 @@ export const QUESTIONS_Y5_FIQC_2026_B = [
         "page": 49
       }
     ],
-    "sourceType": "exam-aligned",
-    "examOrigin": "Food Industry QC final จุดที่รุ่นพี่มาร์คในสไลด์",
     "tags": [
       "fiqc-aquatic",
       "iso",
-      "qc-systems",
-      "อิงแนวข้อสอบ"
+      "qc-systems"
     ]
   },
 ];

@@ -36,17 +36,50 @@ test('swine 8026 asks about the lymph node lesion the paper asks about', async (
   assert.equal(q.options[q.answer], 'ถูกทุกข้อ');
 });
 
-// livestock-pathology 8200 asks which pair does NOT cause renal lesions, and
-// its own explanation concludes that every pair does, so no option is right.
-// It was delivered with its conflict chip and marked students wrong anyway.
-// It stays out of every pool until someone with the paper settles the key.
-// The hold goes through the flag (an unclear conflict), the way the bank's
-// other held rows do: answerStatus alone would be partial prediction
-// metadata, which the question standard rejects.
-test('livestock-pathology 8200, whose explanation admits no option fits, is held for review', async () => {
-  const { questionNeedsAnswerReview, predictionMetadataIssues } = await import('../../src/lib/question-prediction.js');
-  const q = await row('questions-y5-patho.js', 'livestock-pathology', 8200);
-  assert.equal(questionNeedsAnswerReview(q), true, '8200 is still delivered');
-  assert.equal(q.flag?.severity, 'unclear');
-  assert.deepEqual(predictionMetadataIssues(q), []);
+// Two rows were held back for good. livestock-pathology 8200 asked which pair
+// does NOT cause renal lesions while its own explanation said every pair does,
+// and the page that could settle it is not in the library. milk-meat-hygiene
+// 207364 was the same sentence as 104766 with the opposite key. Both are
+// retired: neither is in a bank, so neither waits in the held-back list.
+test('the held-back pair 8200 and 207364 is retired from the bank and the hold list', async () => {
+  const patho = await readBank(path.join(DATA, 'questions-y5-patho.js'));
+  assert.equal(patho.questions.some((x) => x.subject === 'livestock-pathology' && x.id === 8200), false);
+  const milk = await readBank(path.join(DATA, 'questions-mid86-milk-meat-hygiene.js'));
+  assert.equal(milk.questions.some((x) => x.subject === 'milk-meat-hygiene' && x.id === 207364), false);
+  const { BLOCKED_QUESTIONS } = await import('../../src/data/question-delivery.generated.js');
+  const held = new Set(BLOCKED_QUESTIONS.map((b) => b.key));
+  assert.equal(held.has('livestock-pathology:8200'), false);
+  assert.equal(held.has('milk-meat-hygiene:207364'), false);
+});
+
+// Twelve Food Industry aquatic items were written from one Vet 84 student's
+// highlights on a handout that student named "ไม่สอบ" (not examined that
+// year), and no senior records an aquatic item. They are class material: they
+// stay in the topic pool and Panic Mode does not offer them as examined points.
+test('the twelve aquatic items from the not-examined handout are class-derived, not exam-aligned', async () => {
+  const { panicRank } = await import('../../src/lib/question-metadata.js');
+  const { questions } = await readBank(path.join(DATA, 'questions-y5-fiqc-2026-b.js'));
+  for (let id = 218336; id <= 218347; id++) {
+    const q = questions.find((x) => x.subject === 'food-industry' && x.id === id);
+    assert.ok(q, `food-industry:${id} left the bank`);
+    assert.equal(q.topic, 'fiqc-aquatic');
+    assert.equal(panicRank(q), 2, `${id} is still offered in Panic Mode`);
+  }
+});
+
+// 214565 printed kappa = 0.460 while its own four cells give 0.456.
+test('epidemiology 214565 states the kappa its four cells give', async () => {
+  const q = await row('questions-y5-epid-final-marked.js', 'epidemiology', 214565);
+  const [a, b, c, d] = [8, 1, 16, 223];
+  const n = a + b + c + d;
+  const po = (a + d) / n;
+  const pe = ((a + b) * (a + c) + (c + d) * (b + d)) / (n * n);
+  const kappa = ((po - pe) / (1 - pe)).toFixed(3);
+  const shown = new RegExp(`= ${kappa.replace('.', '\\.')}(?!\\d)`);
+  for (const text of [q.q, q.say, q.explain]) {
+    assert.match(text, shown);
+    assert.doesNotMatch(text, /0\.460/);
+  }
+  assert.match(q.q, new RegExp(`kappa = ${kappa.replace('.', '\\.')}`));
+  assert.match(q.options[2], new RegExp(po.toFixed(3).replace('.', '\\.')));
 });

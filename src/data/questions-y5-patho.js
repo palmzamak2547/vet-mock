@@ -23,23 +23,6 @@ export const QB_Y5_PATHO = [
   // General Systemic Pathology + Differential Diagnosis
   // ═══════════════════════════════════════════════════════════
 
-  { id: 8200, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
-    source: '1. Final Patho prac.pdf',
-    examOrigin: 'Vet 81 Patho prac final · cross-validated by พี่ใหม่ Vet 81 update',
-    tags: ['kidney', 'nephropathy', 'differential'], type: 'mcq',
-    q: 'ข้อใด ไม่ก่อ ให้เกิดพยาธิสภาพของไต',
-    options: [
-      'Melamine, Porcine dermatitis and nephropathy syndrome (PDNS)',
-      'Leptospirosis, Aflatoxin',
-      'Ochratoxin, Heartworm',
-      'Sulfonamide, Canine ehrlichiosis',
-      'Gentamicin, Feline infectious peritonitis (FIP)'
-    ],
-    answer: 1,
-    explain: 'Lepto = interstitial nephritis (ชัด)\nAflatoxin = primary hepatotoxin, renal effect รอง\nOchratoxin = renal tubular damage (ชัด)\nHeartworm = glomerulonephritis (immune-complex)\n\nทุกข้อ list สารที่ทำพยาธิไตทั้งคู่จึงไม่มีข้อ "ไม่ก่อ" ที่ชัดเจน',
-    verified: 'Final Patho prac.pdf p.1',
-    sourcePages: [{ doc: 'final-patho-prac', edition: '15p', page: 1 }],
-    flag: { note: 'Vet 81 ตอบ B แต่ commentary พี่ปอ ตอบ C — disagreement; ทุกตัวเลือกก่อพยาธิสภาพที่ไตได้ จึงไม่มีข้อ "ไม่ก่อ" ที่ชัดเจน รอตัดสินเฉลยจากหน้า 1 ของต้นฉบับ', sources: ['Final Patho prac.pdf p.1'], severity: 'unclear' } },
 
   { id: 8201, subject: 'livestock-pathology', topic: 'lpath-swine-systemic', year: 5,
     source: '1. Final Patho prac.pdf',
