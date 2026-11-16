@@ -80,6 +80,16 @@
   font-size: var(--text-sm); line-height: 1.55; color: var(--clr-gold-text);
   background: color-mix(in srgb, var(--clr-gold) 12%, transparent);
 }
+.vmx-hub-pic.has-photo { overflow: hidden; background: var(--clr-surface-2); }
+.vmx-profile-photo { display: block; border-radius: 50%; object-fit: cover; background: var(--clr-surface-2); }
+.vmx-hub-photo { margin-top: var(--space-3); }
+.vmx-hub-photo .vmx-hub-auto { margin: 0 0 var(--space-2); }
+.vmx-hub-photo-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1) var(--space-3); }
+.vmx-hub-photo-row .vmx-btn { min-height: 44px; }
+.vmx-hub-photo-row button:disabled { opacity: 0.6; cursor: progress; }
+.vmx-hub-photo-note { margin: var(--space-2) 0 0; font-size: var(--text-sm); line-height: 1.55; color: var(--clr-sage-text); }
+.vmx-hub-photo-note.is-problem { color: var(--clr-gold-text); }
+.vmx-hub-photo-note:empty { display: none; }
 .vmx-hub-id-foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-1) var(--space-3); margin-top: var(--space-3); }
 .vmx-hub-link {
   all: unset; cursor: pointer; font-size: var(--text-sm); font-weight: 600; color: var(--clr-sage-text);

@@ -185,6 +185,7 @@
     "pdfjs-dist": "^4.10.38",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "sharp": "^0.35.5",
     "three": "0.185.1",
     "valibot": "1.4.2"
   },
@@ -199,7 +200,6 @@
     "esbuild": "^0.25.12",
     "meshoptimizer": "1.2.0",
     "playwright": "^1.63.0",
-    "sharp": "^0.35.5",
     "subset-font": "^2.7.0",
     "typescript": "~6.0.3",
     "vite": "^6.4.6",

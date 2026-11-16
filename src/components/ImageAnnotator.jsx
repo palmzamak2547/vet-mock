@@ -22,6 +22,7 @@ import { thaiError } from '../lib/errors.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 import { useFullscreen } from '../hooks/useFullscreen.js';
 import NavIcon from './NavIcon.jsx';
+import { createInkEngine } from '../lib/ink/engine.js';
 
 const PEN_COLORS = [
   { id: 'red',    rgb: '#c0392b', name: 'แดง' },
@@ -71,11 +72,12 @@ export default function ImageAnnotator({ src, alt, onClose, mode = 'annotate', t
   // Transient "palm rejected" toast — { x, y, t } where t is the
   // mount timestamp. Cleared by a 1.5 s timer.
   const [palmFlash, setPalmFlash] = useState(null);
-  // Stroke state: points = [{ x, y, p }] where p is pressure (0..1).
-  // We store the whole stroke (not just lastX/lastY) so we can render
-  // smoothed quadratic-Bezier segments AND apply variable line width
-  // per segment based on pen pressure.
-  const drawingRef = useRef({ on: false, points: [] });
+  // The pointer loop is lib/ink/engine.js. A stroke's points are [x, y, p]
+  // in canvas pixels, p the pressure (0..1); the whole stroke is kept so
+  // each segment is a smoothed curve at its own pressure width.
+  const engineRef = useRef(null);
+  if (!engineRef.current) engineRef.current = createInkEngine();
+  const engine = engineRef.current;
 
   // Load image + size canvas to image's natural dimensions (clamped to
   // a reasonable max so giant radiographs don't blow up the modal).
@@ -198,60 +200,49 @@ export default function ImageAnnotator({ src, alt, onClose, mode = 'annotate', t
     }
   }
 
-  function startStroke(e) {
+  // A point in canvas pixels, [x, y, p]. Pointer Events spec: pressure is 0
+  // when the device doesn't report it (typical for fingers on iOS) — fall
+  // back to 0.5 so the multiplier lands at 1.0 and the line looks unchanged.
+  function canvasPoint(e) {
     const c = drawRef.current;
-    if (!c) return;
-    // Palm rejection — only the actual stylus is allowed to draw.
-    // Flash a small toast so the user knows why their finger was
-    // ignored (otherwise it looks like the app froze).
-    if (palmReject && e.pointerType !== 'pen') {
-      const rect = c.getBoundingClientRect();
-      setPalmFlash({ x: e.clientX - rect.left, y: e.clientY - rect.top, t: Date.now() });
-      setTimeout(() => setPalmFlash((f) => (f && Date.now() - f.t >= 1400 ? null : f)), 1500);
-      return;
-    }
     const rect = c.getBoundingClientRect();
     const x = (e.clientX - rect.left) * (c.width / rect.width);
     const y = (e.clientY - rect.top) * (c.height / rect.height);
-    const p = e.pressure > 0 ? e.pressure : 0.5;
-    drawingRef.current = { on: true, points: [{ x, y, p }] };
-    c.setPointerCapture?.(e.pointerId);
+    return [x, y, e.pressure > 0 ? e.pressure : 0.5];
   }
 
-  function moveStroke(e) {
-    const ref = drawingRef.current;
-    if (!ref.on) return;
+  // Palm rejection — only the actual stylus is allowed to draw. Flash a
+  // small toast so the user knows why their finger was ignored (otherwise
+  // it looks like the app froze).
+  function flashPalm(e) {
     const c = drawRef.current;
     if (!c) return;
     const rect = c.getBoundingClientRect();
-    const x = (e.clientX - rect.left) * (c.width / rect.width);
-    const y = (e.clientY - rect.top) * (c.height / rect.height);
-    // Pointer Events spec: pressure is 0 when the device doesn't
-    // report it (typical for fingers on iOS) — fall back to 0.5 so
-    // the multiplier lands at 1.0 and the line looks unchanged.
-    const p = e.pressure > 0 ? e.pressure : 0.5;
-    const pts = ref.points;
-    pts.push({ x, y, p });
-    const ctx = c.getContext('2d');
-    const n = pts.length;
+    setPalmFlash({ x: e.clientX - rect.left, y: e.clientY - rect.top, t: Date.now() });
+    setTimeout(() => setPalmFlash((f) => (f && Date.now() - f.t >= 1400 ? null : f)), 1500);
+  }
+
+  // Paint the segment that the n-th point of a stroke adds.
+  function paintTo(pts, n) {
+    const ctx = drawRef.current.getContext('2d');
     // Eraser uses raw line segments — spatial accuracy matters more
     // than visual smoothness, and the wide nib hides any blockiness.
     if (tool === 'eraser') {
       applyToolStyle(ctx, 1.0);
       const a = pts[n - 2], b = pts[n - 1];
       ctx.beginPath();
-      ctx.moveTo(a.x, a.y);
-      ctx.lineTo(b.x, b.y);
+      ctx.moveTo(a[0], a[1]);
+      ctx.lineTo(b[0], b[1]);
       ctx.stroke();
       return;
     }
     if (n === 2) {
       // First segment — straight line, no smoothing possible yet.
       const a = pts[0], b = pts[1];
-      applyToolStyle(ctx, pressureToWidthMul(b.p));
+      applyToolStyle(ctx, pressureToWidthMul(b[2]));
       ctx.beginPath();
-      ctx.moveTo(a.x, a.y);
-      ctx.lineTo(b.x, b.y);
+      ctx.moveTo(a[0], a[1]);
+      ctx.lineTo(b[0], b[1]);
       ctx.stroke();
     } else if (n >= 3) {
       // Quadratic Bezier midpoint smoothing: draw a curve from the
@@ -259,38 +250,58 @@ export default function ImageAnnotator({ src, alt, onClose, mode = 'annotate', t
       // (n-2) as the control point. This removes the polygonal look
       // without losing the user's actual track.
       const a = pts[n - 3], b = pts[n - 2], d = pts[n - 1];
-      const m1x = (a.x + b.x) / 2, m1y = (a.y + b.y) / 2;
-      const m2x = (b.x + d.x) / 2, m2y = (b.y + d.y) / 2;
-      applyToolStyle(ctx, pressureToWidthMul(b.p));
+      const m1x = (a[0] + b[0]) / 2, m1y = (a[1] + b[1]) / 2;
+      const m2x = (b[0] + d[0]) / 2, m2y = (b[1] + d[1]) / 2;
+      applyToolStyle(ctx, pressureToWidthMul(b[2]));
       ctx.beginPath();
       ctx.moveTo(m1x, m1y);
-      ctx.quadraticCurveTo(b.x, b.y, m2x, m2y);
+      ctx.quadraticCurveTo(b[0], b[1], m2x, m2y);
       ctx.stroke();
     }
   }
 
-  function endStroke() {
-    const ref = drawingRef.current;
-    if (!ref.on) return;
+  function endStroke(stroke) {
     // Close out the last segment so the stroke reaches the final
     // raw point (smoothing leaves us at the midpoint between the
     // last two points; without this tail the line falls short).
     const c = drawRef.current;
-    if (c && tool !== 'eraser' && ref.points.length >= 2) {
-      const pts = ref.points;
+    if (c && tool !== 'eraser' && stroke.points.length >= 2) {
+      const pts = stroke.points;
       const n = pts.length;
       const b = pts[n - 2], d = pts[n - 1];
-      const mx = (b.x + d.x) / 2, my = (b.y + d.y) / 2;
+      const mx = (b[0] + d[0]) / 2, my = (b[1] + d[1]) / 2;
       const ctx = c.getContext('2d');
-      applyToolStyle(ctx, pressureToWidthMul(d.p));
+      applyToolStyle(ctx, pressureToWidthMul(d[2]));
       ctx.beginPath();
       ctx.moveTo(mx, my);
-      ctx.lineTo(d.x, d.y);
+      ctx.lineTo(d[0], d[1]);
       ctx.stroke();
     }
-    drawingRef.current = { on: false, points: [] };
     pushHistory();
   }
+
+  // What this surface asks of the engine: every pointer draws (with pen only
+  // on, only the stylus), no pinch, no double tap, one sample per event and
+  // no duplicate drop, as this markup always drew.
+  engine.setHost({
+    penOnly: palmReject,
+    pinch: false,
+    tool,
+    size,
+    beforeDown: () => !!drawRef.current,
+    onTouchIgnored: flashPalm,
+    toStored: (e) => canvasPoint(e),
+    samples: (e) => [e],
+    near: () => false,
+    newId: () => 0,
+    colorFor: () => null,
+    surface: () => drawRef.current,
+    grow: (stroke, added) => {
+      const n = stroke.points.length;
+      for (let i = Math.max(2, n - added + 1); i <= n; i++) paintTo(stroke.points, i);
+    },
+    commit: (stroke) => endStroke(stroke),
+  });
 
   function downloadPNG() {
     const base = baseRef.current, draw = drawRef.current;
@@ -415,11 +426,11 @@ export default function ImageAnnotator({ src, alt, onClose, mode = 'annotate', t
             <canvas ref={baseRef} style={{ display: 'block', maxWidth: '100%', height: 'auto', touchAction: palmReject ? 'pan-y' : 'none' }} />
             <canvas
               ref={drawRef}
-              onPointerDown={startStroke}
-              onPointerMove={moveStroke}
-              onPointerUp={endStroke}
-              onPointerCancel={endStroke}
-              onPointerLeave={endStroke}
+              onPointerDown={engine.onPointerDown}
+              onPointerMove={engine.onPointerMove}
+              onPointerUp={engine.onPointerUp}
+              onPointerCancel={engine.onPointerUp}
+              onPointerLeave={engine.onPointerUp}
               // When palm rejection is on we want finger scrolls to
               // pan the viewport (so users can still scroll a tall
               // image), but the pen still draws because
