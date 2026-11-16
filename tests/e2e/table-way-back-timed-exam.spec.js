@@ -26,11 +26,24 @@ async function tableQuestion() {
   return found.sort((a, b) => a.id - b.id)[0] || null;
 }
 
-test('in a timed exam the way back reopens a hidden table, the clock keeps its deadline and the answer stays', async ({ page }) => {
+// The second case is what CI saw on webkit-mobile: the smooth scroll was dropped and the page stayed
+// where it was. There every smooth scrollIntoView is ignored, and the table must still arrive.
+for (const dropSmooth of [false, true]) {
+test(`in a timed exam the way back reopens a hidden table, the clock keeps its deadline and the answer stays${dropSmooth ? ' (smooth scroll dropped)' : ''}`, async ({ page }) => {
   const q = await tableQuestion();
   expect(q, 'no Epidemiology passage holds a table under a lead sentence any more').toBeTruthy();
   const second = { id: 6201, subject: 'vca', type: 'mcq', q: 'ข้อสองของชุดจับเวลา', options: ['A', 'B', 'C'], answer: 1, explain: 'ตัวอย่างสำหรับตรวจการทำงานของเวลา' };
 
+  if (dropSmooth) {
+    await page.emulateMedia({ reducedMotion: 'no-preference' });
+    await page.addInitScript(() => {
+      const scroll = Element.prototype.scrollIntoView;
+      Element.prototype.scrollIntoView = function (options) {
+        if (options && options.behavior === 'smooth') return undefined;
+        return scroll.call(this, options);
+      };
+    });
+  }
   await page.route(/\/_vercel\/(insights|speed-insights)\/script\.js/, (route) => route.fulfill({ body: '', contentType: 'application/javascript' }));
   await page.addInitScript(([questions]) => {
     localStorage.setItem('vmx-selected-year', '4');
@@ -98,3 +111,4 @@ test('in a timed exam the way back reopens a hidden table, the clock keeps its d
   expect(Math.abs((await deadline()) - parkedDeadline)).toBeLessThan(1000);
   await expect(page.locator('.vmx-instant-feedback')).toHaveCount(0);
 });
+}

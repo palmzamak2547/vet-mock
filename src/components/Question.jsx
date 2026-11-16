@@ -485,6 +485,22 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
         passageRef.current?.scrollIntoView();
       }
     });
+    // WebKit can drop that smooth scroll inside a running timed paper (the clock re-renders the card
+    // every second): the table came back and the page stayed where it was (CI, webkit-mobile). If the
+    // passage is still not near the top 700 ms after the tap, finish in one jump, unless the student
+    // has scrolled or typed since (then the page is theirs).
+    let touched = false;
+    const mark = () => { touched = true; };
+    const kinds = ['wheel', 'touchstart', 'keydown'];
+    kinds.forEach((k) => window.addEventListener(k, mark, { passive: true }));
+    setTimeout(() => {
+      kinds.forEach((k) => window.removeEventListener(k, mark));
+      const el = passageRef.current;
+      if (!el || touched) return;
+      const top = el.getBoundingClientRect().top;
+      if (top >= 0 && top < window.innerHeight / 2) return;
+      el.scrollIntoView(true);
+    }, 700);
   };
 
   // Header (bookmark + note + badge + image) renders at top regardless
