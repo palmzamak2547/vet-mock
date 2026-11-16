@@ -2,10 +2,10 @@
 // voice-choices — what the voice settings offer: named settings, the tone
 // steps by name, and the device voices to choose from
 // ============================================================
-// Apart from voice-prefs.js so the practice card carries only the stored
+// Apart from read-aloud-store.js so the practice card carries only the stored
 // settings; this loads with the dialog and the speech code.
 // ============================================================
-import { getVoicePrefs } from './voice-prefs.js';
+import { getVoicePrefs } from './read-aloud-store.js';
 
 export const PITCH_LABELS = ['ทุ้มมาก', 'ทุ้ม', 'ปกติ', 'สูง', 'สูงมาก'];
 

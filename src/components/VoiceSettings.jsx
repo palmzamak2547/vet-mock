@@ -3,7 +3,7 @@
 // ============================================================
 // One small dialog, opened from the read-aloud bar's speed button, from the
 // profile and from search. Every change is kept on this device at once
-// (lib/voice-prefs.js) and heard at once: a reading in progress takes the new
+// (lib/read-aloud-store.js) and heard at once: a reading in progress takes the new
 // speed mid-word and a new tone or voice from the sentence it is on. Nothing
 // here asks a paid voice for anything: ลองฟัง is the device's own voice.
 // ============================================================
@@ -12,7 +12,7 @@ import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 import {
   DEFAULT_VOICE_PREFS, PITCHES, RATES, getVoicePrefs, setVoicePrefs, subscribeVoicePrefs,
-} from '../lib/voice-prefs.js';
+} from '../lib/read-aloud-store.js';
 import { PITCH_LABELS, PRESETS, presetOf } from '../lib/voice-choices.js';
 import '../styles-voice.css';
 

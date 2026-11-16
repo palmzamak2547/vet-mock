@@ -50,8 +50,7 @@
 import { thaiPhoneticTranslit } from './tts-phonetic.js';
 import { normalizeSymbols, expandUnits, questionLang, stripForSpeech, clipText, clipSegments, optionLabel, segmentStarts } from './tts-text.js';
 import { sharedPlan, getSharedAudio } from './tts-shared.js';
-import { getVoicePrefs } from './voice-prefs.js';
-import { pauseReading, session } from './read-aloud-store.js';
+import { getVoicePrefs, pauseReading, session } from './read-aloud-store.js';
 import { chosenVoice, voiceChoices } from './voice-choices.js';
 import {
   speakViaEdge,

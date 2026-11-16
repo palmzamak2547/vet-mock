@@ -37,7 +37,7 @@ globalThis.localStorage = globalThis.window.localStorage;
 const asked = [];
 globalThis.fetch = async (url) => { asked.push(String(url)); throw new TypeError('no network in this test'); };
 
-const vp = await import('../../src/lib/voice-prefs.js');
+const vp = await import('../../src/lib/read-aloud-store.js');
 const store = await import('../../src/lib/read-aloud-store.js');
 const tts = await import('../../src/lib/tts.js');
 

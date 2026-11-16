@@ -20,8 +20,7 @@
 // change, so nothing moves) with the page following it unless they scroll.
 // ============================================================
 
-import { playerElement, readAloud, RATES, savedRate, session, stopSampleSound } from './read-aloud-store.js';
-import { getVoicePrefs, setVoicePrefs, subscribeVoicePrefs } from './voice-prefs.js';
+import { getVoicePrefs, playerElement, readAloud, RATES, savedRate, session, setVoicePrefs, stopSampleSound, subscribeVoicePrefs } from './read-aloud-store.js';
 import { sharedPlan, getSharedAudio, loadWords } from './tts-shared.js';
 import { questionLang } from './tts-text.js';
 

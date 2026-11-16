@@ -1,7 +1,7 @@
 // ============================================================
 // voice-prefs.test.mjs — the listener's voice settings
 // ============================================================
-// lib/voice-prefs.js keeps speed, tone and the chosen device voice on this
+// lib/read-aloud-store.js keeps speed, tone and the chosen device voice on this
 // device; lib/tts.js reads them for the device voice and the ลองฟัง sample.
 // Checked: the defaults, the bounds, a value stored in an older shape, a
 // device with no Thai voice, a chosen voice the device no longer has, and
@@ -36,7 +36,7 @@ globalThis.localStorage = globalThis.window.localStorage;
 let fetched = 0;
 globalThis.fetch = async () => { fetched += 1; throw new TypeError('no network in this test'); };
 
-const vp = { ...(await import('../../src/lib/voice-prefs.js')), ...(await import('../../src/lib/voice-choices.js')) };
+const vp = { ...(await import('../../src/lib/read-aloud-store.js')), ...(await import('../../src/lib/voice-choices.js')) };
 const tts = await import('../../src/lib/tts.js');
 
 const fresh = () => { mem.clear(); vp._resetVoicePrefsCache(); };

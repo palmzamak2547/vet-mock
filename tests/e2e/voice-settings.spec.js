@@ -109,8 +109,11 @@ test('the bar opens the voice settings; speed, tone and voice are heard at once 
   // Which device voice: the Thai ones by name.
   const thai = sheet.getByRole('combobox', { name: 'เสียงของเครื่อง ภาษาไทย' });
   await expect(thai.locator('option')).toHaveText(['เลือกให้อัตโนมัติ', 'Kanya', 'Narisa']);
+  // The drawn question may be in English: then it keeps its English voice and
+  // only a Thai question takes the new Thai voice.
+  const english = (await page.evaluate(() => window.__said.at(-1).voice)) === 'Samantha';
   await thai.selectOption('Narisa');
-  await expect.poll(() => page.evaluate(() => window.__said.at(-1).voice)).toBe('Narisa');
+  await expect.poll(() => page.evaluate(() => window.__said.at(-1).voice)).toBe(english ? 'Samantha' : 'Narisa');
   await expect(sheet.getByRole('combobox', { name: /ภาษาอังกฤษ/ }).locator('option')).toHaveText(['เลือกให้อัตโนมัติ', 'Samantha']);
 
   // ลองฟัง: one fixed sentence, the device voice, the settings as they are.
@@ -134,10 +137,12 @@ test('the bar opens the voice settings; speed, tone and voice are heard at once 
   await openPractice(page);
   await page.getByRole('button', { name: 'อ่านคำถามออกเสียง' }).click();
   await expect(page.getByRole('region', { name: 'เสียงอ่าน' }).getByRole('button', { name: /ความเร็ว 0.75 เท่า/ })).toBeVisible();
-  await expect.poll(() => page.evaluate(() => window.__said.at(-1)?.voice)).toBe('Narisa');
+  // A Thai question is read by Narisa (an English one keeps Samantha), and the dialog shows the choice.
+  await expect.poll(() => page.evaluate(() => window.__said.at(-1)?.voice)).toMatch(/^(Narisa|Samantha)$/);
 
   // คืนค่าเริ่มต้น puts everything back.
   await page.getByRole('region', { name: 'เสียงอ่าน' }).getByRole('button', { name: /ปรับเสียงอ่าน/ }).click();
+  await expect(page.getByRole('dialog', { name: 'ตั้งค่าเสียงอ่าน' }).getByRole('combobox', { name: 'เสียงของเครื่อง ภาษาไทย' })).toHaveValue('Narisa');
   await page.getByRole('dialog', { name: 'ตั้งค่าเสียงอ่าน' }).getByRole('button', { name: 'คืนค่าเริ่มต้น' }).click();
   await expect(page.getByRole('dialog', { name: 'ตั้งค่าเสียงอ่าน' }).getByRole('radio', { name: /ปกติ/ }).first()).toHaveAttribute('aria-checked', 'true');
   await page.keyboard.press('Escape');
@@ -217,11 +222,14 @@ test('the dialog says which voice reads here, and ลองฟัง takes that 
   await pitch.focus();
   await page.keyboard.press('ArrowLeft');
   await expect(now).toContainText('เสียงของเครื่อง (Microsoft Pattara');
-  const asked = seen.cloud;
+  // The first sample has finished (its button reads ลองฟัง again) before the second.
   await expect(sheet.getByRole('button', { name: 'ลองฟัง' })).toBeVisible({ timeout: 15_000 });
+  const asked = seen.cloud;
+  const before = await page.evaluate(() => window.__said.length);
   await sheet.getByRole('button', { name: 'ลองฟัง' }).click();
-  await expect.poll(() => page.evaluate(() => window.__said.at(-1)?.text || '')).toContain('นี่คือเสียงอ่านตามที่ตั้งไว้');
-  expect(await page.evaluate(() => window.__said.at(-1).pitch)).toBe(0.85);
+  // The new sample: the fixed sentence, the device voice, the tone.
+  await expect.poll(() => page.evaluate((n) => window.__said.slice(n).find((s) => s.text.includes('นี่คือเสียงอ่านตามที่ตั้งไว้')) || null, before))
+    .toMatchObject({ voice: 'Microsoft Pattara - Thai (Thailand)', pitch: 0.85 });
   expect(seen.cloud).toBe(asked);
   await sheet.getByRole('button', { name: 'คืนค่าเริ่มต้น' }).click();
   await page.evaluate(() => window.localStorage.removeItem('vmx-tts-prefs'));
