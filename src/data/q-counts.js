@@ -10,8 +10,8 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 8986;
-export const QB_SOURCE_TOTAL = 9198;
+export const QB_TOTAL = 8996;
+export const QB_SOURCE_TOTAL = 9208;
 export const QB_BLOCKED_TOTAL = 212;
 
 export const Q_COUNTS_BY_SUBJECT = {
@@ -27,7 +27,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'comp-repro-clinic': 48,
   'engprof': 70,
   'engprof1': 30,
-  'epidemiology': 372,
+  'epidemiology': 382,
   'equine-medicine': 569,
   'equine-repro': 242,
   'exotic': 151,
@@ -77,7 +77,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'comp-repro-clinic': 48,
   'engprof': 70,
   'engprof1': 30,
-  'epidemiology': 372,
+  'epidemiology': 382,
   'equine-medicine': 569,
   'equine-repro': 242,
   'exotic': 108,
@@ -271,7 +271,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'com1': 31,
     'com2': 39,
     'engprof1': 30,
-    'epidemiology': 355,
+    'epidemiology': 365,
     'equine-medicine': 565,
     'equine-repro': 161,
     'food-industry': 61,
@@ -354,7 +354,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
     2: 104,
     3: 62,
     4: 302,
-    5: 3812,
+    5: 3822,
   },
   '2-mid': {
     1: 297,
@@ -736,21 +736,22 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
     },
     'epidemiology': {
       'epidem-applied-stats': 26,
-      'epidem-basic-concepts': 25,
-      'epidem-causation': 23,
+      'epidem-basic-concepts': 24,
+      'epidem-causation': 22,
       'epidem-control-prevention': 11,
-      'epidem-data-analysis': 17,
+      'epidem-current-research': 6,
+      'epidem-data-analysis': 12,
       'epidem-disease-frequency': 27,
-      'epidem-disease-transmission': 27,
+      'epidem-disease-transmission': 28,
       'epidem-dx-screening': 34,
       'epidem-govt-policy': 28,
       'epidem-intro': 7,
       'epidem-observational-study': 31,
-      'epidem-outbreak-investigation': 41,
-      'epidem-sample-size': 14,
-      'epidem-software': 3,
+      'epidem-outbreak-investigation': 42,
+      'epidem-sample-size': 19,
+      'epidem-software': 6,
       'epidem-surveillance': 32,
-      'epidem-test-agreement': 9,
+      'epidem-test-agreement': 10,
     },
     'equine-medicine': {
       'equine-anesthesia': 17,
@@ -2403,7 +2404,7 @@ export const Q_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 2076,
-  5: 6407,
+  5: 6417,
 };
 
 // Visible per-year totals (hidden topics excluded). Every user-facing
@@ -2415,7 +2416,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 1981,
-  5: 6407,
+  5: 6417,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -2658,24 +2659,25 @@ export const Q_COUNTS_BY_TOPIC = {
   },
   "epidemiology": {
     "epidem-applied-stats": 26,
-    "epidem-basic-concepts": 25,
-    "epidem-causation": 23,
+    "epidem-basic-concepts": 24,
+    "epidem-causation": 22,
     "epidem-control-prevention": 11,
-    "epidem-data-analysis": 17,
+    "epidem-current-research": 6,
+    "epidem-data-analysis": 12,
     "epidem-disease-frequency": 27,
-    "epidem-disease-transmission": 27,
+    "epidem-disease-transmission": 28,
     "epidem-dx-screening": 34,
     "epidem-fmd-strategy": 3,
     "epidem-govt-policy": 28,
     "epidem-intro": 7,
     "epidem-lumpy-skin": 11,
     "epidem-observational-study": 31,
-    "epidem-outbreak-investigation": 41,
+    "epidem-outbreak-investigation": 42,
     "epidem-ppp": 3,
-    "epidem-sample-size": 14,
-    "epidem-software": 3,
+    "epidem-sample-size": 19,
+    "epidem-software": 6,
     "epidem-surveillance": 32,
-    "epidem-test-agreement": 9,
+    "epidem-test-agreement": 10,
   },
   "equine-medicine": {
     "equine-anesthesia": 17,
@@ -3744,4 +3746,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-11-15T23:57:24.159Z
+// Built: 2026-11-16T02:57:41.033Z
