@@ -1,4 +1,5 @@
 import { clearCompletedExam } from '../lib/exam-recovery.js';
+import { reportFailure } from '../lib/report-failure.js';
 // The app's own practice mark, not any course's passing grade. It is named and
 // shown next to the verdict because "ผ่านเกณฑ์" on its own reads as a faculty
 // threshold, and this number applies across every subject and format the
@@ -99,7 +100,9 @@ export default function ResultsView({
   // strand the user on a blank screen — ReviewView can replay.
   useEffect(() => {
     if (!saveStatus?.committed) return;
-    try { clearCompletedExam(window.localStorage, saveStatus.owner, saveStatus.sessionId); } catch {}
+    // A copy left behind is never offered back (App reads a saved, submitted set as finished), so
+    // the student has nothing to do about it and sees nothing; the failure is counted for the owner.
+    try { clearCompletedExam(window.localStorage, saveStatus.owner, saveStatus.sessionId); } catch (error) { reportFailure('save', error); }
   }, [saveStatus?.committed, saveStatus?.owner, saveStatus?.sessionId]);
 
   // Night-rank promotion banner — App.jsx's finishExam compares the
