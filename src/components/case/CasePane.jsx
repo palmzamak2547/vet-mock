@@ -7,6 +7,14 @@ import { importFresh } from '../../lib/chunk-error.js';
 import { readCaseMarks, resolveRanges } from '../../lib/case-marks.js';
 import { pushEntry, dropEntry, leaveEntry, ownPop } from '../../lib/case-entry.js';
 
+// Runs `fn` once the browser has rendered once more: an observer reports only after a rendering update, by
+// which time the browser's own scrolling for a popstate is done.
+function afterRender(fn) {
+  if (typeof IntersectionObserver !== 'function') { setTimeout(fn, 50); return; }
+  const seen = new IntersectionObserver(() => { seen.disconnect(); fn(); });
+  seen.observe(document.documentElement);
+}
+
 // ============================================================
 // CasePane — a case beside its question (the case reader)
 // ============================================================
@@ -218,7 +226,9 @@ export default function CasePane({
   // its ask as they are now, never a sheet that changed what it was asking. The page goes to its top,
   // where a paper says why the card moved on, once the sheet's entry is gone.
   useEffect(() => {
-    if (sheetOpenRef.current) entry.current.then = () => { const top = () => window.scrollTo(0, 0); top(); requestAnimationFrame(top); };
+    // Chromium puts the old scroll back while it renders the frame after the popstate, past a frame callback:
+    // the top that holds is the one made once the browser has rendered (afterRender).
+    if (sheetOpenRef.current) entry.current.then = () => { const top = () => window.scrollTo(0, 0); top(); requestAnimationFrame(top); afterRender(top); };
     setSheetOpen(false);
   }, [questionKey, where.passage.slice(0, 200), where.title]); // eslint-disable-line react-hooks/exhaustive-deps
 
