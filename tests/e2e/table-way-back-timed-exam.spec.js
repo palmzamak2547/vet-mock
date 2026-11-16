@@ -88,6 +88,8 @@ test('in a timed exam the way back reopens a hidden table, the clock keeps its d
   await expect(timer).toBeVisible();
   await expect(option).toHaveAttribute('aria-pressed', 'true');
   expect(await seconds()).toBeLessThanOrEqual(before);
-  expect(await deadline()).toBe(parkedDeadline);
+  // The saved deadline is re-derived from the running clock on each autosave, so it may move by a
+  // fraction of a millisecond; a refill would move it by minutes.
+  expect(Math.abs((await deadline()) - parkedDeadline)).toBeLessThan(1000);
   await expect(page.locator('.vmx-instant-feedback')).toHaveCount(0);
 });
