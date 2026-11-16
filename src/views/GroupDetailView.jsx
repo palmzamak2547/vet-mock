@@ -10,6 +10,7 @@ import { SUBJECTS } from '../data/questions.js';
 import { confirmDialog, alertDialog } from '../lib/dialog.js';
 import { thaiError } from '../lib/errors.js';
 import StatePanel from '../components/StatePanel.jsx';
+import MemberCards from '../components/MemberCards.jsx';
 
 // A group page is two independent requests, one per tab. (A third tab for
 // shared questions was removed: the app never had a way to share one.)
@@ -186,18 +187,7 @@ export default function GroupDetailView({ group, user, goBack, onEditIdentity = 
       )}
 
       {status === 'ready' && tab === 'members' && (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 12 }}>
-          {members.map((m) => (
-            <div key={m.id} className="vmx-dash-card" style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 40, marginBottom: 8 }}>{shownPicture(m.avatar_emoji)}</div>
-              <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16 }}>
-                {shownName(m.username)}
-                {m.id === user.id && <div style={{ fontSize: 14, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</div>}
-              </div>
-              {m.role === 'admin' && <div style={{ fontSize: 14, color: 'var(--clr-gold-text)', marginTop: 4 }}>👑 ผู้ดูแล</div>}
-            </div>
-          ))}
-        </div>
+        <MemberCards members={members} user={user} />
       )}
 
       <div className="vmx-btn-row" style={{ marginTop: 30 }}>

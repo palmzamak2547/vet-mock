@@ -43,6 +43,7 @@ import {
   dayKey, rowTime, daysTrack, recentSessions, sessionWhen, subjectsStarted, topicsRead, classRowLabel,
 } from '../lib/study-record.js';
 import { streakShown } from '../hooks/utils.js';
+import MyCardTile from '../components/MyCardTile.jsx';
 import '../styles-profile.css';
 
 /** Counts the hub shows. Pure, so the numbers can never disagree with the
@@ -173,6 +174,8 @@ export default function ProfileView({
               </div>
             </section>
           )}
+
+          <MyCardTile {...{ user, profile, history, srCards, streakData, selectedYear: year, theme, onOpen: () => setView('card-studio') }} />
 
           {/* ── The one goal: the next paper ──────────────────────────── */}
           {goal ? (

@@ -128,6 +128,9 @@ function findAll(node, pred, out = []) {
   return findAll(node.children, pred, out);
 }
 const find = (node, pred) => findAll(node, pred)[0] || null;
+// The members tab draws each member as a card (components/MemberCards.jsx,
+// rendered for real in tests/unit/card-style.test.mjs): its names count as on screen.
+const onScreen = (tree) => [textOf(tree), ...findAll(tree, (n) => n.type === 'MemberCards').flatMap((n) => n.props.members.map((m) => shownName(m.username)))].join(' ');
 const panel = (tree, kind) => find(tree, (n) => n.type === 'StatePanel' && n.props.kind === kind);
 
 function deferred() {
@@ -182,7 +185,7 @@ test('PF-20: the tab on screen paints when ITS request lands, not the slowest hi
   slowMembers.resolve(MEMBERS);
   await view.settle();
   assert.equal(panel(view.tree, 'loading'), null);
-  assert.match(textOf(view.tree), /friend/);
+  assert.match(onScreen(view.tree), /friend/);
 });
 
 test('PF-20: a failed hidden section leaves the tab on screen and says so; its own tab shows the failure', async () => {
@@ -203,7 +206,7 @@ test('PF-20: a failed hidden section leaves the tab on screen and says so; its o
   assert.equal(calls.members, before.members + 1, 'retry asks for the members again');
   assert.equal(calls.board, before.board, 'and does not reload what was already fine');
   assert.equal(panel(view.tree, 'error'), null);
-  assert.match(textOf(view.tree), /friend/);
+  assert.match(onScreen(view.tree), /friend/);
   assert.doesNotMatch(textOf(view.tree), /บางส่วนของกลุ่มโหลดไม่สำเร็จ/, 'the banner goes once nothing is failing');
 });
 
@@ -217,7 +220,7 @@ test('PF-20: tab switching still works, and the shared-questions tab is gone', a
   const { view } = await detailView();
   assert.equal(tabButton(view.tree, 'ข้อที่แชร์'), null, 'no tab for a share action the app never had');
   openTab(view, '👤 สมาชิก');
-  assert.match(textOf(view.tree), /friend/);
+  assert.match(onScreen(view.tree), /friend/);
   openTab(view, 'อันดับคะแนน');
   assert.match(textOf(view.tree), /90%/);
 });

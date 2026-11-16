@@ -1,0 +1,121 @@
+/* ============================================================
+   styles-studio.css: "ปรับแต่งการ์ด" (views/StudioView.jsx)
+   ============================================================
+   Lazy, with the studio chunk. The app's own tokens for the screen; the card
+   brings its own colours (styles-card.css). On a phone the card stays pinned
+   at the top while the controls scroll under it; from 900 px it stays beside
+   them. Every target is 44 px or more, every Thai text 14 px or more.
+   Press feedback: the house tap spring (--vm-ease-tap, 0.30 s / 0.70).
+   ============================================================ */
+.vmx-studio {
+  max-width: 560px;
+  margin: 0 auto;
+  padding-bottom: calc(96px + env(safe-area-inset-bottom));
+  color: var(--clr-ink);
+}
+.vmx-studio__head h1 {
+  margin: 4px 0 6px;
+  font-family: var(--vmx-display);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+.vmx-studio__head p { margin: 0 0 8px; font-size: 15px; line-height: 1.6; color: var(--clr-ink-soft); }
+
+/* The card, pinned while the controls scroll on a phone. */
+.vmx-studio__stage {
+  position: sticky; top: 0; z-index: 5;
+  display: grid; place-items: center;
+  padding: 10px 0 12px;
+  background: var(--clr-bg);
+  border-bottom: 1px solid var(--clr-border);
+}
+.vmx-studio__stage .vmx-scard { width: min(100%, 300px); }
+
+.vmx-studio__sec { padding: 16px 0 6px; border-top: 1px solid var(--clr-border); }
+.vmx-studio__controls > .vmx-studio__sec:first-child { border-top: 0; }
+.vmx-studio__h {
+  margin: 0 0 10px;
+  font-family: var(--vmx-display);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+.vmx-studio__h small { font-family: var(--vmx-sans); font-size: 14px; font-weight: 400; color: var(--clr-ink-soft); margin-left: 8px; }
+.vmx-studio__quiet, .vmx-studio__next { margin: 10px 0 0; font-size: 14px; line-height: 1.6; color: var(--clr-ink-soft); }
+.vmx-studio__next { padding: 14px 0 4px; border-top: 1px solid var(--clr-border); margin-top: 14px; }
+.vmx-studio__next b { font-family: var(--vmx-mono); color: var(--clr-ink); font-weight: 600; }
+
+/* ── Picker tiles: a sample, not a word ── */
+.vmx-studio button:not(.vmx-btn) { font: inherit; color: inherit; -webkit-tap-highlight-color: transparent; }
+.vmx-studio__bd, .vmx-studio__frame, .vmx-studio__trophy, .vmx-studio__chip {
+  position: relative;
+  min-height: 44px;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--r-md);
+  background: var(--clr-surface);
+  cursor: pointer;
+  transition: transform var(--vm-dur-tap) var(--vm-ease-tap), border-color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
+}
+.vmx-studio :is(button[aria-checked="true"], button[aria-pressed="true"]) {
+  border-color: var(--clr-sage);
+  background: color-mix(in oklab, var(--clr-sage) 12%, var(--clr-surface));
+  box-shadow: inset 0 0 0 1px var(--clr-sage);
+}
+.vmx-studio button:not(.vmx-btn):active:not([aria-disabled="true"]) { transform: scale(0.97); }
+.vmx-studio button:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+.vmx-studio button[aria-disabled="true"] { cursor: default; }
+
+.vmx-studio__backdrops { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.vmx-studio__bd { height: 84px; overflow: hidden; padding: 0; display: grid; align-items: start; font-size: 14px; background: var(--clr-surface); }
+.vmx-studio__bd img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; opacity: 0.85; }
+.vmx-studio__bd span {
+  position: relative; padding: 4px 8px; text-align: left; line-height: 1.3;
+  background: color-mix(in oklab, var(--clr-surface) 88%, transparent); color: var(--clr-ink);
+}
+.vmx-studio__bd[aria-checked="true"] { box-shadow: inset 0 0 0 2px var(--clr-sage); }
+
+.vmx-studio__frames { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; }
+.vmx-studio__frame { display: grid; justify-items: center; align-content: start; gap: 4px; padding: 10px 4px; font-size: 14px; }
+.vmx-studio__framename { font-weight: 600; }
+.vmx-studio__frame small { font-size: 14px; color: var(--clr-ink-soft); line-height: 1.3; text-align: center; }
+.vmx-studio__frame.is-locked { background: transparent; border-style: dashed; }
+.vmx-studio__frame.is-locked .vmx-studio__framebox { opacity: 0.45; }
+.vmx-studio__framebox { width: 40px; height: 26px; border-radius: 4px; border: 1px solid var(--clr-ink-soft); background: var(--clr-surface); }
+.vmx-studio__frame.is-frame-ledger .vmx-studio__framebox { box-shadow: inset 0 0 0 2px var(--clr-surface), inset 0 0 0 3px var(--clr-ink-soft); }
+.vmx-studio__frame.is-frame-gilt .vmx-studio__framebox { border: 2px solid var(--clr-gold); }
+.vmx-studio__frame.is-frame-foil .vmx-studio__framebox { border: 3px solid transparent; background: linear-gradient(var(--clr-surface), var(--clr-surface)) padding-box, conic-gradient(from 210deg, var(--clr-sage), var(--clr-gold), var(--clr-rose), var(--clr-sage)) border-box; }
+.vmx-studio__frame.is-frame-seal .vmx-studio__framebox { position: relative; }
+.vmx-studio__frame.is-frame-seal .vmx-studio__framebox::after { content: ''; position: absolute; right: -6px; bottom: -6px; width: 13px; height: 13px; border-radius: 50%; border: 1.5px dashed var(--clr-rose-text); }
+
+.vmx-studio__trophies { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px; }
+.vmx-studio__trophy { display: grid; justify-items: center; gap: 4px; padding: 8px 4px; font-size: 14px; text-align: center; line-height: 1.3; }
+.vmx-studio__trophy[aria-disabled="true"] { opacity: 0.55; }
+.vmx-studio__chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.vmx-studio__chip { padding: 8px 16px; font-size: 15px; border-radius: var(--r-pill); }
+
+/* ── Saving, sharing, reset ── */
+.vmx-studio__end { margin-top: 10px; }
+.vmx-studio__status { min-height: 24px; margin: 0 0 12px; font-size: 15px; line-height: 1.6; color: var(--clr-ink-soft); display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; }
+.vmx-studio__status.is-saved { color: var(--clr-sage-text); }
+.vmx-studio__status.is-failed { color: var(--clr-rose-text); }
+.vmx-studio__retry {
+  min-height: 44px; padding: 0 16px; border: 1px solid currentColor; border-radius: var(--r-pill);
+  background: transparent; cursor: pointer; font-weight: 600;
+}
+.vmx-studio__actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.vmx-studio__actions .vmx-btn { min-height: 44px; }
+
+/* ── Wide: the card stays beside the controls ── */
+@media (min-width: 900px) {
+  .vmx-studio { max-width: 1000px; display: grid; grid-template-columns: 380px minmax(0, 1fr); column-gap: 48px; }
+  .vmx-studio > :is(.vmx-back-bar, .vmx-studio__head) { grid-column: 1 / -1; }
+  .vmx-studio__stage { grid-column: 1; align-self: start; top: 24px; padding-top: 18px; background: none; border-bottom: 0; }
+  .vmx-studio__stage .vmx-scard { width: 100%; }
+  .vmx-studio__controls { grid-column: 2; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vmx-studio__bd, .vmx-studio__frame, .vmx-studio__trophy, .vmx-studio__chip { transition: none; }
+}
