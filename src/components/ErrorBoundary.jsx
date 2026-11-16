@@ -75,14 +75,15 @@ export default class ErrorBoundary extends Component {
           <h2 style={{ margin: '0 0 8px', fontFamily: 'var(--vmx-display)', fontSize: 20 }}>
             หน้านี้ขัดข้อง
           </h2>
-          <p style={{ fontSize: 14, lineHeight: 1.6, color: 'var(--clr-ink-soft, #6b6357)' }}>
+          {/* Full ink: the soft ink on the rose card was 3.7:1 light and 2.7:1 dark. */}
+          <p style={{ fontSize: 14, lineHeight: 1.6, color: 'var(--clr-ink, #2d2418)' }}>
             {chunkFailed
               ? (online
                 ? 'ต่ออินเทอร์เน็ตแล้ว กดโหลดใหม่เพื่อเปิดหน้านี้ งานที่ยังไม่ได้บันทึกในหน้านี้อาจหายไป'
                 : 'ยังไม่ได้ต่ออินเทอร์เน็ต หน้านี้ยังไม่เคยเปิดในเครื่องนี้ จึงเปิดแบบออฟไลน์ไม่ได้ ต่ออินเทอร์เน็ตแล้วกดโหลดใหม่')
               : <>มีบางอย่างผิดพลาดในหน้านี้: ลองกลับหน้าแรกแล้วเข้าใหม่<br/>ถ้าเจอบ่อย ช่วย <strong>แจ้งปัญหา</strong> ให้รู้ได้นะ</>}
           </p>
-          {!chunkFailed && <details style={{ marginTop: 12, fontSize: 14, color: 'var(--clr-ink-soft, #6b6357)', textAlign: 'left' }}>
+          {!chunkFailed && <details style={{ marginTop: 12, fontSize: 14, color: 'var(--clr-ink, #2d2418)', textAlign: 'left' }}>
             <summary style={{ cursor: 'pointer' }}>ข้อความผิดพลาด (แนบตอนแจ้งปัญหา)</summary>
             <pre style={{
               marginTop: 8,

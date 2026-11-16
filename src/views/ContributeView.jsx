@@ -243,7 +243,7 @@ function ContributeForm({ goHome, setView, user, selectedYear = 4 }) {
         <div style={{
           display: 'inline-flex', alignItems: 'center', gap: 12,
           padding: '8px 14px', borderRadius: 999,
-          background: 'var(--clr-surface)', border: `1px solid ${roleMeta.color}55`,
+          background: 'var(--clr-surface)', border: `1px solid color-mix(in srgb, ${roleMeta.color} 35%, transparent)`,
         }}>
           <span style={{ fontSize: 18 }}>{roleMeta.icon}</span>
           <span style={{ fontWeight: 600, color: roleMeta.color }}>{roleMeta.label}</span>
