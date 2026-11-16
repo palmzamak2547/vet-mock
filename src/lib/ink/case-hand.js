@@ -636,7 +636,8 @@ export function recolor(p, id, color) {
 
 /**
  * Clear removes what this view shows: the marks of another stage of the case, unseen here, stay. The sheet
- * clears its highlights only, since it does not show the pane's pen strokes. Its way back stays 8 seconds.
+ * clears its highlights only, since it does not show the pane's pen strokes, except on a phone, whose pane has
+ * no tools: there the sheet's clear is the only one, and takes the strokes too. Its way back stays 8 seconds.
  */
 export function clearAll(p, strokesToo = true) {
   const cur = p.cur;

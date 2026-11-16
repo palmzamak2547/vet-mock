@@ -27,7 +27,7 @@ function seeded() {
   return values;
 }
 
-async function setup(values, { failGet = () => false } = {}) {
+async function setup(values, { failGet = () => false, stubs = [] } = {}) {
   const writes = [];
   const storage = {
     getItem(key) { if (failGet(key)) throw new Error('Unreadable storage'); return values.get(key) ?? null; },
@@ -35,7 +35,7 @@ async function setup(values, { failGet = () => false } = {}) {
     removeItem(key) { writes.push(`-${key}`); values.delete(key); },
   };
   globalThis.window = { localStorage: storage, addEventListener() {}, removeEventListener() {} };
-  const { default: CasePane } = await loadModule('src/components/case/CasePane.jsx', { stubs: [{ match: '\.css$', contents: '' }] });
+  const { default: CasePane } = await loadModule('src/components/case/CasePane.jsx', { stubs: [{ match: '\.css$', contents: '' }, ...stubs] });
   return { CasePane, writes };
 }
 
@@ -206,5 +206,33 @@ Rechecked two days later: the swelling had spread to the hock.`;
   assert.deepEqual(JSON.parse(values.get(keyOf(A))).marks.map((m) => m.id).sort(), ['early', 'late'], 'the later stage keeps its mark');
   pane.update({ ...props(A), text: stage3 });
   assert.equal(marks(pane.tree).length, 2);
+  pane.unmount();
+});
+
+test('on a phone, the sheet\'s ล้างทั้งหมด also removes the pen strokes drawn before the case reader', async () => {
+  // A phone has no pen tools any more, but its pane still draws the strokes an older release let it make:
+  // the sheet's clear is the only clear a phone has, so it takes them too, with the same way back.
+  const values = seeded();
+  const saved = Object.fromEntries(values);
+  const { CasePane } = await setup(values, {
+    stubs: [{ match: '/CaseSheet\\.jsx$', contents: 'export default (p) => <button aria-label="sheet-clear" onClick={p.onClear} />;' }],
+  });
+  const history = { state: null, pushState(s) { this.state = s; }, replaceState(s) { this.state = s; }, back() {} };
+  Object.assign(globalThis.window, {
+    history, scrollY: 0, scrollTo() {},
+    matchMedia: (query) => ({ matches: query === '(max-width: 767px)', addEventListener() {}, removeEventListener() {} }),
+  });
+  const pane = await mount(CasePane, props(A));
+  assert.equal(button(pane.tree, 'ล้างทั้งหมด'), undefined, 'a phone\'s pane has no tools of its own');
+  findAll(pane.tree, (n) => n.type === 'button' && textOf(n) === 'อ่านเต็มจอ')[0].props.onClick();
+  await settle(pane);
+  button(pane.tree, 'sheet-clear').props.onClick();
+  pane.flush();
+  assert.match(textOf(pane.tree), /ล้างแล้ว 2 รอย/, 'the highlight and the old stroke');
+  assert.equal(JSON.parse(values.get(keyOf(A))).marks.length, 0);
+  for (const [k, v] of Object.entries(saved)) assert.equal(values.get(k), v, `${k} untouched`);
+  button(pane.tree, 'ย้อนกลับการล้างทั้งหมด').props.onClick();
+  pane.flush();
+  assert.equal(JSON.parse(values.get(keyOf(A))).marks.length, 2, 'the way back returns both');
   pane.unmount();
 });

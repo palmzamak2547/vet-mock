@@ -7,7 +7,6 @@ import ZoomableImage from '../ZoomableImage.jsx';
 import ExamClock from '../ExamClock.jsx';
 import { useModalFocus } from '../../hooks/useModalFocus.js';
 import { leaveEntry, ownPop, dropEntry } from '../../lib/case-entry.js';
-import '../../styles-case.css';
 
 // ============================================================
 // CaseSheet — the case as a full-screen reading sheet

@@ -255,7 +255,7 @@ export default function CasePane({
           <span className="vmx-case-title" id={titleId}>{title || 'Reading Passage'}</span>
           <span className="vmx-case-toggle-word">{open ? '▾ ซ่อน' : isData ? '▸ แสดงตาราง' : '▸ ดู passage'}</span>
         </button>
-        <button type="button" className="vmx-case-full" onClick={openSheet} aria-label="อ่านเต็มจอ" title="อ่านเต็มจอ">
+        <button type="button" className="vmx-case-full" onClick={openSheet}>
           <NavIcon name="fullscreen" size={20} />
           <span className="vmx-case-full-label">อ่านเต็มจอ</span>
         </button>
@@ -317,7 +317,7 @@ export default function CasePane({
           canRedo={Boolean(history?.canRedo)}
           onUndo={undo}
           onRedo={redo}
-          onClear={() => clearAll(false)}
+          onClear={() => clearAll(phone)}
           toast={toast}
           onUndoClear={undoClear}
         />

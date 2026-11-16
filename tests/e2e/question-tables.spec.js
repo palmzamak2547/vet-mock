@@ -145,6 +145,8 @@ test('a highlight stays on its words around a table, and a table takes none', as
   await openPinned(page, q);
   const pane = page.locator('.vmx-q-passage-pane');
   // The highlighter is in the pane's tools; a phone's pane has none, and marks in the reading sheet (5.240.0).
+  // The tools load with the case: until their row is filled, a desktop would look like a phone.
+  await expect(page.locator('.vmx-case-tools.is-waiting')).toHaveCount(0, { timeout: 20_000 });
   const phone = !(await pane.getByRole('button', { name: 'ปากกาไฮไลต์' }).isVisible());
   if (phone) {
     await pane.getByRole('button', { name: 'อ่านเต็มจอ' }).click();

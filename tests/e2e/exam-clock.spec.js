@@ -155,8 +155,9 @@ test('a per-question expiry while a clear can still be taken back returns the ma
     await sheet.getByRole('button', { name: 'กลับไปที่คำถาม' }).click();
   }
   await expect(passage.locator('mark')).toHaveCount(0);
-  // The pane clears its highlight and its old pen stroke; the sheet clears what it shows, the highlight.
-  await expect(toast).toContainText(inPane ? 'ล้างแล้ว 2 รอย' : 'ล้างแล้ว 1 รอย');
+  // Its highlight and its old pen stroke, on both paths: a phone has no pen tools, so the sheet's clear is
+  // its only way to remove a stroke an older release let it draw.
+  await expect(toast).toContainText('ล้างแล้ว 2 รอย');
   await page.clock.setSystemTime(Date.now() + 120_000);
   await page.clock.runFor(1100);
   await expect(page.locator('.vmx-sr-only[role="status"]')).toHaveText('ข้อ 2 จาก 2');

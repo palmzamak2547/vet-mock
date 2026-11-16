@@ -392,10 +392,14 @@ test('inside a running timed exam the sheet changes neither the clock nor the an
   await page.getByRole('button', { name: /ทำต่อจากครั้งล่าสุด/ }).click();
   const timer = page.locator('.vmx-exam-top-right .vmx-timer');
   await expect(timer).toBeVisible();
-  const deadline = () => page.evaluate(() => JSON.parse(localStorage.getItem('vmx-inflight-exam:guest') || 'null')?.questionDeadline);
+  const record = () => page.evaluate(() => JSON.parse(localStorage.getItem('vmx-inflight-exam:guest') || 'null'));
+  const savedAt = async () => (await record())?.savedAt;
   const option = page.locator('.vmx-option').first();
+  const resumedAt = await savedAt();
   await option.click();
-  const deadlineBefore = await deadline();
+  // The tap's own save lands a frame later: read the deadline from it, the last save before the sheet.
+  await expect.poll(savedAt).not.toBe(resumedAt);
+  const before = await record();
   const picked = await page.locator('.vmx-option[aria-pressed="true"], .vmx-option.selected, .vmx-option[aria-checked="true"]').count();
 
   await page.locator('.vmx-q-passage-pane').getByRole('button', { name: 'อ่านเต็มจอ' }).click();
@@ -407,15 +411,37 @@ test('inside a running timed exam the sheet changes neither the clock nor the an
   // Keys typed while it is open belong to it: the arrow keys do not turn the page.
   await page.keyboard.press('ArrowRight');
   await expect(page.locator('.vmx-sr-only[role="status"]')).toHaveText('ข้อ 1 จาก 2');
+  // Open long enough that a sheet which paused the clock would move the deadline by a second or more.
+  await page.waitForTimeout(1200);
   await page.keyboard.press('Escape');
   await expect(sheet).toHaveCount(0);
-  // The deadline as the session keeps it: the same instant. A re-save converts the exam's own clock to the
-  // wall clock (deadlineOnWall), and Firefox's two clocks disagree by up to a frame (16 ms seen); a sheet that
-  // reset or paused the clock would move it by seconds.
-  expect(Math.abs((await deadline()) - deadlineBefore)).toBeLessThan(50);
+  // Closing it writes nothing: make the page save, as hiding the tab does, and compare that save with the last
+  // one before the sheet.
+  await page.evaluate(() => document.dispatchEvent(new Event('visibilitychange')));
+  await expect.poll(savedAt).not.toBe(before.savedAt);
+  // The same instant, within one tick of the wall clock: each save converts the exam's own clock to the wall
+  // clock separately (deadlineOnWall), and two conversions can differ by a coarse tick (16 ms seen on Firefox
+  // and Windows), which is why a 5 ms bound failed with the deadline untouched. A sheet that reset or paused
+  // the clock would move it by at least the 1.2 s it stood open.
+  expect(Math.abs((await record()).questionDeadline - before.questionDeadline)).toBeLessThan(50);
   expect(await page.locator('.vmx-option[aria-pressed="true"], .vmx-option.selected, .vmx-option[aria-checked="true"]').count()).toBe(picked);
   await expect(page.locator('.vmx-sr-only[role="status"]')).toHaveText('ข้อ 1 จาก 2');
   await expect(timer).toBeVisible();
+});
+
+// The narrowest phones: the bottom bar keeps every tool a finger's width (the finger switch drops its words).
+for (const width of [360, 320]) test(`${width}: every tool in the sheet's bar is at least 44 px`, async ({ page }) => {
+  await page.setViewportSize({ width, height: 640 });
+  await openPinned(page, await byId(209588));
+  await page.locator('.vmx-q-passage-pane').getByRole('button', { name: 'อ่านเต็มจอ' }).click();
+  const sheet = page.getByRole('dialog');
+  await expect(sheet.locator('.vmx-case-tools')).toBeVisible();
+  for (const b of await sheet.locator('.vmx-case-tool:visible').all()) {
+    const r = await b.boundingBox();
+    expect(Math.round(r.width)).toBeGreaterThanOrEqual(44);
+    expect(Math.round(r.height)).toBeGreaterThanOrEqual(44);
+  }
+  expect(await noSideScroll(page)).toBe(true);
 });
 
 // Real touches, through the browser's own input pipeline (Chromium's DevTools protocol): a finger's

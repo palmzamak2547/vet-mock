@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import NavIcon from '../NavIcon.jsx';
 import { PEN_COLORS, RANGE_COLORS } from '../../lib/case-ops.js';
+// The tools' styles and the sheet's, loaded with the tools: the sheet's opening waits for them.
+import '../../styles-case.css';
 
 // ============================================================
 // CaseTools — the case reader's tools, in the three places they sit
@@ -154,9 +156,9 @@ export function MarkBar({ rect, onColor, onRemove, onClose }) {
   const style = rect ? { top: Math.max(8, rect.top - 56), left: Math.max(8, Math.min(rect.left, (typeof window !== 'undefined' ? window.innerWidth : 400) - 240)) } : undefined;
   return (
     <div className="vmx-case-markbar" style={style} role="group" aria-label="ไฮไลต์นี้">
-      {[['lemon', 'เหลือง'], ['sky', 'ฟ้า'], ['lilac', 'ม่วง']].map(([id, label]) => (
+      {RANGE_COLORS.map(({ id, label, dot }) => (
         <button key={id} type="button" className="vmx-case-tool" aria-label={label} onClick={() => onColor(id)}>
-          <span className={`vmx-case-swatch is-${id}`} aria-hidden="true" />
+          <span className="vmx-case-swatch" style={{ background: dot }} aria-hidden="true" />
         </button>
       ))}
       <button type="button" className="vmx-case-tool vmx-case-markbar-del" onClick={onRemove}>ลบ</button>
