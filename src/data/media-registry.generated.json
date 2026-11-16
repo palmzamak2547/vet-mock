@@ -9,8 +9,8 @@
       "bytes": 123400
     },
     "question": {
-      "files": 135,
-      "bytes": 5554466,
+      "files": 136,
+      "bytes": 5584330,
       "inline": 9
     },
     "slide": {
@@ -61,6 +61,7 @@
 {"path":"/figures/questions/q105208.webp","kind":"question","width":1400,"height":787,"bytes":65184,"hash":"aad3103bab082d0d","usedBy":["question:aquatic-clinic:105208:image"]},
 {"path":"/figures/questions/q207498.webp","kind":"question","width":196,"height":339,"bytes":6488,"hash":"aa1adf70fd2b8d35","usedBy":["question:equine-medicine:207498:image"]},
 {"path":"/figures/questions/q207544.webp","kind":"question","width":1393,"height":662,"bytes":71186,"hash":"fa1b070ea10caf19","usedBy":["question:equine-medicine:207544:image"]},
+{"path":"/figures/questions/vet-juris-218723.webp","kind":"question","width":719,"height":482,"bytes":29864,"hash":"18a1285917db69ed","usedBy":["question:vet-juris:218723:image"]},
 {"path":"/figures/vet-histo/histo--avian/p10-0.webp","kind":"slide","width":1400,"height":1040,"bytes":393592,"hash":"4d549b9edeccd195","usedBy":["note:vet-histo--histo--avian--องค์ประกอบเซลล์ใน-cerebrum-และ-cerebellum"]},
 {"path":"/figures/vet-histo/histo--avian/p10-1.webp","kind":"slide","width":1400,"height":675,"bytes":200876,"hash":"eea21c5b1c76c9e5","usedBy":["note:vet-histo--histo--avian--องค์ประกอบเซลล์ใน-cerebrum-และ-cerebellum"]},
 {"path":"/figures/vet-histo/histo--avian/p10-2.webp","kind":"slide","width":1400,"height":557,"bytes":247148,"hash":"85f4484a8b5f8bc4","usedBy":["note:vet-histo--histo--avian--องค์ประกอบเซลล์ใน-cerebrum-และ-cerebellum"]},

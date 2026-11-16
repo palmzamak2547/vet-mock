@@ -3820,7 +3820,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "id": 105395,
     "tags": [
       "preoperative-clipping",
-      "surgical-site-preparation"
+      "surgical-site-preparation",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-medicine",
     "topic": "equine-surgery-wound",
@@ -3844,7 +3845,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "id": 105396,
     "tags": [
       "preoperative-clipping",
-      "ventral-midline-celiotomy"
+      "ventral-midline-celiotomy",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-medicine",
     "topic": "equine-surgery-wound",
@@ -4037,7 +4039,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "id": 105410,
     "tags": [
       "preoperative-assessment",
-      "TPR"
+      "TPR",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-medicine",
     "topic": "equine-surgery-wound",
@@ -4086,7 +4089,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "tags": [
       "second-intention-healing",
       "wound-contraction",
-      "epithelialization"
+      "epithelialization",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-medicine",
     "topic": "equine-surgery-wound",
@@ -4110,7 +4114,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "id": 105417,
     "tags": [
       "inflammatory-response",
-      "EGT"
+      "EGT",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-medicine",
     "topic": "equine-surgery-wound",
@@ -4134,7 +4139,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "id": 105418,
     "tags": [
       "EGT",
-      "distal-limb-wound"
+      "distal-limb-wound",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-medicine",
     "topic": "equine-surgery-wound",
@@ -4159,7 +4165,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "tags": [
       "EGT",
       "sharp-debridement",
-      "pressure-bandage"
+      "pressure-bandage",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-medicine",
     "topic": "equine-surgery-wound",
@@ -4308,7 +4315,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "id": 105425,
     "tags": [
       "splinting",
-      "PVC-splint"
+      "PVC-splint",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-medicine",
     "topic": "equine-surgery-wound",
@@ -4356,7 +4364,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "id": 105427,
     "tags": [
       "stent-bandage",
-      "truncal-wound"
+      "truncal-wound",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-medicine",
     "topic": "equine-surgery-wound",
@@ -4380,7 +4389,8 @@ export const QUESTIONS_Y5_EQUINE_2026 = [
     "id": 105428,
     "tags": [
       "abdominal-bandage",
-      "post-celiotomy-care"
+      "post-celiotomy-care",
+      "อิงแนวข้อสอบ"
     ],
     "subject": "equine-medicine",
     "topic": "equine-surgery-wound",
