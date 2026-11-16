@@ -235,11 +235,13 @@ export function statusMeta(status) {
 }
 
 export const ROLE_META = {
-  contributor: { label: 'Contributor', icon: '🐣', color: '#5db4d3' },
-  verified: { label: 'Verified', icon: '✓', color: '#4a6b4a' },
-  senior: { label: 'Senior', icon: '🥇', color: '#b88940' },
-  founder: { label: 'Founder', icon: '👑', color: '#a73d4a' },
-  banned: { label: 'Banned', icon: '🚫', color: '#666' },
+  // Text tokens, which hold 4.5:1 on the page and the card in every theme
+  // (the old fixed sky blue was 2.2:1).
+  contributor: { label: 'Contributor', icon: '🐣', color: 'var(--clr-ocean-text)' },
+  verified: { label: 'Verified', icon: '✓', color: 'var(--clr-sage-text)' },
+  senior: { label: 'Senior', icon: '🥇', color: 'var(--clr-gold-text)' },
+  founder: { label: 'Founder', icon: '👑', color: 'var(--clr-rose-text)' },
+  banned: { label: 'Banned', icon: '🚫', color: 'var(--clr-ink-soft)' },
 };
 
 export function isPalmFounder(rep) {

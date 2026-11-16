@@ -49,6 +49,9 @@ export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard, o
         style={{
           all: 'unset', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6,
           padding: '6px 12px 6px 6px', borderRadius: 999,
+          // A finger's 44 px. The name has a fixed width (below), so the pill
+          // keeps its size when the profile replaces the stand-in name.
+          boxSizing: 'border-box', minHeight: 'var(--touch-min)',
           background: open ? 'var(--clr-surface-2)' : 'var(--clr-surface)',
           border: '1px solid var(--clr-border)',
           fontSize: 14, fontWeight: 600,
@@ -64,7 +67,7 @@ export default function UserMenu({ profile, onLogout, onGroups, onLeaderboard, o
             and the header controls ended up overlapping, so a tap on the
             phase pill opened search or this menu instead. The name still
             reaches assistive tech through the button's aria-label. */}
-        <span className="vmx-usermenu-name" style={{ maxWidth: 100, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+        <span className="vmx-usermenu-name" style={{ width: 100, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
           {shownName(profile.username)}
         </span>
         <span style={{ fontSize: 14, color: 'var(--clr-ink-soft)' }}>{open ? '▴' : '▾'}</span>

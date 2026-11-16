@@ -769,7 +769,7 @@ html, body {
   }
 
   .vmx-nav-row.is-secondary {
-    min-height: 38px;
+    min-height: var(--touch-min);
     font-size: 14px;
     font-weight: 500;
   }
@@ -940,7 +940,8 @@ html, body {
 
 .vmx-logo-btn { border: 0; background: transparent; color: var(--clr-ink); padding: 8px 2px; min-height: 44px; display: inline-flex; align-items: center; gap: 9px; }
 .vmx-logo-btn:hover .vmx-wordmark-tail { color: var(--clr-rose-text); }
-.vmx-header-right { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+/* The rest of the row, its controls packed to the right edge: its left edge is where the context ends, so a chip that arrives late grows into the gap and moves nothing already drawn. */
+.vmx-header-right { display: flex; flex: 1 1 0; justify-content: flex-end; gap: 10px; align-items: center; flex-wrap: nowrap; }
 .vmx-subtitle { font-size: 14px; color: var(--clr-ink-soft); letter-spacing: 0.08em; text-transform: uppercase; }
 .vmx-streak { display: inline-flex; align-items: center; gap: 5px; padding: 6px 12px; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-pill); font-size: 14px; font-weight: 600; color: var(--clr-gold-text); }
 
@@ -1393,9 +1394,11 @@ html, body {
   gap: var(--space-2);
   min-width: 0;
 }
-.vmx-next-actions-secondary {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
+/* One step per line: two to a row, a course name wrapped its count onto a
+   line of its own beside the button. */
+.vmx-next-actions-secondary { grid-template-columns: minmax(0, 1fr); }
+/* Where the plan will be: a primary step, two more and the note under them. */
+.vmx-next-actions-wait { min-height: 270px; align-content: center; justify-items: center; }
 .vmx-next-action {
   width: 100%;
   min-height: 58px;
@@ -2435,6 +2438,8 @@ html.dark .vmx-panic-scrim {
 
 @media (min-width: 601px) and (max-width: 900px) {
   .vmx-header { flex-wrap: wrap; }
+  /* Avatar and level only, as on a phone: with the name and the XP bar the row ran past 820 px and wrapped once the level arrived, moving the page down. */
+  .vmx-usermenu-name, .vmx-xp-chip-total, .vmx-xp-chip-progress { display: none !important; }
   .vmx-feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 .vmx-back-chip:hover {
@@ -4003,7 +4008,6 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   .vmx-next-actions { padding: var(--space-3); border-radius: var(--r-lg); }
   .vmx-next-actions-header { align-items: start; margin-bottom: var(--space-2); }
   .vmx-next-actions-note { display: none; }
-  .vmx-next-actions-secondary { grid-template-columns: 1fr; }
   .vmx-next-action { grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-2); }
   .vmx-next-action.is-primary { min-height: 84px; padding: 10px 12px; }
   .vmx-next-action-cta { grid-column: 2; justify-self: start; min-height: 36px; padding: 5px 10px; }
@@ -5645,17 +5649,17 @@ html.vmx-read-open body::after { content: ''; display: block; height: var(--vmx-
 }
 
 /* ── PDF reader toolbar ─────────────────────────────────────────────────
-   Icon-only buttons so the whole toolbar fits one row. 40px is the tap
-   target; the glyph inside is 20. The active state is a filled tint rather
+   Icon-only buttons so the whole toolbar fits one row. 44px is the tap
+   target (a narrow window scrolls the row); the glyph inside is 20. The active state is a filled tint rather
    than a border, so a pressed tool reads at a glance without the row
    growing by 2px when it changes. */
 .vmx-pdf-tool {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  min-width: 40px;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  min-width: var(--touch-min);
   flex-shrink: 0;
   padding: 0;
   border: 1px solid transparent;
@@ -7070,13 +7074,15 @@ body.vmx-reading .vmx-pdf-body {
   outline: 2px solid var(--clr-sage);
   outline-offset: 2px;
 }
+/* The subject tag sits on its own line under the names: beside them, a long
+   Thai name (one unbroken word) ran under the tag. */
 .vmx-fac-card-head {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
-  justify-content: space-between;
-  gap: 10px;
+  gap: 8px 10px;
 }
-.vmx-fac-card-names { flex: 1; min-width: 0; }
+.vmx-fac-card-names { flex: 1 1 calc(100% - 50px); min-width: 0; }
 /* A lecturer's portrait, or the initials when there is none to show: one box,
    the same size either way (InstructorPortrait.jsx). */
 .vmx-portrait {
@@ -7095,7 +7101,7 @@ body.vmx-reading .vmx-pdf-body {
   user-select: none;
 }
 /* Beside the portrait the names keep room for a two-word Thai name. */
-.vmx-fac-card-portrait ~ .vmx-fac-card-tag { max-width: 40%; }
+.vmx-fac-card-portrait ~ .vmx-fac-card-tag { margin-left: 50px; max-width: calc(100% - 100px); }
 .vmx-portrait img {
   display: block;
   width: 100%;

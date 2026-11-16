@@ -25,6 +25,8 @@ export default function NextActionCard({
   history,
   pendingResume,
   countdown,
+  // The account or this year's questions are still arriving (HomeView).
+  waiting = false,
   onPickResume,
   onDismissResume,
   onPickExamPrep,
@@ -265,6 +267,13 @@ export default function NextActionCard({
       </header>
 
       <div className={`vmx-next-actions-layout${showExamContext ? ' has-exam' : ''}`}>
+        {waiting ? (
+          // The place of a plan of three steps, the common one for a student
+          // with history, so the page does not move when it is drawn.
+          <div className="vmx-next-actions-plan vmx-next-actions-wait" aria-busy="true">
+            <span style={{ color: 'var(--clr-ink-soft)', fontSize: 'var(--text-sm)' }}>กำลังจัดแผนจากประวัติการฝึก</span>
+          </div>
+        ) : (
         <div className="vmx-next-actions-plan">
           {renderAction(primaryAction, { primary: true })}
 
@@ -274,6 +283,7 @@ export default function NextActionCard({
             </div>
           )}
         </div>
+        )}
 
         {showExamContext && (
           <button
@@ -304,7 +314,7 @@ export default function NextActionCard({
         )}
       </div>
 
-      {plan && <p role="status" style={{ margin: 'var(--space-3) 0 0', color: 'var(--clr-ink-soft)', fontSize: 'var(--text-sm)', lineHeight: 1.6 }}>
+      {plan && !waiting && <p role="status" style={{ margin: 'var(--space-3) 0 0', color: 'var(--clr-ink-soft)', fontSize: 'var(--text-sm)', lineHeight: 1.6 }}>
         เผื่ออ่านเฉลย {plan.reviewMinutes} นาที, แผนปรับตามผลหลังฝึกแต่ละชุด
       </p>}
 
