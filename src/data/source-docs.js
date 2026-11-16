@@ -756,6 +756,103 @@ export const SOURCE_DOCS = [
     match: /lecture 5 and 6 \(infertility and disease female horse\)/i,
     editions: [{ id: '66p', pages: 66 }],
   },
+  // Equine Repro final, marked points (5.254.0): the 2569 decks the new rows cite and the seniors' marked copies.
+  // the 15 Oct 2569 deck (library), 30 pages.
+  {
+    slug: 'eqrepro-ai-2569', subject: 'equine-repro', title: "Artificial insemination (2569)",
+    match: /Artificial insemination \(2569\)/,
+    editions: [{ id: '30p', pages: 30 }],
+  },
+  // the 1 Oct 2569 deck (library), 41 pages.
+  {
+    slug: 'eqrepro-endometritis-2569', subject: 'equine-repro', title: "Lecture 7 Endometritis in mare (2569)",
+    match: /Lecture 7 Endometritis in mare \(2569\)/,
+    editions: [{ id: '41p', pages: 41 }],
+  },
+  // the 29 Oct 2569 deck (library), 30 pages.
+  {
+    slug: 'eqrepro-surgery-2569', subject: 'equine-repro', title: "Equine reproductive surgery (2569)",
+    match: /Equine reproductive surgery \(2569\)/,
+    editions: [{ id: '30p', pages: 30 }],
+  },
+  // the 29 Oct 2569 deck (library), 40 pages.
+  {
+    slug: 'eqrepro-pregnancy-2569', subject: 'equine-repro', title: "Equine pregnancy and neonatal care (2569)",
+    match: /Equine pregnancy and neonatal care \(2569\)/,
+    editions: [{ id: '40p', pages: 40 }],
+  },
+  // Vet 84 folder, final: the 2024 deck with a Vet 84 student's notes and highlights, 24 pages.
+  {
+    slug: 'eqrepro-male-2024-vet84', subject: 'equine-repro', title: "male reproductive organ_functions (Vet 84 annotated)",
+    match: /male reproductive organ_functions \(Vet 84 annotated\)/,
+    editions: [{ id: '24p', pages: 24 }],
+  },
+  // Vet 84 folder, final: the 2024 deck with a Vet 84 student's notes and highlights, 33 pages.
+  {
+    slug: 'eqrepro-ai-2024-vet84', subject: 'equine-repro', title: "artificial insemination (Vet 84 annotated)",
+    match: /artificial insemination \(Vet 84 annotated\)/,
+    editions: [{ id: '33p', pages: 33 }],
+  },
+  // Vet 84 folder, final: the 2024 deck with a Vet 84 student's notes and highlights, 28 pages.
+  {
+    slug: 'eqrepro-stallion-infect-2024-vet84', subject: 'equine-repro', title: "reproductive infectious diseases in stallion 2024 (Vet 84 annotated)",
+    match: /reproductive infectious diseases in stallion 2024 \(Vet 84 annotated\)/,
+    editions: [{ id: '28p', pages: 28 }],
+  },
+  // Vet 84 folder, final: the 2024 deck with a Vet 84 student's notes and highlights, 24 pages.
+  {
+    slug: 'eqrepro-surgery-2024-vet84', subject: 'equine-repro', title: "equine reproductive surgery 2024 (Vet 84 annotated)",
+    match: /equine reproductive surgery 2024 \(Vet 84 annotated\)/,
+    editions: [{ id: '24p', pages: 24 }],
+  },
+  // Vet 84 folder, final: the 2024 deck with a Vet 84 student's notes and highlights, 38 pages.
+  {
+    slug: 'eqrepro-endometritis-2024-vet84', subject: 'equine-repro', title: "ENDOMETRITIS in MARE 2024 (Vet 84 annotated)",
+    match: /ENDOMETRITIS in MARE 2024 \(Vet 84 annotated\)/,
+    editions: [{ id: '38p', pages: 38 }],
+  },
+  // Vet 84 folder, final: the 2566 deck with a Vet 84 student's notes and highlights, 32 pages.
+  {
+    slug: 'eqrepro-pregnancy-2566-vet84', subject: 'equine-repro', title: "Pregnancy_parturition_horse_2566 (Vet 84 annotated)",
+    match: /Pregnancy_parturition_horse_2566 \(Vet 84 annotated\)/,
+    editions: [{ id: '32p', pages: 32 }],
+  },
+  // Vet 84 folder, final: the 2567 deck with a Vet 84 student's highlights, 21 pages.
+  {
+    slug: 'eqrepro-postpartum-2567-vet84', subject: 'equine-repro', title: "Postpartum_complication_horse_2567 (Vet 84 annotated)",
+    match: /Postpartum_complication_horse_2567 \(Vet 84 annotated\)/,
+    editions: [{ id: '21p', pages: 21 }],
+  },
+  // Vet 84 folder, final: Vet 79 mind maps with stars and notes added; its file name says the stars mark what was examined, 4 pages.
+  {
+    slug: 'eqrepro-k14-maps-vet84', subject: 'equine-repro', title: "K1-4 Final mind maps (Vet 84 folder)",
+    match: /K1-4 Final mind maps \(Vet 84 folder\)/,
+    editions: [{ id: '4p', pages: 4 }],
+  },
+  // Vet 84 folder, final: the clean copy of the Vet 79 mind maps, 6 pages.
+  {
+    slug: 'eqrepro-ts-maps-vet79', subject: 'equine-repro', title: "Repro horse มีของ TS (mind map Vet 79)",
+    match: /Repro horse มีของ TS \(mind map Vet 79\)/,
+    editions: [{ id: '6p', pages: 6 }],
+  },
+  // Vet 84 folder, final: a Vet 83 summary titled เขียน+[recall], 4 pages.
+  {
+    slug: 'eqrepro-final-summary-vet83', subject: 'equine-repro', title: "สรุปปลายภาค Equine Repro ของ Vet 83",
+    match: /สรุปปลายภาค Equine Repro ของ Vet 83/,
+    editions: [{ id: '4p', pages: 4 }],
+  },
+  // Vet 84 folder, final: a typed Vet 81 summary (page headers vet81), 14 pages.
+  {
+    slug: 'eqrepro-final-summary-vet81', subject: 'equine-repro', title: "สรุปปลายภาค Equine Repro ของ Vet 81",
+    match: /สรุปปลายภาค Equine Repro ของ Vet 81/,
+    editions: [{ id: '14p', pages: 14 }],
+  },
+  // Vet 85 folder: their final summary with pink stars, 7 pages.
+  {
+    slug: 'eqrepro-final-summary-vet85', subject: 'equine-repro', title: "สรุปปลายภาค Equine Repro ของ Vet 85",
+    match: /สรุปปลายภาค Equine Repro ของ Vet 85/,
+    editions: [{ id: '7p', pages: 7 }],
+  },
   // Aquatic Medicine FINAL sources, 31 ต.ค. 2569: the 2569 library decks by their titles, the 2024 decks and the seniors' files.
   {
     slug: 'aqua-industry-tech-2569', subject: 'aquatic-clinic', title: "Aquaculture Industry and Technology",
@@ -1221,6 +1318,47 @@ export const SOURCE_DOCS = [
     match: /สไลด์ HACCP ปี 2022 ฉบับที่หน้าปกมีรายการ/i,
     editions: [{ id: '35p', pages: 35 }],
   },
+  // FIQC finals gap pass, 16 พ.ย. 2569: this year's aquatic deck and the seniors' marked copies the new rows cite.
+  {
+    slug: 'fiqc-aquatic-2569', subject: 'food-industry', title: "Quality control of aquatic animals and aquatic animal products (deck 2569)",
+    match: /FIQC aquatic animals products 2026 SJ/i,
+    editions: [{ id: '70p', pages: 70 }],
+  },
+  {
+    slug: 'fiqc-haccp-2024-vet84', subject: 'food-industry', title: "HACCP for livestock (deck Nov 2024 ที่มีโน้ตและไฮไลต์ ในโฟลเดอร์ Vet 84)",
+    match: /สไลด์ HACCP ฉบับ Nov 2024 ในโฟลเดอร์ Vet 84/i,
+    editions: [{ id: '55p', pages: 55 }],
+  },
+  {
+    slug: 'fiqc-aquatic-handout-2024-vet84', subject: 'food-industry', title: "FIQC aquatic products handout 2024 (ในโฟลเดอร์ Vet 84)",
+    match: /เอกสารสัตว์น้ำปี 2024 ในโฟลเดอร์ Vet 84/i,
+    editions: [{ id: '57p', pages: 57 }],
+  },
+  {
+    slug: 'fiqc-poultry-export-2022-o10-vet84', subject: 'food-industry', title: "Poultry standard for export (deck 2022 ฉบับ 'ออก 10 ข้อ' ในโฟลเดอร์ Vet 84)",
+    match: /สไลด์ส่งออกปี 2022 ฉบับ 'ออก 10 ข้อ'/i,
+    editions: [{ id: '69p', pages: 69 }],
+  },
+  {
+    slug: 'fiqc-poultry-export-2022-star-vet84', subject: 'food-industry', title: "Poultry standard for export (deck 2022 ฉบับติดดาว ในโฟลเดอร์ Vet 84)",
+    match: /สไลด์ส่งออกปี 2022 ฉบับติดดาว/i,
+    editions: [{ id: '70p', pages: 70 }],
+  },
+  {
+    slug: 'fiqc-poultry-export-2022-list-vet84', subject: 'food-industry', title: "Poultry standard for export (deck 2022 ฉบับมีรายการหัวข้อที่หน้าปก ในโฟลเดอร์ Vet 84)",
+    match: /สไลด์ส่งออกปี 2022 ฉบับมีรายการหัวข้อที่หน้าปก/i,
+    editions: [{ id: '69p', pages: 69 }],
+  },
+  {
+    slug: 'fiqc-haccp-2022-star-vet84', subject: 'food-industry', title: "HACCP for livestock (deck 2022 ฉบับดาวแดง 'ช้อย 10 ข้อ' ในโฟลเดอร์ Vet 84)",
+    match: /สไลด์ HACCP ปี 2022 ฉบับดาวแดง/i,
+    editions: [{ id: '35p', pages: 35 }],
+  },
+  {
+    slug: 'fiqc-final-kit-vet84', subject: 'food-industry', title: "[final] mini survival kit FIQC (ในโฟลเดอร์ Vet 84)",
+    match: /mini survival kit ปลายภาค FIQC ในโฟลเดอร์ Vet 84/i,
+    editions: [{ id: '9p', pages: 9 }],
+  },
   // Veterinary Epidemiology FINAL sources, 1 พ.ย. 2569: the 2569 library decks by their titles, the older decks and the seniors' files.
   {
     slug: 'epid-surveillance-2569', subject: 'epidemiology', title: "1. Animal disease surveillance SJ 2026",
@@ -1424,6 +1562,16 @@ export const SOURCE_DOCS = [
     slug: 'epid-anthrax-2569', subject: 'epidemiology', title: "โรคแอนแทรกซ์ (Anthrax) — แผนเผชิญเหตุ",
     match: /โรคแอนแทรกซ์ \(Anthrax\) — แผนเผชิญเหตุ/i, // library copy, 28 pages (the .txt export shows 27 page markers)
     editions: [{ id: '28p', pages: 28 }],
+  },
+  {
+    slug: 'epid-future-vet-2569', subject: 'epidemiology', title: "The Future Veterinarian: Epidemiology in the Age of Big Data, AI,One Health and AMR",
+    match: /The Future Veterinarian: Epidemiology in the Age of Big Data, AI,One Health and AMR/i,
+    editions: [{ id: '19p', pages: 19 }],
+  },
+  {
+    slug: 'epid-module1-diagnostic-2569', subject: 'epidemiology', title: "Intro. to Module 1: Diagnostic Tool",
+    match: /Intro\. to Module 1: Diagnostic Tool/i,
+    editions: [{ id: '27p', pages: 27 }],
   },
   {
     slug: 'epid-intro-2569', subject: 'epidemiology', title: "Introduction to Epidemiology 2569 (NC)",

@@ -647,22 +647,25 @@ const LEAVES = [
   ["epidemiology","epidem-applied-stats",26,{"1-final":[26,0,0,0]},{"1-final":[5,0,0,0]}], // a4d4ead3aace
   // end ["epidemiology","epidem-applied-stats"]
   // ["epidemiology","epidem-basic-concepts"]
-  ["epidemiology","epidem-basic-concepts",25,{"1-final":[21,0,0,4]},{}], // 61c16fe6d534
+  ["epidemiology","epidem-basic-concepts",24,{"1-final":[20,0,0,4]},{}], // 6959a355773b
   // end ["epidemiology","epidem-basic-concepts"]
   // ["epidemiology","epidem-causation"]
-  ["epidemiology","epidem-causation",23,{"1-final":[22,0,0,1]},{"1-final":[3,0,0,1]}], // ecedb75f24a8
+  ["epidemiology","epidem-causation",22,{"1-final":[21,0,0,1]},{"1-final":[3,0,0,1]}], // a688afeca4f9
   // end ["epidemiology","epidem-causation"]
   // ["epidemiology","epidem-control-prevention"]
   ["epidemiology","epidem-control-prevention",11,{"1-final":[6,0,2,3]},{"1-final":[5,0,2,3]}], // dd4994541a43
   // end ["epidemiology","epidem-control-prevention"]
+  // ["epidemiology","epidem-current-research"]
+  ["epidemiology","epidem-current-research",6,{"1-final":[6,0,0,0]},{}], // e74a69e066be
+  // end ["epidemiology","epidem-current-research"]
   // ["epidemiology","epidem-data-analysis"]
-  ["epidemiology","epidem-data-analysis",17,{"1-final":[15,0,0,2]},{"1-final":[4,0,0,2]}], // 8fcf10349ffc
+  ["epidemiology","epidem-data-analysis",12,{"1-final":[10,0,0,2]},{"1-final":[4,0,0,2]}], // 67e664bc93f5
   // end ["epidemiology","epidem-data-analysis"]
   // ["epidemiology","epidem-disease-frequency"]
   ["epidemiology","epidem-disease-frequency",27,{"1-final":[26,0,0,1]},{"1-final":[6,0,0,1]}], // 403300415040
   // end ["epidemiology","epidem-disease-frequency"]
   // ["epidemiology","epidem-disease-transmission"]
-  ["epidemiology","epidem-disease-transmission",27,{"1-final":[27,0,0,0]},{"1-final":[1,0,0,0]}], // e13f486f9384
+  ["epidemiology","epidem-disease-transmission",28,{"1-final":[28,0,0,0]},{"1-final":[1,0,0,0]}], // a194c78638e8
   // end ["epidemiology","epidem-disease-transmission"]
   // ["epidemiology","epidem-dx-screening"]
   ["epidemiology","epidem-dx-screening",34,{"1-final":[32,0,0,2]},{"1-final":[6,0,0,1]}], // 3f00df7020dc
@@ -683,22 +686,22 @@ const LEAVES = [
   ["epidemiology","epidem-observational-study",31,{"1-final":[28,0,0,3]},{"1-final":[10,0,0,3]}], // df86b9be389b
   // end ["epidemiology","epidem-observational-study"]
   // ["epidemiology","epidem-outbreak-investigation"]
-  ["epidemiology","epidem-outbreak-investigation",41,{"1-final":[39,0,0,2]},{"1-final":[6,0,0,2]}], // 3c1a3a36c6f2
+  ["epidemiology","epidem-outbreak-investigation",42,{"1-final":[40,0,0,2]},{"1-final":[6,0,0,2]}], // 7f8831760bbb
   // end ["epidemiology","epidem-outbreak-investigation"]
   // ["epidemiology","epidem-ppp"]
   ["epidemiology","epidem-ppp",3,{},{}], // 247d0c8d5443
   // end ["epidemiology","epidem-ppp"]
   // ["epidemiology","epidem-sample-size"]
-  ["epidemiology","epidem-sample-size",14,{"1-final":[14,0,0,0]},{"1-final":[1,0,0,0]}], // e842ce1ac968
+  ["epidemiology","epidem-sample-size",19,{"1-final":[19,0,0,0]},{"1-final":[1,0,0,0]}], // 6985c6f3be1a
   // end ["epidemiology","epidem-sample-size"]
   // ["epidemiology","epidem-software"]
-  ["epidemiology","epidem-software",3,{"1-final":[3,0,0,0]},{}], // 7066f9ab3bbc
+  ["epidemiology","epidem-software",6,{"1-final":[6,0,0,0]},{}], // 489ca73a1bfe
   // end ["epidemiology","epidem-software"]
   // ["epidemiology","epidem-surveillance"]
   ["epidemiology","epidem-surveillance",32,{"1-final":[29,0,0,3]},{"1-final":[4,0,0,0]}], // 0d51c6a96451
   // end ["epidemiology","epidem-surveillance"]
   // ["epidemiology","epidem-test-agreement"]
-  ["epidemiology","epidem-test-agreement",9,{"1-final":[9,0,0,0]},{}], // 4343ccf954de
+  ["epidemiology","epidem-test-agreement",10,{"1-final":[10,0,0,0]},{}], // 341633121bf9
   // end ["epidemiology","epidem-test-agreement"]
   // ["equine-medicine","equine-anesthesia"]
   ["equine-medicine","equine-anesthesia",17,{"1-final":[14,0,0,3]},{"1-final":[8,0,0,3]}], // 617a46b8cbf5
@@ -755,7 +758,7 @@ const LEAVES = [
   ["equine-medicine","equine-tendon",5,{"1-final":[5,0,0,0]},{}], // bd13baaa8f91
   // end ["equine-medicine","equine-tendon"]
   // ["equine-repro","eqrepro-ai"]
-  ["equine-repro","eqrepro-ai",11,{"1-final":[11,0,0,0]},{"1-final":[11,0,0,0]}], // 7644dd904574
+  ["equine-repro","eqrepro-ai",13,{"1-final":[13,0,0,0]},{"1-final":[11,0,0,0]}], // fc2bf88b8c59
   // end ["equine-repro","eqrepro-ai"]
   // ["equine-repro","eqrepro-anatomy-cycle"]
   ["equine-repro","eqrepro-anatomy-cycle",15,{"1-mid":[15,0,0,0]},{"1-mid":[11,0,0,0]}], // a100658a892e
@@ -764,7 +767,7 @@ const LEAVES = [
   ["equine-repro","eqrepro-art-female",16,{"1-mid":[16,0,0,0]},{"1-mid":[13,0,0,0]}], // dcf266ecdd1c
   // end ["equine-repro","eqrepro-art-female"]
   // ["equine-repro","eqrepro-endometritis"]
-  ["equine-repro","eqrepro-endometritis",16,{"1-final":[16,0,0,0]},{"1-final":[3,0,0,0]}], // d067de1add40
+  ["equine-repro","eqrepro-endometritis",24,{"1-final":[24,0,0,0]},{"1-final":[3,0,0,0]}], // 3d11797380c9
   // end ["equine-repro","eqrepro-endometritis"]
   // ["equine-repro","eqrepro-exam-mare"]
   ["equine-repro","eqrepro-exam-mare",27,{"1-mid":[27,0,0,0]},{"1-mid":[19,0,0,0]}], // 066bb605dd30
@@ -773,22 +776,22 @@ const LEAVES = [
   ["equine-repro","eqrepro-infertility",18,{"1-mid":[17,1,0,0]},{"1-mid":[11,1,0,0]}], // be75b81b73b1
   // end ["equine-repro","eqrepro-infertility"]
   // ["equine-repro","eqrepro-male"]
-  ["equine-repro","eqrepro-male",18,{"1-final":[16,2,0,0]},{"1-final":[16,2,0,0]}], // c164b3fcb376
+  ["equine-repro","eqrepro-male",22,{"1-final":[20,2,0,0]},{"1-final":[16,2,0,0]}], // 08412e6cfb22
   // end ["equine-repro","eqrepro-male"]
   // ["equine-repro","eqrepro-mare-infect"]
   ["equine-repro","eqrepro-mare-infect",5,{"1-mid":[5,0,0,0]},{"1-mid":[3,0,0,0]}], // 54f5de63d65c
   // end ["equine-repro","eqrepro-mare-infect"]
   // ["equine-repro","eqrepro-postpartum"]
-  ["equine-repro","eqrepro-postpartum",11,{"1-final":[11,0,0,0]},{"1-final":[6,0,0,0]}], // c32178eb1a65
+  ["equine-repro","eqrepro-postpartum",13,{"1-final":[13,0,0,0]},{"1-final":[6,0,0,0]}], // 17f2f17d6452
   // end ["equine-repro","eqrepro-postpartum"]
   // ["equine-repro","eqrepro-pregnancy"]
-  ["equine-repro","eqrepro-pregnancy",81,{"1-final":[70,0,0,11]},{"1-final":[61,0,0,11]}], // 8b737d7a7bcf
+  ["equine-repro","eqrepro-pregnancy",83,{"1-final":[72,0,0,11]},{"1-final":[61,0,0,11]}], // 519b57ea3ed3
   // end ["equine-repro","eqrepro-pregnancy"]
   // ["equine-repro","eqrepro-stallion-infect"]
-  ["equine-repro","eqrepro-stallion-infect",16,{"1-final":[14,2,0,0]},{"1-final":[9,2,0,0]}], // 03e935f06dcd
+  ["equine-repro","eqrepro-stallion-infect",17,{"1-final":[15,2,0,0]},{"1-final":[9,2,0,0]}], // ce072f82a568
   // end ["equine-repro","eqrepro-stallion-infect"]
   // ["equine-repro","eqrepro-surgery"]
-  ["equine-repro","eqrepro-surgery",8,{"1-final":[8,0,0,0]},{"1-final":[8,0,0,0]}], // c4636680848b
+  ["equine-repro","eqrepro-surgery",11,{"1-final":[11,0,0,0]},{"1-final":[8,0,0,0]}], // 3eff5c5f064a
   // end ["equine-repro","eqrepro-surgery"]
   // ["exotic","bird-infect"]
   ["exotic","bird-infect",24,{"2-mid":[24,0,0,0],"2-final":[24,0,0,0]},{"2-mid":[16,0,0,0],"2-final":[16,0,0,0]}], // a3f0a5baf4fb
@@ -824,13 +827,13 @@ const LEAVES = [
   ["exotic","zoo-vet",24,{"2-mid":[24,0,0,0],"2-final":[24,0,0,0]},{"2-mid":[3,0,0,0],"2-final":[3,0,0,0]}], // 2104f2e86d08
   // end ["exotic","zoo-vet"]
   // ["food-industry","fiqc-aquatic"]
-  ["food-industry","fiqc-aquatic",16,{"1-final":[16,0,0,0]},{}], // 92eb643e6b40
+  ["food-industry","fiqc-aquatic",28,{"1-final":[28,0,0,0]},{}], // 731f74e9e59e
   // end ["food-industry","fiqc-aquatic"]
   // ["food-industry","fiqc-feed-qc"]
   ["food-industry","fiqc-feed-qc",71,{"1-mid":[65,5,1,0]},{"1-mid":[2,0,0,0]}], // b45b8e56d434
   // end ["food-industry","fiqc-feed-qc"]
   // ["food-industry","fiqc-haccp"]
-  ["food-industry","fiqc-haccp",24,{"1-final":[24,0,0,0]},{}], // c4f75b44a063
+  ["food-industry","fiqc-haccp",36,{"1-final":[36,0,0,0]},{}], // c82a6d5ad435
   // end ["food-industry","fiqc-haccp"]
   // ["food-industry","fiqc-intro"]
   ["food-industry","fiqc-intro",29,{"1-mid":[29,0,0,0]},{"1-mid":[4,0,0,0]}], // 9dcecedf9b88
@@ -839,7 +842,7 @@ const LEAVES = [
   ["food-industry","fiqc-livestock-qc",66,{"1-mid":[61,3,2,0]},{"1-mid":[11,0,0,0]}], // c1595e1ff3cd
   // end ["food-industry","fiqc-livestock-qc"]
   // ["food-industry","fiqc-poultry-export"]
-  ["food-industry","fiqc-poultry-export",21,{"1-final":[20,0,1,0]},{"1-final":[1,0,0,0]}], // e5d498ca82c7
+  ["food-industry","fiqc-poultry-export",45,{"1-final":[43,0,2,0]},{"1-final":[1,0,0,0]}], // 88d0e9780523
   // end ["food-industry","fiqc-poultry-export"]
   // ["food-industry","fiqc-slaughter-qc"]
   ["food-industry","fiqc-slaughter-qc",73,{"1-mid":[64,6,3,0]},{"1-mid":[2,0,0,0]}], // 79bc5f52d468

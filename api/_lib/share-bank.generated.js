@@ -779,22 +779,25 @@ const LEAVES = [
   ["epidemiology","epidem-applied-stats",[[213511,213513],213554,213558,[214623,214643]]],
   // end ["epidemiology","epidem-applied-stats"]
   // ["epidemiology","epidem-basic-concepts"]
-  ["epidemiology","epidem-basic-concepts",[[100008,100017],[214500,214501],[214507,214519]]],
+  ["epidemiology","epidem-basic-concepts",[[100008,100017],214501,[214507,214519]]],
   // end ["epidemiology","epidem-basic-concepts"]
   // ["epidemiology","epidem-causation"]
-  ["epidemiology","epidem-causation",[105084,105086,[105089,105091],[105094,105096],213503,213509,213519,213539,[214503,214506],[214530,214536]]],
+  ["epidemiology","epidem-causation",[105084,105086,[105089,105091],[105094,105096],213503,213509,213519,213539,[214503,214506],[214530,214533],[214535,214536]]],
   // end ["epidemiology","epidem-causation"]
   // ["epidemiology","epidem-control-prevention"]
   ["epidemiology","epidem-control-prevention",[213504,[213529,213532],[213540,213541],[213563,213565],214622]],
   // end ["epidemiology","epidem-control-prevention"]
+  // ["epidemiology","epidem-current-research"]
+  ["epidemiology","epidem-current-research",[[218400,218405]]],
+  // end ["epidemiology","epidem-current-research"]
   // ["epidemiology","epidem-data-analysis"]
-  ["epidemiology","epidem-data-analysis",[213528,213543,213545,[213555,213557],[214644,214654]]],
+  ["epidemiology","epidem-data-analysis",[213528,213543,213545,[213555,213557],[214644,214647],[214653,214654]]],
   // end ["epidemiology","epidem-data-analysis"]
   // ["epidemiology","epidem-disease-frequency"]
   ["epidemiology","epidem-disease-frequency",[[107001,107009],[213500,213502],213521,213523,213525,213538,214537,[214539,214548]]],
   // end ["epidemiology","epidem-disease-frequency"]
   // ["epidemiology","epidem-disease-transmission"]
-  ["epidemiology","epidem-disease-transmission",[[105098,105099],[105101,105102],[105104,105106],[105109,105116],213549,214502,[214520,214529]]],
+  ["epidemiology","epidem-disease-transmission",[[105098,105099],[105101,105102],[105104,105106],[105109,105116],213549,214502,[214520,214529],214534]],
   // end ["epidemiology","epidem-disease-transmission"]
   // ["epidemiology","epidem-dx-screening"]
   ["epidemiology","epidem-dx-screening",[[107010,107020],213526,[213535,213536],[213546,213548],213560,214538,[214549,214563]]],
@@ -815,22 +818,22 @@ const LEAVES = [
   ["epidemiology","epidem-observational-study",[213510,[213514,213517],213520,213524,213527,[213533,213534],213542,213544,213561,[214566,214583]]],
   // end ["epidemiology","epidem-observational-study"]
   // ["epidemiology","epidem-outbreak-investigation"]
-  ["epidemiology","epidem-outbreak-investigation",[[100031,100034],[100036,100042],[213506,213508],213522,213537,[213550,213551],213562,214584,[214588,214608]]],
+  ["epidemiology","epidem-outbreak-investigation",[[100031,100034],[100036,100042],[213506,213508],213522,213537,[213550,213551],213562,214500,214584,[214588,214608]]],
   // end ["epidemiology","epidem-outbreak-investigation"]
   // ["epidemiology","epidem-ppp"]
   ["epidemiology","epidem-ppp",[[214703,214705]]],
   // end ["epidemiology","epidem-ppp"]
   // ["epidemiology","epidem-sample-size"]
-  ["epidemiology","epidem-sample-size",[[107028,107040],213559]],
+  ["epidemiology","epidem-sample-size",[[107028,107040],213559,[214648,214652]]],
   // end ["epidemiology","epidem-sample-size"]
   // ["epidemiology","epidem-software"]
-  ["epidemiology","epidem-software",[[214655,214657]]],
+  ["epidemiology","epidem-software",[[214655,214657],[218406,218408]]],
   // end ["epidemiology","epidem-software"]
   // ["epidemiology","epidem-surveillance"]
   ["epidemiology","epidem-surveillance",[[100018,100025],[100027,100030],213505,213518,[213552,213553],[214585,214587],[214609,214621]]],
   // end ["epidemiology","epidem-surveillance"]
   // ["epidemiology","epidem-test-agreement"]
-  ["epidemiology","epidem-test-agreement",[[107021,107027],[214564,214565]]],
+  ["epidemiology","epidem-test-agreement",[[107021,107027],[214564,214565],218409]],
   // end ["epidemiology","epidem-test-agreement"]
   // ["equine-medicine","equine-anesthesia"]
   ["equine-medicine","equine-anesthesia",[[105271,105272],[105401,105402],105404,105407,[209570,209571],[209576,209584]]],
@@ -887,7 +890,7 @@ const LEAVES = [
   ["equine-medicine","equine-tendon",[[216014,216018]]],
   // end ["equine-medicine","equine-tendon"]
   // ["equine-repro","eqrepro-ai"]
-  ["equine-repro","eqrepro-ai",[[105468,105478]]],
+  ["equine-repro","eqrepro-ai",[[105468,105478],[218104,218105]]],
   // end ["equine-repro","eqrepro-ai"]
   // ["equine-repro","eqrepro-anatomy-cycle"]
   ["equine-repro","eqrepro-anatomy-cycle",[[105504,105511],[105544,105545],105561,202093,[207619,207621]]],
@@ -896,7 +899,7 @@ const LEAVES = [
   ["equine-repro","eqrepro-art-female",[[105523,105532],202092,[202245,202246],[207492,207493],207625]],
   // end ["equine-repro","eqrepro-art-female"]
   // ["equine-repro","eqrepro-endometritis"]
-  ["equine-repro","eqrepro-endometritis",[[105535,105537],[105548,105560]]],
+  ["equine-repro","eqrepro-endometritis",[[105535,105537],[105548,105560],[218110,218117]]],
   // end ["equine-repro","eqrepro-endometritis"]
   // ["equine-repro","eqrepro-exam-mare"]
   ["equine-repro","eqrepro-exam-mare",[[105493,105503],105515,[105520,105521],[202248,202249],[202251,202252],207485,207494,[207613,207618],207622]],
@@ -905,22 +908,22 @@ const LEAVES = [
   ["equine-repro","eqrepro-infertility",[105436,[105491,105492],105512,105514,[105516,105517],[105533,105534],105546,202247,[207490,207491],207495,[207623,207624],207626,211503]],
   // end ["equine-repro","eqrepro-infertility"]
   // ["equine-repro","eqrepro-male"]
-  ["equine-repro","eqrepro-male",[[105452,105467],211500,211502]],
+  ["equine-repro","eqrepro-male",[[105452,105467],211500,211502,[218100,218103]]],
   // end ["equine-repro","eqrepro-male"]
   // ["equine-repro","eqrepro-mare-infect"]
   ["equine-repro","eqrepro-mare-infect",[[105538,105539],202091,207486,207488]],
   // end ["equine-repro","eqrepro-mare-infect"]
   // ["equine-repro","eqrepro-postpartum"]
-  ["equine-repro","eqrepro-postpartum",[[105446,105451],[105571,105575]]],
+  ["equine-repro","eqrepro-postpartum",[[105446,105451],[105571,105575],[218120,218121]]],
   // end ["equine-repro","eqrepro-postpartum"]
   // ["equine-repro","eqrepro-pregnancy"]
-  ["equine-repro","eqrepro-pregnancy",[[105432,105435],[105437,105445],105513,[105518,105519],105522,105547,[105562,105570],[209513,209566]]],
+  ["equine-repro","eqrepro-pregnancy",[[105432,105435],[105437,105445],105513,[105518,105519],105522,105547,[105562,105570],[209513,209566],[218118,218119]]],
   // end ["equine-repro","eqrepro-pregnancy"]
   // ["equine-repro","eqrepro-stallion-infect"]
-  ["equine-repro","eqrepro-stallion-infect",[[105479,105482],[105540,105543],202250,207487,207489,[207627,207629],211501,211504]],
+  ["equine-repro","eqrepro-stallion-infect",[[105479,105482],[105540,105543],202250,207487,207489,[207627,207629],211501,211504,218106]],
   // end ["equine-repro","eqrepro-stallion-infect"]
   // ["equine-repro","eqrepro-surgery"]
-  ["equine-repro","eqrepro-surgery",[[105483,105490]]],
+  ["equine-repro","eqrepro-surgery",[[105483,105490],[218107,218109]]],
   // end ["equine-repro","eqrepro-surgery"]
   // ["exotic","bird-infect"]
   ["exotic","bird-infect",[[167,168],[294,295],1572,[50023,50034],[50048,50054]]],
@@ -956,13 +959,13 @@ const LEAVES = [
   ["exotic","zoo-vet",[171,[173,174],[1580,1593],[50000,50006]]],
   // end ["exotic","zoo-vet"]
   // ["food-industry","fiqc-aquatic"]
-  ["food-industry","fiqc-aquatic",[[103000,103015]]],
+  ["food-industry","fiqc-aquatic",[[103000,103015],[218336,218347]]],
   // end ["food-industry","fiqc-aquatic"]
   // ["food-industry","fiqc-feed-qc"]
   ["food-industry","fiqc-feed-qc",[[107209,107217],109500,109502,109506,109516,109526,109528,109530,109534,109542,109544,109548,109552,109564,109566,109568,109570,109572,109586,109588,109590,[202253,202254],[207055,207088],[207266,207270],207482]],
   // end ["food-industry","fiqc-feed-qc"]
   // ["food-industry","fiqc-haccp"]
-  ["food-industry","fiqc-haccp",[[106221,106237],[213000,213006]]],
+  ["food-industry","fiqc-haccp",[[106221,106237],[213000,213006],[218300,218311]]],
   // end ["food-industry","fiqc-haccp"]
   // ["food-industry","fiqc-intro"]
   ["food-industry","fiqc-intro",[[107200,107208],[202268,202271],[207089,207104]]],
@@ -971,7 +974,7 @@ const LEAVES = [
   ["food-industry","fiqc-livestock-qc",[[107227,107235],109504,109508,109512,109532,109538,109540,109550,109554,109556,109558,109574,109576,[202257,202267],[207029,207054],[207283,207287],[207479,207481]]],
   // end ["food-industry","fiqc-livestock-qc"]
   // ["food-industry","fiqc-poultry-export"]
-  ["food-industry","fiqc-poultry-export",[[106238,106254],[213007,213010]]],
+  ["food-industry","fiqc-poultry-export",[[106238,106254],[213007,213010],[218312,218335]]],
   // end ["food-industry","fiqc-poultry-export"]
   // ["food-industry","fiqc-slaughter-qc"]
   ["food-industry","fiqc-slaughter-qc",[[107218,107226],109510,109514,109518,109520,109522,109524,109536,109546,109560,109562,109578,109580,109582,109584,109592,109594,109596,[202255,202256],[207000,207028],[207271,207282],[207475,207478]]],
