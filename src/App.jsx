@@ -109,7 +109,7 @@ import {
   ResultsView, ReviewView, SRSessionView, DashboardView,
   QuestionManagerView, AuthView, GroupsView, GroupDetailView,
   LeaderboardView, ScheduleView, ScoresView, VideoView, AboutView,
-  FeedbackView, IgCardStudioView, YearSelectView, LandingView,
+  FeedbackView, IgCardStudioView, StudioView, YearSelectView, LandingView,
   PhaseSelectView, TopicSelectView, NotesView, LibraryView, ChulaGateView, ChulaGateExit,
   KnowledgeView, ReadingChecklistView, FacultyView, PrivacyView,
   AccountSettingsView, ProfileView, IdentityStep, OfflineGameView, MochiView, PomodoroView,
@@ -222,6 +222,7 @@ function withTransition(updateFn) {
 
 
 import TopLoadingBar, { ViewFallback, OverlayPending } from './components/TopLoadingBar.jsx';
+import { PALETTES } from './lib/share-card/palettes.js';
 import { MochiProvider } from './components/MochiContext.jsx';
 import DialogHost from './components/DialogHost.jsx';
 import { confirmDialog, alertDialog } from './lib/dialog.js';
@@ -1444,7 +1445,7 @@ export default function App() {
     // (the anti-FOUC inline script in index.html sets them for first paint;
     // this keeps the overscroll/landing area correct after a theme switch).
     d.style.colorScheme = theme;
-    d.style.background = theme === 'dark' ? '#1a1612' : '#f6efe4';
+    d.style.background = PALETTES[theme === 'dark' ? 'dark' : 'light'].bg;
   }, [theme, visit.theme, themePref]);
   useEffect(() => {
     if (palette && palette !== 'default') {
@@ -3538,6 +3539,9 @@ export default function App() {
               )}
               {view === 'feedback' && <FeedbackView {...{ goHome, user, profile, prefill: feedbackPrefill, clearPrefill: () => setFeedbackPrefill(null) }} />}
               {view === 'ig-cards' && <IgCardStudioView {...{ goHome }} />}
+              {view === 'card-studio' && (
+                <StudioView {...{ goBack: () => setView('profile'), user, profile, history, srCards, streakData, selectedYear, theme }} />
+              )}
               {view === 'year-select' && <YearSelectView {...{ goHome, selectedYear, setSelectedYear, setSelectedPhase, setView, firstTime: selectedYearStored === null }} />}
               {view === 'phase-select' && <PhaseSelectView {...{ goHome, selectedYear, selectedPhase, setSelectedPhase, setView, phaseStatus }} />}
               {view === 'reading-checklist' && <ReadingChecklistView {...{ selectedYear, selectedPhase, readingChecklist, setReadingChecklist, goHome, goBack: () => setView('home'), setSubject, setTopic, setView }} />}
