@@ -258,6 +258,8 @@ test('a failed Android measurement says where it stopped, in the summary and on 
   const wf = src('.github/workflows/android.yml');
   assert.match(wf, /cat measure-out\/failure\.txt/);
   assert.doesNotMatch(wf, /no results, see the Measure step/);
+  // A run that a newer push cancelled is not a failed measurement: the report step stays out of it.
+  assert.match(wf, /- name: Numbers in the run summary and on the pull request\r?\n(?:\s+#.*\r?\n)*\s+if: \$\{\{ !cancelled\(\) \}\}/);
   const measure = src('mobile/scripts/measure.py');
   assert.match(measure, /\(out \/ "failure\.txt"\)\.write_text/);
   assert.match(measure, /except BaseException as e:[\s\S]*raise$/m, 'the step still fails');

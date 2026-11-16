@@ -114,7 +114,9 @@ jobs:
         run: mkdir -p measure-out && cp /tmp/android-runner/emu-crash-*.db measure-out/ 2>/dev/null || echo "::warning::no emulator crash data"
 
       - name: Numbers in the run summary and on the pull request
-        if: always()
+        # Not on a cancelled run. A newer push stops this job part of the way; with always() this step still
+        # ran, found no results, and wrote on the pull request that the Measure step had failed (17 Nov 2026).
+        if: ${{ !cancelled() }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
