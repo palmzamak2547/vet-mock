@@ -4810,7 +4810,7 @@ const LEAVES = [
  [214648,214650,107037],
  // end ["prevalence|public-health","epidemiology","epidem-sample-size"]
  // ["prevalence|public-health","epidemiology","epidem-software"]
- [214655,214657,218406],
+ [214655,214657,218406,218800],
  // end ["prevalence|public-health","epidemiology","epidem-software"]
  // ["prevalence|public-health","epidemiology","epidem-surveillance"]
  [214587,214612,214614,214617,214618,100027,100030],
@@ -4923,7 +4923,7 @@ const LEAVES = [
  [213532],
  // end ["95% ci|public-health","epidemiology","epidem-control-prevention"]
  // ["95% ci|public-health","epidemiology","epidem-current-research"]
- [218404],
+ [218404,218802],
  // end ["95% ci|public-health","epidemiology","epidem-current-research"]
  // ["95% ci|public-health","epidemiology","epidem-data-analysis"]
  [214647,214654,213555,213557],
@@ -4969,6 +4969,9 @@ const LEAVES = [
  // ["design effect|epidemiology","epidemiology","epidem-sample-size"]
  [107038,107039],
  // end ["design effect|epidemiology","epidemiology","epidem-sample-size"]
+ // ["design effect|epidemiology","epidemiology","epidem-software"]
+ [218800],
+ // end ["design effect|epidemiology","epidemiology","epidem-software"]
  // end of "design effect|epidemiology"
  "reservoir|public-health",
  // ["reservoir|public-health","epidemiology","epidem-basic-concepts"]

@@ -1617,5 +1617,192 @@ export const QB_Y5_EPIDEMIOLOGY_2026C = [
         "page": 102
       }
     ]
+  },
+  {
+    "id": 218800,
+    "subject": "epidemiology",
+    "topic": "epidem-software",
+    "year": 5,
+    "type": "mcq",
+    "q": "ใช้เครื่องคำนวณขนาดตัวอย่างออนไลน์เพื่อประมาณความชุกของโรค โดยคาดว่าความชุกราว 20% ข้อใดเป็นการใช้เครื่องมือที่ถูกต้อง",
+    "options": [
+      "กรอกความชุกใน OpenEpi เป็น 0.20 เพราะสูตร n = Z²p(1 − p)/d² ใช้ค่าสัดส่วน",
+      "ได้ n = 245.86 ให้ปัดเป็น 245 เพราะใกล้กว่า แล้วจึงปรับ design effect ภายหลัง",
+      "OpenEpi รับความชุกเป็นร้อยละ (20) ไม่ใช่สัดส่วน (0.20) จึงต้องดูรูปแบบที่แต่ละเครื่องมือรับ",
+      "ปรับ design effect และ finite population ก่อน แล้วจึงคำนวณ n พื้นฐานของการสุ่มอย่างง่าย"
+    ],
+    "answer": 2,
+    "explain": "เครื่องคำนวณแต่ละตัวรับค่าในรูปแบบต่างกัน OpenEpi รับความชุกเป็นร้อยละ เช่น 20 ส่วนสูตรใช้สัดส่วน 0.20 ก่อนกรอกจึงต้องดูว่าเครื่องมือนั้นรับค่าแบบใด ลำดับที่ถูกคือคำนวณ n พื้นฐานก่อน แล้วจึงปรับ design effect, finite population correction และการสูญหายที่คาดไว้ และปัดขึ้นเสมอ\n\nทำไมข้ออื่นผิด\nกรอก 0.20 ใน OpenEpi: สูตรใช้สัดส่วนจริง แต่ OpenEpi รับเป็นร้อยละ กรอก 0.20 จะได้ความชุก 0.2%\nปัดเป็น 245: ขนาดตัวอย่างต้องปัดขึ้นเสมอ 245.86 เป็น 246 ปัดลงจะได้ความแม่นยำต่ำกว่าที่ตั้งไว้\nปรับ design effect ก่อน: การปรับทั้งหมดทำหลังได้ n พื้นฐานของการสุ่มอย่างง่าย",
+    "source": "Module 2 FMD Planning studies, sampling & sample size หน้า 22, 24",
+    "verified": "Module 2 FMD Planning studies, sampling & sample size หน้า 22 (always round up: 245.86 becomes 246, never 245), Module 2 FMD Planning studies, sampling & sample size หน้า 24 (OpenEpi enters percentages (e.g. 20) rather than proportions (0.20); check the input format of each tool; apply the adjustments in 7.2 to 7.5 after the basic calculation)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเอกสาร Epidemiology ปี 2569 เรื่อง Module 2 Planning studies, sampling and sample size",
+    "tags": [
+      "epidem-software",
+      "sample-size",
+      "online-calculator"
+    ],
+    "sourcePages": [
+      {
+        "doc": "epid-module2-planning-2569",
+        "edition": "45p",
+        "page": 22
+      },
+      {
+        "doc": "epid-module2-planning-2569",
+        "edition": "45p",
+        "page": 24
+      }
+    ]
+  },
+  {
+    "id": 218801,
+    "subject": "epidemiology",
+    "topic": "epidem-software",
+    "year": 5,
+    "type": "mcq",
+    "q": "ศึกษาการเลี้ยงลูกโคในคอกรวมเทียบกับคอกเดี่ยวกับการเกิดปอดอักเสบ โดยแบ่ง stratum ตามอายุแล้วใช้เครื่องคำนวณ Mantel–Haenszel แต่การทดสอบ homogeneity (Woolf หรือ Breslow–Day) ได้ p = 0.01 ควรทำอย่างไรต่อ",
+    "options": [
+      "รวมทุก stratum เป็น MH OR ค่าเดียวได้ เพราะ p < 0.05 แสดงว่า OR ของทุก stratum เท่ากัน",
+      "รายงาน OR แยกตาม stratum เพราะ OR ต่างกันระหว่างกลุ่มอายุ ซึ่งบ่งชี้ effect modification",
+      "รายงาน crude OR แทน เพราะเมื่อ stratum ไม่เป็นเนื้อเดียวกัน การแบ่ง stratum ก็ไม่มีความหมาย",
+      "ใช้ chi-square ของตารางรวมแทน เพราะ MH ใช้ได้เฉพาะเมื่อมีตัวกวนแบบต่อเนื่องหลายตัว"
+    ],
+    "answer": 1,
+    "explain": "การทดสอบ homogeneity มีสมมติฐานหลักว่า OR ของทุก stratum เท่ากัน p ที่น้อยกว่า 0.05 จึงบอกว่า OR ต่างกันระหว่างกลุ่มอายุ ซึ่งเป็น effect modification (interaction) ไม่ใช่การกวนธรรมดา จึงไม่ควรรวมเป็น MH OR ค่าเดียว ให้รายงาน OR ของแต่ละ stratum แยกกัน การรวมด้วย Mantel–Haenszel ทำได้เมื่อ p ของการทดสอบนี้ไม่น้อยกว่า 0.05\n\nทำไมข้ออื่นผิด\nรวมได้เพราะ p < 0.05: อ่านกลับด้าน p น้อยแปลว่า OR ไม่เท่ากัน\nรายงาน crude OR: crude OR ไม่ได้จัดการตัวกวนและซ่อนความต่างระหว่างกลุ่มอายุไว้\nใช้ chi-square แทน: Mantel–Haenszel เหมาะกับตัวกวนเชิงกลุ่มตัวเดียว ส่วนตัวกวนหลายตัวหรือแบบต่อเนื่องใช้ multivariable logistic regression",
+    "source": "Module 2 FMD Planning studies, sampling & sample size หน้า 33, 35",
+    "verified": "Module 2 FMD Planning studies, sampling & sample size หน้า 33 (Woolf or Breslow–Day test before pooling; H0: the odds ratios in all strata are equal; small p-value means they differ, so do not pool, effect modification; MH ideal for a single categorical confounder, logistic regression for multiple or continuous ones), Module 2 FMD Planning studies, sampling & sample size หน้า 35 (Epitools Mantel–Haenszel stratified 2x2 tables; homogeneity p = 0.01: report each stratum OR separately)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเอกสาร Epidemiology ปี 2569 เรื่อง Module 2 Planning studies, sampling and sample size",
+    "tags": [
+      "epidem-software",
+      "mantel-haenszel",
+      "effect-modification"
+    ],
+    "sourcePages": [
+      {
+        "doc": "epid-module2-planning-2569",
+        "edition": "45p",
+        "page": 33
+      },
+      {
+        "doc": "epid-module2-planning-2569",
+        "edition": "45p",
+        "page": 35
+      }
+    ]
+  },
+  {
+    "id": 218802,
+    "subject": "epidemiology",
+    "topic": "epidem-current-research",
+    "year": 5,
+    "type": "mcq",
+    "q": "การสอบสวนการระบาดของ FMD ในฟาร์มโคนมที่ทำวัคซีนแล้วในเคนยา ปี 2012 (Lyons et al. 2015) โคทุกตัวที่อยู่ในฟาร์มในวันทำวัคซีนได้รับวัคซีนไม่ว่าอายุเท่าใด โคอายุมากกว่า 18 เดือนมี risk เป็น 2.34 เท่าของโคที่อายุน้อยกว่า (95% CI 1.95–2.81) และพบว่า risk เพิ่มตามจำนวนโดสวัคซีนที่ได้รับตลอดชีวิต ข้อใดอธิบายได้เหมาะสมที่สุด",
+    "options": [
+      "วัคซีนเป็นสาเหตุของโรค เพราะ risk เพิ่มขึ้นตามจำนวนโดสอย่างเป็นขั้นบันได",
+      "เป็น reverse causation เพราะโคที่ป่วยถูกเลือกให้ได้รับวัคซีนบ่อยกว่าโคปกติ",
+      "เป็น effect modification เพราะวัคซีนป้องกันโรคได้เฉพาะในโคอายุน้อย",
+      "อายุเป็นตัวกวน เพราะโคอายุมากได้วัคซีนหลายโดสกว่า และมี risk สูงกว่าด้วย"
+    ],
+    "answer": 3,
+    "explain": "ในฟาร์มนี้โคทุกตัวที่อยู่ในวันทำวัคซีนได้รับวัคซีน โคที่อายุมากจึงได้วัคซีนมาแล้วหลายโดสกว่า ขณะเดียวกันโคอายุมากกว่า 18 เดือนมี risk ของ FMD สูงกว่าโคอายุน้อย (RR 2.34, 95% CI 1.95–2.81) อายุจึงสัมพันธ์กับทั้งจำนวนโดสและการเกิดโรค ความสัมพันธ์ระหว่างจำนวนโดสกับ risk จึงเป็นผลของการกวนจากอายุ ไม่ได้แปลว่าวัคซีนทำให้เกิดโรค\n\nทำไมข้ออื่นผิด\nวัคซีนเป็นสาเหตุ: ความสัมพันธ์ตามขนาด (dose-response) ที่มีตัวกวนอยู่ไม่ได้พิสูจน์ความเป็นเหตุ\nreverse causation: การทำวัคซีนให้ทุกตัวที่อยู่ในฟาร์มในวันนั้น ไม่ได้เลือกตามการป่วย\neffect modification: ข้อมูลไม่ได้แสดงว่าวัคซีนให้ผลต่างกันตามอายุ สิ่งที่เห็นคืออายุสัมพันธ์กับทั้งจำนวนโดสและ risk ซึ่งเป็นลักษณะของตัวกวน",
+    "source": "Module 3 FMD outbreak investigation หน้า 48, 49",
+    "verified": "Module 3 FMD outbreak investigation หน้า 48 (over 18 months vs 18 months or less: 319/404 vs 81/240, RR 2.34, 95% CI 1.95 to 2.81, CI above 1), Module 3 FMD outbreak investigation หน้า 49 (all animals present on each vaccination day were vaccinated, whatever their age, so older animals have had more doses; risk increases with the number of lifetime vaccine doses: does the vaccine cause FMD?)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเอกสาร Epidemiology ปี 2569 เรื่อง Module 3 Outbreak investigation",
+    "tags": [
+      "epidem-current-research",
+      "confounding",
+      "fmd",
+      "vaccine"
+    ],
+    "sourcePages": [
+      {
+        "doc": "epid-module3-outbreak-2569",
+        "edition": "50p",
+        "page": 48
+      },
+      {
+        "doc": "epid-module3-outbreak-2569",
+        "edition": "50p",
+        "page": 49
+      }
+    ]
+  },
+  {
+    "id": 218803,
+    "subject": "epidemiology",
+    "topic": "epidem-current-research",
+    "year": 5,
+    "type": "mcq",
+    "q": "การสอบสวนการระบาดของ FMD ในฟาร์มโคนมในเคนยา ปี 2012 ทดสอบว่าวัคซีนรอบวันที่ 22 พ.ค. 2012 ป้องกันโรคได้หรือไม่ โดยเทียบโคที่ได้รับวัคซีนรอบนั้นกับโคที่พลาดรอบนั้น และตัดลูกโคที่เกิดหลังวันที่ 22 พ.ค. 2012 ออก เหตุผลที่ต้องตัดออกคือข้อใด",
+    "options": [
+      "ลูกโคเหล่านี้ยังไม่เกิดในวันทำวัคซีน จึงไม่มีโอกาสได้รับวัคซีนรอบนั้น และไม่ใช่กลุ่มที่พลาดวัคซีน",
+      "ลูกโคเหล่านี้มีภูมิจากแม่ที่ยับยั้งการตอบสนองต่อวัคซีน จึงต้องตัดออกไม่ให้ผลวัคซีนต่ำเกินจริง",
+      "ลูกโคเหล่านี้เลี้ยงแยกจากฝูงโคนม จึงไม่ได้สัมผัสเชื้อเลย และต้องตัดออกจาก cohort ทั้งหมด",
+      "ลูกโคเหล่านี้ป่วยมากที่สุดในฟาร์ม จึงต้องตัดออกเพื่อให้ risk ของกลุ่มอ้างอิงไม่สูงเกินไป"
+    ],
+    "answer": 0,
+    "explain": "การเทียบกลุ่มที่ได้วัคซีนกับกลุ่มที่พลาดวัคซีนต้องทำเฉพาะสัตว์ที่มีสิทธิ์ได้รับวัคซีนในวันนั้น ลูกโคที่เกิดหลังวันทำวัคซีนยังไม่มีชีวิตอยู่ในวันนั้น จึงไม่ได้ \"พลาด\" วัคซีน หากรวมไว้ในกลุ่มอ้างอิงจะได้กลุ่มที่ต่างทั้งอายุและประวัติภูมิคุ้มกัน การจำกัด (restriction) ให้เหลือเฉพาะสัตว์ที่มีสิทธิ์ทำให้การเปรียบเทียบเป็นธรรม\n\nทำไมข้ออื่นผิด\nภูมิจากแม่: ภูมิจากแม่ยับยั้งการตอบสนองต่อวัคซีนได้จริง แต่ลูกโคกลุ่มนี้ไม่ได้รับวัคซีนรอบนั้นเลย เหตุผลของการตัดออกจึงเป็นเรื่องสิทธิ์ได้รับวัคซีน\nเลี้ยงแยกและไม่สัมผัสเชื้อ: การตัดออกไม่ได้อาศัยการสัมผัสเชื้อ และไม่ได้ตัดลูกโคออกจาก cohort ทั้งหมด\nตัดเพื่อให้ผลออกมาตามต้องการ: การเลือกตัดสัตว์ตามผลลัพธ์ทำให้เกิด bias",
+    "source": "Module 3 FMD outbreak investigation หน้า 48, 49, 31",
+    "verified": "Module 3 FMD outbreak investigation หน้า 48 (H6: vaccinated 22/05 vs missed round; restrictions: H6 excludes calves 'Not eligible (born after 22/05/2012)'), Module 3 FMD outbreak investigation หน้า 49 (Restriction in H6: why must calves born after 22/05/2012 be excluded?), Module 3 FMD outbreak investigation หน้า 31 (maternal antibodies can block the response to vaccine in young calves; animals born after a round are unprotected)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเอกสาร Epidemiology ปี 2569 เรื่อง Module 3 Outbreak investigation",
+    "tags": [
+      "epidem-current-research",
+      "restriction",
+      "cohort",
+      "fmd",
+      "vaccine"
+    ],
+    "sourcePages": [
+      {
+        "doc": "epid-module3-outbreak-2569",
+        "edition": "50p",
+        "page": 48
+      },
+      {
+        "doc": "epid-module3-outbreak-2569",
+        "edition": "50p",
+        "page": 49
+      },
+      {
+        "doc": "epid-module3-outbreak-2569",
+        "edition": "50p",
+        "page": 31
+      }
+    ]
+  },
+  {
+    "id": 218804,
+    "subject": "epidemiology",
+    "topic": "epidem-intro",
+    "year": 5,
+    "type": "mcq",
+    "q": "ระบาดวิทยาทางสัตวแพทย์ (veterinary epidemiology) ตามนิยามครอบคลุมเรื่องใด",
+    "options": [
+      "การวินิจฉัยและรักษาโรคในสัตว์แต่ละตัว โดยอาศัยอาการและผลตรวจทางห้องปฏิบัติการ",
+      "การกระจายและปัจจัยกำหนดของภาวะสุขภาพในประชากร และการนำผลไปใช้ควบคุมปัญหาสุขภาพ",
+      "การนับจำนวนสัตว์ป่วยและสัตว์ตายในประชากร โดยไม่ต้องหาปัจจัยที่ทำให้เกิดโรค",
+      "การศึกษากลไกการก่อโรคของเชื้อในระดับเซลล์ เพื่อใช้พัฒนาวัคซีนและยาต้านจุลชีพ"
+    ],
+    "answer": 1,
+    "explain": "ระบาดวิทยาคือการศึกษาการกระจาย (distribution) และปัจจัยกำหนด (determinants) ของภาวะหรือเหตุการณ์ที่เกี่ยวกับสุขภาพในประชากรที่กำหนด และการนำผลการศึกษานั้นไปใช้ควบคุมปัญหาสุขภาพ หน่วยที่ศึกษาคือประชากร ไม่ใช่สัตว์ตัวเดียว และต้องถามทั้งว่าโรคเกิดที่ใด เมื่อใด กับใคร เพราะอะไร แล้วจึงลงมือควบคุม\n\nทำไมข้ออื่นผิด\nวินิจฉัยและรักษาสัตว์แต่ละตัว: เป็นงานคลินิกระดับตัวสัตว์ ไม่ใช่ระดับประชากร\nนับสัตว์ป่วยโดยไม่หาปัจจัย: การวัดความถี่ของโรคเป็นเพียงส่วนหนึ่ง นิยามรวมปัจจัยกำหนดและการควบคุมด้วย\nกลไกระดับเซลล์: เป็นเรื่องของพยาธิกำเนิดและจุลชีววิทยา",
+    "source": "Summary Epidemiology: course map หน้า 1",
+    "verified": "Summary Epidemiology: course map หน้า 1 (Veterinary Epidemiology: the study of the distribution and determinants of health-related states or events in specified populations, and the application of this study to the control of health problems; ask what, who, when, why and how, then act)",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเอกสาร Epidemiology ปี 2569 เรื่อง Course Map",
+    "tags": [
+      "epidem-intro",
+      "definition"
+    ],
+    "sourcePages": [
+      {
+        "doc": "epid-course-map-2569",
+        "edition": "1p",
+        "page": 1
+      }
+    ]
   }
 ];
