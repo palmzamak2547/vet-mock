@@ -8,6 +8,7 @@ import { lecturerSetFor } from '../../src/data/lecturer-sets.js';
 import { PHASES } from '../../src/lib/current-phase.js';
 import { SEMESTER } from '../../src/data/semester.js';
 import { EXAM_SCHEDULE } from '../../src/data/schedule.js';
+import { topicOnPaper } from '../../src/lib/exam-scope.js';
 
 // A moment inside the term the content is filed under, so these never depend on the day CI runs.
 const IN_TERM = new Date('2026-10-28T23:00:00+07:00');
@@ -86,6 +87,37 @@ for (const { year, phase, subject } of wrapUpPapers()) {
     assert.ok(items >= 1);
   });
 }
+
+test('a final wrap-up holds only topics that sit on the final, and every paper of the final week has one', async () => {
+  for (const { year, phase, subject } of wrapUpPapers()) {
+    if (!phase.endsWith('final')) continue;
+    const w = await loadWrapUp(subject, year, phase);
+    for (const g of w.groups) {
+      for (const it of g.items) {
+        assert.ok(topicOnPaper(subject, it.topic, phase), `${subject}: ${it.topic} (${it.name}) is not a ${phase} topic`);
+      }
+    }
+  }
+  for (const subject of ['equine-repro', 'avian-medicine', 'food-industry']) {
+    assert.equal(hasWrapUp(subject, 5, '1-final', IN_TERM), true, `${subject} has a final wrap-up`);
+  }
+});
+
+test('the three week-two finals cite this year\'s slides on every line', async () => {
+  for (const subject of ['equine-repro', 'avian-medicine', 'food-industry']) {
+    const w = await loadWrapUp(subject, 5, '1-final');
+    let lines = 0;
+    for (const g of w.groups) {
+      for (const it of g.items) {
+        for (const b of [...it.emphasis, ...it.examined]) {
+          lines++;
+          assert.match(b.src, /^เดค .+ หน้า \d+(, \d+)*$/, `${subject}: "${b.text.slice(0, 40)}" cites a slide page`);
+        }
+      }
+    }
+    assert.ok(lines >= 50, `${subject}: ${lines} lines`);
+  }
+});
 
 test('a list the lecturer numbered is not numbered twice', () => {
   assert.equal(selfNumbered(['1 Emerging Infectious Diseases', '2 Public Health', '3 Food Safety']), true);
