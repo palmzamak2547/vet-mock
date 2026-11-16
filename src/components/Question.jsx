@@ -14,7 +14,7 @@ import { otherOptionsFold } from '../lib/explain-fold.js';
 import { metaLineCut } from '../lib/meta-line.js';
 import FlagChip from './FlagChip.jsx';
 import { safeImageUrl } from '../lib/safe-url.js';
-import SmartPassage from './SmartPassage.jsx';
+import CaseSlot from './case/CaseSlot.jsx';
 import NavIcon from './NavIcon.jsx';
 import ZoomableImage from './ZoomableImage.jsx';
 import EvidenceSlot, { useEvidenceWarmup } from './EvidenceSlot.jsx';
@@ -23,7 +23,13 @@ import HandwritingInput from './HandwritingInput.jsx';
 import { useRevealTiming, RevealTimingToggle, REVEAL_ROW, REVEAL_LABELS, WrittenReveal } from './AnswerReveal.jsx';
 import { unlockAudio } from '../lib/audio-unlock.js';
 import { readAloud, primePlayer } from '../lib/read-aloud-store.js';
-import ReadAloudBar from './ReadAloudBar.jsx';
+import { lazyWithRetry } from '../lib/lazy-retry.js';
+import OptionalFeature from './OptionalFeature.jsx';
+// The read-aloud bar loads when the card opens, not inside the card's own
+// chunk: Home fetches that chunk ahead on a first visit, and the bar is shared
+// with the other screens that read aloud (ReadAloudListen.jsx), so kept static
+// it became one more request on Home (perf-budget.spec.js).
+const ReadAloudBar = lazyWithRetry(() => import('./ReadAloudBar.jsx'));
 import QSourceChip from './QSourceChip.jsx';
 import { followsExamPattern, holdsTopicChip, topicChipText, TOPIC_CHIP_WAIT, cautionChipShown } from '../lib/source-line.js';
 import PinButton from './PinButton.jsx';
@@ -80,7 +86,7 @@ const TYPE_LABEL = {
 // set (ExamView renders the card without a key) and a set may be revisited.
 const FILL_CHECKED = new Set();
 
-export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote, revealAnswer, onOpenWiki, answerRun = 0, english = null, englishNote = null, timed = false }) {
+export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote, revealAnswer, onOpenWiki, answerRun = 0, english = null, englishNote = null, ownerId = null, clock = null, timed = false }) {
   // A verdict is fresh when this visit to the question began unanswered: the
   // student answered it just now. Coming back to a question answered earlier
   // shows its verdict again, but Mochi does not react and the phone stays
@@ -347,9 +353,9 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     }
   };
 
-  // Passage panel (for reading-comprehension questions) — handled by
-  // SmartPassage component (see ./SmartPassage.jsx). It owns its own
-  // open/closed state, highlight + pen overlays, and persistence.
+  // Passage panel (a case, or a reading passage) — handled by CasePane
+  // (./case/CasePane.jsx). It owns its open state, the account's marks on the
+  // case and the full-screen reading sheet.
   // We just hold a ref so the mobile FAB can scroll the passage into
   // view when the user taps "📄 Passage".
   const passageRef = useRef(null);
@@ -475,7 +481,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   }, [compoundId, hasPassage]);
   const focusPassage = () => {
     setPassageNudge((n) => n + 1);
-    // SmartPassage opens in this same render (see its openSignal), so by the next frame the table is
+    // CasePane opens in this same render (see its openSignal), so by the next frame the table is
     // on the page and the scroll measures where it really is. A student who turned motion down gets
     // a jump: an explicit 'smooth' would override the page's own setting.
     requestAnimationFrame(() => {
@@ -495,11 +501,18 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   // appears for one-tap "back to passage" access.
   const passageBlock = currentQ.passage && (
     <div ref={passageRef} className={`vmx-q-passage-pane${saysTable && readWhat === 'q' && readKind === 'stem' ? ' is-reading' : ''}`}>
-      <SmartPassage
+      <CaseSlot
         text={currentQ.passage}
         title={currentQ.passage_title}
+        subject={currentQ.subject}
+        ownerId={ownerId}
+        questionKey={compoundId}
         defaultOpen={true}
         openSignal={passageNudge}
+        ask={stemSplit ? stemSplit.askText : stemShown}
+        stemBody={stemSplit ? stemSplit.bodyText : ''}
+        figure={figureSrc ? { src: figureSrc, alt: figureAlt, caption: currentQ.imageCaption } : null}
+        clock={clock}
       />
     </div>
   );
@@ -927,7 +940,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 
       </div>
       {ttsNote?.what === 'q' && <p className="vmx-tts-note" role="status">{ttsNote.text}</p>}
-      <ReadAloudBar jobPrefix={jobPrefix} engine={engine} timed={timed} />
+      <OptionalFeature label="เสียงอ่าน"><ReadAloudBar jobPrefix={jobPrefix} engine={engine} timed={timed} /></OptionalFeature>
 
       {figureSrc && (
         <ZoomableImage

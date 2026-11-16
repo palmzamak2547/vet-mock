@@ -65,7 +65,7 @@ const STUBS = [
   { match: 'MotionFeedback\\.jsx$', contents: 'export const MotionEnter = ({ children, className, role }) => ({ type: "div", props: { className, role, children } }); export const useMotionFeedback = () => null;' },
   { match: '/hooks/useMotionPreferences\\.js$', contents: 'export const useMotionPreferences = () => ({ preferences: { mode: "auto", companion: true, haptics: false }, reduced: true });' },
   { match: '/lib/haptics\\.js$', contents: 'export const haptic = () => false;' },
-  ...['WikiLinkForQuestion', 'SmartPassage', 'NavIcon', 'ZoomableImage', 'VoiceInputButton',
+  ...['WikiLinkForQuestion', 'CasePane', 'NavIcon', 'ZoomableImage', 'VoiceInputButton',
     'HandwritingInput', 'QSourceChip', 'PinButton', 'MissCoach', 'Mochi', 'AiGradePanel', 'MatchDragDrop']
     .map((name) => ({ match: `${name}\\.jsx$`, contents: nothing })),
 ];

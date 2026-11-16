@@ -656,7 +656,7 @@ const LEAVES = [
   ["epidemiology","epidem-control-prevention",11,{"1-final":[6,0,2,3]},{"1-final":[5,0,2,3]}], // dd4994541a43
   // end ["epidemiology","epidem-control-prevention"]
   // ["epidemiology","epidem-current-research"]
-  ["epidemiology","epidem-current-research",6,{"1-final":[6,0,0,0]},{}], // e74a69e066be
+  ["epidemiology","epidem-current-research",8,{"1-final":[8,0,0,0]},{}], // 045a2ff42276
   // end ["epidemiology","epidem-current-research"]
   // ["epidemiology","epidem-data-analysis"]
   ["epidemiology","epidem-data-analysis",12,{"1-final":[10,0,0,2]},{"1-final":[4,0,0,2]}], // 67e664bc93f5
@@ -677,7 +677,7 @@ const LEAVES = [
   ["epidemiology","epidem-govt-policy",28,{"1-final":[27,0,0,1]},{}], // ff3cf3e673d2
   // end ["epidemiology","epidem-govt-policy"]
   // ["epidemiology","epidem-intro"]
-  ["epidemiology","epidem-intro",7,{"1-final":[7,0,0,0]},{}], // 14924b2339c5
+  ["epidemiology","epidem-intro",8,{"1-final":[8,0,0,0]},{}], // f321bd93671f
   // end ["epidemiology","epidem-intro"]
   // ["epidemiology","epidem-lumpy-skin"]
   ["epidemiology","epidem-lumpy-skin",11,{},{}], // 01134cf1802f
@@ -695,7 +695,7 @@ const LEAVES = [
   ["epidemiology","epidem-sample-size",19,{"1-final":[19,0,0,0]},{"1-final":[1,0,0,0]}], // 6985c6f3be1a
   // end ["epidemiology","epidem-sample-size"]
   // ["epidemiology","epidem-software"]
-  ["epidemiology","epidem-software",6,{"1-final":[6,0,0,0]},{}], // 489ca73a1bfe
+  ["epidemiology","epidem-software",8,{"1-final":[8,0,0,0]},{}], // ffc182f4d2c0
   // end ["epidemiology","epidem-software"]
   // ["epidemiology","epidem-surveillance"]
   ["epidemiology","epidem-surveillance",32,{"1-final":[29,0,0,3]},{"1-final":[4,0,0,0]}], // 0d51c6a96451

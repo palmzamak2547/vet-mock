@@ -202,22 +202,6 @@ export function releaseHighlighterCopy(keep) {
   keep.settled = null;
 }
 
-/**
- * How far from upright a stylus is, 0 (vertical) to 1 (almost flat). Safari
- * has reported altitudeAngle since 16.4 and it is the accurate source;
- * tiltX/tiltY are the older, wider-support fallback. Hardware that reports
- * neither returns 0 and the brush behaves as though tilt did not exist.
- */
-export function tiltOf(e) {
-  if (typeof e.altitudeAngle === 'number' && e.altitudeAngle > 0) {
-    return Math.min(1, Math.max(0, 1 - e.altitudeAngle / (Math.PI / 2)));
-  }
-  const tx = e.tiltX || 0;
-  const ty = e.tiltY || 0;
-  if (!tx && !ty) return 0;
-  return Math.min(1, Math.hypot(tx, ty) / 90);
-}
-
 /** The device pixel ratio this reader draws at, capped so a 3x phone does not
  *  triple every bitmap it holds. */
 export const inkDpr = () => Math.min(typeof window === 'undefined' ? 1 : (window.devicePixelRatio || 1), 2);

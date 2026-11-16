@@ -1,7 +1,7 @@
 // The way back to a hidden table: the passage opens in the same render as the tap.
 //
 // The card's "ดูตาราง" button bumps `openSignal` and scrolls to the passage on the next frame. Until
-// 5.213.1 SmartPassage opened from an effect, one render later. When that render landed after the
+// 5.213.1 the passage (SmartPassage then, CasePane since 5.240.0) opened from an effect, one render later. When that render landed after the
 // scroll had started, the reopened table made the page taller above the reader; WebKit kept the
 // reader's place through the change and dropped the scroll, so the table was back but off screen
 // (traced on a build of main: scrollY 346 of 346 before the tap, 611 of 611 after it, for good).
@@ -15,7 +15,7 @@ import { readFileSync } from 'node:fs';
 
 const read = (path) => readFileSync(new URL(`../../${path}`, import.meta.url), 'utf8');
 
-test('SmartPassage opens on a new openSignal while rendering, never from an effect', async () => {
+test('the case pane opens on a new openSignal while rendering, never from an effect', async () => {
   // Behaviour, not wording: the real component, with effects switched off, so
   // the only way the table can be back after the new signal is the render itself.
   const fr = await import('../helpers/fake-react.mjs');
@@ -25,13 +25,13 @@ test('SmartPassage opens on a new openSignal while rendering, never from an effe
   runtime.useEffect = () => {};
   runtime.useLayoutEffect = () => {};
   try {
-    const { default: SmartPassage } = await fr.loadModule('src/components/SmartPassage.jsx', {
-      stubs: [{ match: '/lib/dialog\\.js$', contents: 'export const confirmDialog = async () => false;' }],
+    const { default: CasePane } = await fr.loadModule('src/components/case/CasePane.jsx', {
+      stubs: [{ match: '\\.css$', contents: '' }],
     });
     globalThis.localStorage = { getItem: () => null, setItem() {}, removeItem() {} };
     const text = 'ค่าที่วัดได้\n\n| กลุ่ม | ป่วย |\n|---|---|\n| A | 10 |\n| B | 20 |';
     const tables = (tree) => fr.findAll(tree, (n) => n.type === 'table').length;
-    const inst = fr.mount(SmartPassage, { text, title: 'ตาราง', openSignal: 0 });
+    const inst = fr.mount(CasePane, { text, title: 'ตาราง', openSignal: 0 });
     assert.ok(tables(inst.tree) > 0, 'open at first');
     const [toggle] = fr.findAll(inst.tree, (n) => n.type === 'button' && n.props['aria-expanded'] === true);
     toggle.props.onClick();
@@ -45,7 +45,7 @@ test('SmartPassage opens on a new openSignal while rendering, never from an effe
     runtime.useLayoutEffect = realLayout;
   }
   // The signal must not sit in any effect's dependency list either: that is the same late open.
-  assert.doesNotMatch(read('src/components/SmartPassage.jsx'), /\},\s*\[[^\]]*\bopenSignal\b[^\]]*\]\)/);
+  assert.doesNotMatch(read('src/components/case/CasePane.jsx'), /\},\s*\[[^\]]*\bopenSignal\b[^\]]*\]\)/);
 });
 
 test('the card scrolls to the passage once, and jumps when the student turned motion down', () => {

@@ -41,7 +41,7 @@ const STAND_INS = [
     'export function MotionEnter({ children, className }) { return <div className={className}>{children}</div>; }',
     'export function MotionButton({ effect, ...props }) { return <button type="button" {...props} />; }',
   ].join('\n')],
-  [/[\\/](WikiLinkForQuestion|SmartPassage|ImageOcclusionCard|ClozeCard)\.jsx$/, 'export default function StandIn() { return null; }'],
+  [/[\\/](WikiLinkForQuestion|CasePane|ImageOcclusionCard|ClozeCard)\.jsx$/, 'export default function StandIn() { return null; }'],
 ];
 const standIns = {
   name: 'sr-session-stand-ins',

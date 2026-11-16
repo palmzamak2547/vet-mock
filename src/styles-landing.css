@@ -187,7 +187,7 @@ html.lp-active { background: var(--clr-bg); }
 .lp-root a.lp-link-light { color: var(--lp-night-soft); font-weight: 600; padding: 12px 6px; }
 .lp-root a.lp-link-light:hover { color: var(--lp-night-ink); }
 .lp-chip {
-  min-height: 40px; padding: 8px 15px; border-radius: 999px; cursor: pointer;
+  min-height: 44px; padding: 10px 15px; border-radius: 999px; cursor: pointer;
   border: 1px solid var(--lp-line-strong); background: var(--clr-surface); color: var(--clr-ink);
   font: inherit; font-size: 14px; font-weight: 500;
   transition: background var(--dur), color var(--dur), border-color var(--dur), transform .45s var(--lp-pop);
@@ -536,6 +536,8 @@ html.lp-active { background: var(--clr-bg); }
 .lp-answer-card .vmx-btn-primary { background: var(--clr-bg); color: var(--clr-ink); --vmx-btn-border: var(--clr-bg); }
 [data-theme="dark"] .lp-answer-card { background: var(--clr-surface); color: var(--clr-ink); }
 [data-theme="dark"] .lp-answer-card .vmx-btn-primary { background: var(--clr-ink); color: var(--clr-bg); }
+/* The dark card is the page surface: the soft gold there is a fill tone, 2.5:1 as text. */
+[data-theme="dark"] .lp-circled { color: var(--lp-lamp); }
 
 /* ================================================================
    HOW IT WORKS — pinned stage, four steps

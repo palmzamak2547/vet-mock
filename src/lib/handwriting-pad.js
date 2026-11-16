@@ -9,21 +9,9 @@
 // small image loses, and they change the word.
 // ============================================================
 
-/** Pointer policy: once a pen has touched the pad, fingers are ignored until
- *  the pad is cleared. The palm resting beside an Apple Pencil arrives as a
- *  touch pointer, and it used to scribble across the writing. */
-export function createPointerPolicy() {
-  let penSeen = false;
-  return {
-    accept(pointerType) {
-      if (pointerType === 'pen') { penSeen = true; return true; }
-      if (pointerType === 'touch') return !penSeen;
-      return true;
-    },
-    reset() { penSeen = false; },
-    get penSeen() { return penSeen; },
-  };
-}
+/** The pad's palm rule is the ink engine's: once a pen has touched the pad,
+ *  fingers are ignored until the pad is cleared. */
+export { createPointerPolicy } from './ink/hand.js';
 
 /** Stroke width in CSS px. A pen varies with pressure (light 1.6, firm 4.2);
  *  a finger or a mouse, which report no real pressure, draws a steady 3. */

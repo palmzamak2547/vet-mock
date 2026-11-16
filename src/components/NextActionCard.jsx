@@ -197,7 +197,11 @@ export default function NextActionCard({
           <span className="vmx-next-action-title">{action.title}</span>
           <span className="vmx-next-action-sub">{action.sub}</span>
         </span>
-        <span className="vmx-next-action-cta">{action.cta}</span>
+        {/* A step beside another shows an arrow; the word stays in the name a screen reader says. */}
+        <span className="vmx-next-action-cta">
+          <span className="vmx-next-action-cta-word">{action.cta}</span>
+          <span className="vmx-next-action-cta-arrow" aria-hidden="true">→</span>
+        </span>
       </MotionButton>
     );
 

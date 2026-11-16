@@ -271,6 +271,8 @@ test.describe('connected study experience', () => {
       [/ตามคำอธิบายรายวิชาระบาดวิทยา/, /การรักษาและการผ่าตัดสัตว์ป่วยเป็นรายตัว/],
       [/Bloom's taxonomy/, /Remember, Understand, Analyze, Apply/],
       [/ติดตามรายงานโรคระบาดสัตว์ของประเทศไทย/, /www\.who\.int/],
+      // The definition item added in 5.294.0 (id 218804).
+      [/ระบาดวิทยาทางสัตวแพทย์ \(veterinary epidemiology\) ตามนิยาม/, /การวินิจฉัยและรักษาโรคในสัตว์แต่ละตัว/],
     ];
     // Length follows the bank, not a literal: this set lost a question in
     // the figure pass and the loop kept reaching for a sixth screen.

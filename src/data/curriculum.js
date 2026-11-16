@@ -1902,6 +1902,7 @@ export const SUBJECTS_BY_YEAR = {
         { id: 'fiqc-haccp', examScope: 'final', label: 'HACCP for livestock', icon: '✅', lecturer: 'Sompiss Jullabutradee', lecturer_year: 2026 },
         { id: 'fiqc-poultry-export', examScope: 'final', label: 'Poultry standard for export', icon: '🐔', lecturer: 'Sompiss Jullabutradee', lecturer_year: 2026 },
         { id: 'fiqc-aquatic', examScope: 'final', label: 'FIQC aquatic products', icon: '🐟', lecturer: 'Saharuetai Jeamsripong', lecturer_year: 2026, lecturerNote: 'ตารางเรียน 3109501 ปี 2569 (28 ต.ค. 69)' },
+        { id: 'fiqc-meat-qc', examScope: 'final', label: 'Meat and meat product QC in the food industry', icon: '🥩', lecturer: 'TBD', lecturer_year: 2026, lecturerNote: 'ตารางเรียน 3109501 ปี 2569 (11 พ.ย. 69) เป็นการบรรยายเชิงปฏิบัติการ ผู้สอน VPH staff' },
       ] },
 
     { id: 'equine-medicine', code: '3106510', name: 'เวชปฏิบัติม้า + ศัลย์',

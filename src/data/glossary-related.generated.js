@@ -3613,9 +3613,6 @@ const LEAVES = [
  // ["actinobacillus pleuropneumoniae|swine","swine-clinic","swine-pornchalit-set"]
  [202353,202354,202355,202478,202479,202480,202488,105621,105622,105623,105624,105625,105627,105629,105633,105643,209101,209107,209115,209117,209124,209125,209148],
  // end ["actinobacillus pleuropneumoniae|swine","swine-clinic","swine-pornchalit-set"]
- // ["actinobacillus pleuropneumoniae|swine","swine-clinic","swine-prv-je"]
- [209016],
- // end ["actinobacillus pleuropneumoniae|swine","swine-clinic","swine-prv-je"]
  // ["actinobacillus pleuropneumoniae|swine","swine-clinic","swine-resp-viral"]
  [8022,8025,8046],
  // end ["actinobacillus pleuropneumoniae|swine","swine-clinic","swine-resp-viral"]
@@ -3749,9 +3746,6 @@ const LEAVES = [
  // ["prrs|swine","swine-clinic","swine-pornchalit-set"]
  [8353,209149],
  // end ["prrs|swine","swine-clinic","swine-pornchalit-set"]
- // ["prrs|swine","swine-clinic","swine-prv-je"]
- [209016],
- // end ["prrs|swine","swine-clinic","swine-prv-je"]
  // ["prrs|swine","swine-clinic","swine-repro"]
  [209054,209055],
  // end ["prrs|swine","swine-clinic","swine-repro"]
@@ -4810,7 +4804,7 @@ const LEAVES = [
  [214648,214650,107037],
  // end ["prevalence|public-health","epidemiology","epidem-sample-size"]
  // ["prevalence|public-health","epidemiology","epidem-software"]
- [214655,214657,218406],
+ [214655,214657,218406,218800],
  // end ["prevalence|public-health","epidemiology","epidem-software"]
  // ["prevalence|public-health","epidemiology","epidem-surveillance"]
  [214587,214612,214614,214617,214618,100027,100030],
@@ -4923,7 +4917,7 @@ const LEAVES = [
  [213532],
  // end ["95% ci|public-health","epidemiology","epidem-control-prevention"]
  // ["95% ci|public-health","epidemiology","epidem-current-research"]
- [218404],
+ [218404,218802],
  // end ["95% ci|public-health","epidemiology","epidem-current-research"]
  // ["95% ci|public-health","epidemiology","epidem-data-analysis"]
  [214647,214654,213555,213557],
@@ -4969,6 +4963,9 @@ const LEAVES = [
  // ["design effect|epidemiology","epidemiology","epidem-sample-size"]
  [107038,107039],
  // end ["design effect|epidemiology","epidemiology","epidem-sample-size"]
+ // ["design effect|epidemiology","epidemiology","epidem-software"]
+ [218800],
+ // end ["design effect|epidemiology","epidemiology","epidem-software"]
  // end of "design effect|epidemiology"
  "reservoir|public-health",
  // ["reservoir|public-health","epidemiology","epidem-basic-concepts"]

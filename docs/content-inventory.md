@@ -25,7 +25,7 @@ per subject), counted from the banks at the time of the run.
 
 ## Curriculum
 
-86 subjects, 1086 topics in the taxonomy.
+86 subjects, 1087 topics in the taxonomy.
 
 ## VetWiki (governed knowledge)
 

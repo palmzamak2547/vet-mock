@@ -10,6 +10,38 @@ import { SUBJECTS } from '../data/questions.js';
 import { confirmDialog, alertDialog } from '../lib/dialog.js';
 import { thaiError } from '../lib/errors.js';
 import StatePanel from '../components/StatePanel.jsx';
+import ProfilePicture from '../components/ProfilePicture.jsx';
+import { usePictures } from '../components/ProfilePicture.jsx';
+import { reportPicture, PICTURE_WORDS } from '../lib/profile-picture.js';
+
+// "รายงานรูปนี้" under another member's own picture. A picture several members
+// report is hidden from everyone but its owner, who is told on their profile.
+function ReportPicture({ ownerId, name }) {
+  const [note, setNote] = useState('');
+  const [busy, setBusy] = useState(false);
+  const report = async () => {
+    const yes = await confirmDialog({
+      title: 'รายงานรูปนี้',
+      body: `รายงานรูปของ ${name} ว่าไม่เหมาะสม เมื่อมีเพื่อนรายงานรูปเดียวกันหลายคน รูปจะถูกซ่อน และผู้ดูแล VetMock จะเห็นรายการนี้`,
+      confirmLabel: 'รายงาน',
+      tone: 'danger',
+    });
+    if (!yes) return;
+    setBusy(true);
+    const done = await reportPicture(ownerId);
+    setBusy(false);
+    setNote(done.ok ? PICTURE_WORDS.reported : PICTURE_WORDS[done.problem === 'offline' ? 'offline' : 'report_failed']);
+  };
+  return (
+    <div style={{ marginTop: 8 }}>
+      {note ? (
+        <p role="status" style={{ fontSize: 14, margin: 0, color: 'var(--clr-ink-soft)' }}>{note}</p>
+      ) : (
+        <button type="button" className="vmx-hub-link" style={{ fontSize: 14 }} disabled={busy} onClick={report}>รายงานรูปนี้</button>
+      )}
+    </div>
+  );
+}
 
 // A group page is two independent requests, one per tab. (A third tab for
 // shared questions was removed: the app never had a way to share one.)
@@ -20,6 +52,8 @@ const NONE_FAILED = { members: '', leaderboard: '' };
 export default function GroupDetailView({ group, user, goBack, onEditIdentity = null }) {
   const [tab, setTab] = useState('leaderboard'); // 'leaderboard' | 'members'
   const [members, setMembers] = useState([]);
+  const pictures = usePictures(members.map((m) => m.id), tab === 'members');
+  const [picturesBroken, setPicturesBroken] = useState(false);
   const [leaderboard, setLeaderboard] = useState([]);
   // Each section loads, fails and retries on its own. One Promise.allSettled
   // behind one spinner made the tab on screen wait for the slowest hidden
@@ -185,16 +219,24 @@ export default function GroupDetailView({ group, user, goBack, onEditIdentity = 
         </div>
       )}
 
+      {status === 'ready' && tab === 'members' && picturesBroken && (
+        <p role="status" style={{ fontSize: 14, color: 'var(--clr-ink-soft)', margin: '0 0 12px' }}>{PICTURE_WORDS.broken_some}</p>
+      )}
       {status === 'ready' && tab === 'members' && (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 12 }}>
           {members.map((m) => (
             <div key={m.id} className="vmx-dash-card" style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 40, marginBottom: 8 }}>{shownPicture(m.avatar_emoji)}</div>
+              <div style={{ fontSize: 40, marginBottom: 8, display: 'flex', justifyContent: 'center' }}>
+                <ProfilePicture picture={pictures[m.id]} emoji={m.avatar_emoji} size={56} className="vmx-member-pic" onBroken={() => setPicturesBroken(true)} />
+              </div>
               <div style={{ fontFamily: 'var(--vmx-display)', fontWeight: 600, fontSize: 16 }}>
                 {shownName(m.username)}
                 {m.id === user.id && <div style={{ fontSize: 14, color: 'var(--clr-sage-text)', fontStyle: 'italic' }}>(คุณ)</div>}
               </div>
               {m.role === 'admin' && <div style={{ fontSize: 14, color: 'var(--clr-gold-text)', marginTop: 4 }}>👑 ผู้ดูแล</div>}
+              {m.id !== user.id && pictures[m.id]?.url && pictures[m.id]?.state === 'shown' && (
+                <ReportPicture ownerId={m.id} name={shownName(m.username)} />
+              )}
             </div>
           ))}
         </div>

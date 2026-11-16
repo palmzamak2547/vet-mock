@@ -8,7 +8,7 @@ import WikiLinkForQuestion from '../components/WikiLinkForQuestion.jsx';
 import { parseVerified, VERIFIED_STYLE } from '../data/verified.js';
 import { RichText, stripRichText } from '../lib/richtext.jsx';
 import RichBlocks, { StemText } from '../components/RichBlocks.jsx';
-import { hasTable } from '../lib/rich-blocks.js';
+import { hasTable, wholeExplain, wholeStem } from '../lib/rich-blocks.js';
 import { safeImageUrl } from '../lib/safe-url.js';
 import SmartGrader from '../components/SmartGrader.jsx';
 import { MatchReview } from '../components/AnswerReveal.jsx';
@@ -16,6 +16,13 @@ import BackBar from '../components/BackBar.jsx';
 import ZoomableImage from '../components/ZoomableImage.jsx';
 import EvidenceSlot from '../components/EvidenceSlot.jsx';
 import NavIcon from '../components/NavIcon.jsx';
+import OptionalFeature from '../components/OptionalFeature.jsx';
+import { lazyWithRetry } from '../lib/lazy-retry.js';
+// Read-aloud loads once this screen is open, never with Home's fetch-ahead of it.
+// A dropped request is asked for once more; if that fails too, the review
+// stays whole without listen buttons.
+const ReadAloudHost = lazyWithRetry(() => import('../components/ReadAloudListen.jsx'), (m) => ({ default: m.ReadAloudHost }));
+const NO_VOICE = { readingId: '', note: null, speak: () => {}, preload: () => {}, Button: () => null };
 
 // Annotator is heavy (canvas + image processing) and only mounts on
 // demand — lazy so the review view stays light.
@@ -143,6 +150,32 @@ function ReviewNoteEditor({ qId, noteText, setNote }) {
 
 export default function ReviewView({ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes, setNote, user, selectedYear = 4, selectedPhase, onOpenWiki }) {
   const phaseLabel = selectedPhase ? PHASE_LABEL_REV[selectedPhase] : null;
+  // Read-aloud for each row (components/ReadAloudListen.jsx): the stem as it
+  // shows here, and the เหตุผล where it is open. Reading changes nothing
+  // about the scores or the list.
+  const [voiceNow, setVoice] = useState(null);
+  const voice = voiceNow || NO_VOICE;
+  const ListenButton = voice.Button;
+  const readJob = (q, rowKey, what) => ({
+    id: `review:${rowKey}:${what}`,
+    what,
+    title: what === 'q' ? 'อ่านคำถาม' : 'อ่านเหตุผล',
+    album: SUBJECT_BY_ID.get(q.subject)?.name || '',
+    subject: q.subject,
+    // The sentence the practice card reads (its `say` where the numbers sit in
+    // a table), so the stored clips of that sentence play here too. Only the
+    // shown options' words are on this row, so none are read.
+    stem: wholeStem(q),
+    options: [],
+    explain: wholeExplain(q),
+    container: (kind) => {
+      const row = document.querySelector(`[data-read-row="${rowKey}"]`);
+      if (!row || kind !== 'stem') return null;
+      if (what === 'q') return wholeStem(q) === displayStem(q) ? row.querySelector('.vmx-read-stem') : null;
+      return wholeExplain(q) === q.explain ? row.querySelector('.vmx-review-explain .vmx-read-text') : null;
+    },
+    block: () => document.querySelector(`[data-read-row="${rowKey}"] ${what === 'q' ? '.vmx-read-stem' : '.vmx-review-explain'}`),
+  });
   // Filter tabs let users zoom into the slice they care about — when
   // reviewing a 200-Q exam, scrolling linearly to find the 30 wrong
   // ones is brutal. Start with wrong/skipped work when present; all-correct
@@ -367,7 +400,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
         const isCorrectCollapsed = correct && !expandedCorrect.has(rowKey);
 
         return (
-          <div key={q.id} className={`vmx-review-item ${cls}`}>
+          <div key={q.id} className={`vmx-review-item ${cls}`} data-read-row={rowKey}>
             <div className="vmx-review-head">
               <span>
                 Q{position.get(q.id) ?? idx + 1}, {subj?.name || q.subject}
@@ -399,6 +432,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                     <span>มีโน้ต</span>
                   </span>
                 )}
+                <ListenButton what="q" on={voice.readingId === `review:${rowKey}:q`} onClick={() => voice.speak(readJob(q, rowKey, 'q'))} onPointerDown={voice.preload} />
                 <button className={`vmx-bookmark-btn ${bookmarks.includes(q.id) ? 'active' : ''}`}
                   type="button"
                   style={{ position: 'static', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
@@ -415,7 +449,10 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 {cautionChipShown(q.flag) && <span className="vmx-review-caution-badge">{CAUTION_CHIP_TEXT}</span>}
               </div>
             </div>
-            <StemText text={displayStem(q)} ask={(content) => <h2 className="vmx-review-q">{content}</h2>} />
+            <div className={`vmx-read-stem${voice.readingId === `review:${rowKey}:q` ? ' is-reading' : ''}`}>
+              <StemText text={displayStem(q)} ask={(content) => <h2 className="vmx-review-q">{content}</h2>} />
+            </div>
+            {voice.note?.id?.startsWith(`review:${rowKey}:`) && <p className="vmx-tts-note" role="status">{voice.note.text}</p>}
 
             {isCorrectCollapsed ? (
               <button
@@ -517,7 +554,12 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
                 หมายเหตุ: {q.flag.note}
               </div>
             )}
-            {q.explain && q.type !== 'match' && <div className="vmx-review-explain"><span className="k">เหตุผล:</span><RichBlocks text={q.explain} /></div>}
+            {q.explain && q.type !== 'match' && (
+              <div className={`vmx-review-explain${voice.readingId === `review:${rowKey}:explain` ? ' is-reading' : ''}`}>
+                <div className="vmx-read-head"><span className="k">เหตุผล:</span><ListenButton what="explain" on={voice.readingId === `review:${rowKey}:explain`} onClick={() => voice.speak(readJob(q, rowKey, 'explain'))} onPointerDown={voice.preload} /></div>
+                <div className="vmx-read-text"><RichBlocks text={q.explain} /></div>
+              </div>
+            )}
             {safeImageUrl(q.explainImage) && (
               <ZoomableImage
                 src={safeImageUrl(q.explainImage)}
@@ -642,6 +684,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
           <ImageAnnotator src={annotateSrc} onClose={() => setAnnotateSrc(null)} />
         </Suspense>
       )}
+      <OptionalFeature><ReadAloudHost prefix="review:" onVoice={setVoice} /></OptionalFeature>
     </>
   );
 }
