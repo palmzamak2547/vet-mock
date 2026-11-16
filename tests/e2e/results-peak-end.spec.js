@@ -211,6 +211,6 @@ test('one share entry opens one sheet with a short link and no score', async ({ 
   expect(text).not.toMatch(/3\/5|60%|sc=/);
   // Below 70% the score picture is not offered.
   await expect(sheet.getByRole('button', { name: 'สตอรี่' })).toHaveCount(0);
-  await sheet.getByRole('button', { name: 'ปิด' }).click();
+  await sheet.getByRole('button', { name: 'ปิด', exact: true }).click();
   await expect(sheet).toHaveCount(0);
 });
