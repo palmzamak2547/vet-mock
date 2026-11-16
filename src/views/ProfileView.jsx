@@ -24,7 +24,7 @@
 // ============================================================
 
 import { shownName, shownPicture } from '../lib/public-display.js';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import BackBar from '../components/BackBar.jsx';
 import ThemePicker from '../components/ThemePicker.jsx';
 import PWAInstallChip from '../components/PWAInstallChip.jsx';
@@ -44,6 +44,10 @@ import {
   dayKey, rowTime, daysTrack, recentSessions, sessionWhen, subjectsStarted, topicsRead, classRowLabel,
 } from '../lib/study-record.js';
 import { streakShown } from '../hooks/utils.js';
+import { lazyWithRetry } from '../lib/lazy-retry.js';
+// The card and its styles load when the hub draws, never with the idle warm-up
+// of this screen on Home's first visit (perf-budget.spec.js counts those requests).
+const MyCardTile = lazyWithRetry(() => import('../components/MyCardTile.jsx'));
 import '../styles-profile.css';
 
 /** Counts the hub shows. Pure, so the numbers can never disagree with the
@@ -305,6 +309,10 @@ export default function ProfileView({
               </ul>
             </section>
           )}
+
+          <Suspense fallback={null}>
+            <MyCardTile {...{ user, profile, history, srCards, streakData, selectedYear: year, theme, onOpen: () => setView('card-studio') }} />
+          </Suspense>
 
           <section className="vmx-dash-card vmx-profile-card" aria-labelledby="hub-study">
             <h2 id="hub-study">การเรียนของฉัน</h2>

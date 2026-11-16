@@ -187,7 +187,6 @@ test('every read of a member name or picture in src is drawn through public-disp
     'src/views/AccountSettingsView.jsx: profile?.username': 'the student\'s own name, checked and exported; drawn through shownName',
     'src/views/AccountSettingsView.jsx: profile?.avatar_emoji': 'exported as stored, in the student\'s own file',
     'src/components/AdminProfilePictures.jsx: r.username': 'back office, raw on purpose',
-    'src/views/GroupDetailView.jsx: m.avatar_emoji': 'handed to ProfilePicture, which draws it through shownPicture',
     'src/views/AdminView.jsx: u.avatar': 'the back office shows raw values on purpose, to moderate them',
     'src/views/AdminView.jsx: u.username': 'back office, raw on purpose',
     'src/views/AdminView.jsx: row.username': 'back office, raw on purpose',

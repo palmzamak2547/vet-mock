@@ -60,6 +60,7 @@ const NO_ROUTE = {
   profile: 'a personal hub with no shareable link (view-route.js header)',
   lab: 'the Imaging lab owns the shareable #lab hash instead (App.jsx initial view)',
   'group-detail': 'one group, opened from the groups list; needs the group in state',
+  'card-studio': 'a personal screen opened from the profile hub; a reload lands on Home',
   'connect-apps': 'reached from the profile and account screens only; a reload lands on Home',
   'mock-exam': 'legacy id kept so old state does not crash; draws only the fallback',
   'mock-results': 'legacy id kept so old state does not crash; draws only the fallback',

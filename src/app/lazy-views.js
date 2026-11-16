@@ -104,6 +104,8 @@ export const VideoView = lazyWithRetry(() => import('../views/VideoView.jsx'));
 export const AboutView = lazyWithRetry(() => import('../views/AboutView.jsx'));
 export const FeedbackView = lazyWithRetry(() => import('../views/FeedbackView.jsx'));
 export const IgCardStudioView = lazyWithRetry(() => import('../views/IgCardStudioView.jsx'));
+// "ปรับแต่งการ์ด", opened from the card on the profile hub.
+export const StudioView = lazyWithRetry(() => import('../views/StudioView.jsx'));
 export const YearSelectView = lazyWithRetry(() => import('../views/YearSelectView.jsx'));
 // Marketing landing — signed-out front door. Full-bleed (own nav/footer),
 // so it early-returns before the app chrome. Own scoped CSS.
