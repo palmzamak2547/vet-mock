@@ -1161,6 +1161,8 @@ export default function App() {
       import('./components/ImageAnnotator.jsx').catch(() => {});
       import('./components/QComments.jsx').catch(() => {});
       import('./components/ReminderPicker.jsx').catch(() => {});
+      // Review's read-aloud (loaded once the answers open, never on Home).
+      import('./components/ReadAloudListen.jsx').catch(() => {});
       // The 3D mascot viewer is the one exception: it carries all of three.js,
       // loads only on a tap and sits behind its own ErrorBoundary in Results.
       // Confetti is cosmetic, but its import is a bare .then() in ResultsView,
@@ -3488,7 +3490,7 @@ export default function App() {
                   selectedPhase={paperPhase}
                 />
               )}
-{view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} setSubject={setSubject} goBack={returnFromNotes} backLabel={NOTES_RETURN_LABELS.get(notesReturnRef.current.view) || 'เลือกหัวข้ออื่น'} goHome={goHome} onOpenWiki={openWiki} />}
+{view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} setSubject={setSubject} goBack={returnFromNotes} backLabel={(notesReturnRef.current.view === 'knowledge' && /^\/wiki\/?$/.test(notesReturnRef.current.path || '') ? 'สารบัญ VetWiki' : NOTES_RETURN_LABELS.get(notesReturnRef.current.view)) || 'เลือกหัวข้ออื่น'} goHome={goHome} onOpenWiki={openWiki} />}
               {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, openNonce: wikiOpenNonce, setView, setSubject, setTopic, goHome, startExam, readingChecklist, setReadingChecklist, onOpenDoc: openLibraryReader }} />}
               {view === 'config' && <ConfigView {...{ practiceMode, setPracticeMode, subject, setSubject, topic, setTopic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, setMode, selectedYear, selectedPhase, panicPending, setPanicPending }} hasHistory={(history?.length || 0) > 0} showCategoryPicker={categoryPickerShown(subject, practiceMode)} availableCount={configAvailableCount} availablePool={configServedPool} onBack={goBackFromConfig} />}
               {view === 'exam' && !currentQ && <ViewFallback />}

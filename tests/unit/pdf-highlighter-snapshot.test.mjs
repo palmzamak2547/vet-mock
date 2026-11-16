@@ -75,14 +75,8 @@ function reader(canvas, settled, { scale = 1.5 } = {}) {
     drawingRef: { current: { on: false, points: [] } },
     currentStrokesRef: { current: settled },
     hlCopyRef: { current: {} },
-    panRef: { current: null },
-    tapRef: { current: { at: 0, x: 0, y: 0 } },
     holdTimerRef: { current: null },
     lastStrokePageRef: { current: null },
-    gestureRef: { current: null },
-    activePointers: { current: new Map() },
-    gestureMove: () => false,
-    gestureUp: () => false,
     hoverRing() {},
     scheduleShapeSnap() {},
     maybePullAfterStroke() {},
@@ -90,8 +84,6 @@ function reader(canvas, settled, { scale = 1.5 } = {}) {
     setRedoStack() {},
     // Only the stroke's own coordinates matter here; the event carries them.
     pointFromEvent: (e) => [e.x, e.y],
-    withTilt: (pt) => pt,
-    tiltOf: () => 0,
   };
   ctx.setStrokesByPage = (fn) => { ctx.committed = fn({ 1: ctx.currentStrokesRef.current }); };
   vm.createContext(ctx);

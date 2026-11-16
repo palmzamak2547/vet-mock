@@ -25,6 +25,8 @@ import WikiLinkForQuestion from '../components/WikiLinkForQuestion.jsx';
 import ZoomableImage from '../components/ZoomableImage.jsx';
 import SmartPassage from '../components/SmartPassage.jsx';
 import FlagChip from '../components/FlagChip.jsx';
+import { useReadAloud, ListenButton } from '../components/ReadAloudListen.jsx';
+import { wholeExplain, wholeStem } from '../lib/rich-blocks.js';
 import { loadUserFlashcards, srCardFor } from '../lib/user-flashcards.js';
 // Wave-4 card types — each lib produces Q-shaped objects with a
 // distinct `type` so the renderer below can dispatch to the right
@@ -286,6 +288,28 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
       if (current()) { startRequestRef.current = null; setStarting(false); }
     }
   };
+  // Read-aloud for the card on screen: its front, and its เหตุผล once turned
+  // over. A new card (or leaving) stops the reading of the last one.
+  const readCard = sessionCards?.[currentIdx]?.question || null;
+  const readPrefix = `sr:${readCard?.subject || ''}:${readCard?.id ?? ''}:`;
+  const voice = useReadAloud(readPrefix);
+  const frontRef = useRef(null);
+  const backTextRef = useRef(null);
+  const srJob = (q, what) => ({
+    id: `${readPrefix}${what}`,
+    what,
+    title: what === 'q' ? 'อ่านคำถาม' : 'อ่านเหตุผล',
+    album: SUBJECTS.find((s) => s.id === q.subject)?.name || '',
+    subject: q.subject,
+    // The sentence the practice card reads, so its stored clips play here too.
+    stem: wholeStem(q),
+    options: [],
+    explain: wholeExplain(q),
+    container: (kind) => (kind !== 'stem' ? null
+      : what === 'q' ? (wholeStem(q) === displayStem(q) ? frontRef.current : null)
+        : (wholeExplain(q) === q.explain ? backTextRef.current : null)),
+    block: () => (what === 'q' ? frontRef.current : backTextRef.current),
+  });
   const partialNotice = partialReview && (
     <div className="vmx-config-availability" role="status">รอบนี้ทบทวนเฉพาะการ์ดที่โหลดแล้ว คลังข้อสอบยังไม่ครบ</div>
   );
@@ -875,7 +899,13 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
               maxHeight="var(--vmx-sr-figure-max, 320px)"
             />
           )}
-          <StemText text={displayStem(currentQ)} ask={(content) => <div style={{ fontSize: 18 }}>{content}</div>} />
+          <div className="vmx-read-row">
+            <div ref={frontRef} className={`vmx-read-grow${voice.readingId === `${readPrefix}q` ? ' is-reading' : ''}`}>
+              <StemText text={displayStem(currentQ)} ask={(content) => <div style={{ fontSize: 18 }}>{content}</div>} />
+            </div>
+            <ListenButton what="q" on={voice.readingId === `${readPrefix}q`} onClick={() => voice.speak(srJob(currentQ, 'q'))} onPointerDown={voice.preload} />
+          </div>
+          {voice.note && <p className="vmx-tts-note" role="status">{voice.note.text}</p>}
         </div>
         {showAnswer && (
           <MotionEnter effect="flip" className="back">
@@ -887,7 +917,12 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
             {/* Keyed by the card: FlagChip keeps whether it is open, and one opened on a
                 disputed card opened already expanded on the next. */}
             <FlagChip key={`flag:${currentQ.subject}:${currentQ.id}`} flag={currentQ.flag} revealed />
-            {currentQ.explain && <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}><RichBlocks text={currentQ.explain} /></div>}
+            {currentQ.explain && (
+              <div className="vmx-read-row">
+                <div ref={backTextRef} className={`vmx-read-grow${voice.readingId === `${readPrefix}explain` ? ' is-reading' : ''}`} style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic' }}><RichBlocks text={currentQ.explain} /></div>
+                <ListenButton what="explain" on={voice.readingId === `${readPrefix}explain`} onClick={() => voice.speak(srJob(currentQ, 'explain'))} onPointerDown={voice.preload} />
+              </div>
+            )}
             {safeImageUrl(currentQ.explainImage) && (
               <ZoomableImage
                 src={safeImageUrl(currentQ.explainImage)}
@@ -936,6 +971,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
         </div>
       )}
 
+      {voice.bar}
       <div className="vmx-btn-row" style={{ marginTop: 16 }}>
         <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={() => setSessionCards(null)}>← เปลี่ยนการตั้งค่า</button>
         <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={goHome}>หยุดและออก</button>

@@ -65,6 +65,40 @@ export async function readEncodedJsonBody(req) {
   return readJsonBody({ body: payload });
 }
 
+/**
+ * A binary upload's body (api/profile-picture.js): 'b64:' + base64, since the
+ * edge damages raw non-ASCII bytes as it does text. { bytes } when it reads,
+ * { tooLarge: true } past maxChars (by the declared length, then while
+ * reading, so an oversized body is never held whole), null for anything else.
+ */
+export async function readEncodedBytes(req, maxChars) {
+  const declared = Number(req?.headers?.['content-length']);
+  if (Number.isFinite(declared) && declared > maxChars) return { tooLarge: true };
+  let raw = '';
+  try {
+    const parsed = req?.body;
+    if (typeof parsed === 'string') raw = parsed;
+    else if (Buffer.isBuffer(parsed)) raw = parsed.toString('latin1');
+    else if (req?.readable) {
+      const chunks = [];
+      let size = 0;
+      for await (const chunk of req) {
+        size += chunk.length;
+        if (size > maxChars) return { tooLarge: true };
+        chunks.push(chunk);
+      }
+      raw = Buffer.concat(chunks).toString('latin1');
+    }
+  } catch {
+    return null;
+  }
+  if (raw.length > maxChars) return { tooLarge: true };
+  if (!raw.startsWith('b64:')) return null;
+  const text = raw.slice(4).replace(/\s+/g, '');
+  if (!/^[A-Za-z0-9+/]*={0,2}$/.test(text)) return null;
+  return { bytes: Buffer.from(text, 'base64') };
+}
+
 export function sendBadBody(res) {
   res.setHeader('Cache-Control', 'no-store');
   return res.status(400).json(BAD_BODY);

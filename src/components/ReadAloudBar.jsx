@@ -22,7 +22,10 @@ const clock = (s) => {
 
 // timed: the card is inside a timed paper; the speed button then steps the
 // speed as before instead of opening the voice settings.
-export default function ReadAloudBar({ jobPrefix, engine, timed = false, optionLetter = (i) => String.fromCharCode(65 + i) }) {
+// hostRef: the text being read sits in a dialog, so the bar is drawn inside
+// it (still fixed to the screen): above the dialog, reached by Tab inside it,
+// and under any sheet opened later, such as the voice settings.
+export default function ReadAloudBar({ jobPrefix, engine, timed = false, hostRef = null, optionLetter = (i) => String.fromCharCode(65 + i) }) {
   const st = useSyncExternalStore(readAloud.subscribe, readAloud.get, readAloud.get);
   const [drag, setDrag] = useState(null);
   // The voice settings, open over the page; they stay open if the reading ends meanwhile.
@@ -150,6 +153,6 @@ export default function ReadAloudBar({ jobPrefix, engine, timed = false, optionL
         <span className="vmx-read-time" aria-hidden="true">{clock(shown)} / {clock(st.duration)}</span>
       </div>
     </div>,
-    document.body,
+    hostRef?.current || document.body,
   )}</>;
 }

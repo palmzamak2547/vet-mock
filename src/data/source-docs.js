@@ -1645,6 +1645,21 @@ export const SOURCE_DOCS = [
     editions: [{ id: '27p', pages: 27 }],
   },
   {
+    slug: 'epid-module2-planning-2569', subject: 'epidemiology', title: "Module 2 FMD Planning studies, sampling & sample size",
+    match: /Module 2 FMD Planning studies, sampling & sample size/i, // library module-2-fmd-planning-studies-sampling-sample-size-aea9fd (the course's own web pages, linked from MyCourseVille 3107508, 2026/1)
+    editions: [{ id: '45p', pages: 45 }],
+  },
+  {
+    slug: 'epid-module3-outbreak-2569', subject: 'epidemiology', title: "Module 3 FMD outbreak investigation",
+    match: /Module 3 FMD outbreak investigation/i, // library module-3-fmd-outbreak-investigation-0c1d6f (the course's own web pages, linked from MyCourseVille 3107508, 2026/1)
+    editions: [{ id: '50p', pages: 50 }],
+  },
+  {
+    slug: 'epid-course-map-2569', subject: 'epidemiology', title: "Summary Epidemiology: course map",
+    match: /Summary Epidemiology: course map/i, // library summary-epidemiology-course-map-278a95 (the course's own web pages, linked from MyCourseVille 3107508, 2026/1)
+    editions: [{ id: '1p', pages: 1 }],
+  },
+  {
     slug: 'epid-intro-2569', subject: 'epidemiology', title: "Introduction to Epidemiology 2569 (NC)",
     match: /Introduction to Epidemiology 2569 \(NC\)/i, // 1_vet epidem intro 150526.pdf on Palm's Drive (Y.5 Term1 Mid, Epidemiology); the library has no copy
     editions: [{ id: '26p', pages: 26 }],

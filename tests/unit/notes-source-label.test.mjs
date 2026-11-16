@@ -90,8 +90,12 @@ test('each part of a line with several is transformed on its own', () => {
 
 test('the notes reader draws the source line through the label function', () => {
   const view = readFileSync(new URL('../../src/views/NotesView.jsx', import.meta.url), 'utf8');
-  assert.match(view, /noteSourceLabel\(/);
-  assert.match(view, /from '\.\.\/lib\/source-label\.js'/);
+  // Through lib/note-source-line.js, which the wiki article shares.
+  assert.match(view, /noteSourceLine\(section\.source\)/);
+  assert.match(view, /from '\.\.\/lib\/note-source-line\.js'/);
+  const lib = readFileSync(new URL('../../src/lib/note-source-line.js', import.meta.url), 'utf8');
+  assert.match(lib, /noteSourceLabel\(/);
+  assert.match(lib, /from '\.\/source-label\.js'/);
   assert.doesNotMatch(view, /\{section\.source\.replace\(/, 'the stored line must not be printed directly');
 });
 

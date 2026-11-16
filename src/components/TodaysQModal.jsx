@@ -12,7 +12,7 @@
 //   • Single modal = less context switching, easier to do in waiting rooms
 // ============================================================
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { lazyWithRetry } from '../lib/lazy-retry.js';
 import OptionalFeature from './OptionalFeature.jsx';
 import { RichText } from '../lib/richtext.jsx';
@@ -24,7 +24,8 @@ import { SUBJECTS } from '../data/curriculum.js';
 import { buildShareUrl } from '../lib/share-link.js';
 import { copyText } from '../lib/clipboard.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
-import { wholeStem } from '../lib/rich-blocks.js';
+import { wholeExplain, wholeStem } from '../lib/rich-blocks.js';
+import { useReadAloud, ListenButton } from './ReadAloudListen.jsx';
 
 // Lazy-load the share card — it pulls a 1080×1920 canvas helper and
 // isn't needed until the user actually picks an answer + taps share.
@@ -38,6 +39,13 @@ export default function TodaysQModal({ q, dateStr, onClose, onDone }) {
   const [todayResult, setTodayResult] = useState(null);
   const [challengeHint, setChallengeHint] = useState('');
   const dialogRef = useModalFocus({ active: Boolean(q), onClose });
+  // Read-aloud: the question with its options in the order shown, and the
+  // เฉลย once it shows. The bar is drawn inside this dialog, and while it is
+  // up the dialog stops above it (styles-listen.css).
+  const readPrefix = `daily:${q?.subject || ''}:${q?.id ?? ''}:`;
+  const voice = useReadAloud(readPrefix, { hostRef: dialogRef });
+  const stemRef = useRef(null);
+  const explainRef = useRef(null);
 
   if (!q) return null;
   const correctIdx = q.answer;
@@ -45,6 +53,19 @@ export default function TodaysQModal({ q, dateStr, onClose, onDone }) {
   // The exam screen's order, so the author's key position does not show
   // through the letter. Picks and the reveal stay on source indices.
   const { displayOptions, displayToOriginal } = getShuffledOptions(q);
+  const readJob = (what) => ({
+    id: `${readPrefix}${what}`,
+    what,
+    title: what === 'q' ? 'อ่านคำถาม' : 'อ่านเหตุผล',
+    album: subjectMeta?.name || '',
+    subject: q.subject,
+    stem: wholeStem(q),
+    options: displayOptions.map(String),
+    explain: wholeExplain(q),
+    container: (kind, option = -1) => (kind === 'stem'
+      ? (what === 'q' ? stemRef.current : (wholeExplain(q) === q.explain ? explainRef.current : null))
+      : dialogRef.current?.querySelectorAll('.vmx-options .vmx-option')[option] || null),
+  });
 
   function pickAnswer(idx) {
     if (revealed) return;
@@ -68,7 +89,7 @@ export default function TodaysQModal({ q, dateStr, onClose, onDone }) {
     <div className="vmx-modal-overlay" onClick={onClose}>
       <div
         ref={dialogRef}
-        className="vmx-modal"
+        className={`vmx-modal${voice.readingId ? ' vmx-modal-reading' : ''}`}
         onClick={(e) => e.stopPropagation()}
         style={{ maxWidth: 580 }}
         tabIndex={-1}
@@ -87,9 +108,13 @@ export default function TodaysQModal({ q, dateStr, onClose, onDone }) {
           </p>
         </div>
 
-        <div style={{ marginTop: 16, fontSize: 15, lineHeight: 1.6 }}>
-          <StemText text={wholeStem(q)} ask={(content) => <div className="vmx-qstem-ask">{content}</div>} whole={(content) => content} />
+        <div className="vmx-read-row" style={{ marginTop: 16, fontSize: 15, lineHeight: 1.6 }}>
+          <div ref={stemRef} className={`vmx-read-grow${voice.readingId === `${readPrefix}q` ? ' is-reading' : ''}`}>
+            <StemText text={wholeStem(q)} ask={(content) => <div className="vmx-qstem-ask">{content}</div>} whole={(content) => content} />
+          </div>
+          <ListenButton what="q" on={voice.readingId === `${readPrefix}q`} onClick={() => voice.speak(readJob('q'))} onPointerDown={voice.preload} />
         </div>
+        {voice.note && <p className="vmx-tts-note" role="status">{voice.note.text}</p>}
 
         <div className="vmx-options" style={{ marginTop: 12 }}>
           {displayOptions.map((opt, row) => {
@@ -128,10 +153,11 @@ export default function TodaysQModal({ q, dateStr, onClose, onDone }) {
 
         {revealed && q.explain && (
           <div style={{ marginTop: 12, padding: 12, borderRadius: 10, background: 'rgba(74, 107, 74, 0.06)', border: '1px solid var(--clr-right)', fontSize: 14, lineHeight: 1.6 }}>
-            <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', color: 'var(--clr-right-text)', marginBottom: 4 }}>
+            <div className="vmx-read-head" style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', textTransform: 'uppercase', color: 'var(--clr-right-text)', marginBottom: 4 }}>
               เฉลย
+              <ListenButton what="explain" on={voice.readingId === `${readPrefix}explain`} onClick={() => voice.speak(readJob('explain'))} onPointerDown={voice.preload} />
             </div>
-            <RichBlocks text={q.explain} />
+            <div ref={explainRef} className={voice.readingId === `${readPrefix}explain` ? 'is-reading' : undefined}><RichBlocks text={q.explain} /></div>
           </div>
         )}
 
@@ -197,6 +223,9 @@ export default function TodaysQModal({ q, dateStr, onClose, onDone }) {
             {challengeHint}
           </div>
         )}
+        {/* Inside the dialog: a tap on the bar stays in the dialog, which
+            keeps it from the backdrop that closes it. */}
+        {voice.bar}
       </div>
 
       {shareOpen && (
