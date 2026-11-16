@@ -20,6 +20,10 @@ import { dateRangeLabel } from './exam-timetable.js';
 const MONTHS = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
 const WEEKDAYS = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'];
 const WD = ['อา.', 'จ.', 'อ.', 'พ.', 'พฤ.', 'ศ.', 'ส.'];
+const WD_FULL = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'];
+// A class off the weekly day with no time from its evidence says so, rather
+// than leaving a blank the reader fills with the weekly slot's hours.
+export const NO_TIME = 'ไม่ทราบเวลา';
 const DAY_MS = 86_400_000;
 export const PAPER_LABEL = { midterm: 'สอบกลางภาค', final: 'สอบปลายภาค' };
 // Rows that name a group rather than a person stay out of the lecturer list.
@@ -214,7 +218,7 @@ export function teachingDoc(subject, year, { now = new Date(), term = SEMESTER.i
       date: s.date,
       when: `${WD[d.getUTCDay()]} ${thaiDay(s.date)}`,
       kind: s.kind || 'session',
-      time: s.time || '',
+      time: s.time || (isTeaching(s) && WD_FULL[d.getUTCDay()] !== course.slot.day ? NO_TIME : ''),
       title: s.title,
       en: s.en || '',
       lecturers: team?.has(s.lecturers) ? team.label : s.lecturers.join(', '),

@@ -180,6 +180,7 @@ export const SYLLABI = {
           { date: '2026-10-26', time: '09:00–10:00', planned: '2026-10-27', held: true, title: 'Mycotic Infections (ต่อ), Mycotoxicosis', lecturers: [NIWAT], topics: ['avian-mycosis'] },
           { date: '2026-11-02', held: true, title: 'Mycotoxicosis (ต่อ)', lecturers: [NIWAT], topics: ['avian-mycosis'], note: clip('Mycotoxicosis (ต่อ)') },
           { date: '2026-11-03', held: true, title: 'Ornithobacteriosis, Campylobacteriosis, Listeriosis, Histomoniasis', lecturers: [NIWAT], topics: ['avian-ort', 'avian-campy', 'avian-listeria', 'avian-histomoniasis'] },
+          { date: '2026-11-10', held: true, title: 'Serology, Hatchery vaccination, สัตวแพทย์ผู้ควบคุมฟาร์ม (วิทยากรรับเชิญ)', lecturers: [JIROJ, 'วิทยากรจากบริษัทวัคซีน', 'ผู้แทน CPF'], topics: ['avian-vaccine-prog', 'avian-serology'], note: clip('Hatchery vaccination + CPF') },
           { date: '2026-11-17', planned: '2026-09-29', kind: 'activity', title: 'Activities with Hipra', lecturers: [KRIENG], topics: [], change: classLine('2026-09-28', 'เลื่อนมาจาก 29 ก.ย.') },
         ],
       },

@@ -3,8 +3,9 @@ import assert from 'node:assert/strict';
 import { PDFDocument } from 'pdf-lib';
 import { SYLLABI, TERMS } from '../../src/data/course-syllabi.js';
 import { SUBJECTS } from '../../src/data/curriculum.js';
+import { VIDEO_REGISTRY } from '../../src/data/video-registry.generated.js';
 import { COURSE_GROUPS, EXAM_SCHEDULE } from '../../src/data/schedule.js';
-import { courseDocs, sessionPaper, syllabusDoc, teachingDoc, scopeConflicts, syllabiFor } from '../../src/lib/course-docs.js';
+import { NO_TIME, courseDocs, sessionPaper, syllabusDoc, teachingDoc, scopeConflicts, syllabiFor } from '../../src/lib/course-docs.js';
 import { timetablePdf } from '../../src/lib/share-card/timetable-card.js';
 import { statusLines } from '../../src/lib/share-card/course-doc-card.js';
 
@@ -89,7 +90,7 @@ test('the syllabus page says what each paper covers and when it sits', () => {
   const doc = syllabusDoc('avian-medicine', 5, AT);
   const [mid, fin] = doc.papers;
   assert.equal(mid.covers, 'เนื้อหาที่เรียน 4 ส.ค. ถึง 15 ก.ย., คะแนน 54%');
-  assert.equal(fin.covers, 'เนื้อหาที่เรียน 6 ต.ค. ถึง 3 พ.ย., คะแนน 46%', 'the classes as they ran, the HIPRA activity not among them');
+  assert.equal(fin.covers, 'เนื้อหาที่เรียน 6 ต.ค. ถึง 10 พ.ย., คะแนน 46%', 'the classes as they ran, the HIPRA activity not among them');
   assert.equal(mid.when, 'จันทร์ 21 ก.ย. 2569, 13:00–15:00, VET6 B01-03');
   assert.equal(fin.when, 'พุธ 2 ธ.ค. 2569, 08:30–10:30, VET6 807');
   assert.deepEqual(mid.groups.map((g) => g.who), ['ณทยา เจริญวิศาล', 'สมศักดิ์ ภัคภิญโญ', 'จิโรจ ศศิปรียจันทร์', 'เกรียงวิชญ์ ลิมปวิทยากุล']);
@@ -207,4 +208,49 @@ test('a document of two pages is a two-page PDF', async () => {
   const bytes = await timetablePdf([Uint8Array.from(JPEG), Uint8Array.from(JPEG)], { title: 'ตารางสอน' });
   const doc = await PDFDocument.load(bytes);
   assert.equal(doc.getPageCount(), 2);
+});
+
+// Classes marked as run before the recordings were checked against the data on
+// 16 Nov 2026: their evidence is the class LINE export or the first recordings
+// listing, neither of which the repository holds. This list only shrinks.
+const HELD_BEFORE_CHECK = new Set([
+  'epidemiology 2026-10-12', 'epidemiology 2026-10-19', 'aquatic-clinic 2026-08-04',
+  'avian-medicine 2026-08-18', 'avian-medicine 2026-09-08', 'avian-medicine 2026-10-20',
+  'poa-clinical 2026-08-05', 'poa-clinical 2026-08-26', 'poa-clinical 2026-09-02', 'poa-clinical 2026-09-09',
+  'poa-clinical 2026-09-16', 'poa-clinical 2026-09-30', 'poa-clinical 2026-10-07', 'poa-clinical 2026-10-14',
+  'milk-meat-hygiene 2026-09-02', 'milk-meat-hygiene 2026-09-09', 'milk-meat-hygiene 2026-09-16',
+  'one-health 2026-08-19', 'one-health 2026-09-02', 'food-industry 2026-08-19', 'food-industry 2026-09-02',
+  'equine-repro 2026-08-06', 'zoonoses 2026-09-04', 'zoonoses 2026-09-18',
+  'swine-clinic 2026-08-14', 'swine-clinic 2026-08-28',
+]);
+const LINE_UNTIL = '2026-10-28';
+const recordings = (id) => Object.values(VIDEO_REGISTRY).filter((v) => v.year === 5 && v.term === 1 && v.subject === id && v.date);
+
+test('a class marked as run has a recording on its day or a dated notice, and every recording has its class', () => {
+  for (const [id, c] of Object.entries(Y5)) {
+    const recs = recordings(id);
+    const days = new Set(recs.map((v) => v.date));
+    for (const s of c.sessions.filter((x) => x.held)) {
+      const key = `${id} ${s.date}`;
+      assert.ok(days.has(s.date) || s.change?.posted || HELD_BEFORE_CHECK.has(key), `${key}: marked as run with no recording that day and no notice`);
+    }
+    for (const v of recs) {
+      assert.ok(v.date <= c.evidenceUntil, `${id}: the recording of ${v.date} is past the course's evidence date`);
+      assert.ok(c.sessions.some((s) => s.date === v.date && s.held), `${id}: the recording of ${v.date} (${v.title}) has no class marked as run that day`);
+    }
+    const latest = [LINE_UNTIL, ...recs.map((v) => v.date)].sort().at(-1);
+    assert.equal(c.evidenceUntil, latest, `${id}: the evidence date is its latest recording or the end of the class LINE export`);
+  }
+  for (const key of HELD_BEFORE_CHECK) {
+    const [id, date] = key.split(' ');
+    assert.ok(Y5[id].sessions.some((s) => s.date === date && s.held), `${key}: still a class marked as run`);
+    assert.ok(!recordings(id).some((v) => v.date === date), `${key}: has a recording now, drop it from the list`);
+  }
+});
+
+test('a class off the weekly day with no hours from its evidence says the time is not known', () => {
+  const z = teachingDoc('zoonoses', 5, AT);
+  for (const r of z.rows.filter((x) => x.date === '2026-11-04')) assert.equal(r.time, NO_TIME, `${r.title}: a Wednesday class of a Friday course`);
+  assert.equal(z.rows.find((r) => r.date === '2026-08-07' && r.kind === 'session').time, '', 'on the weekly day the slot gives the hours');
+  assert.equal(teachingDoc('avian-medicine', 5, AT).rows.find((r) => r.date === '2026-10-19').time, '09:00–10:00', 'hours from a notice stay');
 });
