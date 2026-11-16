@@ -195,6 +195,30 @@ test('a notebook opens with its pages, keeps its ink when a page is added, and s
   expect(blocked, 'nothing the notebook does may be refused by production CSP').toEqual([]);
 });
 
+test('a page the browser refuses to keep is not added, and the student is told บันทึกไม่สำเร็จ', async ({ page }) => {
+  await page.goto('/app/tools/pdf');
+  await page.getByLabel('ชื่อสมุด').fill('สมุดเต็ม');
+  await page.getByRole('button', { name: 'สร้างสมุด' }).click();
+  await expect(page.locator('[data-page="1"][data-render-state="ready"]')).toBeVisible({ timeout: 30_000 });
+  await expect(page.locator('[data-page]')).toHaveCount(4);
+  // The device now refuses the notebook list, as a full or locked storage does.
+  await page.evaluate(() => {
+    const set = Storage.prototype.setItem;
+    Storage.prototype.setItem = function (k, v) {
+      if (k === 'vmx-notebooks-v1') throw new DOMException('quota', 'QuotaExceededError');
+      return set.call(this, k, v);
+    };
+  });
+  await page.locator('button[aria-label="เครื่องมืออื่น"]').click();
+  await page.getByRole('menuitem', { name: 'เพิ่มหน้ากระดาษ' }).click();
+  const notice = page.getByRole('dialog', { name: 'บันทึกไม่สำเร็จ' });
+  await expect(notice).toBeVisible();
+  await expect(notice).toContainText('เบราว์เซอร์นี้เก็บข้อมูลถาวรไม่ได้');
+  await notice.getByRole('button', { name: 'เข้าใจแล้ว' }).click();
+  await expect(notice).toHaveCount(0);
+  await expect(page.locator('[data-page]'), 'no page that would vanish at the next open').toHaveCount(4);
+});
+
 test('dragging a corner handle resizes the selection, with its line width', async ({ page }) => {
   await openReaderWithPdf(page);
   const box = await overlayBox(page);
