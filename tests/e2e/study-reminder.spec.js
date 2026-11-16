@@ -35,7 +35,7 @@ async function finishOneSet(page) {
   const right = KEY.get(norm(await page.locator('.vmx-qtext').innerText()));
   await page.locator('.vmx-option', { hasText: right }).first().click();
   await page.getByRole('button', { name: 'ดูผลลัพธ์ →', exact: true }).click();
-  await expect(page.getByText('คะแนนตรวจอัตโนมัติ')).toBeVisible({ timeout: 15_000 });
+  await expect(page.getByRole('region', { name: 'ผลชุดนี้' })).toBeVisible({ timeout: 15_000 });
 }
 
 test('the first set of a day offers a daily reminder once; a time fills both calendar links', async ({ page, context }) => {

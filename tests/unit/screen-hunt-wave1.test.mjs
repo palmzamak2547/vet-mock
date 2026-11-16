@@ -63,12 +63,15 @@ test('the row that shows a course\'s empty topics is a 44 px target', () => {
   assert.match(topics.slice(at, at + 400), /minHeight: 44,/);
 });
 
+// 5.282.0: the pace chip went; the time joins the fraction line ("ถูก 8 จาก 10
+// ข้อ ใน 6 นาที"). It is still one text run, so no flex gap can split it.
 test('a practice result writes its pace as one line with the comma against the time', () => {
   const results = read('src/views/ResultsView.jsx');
-  const at = results.indexOf('className="vmx-pacing-telemetry"');
-  const pace = results.slice(at, results.indexOf('</div>', at));
-  assert.equal((pace.match(/<span>/g) || []).length, 1, 'one text in the flex row, so its gap cannot open before the comma');
-  assert.match(pace, /`, เฉลี่ย \$\{/);
+  assert.equal(results.includes('vmx-pacing-telemetry'), false, 'the separate pace chip is back');
+  const at = results.indexOf('<p className="vmx-score-frac">');
+  const frac = results.slice(at, results.indexOf('</p>', at));
+  assert.equal((frac.match(/\{`/g) || []).length, 1, 'one text in the line');
+  assert.match(frac, /`ถูก \$\{score\.correct\} จาก \$\{autoQs\.length\} ข้อ\$\{timeWords\}/);
 });
 
 test('a wiki source lists the sections that cite it without a comma floating between 44 px targets', () => {
@@ -81,11 +84,15 @@ test('a wiki source lists the sections that cite it without a comma floating bet
 
 test('the result bar names its mark once, with room above for the flag', () => {
   const results = read('src/views/ResultsView.jsx');
-  const at = results.indexOf('<div className="vmx-benchmark-legend">');
-  const legend = results.slice(at, results.indexOf('</div>', at));
-  assert.doesNotMatch(legend, /PRACTICE_PASS_PCT/, 'the legend sat at 50% under a mark at 60%');
-  assert.match(results, /<div className="vmx-benchmark-flag">เกณฑ์ \{PRACTICE_PASS_PCT\}%<\/div>/);
-  const top = Number(rule('.vmx-benchmark-container').match(/margin: (\d+)px/)[1]);
+  // 5.282.0: no legend at all (its 0% and 100% ends went); the one tick says "60%".
+  assert.equal(results.includes('vmx-benchmark-legend'), false, 'the legend sat at 50% under a mark at 60%');
+  assert.equal((results.match(/PRACTICE_PASS_PCT\}%/g) || []).length, 3, 'the flag, its place on the track and the bar\'s screen-reader name only');
+  assert.match(results, /<div className="vmx-benchmark-flag">\{PRACTICE_PASS_PCT\}%<\/div>/);
   const flag = Number(rule('.vmx-benchmark-flag').match(/top: -(\d+)px/)[1]);
-  assert.ok(top >= flag + 12, `the flag stands ${flag} px above the track, the bar only ${top} px under the score`);
+  // The score card's own override (5.282.0).
+  const cardRule = CSS.match(/\.vmx-res-card \.vmx-benchmark-container \{[^}]*\}/)?.[0] || '';
+  for (const [sel, text] of [['.vmx-benchmark-container', rule('.vmx-benchmark-container')], ['.vmx-res-card .vmx-benchmark-container', cardRule]]) {
+    const top = Number(text.match(/margin: (\d+)px/)[1]);
+    assert.ok(top >= flag + 12, `${sel}: the flag stands ${flag} px above the track, the bar only ${top} px under the score`);
+  }
 });

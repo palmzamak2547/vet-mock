@@ -59,12 +59,12 @@ async function runOutOfTime(page) {
 
 // On the results: no entry carries the sheet's marker, and Back never shows the paper as live.
 async function backFromResults(page) {
-  await expect(page.locator('.vmx-results-hero')).toBeVisible({ timeout: 20_000 });
+  await expect(page.getByRole('region', { name: 'ผลชุดนี้' })).toBeVisible({ timeout: 20_000 });
   const marked = await page.evaluate(() => Boolean(window.history.state?.vmxCaseSheet));
   await page.evaluate(() => window.history.back());
   // Home (where Back from results goes when no sheet was ever open), and no paper.
   await expect(page.getByRole('button', { name: /ทำต่อจากครั้งล่าสุด/ })).toHaveCount(0);
-  await expect(page.locator('.vmx-results-hero')).toHaveCount(0);
+  await expect(page.getByRole('region', { name: 'ผลชุดนี้' })).toHaveCount(0);
   await page.waitForTimeout(500);
   await expect(page.locator('.vmx-timer')).toHaveCount(0);
   await expect(page.locator('.vmx-option')).toHaveCount(0);

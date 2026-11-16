@@ -278,6 +278,19 @@ export function buildShareUrl(questions, opts = {}) {
   return url;
 }
 
+// The link the results screen sends: the short /s/<code> form, which a chat
+// app previews with the subject's cover (api/s.js) and which carries the
+// question ids and nothing else: no score, no time, no name, no text the
+// student typed. A set the short form cannot hold (a subject outside
+// SHARE_SUBJECTS) falls back to the old `?qset=` form, still without a score.
+export function buildShortShareUrl(questions, origin = null) {
+  const base = origin || (typeof window !== 'undefined' ? window.location.origin : 'https://vetmock.com');
+  const code = encodeShareCode(questions);
+  if (code) return `${base}/s/${code}`;
+  const qset = encodeQuizSet(questions);
+  return qset ? `${base}/?qset=${qset}` : null;
+}
+
 // Parse sender-score + sender-name from current location. Returns null
 // when missing/malformed so callers can branch without try/catch.
 export function readSenderInfoFromLocation() {
@@ -315,11 +328,13 @@ export function readSenderInfoFromLocation() {
   }
 }
 
-// Read current URL → { keys: [{subject,id}, ...] } or empty
-export function readShareUrlFromLocation() {
-  if (typeof window === 'undefined') return [];
+// Read current URL → { keys: [{subject,id}, ...] } or empty. A /s/<code> link
+// reaches the app as `?qset=` too: api/s.js sends the browser on in that form,
+// so every link sent before 5.282.0 and every short one open the same way.
+export function readShareUrlFromLocation(loc = typeof window === 'undefined' ? null : window.location) {
+  if (!loc) return [];
   try {
-    const params = new URLSearchParams(window.location.search);
+    const params = new URLSearchParams(loc.search);
     return decodeQuizSet(params.get('qset'));
   } catch {
     return [];

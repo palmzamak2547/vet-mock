@@ -38,7 +38,7 @@ test('a resumed timer preserves its deadline and expires after a suspended inter
   await page.clock.setSystemTime(Date.now() + 120_000);
   await page.clock.runFor(1100);
   await expect(page.locator('.vmx-timer')).toHaveCount(0);
-  await expect(page.getByText(/Auto-graded Score|คะแนนตรวจอัตโนมัติ/)).toBeVisible();
+  await expect(page.getByRole('region', { name: 'ผลชุดนี้' })).toBeVisible();
 });
 
 // The whole point of the session clock: moving between questions must not buy
@@ -94,7 +94,7 @@ test('an exam clock is a budget for the paper, not a refill per question', async
   await page.clock.setSystemTime(Date.now() + 120_000);
   await page.clock.runFor(1100);
   await expect(timer).toHaveCount(0);
-  await expect(page.getByText(/Auto-graded Score|คะแนนตรวจอัตโนมัติ/)).toBeVisible();
+  await expect(page.getByRole('region', { name: 'ผลชุดนี้' })).toBeVisible();
 });
 
 test('a per-question expiry while a clear can still be taken back returns the marks to their own passage', async ({ page }) => {
