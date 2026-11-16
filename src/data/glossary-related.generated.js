@@ -2246,7 +2246,7 @@ const LEAVES = [
  [214597,100039],
  // end ["e. coli|universal","epidemiology","epidem-outbreak-investigation"]
  // ["e. coli|universal","equine-repro","eqrepro-endometritis"]
- [105548],
+ [105548,218112],
  // end ["e. coli|universal","equine-repro","eqrepro-endometritis"]
  // ["e. coli|universal","equine-repro","eqrepro-pregnancy"]
  [209542,209551],
@@ -2258,7 +2258,7 @@ const LEAVES = [
  [94027],
  // end ["e. coli|universal","exotic","sugar-glider-hedgehog"]
  // ["e. coli|universal","food-industry","fiqc-poultry-export"]
- [106245],
+ [106245,218314,218315,218319],
  // end ["e. coli|universal","food-industry","fiqc-poultry-export"]
  // ["e. coli|universal","food-industry","fiqc-slaughter-qc"]
  [207005],
@@ -2425,13 +2425,13 @@ const LEAVES = [
  [207267,109506,109570,109572],
  // end ["salmonella|universal","food-industry","fiqc-feed-qc"]
  // ["salmonella|universal","food-industry","fiqc-haccp"]
- [106226,213004],
+ [106226,213004,218300,218303,218305,218307,218308],
  // end ["salmonella|universal","food-industry","fiqc-haccp"]
  // ["salmonella|universal","food-industry","fiqc-livestock-qc"]
  [109504],
  // end ["salmonella|universal","food-industry","fiqc-livestock-qc"]
  // ["salmonella|universal","food-industry","fiqc-poultry-export"]
- [106244,106245],
+ [106244,106245,218313,218314,218315,218317,218319,218328,218329],
  // end ["salmonella|universal","food-industry","fiqc-poultry-export"]
  // ["salmonella|universal","food-safety-y4","dose-response"]
  [92503],
@@ -4331,7 +4331,7 @@ const LEAVES = [
  [202248],
  // end ["laminitis|equine","equine-repro","eqrepro-exam-mare"]
  // ["laminitis|equine","equine-repro","eqrepro-postpartum"]
- [105446],
+ [105446,218121],
  // end ["laminitis|equine","equine-repro","eqrepro-postpartum"]
  // end of "laminitis|equine"
  "nephrosplenic entrapment|equine",
@@ -4437,15 +4437,21 @@ const LEAVES = [
  // ["antibiotic residue|public-health","epidemiology","epidem-surveillance"]
  [100018],
  // end ["antibiotic residue|public-health","epidemiology","epidem-surveillance"]
+ // ["antibiotic residue|public-health","food-industry","fiqc-aquatic"]
+ [218340],
+ // end ["antibiotic residue|public-health","food-industry","fiqc-aquatic"]
  // ["antibiotic residue|public-health","food-industry","fiqc-feed-qc"]
  [107209],
  // end ["antibiotic residue|public-health","food-industry","fiqc-feed-qc"]
  // ["antibiotic residue|public-health","food-industry","fiqc-haccp"]
- [106223,213000,213003,213004],
+ [106223,213000,213003,213004,218303],
  // end ["antibiotic residue|public-health","food-industry","fiqc-haccp"]
  // ["antibiotic residue|public-health","food-industry","fiqc-livestock-qc"]
  [207032],
  // end ["antibiotic residue|public-health","food-industry","fiqc-livestock-qc"]
+ // ["antibiotic residue|public-health","food-industry","fiqc-poultry-export"]
+ [218332],
+ // end ["antibiotic residue|public-health","food-industry","fiqc-poultry-export"]
  // ["antibiotic residue|public-health","food-industry","fiqc-slaughter-qc"]
  [207003],
  // end ["antibiotic residue|public-health","food-industry","fiqc-slaughter-qc"]
@@ -4513,10 +4519,10 @@ const LEAVES = [
  // end of "furstenberg's rosette|public-health"
  "haccp|public-health",
  // ["haccp|public-health","food-industry","fiqc-aquatic"]
- [103013,103014],
+ [218340,218347,103013,103014],
  // end ["haccp|public-health","food-industry","fiqc-aquatic"]
  // ["haccp|public-health","food-industry","fiqc-haccp"]
- [106221,106222,106223,106224,106227,106229,106230,106231,106232,106233,106234,106235,213000,213001,213002,213003,213005,213006],
+ [106221,106222,106223,106224,106227,106229,106230,106231,106232,106233,106234,106235,213000,213001,213002,213003,213005,213006,218300,218301,218302,218303,218304,218305,218310,218311],
  // end ["haccp|public-health","food-industry","fiqc-haccp"]
  // ["haccp|public-health","food-industry","fiqc-intro"]
  [107202],
@@ -4525,7 +4531,7 @@ const LEAVES = [
  [109540],
  // end ["haccp|public-health","food-industry","fiqc-livestock-qc"]
  // ["haccp|public-health","food-industry","fiqc-poultry-export"]
- [106238,106242,213008],
+ [106238,106242,213008,218329,218331,218332],
  // end ["haccp|public-health","food-industry","fiqc-poultry-export"]
  // ["haccp|public-health","milk-meat-hygiene","meat-quality"]
  [214155,214156,212107],
@@ -4544,15 +4550,15 @@ const LEAVES = [
  // ["incidence|public-health","epidemiology","epidem-applied-stats"]
  [214623,214628,214640],
  // end ["incidence|public-health","epidemiology","epidem-applied-stats"]
- // ["incidence|public-health","epidemiology","epidem-basic-concepts"]
- [214500],
- // end ["incidence|public-health","epidemiology","epidem-basic-concepts"]
  // ["incidence|public-health","epidemiology","epidem-causation"]
  [214531,214536,105089,105090],
  // end ["incidence|public-health","epidemiology","epidem-causation"]
  // ["incidence|public-health","epidemiology","epidem-control-prevention"]
  [213531,213532,213565],
  // end ["incidence|public-health","epidemiology","epidem-control-prevention"]
+ // ["incidence|public-health","epidemiology","epidem-current-research"]
+ [218402],
+ // end ["incidence|public-health","epidemiology","epidem-current-research"]
  // ["incidence|public-health","epidemiology","epidem-data-analysis"]
  [214646],
  // end ["incidence|public-health","epidemiology","epidem-data-analysis"]
@@ -4572,7 +4578,7 @@ const LEAVES = [
  [214566,214570,214571,214583,213516,213524,213544],
  // end ["incidence|public-health","epidemiology","epidem-observational-study"]
  // ["incidence|public-health","epidemiology","epidem-outbreak-investigation"]
- [214593,214599,214601,214602,214603,214604,100040],
+ [214500,214593,214599,214601,214602,214603,214604,100040],
  // end ["incidence|public-health","epidemiology","epidem-outbreak-investigation"]
  // ["incidence|public-health","epidemiology","epidem-software"]
  [214657],
@@ -4731,8 +4737,11 @@ const LEAVES = [
  // ["prevalence|public-health","epidemiology","epidem-control-prevention"]
  [213531],
  // end ["prevalence|public-health","epidemiology","epidem-control-prevention"]
+ // ["prevalence|public-health","epidemiology","epidem-current-research"]
+ [218402,218404],
+ // end ["prevalence|public-health","epidemiology","epidem-current-research"]
  // ["prevalence|public-health","epidemiology","epidem-data-analysis"]
- [214646,214647,214648,214650,213543],
+ [214646,214647,213543],
  // end ["prevalence|public-health","epidemiology","epidem-data-analysis"]
  // ["prevalence|public-health","epidemiology","epidem-disease-frequency"]
  [214537,214540,214541,214542,214543,214545,214546,214547,214548,213500,213501,213502,107001,107002,107003,107004],
@@ -4753,10 +4762,10 @@ const LEAVES = [
  [214601],
  // end ["prevalence|public-health","epidemiology","epidem-outbreak-investigation"]
  // ["prevalence|public-health","epidemiology","epidem-sample-size"]
- [107037],
+ [214648,214650,107037],
  // end ["prevalence|public-health","epidemiology","epidem-sample-size"]
  // ["prevalence|public-health","epidemiology","epidem-software"]
- [214655,214657],
+ [214655,214657,218406],
  // end ["prevalence|public-health","epidemiology","epidem-software"]
  // ["prevalence|public-health","epidemiology","epidem-surveillance"]
  [214587,214612,214614,214617,214618,100027,100030],
@@ -4816,9 +4825,6 @@ const LEAVES = [
  // ["relative risk|public-health","epidemiology","epidem-control-prevention"]
  [213532],
  // end ["relative risk|public-health","epidemiology","epidem-control-prevention"]
- // ["relative risk|public-health","epidemiology","epidem-data-analysis"]
- [214651],
- // end ["relative risk|public-health","epidemiology","epidem-data-analysis"]
  // ["relative risk|public-health","epidemiology","epidem-disease-frequency"]
  [214537,214542],
  // end ["relative risk|public-health","epidemiology","epidem-disease-frequency"]
@@ -4828,6 +4834,9 @@ const LEAVES = [
  // ["relative risk|public-health","epidemiology","epidem-outbreak-investigation"]
  [214595,214601,214602,214603,214604,214608,100040],
  // end ["relative risk|public-health","epidemiology","epidem-outbreak-investigation"]
+ // ["relative risk|public-health","epidemiology","epidem-sample-size"]
+ [214651],
+ // end ["relative risk|public-health","epidemiology","epidem-sample-size"]
  // ["relative risk|public-health","epidemiology","epidem-surveillance"]
  [214614,214620],
  // end ["relative risk|public-health","epidemiology","epidem-surveillance"]
@@ -4868,6 +4877,9 @@ const LEAVES = [
  // ["95% ci|public-health","epidemiology","epidem-control-prevention"]
  [213532],
  // end ["95% ci|public-health","epidemiology","epidem-control-prevention"]
+ // ["95% ci|public-health","epidemiology","epidem-current-research"]
+ [218404],
+ // end ["95% ci|public-health","epidemiology","epidem-current-research"]
  // ["95% ci|public-health","epidemiology","epidem-data-analysis"]
  [214647,214654,213555,213557],
  // end ["95% ci|public-health","epidemiology","epidem-data-analysis"]
@@ -4897,7 +4909,7 @@ const LEAVES = [
  [214538,214555,214557],
  // end ["kappa|epidemiology","epidemiology","epidem-dx-screening"]
  // ["kappa|epidemiology","epidemiology","epidem-test-agreement"]
- [214564,214565,107023,107024,107025],
+ [214564,214565,107023,107024,107025,218409],
  // end ["kappa|epidemiology","epidemiology","epidem-test-agreement"]
  // end of "kappa|epidemiology"
  "icc|epidemiology",
@@ -4991,6 +5003,9 @@ const LEAVES = [
  // ["sensitivity & specificity|public-health","epidemiology","epidem-causation"]
  [105084,105089],
  // end ["sensitivity & specificity|public-health","epidemiology","epidem-causation"]
+ // ["sensitivity & specificity|public-health","epidemiology","epidem-current-research"]
+ [218400],
+ // end ["sensitivity & specificity|public-health","epidemiology","epidem-current-research"]
  // ["sensitivity & specificity|public-health","epidemiology","epidem-disease-transmission"]
  [214524],
  // end ["sensitivity & specificity|public-health","epidemiology","epidem-disease-transmission"]
@@ -5007,7 +5022,7 @@ const LEAVES = [
  [214704],
  // end ["sensitivity & specificity|public-health","epidemiology","epidem-ppp"]
  // ["sensitivity & specificity|public-health","epidemiology","epidem-software"]
- [214655],
+ [214655,218406,218408],
  // end ["sensitivity & specificity|public-health","epidemiology","epidem-software"]
  // ["sensitivity & specificity|public-health","epidemiology","epidem-surveillance"]
  [214587,214613,214614,214618,100019,100028,100030],
@@ -5096,6 +5111,9 @@ const LEAVES = [
  // end ["spillover|public-health","zoonoses","zoo-eid-wildlife"]
  // end of "spillover|public-health"
  "total plate count|public-health",
+ // ["total plate count|public-health","food-industry","fiqc-poultry-export"]
+ [218315],
+ // end ["total plate count|public-health","food-industry","fiqc-poultry-export"]
  // ["total plate count|public-health","food-safety-y4","haccp"]
  [92529],
  // end ["total plate count|public-health","food-safety-y4","haccp"]
@@ -5146,9 +5164,15 @@ const LEAVES = [
  // ["vector|public-health","food-industry","fiqc-aquatic"]
  [103013],
  // end ["vector|public-health","food-industry","fiqc-aquatic"]
+ // ["vector|public-health","food-industry","fiqc-haccp"]
+ [218303],
+ // end ["vector|public-health","food-industry","fiqc-haccp"]
  // ["vector|public-health","food-industry","fiqc-intro"]
  [207098],
  // end ["vector|public-health","food-industry","fiqc-intro"]
+ // ["vector|public-health","food-industry","fiqc-poultry-export"]
+ [218323],
+ // end ["vector|public-health","food-industry","fiqc-poultry-export"]
  // ["vector|public-health","food-safety-y4","food-pathogens"]
  [92516],
  // end ["vector|public-health","food-safety-y4","food-pathogens"]
