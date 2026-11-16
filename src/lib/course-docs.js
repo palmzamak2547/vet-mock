@@ -20,6 +20,10 @@ import { dateRangeLabel } from './exam-timetable.js';
 const MONTHS = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
 const WEEKDAYS = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'];
 const WD = ['อา.', 'จ.', 'อ.', 'พ.', 'พฤ.', 'ศ.', 'ส.'];
+const WD_FULL = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'];
+// A class off the weekly day with no time from its evidence says so, rather
+// than leaving a blank the reader fills with the weekly slot's hours.
+export const NO_TIME = 'ไม่ทราบเวลา';
 const DAY_MS = 86_400_000;
 export const PAPER_LABEL = { midterm: 'สอบกลางภาค', final: 'สอบปลายภาค' };
 // Rows that name a group rather than a person stay out of the lecturer list.
@@ -94,8 +98,18 @@ const changeText = (c) => `${c.text} (กลุ่มไลน์ชั้นป
 const staffOf = (course) => uniq(course.sessions.flatMap((s) => s.lecturers)).filter((n) => !NOT_A_PERSON.test(n));
 // "อรัญญา พลพรพิสิฐ (ส่วน มกอช.)" reads "อรัญญา (ส่วน มกอช.)"; a group ("ผู้แทน CPF") stays whole.
 const firstName = (who) => (NOT_A_PERSON.test(who) ? who : who.replace(/^(\S+)\s+[^\s(]+/u, '$1'));
-// A session the whole teaching staff of four or more shares names them once.
-const wholeStaff = (staff) => (ls) => staff.length >= 4 && ls.length === staff.length && staff.every((n) => ls.includes(n));
+// A team of four or more who teach together is named once: the whole staff
+// when one session names all of them, else a group that shares two or more
+// sessions (epidemiology's module staff, who are not every lecturer of the course).
+function teamOf(course, staff) {
+  const same = (a) => (ls) => ls.length === a.length && a.every((n) => ls.includes(n));
+  if (staff.length >= 4 && course.sessions.some((s) => same(staff)(s.lecturers))) {
+    return { names: staff, label: `ผู้สอนทั้ง ${staff.length} ท่าน`, has: same(staff) };
+  }
+  const groups = course.sessions.map((s) => s.lecturers).filter((ls) => ls.length >= 4 && ls.every((n) => !NOT_A_PERSON.test(n)));
+  const names = groups.find((ls) => groups.filter(same(ls)).length >= 2);
+  return names ? { names, label: `ทีมผู้สอน ${names.length} ท่าน`, has: same(names) } : null;
+}
 // The days the plan had a moved row on, all of them: two classes taught in one read "เดิม 1 และ 8 ก.ย.".
 const movedFrom = (s) => { const p = [].concat(s.planned || []); return p.some((d) => d !== s.date) ? p : []; };
 
@@ -134,14 +148,14 @@ export function syllabusDoc(subject, year, { now = new Date(), term = SEMESTER.i
     if (t) weight[t] = i.pct;
   }
   const staff = staffOf(course);
-  const whole = wholeStaff(staff);
+  const team = teamOf(course, staff);
   const papers = ['midterm', 'final'].filter((t) => course.papers?.[t]).map((t) => {
     const own = course.sessions.filter((s) => sessionPaper(course, s, term) === t).sort((a, b) => a.date.localeCompare(b.date));
     const ownDates = uniq(own.map((s) => s.date));
     // What each lecturer (or team) taught for this paper, in teaching order.
     const groups = [];
     for (const s of own) {
-      const who = whole(s.lecturers) ? `ผู้สอนทั้ง ${staff.length} ท่าน` : s.lecturers.join(', ');
+      const who = team?.has(s.lecturers) ? team.label : s.lecturers.join(', ');
       let g = groups.find((x) => x.who === who);
       if (!g) groups.push(g = { who, titles: [] });
       g.titles.push(s.title);
@@ -162,16 +176,17 @@ export function syllabusDoc(subject, year, { now = new Date(), term = SEMESTER.i
   });
   const notes = (course.notes || []).map((n) => `${n.text} (${sourceText(n.source)})`);
   for (const s of course.sessions.filter((x) => x.paper === null && x.change)) notes.push(changeText(s.change));
-  // The papers name who taught what; the whole staff is listed only where a
-  // paper says "all of them", or where there is no paper to name anyone.
-  const listStaff = !papers.length || course.sessions.some((s) => sessionPaper(course, s, term) && whole(s.lecturers));
+  // The papers name who taught what; the staff is listed only where a paper
+  // names a team ("all of them"), or where there is no paper to name anyone.
+  const teamed = papers.length > 0 && !!team && course.sessions.some((s) => sessionPaper(course, s, term) && team.has(s.lecturers));
   return {
     ...header(course, year, term, now, 'syllabus', { exams: papers.length > 0 }),
     lede: 'ประมวลรายวิชาฉบับอ่านง่าย พร้อมพิมพ์บนกระดาษ A4',
     facts: [
       { label: 'เรียน', text: `ทุกวัน${course.slot.day} ${course.slot.time} ${course.slot.room}, ${dateRangeLabel(dates[0], dates.at(-1))}` },
       ...(course.coordinator ? [{ label: 'ผู้ประสานงานรายวิชา', text: course.coordinator, names: true }] : []),
-      ...(listStaff ? [{ label: papers.length ? `ผู้สอนทั้ง ${staff.length} ท่าน` : 'ผู้สอน', text: staff.join(', '), names: true }] : []),
+      ...(teamed ? [{ label: team.label, text: team.names.join(', '), names: true }] : []),
+      ...(!papers.length ? [{ label: 'ผู้สอน', text: staff.join(', '), names: true }] : []),
     ],
     papers,
     noPaper: papers.length ? '' : 'ไม่มีสอบกลางภาคและปลายภาคในตารางสอบของคณะ',
@@ -182,7 +197,7 @@ export function syllabusDoc(subject, year, { now = new Date(), term = SEMESTER.i
     notes: [
       // One line: what may still move, and where the evidence ends (the sources are named below).
       (papers.length ? 'วันเวลาและห้องสอบอาจเปลี่ยนตามประกาศ' : 'วันเรียนอาจเปลี่ยนตามประกาศของรายวิชา')
-        + (TERMS[term]?.evidenceUntil ? `${papers.length ? ', วันเรียน' : ' และ'}หลัง ${shortYear(TERMS[term].evidenceUntil)} เป็นวันตามแผน` : ''),
+        + (course.evidenceUntil ? `${papers.length ? ', วันเรียน' : ' และ'}หลัง ${shortYear(course.evidenceUntil)} เป็นวันตามแผน` : ''),
       ...notes,
     ],
   };
@@ -194,8 +209,8 @@ export function teachingDoc(subject, year, { now = new Date(), term = SEMESTER.i
   if (!course) return null;
   const exams = examsOf(subject, year, course, term);
   const staff = staffOf(course);
-  const whole = wholeStaff(staff);
-  const until = TERMS[term]?.evidenceUntil;
+  const team = teamOf(course, staff);
+  const until = course.evidenceUntil;
   const rows = course.sessions.map((s) => {
     const d = calendarDay(s.date);
     const moved = movedFrom(s);
@@ -203,10 +218,10 @@ export function teachingDoc(subject, year, { now = new Date(), term = SEMESTER.i
       date: s.date,
       when: `${WD[d.getUTCDay()]} ${thaiDay(s.date)}`,
       kind: s.kind || 'session',
-      time: s.time || '',
+      time: s.time || (isTeaching(s) && WD_FULL[d.getUTCDay()] !== course.slot.day ? NO_TIME : ''),
       title: s.title,
       en: s.en || '',
-      lecturers: whole(s.lecturers) ? `ผู้สอนทั้ง ${staff.length} ท่าน` : s.lecturers.join(', '),
+      lecturers: team?.has(s.lecturers) ? team.label : s.lecturers.join(', '),
       paper: sessionPaper(course, s, term),
       // How the row is known: moved from the plan, or, within the evidence's
       // reach, still only the plan. Past it every row is the plan (the note says so).
@@ -223,12 +238,12 @@ export function teachingDoc(subject, year, { now = new Date(), term = SEMESTER.i
   }
   // By date; on one day the sessions in their order, a paper after them.
   rows.sort((a, b) => a.date.localeCompare(b.date) || (a.kind === 'exam') - (b.kind === 'exam') || a.time.localeCompare(b.time));
-  const staffed = course.sessions.some((s) => whole(s.lecturers));
+  const staffed = !!team && course.sessions.some((s) => team.has(s.lecturers));
   return {
     ...header(course, year, term, now, 'teaching', { exams: Object.keys(exams).length > 0 }),
     lede: 'ตารางสอนพร้อมพิมพ์บนกระดาษ A4',
     slot: `เรียนทุกวัน${course.slot.day} ${course.slot.time} ${course.slot.room}`,
-    staff: staffed ? `ผู้สอนทั้ง ${staff.length} ท่าน: ${staff.join(', ')}` : '',
+    staff: staffed ? `${team.label}: ${team.names.join(', ')}` : '',
     legend: ['midterm', 'final'].filter((t) => course.papers?.[t]),
     rows,
     notes: [

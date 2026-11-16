@@ -404,6 +404,9 @@ const LEAVES = [
  // ["lethargy|universal","vca","parasitology"]
  [694170],
  // end ["lethargy|universal","vca","parasitology"]
+ // ["lethargy|universal","vet-juris","animal-welfare-act-2557"]
+ [218725,218729],
+ // end ["lethargy|universal","vet-juris","animal-welfare-act-2557"]
  // ["lethargy|universal","zoonoses","zoo-vbz"]
  [106096],
  // end ["lethargy|universal","zoonoses","zoo-vbz"]
@@ -2398,7 +2401,7 @@ const LEAVES = [
  [105772],
  // end ["salmonella|universal","avian-medicine","avian-nds"]
  // ["salmonella|universal","avian-medicine","avian-ort"]
- [105819,212522],
+ [105819,212522,218217],
  // end ["salmonella|universal","avian-medicine","avian-ort"]
  // ["salmonella|universal","avian-medicine","avian-salmonella"]
  [202242,206125,206126,206127,206128,206129,206130,206131,206132,206133,206134,206135,206136,206029,206031,206033,109090],
@@ -2481,6 +2484,9 @@ const LEAVES = [
  // ["salmonella|universal","one-health","oh-amr"]
  [105958],
  // end ["salmonella|universal","one-health","oh-amr"]
+ // ["salmonella|universal","one-health","oh-foodborne"]
+ [218603],
+ // end ["salmonella|universal","one-health","oh-foodborne"]
  // ["salmonella|universal","one-health","oh-risk-analysis"]
  [210046],
  // end ["salmonella|universal","one-health","oh-risk-analysis"]
@@ -2594,7 +2600,7 @@ const LEAVES = [
  [105772],
  // end ["pasteurella|universal","avian-medicine","avian-nds"]
  // ["pasteurella|universal","avian-medicine","avian-ort"]
- [105819,212521],
+ [105819,212521,218217],
  // end ["pasteurella|universal","avian-medicine","avian-ort"]
  // ["pasteurella|universal","epidemiology","epidem-basic-concepts"]
  [214511,100010],
@@ -2956,6 +2962,9 @@ const LEAVES = [
  // ["ascites syndrome|avian","avian-medicine","avian-goose-parvo"]
  [105776,212517],
  // end ["ascites syndrome|avian","avian-medicine","avian-goose-parvo"]
+ // ["ascites syndrome|avian","avian-medicine","avian-mycosis"]
+ [218245,218253],
+ // end ["ascites syndrome|avian","avian-medicine","avian-mycosis"]
  // end of "ascites syndrome|avian"
  "avian influenza|avian",
  // ["avian influenza|avian","avian-medicine","avian-ai"]
@@ -2970,6 +2979,9 @@ const LEAVES = [
  // ["avian influenza|avian","avian-medicine","avian-myco"]
  [202222,202234],
  // end ["avian influenza|avian","avian-medicine","avian-myco"]
+ // ["avian influenza|avian","avian-medicine","avian-mycosis"]
+ [218235],
+ // end ["avian influenza|avian","avian-medicine","avian-mycosis"]
  // ["avian influenza|avian","avian-medicine","avian-nd"]
  [105820,105063,109108],
  // end ["avian influenza|avian","avian-medicine","avian-nd"]
@@ -3064,6 +3076,9 @@ const LEAVES = [
  // ["bursa of fabricius|avian","avian-medicine","avian-cia"]
  [206159,106194,106204,107100],
  // end ["bursa of fabricius|avian","avian-medicine","avian-cia"]
+ // ["bursa of fabricius|avian","avian-medicine","avian-duck-plague"]
+ [218203,218205],
+ // end ["bursa of fabricius|avian","avian-medicine","avian-duck-plague"]
  // ["bursa of fabricius|avian","avian-medicine","avian-fowl-cholera"]
  [202223],
  // end ["bursa of fabricius|avian","avian-medicine","avian-fowl-cholera"]
@@ -3080,7 +3095,7 @@ const LEAVES = [
  [206161,106199,106203,106206,107118,107120,109062,109136],
  // end ["bursa of fabricius|avian","avian-medicine","avian-marek"]
  // ["bursa of fabricius|avian","avian-medicine","avian-mycosis"]
- [105799,212543],
+ [105799,212543,218253],
  // end ["bursa of fabricius|avian","avian-medicine","avian-mycosis"]
  // ["bursa of fabricius|avian","avian-medicine","avian-nd"]
  [105070,109072],
@@ -3158,6 +3173,9 @@ const LEAVES = [
  // ["coccidiosis|avian","avian-medicine","avian-cocci"]
  [206162,105863,105864,106212,106213,106214,106215,106216,106217,106219,205001,205003,205004,205005,205006,205007,205008,205009,109014,109032],
  // end ["coccidiosis|avian","avian-medicine","avian-cocci"]
+ // ["coccidiosis|avian","avian-medicine","avian-duck-plague"]
+ [218205],
+ // end ["coccidiosis|avian","avian-medicine","avian-duck-plague"]
  // ["coccidiosis|avian","avian-medicine","avian-histomoniasis"]
  [105793],
  // end ["coccidiosis|avian","avian-medicine","avian-histomoniasis"]
@@ -3167,6 +3185,9 @@ const LEAVES = [
  // ["coccidiosis|avian","avian-medicine","avian-malaria"]
  [106218,205028,205032,205033],
  // end ["coccidiosis|avian","avian-medicine","avian-malaria"]
+ // ["coccidiosis|avian","avian-medicine","avian-mycosis"]
+ [218235],
+ // end ["coccidiosis|avian","avian-medicine","avian-mycosis"]
  // ["coccidiosis|avian","avian-medicine","avian-ne"]
  [202221,105868,106211,205011,205012,205014],
  // end ["coccidiosis|avian","avian-medicine","avian-ne"]
@@ -3211,6 +3232,12 @@ const LEAVES = [
  // ["crd|avian","avian-medicine","avian-myco"]
  [202222,202227,202229,202230,202231,202232,202233,206041,105843],
  // end ["crd|avian","avian-medicine","avian-myco"]
+ // ["crd|avian","avian-medicine","avian-mycosis"]
+ [218235],
+ // end ["crd|avian","avian-medicine","avian-mycosis"]
+ // ["crd|avian","avian-medicine","avian-ort"]
+ [218217],
+ // end ["crd|avian","avian-medicine","avian-ort"]
  // ["crd|avian","avian-medicine","avian-pox"]
  [105080],
  // end ["crd|avian","avian-medicine","avian-pox"]
@@ -3314,6 +3341,9 @@ const LEAVES = [
  // ["ibd|avian","avian-medicine","avian-myco"]
  [105846],
  // end ["ibd|avian","avian-medicine","avian-myco"]
+ // ["ibd|avian","avian-medicine","avian-mycosis"]
+ [218240],
+ // end ["ibd|avian","avian-medicine","avian-mycosis"]
  // ["ibd|avian","avian-medicine","avian-nd"]
  [105070],
  // end ["ibd|avian","avian-medicine","avian-nd"]
@@ -3327,7 +3357,7 @@ const LEAVES = [
  [206035],
  // end ["ibd|avian","avian-medicine","avian-salmonella"]
  // ["ibd|avian","avian-medicine","avian-serology"]
- [212558],
+ [212558,218255],
  // end ["ibd|avian","avian-medicine","avian-serology"]
  // ["ibd|avian","avian-medicine","avian-vaccine-prog"]
  [105804,105805],
@@ -3486,6 +3516,9 @@ const LEAVES = [
  // ["marek's disease|avian","avian-medicine","avian-myco"]
  [105846],
  // end ["marek's disease|avian","avian-medicine","avian-myco"]
+ // ["marek's disease|avian","avian-medicine","avian-mycosis"]
+ [218235,218248],
+ // end ["marek's disease|avian","avian-medicine","avian-mycosis"]
  // ["marek's disease|avian","avian-medicine","avian-nd"]
  [105070],
  // end ["marek's disease|avian","avian-medicine","avian-nd"]
@@ -4235,6 +4268,9 @@ const LEAVES = [
  // ["colic|equine","equine-medicine","equine-gi"]
  [107414,107415,209625,209626],
  // end ["colic|equine","equine-medicine","equine-gi"]
+ // ["colic|equine","equine-medicine","equine-infectious"]
+ [218504],
+ // end ["colic|equine","equine-medicine","equine-infectious"]
  // ["colic|equine","equine-medicine","equine-nutrition"]
  [202066,207515,209624],
  // end ["colic|equine","equine-medicine","equine-nutrition"]
@@ -4272,7 +4308,7 @@ const LEAVES = [
  // end of "ehv-1|equine"
  "eia|equine",
  // ["eia|equine","equine-medicine","equine-infectious"]
- [216001,216002,216004,209567,209641],
+ [216001,216002,216004,218504,218511,218512,218515,209567,209641],
  // end ["eia|equine","equine-medicine","equine-infectious"]
  // ["eia|equine","equine-medicine","equine-poa"]
  [105273,209599],
@@ -4384,6 +4420,9 @@ const LEAVES = [
  // ["sarcoid|equine","equine-medicine","equine-derm"]
  [105228,105236,105237,105242,105243,105246,105250],
  // end ["sarcoid|equine","equine-medicine","equine-derm"]
+ // ["sarcoid|equine","equine-medicine","equine-ophth"]
+ [218526],
+ // end ["sarcoid|equine","equine-medicine","equine-ophth"]
  // ["sarcoid|equine","equine-medicine","equine-poa"]
  [105281],
  // end ["sarcoid|equine","equine-medicine","equine-poa"]
@@ -4393,7 +4432,7 @@ const LEAVES = [
  // end of "sarcoid|equine"
  "strangles|equine",
  // ["strangles|equine","equine-medicine","equine-infectious"]
- [216004,209643],
+ [216004,218512,218515,218516,218517,218518,218519,209643],
  // end ["strangles|equine","equine-medicine","equine-infectious"]
  // ["strangles|equine","equine-medicine","equine-intro"]
  [105289],
@@ -4542,6 +4581,9 @@ const LEAVES = [
  // ["haccp|public-health","milk-meat-hygiene","milk-industry-std"]
  [207214,207215,207216,207217,207218,207339,207340,207341,207465,207466,105754,105755,105756,106271,106272,101100,101102,101113,101114,104658,104784],
  // end ["haccp|public-health","milk-meat-hygiene","milk-industry-std"]
+ // ["haccp|public-health","one-health","oh-foodborne"]
+ [218603],
+ // end ["haccp|public-health","one-health","oh-foodborne"]
  // ["haccp|public-health","zoonoses","zoo-epi-approach"]
  [210500,210506,210512],
  // end ["haccp|public-health","zoonoses","zoo-epi-approach"]
@@ -4703,6 +4745,9 @@ const LEAVES = [
  // ["post-mortem inspection|public-health","milk-meat-hygiene","meat-slaughter"]
  [214165,214177],
  // end ["post-mortem inspection|public-health","milk-meat-hygiene","meat-slaughter"]
+ // ["post-mortem inspection|public-health","vet-juris","animal-welfare-act-2557"]
+ [218713],
+ // end ["post-mortem inspection|public-health","vet-juris","animal-welfare-act-2557"]
  // ["post-mortem inspection|public-health","vet-juris","slaughter-act-2559"]
  [93038],
  // end ["post-mortem inspection|public-health","vet-juris","slaughter-act-2559"]
@@ -5201,7 +5246,7 @@ const LEAVES = [
  [210006],
  // end ["vector|public-health","one-health","oh-env-carcinogen"]
  // ["vector|public-health","one-health","oh-foodborne"]
- [105948],
+ [105948,218601],
  // end ["vector|public-health","one-health","oh-foodborne"]
  // ["vector|public-health","one-health","oh-global-network"]
  [202293],
@@ -5209,6 +5254,9 @@ const LEAVES = [
  // ["vector|public-health","one-health","oh-gmo"]
  [210032],
  // end ["vector|public-health","one-health","oh-gmo"]
+ // ["vector|public-health","one-health","oh-livestock-waste"]
+ [218622],
+ // end ["vector|public-health","one-health","oh-livestock-waste"]
  // ["vector|public-health","one-health","oh-vet-role"]
  [202284,102009],
  // end ["vector|public-health","one-health","oh-vet-role"]

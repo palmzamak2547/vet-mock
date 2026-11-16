@@ -71,7 +71,7 @@ const LEAVES = [
   ["avian-medicine","avian-ai",24,{"1-mid":[15,2,0,7]},{"1-mid":[1,0,0,6]}], // e1fc1794156a
   // end ["avian-medicine","avian-ai"]
   // ["avian-medicine","avian-campy"]
-  ["avian-medicine","avian-campy",6,{"1-final":[6,0,0,0]},{"1-final":[3,0,0,0]}], // 95833f540793
+  ["avian-medicine","avian-campy",10,{"1-final":[10,0,0,0]},{"1-final":[3,0,0,0]}], // ad4d59f6acd5
   // end ["avian-medicine","avian-campy"]
   // ["avian-medicine","avian-cia"]
   ["avian-medicine","avian-cia",14,{"1-mid":[12,1,1,0,1]},{"1-mid":[2,0,0,0]}], // bd7ea0044c7b
@@ -86,13 +86,13 @@ const LEAVES = [
   ["avian-medicine","avian-coryza",18,{"1-mid":[8,10,0,0]},{}], // aa926592366a
   // end ["avian-medicine","avian-coryza"]
   // ["avian-medicine","avian-duck-flavi"]
-  ["avian-medicine","avian-duck-flavi",2,{"1-final":[2,0,0,0]},{"1-final":[1,0,0,0]}], // dad8a395da03
+  ["avian-medicine","avian-duck-flavi",6,{"1-final":[2,4,0,0]},{"1-final":[1,0,0,0]}], // a43ce779b414
   // end ["avian-medicine","avian-duck-flavi"]
   // ["avian-medicine","avian-duck-plague"]
-  ["avian-medicine","avian-duck-plague",5,{"1-final":[5,0,0,0]},{"1-final":[4,0,0,0]}], // d33dc77267fd
+  ["avian-medicine","avian-duck-plague",10,{"1-final":[5,5,0,0]},{"1-final":[4,0,0,0]}], // 54b1f329f1f3
   // end ["avian-medicine","avian-duck-plague"]
   // ["avian-medicine","avian-dvh"]
-  ["avian-medicine","avian-dvh",11,{"1-final":[11,0,0,0]},{"1-final":[10,0,0,0]}], // b8790942ed55
+  ["avian-medicine","avian-dvh",15,{"1-final":[11,4,0,0]},{"1-final":[10,0,0,0]}], // b73a72bd2500
   // end ["avian-medicine","avian-dvh"]
   // ["avian-medicine","avian-egg-breakout"]
   ["avian-medicine","avian-egg-breakout",1,{"1-mid":[0,0,0,1]},{}], // 4a6f2889e2bb
@@ -101,10 +101,10 @@ const LEAVES = [
   ["avian-medicine","avian-fowl-cholera",18,{"1-mid":[7,10,1,0]},{"1-mid":[1,0,0,0]}], // 6016715d316c
   // end ["avian-medicine","avian-fowl-cholera"]
   // ["avian-medicine","avian-goose-parvo"]
-  ["avian-medicine","avian-goose-parvo",7,{"1-final":[7,0,0,0]},{"1-final":[6,0,0,0]}], // d7de9326c16c
+  ["avian-medicine","avian-goose-parvo",8,{"1-final":[7,1,0,0]},{"1-final":[6,0,0,0]}], // f266b805f82f
   // end ["avian-medicine","avian-goose-parvo"]
   // ["avian-medicine","avian-histomoniasis"]
-  ["avian-medicine","avian-histomoniasis",2,{"1-final":[2,0,0,0]},{}], // 925d753dbd1a
+  ["avian-medicine","avian-histomoniasis",5,{"1-final":[5,0,0,0]},{}], // bea29e709073
   // end ["avian-medicine","avian-histomoniasis"]
   // ["avian-medicine","avian-ib"]
   ["avian-medicine","avian-ib",19,{"1-mid":[19,0,0,0,1]},{}], // d8eec5376d64
@@ -119,7 +119,7 @@ const LEAVES = [
   ["avian-medicine","avian-leuko",14,{"1-mid":[12,1,1,0,1]},{"1-mid":[2,0,0,0]}], // 88a0ec25b323
   // end ["avian-medicine","avian-leuko"]
   // ["avian-medicine","avian-listeria"]
-  ["avian-medicine","avian-listeria",3,{"1-final":[3,0,0,0]},{"1-final":[2,0,0,0]}], // 8960c783681f
+  ["avian-medicine","avian-listeria",7,{"1-final":[7,0,0,0]},{"1-final":[2,0,0,0]}], // 5a1d9b0c806d
   // end ["avian-medicine","avian-listeria"]
   // ["avian-medicine","avian-lt"]
   ["avian-medicine","avian-lt",16,{"1-mid":[16,0,0,0,1]},{}], // 1c082e14f6fe
@@ -137,19 +137,19 @@ const LEAVES = [
   ["avian-medicine","avian-myco",35,{"1-mid":[18,17,0,0]},{"1-mid":[0,3,0,0]}], // 8e6317dde263
   // end ["avian-medicine","avian-myco"]
   // ["avian-medicine","avian-mycosis"]
-  ["avian-medicine","avian-mycosis",32,{"1-final":[32,0,0,0]},{"1-final":[23,0,0,0]}], // 74cc790c758b
+  ["avian-medicine","avian-mycosis",56,{"1-final":[56,0,0,0]},{"1-final":[23,0,0,0]}], // e8de22946be9
   // end ["avian-medicine","avian-mycosis"]
   // ["avian-medicine","avian-nd"]
   ["avian-medicine","avian-nd",24,{"1-mid":[23,0,1,0]},{}], // 0472bcdb238e
   // end ["avian-medicine","avian-nd"]
   // ["avian-medicine","avian-nds"]
-  ["avian-medicine","avian-nds",1,{"1-final":[1,0,0,0]},{}], // 8f85b5519534
+  ["avian-medicine","avian-nds",7,{"1-final":[1,5,0,1]},{"1-final":[0,1,0,1]}], // ab1fc4534a95
   // end ["avian-medicine","avian-nds"]
   // ["avian-medicine","avian-ne"]
   ["avian-medicine","avian-ne",13,{"1-mid":[13,0,0,0,2]},{"1-mid":[1,0,0,0]}], // d263b76826d2
   // end ["avian-medicine","avian-ne"]
   // ["avian-medicine","avian-ort"]
-  ["avian-medicine","avian-ort",9,{"1-final":[9,0,0,0]},{"1-final":[7,0,0,0]}], // b2e46c01c823
+  ["avian-medicine","avian-ort",14,{"1-final":[14,0,0,0]},{"1-final":[7,0,0,0]}], // 98efe2a9228b
   // end ["avian-medicine","avian-ort"]
   // ["avian-medicine","avian-pox"]
   ["avian-medicine","avian-pox",18,{"1-mid":[18,0,0,0,2]},{"1-mid":[2,0,0,0]}], // 3aa687c55455
@@ -164,7 +164,7 @@ const LEAVES = [
   ["avian-medicine","avian-salmonella",27,{"1-mid":[14,13,0,0]},{}], // 2e324f2d3042
   // end ["avian-medicine","avian-salmonella"]
   // ["avian-medicine","avian-serology"]
-  ["avian-medicine","avian-serology",16,{"1-final":[13,0,1,2]},{"1-final":[6,0,0,2]}], // 1772c1d71da8
+  ["avian-medicine","avian-serology",17,{"1-final":[14,0,1,2]},{"1-final":[6,0,0,2]}], // bba2e989bba2
   // end ["avian-medicine","avian-serology"]
   // ["avian-medicine","avian-vaccine-prog"]
   ["avian-medicine","avian-vaccine-prog",15,{"1-final":[8,1,1,5]},{"1-final":[3,0,0,5]}], // 63484f4b994f
@@ -704,7 +704,7 @@ const LEAVES = [
   ["epidemiology","epidem-test-agreement",10,{"1-final":[10,0,0,0]},{}], // 341633121bf9
   // end ["epidemiology","epidem-test-agreement"]
   // ["equine-medicine","equine-anesthesia"]
-  ["equine-medicine","equine-anesthesia",17,{"1-final":[14,0,0,3]},{"1-final":[8,0,0,3]}], // 617a46b8cbf5
+  ["equine-medicine","equine-anesthesia",19,{"1-final":[16,0,0,3]},{"1-final":[8,0,0,3]}], // 46d38f44fe46
   // end ["equine-medicine","equine-anesthesia"]
   // ["equine-medicine","equine-colic-bestfit"]
   ["equine-medicine","equine-colic-bestfit",48,{"1-mid":[45,0,0,3],"1-final":[45,0,0,3]},{"1-mid":[10,0,0,3],"1-final":[10,0,0,3]}], // 53487291d86e
@@ -725,19 +725,19 @@ const LEAVES = [
   ["equine-medicine","equine-hoof",5,{"1-final":[5,0,0,0]},{}], // 3730b34aa91b
   // end ["equine-medicine","equine-hoof"]
   // ["equine-medicine","equine-infectious"]
-  ["equine-medicine","equine-infectious",13,{"1-final":[5,0,0,8]},{"1-final":[0,0,0,8]}], // 2cda8d83db70
+  ["equine-medicine","equine-infectious",29,{"1-final":[21,0,0,8]},{"1-final":[0,0,0,8]}], // 7e4d9f952f5b
   // end ["equine-medicine","equine-infectious"]
   // ["equine-medicine","equine-intro"]
   ["equine-medicine","equine-intro",87,{"1-mid":[86,0,0,1],"1-final":[86,0,0,1]},{"1-mid":[30,0,0,1],"1-final":[30,0,0,1]}], // c023eafe2c09
   // end ["equine-medicine","equine-intro"]
   // ["equine-medicine","equine-lameness"]
-  ["equine-medicine","equine-lameness",18,{"1-final":[0,0,0,18]},{"1-final":[0,0,0,18]}], // 249532c124f4
+  ["equine-medicine","equine-lameness",22,{"1-final":[4,0,0,18]},{"1-final":[0,0,0,18]}], // ad97a633ac03
   // end ["equine-medicine","equine-lameness"]
   // ["equine-medicine","equine-nutrition"]
   ["equine-medicine","equine-nutrition",57,{"1-mid":[55,0,0,2],"1-final":[55,0,0,2]},{"1-mid":[12,0,0,2],"1-final":[12,0,0,2]}], // fadb7572d5e6
   // end ["equine-medicine","equine-nutrition"]
   // ["equine-medicine","equine-ophth"]
-  ["equine-medicine","equine-ophth",22,{"1-final":[22,0,0,0]},{"1-final":[17,0,0,0]}], // b57fad473a06
+  ["equine-medicine","equine-ophth",30,{"1-final":[30,0,0,0]},{"1-final":[17,0,0,0]}], // ef682dc5d049
   // end ["equine-medicine","equine-ophth"]
   // ["equine-medicine","equine-parasites"]
   ["equine-medicine","equine-parasites",75,{"1-mid":[70,0,1,4],"1-final":[70,0,1,4]},{"1-mid":[19,0,1,4],"1-final":[19,0,1,4]}], // b73e57fee26d
@@ -746,13 +746,13 @@ const LEAVES = [
   ["equine-medicine","equine-poa",35,{"1-final":[11,0,0,24]},{"1-final":[7,0,0,15]}], // 07f41ddc8a36
   // end ["equine-medicine","equine-poa"]
   // ["equine-medicine","equine-pythium"]
-  ["equine-medicine","equine-pythium",7,{"1-final":[7,0,0,0]},{}], // f0ff97e3d0f3
+  ["equine-medicine","equine-pythium",8,{"1-final":[8,0,0,0]},{}], // dff67a9c980e
   // end ["equine-medicine","equine-pythium"]
   // ["equine-medicine","equine-respi"]
   ["equine-medicine","equine-respi",44,{"1-mid":[44,0,0,0],"1-final":[44,0,0,0]},{"1-mid":[12,0,0,0],"1-final":[12,0,0,0]}], // 838fabd66dbf
   // end ["equine-medicine","equine-respi"]
   // ["equine-medicine","equine-surgery-wound"]
-  ["equine-medicine","equine-surgery-wound",24,{"1-final":[24,0,0,0]},{}], // b3f5b4f78698
+  ["equine-medicine","equine-surgery-wound",26,{"1-final":[26,0,0,0]},{}], // d2b29ea39eb9
   // end ["equine-medicine","equine-surgery-wound"]
   // ["equine-medicine","equine-tendon"]
   ["equine-medicine","equine-tendon",5,{"1-final":[5,0,0,0]},{}], // bd13baaa8f91
@@ -1040,7 +1040,7 @@ const LEAVES = [
   ["milk-meat-hygiene","milk-borne-pathogens",44,{"1-mid":[41,0,3,0]},{"1-mid":[5,0,0,0]}], // 13ac8be17c24
   // end ["milk-meat-hygiene","milk-borne-pathogens"]
   // ["milk-meat-hygiene","milk-cleaning"]
-  ["milk-meat-hygiene","milk-cleaning",71,{"1-mid":[60,3,0,8],"1-final":[60,3,0,8]},{"1-mid":[11,0,0,3],"1-final":[11,0,0,3]}], // 909ac4b0a388
+  ["milk-meat-hygiene","milk-cleaning",73,{"1-mid":[61,4,0,8],"1-final":[61,4,0,8]},{"1-mid":[12,1,0,3],"1-final":[12,1,0,3]}], // 06997c55e4c8
   // end ["milk-meat-hygiene","milk-cleaning"]
   // ["milk-meat-hygiene","milk-industry-std"]
   ["milk-meat-hygiene","milk-industry-std",63,{"1-mid":[46,17,0,0]},{"1-mid":[11,11,0,0]}], // 6125142e148a
@@ -1049,13 +1049,13 @@ const LEAVES = [
   ["milk-meat-hygiene","milk-mastitis",89,{"1-mid":[77,1,11,0]},{"1-mid":[10,0,4,0]}], // 7596f0f89bfb
   // end ["milk-meat-hygiene","milk-mastitis"]
   // ["milk-meat-hygiene","milk-microbiology"]
-  ["milk-meat-hygiene","milk-microbiology",79,{"1-mid":[72,7,0,0]},{"1-mid":[7,0,0,0]}], // 0cf819daf0f0
+  ["milk-meat-hygiene","milk-microbiology",78,{"1-mid":[72,6,0,0]},{"1-mid":[7,0,0,0]}], // b75880f25b39
   // end ["milk-meat-hygiene","milk-microbiology"]
   // ["milk-meat-hygiene","milk-overview"]
   ["milk-meat-hygiene","milk-overview",28,{"1-mid":[13,15,0,0]},{"1-mid":[0,1,0,0]}], // 4329b8ddf5a8
   // end ["milk-meat-hygiene","milk-overview"]
   // ["milk-meat-hygiene","milk-processing"]
-  ["milk-meat-hygiene","milk-processing",106,{"1-mid":[99,6,1,0]},{"1-mid":[17,0,1,0]}], // 9ca3c0a31331
+  ["milk-meat-hygiene","milk-processing",105,{"1-mid":[98,6,1,0]},{"1-mid":[17,0,1,0]}], // 4f2168547ef1
   // end ["milk-meat-hygiene","milk-processing"]
   // ["milk-meat-hygiene","milk-products-storage"]
   ["milk-meat-hygiene","milk-products-storage",17,{"1-mid":[15,2,0,0]},{}], // 8619bf698586
@@ -1073,7 +1073,7 @@ const LEAVES = [
   ["milk-meat-hygiene","milk-raw-storage",64,{"1-mid":[61,3,0,0]},{"1-mid":[23,0,0,0]}], // 2f928867ae33
   // end ["milk-meat-hygiene","milk-raw-storage"]
   // ["one-health","oh-amr"]
-  ["one-health","oh-amr",16,{"1-final":[10,6,0,0]},{"1-final":[0,3,0,0]}], // cce757e84188
+  ["one-health","oh-amr",21,{"1-final":[10,11,0,0]},{"1-final":[0,3,0,0]}], // 18bac360e770
   // end ["one-health","oh-amr"]
   // ["one-health","oh-collaboration"]
   ["one-health","oh-collaboration",7,{"1-mid":[2,0,1,4]},{"1-mid":[0,0,0,1]}], // ceabe199b3ac
@@ -1094,19 +1094,19 @@ const LEAVES = [
   ["one-health","oh-env-mutagen",20,{"1-final":[18,2,0,0]},{"1-final":[10,1,0,0]}], // 3d7aca271528
   // end ["one-health","oh-env-mutagen"]
   // ["one-health","oh-foodborne"]
-  ["one-health","oh-foodborne",8,{"1-final":[6,0,0,2]},{"1-final":[0,0,0,2]}], // ad030a581822
+  ["one-health","oh-foodborne",11,{"1-final":[9,0,0,2]},{"1-final":[0,0,0,2]}], // cc3a093c31fe
   // end ["one-health","oh-foodborne"]
   // ["one-health","oh-global-network"]
   ["one-health","oh-global-network",36,{"1-mid":[35,0,1,0]},{}], // 366fc6397f3a
   // end ["one-health","oh-global-network"]
   // ["one-health","oh-gmo"]
-  ["one-health","oh-gmo",14,{"1-final":[13,1,0,0]},{"1-final":[9,1,0,0]}], // 7325cee69a22
+  ["one-health","oh-gmo",16,{"1-final":[15,1,0,0]},{"1-final":[9,1,0,0]}], // 4e80a7d3d51c
   // end ["one-health","oh-gmo"]
   // ["one-health","oh-import-risk"]
-  ["one-health","oh-import-risk",10,{"1-final":[10,0,0,0]},{}], // a71f69a53c38
+  ["one-health","oh-import-risk",11,{"1-final":[11,0,0,0]},{}], // fd383300273a
   // end ["one-health","oh-import-risk"]
   // ["one-health","oh-livestock-waste"]
-  ["one-health","oh-livestock-waste",17,{"1-final":[17,0,0,0]},{"1-final":[8,0,0,0]}], // 8af79d113eca
+  ["one-health","oh-livestock-waste",32,{"1-final":[32,0,0,0]},{"1-final":[8,0,0,0]}], // dd8ee150e17d
   // end ["one-health","oh-livestock-waste"]
   // ["one-health","oh-risk-analysis"]
   ["one-health","oh-risk-analysis",15,{"1-final":[15,0,0,0]},{"1-final":[2,0,0,0]}], // ddd761f3e97b
@@ -1825,12 +1825,21 @@ const LEAVES = [
   // ["vet-juris","animal-hospital-act-2557"]
   ["vet-juris","animal-hospital-act-2557",12,{"1-final":[12,0,0,0]},{"1-final":[12,0,0,0]}], // c2d3b9abd084
   // end ["vet-juris","animal-hospital-act-2557"]
+  // ["vet-juris","animal-welfare-act-2557"]
+  ["vet-juris","animal-welfare-act-2557",20,{"1-mid":[18,0,0,2]},{"1-mid":[18,0,0,2]}], // cdf299964627
+  // end ["vet-juris","animal-welfare-act-2557"]
   // ["vet-juris","drug-act-2510"]
   ["vet-juris","drug-act-2510",15,{"1-final":[15,0,0,0]},{"1-final":[15,0,0,0]}], // 3b79e19aefa4
   // end ["vet-juris","drug-act-2510"]
   // ["vet-juris","slaughter-act-2559"]
   ["vet-juris","slaughter-act-2559",3,{"1-final":[3,0,0,0]},{"1-final":[3,0,0,0]}], // 6466818217e0
   // end ["vet-juris","slaughter-act-2559"]
+  // ["vet-juris","vet-practice-act-2545"]
+  ["vet-juris","vet-practice-act-2545",12,{"1-mid":[12,0,0,0]},{"1-mid":[12,0,0,0]}], // abef14c8e043
+  // end ["vet-juris","vet-practice-act-2545"]
+  // ["vet-juris","vet-professional-ethics"]
+  ["vet-juris","vet-professional-ethics",1,{"1-mid":[0,0,0,1]},{"1-mid":[0,0,0,1]}], // 4b7b27015bf3
+  // end ["vet-juris","vet-professional-ethics"]
   // ["vet-juris","wildlife-act-2562"]
   ["vet-juris","wildlife-act-2562",5,{"1-final":[5,0,0,0]},{"1-final":[5,0,0,0]}], // 135c2f93503f
   // end ["vet-juris","wildlife-act-2562"]
