@@ -53,12 +53,9 @@ export function smallTextControls(source, file = 'inline.jsx') {
   return found;
 }
 
-// Left for a reviewed change, because it sits inside a running set (the written answer box of a question),
-// which takes two reviews (AGENTS.md, sync and exam session). Rows only go. The race's three controls
-// left this list in the multiplayer wave.
-const KNOWN = {
-  'src/components/Question.jsx': 1,
-};
+// Empty since 5.274.0: the race's three controls left in the multiplayer wave, the written answer box
+// of a question in 5.274.0. Rows only go; a new control is fixed, never added here.
+const KNOWN = {};
 
 test('no text control is drawn under 16 px by an inline style', () => {
   const found = jsxFiles('src').flatMap((file) => smallTextControls(readFileSync(new URL(file, ROOT), 'utf8'), file));
