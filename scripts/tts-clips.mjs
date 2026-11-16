@@ -347,10 +347,12 @@ function wordStarts(chars, startOf) {
 async function request(text, attempt = 0) {
   if (PAXA) {
     // The idempotency key makes a retried request free; a second voicing of a
-    // clip that failed its check is a new request (attempt).
+    // clip that failed its check is a new request (attempt). The key names the
+    // text sent: a text voiced before it was respelled is sent under a new key,
+    // since Paxa refuses a known key with a different body (422).
     return fetch('https://api.paxalabs.com/v1/tts', {
       method: 'POST',
-      headers: { authorization: `Bearer ${secret('PAXA_API_KEY')}`, 'Content-Type': 'application/json', 'idempotency-key': `vmx-${G.gen}-${G.voice}-${hashText(text)}-${attempt}` },
+      headers: { authorization: `Bearer ${secret('PAXA_API_KEY')}`, 'Content-Type': 'application/json', 'idempotency-key': `vmx-${G.gen}-${G.voice}-${hashText(respell(text))}-${attempt}` },
       // Temperature 0 varies least between requests, so a clip voiced again sounds like its
       // neighbours; a second voicing after a failed check varies a little. Ogg Opus is the
       // smallest source; it is encoded to AAC below like every clip.
