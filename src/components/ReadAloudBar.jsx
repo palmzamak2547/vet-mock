@@ -22,8 +22,10 @@ const clock = (s) => {
 
 // timed: the card is inside a timed paper; the speed button then steps the
 // speed as before instead of opening the voice settings.
-// raised: the text being read sits in a dialog, so the bar goes above it.
-export default function ReadAloudBar({ jobPrefix, engine, timed = false, raised = false, optionLetter = (i) => String.fromCharCode(65 + i) }) {
+// hostRef: the text being read sits in a dialog, so the bar is drawn inside
+// it (still fixed to the screen): above the dialog, reached by Tab inside it,
+// and under any sheet opened later, such as the voice settings.
+export default function ReadAloudBar({ jobPrefix, engine, timed = false, hostRef = null, optionLetter = (i) => String.fromCharCode(65 + i) }) {
   const st = useSyncExternalStore(readAloud.subscribe, readAloud.get, readAloud.get);
   const [drag, setDrag] = useState(null);
   // The voice settings, open over the page; they stay open if the reading ends meanwhile.
@@ -96,7 +98,7 @@ export default function ReadAloudBar({ jobPrefix, engine, timed = false, raised 
   const nextRate = RATES[(RATES.indexOf(st.rate) + 1) % RATES.length];
 
   return <>{sheet}{createPortal(
-    <div ref={barRef} className={`vmx-read-bar is-${st.status}`} role="region" aria-label="เสียงอ่าน" style={{ ...(raised ? { zIndex: 1001 } : {}), '--vmx-read-bar-lift': `${place.lift}px`, ...(place.nav ? { '--vmx-bottom-nav-h': place.nav } : {}) }}>
+    <div ref={barRef} className={`vmx-read-bar is-${st.status}`} role="region" aria-label="เสียงอ่าน" style={{ '--vmx-read-bar-lift': `${place.lift}px`, ...(place.nav ? { '--vmx-bottom-nav-h': place.nav } : {}) }}>
       <div className="vmx-read-bar-ctrl">
         <button type="button" className="vmx-read-btn" disabled={!clipControls}
           aria-label={byPoint ? 'ย้อนไปจุดก่อนหน้า' : 'ย้อนกลับ 10 วินาที'} title={byPoint ? 'จุดก่อนหน้า' : 'ย้อน 10 วินาที'}
@@ -151,6 +153,6 @@ export default function ReadAloudBar({ jobPrefix, engine, timed = false, raised 
         <span className="vmx-read-time" aria-hidden="true">{clock(shown)} / {clock(st.duration)}</span>
       </div>
     </div>,
-    document.body,
+    hostRef?.current || document.body,
   )}</>;
 }

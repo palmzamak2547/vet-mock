@@ -1,4 +1,4 @@
-// Read-aloud outside the practice card — e2e
+// Read-aloud outside the practice card: e2e
 // ============================================================
 // Results review, spaced review, the daily question and the wrap-up page
 // each get the practice card's listen button, bar and voice settings. The
@@ -121,7 +121,8 @@ test('spaced review reads the card\'s front, and its เหตุผล only onc
   await page.getByRole('button', { name: 'แสดงคำตอบ (Space)', exact: true }).click();
   await expect(card.locator('.back')).toBeVisible();
   const explain = card.getByRole('button', { name: 'อ่านเหตุผลออกเสียง' });
-  if (await explain.count()) {
+  await expect(explain).toHaveCount(1);
+  {
     const n = await page.evaluate(() => window.__said.length);
     await explain.click();
     await expect(bar(page)).toContainText('อ่านเหตุผล');
@@ -174,7 +175,8 @@ test('the daily question reads its question and options, the เฉลย only a
   await expect(dialog).toBeVisible();
   await dialog.locator('.vmx-options button').first().click();
   const explain = dialog.getByRole('button', { name: 'อ่านเหตุผลออกเสียง' });
-  if (await explain.count()) {
+  await expect(explain).toHaveCount(1);
+  {
     const n = await page.evaluate(() => window.__said.length);
     await explain.click();
     await expect(bar(page)).toContainText('อ่านเหตุผล');
@@ -185,6 +187,85 @@ test('the daily question reads its question and options, the เฉลย only a
   await expect(bar(page).getByRole('status')).toHaveText('เสียงอ่านของเครื่อง');
   await page.keyboard.press('Escape');
   await expect(dialog).toHaveCount(0);
+  await expectStopped(page);
+});
+
+test('on a 390 px phone the daily question\'s last option and ปิด stay clear of the bar, and Tab reaches the bar', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 664 });
+  await stubSpeech(page);
+  await page.addInitScript(() => {
+    localStorage.setItem('vmx-selected-year', '5');
+    localStorage.setItem('vmx-selected-phase', JSON.stringify('1-mid'));
+    localStorage.setItem('vmx-seen-landing', '1');
+    localStorage.setItem('vmx-consent', JSON.stringify('essential'));
+  });
+  await page.goto('/');
+  await page.getByRole('button', { name: /^ข้อวันนี้/ }).click();
+  const dialog = page.locator('[aria-labelledby="vmx-todays-q-title"]');
+  await expect(dialog.locator('.vmx-options button').first()).toBeVisible({ timeout: 20_000 });
+  const clearOfBar = async (target) => {
+    // Scrolled into view inside the dialog, the target is wholly above the bar.
+    await target.scrollIntoViewIfNeeded();
+    const t = await target.boundingBox();
+    const b = await bar(page).boundingBox();
+    expect(t, 'target on screen').not.toBeNull();
+    expect(t.y + t.height).toBeLessThanOrEqual(b.y);
+    // And a tap there lands on it, not on the bar.
+    const hit = await page.evaluate(([x, y]) => Boolean(document.elementFromPoint(x, y)?.closest('.vmx-read-bar')), [t.x + t.width / 2, t.y + t.height / 2]);
+    expect(hit).toBe(false);
+  };
+  await dialog.getByRole('button', { name: 'อ่านคำถามออกเสียง' }).click();
+  await expect(bar(page).getByRole('status')).toHaveText('เสียงอ่านของเครื่อง');
+  await clearOfBar(dialog.locator('.vmx-options .vmx-option').last());
+  await clearOfBar(dialog.getByRole('button', { name: 'ปิด', exact: true }));
+  // The bar's controls are part of the dialog for the keyboard.
+  await expect(dialog.getByRole('region', { name: 'เสียงอ่าน' })).toHaveCount(1);
+  let reached = false;
+  for (let i = 0; i < 40 && !reached; i++) {
+    await page.keyboard.press('Tab');
+    reached = await page.evaluate(() => Boolean(document.activeElement?.closest('.vmx-read-bar')));
+  }
+  expect(reached).toBe(true);
+  // Once answered, while the เฉลย is read, ปิด is clear of the bar too.
+  await bar(page).getByRole('button', { name: 'ปิดเสียงอ่าน' }).click();
+  await dialog.locator('.vmx-options button').first().click();
+  await dialog.getByRole('button', { name: 'อ่านเหตุผลออกเสียง' }).click();
+  await expect(bar(page)).toContainText('อ่านเหตุผล');
+  await clearOfBar(dialog.getByRole('button', { name: /^ปิด, เจอกันพรุ่งนี้/ }));
+});
+
+test('a first tap still loading the reader when the student leaves reads nothing on the next screen', async ({ page }) => {
+  await stubSpeech(page);
+  // The reader's code arrives late, as on a slow phone.
+  let release;
+  const held = new Promise((r) => { release = r; });
+  await page.route(/\/assets\/read-aloud-[\w-]+\.js$/, async (route) => { await held; await route.continue(); });
+  await page.addInitScript(() => {
+    localStorage.setItem('vmx-selected-year', '4');
+    localStorage.setItem('vmx-selected-phase', JSON.stringify('2-final'));
+    localStorage.setItem('vmx-seen-landing', '1');
+    localStorage.setItem('vmx-consent', JSON.stringify('essential'));
+    const questions = [
+      { id: 60201, subject: 'vca', year: 4, type: 'mcq', q: 'สุกรท้องเสียในฤดูฝนเกิดจากสาเหตุใด', options: ['การติดเชื้อ', 'อากาศร้อน'], answer: 0, explain: 'ความชื้นสูงทำให้เชื้อเพิ่มจำนวนได้ดี' },
+    ];
+    localStorage.setItem('vmx-inflight-exam:guest', JSON.stringify({
+      ownerId: null, sessionId: '0c5a8f3e-6c0b-4f8e-9d55-2f1d2b0b7a12', questions,
+      answers: { 60201: 1 }, currentIdx: 0, useTimer: false, mode: 'quick', selectedYear: 4, selectedPhase: '2-final',
+      submitted: true, localSaved: false, detailsSaved: false, submittedAt: Date.now(), savedAt: Date.now(),
+    }));
+  });
+  await page.goto('/app');
+  await page.getByRole('button', { name: /กู้ผลชุดที่ยังบันทึกไม่สำเร็จ/ }).click();
+  await page.getByRole('button', { name: 'ดูเฉลย', exact: true }).click();
+  const row = page.locator('.vmx-review-item').first();
+  await row.getByRole('button', { name: 'อ่านคำถามออกเสียง' }).click();
+  await page.getByRole('button', { name: '← หน้าแรก', exact: true }).click();
+  await expect(page.locator('.vmx-review-item')).toHaveCount(0);
+  const arrived = page.waitForResponse(/\/assets\/read-aloud-[\w-]+\.js$/);
+  release();
+  await arrived;
+  await page.waitForTimeout(1500);
+  expect(await page.evaluate(() => window.__said.length)).toBe(0);
   await expectStopped(page);
 });
 

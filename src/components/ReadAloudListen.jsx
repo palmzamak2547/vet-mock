@@ -1,5 +1,5 @@
 // ============================================================
-// ReadAloudListen — the read-aloud for a screen that shows questions or
+// ReadAloudListen: the read-aloud for a screen that shows questions or
 // their explanations outside the practice card
 // ============================================================
 // The same engine (lib/read-aloud.js, loaded on the first tap), the same bar
@@ -25,7 +25,7 @@ const LOAD_NOTE = 'อ่านออกเสียงไม่ได้ตอ�
  * job: { id, what: 'q' | 'explain', title, album, subject, stem, options,
  *        explain, container(kind, option) => Element | null }
  */
-export function useReadAloud(prefix, { raised = false } = {}) {
+export function useReadAloud(prefix, { hostRef = null } = {}) {
   const readingId = useSyncExternalStore(readAloud.subscribe, () => {
     const id = readAloud.get().job?.id;
     return id && id.startsWith(prefix) ? id : '';
@@ -34,12 +34,18 @@ export function useReadAloud(prefix, { raised = false } = {}) {
   const [engine, setEngine] = useState(null);
   // Why a tap could not start (the engine's code did not load): { id, text }.
   const [note, setNote] = useState(null);
-  const prefixNow = useRef(prefix);
-  prefixNow.current = prefix;
+  // The prefix whose screen is on now, set by the effect and cleared when the
+  // screen goes: a first tap still waiting for the engine's code then starts
+  // nothing once the student has left (or moved to another card).
+  const live = useRef(null);
 
-  useEffect(() => () => {
-    if (readAloud.get().job?.id.startsWith(prefix)) engineRef.current?.stop();
-    setNote(null);
+  useEffect(() => {
+    live.current = prefix;
+    return () => {
+      live.current = null;
+      if (readAloud.get().job?.id.startsWith(prefix)) engineRef.current?.stop();
+      setNote(null);
+    };
   }, [prefix]);
 
   const load = () => (engineRef.current
@@ -56,14 +62,14 @@ export function useReadAloud(prefix, { raised = false } = {}) {
     setNote(null);
     try {
       const m = await load();
-      if (prefixNow.current !== prefix) return;
+      if (live.current !== prefix) return;
       m.start(job);
     } catch {
       setNote({ id: job.id, text: LOAD_NOTE });
     }
   };
 
-  const bar = <ReadAloudBar jobPrefix={prefix} engine={engine} raised={raised} />;
+  const bar = <ReadAloudBar jobPrefix={prefix} engine={engine} hostRef={hostRef} />;
   return { readingId, speak, preload, note, bar };
 }
 

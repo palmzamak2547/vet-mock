@@ -9,3 +9,13 @@
   box-shadow: inset 3px 0 0 var(--clr-ocean); padding-left: 10px; margin-left: -10px;
 }
 .vmx-wrap-listen { margin: -6px -8px 0 auto; }
+
+/* A dialog that holds the read-aloud bar (the daily question): while the bar
+   is up the dialog ends above it and scrolls inside, so its last option and
+   its buttons are never under the bar. --vmx-read-spacer is the height from
+   the bar's top to the bottom of the screen (ReadAloudBar.jsx). */
+.vmx-modal.vmx-modal-reading {
+  margin-bottom: calc(var(--vmx-read-spacer, 0px) + 4px);
+  max-height: calc(100vh - 28px - var(--vmx-read-spacer, 0px));
+  max-height: calc(100dvh - 28px - var(--vmx-read-spacer, 0px));
+}

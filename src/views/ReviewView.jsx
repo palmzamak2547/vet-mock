@@ -17,10 +17,12 @@ import ZoomableImage from '../components/ZoomableImage.jsx';
 import EvidenceSlot from '../components/EvidenceSlot.jsx';
 import { copyShareUrl } from '../lib/share-link.js';
 import NavIcon from '../components/NavIcon.jsx';
+import OptionalFeature from '../components/OptionalFeature.jsx';
+import { lazyWithRetry } from '../lib/lazy-retry.js';
 // Read-aloud loads once this screen is open, never with Home's fetch-ahead of it.
-const ReadAloudHost = lazy(() => import('../components/ReadAloudListen.jsx').then((m) => ({ default: m.ReadAloudHost }))
-  // Offline when the screen opened: the review stays whole, without listen buttons.
-  .catch(() => ({ default: () => null })));
+// A dropped request is asked for once more; if that fails too, the review
+// stays whole without listen buttons.
+const ReadAloudHost = lazyWithRetry(() => import('../components/ReadAloudListen.jsx'), (m) => ({ default: m.ReadAloudHost }));
 const NO_VOICE = { readingId: '', note: null, speak: () => {}, preload: () => {}, Button: () => null };
 
 // Annotator is heavy (canvas + image processing) and only mounts on
@@ -684,7 +686,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
           <ImageAnnotator src={annotateSrc} onClose={() => setAnnotateSrc(null)} />
         </Suspense>
       )}
-      <Suspense fallback={null}><ReadAloudHost prefix="review:" onVoice={setVoice} /></Suspense>
+      <OptionalFeature><ReadAloudHost prefix="review:" onVoice={setVoice} /></OptionalFeature>
     </>
   );
 }

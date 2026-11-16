@@ -40,9 +40,10 @@ export default function TodaysQModal({ q, dateStr, onClose, onDone }) {
   const [challengeHint, setChallengeHint] = useState('');
   const dialogRef = useModalFocus({ active: Boolean(q), onClose });
   // Read-aloud: the question with its options in the order shown, and the
-  // เฉลย once it shows. The bar sits above this dialog.
+  // เฉลย once it shows. The bar is drawn inside this dialog, and while it is
+  // up the dialog stops above it (styles-listen.css).
   const readPrefix = `daily:${q?.subject || ''}:${q?.id ?? ''}:`;
-  const voice = useReadAloud(readPrefix, { raised: true });
+  const voice = useReadAloud(readPrefix, { hostRef: dialogRef });
   const stemRef = useRef(null);
   const explainRef = useRef(null);
 
@@ -88,7 +89,7 @@ export default function TodaysQModal({ q, dateStr, onClose, onDone }) {
     <div className="vmx-modal-overlay" onClick={onClose}>
       <div
         ref={dialogRef}
-        className="vmx-modal"
+        className={`vmx-modal${voice.readingId ? ' vmx-modal-reading' : ''}`}
         onClick={(e) => e.stopPropagation()}
         style={{ maxWidth: 580 }}
         tabIndex={-1}
@@ -222,8 +223,8 @@ export default function TodaysQModal({ q, dateStr, onClose, onDone }) {
             {challengeHint}
           </div>
         )}
-        {/* Inside the dialog: a tap on the bar bubbles (through its portal) to
-            the dialog, which keeps it from the backdrop that closes it. */}
+        {/* Inside the dialog: a tap on the bar stays in the dialog, which
+            keeps it from the backdrop that closes it. */}
         {voice.bar}
       </div>
 
