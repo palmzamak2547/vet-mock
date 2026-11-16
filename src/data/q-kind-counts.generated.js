@@ -1055,8 +1055,8 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "milk-cleaning": {
-        "mcq": 60,
-        "tf": 3,
+        "mcq": 61,
+        "tf": 4,
         "match": 0,
         "writing": 8
       },
@@ -1073,7 +1073,7 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "milk-processing": {
-        "mcq": 99,
+        "mcq": 98,
         "tf": 6,
         "match": 1,
         "writing": 0
@@ -1104,7 +1104,7 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
       },
       "milk-microbiology": {
         "mcq": 72,
-        "tf": 7,
+        "tf": 6,
         "match": 0,
         "writing": 0
       },
@@ -2727,8 +2727,8 @@ export const Q_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
     },
     "milk-meat-hygiene": {
       "milk-cleaning": {
-        "mcq": 60,
-        "tf": 3,
+        "mcq": 61,
+        "tf": 4,
         "match": 0,
         "writing": 8
       },
@@ -6819,8 +6819,8 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
         "writing": 0
       },
       "milk-cleaning": {
-        "mcq": 11,
-        "tf": 0,
+        "mcq": 12,
+        "tf": 1,
         "match": 0,
         "writing": 3
       },
@@ -8127,8 +8127,8 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_KIND_BY_SCOPE =
     },
     "milk-meat-hygiene": {
       "milk-cleaning": {
-        "mcq": 11,
-        "tf": 0,
+        "mcq": 12,
+        "tf": 1,
         "match": 0,
         "writing": 3
       },

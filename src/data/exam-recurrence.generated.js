@@ -2578,7 +2578,7 @@ export const EXAM_RECURRENCE = {
   },
   "milk-meat-hygiene": {
     "cohorts": [85],
-    "items": 307,
+    "items": 309,
     "topics": {
       "meat-ante-post-mortem": {
         "cohorts": [],
@@ -2732,14 +2732,14 @@ export const EXAM_RECURRENCE = {
         "cohorts": [85],
         "first": 85,
         "last": 85,
-        "items": 14,
+        "items": 16,
         "sat": {
           "85": {
             "midterm": ["milk-meat-hygiene:105744", "milk-meat-hygiene:105745", "milk-meat-hygiene:105746", "milk-meat-hygiene:105747", "milk-meat-hygiene:105748", "milk-meat-hygiene:105749", "milk-meat-hygiene:105750", "milk-meat-hygiene:105751", "milk-meat-hygiene:105752", "milk-meat-hygiene:105753"],
-            "final": ["milk-meat-hygiene:212083", "milk-meat-hygiene:212084", "milk-meat-hygiene:212085"],
+            "final": ["milk-meat-hygiene:104736", "milk-meat-hygiene:212083", "milk-meat-hygiene:212084", "milk-meat-hygiene:212085"],
           },
         },
-        "unattributed": ["milk-meat-hygiene:202274"],
+        "unattributed": ["milk-meat-hygiene:104728", "milk-meat-hygiene:202274"],
       },
       "milk-industry-std": {
         "cohorts": [85],

@@ -218,7 +218,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'food-safety-y4': 21,
     'herd-health-rum': 33,
     'livestock-pathology': 67,
-    'milk-meat-hygiene': 412,
+    'milk-meat-hygiene': 414,
     'one-health': 74,
     'poultry': 69,
     'practrum': 17,
@@ -277,7 +277,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'food-industry': 61,
     'food-safety-y4': 21,
     'herd-health-rum': 37,
-    'milk-meat-hygiene': 417,
+    'milk-meat-hygiene': 419,
     'one-health': 119,
     'surg1': 29,
     'swine-clinic': 177,
@@ -354,7 +354,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
     2: 104,
     3: 62,
     4: 302,
-    5: 3812,
+    5: 3814,
   },
   '2-mid': {
     1: 297,
@@ -483,12 +483,12 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
     'milk-meat-hygiene': {
       'milk-biosec-dairy': 32,
       'milk-borne-pathogens': 44,
-      'milk-cleaning': 71,
+      'milk-cleaning': 73,
       'milk-industry-std': 63,
       'milk-mastitis': 89,
-      'milk-microbiology': 79,
+      'milk-microbiology': 78,
       'milk-overview': 28,
-      'milk-processing': 106,
+      'milk-processing': 105,
       'milk-products-storage': 17,
       'milk-quality-composition': 92,
       'milk-quality-determination': 94,
@@ -841,7 +841,7 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'meat-seafood': 39,
       'meat-slaughter': 42,
       'meat-storage': 21,
-      'milk-cleaning': 71,
+      'milk-cleaning': 73,
     },
     'one-health': {
       'oh-amr': 16,
@@ -1627,7 +1627,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
     'milk-meat-hygiene': {
       'milk-biosec-dairy': 13,
       'milk-borne-pathogens': 5,
-      'milk-cleaning': 14,
+      'milk-cleaning': 16,
       'milk-industry-std': 22,
       'milk-mastitis': 14,
       'milk-microbiology': 7,
@@ -1908,7 +1908,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC_BY_SCOPE = {
       'meat-seafood': 14,
       'meat-slaughter': 19,
       'meat-storage': 10,
-      'milk-cleaning': 14,
+      'milk-cleaning': 16,
     },
     'one-health': {
       'oh-amr': 3,
@@ -2804,12 +2804,12 @@ export const Q_COUNTS_BY_TOPIC = {
     "meat-storage": 21,
     "milk-biosec-dairy": 32,
     "milk-borne-pathogens": 44,
-    "milk-cleaning": 71,
+    "milk-cleaning": 73,
     "milk-industry-std": 63,
     "milk-mastitis": 89,
-    "milk-microbiology": 79,
+    "milk-microbiology": 78,
     "milk-overview": 28,
-    "milk-processing": 106,
+    "milk-processing": 105,
     "milk-products-storage": 17,
     "milk-quality-composition": 92,
     "milk-quality-determination": 94,
@@ -3454,7 +3454,7 @@ export const Q_PAST_PAPER_COUNTS_BY_TOPIC = {
     "meat-storage": 10,
     "milk-biosec-dairy": 13,
     "milk-borne-pathogens": 5,
-    "milk-cleaning": 14,
+    "milk-cleaning": 16,
     "milk-industry-std": 22,
     "milk-mastitis": 14,
     "milk-microbiology": 7,
@@ -3744,4 +3744,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-11-15T23:57:24.159Z
+// Built: 2026-11-16T02:42:52.750Z
