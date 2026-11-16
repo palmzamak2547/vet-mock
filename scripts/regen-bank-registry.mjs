@@ -11,7 +11,9 @@
 //                    with a CROSS_YEAR filename override for utility banks
 //                    that must load for every year (vca/short/mahahon/termpaper)
 //   • subjects     — distinct `subject` ids present
-//   • count        — number of questions
+//   • leaves       — subject, topic and year of each question, for the
+//                    digest on a bank of several subjects or years (no
+//                    count is written: scripts/lib/bank-registry-text.mjs)
 //
 // Emits a generated module exporting BANK_REGISTRY where each entry has a
 // `load()` thunk built from a LITERAL import() string so Vite still
@@ -76,7 +78,9 @@ for (const file of files) {
 
   const years = new Set();
   const subjects = new Set();
+  const leaves = [];
   for (const q of arr) {
+    leaves.push([q?.subject ?? null, q?.topic ?? null, Number.isFinite(q?.year) ? q.year : null]);
     if (Number.isFinite(q?.year)) years.add(q.year);
     if (q?.subject) subjects.add(q.subject);
   }
@@ -92,7 +96,7 @@ for (const file of files) {
     else problems.push(`${file}: no year field on any Q → tagged null`);
   }
 
-  entries.push({ file, export: exportName, year, count: arr.length, subjects: [...subjects].sort() });
+  entries.push({ file, export: exportName, year, count: arr.length, subjects: [...subjects].sort(), leaves });
 }
 
 // Deterministic order: year asc (null last), then file name.

@@ -12,7 +12,9 @@
 //   • Single modal = less context switching, easier to do in waiting rooms
 // ============================================================
 
-import { lazy, Suspense, useState } from 'react';
+import { useState } from 'react';
+import { lazyWithRetry } from '../lib/lazy-retry.js';
+import OptionalFeature from './OptionalFeature.jsx';
 import { RichText } from '../lib/richtext.jsx';
 import RichBlocks, { StemText } from './RichBlocks.jsx';
 import { isCorrect } from '../hooks/utils.js';
@@ -27,7 +29,7 @@ import { wholeStem } from '../lib/rich-blocks.js';
 // Lazy-load the share card — it pulls a 1080×1920 canvas helper and
 // isn't needed until the user actually picks an answer + taps share.
 // Keeps the daily-Q modal opening fast on slow networks.
-const DailyQShareCard = lazy(() => import('./DailyQShareCard.jsx'));
+const DailyQShareCard = lazyWithRetry(() => import('./DailyQShareCard.jsx'));
 
 export default function TodaysQModal({ q, dateStr, onClose, onDone }) {
   const [picked, setPicked] = useState(null);
@@ -198,12 +200,12 @@ export default function TodaysQModal({ q, dateStr, onClose, onDone }) {
       </div>
 
       {shareOpen && (
-        <Suspense fallback={null}>
+        <OptionalFeature>
           <DailyQShareCard
             todayResult={todayResult}
             onClose={() => setShareOpen(false)}
           />
-        </Suspense>
+        </OptionalFeature>
       )}
     </div>
   );

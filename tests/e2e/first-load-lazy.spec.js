@@ -25,14 +25,20 @@ async function firstScreen(page) {
   // The top loading bar runs out and leaves the page once the first screen has loaded; it is read after it
   // has gone, on either page (WebKit sometimes still held it, faded out, at the moment of the read).
   await page.waitForFunction(() => !document.querySelector('#root [role="progressbar"]'), null, { timeout: 15_000 });
-  // Both pages' clocks are then stopped at the same instant, so the live clocks (the countdown's seconds,
-  // the landing card's timer) read the same in both.
-  await page.clock.pauseAt(Date.parse(PINNED_NOW) + 20_000);
+  // Both pages' clocks then read the same instant, so the live clocks (the countdown's seconds, the landing
+  // card's timer) draw the same in both. setFixedTime, not pauseAt: pauseAt can only move forward, and a page
+  // whose first screen took more than 20 s of its own clock to settle threw 'Cannot fast-forward to the past'
+  // (WebKit, 0 of 4 locally and now and then in CI on 15 Nov, pull request #283). The timers keep running.
+  await page.clock.setFixedTime(Date.parse(PINNED_NOW) + 20_000);
   // The landing's cookie card is left out: it opens once the nav has scrolled or the hero has left the
   // view, which WebKit reported on one page and not the other (CI, 15 Nov), and no lazy code draws it.
   const read = () => page.locator('#root').evaluate((root) => {
     const copy = root.cloneNode(true);
     copy.querySelectorAll('.lp-cookie-dock').forEach((el) => el.remove());
+    // The hero card's clock counts seconds since the card appeared (a setInterval, which setFixedTime
+    // keeps running), so it reads how long each load took, not what lazy code drew: 00:02 against 00:04
+    // in a local gate run on 16 Nov. The element stays in the comparison; its digits do not.
+    copy.querySelectorAll('.lp-qcard-clock').forEach((el) => { el.textContent = '--:--'; });
     return copy.innerHTML.replace(/\s+id="[^"]*:r[0-9a-z]+:[^"]*"/g, '');
   });
   let last = await read();

@@ -16,7 +16,9 @@
 //   • setView('faculty') from anywhere
 // ============================================================
 
-import { lazy, memo, Suspense, useEffect, useMemo, useState } from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
+import { lazyWithRetry } from '../lib/lazy-retry.js';
+import OptionalFeature from '../components/OptionalFeature.jsx';
 import { ALL_INSTRUCTORS } from '../data/instructors.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import { foldThaiName, twoPassSearch } from '../lib/thai-name-fold.js';
@@ -24,7 +26,7 @@ import BackBar from '../components/BackBar.jsx';
 import NavIcon from '../components/NavIcon.jsx';
 import InstructorPortrait from '../components/InstructorPortrait.jsx';
 
-const InstructorModal = lazy(() => import('../components/InstructorModal.jsx'));
+const InstructorModal = lazyWithRetry(() => import('../components/InstructorModal.jsx'));
 
 const SUBJECT_META = SUBJECTS.reduce((acc, s) => { acc[s.id] = s; return acc; }, {});
 
@@ -340,9 +342,9 @@ export default function FacultyView({ goHome }) {
       </div>
 
       {openInstructor && (
-        <Suspense fallback={null}>
+        <OptionalFeature label="ข้อมูลอาจารย์" onClose={() => setOpenInstructor(null)}>
           <InstructorModal instructor={openInstructor} onClose={() => setOpenInstructor(null)} />
-        </Suspense>
+        </OptionalFeature>
       )}
     </>
   );

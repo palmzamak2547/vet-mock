@@ -1,4 +1,6 @@
-import { useEffect, useMemo, useRef, useState, lazy, Suspense } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { lazyWithRetry } from '../lib/lazy-retry.js';
+import OptionalFeature from '../components/OptionalFeature.jsx';
 import { shownName, shownPicture } from '../lib/public-display.js';
 import { isAutoName } from '../lib/identity-gate.js';
 import { subjectText, streakShown, bangkokDayNumber } from '../hooks/utils.js';
@@ -47,16 +49,16 @@ import { weekTrack, classRowLabel, shortThaiDay } from '../lib/study-record.js';
 // DailyGoalCard is lazy-loaded — it only renders if there's history,
 // and most users will see it after some interaction. Keeps HomeView's
 // shell as small as possible.
-const DailyGoalCard = lazy(() => import('../components/DailyGoalCard.jsx'));
+const DailyGoalCard = lazyWithRetry(() => import('../components/DailyGoalCard.jsx'));
 // StudyBuddiesPanel — Supabase presence-driven, only meaningful when
 // other users are online too. Lazy so its lookup table doesn't bloat
 // the cold home render.
-const StudyBuddiesPanel = lazy(() => import('../components/StudyBuddiesPanel.jsx'));
+const StudyBuddiesPanel = lazyWithRetry(() => import('../components/StudyBuddiesPanel.jsx'));
 // A2HS prompt chip — lazy because most users will dismiss or already
 // have it installed; no need to ship the iOS-tip modal HTML eagerly.
-const PWAInstallChip = lazy(() => import('../components/PWAInstallChip.jsx'));
+const PWAInstallChip = lazyWithRetry(() => import('../components/PWAInstallChip.jsx'));
 // Daily Q modal — single MCQ habit loop, deterministic per-date pick.
-const TodaysQModal = lazy(() => import('../components/TodaysQModal.jsx'));
+const TodaysQModal = lazyWithRetry(() => import('../components/TodaysQModal.jsx'));
 // NextActionCard — "study coach" surface (one primary action card with
 // up to 3 personalised picks: exam-soon · SR due · wrong streak · weak
 // subject · random fallback). Replaces the "menu of tools" feel called
@@ -83,7 +85,7 @@ import { HOME_MODE } from '../lib/decisions/home-mode.js';
 // QuestsPanel — Duolingo-style daily quests. Lazy because most users
 // won't need it on first paint, and it pulls in quests + xp libs
 // (~15KB combined). Mounted under the streak chip row.
-const QuestsPanel = lazy(() => import('../components/QuestsPanel.jsx'));
+const QuestsPanel = lazyWithRetry(() => import('../components/QuestsPanel.jsx'));
 
 // onlineCount/onlineStatus are now passed as props (hook lives in App
 // so the WebSocket presence survives view changes — see App.jsx).
@@ -114,7 +116,7 @@ const shortThaiDate = (dateStr) => {
   return Number.isNaN(d.getTime()) ? '' : `${d.getUTCDate()} ${TH_MONTHS[d.getUTCMonth()]}`;
 };
 
-export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, onStartSubjectPanic = null, srCards, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, phaseStatus = null, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, onSketch, onVoiceSettings, onOpenTour, isAdmin = false }) {
+export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, onStartPanic, onStartSubjectPanic = null, srCards, bookmarks, customQuestions, user, profile, readingChecklist = {}, onlineCount = 0, onlineStatus = 'disabled', selectedYear = CURRENT_YEAR, setSelectedYear, selectedPhase, setSelectedPhase, phaseStatus = null, pendingResume, resumePendingExam, dismissPendingExam, history = [], streakData = null, setFeedbackPrefill, onSketch, onVoiceSettings, onOpenTour, isAdmin = false, accountUnread = false }) {
   // Compute the Home badge here, in its lazy view, from the same context as
   // the review planner. Returning from a personal-card editor rereads it too.
   // Due counts follow the device's scheduler preference; the subscription
@@ -318,7 +320,8 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   // Legacy flag — once true, hide the welcome banner too (users who
   // already saw + dismissed the old auto-modal don't need the banner).
   const [legacyOnboardingSeen] = useLocalStorage('vmx-onboarding-seen', false);
-  const showWelcome = history.length === 0 && !welcomeDismissed && !legacyOnboardingSeen;
+  // An account that could not be read is not a first visit: the header's sync line says so.
+  const showWelcome = history.length === 0 && !accountUnread && !welcomeDismissed && !legacyOnboardingSeen;
 
   // Email-verify banner dismiss — session-only state. We don't persist
   // because we WANT a gentle re-nag if they ignore it across sessions
@@ -1819,18 +1822,18 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
               <details className="vmx-home-extras">
                 <summary>เป้าหมายและภารกิจวันนี้</summary>
                 {!isScaffoldYear && (
-                  <Suspense fallback={null}>
+                  <OptionalFeature>
                     <div style={{ marginTop: 14 }}>
                       <QuestsPanel onStart={handleQuestStart} year={selectedYear} />
                     </div>
-                  </Suspense>
+                  </OptionalFeature>
                 )}
                 {history.length > 0 && (
-                  <Suspense fallback={null}>
+                  <OptionalFeature>
                     <div style={{ marginBottom: 18 }}>
                       <DailyGoalCard history={history} selectedYear={selectedYear} />
                     </div>
-                  </Suspense>
+                  </OptionalFeature>
                 )}
               </details>
             )}
@@ -1860,9 +1863,9 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                   แข่งกับเพื่อน (Race mode)
                 </button>
               )}
-              <Suspense fallback={null}>
+              <OptionalFeature>
                 <PWAInstallChip />
-              </Suspense>
+              </OptionalFeature>
             </div>
 
             {/* Group preview */}
@@ -2072,9 +2075,9 @@ function StudyBuddiesSection({ selfUserId, onJumpToSubject }) {
   const buddies = useBuddyPanel();
   if (Object.keys(buddies).length <= 1) return null;
   return (
-    <Suspense fallback={null}>
+    <OptionalFeature>
       <StudyBuddiesPanel buddies={buddies} selfUserId={selfUserId} onJumpToSubject={onJumpToSubject} />
-    </Suspense>
+    </OptionalFeature>
   );
 }
 
@@ -2484,7 +2487,7 @@ function DailyQRow({ user, setView, selectedYear }) {
         </span>
       )}
       {opened && (
-        <Suspense fallback={null}>
+        <OptionalFeature>
           <TodaysQModal
             q={opened.q}
             dateStr={opened.day}
@@ -2497,7 +2500,7 @@ function DailyQRow({ user, setView, selectedYear }) {
               fetchTodaysClassPulse().then(setPulse).catch(() => {});
             }}
           />
-        </Suspense>
+        </OptionalFeature>
       )}
     </div>
   );

@@ -12,6 +12,12 @@
 // code, merges A and B over base with `git merge-file` (the three-way merge
 // git and GitHub use), and requires a clean merge equal to the A+B rendering.
 //
+// Every other pair of changes must never merge clean and wrong: each file
+// either conflicts or equals a regeneration. Two different changes to one
+// topic (equal numbers of held-back questions on each side, the same edit to
+// two questions) conflict on the leaf's digest comment; a question added to a
+// topic of a bank changes nothing stored per bank.
+//
 // Not covered here, with the reason:
 //   api/_lib/written-questions.generated.json  JSON cannot carry the header and
 //     footer lines; its leaves are questions, so only two pull requests that
@@ -84,15 +90,23 @@ const countRules = {
   hiddenBySubject: { sa: new Set(['t1']) },
 };
 
+// What scripts/regen-bank-registry.mjs reads from each bank.
 function registryEntries(questions) {
   const banks = new Map();
   for (const x of questions) {
-    if (!banks.has(x.bank)) banks.set(x.bank, { file: x.bank, export: x.bank.replace(/\W/g, '_').toUpperCase(), year: x.year, count: 0, subjects: new Set() });
-    const bank = banks.get(x.bank);
-    bank.count += 1;
-    bank.subjects.add(x.subject);
+    if (!banks.has(x.bank)) banks.set(x.bank, { file: x.bank, export: x.bank.replace(/\W/g, '_').toUpperCase(), questions: [] });
+    banks.get(x.bank).questions.push(x);
   }
-  return [...banks.values()].map((b) => ({ ...b, subjects: [...b.subjects].sort() })).sort(compareRegistryEntries);
+  return [...banks.values()].map((b) => {
+    const years = new Set(b.questions.map((x) => x.year));
+    return {
+      file: b.file,
+      export: b.export,
+      year: years.size === 1 ? [...years][0] : null,
+      subjects: [...new Set(b.questions.map((x) => x.subject))].sort(),
+      leaves: b.questions.map((x) => [x.subject, x.topic, x.year]),
+    };
+  }).sort(compareRegistryEntries);
 }
 
 // Every derived file, rendered by the generators' own code.
@@ -139,7 +153,10 @@ const afterBoth = derive([...base, ...changeA, ...changeB]);
 
 for (const file of Object.keys(before)) {
   test(`${file}: changes in different topics merge with no conflict into exactly a regeneration`, () => {
-    assert.notEqual(afterA[file], before[file], 'change A must reach this file');
+    // The registry moves only for B's new bank: a question added to a topic
+    // of an existing bank changes nothing stored per bank.
+    if (file === 'src/data/bank-registry.generated.js') assert.equal(afterA[file], before[file]);
+    else assert.notEqual(afterA[file], before[file], 'change A must reach this file');
     assert.notEqual(afterB[file], before[file], 'change B must reach this file');
     const merged = merge3(afterA[file], before[file], afterB[file]);
     assert.equal(merged.conflicts, 0, `conflict:\n${merged.text}`);
@@ -151,26 +168,153 @@ for (const file of Object.keys(before)) {
   });
 }
 
+// The truth after both changes: a question is in the merged bank when neither
+// side removed it and at least one side has it.
+function union(start, sideA, sideB) {
+  const removed = new Set(start.filter((x) => !sideA.includes(x) || !sideB.includes(x)));
+  return [...new Set([...start, ...sideA, ...sideB])].filter((x) => !removed.has(x));
+}
+
+// The goal: no conflict anywhere, and the merge equals a regeneration.
+function assertMergesByItself(start, sideA, sideB) {
+  const truth = derive(union(start, sideA, sideB));
+  const o = derive(start);
+  const a = derive(sideA);
+  const b = derive(sideB);
+  for (const file of Object.keys(o)) {
+    for (const [ours, theirs] of [[a, b], [b, a]]) {
+      const merged = merge3(ours[file], o[file], theirs[file]);
+      assert.equal(merged.conflicts, 0, `${file}: conflict:\n${merged.text}`);
+      assert.equal(merged.text, truth[file], `${file}: merged clean but differs from a regeneration`);
+    }
+  }
+}
+
+// The floor for every other pair of changes: a file either conflicts (git
+// stops and somebody regenerates) or merges into exactly a regeneration.
+// Never clean and wrong, which turns main red after a green merge.
+function assertNeverCleanAndWrong(start, sideA, sideB) {
+  const truth = derive(union(start, sideA, sideB));
+  const o = derive(start);
+  const a = derive(sideA);
+  const b = derive(sideB);
+  let conflicted = 0;
+  for (const file of Object.keys(o)) {
+    for (const [ours, theirs] of [[a, b], [b, a]]) {
+      const merged = merge3(ours[file], o[file], theirs[file]);
+      if (merged.conflicts > 0) { conflicted += 1; continue; }
+      assert.equal(merged.text, truth[file], `${file}: merged clean but differs from a regeneration`);
+    }
+  }
+  return conflicted;
+}
+
 test('no generated file carries a build time, a date or a stored total', () => {
-  for (const [file, text] of Object.entries(afterBoth)) {
-    assert.doesNotMatch(text, /Built:|\d{4}-\d{2}-\d{2}T\d{2}:/, file);
-    assert.doesNotMatch(text, /export const \w*TOTAL\w* = \d/, file);
+  const stored = [
+    /Built:|\d{4}-\d{2}-\d{2}T\d{2}:/,
+    /export const \w+ = \d/,
+    /\b\d[\d,]* (?:ids|subjects|runs|banks|questions|Qs)\b/,
+    /\bcount: \d/,
+  ];
+  const checkedIn = Object.fromEntries(Object.keys(afterBoth).map((file) => [
+    `checked-in ${file}`, fs.readFileSync(new URL(`../../${file}`, import.meta.url), 'utf8'),
+  ]));
+  for (const [file, text] of Object.entries({ ...afterBoth, ...checkedIn })) {
+    for (const re of stored) assert.doesNotMatch(text, re, file);
   }
 });
 
 test('the same topic changed on both sides is still a conflict, never a silent wrong sum', () => {
   // One side adds a question to t3, the other two: the t3 leaf differs and
-  // git stops. (Two sides writing the identical leaf merge as one change, as a
-  // stored total did before; the "generated files are current" checks on main
-  // catch that case.)
+  // git stops.
   nextId = 4000;
   const one = derive([...base, q('questions-sa-2.js', 'sa', 't3')]);
   nextId = 5000;
   const other = derive([...base, q('questions-sa-2.js', 'sa', 't3'), q('questions-sa-2.js', 'sa', 't3')]);
-  for (const file of ['src/data/q-counts.js', 'src/data/bank-registry.generated.js', 'api/_lib/share-bank.generated.js']) {
+  for (const file of ['src/data/q-counts.js', 'api/_lib/share-bank.generated.js']) {
     const merged = merge3(one[file], before[file], other[file]);
     assert.ok(merged.conflicts > 0, `${file}: both sides changed the t3 leaf`);
   }
+});
+
+test('one question each in different topics of the SAME bank file merges by itself', () => {
+  // Nothing stored per bank may move when a bank gains a question in a topic
+  // it already has: a per-bank count would be written as the same new line on
+  // both sides, merge as one change, and come out one short.
+  nextId = 6000;
+  const a = [...base, q('questions-sa-1.js', 'sa', 't2')];
+  nextId = 6100;
+  const b = [...base, q('questions-sa-1.js', 'sa', 't1')];
+  assertMergesByItself(base, a, b);
+  nextId = 6200;
+  const c = [...base, q('questions-sa-2.js', 'sa', 't3', { held: true })];
+  nextId = 6300;
+  const d = [...base, q('questions-sa-1.js', 'sa', 't2', { held: true })];
+  assertMergesByItself(base, c, d);
+});
+
+test('equal numbers of held-back questions added to one topic never merge clean and wrong', () => {
+  // Held-back questions reach no id list (share-bank and glossary leave them
+  // out), so the counts were the only place both sides met: both wrote the
+  // same `blocked` number, git took it once, and the true value is the sum.
+  nextId = 7000;
+  const a = [...base, q('questions-sa-2.js', 'sa', 't3', { held: true })];
+  nextId = 7100;
+  const b = [...base, q('questions-sa-2.js', 'sa', 't3', { held: true })];
+  assert.ok(assertNeverCleanAndWrong(base, a, b) > 0, 'two different changes to one leaf must conflict somewhere');
+});
+
+test('equal numbers of plain questions added to one topic never merge clean and wrong', () => {
+  nextId = 7200;
+  const a = [...base, q('questions-sa-2.js', 'sa', 't3')];
+  nextId = 7300;
+  const b = [...base, q('questions-sa-2.js', 'sa', 't3')];
+  assert.ok(assertNeverCleanAndWrong(base, a, b) > 0);
+  // The same edit to two different questions of one topic (each moves one
+  // question from the midterm to the final): equal numbers again.
+  const start = [...base, q('questions-sa-2.js', 'sa', 't3', { scope: 'midterm' }), q('questions-sa-2.js', 'sa', 't3', { scope: 'midterm' })];
+  const [x, y] = start.slice(-2);
+  const edit = (target) => start.map((item) => (item === target ? { ...item, scope: 'final' } : item));
+  const editX = edit(x);
+  const editY = edit(y);
+  const truth = derive(start.map((item) => (item === x || item === y ? { ...item, scope: 'final' } : item)));
+  const o = derive(start);
+  const ea = derive(editX);
+  const eb = derive(editY);
+  let conflicted = 0;
+  for (const file of Object.keys(o)) {
+    const merged = merge3(ea[file], o[file], eb[file]);
+    if (merged.conflicts > 0) conflicted += 1;
+    else assert.equal(merged.text, truth[file], `${file}: merged clean but differs from a regeneration`);
+  }
+  assert.ok(conflicted > 0);
+});
+
+test('a bank whose subjects come from several topics never keeps a subject both sides emptied', () => {
+  // A bank with two subjects: each side deletes the last `sa` question of one
+  // topic. Each side still has `sa` in the bank, so a subjects line alone
+  // would not move on either side and survive the merge.
+  nextId = 8000;
+  const mixed = [q('questions-mix.js', 'sa', 't2'), q('questions-mix.js', 'sa', 't3'), q('questions-mix.js', 'sb', 'u1')];
+  const start = [...base, ...mixed];
+  const a = start.filter((x) => x !== mixed[0]);
+  const b = start.filter((x) => x !== mixed[1]);
+  assert.ok(assertNeverCleanAndWrong(start, a, b) > 0);
+});
+
+test('a deleted question and a new subject merge by themselves', () => {
+  nextId = 9000;
+  const a = base.filter((x) => x !== base[2]);
+  const b = [...base, q('questions-sc.js', 'sc', 'w1')];
+  assertMergesByItself(base, a, b);
+});
+
+test('two new topics next to each other never merge clean and wrong', () => {
+  nextId = 9100;
+  const a = [...base, q('questions-sa-3.js', 'sa', 't6')];
+  nextId = 9200;
+  const b = [...base, q('questions-sa-3.js', 'sa', 't7')];
+  assertNeverCleanAndWrong(base, a, b);
 });
 
 test('the tables computed from the leaves are the sums a reader expects', () => {

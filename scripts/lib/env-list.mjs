@@ -85,6 +85,7 @@ export const ENV = [
   { name: 'CF_AI_TOKEN', group: 'Voice', need: 'optional', does: 'Cloudflare token with Workers AI (secret) for Whisper transcription. Without it and IAPP_API_KEY, browsers without Web Speech show no microphone.' },
   { name: 'CF_AI_ACCOUNT_ID', group: 'Voice', need: 'optional', does: 'Account for Workers AI; falls back to R2_ACCOUNT_ID, then CF_ACCOUNT_ID.' },
   { name: 'OPENROUTER_API_KEY', group: 'Voice', need: 'optional', does: 'OpenRouter key for the Gemini clip generation in scripts/tts-clips.mjs. Scripts only.' },
+  { name: 'PAXA_API_KEY', group: 'Voice', need: 'optional', does: 'Paxa key (secret) for recorded question clips (scripts/tts-clips.mjs --gen p1). Without it that generation is off; the page never reads it. Scripts only.' },
   { name: 'TTS_KEYS_ENV', group: 'Voice', need: 'optional', does: 'Path of a local env file scripts/tts-clips.mjs reads keys from. Scripts only.' },
 
   // ── Library, R2 and answer evidence ──
@@ -154,6 +155,8 @@ export const ENV = [
   { name: 'PGUSER', group: 'Tests', need: 'optional', does: 'Postgres user for the VCA community harness; default postgres.' },
   { name: 'VMX_GATE_LOCK', group: 'Tests', need: 'optional', does: 'Moves the local gate\'s e2e lock file.' },
   { name: 'VMX_ROUTE_SWEEP', group: 'Tests', need: 'optional', does: 'Set to 1 by test:e2e:sweep to run the route sweep, which every other run leaves out.' },
+  { name: 'VMX_DEFECT_SWEEP', group: 'Tests', need: 'optional', does: 'Set to 1 by sweep:defects to run the defect sweep, which every other run leaves out.' },
+  { name: 'VMX_DEFECT_OUT', group: 'Tests', need: 'optional', does: 'Folder the defect sweep writes its findings and pictures to; default work/defect-sweep.' },
   { name: 'VCA_BUILD_QUIET', group: 'Tests', need: 'optional', does: '1 is --quiet for vca/scripts/build-bank.mjs.' },
   { name: 'VCA_E2E_PORT', group: 'Tests', need: 'optional', does: 'Port of the VCA e2e server.' },
   { name: 'RESEARCH_BASE_URL', group: 'Tests', need: 'optional', does: 'Runs the Research e2e against another origin.' },

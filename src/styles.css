@@ -1167,10 +1167,24 @@ html, body {
   .vmx-login-btn span { display: none; }
   .vmx-xp-chip-total, .vmx-xp-chip-progress { display: none !important; }
   .vmx-context-pill { padding: 0 10px; font-size: 14px; }
+  /* The group and the paper pill must be able to give way, or the right-hand
+     group (search, saved, account) is drawn over the pill: at 390 px, signed
+     in with a saved question, "ทม.1 กลาง" ran 22 px under the search button
+     and a tap there opened search. The paper's label truncates inside its
+     pill; the pill keeps its 44 px target. */
+  .vmx-context-group { flex-shrink: 1; }
+  .vmx-context-pill:not(.is-quiet) { flex: 0 1 auto; min-width: var(--touch-min); }
+  .vmx-context-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   /* Mobile Home keeps immediate study actions only. Timetable, deadlines,
      changelog and streak remain available in their dedicated views instead
      of competing with the subject list in the first viewport. */
   .vmx-streak-card-home { display: none !important; }
+}
+/* A saved question adds a chip to the right-hand group, and at a phone's
+   width the paper pill then shrank to "ท…". The logo gives its place instead:
+   on a phone the bottom bar's หน้าแรก does what it does. */
+@media (max-width: 430px) {
+  .vmx-header:has(.vmx-saved-btn) .vmx-logo-btn { display: none; }
 }
 @media (max-width: 340px) {
   .vmx-header .vmx-logo-btn { display: none; }

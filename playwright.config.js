@@ -35,7 +35,8 @@ export default defineConfig({
   // `add -A` or a local run should not be able to promote one into the gate.
   // The route sweep is on demand until it gates (after 4 Dec 2026): `npm run test:e2e:sweep`, which
   // sets VMX_ROUTE_SWEEP=1. Every other run, the CI suite included, leaves it out.
-  testIgnore: ['**/zz-*.spec.js', ...(process.env.VMX_ROUTE_SWEEP === '1' ? [] : ['**/route-sweep.spec.js'])],
+  // The defect sweep likewise runs only through `npm run sweep:defects` (VMX_DEFECT_SWEEP=1): it takes about an hour.
+  testIgnore: ['**/zz-*.spec.js', ...(process.env.VMX_ROUTE_SWEEP === '1' ? [] : ['**/route-sweep.spec.js']), ...(process.env.VMX_DEFECT_SWEEP === '1' ? [] : ['**/defect-sweep.spec.js'])],
   timeout: 30_000,
   // 2026-09-13: was 5s. A cold entry chunk paints in ~1.1s on the slowest
   // engine when it has the machine to itself, but the suite runs fullyParallel

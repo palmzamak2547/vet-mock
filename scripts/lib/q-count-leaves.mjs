@@ -4,7 +4,7 @@
 // pass small ones). The tables themselves are computed from these leaves by
 // src/lib/q-count-tables.js when the modules load.
 
-import { compareKeys, leafLines, LEAF_LAYOUT_NOTE } from './merge-friendly.mjs';
+import { compareKeys, digestOf, leafLines, LEAF_DIGEST_NOTE, LEAF_LAYOUT_NOTE } from './merge-friendly.mjs';
 
 const PHASE_IDS = ['1-mid', '1-final', '2-mid', '2-final'];
 const PHASE_TERM = { '1-mid': 1, '1-final': 1, '2-mid': 2, '2-final': 2 };
@@ -42,13 +42,13 @@ export function buildQCountLeaves(questions, rules) {
   const counts = new Map();
   const countLeaf = (subject, topic) => {
     const key = JSON.stringify([subject, topic]);
-    if (!counts.has(key)) counts.set(key, { subject, topic, blocked: 0, cells: new Map() });
+    if (!counts.has(key)) counts.set(key, { subject, topic, blocked: 0, cells: new Map(), parts: [] });
     return counts.get(key);
   };
   const kinds = new Map();
   const kindLeaf = (subject, topic) => {
     const key = JSON.stringify([subject, topic]);
-    if (!kinds.has(key)) kinds.set(key, { subject, topic, deliverable: 0, kinds: {}, past: {} });
+    if (!kinds.has(key)) kinds.set(key, { subject, topic, deliverable: 0, kinds: {}, past: {}, parts: [] });
     return kinds.get(key);
   };
   const kindRow = (table, phase) => (table[phase] ||= [0, 0, 0, 0]);
@@ -60,6 +60,7 @@ export function buildQCountLeaves(questions, rules) {
     const leaf = countLeaf(subject, topic);
     if (!rules.isQuestionDeliverable(q)) {
       leaf.blocked += 1;
+      leaf.parts.push(`${q.id}:held`);
       continue;
     }
     const hidden = rules.hiddenBySubject[subject];
@@ -78,9 +79,11 @@ export function buildQCountLeaves(questions, rules) {
     const found = leaf.cells.get(cellKey);
     if (found) found[0] += 1;
     else leaf.cells.set(cellKey, [1, ...cell]);
+    leaf.parts.push(`${q.id}:${cellKey}`);
 
     const kind = kindLeaf(subject, topic);
     kind.deliverable += 1;
+    kind.parts.push(`${q.id}:${JSON.stringify([kindOf(q), visible ? 1 : 0, papers, past ? 1 : 0])}`);
     if (!visible) continue;
     for (const phase of PHASE_IDS) {
       if (!(papers & (phase.endsWith('-mid') ? 1 : 2)) || !inTerm(subject, phase)) continue;
@@ -92,7 +95,9 @@ export function buildQCountLeaves(questions, rules) {
       if (q.type === 'match' && Array.isArray(q.topics)) {
         for (const extra of q.topics) {
           if (extra === topic || extra === q.topic) continue;
-          const row = kindRow(kindLeaf(subject, extra).kinds, phase);
+          const covered = kindLeaf(subject, extra);
+          covered.parts.push(`${q.id}:covers:${phase}`);
+          const row = kindRow(covered.kinds, phase);
           row[4] = (row[4] || 0) + 1;
         }
       }
@@ -102,13 +107,18 @@ export function buildQCountLeaves(questions, rules) {
 
   const sorted = (map) => [...map.values()].sort((a, b) => compareKeys([a.subject, a.topic], [b.subject, b.topic]));
   const phaseOrder = (table) => Object.fromEntries(PHASE_IDS.filter((p) => table[p]).map((p) => [p, table[p]]));
+  const countSorted = sorted(counts);
+  const kindSorted = sorted(kinds);
   return {
     subjectTerms: [...subjectTerms].sort(([a], [b]) => compareKeys([a], [b])),
-    countLeaves: sorted(counts).map((l) => [
+    // One digest per leaf, in the same order: the questions behind it.
+    countDigests: countSorted.map((l) => digestOf(l.parts)),
+    kindDigests: kindSorted.map((l) => digestOf(l.parts)),
+    countLeaves: countSorted.map((l) => [
       l.subject, l.topic, l.blocked,
       [...l.cells.entries()].sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0)).map(([, c]) => c),
     ]),
-    kindLeaves: sorted(kinds).map((l) => [l.subject, l.topic, l.deliverable, phaseOrder(l.kinds), phaseOrder(l.past)]),
+    kindLeaves: kindSorted.map((l) => [l.subject, l.topic, l.deliverable, phaseOrder(l.kinds), phaseOrder(l.past)]),
   };
 }
 
@@ -125,12 +135,13 @@ const HEADER = [
   '// drag the full Q-bank into the home-screen load graph.',
   '//',
   ...LEAF_LAYOUT_NOTE,
+  ...LEAF_DIGEST_NOTE,
   '// The fields of a leaf are described in src/lib/q-count-tables.js.',
   '// ============================================================',
 ];
 
 /** The text of src/data/q-counts.js. */
-export function renderQCounts({ subjectTerms, countLeaves }) {
+export function renderQCounts({ subjectTerms, countLeaves, countDigests }) {
   const lines = [...HEADER, ''];
   lines.push("import { countTables } from '../lib/q-count-tables.js';");
   lines.push('');
@@ -141,7 +152,7 @@ export function renderQCounts({ subjectTerms, countLeaves }) {
   lines.push('');
   lines.push('// [subject, topic, held back by the delivery gate, cells]');
   lines.push('const LEAVES = [');
-  for (const leaf of countLeaves) lines.push(...leafLines(leaf.slice(0, 2), JSON.stringify(leaf)));
+  countLeaves.forEach((leaf, i) => lines.push(...leafLines(leaf.slice(0, 2), JSON.stringify(leaf), '  ', countDigests[i])));
   lines.push('];');
   lines.push('');
   lines.push('const T = countTables(LEAVES, SUBJECT_TERMS);');
@@ -187,20 +198,21 @@ export function renderQCounts({ subjectTerms, countLeaves }) {
 }
 
 /** The text of src/data/q-kind-counts.generated.js. */
-export function renderQKindCounts({ kindLeaves }) {
+export function renderQKindCounts({ kindLeaves, kindDigests }) {
   const lines = [
     '// GENERATED by scripts/regen-q-counts.mjs — do not edit by hand.',
     '// Per-topic question counts split by kind (mcq, tf, match, writing), keyed by',
     '// the phase a student can pick and scoped by the same rule the session uses.',
     '// Its own module: the topic screen imports it, the home screen does not.',
     ...LEAF_LAYOUT_NOTE,
+    ...LEAF_DIGEST_NOTE,
     '',
     "import { kindTables } from '../lib/q-count-tables.js';",
     '',
     '// [subject, topic, deliverable questions, kinds by phase, past-paper kinds by phase]',
     'const LEAVES = [',
   ];
-  for (const leaf of kindLeaves) lines.push(...leafLines(leaf.slice(0, 2), JSON.stringify(leaf)));
+  kindLeaves.forEach((leaf, i) => lines.push(...leafLines(leaf.slice(0, 2), JSON.stringify(leaf), '  ', kindDigests[i])));
   lines.push('];');
   lines.push('');
   lines.push('const T = kindTables(LEAVES);');

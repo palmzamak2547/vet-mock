@@ -21,7 +21,8 @@
 // view-gating stays in App.jsx.
 // ============================================================
 
-import { Suspense, lazy } from 'react';
+import { lazyWithRetry } from '../lib/lazy-retry.js';
+import OptionalFeature from './OptionalFeature.jsx';
 import { hasSupabase } from '../lib/supabase.js';
 import UserMenu from './UserMenu.jsx';
 import ThemePicker from './ThemePicker.jsx';
@@ -33,7 +34,7 @@ import { streakShown } from '../hooks/utils.js';
 
 // XP chip — Lv N · XXX XP · thin progress bar. Lazy because the
 // gamification isn't critical for first paint.
-const XpChip = lazy(() => import('./XpChip.jsx'));
+const XpChip = lazyWithRetry(() => import('./XpChip.jsx'));
 
 // Text only — the phase is context, and 4 different emoji across 4 phases
 // read as decoration rather than meaning.
@@ -110,7 +111,7 @@ export default function HeaderBar({
                 aria-label={unsplit ? `${unsplit}, สลับช่วงสอบ` : 'สลับช่วงสอบ'}
                 title={unsplit || undefined}
               >
-                {unsplit ? 'ไม่แยกช่วงสอบ' : (PHASE_PILL_LABELS[selectedPhase] || selectedPhase)}
+                <span className="vmx-context-label">{unsplit ? 'ไม่แยกช่วงสอบ' : (PHASE_PILL_LABELS[selectedPhase] || selectedPhase)}</span>
                 <span className="vmx-context-caret" aria-hidden="true" />
               </button>
             )}
@@ -154,9 +155,9 @@ export default function HeaderBar({
             {streakNow}
           </div>
         )}
-        <Suspense fallback={null}>
+        <OptionalFeature>
           <XpChip history={history} srCards={srCards} user={user} ready={xpReady} />
-        </Suspense>
+        </OptionalFeature>
 
         {user && (
           <UserMenu

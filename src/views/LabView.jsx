@@ -1,11 +1,12 @@
-import { useState, useCallback, useEffect, Suspense, lazy } from 'react';
+import { useState, useCallback, useEffect, Suspense } from 'react';
+import { lazyWithRetry } from '../lib/lazy-retry.js';
 import { thaiError } from '../lib/errors.js';
 import { useMediaQuery } from '../lib/dicom/use-media-query.js';
 import { readRecentFiles, writeRecentFiles, dropSavedRecentFiles, RECENT_MAX } from '../lib/dicom/recent-files.js';
 
-const DicomViewport = lazy(() => import('../components/lab/DicomViewport.jsx'));
-const CaseLibrary = lazy(() => import('../components/lab/CaseLibrary.jsx'));
-const TagInspector = lazy(() => import('../components/lab/TagInspector.jsx'));
+const DicomViewport = lazyWithRetry(() => import('../components/lab/DicomViewport.jsx'));
+const CaseLibrary = lazyWithRetry(() => import('../components/lab/CaseLibrary.jsx'));
+const TagInspector = lazyWithRetry(() => import('../components/lab/TagInspector.jsx'));
 
 const MAX_FILES = 2;  // Phase 9 — 2-up compare. Future phases may raise this.
 const IMAGING_PRO_URL = 'https://imaging.cuvetsmo.com';

@@ -35,7 +35,7 @@ function render({ phase = '1-mid', examId, exams, year = 5, countOverrides = {},
     useState: init => [typeof init === 'function' ? init() : init, () => {}],
     useEffect: () => {},
     WeekTimetable: 'WeekTimetable', AcademicCalendar: 'AcademicCalendar', BackBar: 'BackBar', FeatureTip: 'FeatureTip',
-    lazy: () => 'TimetableSheet', Suspense: 'Suspense', examTimetable: () => null,
+    lazyWithRetry: () => 'TimetableSheet', Suspense: 'Suspense', examTimetable: () => null,
     getUpcomingExams: () => listed,
     // Papers listed by days left stand apart from today's clock: no hour-by-hour countdown.
     ...(exams ? { shortCountdown: () => null } : {}),

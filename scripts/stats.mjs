@@ -59,7 +59,11 @@ for (const f of qFiles) {
 
 const qc = await imp('q-counts.js');
 const reg = await imp('bank-registry.generated.js');
-const registryTotal = reg.BANK_REGISTRY.reduce((n, b) => n + b.count, 0);
+// The registry stores no counts (two pull requests adding to one bank would
+// write the same count and merge short), so load each bank through it: what
+// the app's loaders actually deliver.
+let registryTotal = 0;
+for (const b of reg.BANK_REGISTRY) registryTotal += (await b.load()).length;
 const notInRegistry = qFiles.filter((f) => !reg.BANK_REGISTRY.some((b) => b.file === f));
 
 // ---- notes ---------------------------------------------------------------

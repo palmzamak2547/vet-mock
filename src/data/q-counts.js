@@ -13,6 +13,8 @@
 // two pull requests that change different leaves merge without a conflict and
 // the merge equals a regeneration. Nothing here is a total: the totals are
 // computed from the leaves when this module loads (scripts/lib/merge-friendly.mjs).
+// The comment after a leaf names the questions it counts, so two different
+// changes that reach the same numbers still conflict instead of merging short.
 // The fields of a leaf are described in src/lib/q-count-tables.js.
 // ============================================================
 
@@ -154,1918 +156,1918 @@ const SUBJECT_TERMS = {
 // [subject, topic, held back by the delivery gate, cells]
 const LEAVES = [
   // ["aquatic-clinic","aqua-amphibian"]
-  ["aquatic-clinic","aqua-amphibian",0,[[11,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]],
+  ["aquatic-clinic","aqua-amphibian",0,[[11,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]], // 564c490fbf72
   // end ["aquatic-clinic","aqua-amphibian"]
   // ["aquatic-clinic","aqua-aquarium-vet"]
-  ["aquatic-clinic","aqua-aquarium-vet",0,[[11,5,1,0,2,0,0,0]]],
+  ["aquatic-clinic","aqua-aquarium-vet",0,[[12,5,1,0,2,0,0,0],[1,5,1,1,2,1,0,0]]], // c16d33a10d40
   // end ["aquatic-clinic","aqua-aquarium-vet"]
   // ["aquatic-clinic","aqua-conservation"]
-  ["aquatic-clinic","aqua-conservation",0,[[7,5,1,0,2,0,0,0],[4,5,1,0,2,1,0,0],[1,5,1,1,2,1,0,0]]],
+  ["aquatic-clinic","aqua-conservation",0,[[7,5,1,0,2,0,0,0],[11,5,1,0,2,1,0,0],[2,5,1,1,2,1,0,0]]], // b3ea76c76e21
   // end ["aquatic-clinic","aqua-conservation"]
   // ["aquatic-clinic","aqua-disease-control"]
-  ["aquatic-clinic","aqua-disease-control",0,[[8,5,1,0,2,0,0,0],[1,5,1,0,2,1,0,0],[110,5,1,1,2,1,0,0]]],
+  ["aquatic-clinic","aqua-disease-control",0,[[8,5,1,0,2,0,0,0],[1,5,1,0,2,1,0,0],[110,5,1,1,2,1,0,0]]], // 8a8e01d61891
   // end ["aquatic-clinic","aqua-disease-control"]
   // ["aquatic-clinic","aqua-fish-biology"]
-  ["aquatic-clinic","aqua-fish-biology",0,[[18,5,1,0,1,0,0,0],[18,5,1,0,1,1,0,0],[9,5,1,1,1,1,0,0]]],
+  ["aquatic-clinic","aqua-fish-biology",0,[[18,5,1,0,1,0,0,0],[18,5,1,0,1,1,0,0],[9,5,1,1,1,1,0,0]]], // cd4da805e6b8
   // end ["aquatic-clinic","aqua-fish-biology"]
   // ["aquatic-clinic","aqua-fish-diseases"]
-  ["aquatic-clinic","aqua-fish-diseases",0,[[10,5,1,0,2,0,0,0],[31,5,1,0,2,1,0,0],[14,5,1,1,2,1,0,0]]],
+  ["aquatic-clinic","aqua-fish-diseases",0,[[10,5,1,0,2,0,0,0],[34,5,1,0,2,1,0,0],[14,5,1,1,2,1,0,0]]], // e41ecfcf2f34
   // end ["aquatic-clinic","aqua-fish-diseases"]
   // ["aquatic-clinic","aqua-frog-diseases"]
-  ["aquatic-clinic","aqua-frog-diseases",0,[[13,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]],
+  ["aquatic-clinic","aqua-frog-diseases",0,[[13,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]], // 18b68d8aed80
   // end ["aquatic-clinic","aqua-frog-diseases"]
   // ["aquatic-clinic","aqua-intro-thailand"]
-  ["aquatic-clinic","aqua-intro-thailand",0,[[43,5,1,0,1,0,0,0],[44,5,1,0,1,1,0,0],[12,5,1,1,1,1,0,0]]],
+  ["aquatic-clinic","aqua-intro-thailand",0,[[43,5,1,0,1,0,0,0],[44,5,1,0,1,1,0,0],[12,5,1,1,1,1,0,0]]], // 08b966f8da83
   // end ["aquatic-clinic","aqua-intro-thailand"]
   // ["aquatic-clinic","aqua-life-support"]
-  ["aquatic-clinic","aqua-life-support",0,[[3,5,1,0,1,0,0,0],[5,5,1,0,1,1,0,0],[2,5,1,1,1,1,0,0]]],
+  ["aquatic-clinic","aqua-life-support",0,[[3,5,1,0,1,0,0,0],[5,5,1,0,1,1,0,0],[2,5,1,1,1,1,0,0]]], // 40991608e623
   // end ["aquatic-clinic","aqua-life-support"]
   // ["aquatic-clinic","aqua-ornamental"]
-  ["aquatic-clinic","aqua-ornamental",0,[[32,5,1,0,1,1,0,0],[6,5,1,1,1,1,0,0]]],
+  ["aquatic-clinic","aqua-ornamental",0,[[32,5,1,0,1,1,0,0],[6,5,1,1,1,1,0,0]]], // 42387acbf014
   // end ["aquatic-clinic","aqua-ornamental"]
   // ["aquatic-clinic","aqua-shrimp-diseases"]
-  ["aquatic-clinic","aqua-shrimp-diseases",0,[[10,5,1,0,2,0,0,0],[18,5,1,0,2,1,0,0],[12,5,1,1,2,1,0,0]]],
+  ["aquatic-clinic","aqua-shrimp-diseases",0,[[10,5,1,0,2,0,0,0],[19,5,1,0,2,1,0,0],[12,5,1,1,2,1,0,0]]], // adf63ec2c395
   // end ["aquatic-clinic","aqua-shrimp-diseases"]
   // ["aquatic-clinic","aqua-shrimp-immunology"]
-  ["aquatic-clinic","aqua-shrimp-immunology",0,[[19,5,1,0,1,1,0,0],[7,5,1,1,1,1,0,0]]],
+  ["aquatic-clinic","aqua-shrimp-immunology",0,[[19,5,1,0,1,1,0,0],[7,5,1,1,1,1,0,0]]], // 099ff768b796
   // end ["aquatic-clinic","aqua-shrimp-immunology"]
   // ["aquatic-clinic","aqua-toxicology"]
-  ["aquatic-clinic","aqua-toxicology",0,[[6,5,1,0,2,0,0,0]]],
+  ["aquatic-clinic","aqua-toxicology",0,[[8,5,1,0,2,0,0,0]]], // e0d08fb84ac9
   // end ["aquatic-clinic","aqua-toxicology"]
   // ["aquatic-clinic","aqua-turtle"]
-  ["aquatic-clinic","aqua-turtle",0,[[9,5,1,0,1,1,0,0],[6,5,1,1,1,1,0,0]]],
+  ["aquatic-clinic","aqua-turtle",0,[[9,5,1,0,1,1,0,0],[6,5,1,1,1,1,0,0]]], // 0e376041df7f
   // end ["aquatic-clinic","aqua-turtle"]
   // ["aquatic-clinic","aqua-water-quality"]
-  ["aquatic-clinic","aqua-water-quality",0,[[8,5,1,0,1,0,0,0],[19,5,1,0,1,1,0,0],[3,5,1,1,1,1,0,0]]],
+  ["aquatic-clinic","aqua-water-quality",0,[[8,5,1,0,1,0,0,0],[19,5,1,0,1,1,0,0],[3,5,1,1,1,1,0,0]]], // edf03ec91dcc
   // end ["aquatic-clinic","aqua-water-quality"]
   // ["avian-medicine","avian-adeno"]
-  ["avian-medicine","avian-adeno",0,[[13,5,1,0,1,0,0,0],[10,5,1,0,1,0,["2569-1","midterm"],0],[4,5,1,0,1,1,0,0]]],
+  ["avian-medicine","avian-adeno",0,[[13,5,1,0,1,0,0,0],[10,5,1,0,1,0,["2569-1","midterm"],0],[4,5,1,0,1,1,0,0]]], // 206e4720d3ec
   // end ["avian-medicine","avian-adeno"]
   // ["avian-medicine","avian-ae"]
-  ["avian-medicine","avian-ae",0,[[6,5,1,0,1,0,0,0],[8,5,1,0,1,0,["2569-1","midterm"],0],[3,5,1,0,1,1,0,0],[3,5,1,1,1,1,0,0]]],
+  ["avian-medicine","avian-ae",0,[[6,5,1,0,1,0,0,0],[8,5,1,0,1,0,["2569-1","midterm"],0],[3,5,1,0,1,1,0,0],[3,5,1,1,1,1,0,0]]], // 11d31794db87
   // end ["avian-medicine","avian-ae"]
   // ["avian-medicine","avian-ahra-set"]
-  ["avian-medicine","avian-ahra-set",0,[[17,5,1,0,1,0,0,0],[10,5,1,0,1,0,["2569-1","midterm"],0],[6,5,1,0,1,1,0,0]]],
+  ["avian-medicine","avian-ahra-set",0,[[17,5,1,0,1,0,0,0],[10,5,1,0,1,0,["2569-1","midterm"],0],[6,5,1,0,1,1,0,0]]], // 6aeab60b2b7b
   // end ["avian-medicine","avian-ahra-set"]
   // ["avian-medicine","avian-ai"]
-  ["avian-medicine","avian-ai",0,[[17,5,1,0,1,1,0,0],[7,5,1,1,1,1,0,0]]],
+  ["avian-medicine","avian-ai",0,[[17,5,1,0,1,1,0,0],[7,5,1,1,1,1,0,0]]], // b958e7210798
   // end ["avian-medicine","avian-ai"]
   // ["avian-medicine","avian-campy"]
-  ["avian-medicine","avian-campy",0,[[2,5,1,0,2,0,0,0],[1,5,1,0,2,1,0,0],[3,5,1,1,2,1,0,0]]],
+  ["avian-medicine","avian-campy",0,[[2,5,1,0,2,0,0,0],[1,5,1,0,2,1,0,0],[3,5,1,1,2,1,0,0]]], // a43f69b8b3f9
   // end ["avian-medicine","avian-campy"]
   // ["avian-medicine","avian-cia"]
-  ["avian-medicine","avian-cia",0,[[2,5,1,0,1,0,0,0],[8,5,1,0,1,0,["2569-1","midterm"],0],[2,5,1,0,1,1,0,0],[2,5,1,1,1,1,0,0]]],
+  ["avian-medicine","avian-cia",0,[[2,5,1,0,1,0,0,0],[8,5,1,0,1,0,["2569-1","midterm"],0],[2,5,1,0,1,1,0,0],[2,5,1,1,1,1,0,0]]], // c660ed565f4c
   // end ["avian-medicine","avian-cia"]
   // ["avian-medicine","avian-cocci"]
-  ["avian-medicine","avian-cocci",0,[[3,5,1,0,1,0,0,0],[10,5,1,0,1,0,["2569-1","midterm"],0],[7,5,1,0,1,1,0,0],[8,5,1,1,1,1,0,0]]],
+  ["avian-medicine","avian-cocci",0,[[3,5,1,0,1,0,0,0],[10,5,1,0,1,0,["2569-1","midterm"],0],[7,5,1,0,1,1,0,0],[8,5,1,1,1,1,0,0]]], // 9f161a8b013e
   // end ["avian-medicine","avian-cocci"]
   // ["avian-medicine","avian-coli"]
-  ["avian-medicine","avian-coli",0,[[5,5,1,0,1,0,0,0],[9,5,1,0,1,1,0,0],[9,5,1,1,1,1,0,0]]],
+  ["avian-medicine","avian-coli",0,[[5,5,1,0,1,0,0,0],[9,5,1,0,1,1,0,0],[9,5,1,1,1,1,0,0]]], // 07cdc50ce4f1
   // end ["avian-medicine","avian-coli"]
   // ["avian-medicine","avian-coryza"]
-  ["avian-medicine","avian-coryza",0,[[5,5,1,0,1,0,0,0],[13,5,1,0,1,1,0,0]]],
+  ["avian-medicine","avian-coryza",0,[[5,5,1,0,1,0,0,0],[13,5,1,0,1,1,0,0]]], // 65cad4862bb6
   // end ["avian-medicine","avian-coryza"]
   // ["avian-medicine","avian-duck-flavi"]
-  ["avian-medicine","avian-duck-flavi",0,[[1,5,1,0,2,0,0,0],[1,5,1,1,2,1,0,0]]],
+  ["avian-medicine","avian-duck-flavi",0,[[1,5,1,0,2,0,0,0],[1,5,1,1,2,1,0,0]]], // 52eecaa1bcea
   // end ["avian-medicine","avian-duck-flavi"]
   // ["avian-medicine","avian-duck-plague"]
-  ["avian-medicine","avian-duck-plague",0,[[1,5,1,0,2,0,0,0],[4,5,1,1,2,1,0,0]]],
+  ["avian-medicine","avian-duck-plague",0,[[1,5,1,0,2,0,0,0],[4,5,1,1,2,1,0,0]]], // 0df6b610839f
   // end ["avian-medicine","avian-duck-plague"]
   // ["avian-medicine","avian-dvh"]
-  ["avian-medicine","avian-dvh",0,[[1,5,1,0,2,0,0,0],[10,5,1,1,2,1,0,0]]],
+  ["avian-medicine","avian-dvh",0,[[1,5,1,0,2,0,0,0],[10,5,1,1,2,1,0,0]]], // a644dc41e0be
   // end ["avian-medicine","avian-dvh"]
   // ["avian-medicine","avian-egg-breakout"]
-  ["avian-medicine","avian-egg-breakout",0,[[1,5,1,0,1,0,0,0]]],
+  ["avian-medicine","avian-egg-breakout",0,[[1,5,1,0,1,0,0,0]]], // b4b0ca659251
   // end ["avian-medicine","avian-egg-breakout"]
   // ["avian-medicine","avian-fowl-cholera"]
-  ["avian-medicine","avian-fowl-cholera",0,[[3,5,1,0,1,0,0,0],[14,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]],
+  ["avian-medicine","avian-fowl-cholera",0,[[3,5,1,0,1,0,0,0],[14,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]], // 62feb7d7c16d
   // end ["avian-medicine","avian-fowl-cholera"]
   // ["avian-medicine","avian-goose-parvo"]
-  ["avian-medicine","avian-goose-parvo",0,[[1,5,1,0,2,0,0,0],[6,5,1,1,2,1,0,0]]],
+  ["avian-medicine","avian-goose-parvo",0,[[1,5,1,0,2,0,0,0],[6,5,1,1,2,1,0,0]]], // 37826598866c
   // end ["avian-medicine","avian-goose-parvo"]
   // ["avian-medicine","avian-histomoniasis"]
-  ["avian-medicine","avian-histomoniasis",0,[[2,5,1,0,2,0,0,0]]],
+  ["avian-medicine","avian-histomoniasis",0,[[2,5,1,0,2,0,0,0]]], // 92b7c80603ac
   // end ["avian-medicine","avian-histomoniasis"]
   // ["avian-medicine","avian-ib"]
-  ["avian-medicine","avian-ib",0,[[16,5,1,0,1,0,0,0],[3,5,1,0,1,1,0,0]]],
+  ["avian-medicine","avian-ib",0,[[16,5,1,0,1,0,0,0],[3,5,1,0,1,1,0,0]]], // d81febd614ac
   // end ["avian-medicine","avian-ib"]
   // ["avian-medicine","avian-ibd"]
-  ["avian-medicine","avian-ibd",0,[[4,5,1,0,1,0,0,0],[8,5,1,0,1,0,["2569-1","midterm"],0],[4,5,1,0,1,1,0,0],[4,5,1,1,1,1,0,0]]],
+  ["avian-medicine","avian-ibd",0,[[4,5,1,0,1,0,0,0],[8,5,1,0,1,0,["2569-1","midterm"],0],[4,5,1,0,1,1,0,0],[4,5,1,1,1,1,0,0]]], // eebd333d0e80
   // end ["avian-medicine","avian-ibd"]
   // ["avian-medicine","avian-intro"]
-  ["avian-medicine","avian-intro",0,[[3,5,1,0,1,0,0,0],[2,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]],
+  ["avian-medicine","avian-intro",0,[[3,5,1,0,1,0,0,0],[2,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]], // efbca3f69dba
   // end ["avian-medicine","avian-intro"]
   // ["avian-medicine","avian-leuko"]
-  ["avian-medicine","avian-leuko",0,[[2,5,1,0,1,0,0,0],[8,5,1,0,1,0,["2569-1","midterm"],0],[2,5,1,0,1,1,0,0],[2,5,1,1,1,1,0,0]]],
+  ["avian-medicine","avian-leuko",0,[[2,5,1,0,1,0,0,0],[8,5,1,0,1,0,["2569-1","midterm"],0],[2,5,1,0,1,1,0,0],[2,5,1,1,1,1,0,0]]], // 4983f665cd53
   // end ["avian-medicine","avian-leuko"]
   // ["avian-medicine","avian-listeria"]
-  ["avian-medicine","avian-listeria",0,[[1,5,1,0,2,0,0,0],[2,5,1,1,2,1,0,0]]],
+  ["avian-medicine","avian-listeria",0,[[1,5,1,0,2,0,0,0],[2,5,1,1,2,1,0,0]]], // b0fba89ab58e
   // end ["avian-medicine","avian-listeria"]
   // ["avian-medicine","avian-lt"]
-  ["avian-medicine","avian-lt",0,[[14,5,1,0,1,0,0,0],[2,5,1,0,1,1,0,0]]],
+  ["avian-medicine","avian-lt",0,[[14,5,1,0,1,0,0,0],[2,5,1,0,1,1,0,0]]], // 32b4c93dbf82
   // end ["avian-medicine","avian-lt"]
   // ["avian-medicine","avian-malaria"]
-  ["avian-medicine","avian-malaria",0,[[1,5,1,0,1,0,0,0],[8,5,1,0,1,0,["2569-1","midterm"],0],[1,5,1,1,1,1,0,0]]],
+  ["avian-medicine","avian-malaria",0,[[1,5,1,0,1,0,0,0],[8,5,1,0,1,0,["2569-1","midterm"],0],[1,5,1,1,1,1,0,0]]], // db336fa7973f
   // end ["avian-medicine","avian-malaria"]
   // ["avian-medicine","avian-marek"]
-  ["avian-medicine","avian-marek",0,[[1,5,1,0,1,0,0,0],[8,5,1,0,1,0,["2569-1","midterm"],0],[7,5,1,0,1,1,0,0],[10,5,1,1,1,1,0,0]]],
+  ["avian-medicine","avian-marek",0,[[1,5,1,0,1,0,0,0],[8,5,1,0,1,0,["2569-1","midterm"],0],[7,5,1,0,1,1,0,0],[10,5,1,1,1,1,0,0]]], // c6d1890e08ea
   // end ["avian-medicine","avian-marek"]
   // ["avian-medicine","avian-mpv"]
-  ["avian-medicine","avian-mpv",0,[[12,5,1,0,1,0,0,0],[2,5,1,0,1,1,0,0]]],
+  ["avian-medicine","avian-mpv",0,[[12,5,1,0,1,0,0,0],[2,5,1,0,1,1,0,0]]], // 8328f2df2a74
   // end ["avian-medicine","avian-mpv"]
   // ["avian-medicine","avian-myco"]
-  ["avian-medicine","avian-myco",0,[[2,5,1,0,1,0,0,0],[30,5,1,0,1,1,0,0],[3,5,1,1,1,1,0,0]]],
+  ["avian-medicine","avian-myco",0,[[2,5,1,0,1,0,0,0],[30,5,1,0,1,1,0,0],[3,5,1,1,1,1,0,0]]], // 5a40edf75340
   // end ["avian-medicine","avian-myco"]
   // ["avian-medicine","avian-mycosis"]
-  ["avian-medicine","avian-mycosis",0,[[9,5,1,0,2,0,0,0],[23,5,1,1,2,1,0,0]]],
+  ["avian-medicine","avian-mycosis",0,[[9,5,1,0,2,0,0,0],[23,5,1,1,2,1,0,0]]], // c5c37f9b8b28
   // end ["avian-medicine","avian-mycosis"]
   // ["avian-medicine","avian-nd"]
-  ["avian-medicine","avian-nd",0,[[22,5,1,0,1,0,0,0],[2,5,1,0,1,1,0,0]]],
+  ["avian-medicine","avian-nd",0,[[22,5,1,0,1,0,0,0],[2,5,1,0,1,1,0,0]]], // 392868d37401
   // end ["avian-medicine","avian-nd"]
   // ["avian-medicine","avian-nds"]
-  ["avian-medicine","avian-nds",0,[[1,5,1,0,2,0,0,0]]],
+  ["avian-medicine","avian-nds",0,[[1,5,1,0,2,0,0,0]]], // 2d4e9ff83953
   // end ["avian-medicine","avian-nds"]
   // ["avian-medicine","avian-ne"]
-  ["avian-medicine","avian-ne",0,[[1,5,1,0,1,0,0,0],[9,5,1,0,1,0,["2569-1","midterm"],0],[2,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]],
+  ["avian-medicine","avian-ne",0,[[1,5,1,0,1,0,0,0],[9,5,1,0,1,0,["2569-1","midterm"],0],[2,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]], // 2a29bb5c2b76
   // end ["avian-medicine","avian-ne"]
   // ["avian-medicine","avian-ort"]
-  ["avian-medicine","avian-ort",0,[[2,5,1,0,2,0,0,0],[7,5,1,1,2,1,0,0]]],
+  ["avian-medicine","avian-ort",0,[[2,5,1,0,2,0,0,0],[7,5,1,1,2,1,0,0]]], // f0417c204331
   // end ["avian-medicine","avian-ort"]
   // ["avian-medicine","avian-pox"]
-  ["avian-medicine","avian-pox",0,[[13,5,1,0,1,0,0,0],[3,5,1,0,1,1,0,0],[2,5,1,1,1,1,0,0]]],
+  ["avian-medicine","avian-pox",0,[[13,5,1,0,1,0,0,0],[3,5,1,0,1,1,0,0],[2,5,1,1,1,1,0,0]]], // 1be3e764826c
   // end ["avian-medicine","avian-pox"]
   // ["avian-medicine","avian-reo"]
-  ["avian-medicine","avian-reo",0,[[8,5,1,0,1,0,["2569-1","midterm"],0],[4,5,1,0,1,1,0,0],[2,5,1,1,1,1,0,0]]],
+  ["avian-medicine","avian-reo",0,[[8,5,1,0,1,0,["2569-1","midterm"],0],[4,5,1,0,1,1,0,0],[2,5,1,1,1,1,0,0]]], // 766175d61ea3
   // end ["avian-medicine","avian-reo"]
   // ["avian-medicine","avian-rss"]
-  ["avian-medicine","avian-rss",0,[[1,5,1,0,1,0,0,0],[8,5,1,0,1,0,["2569-1","midterm"],0],[1,5,1,0,1,1,0,0]]],
+  ["avian-medicine","avian-rss",0,[[1,5,1,0,1,0,0,0],[8,5,1,0,1,0,["2569-1","midterm"],0],[1,5,1,0,1,1,0,0]]], // 41584ccaf910
   // end ["avian-medicine","avian-rss"]
   // ["avian-medicine","avian-salmonella"]
-  ["avian-medicine","avian-salmonella",0,[[14,5,1,0,1,0,0,0],[10,5,1,0,1,0,["2569-1","midterm"],0],[3,5,1,0,1,1,0,0]]],
+  ["avian-medicine","avian-salmonella",0,[[14,5,1,0,1,0,0,0],[10,5,1,0,1,0,["2569-1","midterm"],0],[3,5,1,0,1,1,0,0]]], // c8bef46aef77
   // end ["avian-medicine","avian-salmonella"]
   // ["avian-medicine","avian-serology"]
-  ["avian-medicine","avian-serology",0,[[6,5,1,0,2,0,0,0],[2,5,1,0,2,1,0,0],[8,5,1,1,2,1,0,0]]],
+  ["avian-medicine","avian-serology",0,[[6,5,1,0,2,0,0,0],[2,5,1,0,2,1,0,0],[8,5,1,1,2,1,0,0]]], // 4df9839a5889
   // end ["avian-medicine","avian-serology"]
   // ["avian-medicine","avian-vaccine-prog"]
-  ["avian-medicine","avian-vaccine-prog",0,[[2,5,1,0,2,0,0,0],[5,5,1,0,2,1,0,0],[8,5,1,1,2,1,0,0]]],
+  ["avian-medicine","avian-vaccine-prog",0,[[2,5,1,0,2,0,0,0],[5,5,1,0,2,1,0,0],[8,5,1,1,2,1,0,0]]], // c184a2ae8641
   // end ["avian-medicine","avian-vaccine-prog"]
   // ["biochem-1","lab-carbohydrate"]
-  ["biochem-1","lab-carbohydrate",0,[[7,1,1,1,3,1,0,0]]],
+  ["biochem-1","lab-carbohydrate",0,[[7,1,1,1,3,1,0,0]]], // 73ec5028ce03
   // end ["biochem-1","lab-carbohydrate"]
   // ["biochem-1","lab-chromatography"]
-  ["biochem-1","lab-chromatography",1,[[9,1,1,1,3,1,0,0]]],
+  ["biochem-1","lab-chromatography",1,[[9,1,1,1,3,1,0,0]]], // 57d39f6e1d62
   // end ["biochem-1","lab-chromatography"]
   // ["biochem-1","lab-dna"]
-  ["biochem-1","lab-dna",0,[[6,1,1,1,3,1,0,0]]],
+  ["biochem-1","lab-dna",0,[[6,1,1,1,3,1,0,0]]], // 1fa08983d3cb
   // end ["biochem-1","lab-dna"]
   // ["biochem-1","lab-electrophoresis"]
-  ["biochem-1","lab-electrophoresis",0,[[12,1,1,1,3,1,0,0]]],
+  ["biochem-1","lab-electrophoresis",0,[[12,1,1,1,3,1,0,0]]], // 1a252c81a605
   // end ["biochem-1","lab-electrophoresis"]
   // ["biochem-1","lab-equipment"]
-  ["biochem-1","lab-equipment",0,[[5,1,1,1,3,1,0,0]]],
+  ["biochem-1","lab-equipment",0,[[5,1,1,1,3,1,0,0]]], // c7ad7d60a230
   // end ["biochem-1","lab-equipment"]
   // ["biochem-1","lab-lipid"]
-  ["biochem-1","lab-lipid",0,[[10,1,1,1,3,1,0,0]]],
+  ["biochem-1","lab-lipid",0,[[10,1,1,1,3,1,0,0]]], // c3f73e12a55c
   // end ["biochem-1","lab-lipid"]
   // ["biochem-1","lab-molecular"]
-  ["biochem-1","lab-molecular",0,[[16,1,1,1,3,1,0,0]]],
+  ["biochem-1","lab-molecular",0,[[16,1,1,1,3,1,0,0]]], // fe8e64de1428
   // end ["biochem-1","lab-molecular"]
   // ["biochem-1","lab-ph-buffer"]
-  ["biochem-1","lab-ph-buffer",0,[[8,1,1,1,3,1,0,0]]],
+  ["biochem-1","lab-ph-buffer",0,[[8,1,1,1,3,1,0,0]]], // 9a24b10959fe
   // end ["biochem-1","lab-ph-buffer"]
   // ["biochem-1","lab-protein"]
-  ["biochem-1","lab-protein",0,[[9,1,1,1,3,1,0,0]]],
+  ["biochem-1","lab-protein",0,[[9,1,1,1,3,1,0,0]]], // e921f6969052
   // end ["biochem-1","lab-protein"]
   // ["biochem-1","lab-spectrophotometry"]
-  ["biochem-1","lab-spectrophotometry",0,[[10,1,1,1,3,1,0,0]]],
+  ["biochem-1","lab-spectrophotometry",0,[[10,1,1,1,3,1,0,0]]], // b40a2655a40b
   // end ["biochem-1","lab-spectrophotometry"]
   // ["biochem-1","lect-carbohydrate"]
-  ["biochem-1","lect-carbohydrate",0,[[12,1,1,1,3,1,0,0]]],
+  ["biochem-1","lect-carbohydrate",0,[[12,1,1,1,3,1,0,0]]], // 7a92cbea7c49
   // end ["biochem-1","lect-carbohydrate"]
   // ["biochem-1","lect-drug-delivery"]
-  ["biochem-1","lect-drug-delivery",0,[[11,1,1,1,3,1,0,0]]],
+  ["biochem-1","lect-drug-delivery",0,[[11,1,1,1,3,1,0,0]]], // 708932366576
   // end ["biochem-1","lect-drug-delivery"]
   // ["biochem-1","lect-enzyme"]
-  ["biochem-1","lect-enzyme",0,[[24,1,1,1,3,1,0,0]]],
+  ["biochem-1","lect-enzyme",0,[[24,1,1,1,3,1,0,0]]], // 2e00bdae484b
   // end ["biochem-1","lect-enzyme"]
   // ["biochem-1","lect-intro"]
-  ["biochem-1","lect-intro",0,[[13,1,1,1,3,1,0,0]]],
+  ["biochem-1","lect-intro",0,[[13,1,1,1,3,1,0,0]]], // 5bd9a0bfa413
   // end ["biochem-1","lect-intro"]
   // ["biochem-1","lect-lipid"]
-  ["biochem-1","lect-lipid",0,[[17,1,1,1,3,1,0,0]]],
+  ["biochem-1","lect-lipid",0,[[17,1,1,1,3,1,0,0]]], // c0f97847b787
   // end ["biochem-1","lect-lipid"]
   // ["biochem-1","lect-membrane"]
-  ["biochem-1","lect-membrane",0,[[5,1,1,1,3,1,0,0]]],
+  ["biochem-1","lect-membrane",0,[[5,1,1,1,3,1,0,0]]], // 1cac93e34ec7
   // end ["biochem-1","lect-membrane"]
   // ["biochem-1","lect-metabolism"]
-  ["biochem-1","lect-metabolism",0,[[9,1,1,1,3,1,0,0]]],
+  ["biochem-1","lect-metabolism",0,[[9,1,1,1,3,1,0,0]]], // f7eb8a5eabc1
   // end ["biochem-1","lect-metabolism"]
   // ["biochem-1","lect-nucleic-acid"]
-  ["biochem-1","lect-nucleic-acid",0,[[61,1,1,1,3,1,0,0]]],
+  ["biochem-1","lect-nucleic-acid",0,[[61,1,1,1,3,1,0,0]]], // 7ecca55e22c8
   // end ["biochem-1","lect-nucleic-acid"]
   // ["biochem-1","lect-protein"]
-  ["biochem-1","lect-protein",0,[[27,1,1,1,3,1,0,0]]],
+  ["biochem-1","lect-protein",0,[[27,1,1,1,3,1,0,0]]], // bc15dad210fb
   // end ["biochem-1","lect-protein"]
   // ["cliapprum","gi-surgery-sawita"]
-  ["cliapprum","gi-surgery-sawita",0,[[9,4,1,0,3,0,0,0],[3,4,1,1,3,1,0,0]]],
+  ["cliapprum","gi-surgery-sawita",0,[[9,4,1,0,3,0,0,0],[3,4,1,1,3,1,0,0]]], // e9a09d58efb0
   // end ["cliapprum","gi-surgery-sawita"]
   // ["cliapprum","gi-vdtt"]
-  ["cliapprum","gi-vdtt",0,[[5,4,1,0,3,0,0,0],[1,4,1,1,3,1,0,0]]],
+  ["cliapprum","gi-vdtt",0,[[5,4,1,0,3,0,0,0],[1,4,1,1,3,1,0,0]]], // 25a65c99f7c0
   // end ["cliapprum","gi-vdtt"]
   // ["cliapprum","hoof-health-fleet"]
-  ["cliapprum","hoof-health-fleet",0,[[5,4,1,0,3,0,0,0],[4,4,1,1,3,1,0,0]]],
+  ["cliapprum","hoof-health-fleet",0,[[5,4,1,0,3,0,0,0],[4,4,1,1,3,1,0,0]]], // c80675999361
   // end ["cliapprum","hoof-health-fleet"]
   // ["cliapprum","mahahon-cliapprum-anes"]
-  ["cliapprum","mahahon-cliapprum-anes",0,[[13,4,1,0,3,0,0,0],[2,4,1,0,3,1,0,0]]],
+  ["cliapprum","mahahon-cliapprum-anes",0,[[13,4,1,0,3,0,0,0],[2,4,1,0,3,1,0,0]]], // 0b8524452a74
   // end ["cliapprum","mahahon-cliapprum-anes"]
   // ["cliapprum","mahahon-cliapprum-givdtt"]
-  ["cliapprum","mahahon-cliapprum-givdtt",0,[[15,4,1,0,3,0,0,0]]],
+  ["cliapprum","mahahon-cliapprum-givdtt",0,[[15,4,1,0,3,0,0,0]]], // 980a491eac55
   // end ["cliapprum","mahahon-cliapprum-givdtt"]
   // ["cliapprum","mahahon-cliapprum-piyanat-hoof"]
-  ["cliapprum","mahahon-cliapprum-piyanat-hoof",0,[[15,4,1,0,3,0,0,0]]],
+  ["cliapprum","mahahon-cliapprum-piyanat-hoof",0,[[15,4,1,0,3,0,0,0]]], // adc1f81c9993
   // end ["cliapprum","mahahon-cliapprum-piyanat-hoof"]
   // ["cliapprum","mahahon-cliapprum-sawita-gi"]
-  ["cliapprum","mahahon-cliapprum-sawita-gi",0,[[30,4,1,0,3,0,0,0]]],
+  ["cliapprum","mahahon-cliapprum-sawita-gi",0,[[30,4,1,0,3,0,0,0]]], // cc4bcc04edbb
   // end ["cliapprum","mahahon-cliapprum-sawita-gi"]
   // ["cliapprum","mahahon-cliapprum-sawita-respi"]
-  ["cliapprum","mahahon-cliapprum-sawita-respi",0,[[15,4,1,0,3,0,0,0]]],
+  ["cliapprum","mahahon-cliapprum-sawita-respi",0,[[15,4,1,0,3,0,0,0]]], // 13162fff8729
   // end ["cliapprum","mahahon-cliapprum-sawita-respi"]
   // ["cliapprum","metabolism-nutrition"]
-  ["cliapprum","metabolism-nutrition",0,[[9,4,1,0,3,0,0,0]]],
+  ["cliapprum","metabolism-nutrition",0,[[9,4,1,0,3,0,0,0]]], // a6d33a163db0
   // end ["cliapprum","metabolism-nutrition"]
   // ["cliapprum","ruminant-anesthesia"]
-  ["cliapprum","ruminant-anesthesia",0,[[8,4,1,0,3,0,0,0]]],
+  ["cliapprum","ruminant-anesthesia",0,[[8,4,1,0,3,0,0,0]]], // 4d98ab86428e
   // end ["cliapprum","ruminant-anesthesia"]
   // ["cliapprum","uncertain-scope"]
-  ["cliapprum","uncertain-scope",0,[[2,4,0,1,0,0,0,0]]],
+  ["cliapprum","uncertain-scope",0,[[2,4,0,1,0,0,0,0]]], // 9be628baff35
   // end ["cliapprum","uncertain-scope"]
   // ["com1","acute-chf-collapse"]
-  ["com1","acute-chf-collapse",0,[[1,4,1,1,2,1,0,0]]],
+  ["com1","acute-chf-collapse",0,[[1,4,1,1,2,1,0,0]]], // 0f37a2f799f4
   // end ["com1","acute-chf-collapse"]
   // ["com1","aki-stages"]
-  ["com1","aki-stages",0,[[1,4,1,1,2,1,0,0]]],
+  ["com1","aki-stages",0,[[1,4,1,1,2,1,0,0]]], // c29a8721f0ba
   // end ["com1","aki-stages"]
   // ["com1","anemia-regen-vs-non"]
-  ["com1","anemia-regen-vs-non",0,[[1,4,1,1,3,1,0,0]]],
+  ["com1","anemia-regen-vs-non",0,[[1,4,1,1,3,1,0,0]]], // d408382267b2
   // end ["com1","anemia-regen-vs-non"]
   // ["com1","aspiration-pneumonia"]
-  ["com1","aspiration-pneumonia",0,[[1,4,1,1,2,1,0,0]]],
+  ["com1","aspiration-pneumonia",0,[[1,4,1,1,2,1,0,0]]], // 8893e71c2f18
   // end ["com1","aspiration-pneumonia"]
   // ["com1","blood-transfusion"]
-  ["com1","blood-transfusion",0,[[1,4,1,1,3,1,0,0]]],
+  ["com1","blood-transfusion",0,[[1,4,1,1,3,1,0,0]]], // 321af2602f73
   // end ["com1","blood-transfusion"]
   // ["com1","bone-marrow-biopsy"]
-  ["com1","bone-marrow-biopsy",0,[[1,4,1,1,3,1,0,0]]],
+  ["com1","bone-marrow-biopsy",0,[[1,4,1,1,3,1,0,0]]], // c59348a02287
   // end ["com1","bone-marrow-biopsy"]
   // ["com1","brachycephalic-syndrome"]
-  ["com1","brachycephalic-syndrome",0,[[1,4,1,1,2,1,0,0]]],
+  ["com1","brachycephalic-syndrome",0,[[1,4,1,1,2,1,0,0]]], // 3fbcf016fba7
   // end ["com1","brachycephalic-syndrome"]
   // ["com1","cardiogenic-shock"]
-  ["com1","cardiogenic-shock",0,[[1,4,1,1,2,1,0,0]]],
+  ["com1","cardiogenic-shock",0,[[1,4,1,1,2,1,0,0]]], // 1a6e81e71680
   // end ["com1","cardiogenic-shock"]
   // ["com1","ckd-complications"]
-  ["com1","ckd-complications",0,[[1,4,1,1,2,1,0,0]]],
+  ["com1","ckd-complications",0,[[1,4,1,1,2,1,0,0]]], // 292e37ac01c8
   // end ["com1","ckd-complications"]
   // ["com1","ckd-iris"]
-  ["com1","ckd-iris",0,[[1,4,1,1,2,1,0,0]]],
+  ["com1","ckd-iris",0,[[1,4,1,1,2,1,0,0]]], // 5b0d9fe61989
   // end ["com1","ckd-iris"]
   // ["com1","ckd-proteinuria-rx"]
-  ["com1","ckd-proteinuria-rx",0,[[1,4,1,1,2,1,0,0]]],
+  ["com1","ckd-proteinuria-rx",0,[[1,4,1,1,2,1,0,0]]], // 4645d4e2cf19
   // end ["com1","ckd-proteinuria-rx"]
   // ["com1","dcm-management"]
-  ["com1","dcm-management",0,[[1,4,1,1,2,1,0,0]]],
+  ["com1","dcm-management",0,[[1,4,1,1,2,1,0,0]]], // 389c5dc0861b
   // end ["com1","dcm-management"]
   // ["com1","echocardiography"]
-  ["com1","echocardiography",0,[[1,4,1,1,2,1,0,0]]],
+  ["com1","echocardiography",0,[[1,4,1,1,2,1,0,0]]], // e748c559832a
   // end ["com1","echocardiography"]
   // ["com1","ectopic-ureter"]
-  ["com1","ectopic-ureter",0,[[1,4,1,1,2,1,0,0]]],
+  ["com1","ectopic-ureter",0,[[1,4,1,1,2,1,0,0]]], // 935f0f290a51
   // end ["com1","ectopic-ureter"]
   // ["com1","ekg-arrhythmia"]
-  ["com1","ekg-arrhythmia",0,[[1,4,1,1,2,1,0,0]]],
+  ["com1","ekg-arrhythmia",0,[[1,4,1,1,2,1,0,0]]], // 75eedadf4beb
   // end ["com1","ekg-arrhythmia"]
   // ["com1","feline-asthma"]
-  ["com1","feline-asthma",0,[[1,4,1,1,2,1,0,0]]],
+  ["com1","feline-asthma",0,[[1,4,1,1,2,1,0,0]]], // 081b55ef3e9e
   // end ["com1","feline-asthma"]
   // ["com1","feline-flutd"]
-  ["com1","feline-flutd",0,[[1,4,1,1,2,1,0,0]]],
+  ["com1","feline-flutd",0,[[1,4,1,1,2,1,0,0]]], // acb34fd6168d
   // end ["com1","feline-flutd"]
   // ["com1","feline-hypertension"]
-  ["com1","feline-hypertension",0,[[1,4,1,1,2,1,0,0]]],
+  ["com1","feline-hypertension",0,[[1,4,1,1,2,1,0,0]]], // cc22b88706f0
   // end ["com1","feline-hypertension"]
   // ["com1","hcm-feline"]
-  ["com1","hcm-feline",0,[[1,4,1,1,2,1,0,0]]],
+  ["com1","hcm-feline",0,[[1,4,1,1,2,1,0,0]]], // 284884e0fd6e
   // end ["com1","hcm-feline"]
   // ["com1","laryngeal-paralysis"]
-  ["com1","laryngeal-paralysis",0,[[1,4,1,1,2,1,0,0]]],
+  ["com1","laryngeal-paralysis",0,[[1,4,1,1,2,1,0,0]]], // 5301455738d5
   // end ["com1","laryngeal-paralysis"]
   // ["com1","left-sided-heart-failure"]
-  ["com1","left-sided-heart-failure",0,[[1,4,1,1,2,1,0,0]]],
+  ["com1","left-sided-heart-failure",0,[[1,4,1,1,2,1,0,0]]], // 26494e33810e
   // end ["com1","left-sided-heart-failure"]
   // ["com1","mitral-valve-disease"]
-  ["com1","mitral-valve-disease",0,[[1,4,1,1,2,1,0,0]]],
+  ["com1","mitral-valve-disease",0,[[1,4,1,1,2,1,0,0]]], // f35294e3c922
   // end ["com1","mitral-valve-disease"]
   // ["com1","prerenal-azotemia"]
-  ["com1","prerenal-azotemia",0,[[1,4,1,1,2,1,0,0]]],
+  ["com1","prerenal-azotemia",0,[[1,4,1,1,2,1,0,0]]], // b00aa7ba8202
   // end ["com1","prerenal-azotemia"]
   // ["com1","pulmonary-thromboembolism"]
-  ["com1","pulmonary-thromboembolism",0,[[1,4,1,1,2,1,0,0]]],
+  ["com1","pulmonary-thromboembolism",0,[[1,4,1,1,2,1,0,0]]], // 9cf4f761d530
   // end ["com1","pulmonary-thromboembolism"]
   // ["com1","respiratory-pattern"]
-  ["com1","respiratory-pattern",0,[[1,4,1,1,2,1,0,0]]],
+  ["com1","respiratory-pattern",0,[[1,4,1,1,2,1,0,0]]], // f60da9338199
   // end ["com1","respiratory-pattern"]
   // ["com1","splenectomy-indication"]
-  ["com1","splenectomy-indication",0,[[1,4,1,1,3,1,0,0]]],
+  ["com1","splenectomy-indication",0,[[1,4,1,1,3,1,0,0]]], // abd80bb97883
   // end ["com1","splenectomy-indication"]
   // ["com1","tetralogy-of-fallot"]
-  ["com1","tetralogy-of-fallot",0,[[1,4,1,1,2,1,0,0]]],
+  ["com1","tetralogy-of-fallot",0,[[1,4,1,1,2,1,0,0]]], // dd8dfa026cf0
   // end ["com1","tetralogy-of-fallot"]
   // ["com1","tracheal-collapse"]
-  ["com1","tracheal-collapse",0,[[1,4,1,1,2,1,0,0]]],
+  ["com1","tracheal-collapse",0,[[1,4,1,1,2,1,0,0]]], // d1332edc6630
   // end ["com1","tracheal-collapse"]
   // ["com1","urethral-obstruction"]
-  ["com1","urethral-obstruction",0,[[1,4,1,1,2,1,0,0]]],
+  ["com1","urethral-obstruction",0,[[1,4,1,1,2,1,0,0]]], // ba4dabbe80e4
   // end ["com1","urethral-obstruction"]
   // ["com1","urolith-types"]
-  ["com1","urolith-types",0,[[1,4,1,1,2,1,0,0]]],
+  ["com1","urolith-types",0,[[1,4,1,1,2,1,0,0]]], // 3983a64cc05d
   // end ["com1","urolith-types"]
   // ["com1","vsd-tricuspid"]
-  ["com1","vsd-tricuspid",0,[[1,4,1,1,2,1,0,0]]],
+  ["com1","vsd-tricuspid",0,[[1,4,1,1,2,1,0,0]]], // c22535826399
   // end ["com1","vsd-tricuspid"]
   // ["com2","arthrodesis"]
-  ["com2","arthrodesis",0,[[1,4,1,1,2,1,0,0]]],
+  ["com2","arthrodesis",0,[[1,4,1,1,2,1,0,0]]], // f8a04f9bf6b9
   // end ["com2","arthrodesis"]
   // ["com2","ccl-conservative-tx"]
-  ["com2","ccl-conservative-tx",0,[[1,4,1,1,2,1,0,0]]],
+  ["com2","ccl-conservative-tx",0,[[1,4,1,1,2,1,0,0]]], // 30e22964d03e
   // end ["com2","ccl-conservative-tx"]
   // ["com2","ccl-surgery"]
-  ["com2","ccl-surgery",0,[[2,4,1,1,2,1,0,0]]],
+  ["com2","ccl-surgery",0,[[2,4,1,1,2,1,0,0]]], // 20b74e60a99f
   // end ["com2","ccl-surgery"]
   // ["com2","cranial-cruciate-ligament"]
-  ["com2","cranial-cruciate-ligament",0,[[1,4,1,1,2,1,0,0]]],
+  ["com2","cranial-cruciate-ligament",0,[[1,4,1,1,2,1,0,0]]], // dc619d37439f
   // end ["com2","cranial-cruciate-ligament"]
   // ["com2","developmental-orthopedic-disease"]
-  ["com2","developmental-orthopedic-disease",0,[[1,4,1,1,2,1,0,0]]],
+  ["com2","developmental-orthopedic-disease",0,[[1,4,1,1,2,1,0,0]]], // a6ee3d4e1a39
   // end ["com2","developmental-orthopedic-disease"]
   // ["com2","elbow-dysplasia"]
-  ["com2","elbow-dysplasia",0,[[1,4,1,1,2,1,0,0]]],
+  ["com2","elbow-dysplasia",0,[[1,4,1,1,2,1,0,0]]], // e9843c91b5ba
   // end ["com2","elbow-dysplasia"]
   // ["com2","fracture-classification"]
-  ["com2","fracture-classification",0,[[1,4,1,1,1,1,0,0]]],
+  ["com2","fracture-classification",0,[[1,4,1,1,1,1,0,0]]], // 9c05ad57ff82
   // end ["com2","fracture-classification"]
   // ["com2","fracture-management"]
-  ["com2","fracture-management",0,[[2,4,1,1,1,1,0,0]]],
+  ["com2","fracture-management",0,[[2,4,1,1,1,1,0,0]]], // a08247f431a6
   // end ["com2","fracture-management"]
   // ["com2","hip-dysplasia"]
-  ["com2","hip-dysplasia",0,[[3,4,1,1,2,1,0,0]]],
+  ["com2","hip-dysplasia",0,[[3,4,1,1,2,1,0,0]]], // c437eded78d2
   // end ["com2","hip-dysplasia"]
   // ["com2","hip-imaging"]
-  ["com2","hip-imaging",0,[[1,4,1,1,2,1,0,0]]],
+  ["com2","hip-imaging",0,[[1,4,1,1,2,1,0,0]]], // 1a6e98225b85
   // end ["com2","hip-imaging"]
   // ["com2","hip-luxation"]
-  ["com2","hip-luxation",0,[[2,4,1,1,2,1,0,0]]],
+  ["com2","hip-luxation",0,[[2,4,1,1,2,1,0,0]]], // 294014656fa4
   // end ["com2","hip-luxation"]
   // ["com2","hip-surgery"]
-  ["com2","hip-surgery",0,[[1,4,1,1,2,1,0,0]]],
+  ["com2","hip-surgery",0,[[1,4,1,1,2,1,0,0]]], // 4aa84ae0f447
   // end ["com2","hip-surgery"]
   // ["com2","legg-calve-perthes"]
-  ["com2","legg-calve-perthes",0,[[1,4,1,1,2,1,0,0]]],
+  ["com2","legg-calve-perthes",0,[[1,4,1,1,2,1,0,0]]], // 8248b016c0c8
   // end ["com2","legg-calve-perthes"]
   // ["com2","limb-amputation"]
-  ["com2","limb-amputation",0,[[1,4,1,1,2,1,0,0]]],
+  ["com2","limb-amputation",0,[[1,4,1,1,2,1,0,0]]], // cdfc4d3f27bd
   // end ["com2","limb-amputation"]
   // ["com2","meniscal-injury"]
-  ["com2","meniscal-injury",0,[[1,4,1,1,2,1,0,0]]],
+  ["com2","meniscal-injury",0,[[1,4,1,1,2,1,0,0]]], // da96cad2b3e0
   // end ["com2","meniscal-injury"]
   // ["com2","metabolic-orthopedic-disease"]
-  ["com2","metabolic-orthopedic-disease",0,[[2,4,1,1,2,1,0,0]]],
+  ["com2","metabolic-orthopedic-disease",0,[[2,4,1,1,2,1,0,0]]], // f6b05ff2dd40
   // end ["com2","metabolic-orthopedic-disease"]
   // ["com2","oral-trauma"]
-  ["com2","oral-trauma",0,[[11,4,1,1,3,1,0,0]]],
+  ["com2","oral-trauma",0,[[11,4,1,1,3,1,0,0]]], // 318a1b5accfe
   // end ["com2","oral-trauma"]
   // ["com2","osteochondrosis"]
-  ["com2","osteochondrosis",0,[[1,4,1,1,2,1,0,0]]],
+  ["com2","osteochondrosis",0,[[1,4,1,1,2,1,0,0]]], // 9c1c29196a4d
   // end ["com2","osteochondrosis"]
   // ["com2","patellar-luxation"]
-  ["com2","patellar-luxation",0,[[2,4,1,1,2,1,0,0]]],
+  ["com2","patellar-luxation",0,[[2,4,1,1,2,1,0,0]]], // d53fbec6b97b
   // end ["com2","patellar-luxation"]
   // ["com2","rehabilitation"]
-  ["com2","rehabilitation",0,[[1,4,1,1,2,1,0,0]]],
+  ["com2","rehabilitation",0,[[1,4,1,1,2,1,0,0]]], // 71e7d54cd576
   // end ["com2","rehabilitation"]
   // ["com2","shoulder-luxation"]
-  ["com2","shoulder-luxation",0,[[1,4,1,1,2,1,0,0]]],
+  ["com2","shoulder-luxation",0,[[1,4,1,1,2,1,0,0]]], // b4247f987a66
   // end ["com2","shoulder-luxation"]
   // ["com2","spinal-imaging"]
-  ["com2","spinal-imaging",0,[[1,4,1,1,2,1,0,0]]],
+  ["com2","spinal-imaging",0,[[1,4,1,1,2,1,0,0]]], // 023260116e8c
   // end ["com2","spinal-imaging"]
   // ["com2","spinal-trauma"]
-  ["com2","spinal-trauma",0,[[2,4,1,1,2,1,0,0]]],
+  ["com2","spinal-trauma",0,[[2,4,1,1,2,1,0,0]]], // eea186c72fea
   // end ["com2","spinal-trauma"]
   // ["com2","stifle-exam"]
-  ["com2","stifle-exam",0,[[1,4,1,1,2,1,0,0]]],
+  ["com2","stifle-exam",0,[[1,4,1,1,2,1,0,0]]], // bab868207c1a
   // end ["com2","stifle-exam"]
   // ["com3","acute-abdomen"]
-  ["com3","acute-abdomen",0,[[10,4,1,0,3,0,0,0],[9,4,1,1,3,1,0,0]]],
+  ["com3","acute-abdomen",0,[[10,4,1,0,3,0,0,0],[9,4,1,1,3,1,0,0]]], // cd9071553002
   // end ["com3","acute-abdomen"]
   // ["com3","ai-vet"]
-  ["com3","ai-vet",0,[[8,4,1,0,3,0,0,0]]],
+  ["com3","ai-vet",0,[[8,4,1,0,3,0,0,0]]], // 24f88ce13547
   // end ["com3","ai-vet"]
   // ["com3","ataxia-tremor"]
-  ["com3","ataxia-tremor",0,[[11,4,1,0,3,0,0,0],[12,4,1,1,3,1,0,0]]],
+  ["com3","ataxia-tremor",0,[[11,4,1,0,3,0,0,0],[12,4,1,1,3,1,0,0]]], // 316b86010d5a
   // end ["com3","ataxia-tremor"]
   // ["com3","cataract"]
-  ["com3","cataract",0,[[2,4,1,0,3,0,0,0]]],
+  ["com3","cataract",0,[[2,4,1,0,3,0,0,0]]], // 6a36f6b6ee7b
   // end ["com3","cataract"]
   // ["com3","cornea"]
-  ["com3","cornea",0,[[5,4,1,0,3,0,0,0]]],
+  ["com3","cornea",0,[[5,4,1,0,3,0,0,0]]], // 4aa6cd17a0f4
   // end ["com3","cornea"]
   // ["com3","cpcr"]
-  ["com3","cpcr",0,[[12,4,1,0,3,0,0,0],[8,4,1,1,3,1,0,0]]],
+  ["com3","cpcr",0,[[12,4,1,0,3,0,0,0],[8,4,1,1,3,1,0,0]]], // 72dbbfcaff14
   // end ["com3","cpcr"]
   // ["com3","ear"]
-  ["com3","ear",0,[[2,4,1,0,3,0,0,0]]],
+  ["com3","ear",0,[[2,4,1,0,3,0,0,0]]], // 9685ec5597df
   // end ["com3","ear"]
   // ["com3","er-anes"]
-  ["com3","er-anes",0,[[11,4,1,0,3,0,0,0],[6,4,1,1,3,1,0,0]]],
+  ["com3","er-anes",0,[[11,4,1,0,3,0,0,0],[6,4,1,1,3,1,0,0]]], // 1ba94a1d3b8b
   // end ["com3","er-anes"]
   // ["com3","glaucoma"]
-  ["com3","glaucoma",0,[[3,4,1,0,3,0,0,0]]],
+  ["com3","glaucoma",0,[[3,4,1,0,3,0,0,0]]], // a9fbc163d737
   // end ["com3","glaucoma"]
   // ["com3","imaging"]
-  ["com3","imaging",0,[[4,4,1,0,3,0,0,0]]],
+  ["com3","imaging",0,[[4,4,1,0,3,0,0,0]]], // d7695a2f1346
   // end ["com3","imaging"]
   // ["com3","metabolic-er"]
-  ["com3","metabolic-er",0,[[12,4,1,0,3,0,0,0],[6,4,1,1,3,1,0,0]]],
+  ["com3","metabolic-er",0,[[12,4,1,0,3,0,0,0],[6,4,1,1,3,1,0,0]]], // 51a61cb15464
   // end ["com3","metabolic-er"]
   // ["com3","neuro-er"]
-  ["com3","neuro-er",0,[[10,4,1,0,3,0,0,0],[6,4,1,1,3,1,0,0]]],
+  ["com3","neuro-er",0,[[10,4,1,0,3,0,0,0],[6,4,1,1,3,1,0,0]]], // 73499dd13383
   // end ["com3","neuro-er"]
   // ["com3","neuro-exam"]
-  ["com3","neuro-exam",0,[[12,4,1,0,3,0,0,0]]],
+  ["com3","neuro-exam",0,[[12,4,1,0,3,0,0,0]]], // a6e7ad85f1f9
   // end ["com3","neuro-exam"]
   // ["com3","nutrition"]
-  ["com3","nutrition",0,[[8,4,1,0,3,0,0,0],[11,4,1,1,3,1,0,0]]],
+  ["com3","nutrition",0,[[8,4,1,0,3,0,0,0],[11,4,1,1,3,1,0,0]]], // 1f9943dd8c46
   // end ["com3","nutrition"]
   // ["com3","ophthal-exam"]
-  ["com3","ophthal-exam",0,[[3,4,1,0,3,0,0,0]]],
+  ["com3","ophthal-exam",0,[[3,4,1,0,3,0,0,0]]], // 2b86f920e56b
   // end ["com3","ophthal-exam"]
   // ["com3","resp-cv-er"]
-  ["com3","resp-cv-er",0,[[11,4,1,0,3,0,0,0],[12,4,1,1,3,1,0,0]]],
+  ["com3","resp-cv-er",0,[[11,4,1,0,3,0,0,0],[12,4,1,1,3,1,0,0]]], // cd50b1a7170f
   // end ["com3","resp-cv-er"]
   // ["com3","retina"]
-  ["com3","retina",0,[[3,4,1,0,3,0,0,0]]],
+  ["com3","retina",0,[[3,4,1,0,3,0,0,0]]], // 02c34c270045
   // end ["com3","retina"]
   // ["com3","seizure"]
-  ["com3","seizure",0,[[13,4,1,0,3,0,0,0],[10,4,1,1,3,1,0,0]]],
+  ["com3","seizure",0,[[13,4,1,0,3,0,0,0],[10,4,1,1,3,1,0,0]]], // 3fd55ea1a823
   // end ["com3","seizure"]
   // ["com3","shock"]
-  ["com3","shock",0,[[11,4,1,0,3,0,0,0],[11,4,1,1,3,1,0,0]]],
+  ["com3","shock",0,[[11,4,1,0,3,0,0,0],[11,4,1,1,3,1,0,0]]], // c242908a4634
   // end ["com3","shock"]
   // ["com3","special-prep"]
-  ["com3","special-prep",0,[[68,4,1,1,3,1,0,0]]],
+  ["com3","special-prep",0,[[68,4,1,1,3,1,0,0]]], // 6e8890eeb1a5
   // end ["com3","special-prep"]
   // ["com3","spinal"]
-  ["com3","spinal",0,[[12,4,1,0,3,0,0,0],[14,4,1,1,3,1,0,0]]],
+  ["com3","spinal",0,[[12,4,1,0,3,0,0,0],[14,4,1,1,3,1,0,0]]], // f6ec4a547ab0
   // end ["com3","spinal"]
   // ["com3","triage"]
-  ["com3","triage",0,[[10,4,1,0,3,0,0,0],[5,4,1,1,3,1,0,0]]],
+  ["com3","triage",0,[[10,4,1,0,3,0,0,0],[5,4,1,1,3,1,0,0]]], // 3d6f5763aa2a
   // end ["com3","triage"]
   // ["com3","uveitis"]
-  ["com3","uveitis",0,[[8,4,1,0,3,0,0,0]]],
+  ["com3","uveitis",0,[[8,4,1,0,3,0,0,0]]], // f659a6211632
   // end ["com3","uveitis"]
   // ["com4","__unassigned__"]
-  ["com4","__unassigned__",0,[[4,4,1,1,3,1,0,0]]],
+  ["com4","__unassigned__",0,[[4,4,1,1,3,1,0,0]]], // 166751a0eca3
   // end ["com4","__unassigned__"]
   // ["com4","derm-allergic"]
-  ["com4","derm-allergic",0,[[17,4,1,0,3,0,0,0],[1,4,1,1,3,1,0,0]]],
+  ["com4","derm-allergic",0,[[17,4,1,0,3,0,0,0],[1,4,1,1,3,1,0,0]]], // a75c784b1b2f
   // end ["com4","derm-allergic"]
   // ["com4","derm-autoimmune"]
-  ["com4","derm-autoimmune",0,[[18,4,1,0,3,0,0,0]]],
+  ["com4","derm-autoimmune",0,[[18,4,1,0,3,0,0,0]]], // a4bb6ffecb45
   // end ["com4","derm-autoimmune"]
   // ["com4","derm-bacterial"]
-  ["com4","derm-bacterial",0,[[16,4,1,0,3,0,0,0]]],
+  ["com4","derm-bacterial",0,[[16,4,1,0,3,0,0,0]]], // f30b185c0d8b
   // end ["com4","derm-bacterial"]
   // ["com4","derm-endocrine"]
-  ["com4","derm-endocrine",0,[[26,4,1,0,3,0,0,0]]],
+  ["com4","derm-endocrine",0,[[26,4,1,0,3,0,0,0]]], // d0f15676c1d3
   // end ["com4","derm-endocrine"]
   // ["com4","derm-fungal"]
-  ["com4","derm-fungal",0,[[16,4,1,0,3,0,0,0]]],
+  ["com4","derm-fungal",0,[[16,4,1,0,3,0,0,0]]], // a5de57a0bafd
   // end ["com4","derm-fungal"]
   // ["com4","derm-intro"]
-  ["com4","derm-intro",0,[[9,4,1,0,3,0,0,0]]],
+  ["com4","derm-intro",0,[[9,4,1,0,3,0,0,0]]], // 2acb65f36e0e
   // end ["com4","derm-intro"]
   // ["com4","derm-nutrition"]
-  ["com4","derm-nutrition",0,[[13,4,1,0,3,0,0,0]]],
+  ["com4","derm-nutrition",0,[[13,4,1,0,3,0,0,0]]], // a9a9ace4e49a
   // end ["com4","derm-nutrition"]
   // ["com4","derm-parasitic"]
-  ["com4","derm-parasitic",0,[[14,4,1,0,3,0,0,0],[1,4,1,1,3,1,0,0]]],
+  ["com4","derm-parasitic",0,[[14,4,1,0,3,0,0,0],[1,4,1,1,3,1,0,0]]], // 1a232a810fe5
   // end ["com4","derm-parasitic"]
   // ["com4","endo-addison"]
-  ["com4","endo-addison",0,[[1,4,1,1,3,1,0,0]]],
+  ["com4","endo-addison",0,[[1,4,1,1,3,1,0,0]]], // c58073b54cc5
   // end ["com4","endo-addison"]
   // ["com4","endo-cushing"]
-  ["com4","endo-cushing",0,[[1,4,1,1,3,1,0,0]]],
+  ["com4","endo-cushing",0,[[1,4,1,1,3,1,0,0]]], // c9806b2466f7
   // end ["com4","endo-cushing"]
   // ["com4","endo-dm"]
-  ["com4","endo-dm",0,[[1,4,1,1,3,1,0,0]]],
+  ["com4","endo-dm",0,[[1,4,1,1,3,1,0,0]]], // 4643eb4a1c91
   // end ["com4","endo-dm"]
   // ["com4","ibd"]
-  ["com4","ibd",0,[[22,4,1,0,3,0,0,0],[5,4,1,1,3,1,0,0]]],
+  ["com4","ibd",0,[[22,4,1,0,3,0,0,0],[5,4,1,1,3,1,0,0]]], // 1f1d94528cb1
   // end ["com4","ibd"]
   // ["com4","imha"]
-  ["com4","imha",0,[[29,4,1,0,3,0,0,0],[4,4,1,1,3,1,0,0]]],
+  ["com4","imha",0,[[29,4,1,0,3,0,0,0],[4,4,1,1,3,1,0,0]]], // 6d5199eaf25a
   // end ["com4","imha"]
   // ["com4","immune-drugs"]
-  ["com4","immune-drugs",0,[[15,4,1,0,3,0,0,0]]],
+  ["com4","immune-drugs",0,[[15,4,1,0,3,0,0,0]]], // 81860c230097
   // end ["com4","immune-drugs"]
   // ["com4","peds-geri"]
-  ["com4","peds-geri",0,[[41,4,1,0,3,0,0,0],[11,4,1,1,3,1,0,0]]],
+  ["com4","peds-geri",0,[[41,4,1,0,3,0,0,0],[11,4,1,1,3,1,0,0]]], // c3b4cfe8545c
   // end ["com4","peds-geri"]
   // ["com4","sle"]
-  ["com4","sle",0,[[22,4,1,0,3,0,0,0],[4,4,1,1,3,1,0,0]]],
+  ["com4","sle",0,[[22,4,1,0,3,0,0,0],[4,4,1,1,3,1,0,0]]], // f318a89c2fca
   // end ["com4","sle"]
   // ["com5","cve"]
-  ["com5","cve",0,[[19,4,1,0,3,0,0,0],[3,4,1,1,3,1,0,0]]],
+  ["com5","cve",0,[[19,4,1,0,3,0,0,0],[3,4,1,1,3,1,0,0]]], // 18ed8acf9abb
   // end ["com5","cve"]
   // ["com5","feline-uri"]
-  ["com5","feline-uri",0,[[20,4,1,0,3,0,0,0]]],
+  ["com5","feline-uri",0,[[20,4,1,0,3,0,0,0]]], // 6323a5e45e9e
   // end ["com5","feline-uri"]
   // ["com5","gi-protozoa"]
-  ["com5","gi-protozoa",0,[[22,4,1,0,3,0,0,0],[1,4,1,1,3,1,0,0]]],
+  ["com5","gi-protozoa",0,[[22,4,1,0,3,0,0,0],[1,4,1,1,3,1,0,0]]], // 1ac2f207b805
   // end ["com5","gi-protozoa"]
   // ["com5","rabies"]
-  ["com5","rabies",0,[[19,4,1,0,3,0,0,0]]],
+  ["com5","rabies",0,[[19,4,1,0,3,0,0,0]]], // 837920326935
   // end ["com5","rabies"]
   // ["com5","sporo-crypto"]
-  ["com5","sporo-crypto",0,[[18,4,1,0,3,0,0,0],[4,4,1,1,3,1,0,0]]],
+  ["com5","sporo-crypto",0,[[18,4,1,0,3,0,0,0],[4,4,1,1,3,1,0,0]]], // 542f75335bfc
   // end ["com5","sporo-crypto"]
   // ["com5","vaccine"]
-  ["com5","vaccine",0,[[21,4,1,0,3,0,0,0],[2,4,1,1,3,1,0,0]]],
+  ["com5","vaccine",0,[[21,4,1,0,3,0,0,0],[2,4,1,1,3,1,0,0]]], // 3707942c3861
   // end ["com5","vaccine"]
   // ["comp-repro-clinic","comp-repro-anatomy-cycle"]
-  ["comp-repro-clinic","comp-repro-anatomy-cycle",0,[[4,5,1,1,3,1,0,0]]],
+  ["comp-repro-clinic","comp-repro-anatomy-cycle",0,[[4,5,1,1,3,1,0,0]]], // 9ca87a491cb6
   // end ["comp-repro-clinic","comp-repro-anatomy-cycle"]
   // ["comp-repro-clinic","comp-repro-art"]
-  ["comp-repro-clinic","comp-repro-art",0,[[1,5,1,1,3,1,0,0]]],
+  ["comp-repro-clinic","comp-repro-art",0,[[1,5,1,1,3,1,0,0]]], // e1b605ec88aa
   // end ["comp-repro-clinic","comp-repro-art"]
   // ["comp-repro-clinic","comp-repro-cytology"]
-  ["comp-repro-clinic","comp-repro-cytology",0,[[6,5,1,1,3,1,0,0]]],
+  ["comp-repro-clinic","comp-repro-cytology",0,[[6,5,1,1,3,1,0,0]]], // 54b9c035aa1d
   // end ["comp-repro-clinic","comp-repro-cytology"]
   // ["comp-repro-clinic","comp-repro-infect"]
-  ["comp-repro-clinic","comp-repro-infect",0,[[1,5,1,1,3,1,0,0]]],
+  ["comp-repro-clinic","comp-repro-infect",0,[[1,5,1,1,3,1,0,0]]], // efe7a67d3060
   // end ["comp-repro-clinic","comp-repro-infect"]
   // ["comp-repro-clinic","comp-repro-infertility"]
-  ["comp-repro-clinic","comp-repro-infertility",0,[[2,5,1,1,3,1,0,0]]],
+  ["comp-repro-clinic","comp-repro-infertility",0,[[2,5,1,1,3,1,0,0]]], // 46eac0ba34fe
   // end ["comp-repro-clinic","comp-repro-infertility"]
   // ["comp-repro-clinic","comp-repro-male"]
-  ["comp-repro-clinic","comp-repro-male",0,[[11,5,1,1,3,1,0,0]]],
+  ["comp-repro-clinic","comp-repro-male",0,[[11,5,1,1,3,1,0,0]]], // 9dc09b50620c
   // end ["comp-repro-clinic","comp-repro-male"]
   // ["comp-repro-clinic","comp-repro-postpartum"]
-  ["comp-repro-clinic","comp-repro-postpartum",0,[[1,5,1,1,3,1,0,0]]],
+  ["comp-repro-clinic","comp-repro-postpartum",0,[[1,5,1,1,3,1,0,0]]], // 821d72ccfadb
   // end ["comp-repro-clinic","comp-repro-postpartum"]
   // ["comp-repro-clinic","comp-repro-pregnancy"]
-  ["comp-repro-clinic","comp-repro-pregnancy",0,[[7,5,1,1,3,1,0,0]]],
+  ["comp-repro-clinic","comp-repro-pregnancy",0,[[7,5,1,1,3,1,0,0]]], // 398df9d5bd79
   // end ["comp-repro-clinic","comp-repro-pregnancy"]
   // ["comp-repro-clinic","comp-repro-surgery"]
-  ["comp-repro-clinic","comp-repro-surgery",0,[[15,5,1,1,3,1,0,0]]],
+  ["comp-repro-clinic","comp-repro-surgery",0,[[15,5,1,1,3,1,0,0]]], // 59619c8b0e7a
   // end ["comp-repro-clinic","comp-repro-surgery"]
   // ["engprof","academic-writing"]
-  ["engprof","academic-writing",0,[[3,4,1,0,3,0,0,0]]],
+  ["engprof","academic-writing",0,[[3,4,1,0,3,0,0,0]]], // c5bb7414b3c5
   // end ["engprof","academic-writing"]
   // ["engprof","paraphrasing"]
-  ["engprof","paraphrasing",0,[[4,4,1,0,3,0,0,0],[1,4,1,1,3,1,0,0]]],
+  ["engprof","paraphrasing",0,[[4,4,1,0,3,0,0,0],[1,4,1,1,3,1,0,0]]], // f49decfeb381
   // end ["engprof","paraphrasing"]
   // ["engprof","research-design"]
-  ["engprof","research-design",0,[[10,4,1,0,3,0,0,0]]],
+  ["engprof","research-design",0,[[10,4,1,0,3,0,0,0]]], // 0ef5b15f7dab
   // end ["engprof","research-design"]
   // ["engprof","research-paper-structure"]
-  ["engprof","research-paper-structure",0,[[45,4,1,0,3,0,0,0]]],
+  ["engprof","research-paper-structure",0,[[45,4,1,0,3,0,0,0]]], // cffc94bd8132
   // end ["engprof","research-paper-structure"]
   // ["engprof","summary-writing"]
-  ["engprof","summary-writing",0,[[7,4,1,0,3,0,0,0]]],
+  ["engprof","summary-writing",0,[[7,4,1,0,3,0,0,0]]], // c72ff1cc386a
   // end ["engprof","summary-writing"]
   // ["engprof1","listening-therapy-dogs"]
-  ["engprof1","listening-therapy-dogs",0,[[5,4,1,0,2,0,0,0]]],
+  ["engprof1","listening-therapy-dogs",0,[[5,4,1,0,2,0,0,0]]], // 657a6024fec0
   // end ["engprof1","listening-therapy-dogs"]
   // ["engprof1","listening-vet-patient-consult"]
-  ["engprof1","listening-vet-patient-consult",0,[[3,4,1,0,2,0,0,0]]],
+  ["engprof1","listening-vet-patient-consult",0,[[3,4,1,0,2,0,0,0]]], // d7cebb6921b7
   // end ["engprof1","listening-vet-patient-consult"]
   // ["engprof1","listening-vet-shortage-news"]
-  ["engprof1","listening-vet-shortage-news",0,[[6,4,1,0,2,0,0,0]]],
+  ["engprof1","listening-vet-shortage-news",0,[[6,4,1,0,2,0,0,0]]], // 598b33bbf2a1
   // end ["engprof1","listening-vet-shortage-news"]
   // ["engprof1","pronunciation-focus-meaning"]
-  ["engprof1","pronunciation-focus-meaning",0,[[1,4,1,0,2,0,0,0]]],
+  ["engprof1","pronunciation-focus-meaning",0,[[1,4,1,0,2,0,0,0]]], // 3c65ac26bf35
   // end ["engprof1","pronunciation-focus-meaning"]
   // ["engprof1","pronunciation-stress-function"]
-  ["engprof1","pronunciation-stress-function",0,[[3,4,1,0,2,0,0,0]]],
+  ["engprof1","pronunciation-stress-function",0,[[3,4,1,0,2,0,0,0]]], // f8d8cf4c1c6d
   // end ["engprof1","pronunciation-stress-function"]
   // ["engprof1","pronunciation-word-stress"]
-  ["engprof1","pronunciation-word-stress",0,[[2,4,1,0,2,0,0,0]]],
+  ["engprof1","pronunciation-word-stress",0,[[2,4,1,0,2,0,0,0]]], // cf9710cc1a6d
   // end ["engprof1","pronunciation-word-stress"]
   // ["engprof1","unit3-catnip-lecture"]
-  ["engprof1","unit3-catnip-lecture",0,[[1,4,1,0,2,0,0,0]]],
+  ["engprof1","unit3-catnip-lecture",0,[[1,4,1,0,2,0,0,0]]], // 0b9b57f88a87
   // end ["engprof1","unit3-catnip-lecture"]
   // ["engprof1","unit3-cornell-method"]
-  ["engprof1","unit3-cornell-method",0,[[1,4,1,0,2,0,0,0]]],
+  ["engprof1","unit3-cornell-method",0,[[1,4,1,0,2,0,0,0]]], // 8e815ba4a5d1
   // end ["engprof1","unit3-cornell-method"]
   // ["engprof1","unit3-lecturing-styles"]
-  ["engprof1","unit3-lecturing-styles",0,[[1,4,1,0,2,0,0,0]]],
+  ["engprof1","unit3-lecturing-styles",0,[[1,4,1,0,2,0,0,0]]], // 62b4654120e2
   // end ["engprof1","unit3-lecturing-styles"]
   // ["engprof1","unit3-note-taking-cues"]
-  ["engprof1","unit3-note-taking-cues",0,[[2,4,1,0,2,0,0,0]]],
+  ["engprof1","unit3-note-taking-cues",0,[[2,4,1,0,2,0,0,0]]], // e4105ce8cc4a
   // end ["engprof1","unit3-note-taking-cues"]
   // ["engprof1","unit3-note-taking-symbols"]
-  ["engprof1","unit3-note-taking-symbols",0,[[1,4,1,0,2,0,0,0]]],
+  ["engprof1","unit3-note-taking-symbols",0,[[1,4,1,0,2,0,0,0]]], // 9bf61efb443a
   // end ["engprof1","unit3-note-taking-symbols"]
   // ["engprof1","unit3-pain-medication-lecture"]
-  ["engprof1","unit3-pain-medication-lecture",0,[[2,4,1,0,2,0,0,0]]],
+  ["engprof1","unit3-pain-medication-lecture",0,[[2,4,1,0,2,0,0,0]]], // 7e51314669ea
   // end ["engprof1","unit3-pain-medication-lecture"]
   // ["engprof1","unit3-sea-urchin-lecture"]
-  ["engprof1","unit3-sea-urchin-lecture",0,[[2,4,1,0,2,0,0,0]]],
+  ["engprof1","unit3-sea-urchin-lecture",0,[[2,4,1,0,2,0,0,0]]], // e8e4a82f8fac
   // end ["engprof1","unit3-sea-urchin-lecture"]
   // ["epidemiology","epidem-applied-stats"]
-  ["epidemiology","epidem-applied-stats",0,[[21,5,1,0,2,1,0,0],[5,5,1,1,2,1,0,0]]],
+  ["epidemiology","epidem-applied-stats",0,[[21,5,1,0,2,1,0,0],[5,5,1,1,2,1,0,0]]], // b28cc9aab75a
   // end ["epidemiology","epidem-applied-stats"]
   // ["epidemiology","epidem-basic-concepts"]
-  ["epidemiology","epidem-basic-concepts",0,[[9,5,1,0,2,0,0,0],[16,5,1,0,2,1,0,0]]],
+  ["epidemiology","epidem-basic-concepts",0,[[9,5,1,0,2,0,0,0],[16,5,1,0,2,1,0,0]]], // b653165206d2
   // end ["epidemiology","epidem-basic-concepts"]
   // ["epidemiology","epidem-causation"]
-  ["epidemiology","epidem-causation",0,[[7,5,1,0,2,0,0,0],[12,5,1,0,2,1,0,0],[4,5,1,1,2,1,0,0]]],
+  ["epidemiology","epidem-causation",0,[[7,5,1,0,2,0,0,0],[12,5,1,0,2,1,0,0],[4,5,1,1,2,1,0,0]]], // 75883dd49568
   // end ["epidemiology","epidem-causation"]
   // ["epidemiology","epidem-control-prevention"]
-  ["epidemiology","epidem-control-prevention",0,[[1,5,1,0,2,1,0,0],[10,5,1,1,2,1,0,0]]],
+  ["epidemiology","epidem-control-prevention",0,[[1,5,1,0,2,1,0,0],[10,5,1,1,2,1,0,0]]], // 3be1fa2f7720
   // end ["epidemiology","epidem-control-prevention"]
   // ["epidemiology","epidem-data-analysis"]
-  ["epidemiology","epidem-data-analysis",0,[[11,5,1,0,2,1,0,0],[6,5,1,1,2,1,0,0]]],
+  ["epidemiology","epidem-data-analysis",0,[[11,5,1,0,2,1,0,0],[6,5,1,1,2,1,0,0]]], // 8458df7b5b5b
   // end ["epidemiology","epidem-data-analysis"]
   // ["epidemiology","epidem-disease-frequency"]
-  ["epidemiology","epidem-disease-frequency",0,[[8,5,1,0,2,0,["2569-1","final"],0],[11,5,1,0,2,1,0,0],[1,5,1,0,2,1,["2569-1","final"],0],[7,5,1,1,2,1,0,0]]],
+  ["epidemiology","epidem-disease-frequency",0,[[8,5,1,0,2,0,["2569-1","final"],0],[11,5,1,0,2,1,0,0],[1,5,1,0,2,1,["2569-1","final"],0],[7,5,1,1,2,1,0,0]]], // d93bacb9462d
   // end ["epidemiology","epidem-disease-frequency"]
   // ["epidemiology","epidem-disease-transmission"]
-  ["epidemiology","epidem-disease-transmission",0,[[13,5,1,0,2,0,0,0],[13,5,1,0,2,1,0,0],[1,5,1,1,2,1,0,0]]],
+  ["epidemiology","epidem-disease-transmission",0,[[13,5,1,0,2,0,0,0],[13,5,1,0,2,1,0,0],[1,5,1,1,2,1,0,0]]], // 86d4617576d6
   // end ["epidemiology","epidem-disease-transmission"]
   // ["epidemiology","epidem-dx-screening"]
-  ["epidemiology","epidem-dx-screening",0,[[6,5,1,0,2,0,["2569-1","final"],0],[16,5,1,0,2,1,0,0],[5,5,1,0,2,1,["2569-1","final"],0],[7,5,1,1,2,1,0,0]]],
+  ["epidemiology","epidem-dx-screening",0,[[6,5,1,0,2,0,["2569-1","final"],0],[16,5,1,0,2,1,0,0],[5,5,1,0,2,1,["2569-1","final"],0],[7,5,1,1,2,1,0,0]]], // 99c1bedfb7a0
   // end ["epidemiology","epidem-dx-screening"]
   // ["epidemiology","epidem-fmd-strategy"]
-  ["epidemiology","epidem-fmd-strategy",0,[[3,5,1,0,0,1,0,0]]],
+  ["epidemiology","epidem-fmd-strategy",0,[[3,5,1,0,0,1,0,0]]], // aa3dbbc8aea7
   // end ["epidemiology","epidem-fmd-strategy"]
   // ["epidemiology","epidem-govt-policy"]
-  ["epidemiology","epidem-govt-policy",0,[[28,5,1,0,2,1,0,0]]],
+  ["epidemiology","epidem-govt-policy",0,[[28,5,1,0,2,1,0,0]]], // c6f89f4618cb
   // end ["epidemiology","epidem-govt-policy"]
   // ["epidemiology","epidem-intro"]
-  ["epidemiology","epidem-intro",0,[[2,5,1,0,2,0,0,0],[5,5,1,0,2,1,0,0]]],
+  ["epidemiology","epidem-intro",0,[[2,5,1,0,2,0,0,0],[5,5,1,0,2,1,0,0]]], // 030b23bc8b95
   // end ["epidemiology","epidem-intro"]
   // ["epidemiology","epidem-lumpy-skin"]
-  ["epidemiology","epidem-lumpy-skin",0,[[11,5,1,0,0,1,0,0]]],
+  ["epidemiology","epidem-lumpy-skin",0,[[11,5,1,0,0,1,0,0]]], // 1cfae70dbe82
   // end ["epidemiology","epidem-lumpy-skin"]
   // ["epidemiology","epidem-observational-study"]
-  ["epidemiology","epidem-observational-study",0,[[18,5,1,0,2,1,0,0],[13,5,1,1,2,1,0,0]]],
+  ["epidemiology","epidem-observational-study",0,[[18,5,1,0,2,1,0,0],[13,5,1,1,2,1,0,0]]], // 39af0d63a2e9
   // end ["epidemiology","epidem-observational-study"]
   // ["epidemiology","epidem-outbreak-investigation"]
-  ["epidemiology","epidem-outbreak-investigation",0,[[5,5,1,0,2,0,0,0],[28,5,1,0,2,1,0,0],[8,5,1,1,2,1,0,0]]],
+  ["epidemiology","epidem-outbreak-investigation",0,[[5,5,1,0,2,0,0,0],[28,5,1,0,2,1,0,0],[8,5,1,1,2,1,0,0]]], // dccb29f6f3e1
   // end ["epidemiology","epidem-outbreak-investigation"]
   // ["epidemiology","epidem-ppp"]
-  ["epidemiology","epidem-ppp",0,[[3,5,1,0,0,1,0,0]]],
+  ["epidemiology","epidem-ppp",0,[[3,5,1,0,0,1,0,0]]], // 5c080e003499
   // end ["epidemiology","epidem-ppp"]
   // ["epidemiology","epidem-sample-size"]
-  ["epidemiology","epidem-sample-size",0,[[11,5,1,0,2,0,["2569-1","final"],0],[2,5,1,0,2,1,["2569-1","final"],0],[1,5,1,1,2,1,0,0]]],
+  ["epidemiology","epidem-sample-size",0,[[11,5,1,0,2,0,["2569-1","final"],0],[2,5,1,0,2,1,["2569-1","final"],0],[1,5,1,1,2,1,0,0]]], // 895d09ead023
   // end ["epidemiology","epidem-sample-size"]
   // ["epidemiology","epidem-software"]
-  ["epidemiology","epidem-software",0,[[3,5,1,0,2,1,0,0]]],
+  ["epidemiology","epidem-software",0,[[3,5,1,0,2,1,0,0]]], // d8158762d974
   // end ["epidemiology","epidem-software"]
   // ["epidemiology","epidem-surveillance"]
-  ["epidemiology","epidem-surveillance",0,[[8,5,1,0,2,0,0,0],[20,5,1,0,2,1,0,0],[4,5,1,1,2,1,0,0]]],
+  ["epidemiology","epidem-surveillance",0,[[8,5,1,0,2,0,0,0],[20,5,1,0,2,1,0,0],[4,5,1,1,2,1,0,0]]], // 2440bed5c4ea
   // end ["epidemiology","epidem-surveillance"]
   // ["epidemiology","epidem-test-agreement"]
-  ["epidemiology","epidem-test-agreement",0,[[6,5,1,0,2,0,["2569-1","final"],0],[2,5,1,0,2,1,0,0],[1,5,1,0,2,1,["2569-1","final"],0]]],
+  ["epidemiology","epidem-test-agreement",0,[[6,5,1,0,2,0,["2569-1","final"],0],[2,5,1,0,2,1,0,0],[1,5,1,0,2,1,["2569-1","final"],0]]], // 08736db49ffd
   // end ["epidemiology","epidem-test-agreement"]
   // ["equine-medicine","equine-anesthesia"]
-  ["equine-medicine","equine-anesthesia",0,[[6,5,1,0,2,0,0,0],[11,5,1,1,2,1,0,0]]],
+  ["equine-medicine","equine-anesthesia",0,[[6,5,1,0,2,0,0,0],[11,5,1,1,2,1,0,0]]], // e02cdc28be47
   // end ["equine-medicine","equine-anesthesia"]
   // ["equine-medicine","equine-colic-bestfit"]
-  ["equine-medicine","equine-colic-bestfit",0,[[15,5,1,0,3,0,0,0],[14,5,1,0,3,0,["2569-1","both"],0],[6,5,1,0,3,1,0,0],[13,5,1,1,3,1,0,0]]],
+  ["equine-medicine","equine-colic-bestfit",0,[[15,5,1,0,3,0,0,0],[14,5,1,0,3,0,["2569-1","both"],0],[6,5,1,0,3,1,0,0],[13,5,1,1,3,1,0,0]]], // 56970ba18dae
   // end ["equine-medicine","equine-colic-bestfit"]
   // ["equine-medicine","equine-colic-surgery"]
-  ["equine-medicine","equine-colic-surgery",0,[[4,5,1,1,0,1,0,0]]],
+  ["equine-medicine","equine-colic-surgery",0,[[4,5,1,1,0,1,0,0]]], // cad6ad299008
   // end ["equine-medicine","equine-colic-surgery"]
   // ["equine-medicine","equine-dentistry"]
-  ["equine-medicine","equine-dentistry",0,[[7,5,1,0,3,0,0,0],[7,5,1,0,3,1,0,0],[26,5,1,1,3,1,0,0]]],
+  ["equine-medicine","equine-dentistry",0,[[7,5,1,0,3,0,0,0],[7,5,1,0,3,1,0,0],[26,5,1,1,3,1,0,0]]], // edab36d92d05
   // end ["equine-medicine","equine-dentistry"]
   // ["equine-medicine","equine-derm"]
-  ["equine-medicine","equine-derm",0,[[25,5,1,0,2,0,0,0],[4,5,1,0,2,1,0,0]]],
+  ["equine-medicine","equine-derm",0,[[25,5,1,0,2,0,0,0],[4,5,1,0,2,1,0,0]]], // 8fe531f582dd
   // end ["equine-medicine","equine-derm"]
   // ["equine-medicine","equine-gi"]
-  ["equine-medicine","equine-gi",0,[[19,5,1,0,3,0,0,0],[8,5,1,0,3,0,["2569-1","both"],0],[6,5,1,0,3,1,0,0],[6,5,1,1,3,1,0,0]]],
+  ["equine-medicine","equine-gi",0,[[19,5,1,0,3,0,0,0],[8,5,1,0,3,0,["2569-1","both"],0],[6,5,1,0,3,1,0,0],[6,5,1,1,3,1,0,0]]], // 40216fb626f0
   // end ["equine-medicine","equine-gi"]
   // ["equine-medicine","equine-hoof"]
-  ["equine-medicine","equine-hoof",0,[[5,5,1,0,2,0,0,0]]],
+  ["equine-medicine","equine-hoof",0,[[5,5,1,0,2,0,0,0]]], // 844e1fcfe444
   // end ["equine-medicine","equine-hoof"]
   // ["equine-medicine","equine-infectious"]
-  ["equine-medicine","equine-infectious",0,[[5,5,1,0,2,0,0,0],[8,5,1,1,2,1,0,0]]],
+  ["equine-medicine","equine-infectious",0,[[5,5,1,0,2,0,0,0],[8,5,1,1,2,1,0,0]]], // e6d9850889fb
   // end ["equine-medicine","equine-infectious"]
   // ["equine-medicine","equine-intro"]
-  ["equine-medicine","equine-intro",0,[[19,5,1,0,3,0,0,0],[8,5,1,0,3,0,["2569-1","both"],0],[29,5,1,0,3,1,0,0],[31,5,1,1,3,1,0,0]]],
+  ["equine-medicine","equine-intro",0,[[19,5,1,0,3,0,0,0],[8,5,1,0,3,0,["2569-1","both"],0],[29,5,1,0,3,1,0,0],[31,5,1,1,3,1,0,0]]], // 054ad9a9bd7c
   // end ["equine-medicine","equine-intro"]
   // ["equine-medicine","equine-lameness"]
-  ["equine-medicine","equine-lameness",0,[[18,5,1,1,2,1,0,0]]],
+  ["equine-medicine","equine-lameness",0,[[18,5,1,1,2,1,0,0]]], // 0b232708cb55
   // end ["equine-medicine","equine-lameness"]
   // ["equine-medicine","equine-nutrition"]
-  ["equine-medicine","equine-nutrition",0,[[31,5,1,0,3,0,0,0],[12,5,1,0,3,1,0,0],[14,5,1,1,3,1,0,0]]],
+  ["equine-medicine","equine-nutrition",0,[[31,5,1,0,3,0,0,0],[12,5,1,0,3,1,0,0],[14,5,1,1,3,1,0,0]]], // 37fa049684b3
   // end ["equine-medicine","equine-nutrition"]
   // ["equine-medicine","equine-ophth"]
-  ["equine-medicine","equine-ophth",0,[[5,5,1,0,2,0,0,0],[17,5,1,1,2,1,0,0]]],
+  ["equine-medicine","equine-ophth",0,[[5,5,1,0,2,0,0,0],[17,5,1,1,2,1,0,0]]], // 1e5bdaf35069
   // end ["equine-medicine","equine-ophth"]
   // ["equine-medicine","equine-parasites"]
-  ["equine-medicine","equine-parasites",0,[[32,5,1,0,3,0,0,0],[19,5,1,0,3,1,0,0],[24,5,1,1,3,1,0,0]]],
+  ["equine-medicine","equine-parasites",0,[[32,5,1,0,3,0,0,0],[19,5,1,0,3,1,0,0],[24,5,1,1,3,1,0,0]]], // c14f5a09f6c4
   // end ["equine-medicine","equine-parasites"]
   // ["equine-medicine","equine-poa"]
-  ["equine-medicine","equine-poa",0,[[3,5,1,0,2,0,0,0],[10,5,1,0,2,1,0,0],[22,5,1,1,2,1,0,0]]],
+  ["equine-medicine","equine-poa",0,[[3,5,1,0,2,0,0,0],[10,5,1,0,2,1,0,0],[22,5,1,1,2,1,0,0]]], // d42e9a5a5329
   // end ["equine-medicine","equine-poa"]
   // ["equine-medicine","equine-pythium"]
-  ["equine-medicine","equine-pythium",0,[[7,5,1,0,2,0,0,0]]],
+  ["equine-medicine","equine-pythium",0,[[7,5,1,0,2,0,0,0]]], // a5d20b86dbe9
   // end ["equine-medicine","equine-pythium"]
   // ["equine-medicine","equine-respi"]
-  ["equine-medicine","equine-respi",0,[[7,5,1,0,3,0,0,0],[25,5,1,0,3,1,0,0],[12,5,1,1,3,1,0,0]]],
+  ["equine-medicine","equine-respi",0,[[7,5,1,0,3,0,0,0],[25,5,1,0,3,1,0,0],[12,5,1,1,3,1,0,0]]], // 290fc1d750c4
   // end ["equine-medicine","equine-respi"]
   // ["equine-medicine","equine-surgery-wound"]
-  ["equine-medicine","equine-surgery-wound",0,[[19,5,1,0,2,0,0,0],[5,5,1,0,2,1,0,0]]],
+  ["equine-medicine","equine-surgery-wound",0,[[19,5,1,0,2,0,0,0],[5,5,1,0,2,1,0,0]]], // b82af108c5ea
   // end ["equine-medicine","equine-surgery-wound"]
   // ["equine-medicine","equine-tendon"]
-  ["equine-medicine","equine-tendon",0,[[5,5,1,0,2,0,0,0]]],
+  ["equine-medicine","equine-tendon",0,[[5,5,1,0,2,0,0,0]]], // 5f34c5a3cb59
   // end ["equine-medicine","equine-tendon"]
   // ["equine-repro","eqrepro-ai"]
-  ["equine-repro","eqrepro-ai",0,[[11,5,1,1,2,1,0,0]]],
+  ["equine-repro","eqrepro-ai",0,[[11,5,1,1,2,1,0,0]]], // 7816c7440b8c
   // end ["equine-repro","eqrepro-ai"]
   // ["equine-repro","eqrepro-anatomy-cycle"]
-  ["equine-repro","eqrepro-anatomy-cycle",0,[[4,5,1,0,1,0,0,0],[11,5,1,1,1,1,0,0]]],
+  ["equine-repro","eqrepro-anatomy-cycle",0,[[4,5,1,0,1,0,0,0],[11,5,1,1,1,1,0,0]]], // 8e8ea95939ba
   // end ["equine-repro","eqrepro-anatomy-cycle"]
   // ["equine-repro","eqrepro-art-female"]
-  ["equine-repro","eqrepro-art-female",0,[[3,5,1,0,1,0,0,0],[13,5,1,1,1,1,0,0]]],
+  ["equine-repro","eqrepro-art-female",0,[[3,5,1,0,1,0,0,0],[13,5,1,1,1,1,0,0]]], // d70afee605cd
   // end ["equine-repro","eqrepro-art-female"]
   // ["equine-repro","eqrepro-endometritis"]
-  ["equine-repro","eqrepro-endometritis",0,[[7,5,1,0,2,0,0,0],[6,5,1,0,2,1,0,0],[3,5,1,1,2,1,0,0]]],
+  ["equine-repro","eqrepro-endometritis",0,[[7,5,1,0,2,0,0,0],[6,5,1,0,2,1,0,0],[3,5,1,1,2,1,0,0]]], // 78b464699ad2
   // end ["equine-repro","eqrepro-endometritis"]
   // ["equine-repro","eqrepro-exam-mare"]
-  ["equine-repro","eqrepro-exam-mare",0,[[2,5,1,0,1,0,0,0],[6,5,1,0,1,1,0,0],[19,5,1,1,1,1,0,0]]],
+  ["equine-repro","eqrepro-exam-mare",0,[[2,5,1,0,1,0,0,0],[6,5,1,0,1,1,0,0],[19,5,1,1,1,1,0,0]]], // 6448d06d8b8f
   // end ["equine-repro","eqrepro-exam-mare"]
   // ["equine-repro","eqrepro-infertility"]
-  ["equine-repro","eqrepro-infertility",0,[[6,5,1,0,1,0,0,0],[12,5,1,1,1,1,0,0]]],
+  ["equine-repro","eqrepro-infertility",0,[[6,5,1,0,1,0,0,0],[12,5,1,1,1,1,0,0]]], // 8811479d15a2
   // end ["equine-repro","eqrepro-infertility"]
   // ["equine-repro","eqrepro-male"]
-  ["equine-repro","eqrepro-male",0,[[18,5,1,1,2,1,0,0]]],
+  ["equine-repro","eqrepro-male",0,[[18,5,1,1,2,1,0,0]]], // 384adb689c4f
   // end ["equine-repro","eqrepro-male"]
   // ["equine-repro","eqrepro-mare-infect"]
-  ["equine-repro","eqrepro-mare-infect",0,[[2,5,1,0,1,0,0,0],[3,5,1,1,1,1,0,0]]],
+  ["equine-repro","eqrepro-mare-infect",0,[[2,5,1,0,1,0,0,0],[3,5,1,1,1,1,0,0]]], // cbcbd9222381
   // end ["equine-repro","eqrepro-mare-infect"]
   // ["equine-repro","eqrepro-postpartum"]
-  ["equine-repro","eqrepro-postpartum",0,[[5,5,1,0,2,0,0,0],[6,5,1,1,2,1,0,0]]],
+  ["equine-repro","eqrepro-postpartum",0,[[5,5,1,0,2,0,0,0],[6,5,1,1,2,1,0,0]]], // 1a65ce4f4a08
   // end ["equine-repro","eqrepro-postpartum"]
   // ["equine-repro","eqrepro-pregnancy"]
-  ["equine-repro","eqrepro-pregnancy",0,[[8,5,1,0,2,0,0,0],[1,5,1,0,2,1,0,0],[72,5,1,1,2,1,0,0]]],
+  ["equine-repro","eqrepro-pregnancy",0,[[8,5,1,0,2,0,0,0],[1,5,1,0,2,1,0,0],[72,5,1,1,2,1,0,0]]], // 046e4bd57bc2
   // end ["equine-repro","eqrepro-pregnancy"]
   // ["equine-repro","eqrepro-stallion-infect"]
-  ["equine-repro","eqrepro-stallion-infect",0,[[5,5,1,0,2,0,0,0],[11,5,1,1,2,1,0,0]]],
+  ["equine-repro","eqrepro-stallion-infect",0,[[5,5,1,0,2,0,0,0],[11,5,1,1,2,1,0,0]]], // 5e20ca2a2da7
   // end ["equine-repro","eqrepro-stallion-infect"]
   // ["equine-repro","eqrepro-surgery"]
-  ["equine-repro","eqrepro-surgery",0,[[8,5,1,1,2,1,0,0]]],
+  ["equine-repro","eqrepro-surgery",0,[[8,5,1,1,2,1,0,0]]], // 7da31e1b87b2
   // end ["equine-repro","eqrepro-surgery"]
   // ["exotic","bird-infect"]
-  ["exotic","bird-infect",0,[[8,4,1,0,3,0,0,0],[16,4,1,1,3,1,0,0]]],
+  ["exotic","bird-infect",0,[[8,4,1,0,3,0,0,0],[16,4,1,1,3,1,0,0]]], // 213851a251b8
   // end ["exotic","bird-infect"]
   // ["exotic","bird-noninfect"]
-  ["exotic","bird-noninfect",0,[[17,4,1,0,3,0,0,0],[6,4,1,1,3,1,0,0]]],
+  ["exotic","bird-noninfect",0,[[17,4,1,0,3,0,0,0],[6,4,1,1,3,1,0,0]]], // 9cd5532d95cd
   // end ["exotic","bird-noninfect"]
   // ["exotic","chicken"]
-  ["exotic","chicken",0,[[3,4,0,1,0,0,0,0]]],
+  ["exotic","chicken",0,[[3,4,0,1,0,0,0,0]]], // 29646ca6c06d
   // end ["exotic","chicken"]
   // ["exotic","ferret"]
-  ["exotic","ferret",0,[[1,4,1,1,3,1,0,0]]],
+  ["exotic","ferret",0,[[1,4,1,1,3,1,0,0]]], // 79e97bd80a9c
   // end ["exotic","ferret"]
   // ["exotic","field-vet"]
-  ["exotic","field-vet",0,[[23,4,1,0,3,0,0,0],[1,4,1,1,3,1,0,0]]],
+  ["exotic","field-vet",0,[[23,4,1,0,3,0,0,0],[1,4,1,1,3,1,0,0]]], // f314dcebb763
   // end ["exotic","field-vet"]
   // ["exotic","hamster-gerbil"]
-  ["exotic","hamster-gerbil",0,[[6,4,0,1,0,0,0,0]]],
+  ["exotic","hamster-gerbil",0,[[6,4,0,1,0,0,0,0]]], // c266f792422f
   // end ["exotic","hamster-gerbil"]
   // ["exotic","rabbit"]
-  ["exotic","rabbit",0,[[19,4,0,1,0,0,0,0]]],
+  ["exotic","rabbit",0,[[19,4,0,1,0,0,0,0]]], // 2eccb8b32849
   // end ["exotic","rabbit"]
   // ["exotic","reptile"]
-  ["exotic","reptile",0,[[6,4,1,1,3,1,0,0]]],
+  ["exotic","reptile",0,[[6,4,1,1,3,1,0,0]]], // ea0f8585fdf9
   // end ["exotic","reptile"]
   // ["exotic","sugar-glider-hedgehog"]
-  ["exotic","sugar-glider-hedgehog",0,[[15,4,0,1,0,0,0,0]]],
+  ["exotic","sugar-glider-hedgehog",0,[[15,4,0,1,0,0,0,0]]], // 86118b557cfd
   // end ["exotic","sugar-glider-hedgehog"]
   // ["exotic","wildlife-career"]
-  ["exotic","wildlife-career",0,[[5,4,1,0,3,0,0,0],[1,4,1,1,3,1,0,0]]],
+  ["exotic","wildlife-career",0,[[5,4,1,0,3,0,0,0],[1,4,1,1,3,1,0,0]]], // 2942e53a5052
   // end ["exotic","wildlife-career"]
   // ["exotic","zoo-vet"]
-  ["exotic","zoo-vet",0,[[21,4,1,0,3,0,0,0],[3,4,1,1,3,1,0,0]]],
+  ["exotic","zoo-vet",0,[[21,4,1,0,3,0,0,0],[3,4,1,1,3,1,0,0]]], // d1060984e102
   // end ["exotic","zoo-vet"]
   // ["food-industry","fiqc-aquatic"]
-  ["food-industry","fiqc-aquatic",0,[[16,5,1,0,2,0,0,0]]],
+  ["food-industry","fiqc-aquatic",0,[[16,5,1,0,2,0,0,0]]], // 42f50b5e1277
   // end ["food-industry","fiqc-aquatic"]
   // ["food-industry","fiqc-feed-qc"]
-  ["food-industry","fiqc-feed-qc",0,[[18,5,1,0,1,0,0,0],[9,5,1,0,1,0,["2569-1","midterm"],0],[42,5,1,0,1,1,0,0],[2,5,1,1,1,1,0,0]]],
+  ["food-industry","fiqc-feed-qc",0,[[18,5,1,0,1,0,0,0],[9,5,1,0,1,0,["2569-1","midterm"],0],[42,5,1,0,1,1,0,0],[2,5,1,1,1,1,0,0]]], // aebe5bfebf32
   // end ["food-industry","fiqc-feed-qc"]
   // ["food-industry","fiqc-haccp"]
-  ["food-industry","fiqc-haccp",0,[[8,5,1,0,2,0,0,0],[16,5,1,0,2,1,0,0]]],
+  ["food-industry","fiqc-haccp",0,[[8,5,1,0,2,0,0,0],[16,5,1,0,2,1,0,0]]], // c8fc47396a0f
   // end ["food-industry","fiqc-haccp"]
   // ["food-industry","fiqc-intro"]
-  ["food-industry","fiqc-intro",0,[[15,5,1,0,1,0,0,0],[9,5,1,0,1,0,["2569-1","midterm"],0],[1,5,1,0,1,1,0,0],[4,5,1,1,1,1,0,0]]],
+  ["food-industry","fiqc-intro",0,[[15,5,1,0,1,0,0,0],[9,5,1,0,1,0,["2569-1","midterm"],0],[1,5,1,0,1,1,0,0],[4,5,1,1,1,1,0,0]]], // f881dc2109d4
   // end ["food-industry","fiqc-intro"]
   // ["food-industry","fiqc-livestock-qc"]
-  ["food-industry","fiqc-livestock-qc",0,[[23,5,1,0,1,0,0,0],[9,5,1,0,1,0,["2569-1","midterm"],0],[23,5,1,0,1,1,0,0],[11,5,1,1,1,1,0,0]]],
+  ["food-industry","fiqc-livestock-qc",0,[[23,5,1,0,1,0,0,0],[9,5,1,0,1,0,["2569-1","midterm"],0],[23,5,1,0,1,1,0,0],[11,5,1,1,1,1,0,0]]], // e742aafc0e59
   // end ["food-industry","fiqc-livestock-qc"]
   // ["food-industry","fiqc-poultry-export"]
-  ["food-industry","fiqc-poultry-export",0,[[7,5,1,0,2,0,0,0],[13,5,1,0,2,1,0,0],[1,5,1,1,2,1,0,0]]],
+  ["food-industry","fiqc-poultry-export",0,[[7,5,1,0,2,0,0,0],[13,5,1,0,2,1,0,0],[1,5,1,1,2,1,0,0]]], // f260ce144170
   // end ["food-industry","fiqc-poultry-export"]
   // ["food-industry","fiqc-slaughter-qc"]
-  ["food-industry","fiqc-slaughter-qc",0,[[23,5,1,0,1,0,0,0],[9,5,1,0,1,0,["2569-1","midterm"],0],[39,5,1,0,1,1,0,0],[2,5,1,1,1,1,0,0]]],
+  ["food-industry","fiqc-slaughter-qc",0,[[23,5,1,0,1,0,0,0],[9,5,1,0,1,0,["2569-1","midterm"],0],[39,5,1,0,1,1,0,0],[2,5,1,1,1,1,0,0]]], // 613321e5e200
   // end ["food-industry","fiqc-slaughter-qc"]
   // ["food-safety-y4","dose-response"]
-  ["food-safety-y4","dose-response",0,[[1,4,1,1,3,1,0,0]]],
+  ["food-safety-y4","dose-response",0,[[1,4,1,1,3,1,0,0]]], // 48faba1ffb37
   // end ["food-safety-y4","dose-response"]
   // ["food-safety-y4","drug-residues"]
-  ["food-safety-y4","drug-residues",0,[[2,4,1,1,1,1,0,0]]],
+  ["food-safety-y4","drug-residues",0,[[2,4,1,1,1,1,0,0]]], // cacc6f9841ca
   // end ["food-safety-y4","drug-residues"]
   // ["food-safety-y4","e-coli-stec"]
-  ["food-safety-y4","e-coli-stec",0,[[1,4,1,1,2,1,0,0]]],
+  ["food-safety-y4","e-coli-stec",0,[[1,4,1,1,2,1,0,0]]], // 46907d4d933d
   // end ["food-safety-y4","e-coli-stec"]
   // ["food-safety-y4","food-additives"]
-  ["food-safety-y4","food-additives",0,[[5,4,1,1,1,1,0,0]]],
+  ["food-safety-y4","food-additives",0,[[5,4,1,1,1,1,0,0]]], // 88780fd8b271
   // end ["food-safety-y4","food-additives"]
   // ["food-safety-y4","food-laws-thailand"]
-  ["food-safety-y4","food-laws-thailand",0,[[1,4,1,1,3,1,0,0]]],
+  ["food-safety-y4","food-laws-thailand",0,[[1,4,1,1,3,1,0,0]]], // a4c98099f5c5
   // end ["food-safety-y4","food-laws-thailand"]
   // ["food-safety-y4","food-pathogens"]
-  ["food-safety-y4","food-pathogens",0,[[12,4,1,1,2,1,0,0]]],
+  ["food-safety-y4","food-pathogens",0,[[12,4,1,1,2,1,0,0]]], // e9d1e0652402
   // end ["food-safety-y4","food-pathogens"]
   // ["food-safety-y4","food-spoilage"]
-  ["food-safety-y4","food-spoilage",0,[[1,4,1,1,1,1,0,0]]],
+  ["food-safety-y4","food-spoilage",0,[[1,4,1,1,1,1,0,0]]], // 91cbe8be6608
   // end ["food-safety-y4","food-spoilage"]
   // ["food-safety-y4","haccp"]
-  ["food-safety-y4","haccp",0,[[1,4,1,1,1,1,0,0]]],
+  ["food-safety-y4","haccp",0,[[1,4,1,1,1,1,0,0]]], // 5e28dd997ed1
   // end ["food-safety-y4","haccp"]
   // ["food-safety-y4","listeria"]
-  ["food-safety-y4","listeria",0,[[1,4,1,1,2,1,0,0]]],
+  ["food-safety-y4","listeria",0,[[1,4,1,1,2,1,0,0]]], // 29365e920d1f
   // end ["food-safety-y4","listeria"]
   // ["food-safety-y4","milk-pasteurization"]
-  ["food-safety-y4","milk-pasteurization",0,[[1,4,1,1,1,1,0,0]]],
+  ["food-safety-y4","milk-pasteurization",0,[[1,4,1,1,1,1,0,0]]], // 6b88d2cd79f5
   // end ["food-safety-y4","milk-pasteurization"]
   // ["food-safety-y4","norovirus"]
-  ["food-safety-y4","norovirus",0,[[1,4,1,1,2,1,0,0]]],
+  ["food-safety-y4","norovirus",0,[[1,4,1,1,2,1,0,0]]], // 2a933af64154
   // end ["food-safety-y4","norovirus"]
   // ["food-safety-y4","qmra-quantitative-microbial-risk"]
-  ["food-safety-y4","qmra-quantitative-microbial-risk",0,[[1,4,1,1,2,1,0,0]]],
+  ["food-safety-y4","qmra-quantitative-microbial-risk",0,[[1,4,1,1,2,1,0,0]]], // 5c55460ebeb6
   // end ["food-safety-y4","qmra-quantitative-microbial-risk"]
   // ["food-safety-y4","risk-analysis-cac-framework"]
-  ["food-safety-y4","risk-analysis-cac-framework",0,[[1,4,1,1,3,1,0,0]]],
+  ["food-safety-y4","risk-analysis-cac-framework",0,[[1,4,1,1,3,1,0,0]]], // b1f29849d082
   // end ["food-safety-y4","risk-analysis-cac-framework"]
   // ["food-safety-y4","risk-assessment-steps"]
-  ["food-safety-y4","risk-assessment-steps",0,[[1,4,1,1,3,1,0,0]]],
+  ["food-safety-y4","risk-assessment-steps",0,[[1,4,1,1,3,1,0,0]]], // cc95366b687d
   // end ["food-safety-y4","risk-assessment-steps"]
   // ["food-safety-y4","salmonella"]
-  ["food-safety-y4","salmonella",0,[[1,4,1,1,3,1,0,0]]],
+  ["food-safety-y4","salmonella",0,[[1,4,1,1,3,1,0,0]]], // 17003f9f1c5b
   // end ["food-safety-y4","salmonella"]
   // ["herd-health-rum","acute-ruminal-acidosis"]
-  ["herd-health-rum","acute-ruminal-acidosis",0,[[2,4,1,1,2,1,0,0]]],
+  ["herd-health-rum","acute-ruminal-acidosis",0,[[2,4,1,1,2,1,0,0]]], // a3783e3080b3
   // end ["herd-health-rum","acute-ruminal-acidosis"]
   // ["herd-health-rum","anaplasmosis"]
-  ["herd-health-rum","anaplasmosis",0,[[1,4,1,1,3,1,0,0]]],
+  ["herd-health-rum","anaplasmosis",0,[[1,4,1,1,3,1,0,0]]], // 2728d0fe2490
   // end ["herd-health-rum","anaplasmosis"]
   // ["herd-health-rum","anthrax"]
-  ["herd-health-rum","anthrax",0,[[2,4,1,1,2,1,0,0]]],
+  ["herd-health-rum","anthrax",0,[[2,4,1,1,2,1,0,0]]], // c5e8fcc24e93
   // end ["herd-health-rum","anthrax"]
   // ["herd-health-rum","babesiosis"]
-  ["herd-health-rum","babesiosis",0,[[1,4,1,1,3,1,0,0]]],
+  ["herd-health-rum","babesiosis",0,[[1,4,1,1,3,1,0,0]]], // dc9f942b9945
   // end ["herd-health-rum","babesiosis"]
   // ["herd-health-rum","brdc"]
-  ["herd-health-rum","brdc",0,[[1,4,1,1,3,1,0,0]]],
+  ["herd-health-rum","brdc",0,[[1,4,1,1,3,1,0,0]]], // 4defeb51b7bc
   // end ["herd-health-rum","brdc"]
   // ["herd-health-rum","brucellosis"]
-  ["herd-health-rum","brucellosis",0,[[2,4,1,1,3,1,0,0]]],
+  ["herd-health-rum","brucellosis",0,[[2,4,1,1,3,1,0,0]]], // 70001269054c
   // end ["herd-health-rum","brucellosis"]
   // ["herd-health-rum","bvd-persistent-infection"]
-  ["herd-health-rum","bvd-persistent-infection",0,[[1,4,1,1,3,1,0,0]]],
+  ["herd-health-rum","bvd-persistent-infection",0,[[1,4,1,1,3,1,0,0]]], // 6f56f8c4ec13
   // end ["herd-health-rum","bvd-persistent-infection"]
   // ["herd-health-rum","enzootic-bovine-leukosis"]
-  ["herd-health-rum","enzootic-bovine-leukosis",0,[[1,4,1,1,3,1,0,0]]],
+  ["herd-health-rum","enzootic-bovine-leukosis",0,[[1,4,1,1,3,1,0,0]]], // edec39d76071
   // end ["herd-health-rum","enzootic-bovine-leukosis"]
   // ["herd-health-rum","ephemeral-fever"]
-  ["herd-health-rum","ephemeral-fever",0,[[1,4,1,1,3,1,0,0]]],
+  ["herd-health-rum","ephemeral-fever",0,[[1,4,1,1,3,1,0,0]]], // 2406fe823627
   // end ["herd-health-rum","ephemeral-fever"]
   // ["herd-health-rum","fec-anthelmintic-resistance"]
-  ["herd-health-rum","fec-anthelmintic-resistance",0,[[1,4,1,1,3,1,0,0]]],
+  ["herd-health-rum","fec-anthelmintic-resistance",0,[[1,4,1,1,3,1,0,0]]], // ab595a731742
   // end ["herd-health-rum","fec-anthelmintic-resistance"]
   // ["herd-health-rum","fertility-kpi"]
-  ["herd-health-rum","fertility-kpi",0,[[1,4,1,1,1,1,0,0]]],
+  ["herd-health-rum","fertility-kpi",0,[[1,4,1,1,1,1,0,0]]], // 42389c769138
   // end ["herd-health-rum","fertility-kpi"]
   // ["herd-health-rum","fluid-therapy"]
-  ["herd-health-rum","fluid-therapy",0,[[1,4,1,1,2,1,0,0]]],
+  ["herd-health-rum","fluid-therapy",0,[[1,4,1,1,2,1,0,0]]], // a1c13a0d5c78
   // end ["herd-health-rum","fluid-therapy"]
   // ["herd-health-rum","fmd"]
-  ["herd-health-rum","fmd",0,[[2,4,1,1,3,1,0,0]]],
+  ["herd-health-rum","fmd",0,[[2,4,1,1,3,1,0,0]]], // 7a374d7ccc88
   // end ["herd-health-rum","fmd"]
   // ["herd-health-rum","grass-tetany"]
-  ["herd-health-rum","grass-tetany",0,[[1,4,1,1,2,1,0,0]]],
+  ["herd-health-rum","grass-tetany",0,[[1,4,1,1,2,1,0,0]]], // cfebdc29de86
   // end ["herd-health-rum","grass-tetany"]
   // ["herd-health-rum","hemorrhagic-septicemia"]
-  ["herd-health-rum","hemorrhagic-septicemia",0,[[1,4,1,1,3,1,0,0]]],
+  ["herd-health-rum","hemorrhagic-septicemia",0,[[1,4,1,1,3,1,0,0]]], // be913166851e
   // end ["herd-health-rum","hemorrhagic-septicemia"]
   // ["herd-health-rum","incidence-rate-calculation"]
-  ["herd-health-rum","incidence-rate-calculation",0,[[1,4,1,1,1,1,0,0]]],
+  ["herd-health-rum","incidence-rate-calculation",0,[[1,4,1,1,1,1,0,0]]], // c52881f9cca1
   // end ["herd-health-rum","incidence-rate-calculation"]
   // ["herd-health-rum","ketosis"]
-  ["herd-health-rum","ketosis",0,[[1,4,1,1,2,1,0,0]]],
+  ["herd-health-rum","ketosis",0,[[1,4,1,1,2,1,0,0]]], // cd72d59042cc
   // end ["herd-health-rum","ketosis"]
   // ["herd-health-rum","lumpy-skin-disease"]
-  ["herd-health-rum","lumpy-skin-disease",0,[[1,4,1,1,3,1,0,0]]],
+  ["herd-health-rum","lumpy-skin-disease",0,[[1,4,1,1,3,1,0,0]]], // cfb8d1a006f5
   // end ["herd-health-rum","lumpy-skin-disease"]
   // ["herd-health-rum","malignant-catarrhal-fever"]
-  ["herd-health-rum","malignant-catarrhal-fever",0,[[1,4,1,1,3,1,0,0]]],
+  ["herd-health-rum","malignant-catarrhal-fever",0,[[1,4,1,1,3,1,0,0]]], // 7cbb2e1eea95
   // end ["herd-health-rum","malignant-catarrhal-fever"]
   // ["herd-health-rum","mastitis-treatment-clinical"]
-  ["herd-health-rum","mastitis-treatment-clinical",0,[[1,4,1,0,3,0,0,0]]],
+  ["herd-health-rum","mastitis-treatment-clinical",0,[[1,4,1,0,3,0,0,0]]], // 7ba153d02701
   // end ["herd-health-rum","mastitis-treatment-clinical"]
   // ["herd-health-rum","mastitis-treatment-drycow"]
-  ["herd-health-rum","mastitis-treatment-drycow",0,[[1,4,1,0,3,0,0,0]]],
+  ["herd-health-rum","mastitis-treatment-drycow",0,[[1,4,1,0,3,0,0,0]]], // 55de735828cd
   // end ["herd-health-rum","mastitis-treatment-drycow"]
   // ["herd-health-rum","milk-fever"]
-  ["herd-health-rum","milk-fever",0,[[1,4,1,1,2,1,0,0]]],
+  ["herd-health-rum","milk-fever",0,[[1,4,1,1,2,1,0,0]]], // 4a9fb593ca11
   // end ["herd-health-rum","milk-fever"]
   // ["herd-health-rum","milk-quality-standard"]
-  ["herd-health-rum","milk-quality-standard",0,[[1,4,1,0,3,0,0,0]]],
+  ["herd-health-rum","milk-quality-standard",0,[[1,4,1,0,3,0,0,0]]], // 2438c29e8e0f
   // end ["herd-health-rum","milk-quality-standard"]
   // ["herd-health-rum","on-farm-culture"]
-  ["herd-health-rum","on-farm-culture",0,[[1,4,1,0,3,0,0,0]]],
+  ["herd-health-rum","on-farm-culture",0,[[1,4,1,0,3,0,0,0]]], // 72b72a4c241c
   // end ["herd-health-rum","on-farm-culture"]
   // ["herd-health-rum","paratuberculosis"]
-  ["herd-health-rum","paratuberculosis",0,[[1,4,1,1,3,1,0,0]]],
+  ["herd-health-rum","paratuberculosis",0,[[1,4,1,1,3,1,0,0]]], // 4821efeecd36
   // end ["herd-health-rum","paratuberculosis"]
   // ["herd-health-rum","pregnancy-toxemia"]
-  ["herd-health-rum","pregnancy-toxemia",0,[[2,4,1,1,2,1,0,0]]],
+  ["herd-health-rum","pregnancy-toxemia",0,[[2,4,1,1,2,1,0,0]]], // f3f8b721beb3
   // end ["herd-health-rum","pregnancy-toxemia"]
   // ["herd-health-rum","responsible-amr"]
-  ["herd-health-rum","responsible-amr",0,[[1,4,1,1,2,1,0,0]]],
+  ["herd-health-rum","responsible-amr",0,[[1,4,1,1,2,1,0,0]]], // 4a57b1dbb650
   // end ["herd-health-rum","responsible-amr"]
   // ["herd-health-rum","subacute-ruminal-acidosis"]
-  ["herd-health-rum","subacute-ruminal-acidosis",0,[[1,4,1,1,2,1,0,0]]],
+  ["herd-health-rum","subacute-ruminal-acidosis",0,[[1,4,1,1,2,1,0,0]]], // de14c1155050
   // end ["herd-health-rum","subacute-ruminal-acidosis"]
   // ["herd-health-rum","toxic-mastitis"]
-  ["herd-health-rum","toxic-mastitis",0,[[1,4,1,1,3,1,0,0]]],
+  ["herd-health-rum","toxic-mastitis",0,[[1,4,1,1,3,1,0,0]]], // e8002a051c21
   // end ["herd-health-rum","toxic-mastitis"]
   // ["herd-health-rum","transition-cow-management"]
-  ["herd-health-rum","transition-cow-management",0,[[1,4,1,1,2,1,0,0]]],
+  ["herd-health-rum","transition-cow-management",0,[[1,4,1,1,2,1,0,0]]], // 4d40d6ed10e2
   // end ["herd-health-rum","transition-cow-management"]
   // ["herd-health-rum","tuberculosis-bovine"]
-  ["herd-health-rum","tuberculosis-bovine",0,[[2,4,1,1,3,1,0,0]]],
+  ["herd-health-rum","tuberculosis-bovine",0,[[2,4,1,1,3,1,0,0]]], // 601498c8cd3c
   // end ["herd-health-rum","tuberculosis-bovine"]
   // ["herd-health-rum","urinary-calculi"]
-  ["herd-health-rum","urinary-calculi",0,[[2,4,1,1,2,1,0,0]]],
+  ["herd-health-rum","urinary-calculi",0,[[2,4,1,1,2,1,0,0]]], // 3412883d5d41
   // end ["herd-health-rum","urinary-calculi"]
   // ["livestock-pathology","lpath-avian"]
-  ["livestock-pathology","lpath-avian",0,[[10,5,1,1,3,1,0,0]]],
+  ["livestock-pathology","lpath-avian",0,[[10,5,1,1,3,1,0,0]]], // 6c2dbba9ec5a
   // end ["livestock-pathology","lpath-avian"]
   // ["livestock-pathology","lpath-slaughter"]
-  ["livestock-pathology","lpath-slaughter",0,[[3,5,1,1,3,1,0,0]]],
+  ["livestock-pathology","lpath-slaughter",0,[[3,5,1,1,3,1,0,0]]], // bfdaf32e8c34
   // end ["livestock-pathology","lpath-slaughter"]
   // ["livestock-pathology","lpath-swine-systemic"]
-  ["livestock-pathology","lpath-swine-systemic",9,[[53,5,1,1,3,1,0,0]]],
+  ["livestock-pathology","lpath-swine-systemic",9,[[53,5,1,1,3,1,0,0]]], // e95336599b84
   // end ["livestock-pathology","lpath-swine-systemic"]
   // ["livestock-pathology","lpath-systemic"]
-  ["livestock-pathology","lpath-systemic",1,[[1,5,1,1,3,1,0,0]]],
+  ["livestock-pathology","lpath-systemic",1,[[1,5,1,1,3,1,0,0]]], // 5181c3614fbd
   // end ["livestock-pathology","lpath-systemic"]
   // ["milk-meat-hygiene","meat-ante-post-mortem"]
-  ["milk-meat-hygiene","meat-ante-post-mortem",0,[[41,5,1,0,2,1,0,0],[22,5,1,1,2,1,0,0]]],
+  ["milk-meat-hygiene","meat-ante-post-mortem",0,[[41,5,1,0,2,1,0,0],[22,5,1,1,2,1,0,0]]], // 5abb02fe704c
   // end ["milk-meat-hygiene","meat-ante-post-mortem"]
   // ["milk-meat-hygiene","meat-cutting-grading"]
-  ["milk-meat-hygiene","meat-cutting-grading",0,[[29,5,1,0,2,1,0,0],[12,5,1,1,2,1,0,0]]],
+  ["milk-meat-hygiene","meat-cutting-grading",0,[[29,5,1,0,2,1,0,0],[12,5,1,1,2,1,0,0]]], // e0f7c9e377e7
   // end ["milk-meat-hygiene","meat-cutting-grading"]
   // ["milk-meat-hygiene","meat-egg-micro"]
-  ["milk-meat-hygiene","meat-egg-micro",0,[[3,5,1,0,2,1,0,0],[15,5,1,1,2,1,0,0]]],
+  ["milk-meat-hygiene","meat-egg-micro",0,[[3,5,1,0,2,1,0,0],[15,5,1,1,2,1,0,0]]], // 2a778602d531
   // end ["milk-meat-hygiene","meat-egg-micro"]
   // ["milk-meat-hygiene","meat-hygiene-intro"]
-  ["milk-meat-hygiene","meat-hygiene-intro",0,[[11,5,1,0,2,1,0,0],[7,5,1,1,2,1,0,0]]],
+  ["milk-meat-hygiene","meat-hygiene-intro",0,[[11,5,1,0,2,1,0,0],[7,5,1,1,2,1,0,0]]], // 21a2e6f869ec
   // end ["milk-meat-hygiene","meat-hygiene-intro"]
   // ["milk-meat-hygiene","meat-microbiology"]
-  ["milk-meat-hygiene","meat-microbiology",0,[[38,5,1,0,2,1,0,0],[21,5,1,1,2,1,0,0]]],
+  ["milk-meat-hygiene","meat-microbiology",0,[[38,5,1,0,2,1,0,0],[21,5,1,1,2,1,0,0]]], // 640869e3ef28
   // end ["milk-meat-hygiene","meat-microbiology"]
   // ["milk-meat-hygiene","meat-molecular"]
-  ["milk-meat-hygiene","meat-molecular",0,[[5,5,1,0,2,1,0,0],[5,5,1,1,2,1,0,0]]],
+  ["milk-meat-hygiene","meat-molecular",0,[[5,5,1,0,2,1,0,0],[5,5,1,1,2,1,0,0]]], // 8c475986a6d4
   // end ["milk-meat-hygiene","meat-molecular"]
   // ["milk-meat-hygiene","meat-pest-control"]
-  ["milk-meat-hygiene","meat-pest-control",0,[[7,5,1,0,2,1,0,0],[18,5,1,1,2,1,0,0]]],
+  ["milk-meat-hygiene","meat-pest-control",0,[[7,5,1,0,2,1,0,0],[18,5,1,1,2,1,0,0]]], // 178b408f8ccb
   // end ["milk-meat-hygiene","meat-pest-control"]
   // ["milk-meat-hygiene","meat-quality"]
-  ["milk-meat-hygiene","meat-quality",0,[[7,5,1,0,2,1,0,0],[3,5,1,1,2,1,0,0]]],
+  ["milk-meat-hygiene","meat-quality",0,[[7,5,1,0,2,1,0,0],[3,5,1,1,2,1,0,0]]], // 2470882abc48
   // end ["milk-meat-hygiene","meat-quality"]
   // ["milk-meat-hygiene","meat-seafood"]
-  ["milk-meat-hygiene","meat-seafood",0,[[25,5,1,0,2,1,0,0],[14,5,1,1,2,1,0,0]]],
+  ["milk-meat-hygiene","meat-seafood",0,[[25,5,1,0,2,1,0,0],[14,5,1,1,2,1,0,0]]], // 59f4d478099e
   // end ["milk-meat-hygiene","meat-seafood"]
   // ["milk-meat-hygiene","meat-slaughter"]
-  ["milk-meat-hygiene","meat-slaughter",0,[[23,5,1,0,2,1,0,0],[19,5,1,1,2,1,0,0]]],
+  ["milk-meat-hygiene","meat-slaughter",0,[[23,5,1,0,2,1,0,0],[19,5,1,1,2,1,0,0]]], // ec22e842fec4
   // end ["milk-meat-hygiene","meat-slaughter"]
   // ["milk-meat-hygiene","meat-storage"]
-  ["milk-meat-hygiene","meat-storage",0,[[11,5,1,0,2,1,0,0],[10,5,1,1,2,1,0,0]]],
+  ["milk-meat-hygiene","meat-storage",0,[[11,5,1,0,2,1,0,0],[10,5,1,1,2,1,0,0]]], // 36680dd6b408
   // end ["milk-meat-hygiene","meat-storage"]
   // ["milk-meat-hygiene","milk-biosec-dairy"]
-  ["milk-meat-hygiene","milk-biosec-dairy",0,[[8,5,1,0,1,0,0,0],[11,5,1,0,1,1,0,0],[13,5,1,1,1,1,0,0]]],
+  ["milk-meat-hygiene","milk-biosec-dairy",0,[[8,5,1,0,1,0,0,0],[11,5,1,0,1,1,0,0],[13,5,1,1,1,1,0,0]]], // fb02bb31bb0c
   // end ["milk-meat-hygiene","milk-biosec-dairy"]
   // ["milk-meat-hygiene","milk-borne-pathogens"]
-  ["milk-meat-hygiene","milk-borne-pathogens",0,[[29,5,1,0,1,0,0,0],[10,5,1,0,1,1,0,0],[5,5,1,1,1,1,0,0]]],
+  ["milk-meat-hygiene","milk-borne-pathogens",0,[[29,5,1,0,1,0,0,0],[10,5,1,0,1,1,0,0],[5,5,1,1,1,1,0,0]]], // 371372083d95
   // end ["milk-meat-hygiene","milk-borne-pathogens"]
   // ["milk-meat-hygiene","milk-cleaning"]
-  ["milk-meat-hygiene","milk-cleaning",0,[[5,5,1,0,3,0,0,0],[52,5,1,0,3,1,0,0],[14,5,1,1,3,1,0,0]]],
+  ["milk-meat-hygiene","milk-cleaning",0,[[5,5,1,0,3,0,0,0],[52,5,1,0,3,1,0,0],[14,5,1,1,3,1,0,0]]], // dac13071f7f0
   // end ["milk-meat-hygiene","milk-cleaning"]
   // ["milk-meat-hygiene","milk-industry-std"]
-  ["milk-meat-hygiene","milk-industry-std",0,[[27,5,1,0,1,0,0,0],[14,5,1,0,1,1,0,0],[22,5,1,1,1,1,0,0]]],
+  ["milk-meat-hygiene","milk-industry-std",0,[[27,5,1,0,1,0,0,0],[14,5,1,0,1,1,0,0],[22,5,1,1,1,1,0,0]]], // 9c7457212f34
   // end ["milk-meat-hygiene","milk-industry-std"]
   // ["milk-meat-hygiene","milk-mastitis"]
-  ["milk-meat-hygiene","milk-mastitis",0,[[32,5,1,0,1,0,0,0],[43,5,1,0,1,1,0,0],[14,5,1,1,1,1,0,0]]],
+  ["milk-meat-hygiene","milk-mastitis",0,[[32,5,1,0,1,0,0,0],[43,5,1,0,1,1,0,0],[14,5,1,1,1,1,0,0]]], // 11f962e751fd
   // end ["milk-meat-hygiene","milk-mastitis"]
   // ["milk-meat-hygiene","milk-microbiology"]
-  ["milk-meat-hygiene","milk-microbiology",0,[[20,5,1,0,1,0,0,0],[52,5,1,0,1,1,0,0],[7,5,1,1,1,1,0,0]]],
+  ["milk-meat-hygiene","milk-microbiology",0,[[20,5,1,0,1,0,0,0],[52,5,1,0,1,1,0,0],[7,5,1,1,1,1,0,0]]], // 0d1ed29037b1
   // end ["milk-meat-hygiene","milk-microbiology"]
   // ["milk-meat-hygiene","milk-overview"]
-  ["milk-meat-hygiene","milk-overview",0,[[14,5,1,0,1,0,0,0],[13,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]],
+  ["milk-meat-hygiene","milk-overview",0,[[14,5,1,0,1,0,0,0],[13,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]], // 13a83f1d4b7d
   // end ["milk-meat-hygiene","milk-overview"]
   // ["milk-meat-hygiene","milk-processing"]
-  ["milk-meat-hygiene","milk-processing",0,[[32,5,1,0,1,0,0,0],[56,5,1,0,1,1,0,0],[18,5,1,1,1,1,0,0]]],
+  ["milk-meat-hygiene","milk-processing",0,[[32,5,1,0,1,0,0,0],[56,5,1,0,1,1,0,0],[18,5,1,1,1,1,0,0]]], // 6fb7e44eaf2c
   // end ["milk-meat-hygiene","milk-processing"]
   // ["milk-meat-hygiene","milk-products-storage"]
-  ["milk-meat-hygiene","milk-products-storage",1,[[15,5,1,0,1,0,0,0],[2,5,1,0,1,1,0,0]]],
+  ["milk-meat-hygiene","milk-products-storage",1,[[15,5,1,0,1,0,0,0],[2,5,1,0,1,1,0,0]]], // 2dcb58bf148e
   // end ["milk-meat-hygiene","milk-products-storage"]
   // ["milk-meat-hygiene","milk-quality-composition"]
-  ["milk-meat-hygiene","milk-quality-composition",0,[[29,5,1,0,1,0,0,0],[44,5,1,0,1,1,0,0],[19,5,1,1,1,1,0,0]]],
+  ["milk-meat-hygiene","milk-quality-composition",0,[[29,5,1,0,1,0,0,0],[44,5,1,0,1,1,0,0],[19,5,1,1,1,1,0,0]]], // 78cf06350a2f
   // end ["milk-meat-hygiene","milk-quality-composition"]
   // ["milk-meat-hygiene","milk-quality-determination"]
-  ["milk-meat-hygiene","milk-quality-determination",0,[[29,5,1,0,1,0,0,0],[53,5,1,0,1,1,0,0],[12,5,1,1,1,1,0,0]]],
+  ["milk-meat-hygiene","milk-quality-determination",0,[[29,5,1,0,1,0,0,0],[53,5,1,0,1,1,0,0],[12,5,1,1,1,1,0,0]]], // 81610c7e6f89
   // end ["milk-meat-hygiene","milk-quality-determination"]
   // ["milk-meat-hygiene","milk-raw-std"]
-  ["milk-meat-hygiene","milk-raw-std",0,[[28,5,1,0,1,0,0,0],[26,5,1,0,1,1,0,0],[13,5,1,1,1,1,0,0]]],
+  ["milk-meat-hygiene","milk-raw-std",0,[[28,5,1,0,1,0,0,0],[26,5,1,0,1,1,0,0],[13,5,1,1,1,1,0,0]]], // 9814c11d1aa4
   // end ["milk-meat-hygiene","milk-raw-std"]
   // ["milk-meat-hygiene","milk-raw-storage"]
-  ["milk-meat-hygiene","milk-raw-storage",0,[[20,5,1,0,1,0,0,0],[21,5,1,0,1,1,0,0],[23,5,1,1,1,1,0,0]]],
+  ["milk-meat-hygiene","milk-raw-storage",0,[[20,5,1,0,1,0,0,0],[21,5,1,0,1,1,0,0],[23,5,1,1,1,1,0,0]]], // 5ce41e51aa08
   // end ["milk-meat-hygiene","milk-raw-storage"]
   // ["one-health","oh-amr"]
-  ["one-health","oh-amr",0,[[9,5,1,0,2,0,0,0],[1,5,1,0,2,1,0,0],[3,5,1,1,2,1,0,0]]],
+  ["one-health","oh-amr",0,[[9,5,1,0,2,0,0,0],[4,5,1,0,2,1,0,0],[3,5,1,1,2,1,0,0]]], // 9f945a466124
   // end ["one-health","oh-amr"]
   // ["one-health","oh-collaboration"]
-  ["one-health","oh-collaboration",0,[[3,5,1,0,1,0,0,0],[7,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]],
+  ["one-health","oh-collaboration",0,[[6,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]], // b48f537e3a9c
   // end ["one-health","oh-collaboration"]
   // ["one-health","oh-communication"]
-  ["one-health","oh-communication",0,[[7,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]],
+  ["one-health","oh-communication",0,[[7,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]], // a20ab88cd1b5
   // end ["one-health","oh-communication"]
   // ["one-health","oh-concept"]
-  ["one-health","oh-concept",0,[[11,5,1,0,1,0,0,0],[4,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]],
+  ["one-health","oh-concept",0,[[6,5,1,0,1,0,0,0],[2,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]], // 13a07eacd8ae
   // end ["one-health","oh-concept"]
   // ["one-health","oh-disease-prevention"]
-  ["one-health","oh-disease-prevention",0,[[32,5,1,0,1,0,0,0],[19,5,1,0,1,1,0,0]]],
+  ["one-health","oh-disease-prevention",0,[[32,5,1,0,1,0,0,0],[19,5,1,0,1,1,0,0]]], // 82188649171b
   // end ["one-health","oh-disease-prevention"]
   // ["one-health","oh-env-carcinogen"]
-  ["one-health","oh-env-carcinogen",0,[[1,5,1,0,2,0,0,0],[13,5,1,1,2,1,0,0]]],
+  ["one-health","oh-env-carcinogen",0,[[4,5,1,0,2,0,0,0],[2,5,1,0,2,1,0,0],[13,5,1,1,2,1,0,0]]], // e3185a01fabd
   // end ["one-health","oh-env-carcinogen"]
   // ["one-health","oh-env-mutagen"]
-  ["one-health","oh-env-mutagen",0,[[11,5,1,1,2,1,0,0]]],
+  ["one-health","oh-env-mutagen",0,[[7,5,1,0,2,0,0,0],[2,5,1,0,2,1,0,0],[11,5,1,1,2,1,0,0]]], // 52036bc39c36
   // end ["one-health","oh-env-mutagen"]
   // ["one-health","oh-foodborne"]
-  ["one-health","oh-foodborne",0,[[4,5,1,0,2,0,0,0],[2,5,1,0,2,1,0,0],[2,5,1,1,2,1,0,0]]],
+  ["one-health","oh-foodborne",0,[[4,5,1,0,2,0,0,0],[2,5,1,0,2,1,0,0],[2,5,1,1,2,1,0,0]]], // ddca3302e19a
   // end ["one-health","oh-foodborne"]
   // ["one-health","oh-global-network"]
-  ["one-health","oh-global-network",0,[[6,5,1,0,1,0,0,0],[16,5,1,0,1,0,["2569-1","midterm"],0],[14,5,1,0,1,1,0,0]]],
+  ["one-health","oh-global-network",0,[[6,5,1,0,1,0,0,0],[16,5,1,0,1,0,["2569-1","midterm"],0],[14,5,1,0,1,1,0,0]]], // 587a0668c9c9
   // end ["one-health","oh-global-network"]
   // ["one-health","oh-gmo"]
-  ["one-health","oh-gmo",0,[[9,5,1,1,2,1,0,0]]],
+  ["one-health","oh-gmo",0,[[2,5,1,0,2,0,0,0],[2,5,1,0,2,1,0,0],[10,5,1,1,2,1,0,0]]], // 63c3cc4348fc
   // end ["one-health","oh-gmo"]
   // ["one-health","oh-import-risk"]
-  ["one-health","oh-import-risk",0,[[10,5,1,0,2,0,0,0]]],
+  ["one-health","oh-import-risk",0,[[10,5,1,0,2,0,0,0]]], // 3f77f641b4d2
   // end ["one-health","oh-import-risk"]
   // ["one-health","oh-livestock-waste"]
-  ["one-health","oh-livestock-waste",0,[[2,5,1,0,2,0,0,0],[8,5,1,1,2,1,0,0]]],
+  ["one-health","oh-livestock-waste",0,[[5,5,1,0,2,0,0,0],[4,5,1,0,2,1,0,0],[8,5,1,1,2,1,0,0]]], // c327764d0f63
   // end ["one-health","oh-livestock-waste"]
   // ["one-health","oh-risk-analysis"]
-  ["one-health","oh-risk-analysis",0,[[4,5,1,0,2,0,0,0],[9,5,1,0,2,1,0,0],[2,5,1,1,2,1,0,0]]],
+  ["one-health","oh-risk-analysis",0,[[4,5,1,0,2,0,0,0],[9,5,1,0,2,1,0,0],[2,5,1,1,2,1,0,0]]], // aa8833595747
   // end ["one-health","oh-risk-analysis"]
   // ["one-health","oh-vet-role"]
-  ["one-health","oh-vet-role",0,[[17,5,1,0,1,0,0,0],[13,5,1,0,1,1,0,0]]],
+  ["one-health","oh-vet-role",0,[[10,5,1,0,1,0,0,0],[12,5,1,0,1,1,0,0]]], // e0e0a0a00e12
   // end ["one-health","oh-vet-role"]
   // ["poa-clinical","poa-collapse"]
-  ["poa-clinical","poa-collapse",26,[]],
+  ["poa-clinical","poa-collapse",26,[]], // b3ed36f59cbd
   // end ["poa-clinical","poa-collapse"]
   // ["poa-clinical","poa-diarrhea"]
-  ["poa-clinical","poa-diarrhea",0,[[14,5,1,0,0,0,["2569-1","continuous"],0]]],
+  ["poa-clinical","poa-diarrhea",0,[[14,5,1,0,0,0,["2569-1","continuous"],0]]], // 04a9bbbe641f
   // end ["poa-clinical","poa-diarrhea"]
   // ["poa-clinical","poa-edema"]
-  ["poa-clinical","poa-edema",0,[[15,5,1,0,0,0,0,0]]],
+  ["poa-clinical","poa-edema",0,[[15,5,1,0,0,0,0,0]]], // cc93c11b19a7
   // end ["poa-clinical","poa-edema"]
   // ["poa-clinical","poa-intro"]
-  ["poa-clinical","poa-intro",0,[[8,5,1,0,0,0,["2569-1","continuous"],0]]],
+  ["poa-clinical","poa-intro",0,[[8,5,1,0,0,0,["2569-1","continuous"],0]]], // 1220fa01bfe6
   // end ["poa-clinical","poa-intro"]
   // ["poa-clinical","poa-red-urine"]
-  ["poa-clinical","poa-red-urine",0,[[3,5,1,1,0,1,0,0]]],
+  ["poa-clinical","poa-red-urine",0,[[3,5,1,1,0,1,0,0]]], // b07abd0c84e0
   // end ["poa-clinical","poa-red-urine"]
   // ["poa-clinical","poa-respiratory"]
-  ["poa-clinical","poa-respiratory",0,[[4,5,1,0,0,0,["2569-1","continuous"],0],[13,5,1,1,0,1,0,0]]],
+  ["poa-clinical","poa-respiratory",0,[[4,5,1,0,0,0,["2569-1","continuous"],0],[13,5,1,1,0,1,0,0]]], // 220052560021
   // end ["poa-clinical","poa-respiratory"]
   // ["poa-clinical","poa-vomiting"]
-  ["poa-clinical","poa-vomiting",0,[[14,5,1,0,0,0,["2569-1","continuous"],0]]],
+  ["poa-clinical","poa-vomiting",0,[[14,5,1,0,0,0,["2569-1","continuous"],0]]], // df04910efe2c
   // end ["poa-clinical","poa-vomiting"]
   // ["poultry","avian-drugs"]
-  ["poultry","avian-drugs",0,[[1,4,1,0,3,0,0,0],[11,4,1,1,3,1,0,0]]],
+  ["poultry","avian-drugs",0,[[1,4,1,0,3,0,0,0],[11,4,1,1,3,1,0,0]]], // 84e87b37134e
   // end ["poultry","avian-drugs"]
   // ["poultry","avian-zoonosis"]
-  ["poultry","avian-zoonosis",0,[[1,4,1,0,3,0,0,0],[9,4,1,1,3,1,0,0]]],
+  ["poultry","avian-zoonosis",0,[[1,4,1,0,3,0,0,0],[9,4,1,1,3,1,0,0]]], // 1d6c8dccb736
   // end ["poultry","avian-zoonosis"]
   // ["poultry","biosecurity"]
-  ["poultry","biosecurity",2,[[1,4,1,0,3,0,0,0],[17,4,1,1,3,1,0,0]]],
+  ["poultry","biosecurity",2,[[1,4,1,0,3,0,0,0],[17,4,1,1,3,1,0,0]]], // 95a0deee0bab
   // end ["poultry","biosecurity"]
   // ["poultry","first-week-mortality"]
-  ["poultry","first-week-mortality",0,[[17,4,1,1,3,1,0,0]]],
+  ["poultry","first-week-mortality",0,[[17,4,1,1,3,1,0,0]]], // de045fc10508
   // end ["poultry","first-week-mortality"]
   // ["poultry","mahahon-poultry-biosec"]
-  ["poultry","mahahon-poultry-biosec",0,[[8,4,1,0,3,0,0,0]]],
+  ["poultry","mahahon-poultry-biosec",0,[[8,4,1,0,3,0,0,0]]], // bdb6683d7131
   // end ["poultry","mahahon-poultry-biosec"]
   // ["poultry","mahahon-poultry-drugs"]
-  ["poultry","mahahon-poultry-drugs",0,[[7,4,1,0,3,0,0,0],[1,4,1,0,3,1,0,0]]],
+  ["poultry","mahahon-poultry-drugs",0,[[7,4,1,0,3,0,0,0],[1,4,1,0,3,1,0,0]]], // a5392eb03e34
   // end ["poultry","mahahon-poultry-drugs"]
   // ["poultry","mahahon-poultry-firstweek"]
-  ["poultry","mahahon-poultry-firstweek",0,[[10,4,1,0,3,0,0,0]]],
+  ["poultry","mahahon-poultry-firstweek",0,[[10,4,1,0,3,0,0,0]]], // 62ebb090672c
   // end ["poultry","mahahon-poultry-firstweek"]
   // ["poultry","mahahon-poultry-nutrition"]
-  ["poultry","mahahon-poultry-nutrition",0,[[18,4,1,0,3,0,0,0]]],
+  ["poultry","mahahon-poultry-nutrition",0,[[18,4,1,0,3,0,0,0]]], // 007e354ffbfb
   // end ["poultry","mahahon-poultry-nutrition"]
   // ["poultry","mahahon-poultry-qa"]
-  ["poultry","mahahon-poultry-qa",0,[[8,4,1,0,3,0,0,0]]],
+  ["poultry","mahahon-poultry-qa",0,[[8,4,1,0,3,0,0,0]]], // d1df9adfbe93
   // end ["poultry","mahahon-poultry-qa"]
   // ["poultry","mahahon-poultry-zoonosis"]
-  ["poultry","mahahon-poultry-zoonosis",0,[[8,4,1,0,3,0,0,0]]],
+  ["poultry","mahahon-poultry-zoonosis",0,[[8,4,1,0,3,0,0,0]]], // 46a2b461098a
   // end ["poultry","mahahon-poultry-zoonosis"]
   // ["poultry","midterm-disease"]
-  ["poultry","midterm-disease",0,[[2,4,0,1,0,0,0,0]]],
+  ["poultry","midterm-disease",0,[[2,4,0,1,0,0,0,0]]], // 7d4998e3c104
   // end ["poultry","midterm-disease"]
   // ["poultry","physiology"]
-  ["poultry","physiology",0,[[3,4,0,1,0,0,0,0]]],
+  ["poultry","physiology",0,[[3,4,0,1,0,0,0,0]]], // c9e24e98adf6
   // end ["poultry","physiology"]
   // ["poultry","quality-assurance"]
-  ["poultry","quality-assurance",0,[[1,4,1,0,3,0,0,0],[14,4,1,1,3,1,0,0]]],
+  ["poultry","quality-assurance",0,[[1,4,1,0,3,0,0,0],[14,4,1,1,3,1,0,0]]], // 164c5c6a3564
   // end ["poultry","quality-assurance"]
   // ["poultry","uncertain-scope"]
-  ["poultry","uncertain-scope",11,[[41,4,0,1,0,0,0,0]]],
+  ["poultry","uncertain-scope",11,[[41,4,0,1,0,0,0,0]]], // 52d52940fdc7
   // end ["poultry","uncertain-scope"]
   // ["practrum","animal-nutrition"]
-  ["practrum","animal-nutrition",0,[[5,4,1,0,3,0,0,0]]],
+  ["practrum","animal-nutrition",0,[[5,4,1,0,3,0,0,0]]], // ef03cf429824
   // end ["practrum","animal-nutrition"]
   // ["practrum","bovine-anesthesia"]
-  ["practrum","bovine-anesthesia",0,[[9,4,1,0,3,0,0,0],[5,4,1,1,3,1,0,0]]],
+  ["practrum","bovine-anesthesia",0,[[9,4,1,0,3,0,0,0],[5,4,1,1,3,1,0,0]]], // 83100a477323
   // end ["practrum","bovine-anesthesia"]
   // ["practrum","cow-restraint"]
-  ["practrum","cow-restraint",0,[[5,4,1,0,3,0,0,0]]],
+  ["practrum","cow-restraint",0,[[5,4,1,0,3,0,0,0]]], // 5e3a96eec63a
   // end ["practrum","cow-restraint"]
   // ["practrum","dehorning"]
-  ["practrum","dehorning",0,[[4,4,1,0,3,0,0,0]]],
+  ["practrum","dehorning",0,[[4,4,1,0,3,0,0,0]]], // 9dde55227190
   // end ["practrum","dehorning"]
   // ["practrum","hoof-trim"]
-  ["practrum","hoof-trim",0,[[4,4,1,0,3,0,0,0],[4,4,1,1,3,1,0,0]]],
+  ["practrum","hoof-trim",0,[[4,4,1,0,3,0,0,0],[4,4,1,1,3,1,0,0]]], // 61c7e027a60d
   // end ["practrum","hoof-trim"]
   // ["practrum","mahahon-practrum-dystocia"]
-  ["practrum","mahahon-practrum-dystocia",0,[[18,4,1,0,3,0,0,0]]],
+  ["practrum","mahahon-practrum-dystocia",0,[[18,4,1,0,3,0,0,0]]], // 9c262f016dbe
   // end ["practrum","mahahon-practrum-dystocia"]
   // ["practrum","mahahon-practrum-feed"]
-  ["practrum","mahahon-practrum-feed",0,[[18,4,1,0,3,0,0,0]]],
+  ["practrum","mahahon-practrum-feed",0,[[18,4,1,0,3,0,0,0]]], // b8c9187d5c31
   // end ["practrum","mahahon-practrum-feed"]
   // ["practrum","mahahon-practrum-penile"]
-  ["practrum","mahahon-practrum-penile",0,[[6,4,1,0,3,0,0,0]]],
+  ["practrum","mahahon-practrum-penile",0,[[6,4,1,0,3,0,0,0]]], // 02cd654764c8
   // end ["practrum","mahahon-practrum-penile"]
   // ["practrum","mahahon-practrum-silage"]
-  ["practrum","mahahon-practrum-silage",0,[[9,4,1,0,3,0,0,0]]],
+  ["practrum","mahahon-practrum-silage",0,[[9,4,1,0,3,0,0,0]]], // 2ada93e5008d
   // end ["practrum","mahahon-practrum-silage"]
   // ["practrum","mahahon-practrum-surgery"]
-  ["practrum","mahahon-practrum-surgery",0,[[9,4,1,0,3,0,0,0],[3,4,1,1,3,1,0,0]]],
+  ["practrum","mahahon-practrum-surgery",0,[[9,4,1,0,3,0,0,0],[3,4,1,1,3,1,0,0]]], // dbf0d4c4474e
   // end ["practrum","mahahon-practrum-surgery"]
   // ["practrum","parturition-fetotomy"]
-  ["practrum","parturition-fetotomy",0,[[4,4,0,0,0,0,0,0]]],
+  ["practrum","parturition-fetotomy",0,[[4,4,0,0,0,0,0,0]]], // c0c382ece2df
   // end ["practrum","parturition-fetotomy"]
   // ["practrum","penile-deviation"]
-  ["practrum","penile-deviation",0,[[3,4,1,0,3,0,0,0]]],
+  ["practrum","penile-deviation",0,[[3,4,1,0,3,0,0,0]]], // e2c493f491ff
   // end ["practrum","penile-deviation"]
   // ["practrum","rumenotomy"]
-  ["practrum","rumenotomy",0,[[6,4,1,0,3,0,0,0],[5,4,1,1,3,1,0,0]]],
+  ["practrum","rumenotomy",0,[[6,4,1,0,3,0,0,0],[5,4,1,1,3,1,0,0]]], // 649e2ddc4c6c
   // end ["practrum","rumenotomy"]
   // ["rec-adv-bioscience","ravb-bacterial-dx"]
-  ["rec-adv-bioscience","ravb-bacterial-dx",0,[[1,5,1,1,3,1,0,0]]],
+  ["rec-adv-bioscience","ravb-bacterial-dx",0,[[1,5,1,1,3,1,0,0]]], // de45f60d2f72
   // end ["rec-adv-bioscience","ravb-bacterial-dx"]
   // ["rec-adv-bioscience","ravb-helminths"]
-  ["rec-adv-bioscience","ravb-helminths",0,[[2,5,1,1,3,1,0,0]]],
+  ["rec-adv-bioscience","ravb-helminths",0,[[2,5,1,1,3,1,0,0]]], // 3ba89889e64e
   // end ["rec-adv-bioscience","ravb-helminths"]
   // ["rec-adv-bioscience","ravb-protozoa-blood"]
-  ["rec-adv-bioscience","ravb-protozoa-blood",0,[[1,5,1,1,3,1,0,0]]],
+  ["rec-adv-bioscience","ravb-protozoa-blood",0,[[1,5,1,1,3,1,0,0]]], // a8d06d4b788a
   // end ["rec-adv-bioscience","ravb-protozoa-blood"]
   // ["rec-adv-bioscience","ravb-virology"]
-  ["rec-adv-bioscience","ravb-virology",1,[]],
+  ["rec-adv-bioscience","ravb-virology",1,[]], // b383fd980dc7
   // end ["rec-adv-bioscience","ravb-virology"]
   // ["repro","__unassigned__"]
-  ["repro","__unassigned__",0,[[9,4,1,1,3,1,0,0]]],
+  ["repro","__unassigned__",0,[[9,4,1,1,3,1,0,0]]], // b9816f41c51a
   // end ["repro","__unassigned__"]
   // ["repro","dystocia"]
-  ["repro","dystocia",0,[[6,4,1,1,3,1,0,0]]],
+  ["repro","dystocia",0,[[6,4,1,1,3,1,0,0]]], // 73a7f73262cb
   // end ["repro","dystocia"]
   // ["repro","repro-exam"]
-  ["repro","repro-exam",0,[[6,4,1,1,3,1,0,0]]],
+  ["repro","repro-exam",0,[[6,4,1,1,3,1,0,0]]], // 5d3acf383874
   // end ["repro","repro-exam"]
   // ["repro","semen-ai"]
-  ["repro","semen-ai",0,[[3,4,1,1,3,1,0,0]]],
+  ["repro","semen-ai",0,[[3,4,1,1,3,1,0,0]]], // b57e38220976
   // end ["repro","semen-ai"]
   // ["repro","vaginal-cytology"]
-  ["repro","vaginal-cytology",0,[[7,4,1,1,3,1,0,0]]],
+  ["repro","vaginal-cytology",0,[[7,4,1,1,3,1,0,0]]], // 978592cae4ba
   // end ["repro","vaginal-cytology"]
   // ["repro-lect","biotech"]
-  ["repro-lect","biotech",0,[[10,4,1,0,3,0,0,0],[4,4,1,1,3,1,0,0]]],
+  ["repro-lect","biotech",0,[[10,4,1,0,3,0,0,0],[4,4,1,1,3,1,0,0]]], // 6cea1e99bbeb
   // end ["repro-lect","biotech"]
   // ["repro-lect","exotic-repro"]
-  ["repro-lect","exotic-repro",0,[[12,4,1,0,3,0,0,0]]],
+  ["repro-lect","exotic-repro",0,[[12,4,1,0,3,0,0,0]]], // 85aafef8029d
   // end ["repro-lect","exotic-repro"]
   // ["repro-lect","genetics"]
-  ["repro-lect","genetics",0,[[5,4,1,0,3,0,0,0]]],
+  ["repro-lect","genetics",0,[[5,4,1,0,3,0,0,0]]], // b5e0b5556daf
   // end ["repro-lect","genetics"]
   // ["repro-lect","gonadectomy-risk"]
-  ["repro-lect","gonadectomy-risk",0,[[10,4,1,0,3,0,0,0]]],
+  ["repro-lect","gonadectomy-risk",0,[[10,4,1,0,3,0,0,0]]], // 7a63a06cbc8c
   // end ["repro-lect","gonadectomy-risk"]
   // ["repro-lect","group01-nutrition-neutered"]
-  ["repro-lect","group01-nutrition-neutered",0,[[1,4,1,0,3,0,0,0]]],
+  ["repro-lect","group01-nutrition-neutered",0,[[1,4,1,0,3,0,0,0]]], // fb4171e7917e
   // end ["repro-lect","group01-nutrition-neutered"]
   // ["repro-lect","group02-bph-pharmacology"]
-  ["repro-lect","group02-bph-pharmacology",0,[[1,4,1,0,3,0,0,0]]],
+  ["repro-lect","group02-bph-pharmacology",0,[[1,4,1,0,3,0,0,0]]], // 238f7d0c48f3
   // end ["repro-lect","group02-bph-pharmacology"]
   // ["repro-lect","group03-gene-editing"]
-  ["repro-lect","group03-gene-editing",0,[[1,4,1,0,3,0,0,0]]],
+  ["repro-lect","group03-gene-editing",0,[[1,4,1,0,3,0,0,0]]], // f80e8a5bb837
   // end ["repro-lect","group03-gene-editing"]
   // ["repro-lect","group04-dermato-repro"]
-  ["repro-lect","group04-dermato-repro",0,[[1,4,1,0,3,0,0,0]]],
+  ["repro-lect","group04-dermato-repro",0,[[1,4,1,0,3,0,0,0]]], // fe699b33ee31
   // end ["repro-lect","group04-dermato-repro"]
   // ["repro-lect","group05-felidae-infertility"]
-  ["repro-lect","group05-felidae-infertility",0,[[1,4,1,0,3,0,0,0]]],
+  ["repro-lect","group05-felidae-infertility",0,[[1,4,1,0,3,0,0,0]]], // ae265c15604f
   // end ["repro-lect","group05-felidae-infertility"]
   // ["repro-lect","group06-iugr-piglet"]
-  ["repro-lect","group06-iugr-piglet",0,[[1,4,1,0,3,0,0,0]]],
+  ["repro-lect","group06-iugr-piglet",0,[[1,4,1,0,3,0,0,0]]], // db58892e393a
   // end ["repro-lect","group06-iugr-piglet"]
   // ["repro-lect","group07-ruminant-us-CL"]
-  ["repro-lect","group07-ruminant-us-CL",0,[[1,4,1,0,3,0,0,0]]],
+  ["repro-lect","group07-ruminant-us-CL",0,[[1,4,1,0,3,0,0,0]]], // 867ccfb70100
   // end ["repro-lect","group07-ruminant-us-CL"]
   // ["repro-lect","group08-PAGs-ruminant"]
-  ["repro-lect","group08-PAGs-ruminant",0,[[1,4,1,0,3,0,0,0]]],
+  ["repro-lect","group08-PAGs-ruminant",0,[[1,4,1,0,3,0,0,0]]], // e12f72976491
   // end ["repro-lect","group08-PAGs-ruminant"]
   // ["repro-lect","group09-placenta"]
-  ["repro-lect","group09-placenta",0,[[1,4,1,0,3,0,0,0]]],
+  ["repro-lect","group09-placenta",0,[[1,4,1,0,3,0,0,0]]], // ef35fda4879d
   // end ["repro-lect","group09-placenta"]
   // ["repro-lect","group10-heat-stress"]
-  ["repro-lect","group10-heat-stress",0,[[1,4,1,0,3,0,0,0]]],
+  ["repro-lect","group10-heat-stress",0,[[1,4,1,0,3,0,0,0]]], // 37ee6d4f0fa4
   // end ["repro-lect","group10-heat-stress"]
   // ["repro-lect","group11-buserelin-pig"]
-  ["repro-lect","group11-buserelin-pig",0,[[1,4,1,0,3,0,0,0]]],
+  ["repro-lect","group11-buserelin-pig",0,[[1,4,1,0,3,0,0,0]]], // 09cbe70de84b
   // end ["repro-lect","group11-buserelin-pig"]
   // ["repro-lect","group12-NEB-dairy"]
-  ["repro-lect","group12-NEB-dairy",0,[[1,4,1,0,3,0,0,0]]],
+  ["repro-lect","group12-NEB-dairy",0,[[1,4,1,0,3,0,0,0]]], // 02b33e2f5d12
   // end ["repro-lect","group12-NEB-dairy"]
   // ["repro-lect","hormonal-applications"]
-  ["repro-lect","hormonal-applications",0,[[11,4,1,0,3,0,0,0],[2,4,1,1,3,1,0,0]]],
+  ["repro-lect","hormonal-applications",0,[[11,4,1,0,3,0,0,0],[2,4,1,1,3,1,0,0]]], // 42e108a6eded
   // end ["repro-lect","hormonal-applications"]
   // ["repro-lect","infertility"]
-  ["repro-lect","infertility",0,[[6,4,1,0,3,0,0,0],[1,4,1,1,3,1,0,0]]],
+  ["repro-lect","infertility",0,[[6,4,1,0,3,0,0,0],[1,4,1,1,3,1,0,0]]], // 4dc843b909fb
   // end ["repro-lect","infertility"]
   // ["repro-lect","mahahon-art"]
-  ["repro-lect","mahahon-art",0,[[3,4,1,0,3,0,0,0],[7,4,1,1,3,1,0,0]]],
+  ["repro-lect","mahahon-art",0,[[3,4,1,0,3,0,0,0],[7,4,1,1,3,1,0,0]]], // aa45e4aef90e
   // end ["repro-lect","mahahon-art"]
   // ["repro-lect","mahahon-exotic"]
-  ["repro-lect","mahahon-exotic",0,[[10,4,1,1,3,1,0,0]]],
+  ["repro-lect","mahahon-exotic",0,[[10,4,1,1,3,1,0,0]]], // ec837b9f18bc
   // end ["repro-lect","mahahon-exotic"]
   // ["repro-lect","mahahon-genetic"]
-  ["repro-lect","mahahon-genetic",0,[[10,4,1,0,3,0,0,0]]],
+  ["repro-lect","mahahon-genetic",0,[[10,4,1,0,3,0,0,0]]], // 7e5a2d747842
   // end ["repro-lect","mahahon-genetic"]
   // ["repro-lect","mahahon-hormone"]
-  ["repro-lect","mahahon-hormone",0,[[10,4,1,1,3,1,0,0]]],
+  ["repro-lect","mahahon-hormone",0,[[10,4,1,1,3,1,0,0]]], // 4ae3b3302315
   // end ["repro-lect","mahahon-hormone"]
   // ["repro-lect","mahahon-risk-benefit"]
-  ["repro-lect","mahahon-risk-benefit",0,[[10,4,1,0,3,0,0,0]]],
+  ["repro-lect","mahahon-risk-benefit",0,[[10,4,1,0,3,0,0,0]]], // 4cbf04fff220
   // end ["repro-lect","mahahon-risk-benefit"]
   // ["repro-lect","mahahon-semen-eval"]
-  ["repro-lect","mahahon-semen-eval",0,[[10,4,1,0,3,0,0,0]]],
+  ["repro-lect","mahahon-semen-eval",0,[[10,4,1,0,3,0,0,0]]], // 8078f251f9f1
   // end ["repro-lect","mahahon-semen-eval"]
   // ["repro-lect","mahahon-semen-freezing"]
-  ["repro-lect","mahahon-semen-freezing",0,[[10,4,1,1,3,1,0,0]]],
+  ["repro-lect","mahahon-semen-freezing",0,[[10,4,1,1,3,1,0,0]]], // c057795bff94
   // end ["repro-lect","mahahon-semen-freezing"]
   // ["repro-lect","mahahon-surgical"]
-  ["repro-lect","mahahon-surgical",0,[[10,4,1,0,3,0,0,0]]],
+  ["repro-lect","mahahon-surgical",0,[[10,4,1,0,3,0,0,0]]], // 18f66191dea4
   // end ["repro-lect","mahahon-surgical"]
   // ["repro-lect","mahahon-ultrasound"]
-  ["repro-lect","mahahon-ultrasound",0,[[10,4,1,1,3,1,0,0]]],
+  ["repro-lect","mahahon-ultrasound",0,[[10,4,1,1,3,1,0,0]]], // ffa12e0524e7
   // end ["repro-lect","mahahon-ultrasound"]
   // ["repro-lect","repro-ultrasound"]
-  ["repro-lect","repro-ultrasound",0,[[6,4,1,0,3,0,0,0]]],
+  ["repro-lect","repro-ultrasound",0,[[6,4,1,0,3,0,0,0]]], // 814e620b73b9
   // end ["repro-lect","repro-ultrasound"]
   // ["repro-lect","semen-ai"]
-  ["repro-lect","semen-ai",0,[[5,4,1,0,3,0,0,0],[15,4,1,1,3,1,0,0]]],
+  ["repro-lect","semen-ai",0,[[5,4,1,0,3,0,0,0],[15,4,1,1,3,1,0,0]]], // cb89f798d770
   // end ["repro-lect","semen-ai"]
   // ["repro-lect","semen-preservation"]
-  ["repro-lect","semen-preservation",0,[[5,4,1,0,3,0,0,0],[2,4,1,1,3,1,0,0]]],
+  ["repro-lect","semen-preservation",0,[[5,4,1,0,3,0,0,0],[2,4,1,1,3,1,0,0]]], // 23174cacb1be
   // end ["repro-lect","semen-preservation"]
   // ["repro-lect","surgical-neutering"]
-  ["repro-lect","surgical-neutering",0,[[5,4,1,0,3,0,0,0],[7,4,1,1,3,1,0,0]]],
+  ["repro-lect","surgical-neutering",0,[[5,4,1,0,3,0,0,0],[7,4,1,1,3,1,0,0]]], // 6c3c14d8b3c1
   // end ["repro-lect","surgical-neutering"]
   // ["ruminant-clinical","rum-hattakan"]
-  ["ruminant-clinical","rum-hattakan",3,[[2,5,1,1,3,1,0,0]]],
+  ["ruminant-clinical","rum-hattakan",3,[[2,5,1,1,3,1,0,0]]], // 2ea4a6c34722
   // end ["ruminant-clinical","rum-hattakan"]
   // ["ruminant-clinical","rum-hhm"]
-  ["ruminant-clinical","rum-hhm",1,[[6,5,1,1,3,1,0,0]]],
+  ["ruminant-clinical","rum-hhm",1,[[6,5,1,1,3,1,0,0]]], // 19d7d0486a2f
   // end ["ruminant-clinical","rum-hhm"]
   // ["ruminant-clinical","rum-hhm-clinical"]
-  ["ruminant-clinical","rum-hhm-clinical",0,[[1,5,1,1,3,1,0,0]]],
+  ["ruminant-clinical","rum-hhm-clinical",0,[[1,5,1,1,3,1,0,0]]], // 7954ae6b7b59
   // end ["ruminant-clinical","rum-hhm-clinical"]
   // ["ruminant-clinical","rum-mastitis"]
-  ["ruminant-clinical","rum-mastitis",2,[[2,5,1,1,3,1,0,0]]],
+  ["ruminant-clinical","rum-mastitis",2,[[2,5,1,1,3,1,0,0]]], // 00e0ba4e5846
   // end ["ruminant-clinical","rum-mastitis"]
   // ["ruminant-clinical","rum-reproduction"]
-  ["ruminant-clinical","rum-reproduction",1,[[4,5,1,1,3,1,0,0]]],
+  ["ruminant-clinical","rum-reproduction",1,[[4,5,1,1,3,1,0,0]]], // 0cc07e7345b8
   // end ["ruminant-clinical","rum-reproduction"]
   // ["surg1","brachial-plexus-block"]
-  ["surg1","brachial-plexus-block",0,[[3,4,1,1,3,1,0,0]]],
+  ["surg1","brachial-plexus-block",0,[[3,4,1,1,3,1,0,0]]], // 55835dfb6a00
   // end ["surg1","brachial-plexus-block"]
   // ["surg1","breathing-circuit"]
-  ["surg1","breathing-circuit",0,[[2,4,1,1,3,1,0,0]]],
+  ["surg1","breathing-circuit",0,[[2,4,1,1,3,1,0,0]]], // 10b10cf09963
   // end ["surg1","breathing-circuit"]
   // ["surg1","dental-nerve-block"]
-  ["surg1","dental-nerve-block",0,[[4,4,1,1,3,1,0,0]]],
+  ["surg1","dental-nerve-block",0,[[4,4,1,1,3,1,0,0]]], // 06d57d403f87
   // end ["surg1","dental-nerve-block"]
   // ["surg1","endotracheal-intubation"]
-  ["surg1","endotracheal-intubation",0,[[2,4,1,1,3,1,0,0]]],
+  ["surg1","endotracheal-intubation",0,[[2,4,1,1,3,1,0,0]]], // 5bfbcfea4bd6
   // end ["surg1","endotracheal-intubation"]
   // ["surg1","epidural-block"]
-  ["surg1","epidural-block",0,[[5,4,1,1,3,1,0,0]]],
+  ["surg1","epidural-block",0,[[5,4,1,1,3,1,0,0]]], // ae54f52c262f
   // end ["surg1","epidural-block"]
   // ["surg1","incisional-line-block"]
-  ["surg1","incisional-line-block",0,[[1,4,1,1,3,1,0,0]]],
+  ["surg1","incisional-line-block",0,[[1,4,1,1,3,1,0,0]]], // 088db30458dc
   // end ["surg1","incisional-line-block"]
   // ["surg1","intercostal-block"]
-  ["surg1","intercostal-block",0,[[3,4,1,1,3,1,0,0]]],
+  ["surg1","intercostal-block",0,[[3,4,1,1,3,1,0,0]]], // 9ba758db1214
   // end ["surg1","intercostal-block"]
   // ["surg1","intubation-cat"]
-  ["surg1","intubation-cat",0,[[1,4,1,1,3,1,0,0]]],
+  ["surg1","intubation-cat",0,[[1,4,1,1,3,1,0,0]]], // 6adf604faa11
   // end ["surg1","intubation-cat"]
   // ["surg1","iv-catheter"]
-  ["surg1","iv-catheter",0,[[2,4,1,1,3,1,0,0]]],
+  ["surg1","iv-catheter",0,[[2,4,1,1,3,1,0,0]]], // a9baf42e2d90
   // end ["surg1","iv-catheter"]
   // ["surg1","iv-fluid-calculation"]
-  ["surg1","iv-fluid-calculation",0,[[2,4,1,1,3,1,0,0]]],
+  ["surg1","iv-fluid-calculation",0,[[2,4,1,1,3,1,0,0]]], // b40563590694
   // end ["surg1","iv-fluid-calculation"]
   // ["surg1","local-infiltration"]
-  ["surg1","local-infiltration",0,[[1,4,1,1,3,1,0,0]]],
+  ["surg1","local-infiltration",0,[[1,4,1,1,3,1,0,0]]], // af4661e74710
   // end ["surg1","local-infiltration"]
   // ["surg1","oxygen-flow-rate"]
-  ["surg1","oxygen-flow-rate",0,[[2,4,1,1,3,1,0,0]]],
+  ["surg1","oxygen-flow-rate",0,[[2,4,1,1,3,1,0,0]]], // 46265bcb4676
   // end ["surg1","oxygen-flow-rate"]
   // ["surg1","testicular-block"]
-  ["surg1","testicular-block",0,[[1,4,1,1,3,1,0,0]]],
+  ["surg1","testicular-block",0,[[1,4,1,1,3,1,0,0]]], // 201b16fd92ef
   // end ["surg1","testicular-block"]
   // ["surg2","__unassigned__"]
-  ["surg2","__unassigned__",0,[[5,4,1,1,3,1,0,0]]],
+  ["surg2","__unassigned__",0,[[5,4,1,1,3,1,0,0]]], // 7c58e2b08fb5
   // end ["surg2","__unassigned__"]
   // ["surg2","abdominal-surgery"]
-  ["surg2","abdominal-surgery",0,[[2,4,1,1,3,1,0,0]]],
+  ["surg2","abdominal-surgery",0,[[2,4,1,1,3,1,0,0]]], // e85524d30c1b
   // end ["surg2","abdominal-surgery"]
   // ["surg2","aural-hematoma"]
-  ["surg2","aural-hematoma",0,[[2,4,1,1,3,1,0,0]]],
+  ["surg2","aural-hematoma",0,[[2,4,1,1,3,1,0,0]]], // 59ab27e08ef0
   // end ["surg2","aural-hematoma"]
   // ["surg2","bandage-drain"]
-  ["surg2","bandage-drain",0,[[3,4,1,1,3,1,0,0]]],
+  ["surg2","bandage-drain",0,[[3,4,1,1,3,1,0,0]]], // d2be0f079349
   // end ["surg2","bandage-drain"]
   // ["surg2","dental-scaling-muzzle"]
-  ["surg2","dental-scaling-muzzle",0,[[2,4,1,1,3,1,0,0]]],
+  ["surg2","dental-scaling-muzzle",0,[[2,4,1,1,3,1,0,0]]], // 9b8443154a73
   // end ["surg2","dental-scaling-muzzle"]
   // ["surg2","ophthalmology-lab"]
-  ["surg2","ophthalmology-lab",0,[[3,4,1,1,3,1,0,0]]],
+  ["surg2","ophthalmology-lab",0,[[3,4,1,1,3,1,0,0]]], // bbfc81dd5bb1
   // end ["surg2","ophthalmology-lab"]
   // ["surg2","patient-prep-wound"]
-  ["surg2","patient-prep-wound",0,[[1,4,1,1,3,1,0,0]]],
+  ["surg2","patient-prep-wound",0,[[1,4,1,1,3,1,0,0]]], // 96901383f934
   // end ["surg2","patient-prep-wound"]
   // ["surg3","__unassigned__"]
-  ["surg3","__unassigned__",0,[[5,4,1,1,3,1,0,0]]],
+  ["surg3","__unassigned__",0,[[5,4,1,1,3,1,0,0]]], // 79ba2a96ac66
   // end ["surg3","__unassigned__"]
   // ["surg3","approach-hip"]
-  ["surg3","approach-hip",0,[[5,4,1,1,3,1,0,0]]],
+  ["surg3","approach-hip",0,[[5,4,1,1,3,1,0,0]]], // 80063a5608a2
   // end ["surg3","approach-hip"]
   // ["surg3","approach-humerus"]
-  ["surg3","approach-humerus",0,[[1,4,1,1,3,1,0,0]]],
+  ["surg3","approach-humerus",0,[[1,4,1,1,3,1,0,0]]], // 90026ba08b9c
   // end ["surg3","approach-humerus"]
   // ["surg3","approach-stifle"]
-  ["surg3","approach-stifle",0,[[1,4,1,1,3,1,0,0]]],
+  ["surg3","approach-stifle",0,[[1,4,1,1,3,1,0,0]]], // 17ed9225eae4
   // end ["surg3","approach-stifle"]
   // ["surg3","bone-plate"]
-  ["surg3","bone-plate",0,[[2,4,1,1,3,1,0,0]]],
+  ["surg3","bone-plate",0,[[2,4,1,1,3,1,0,0]]], // 11f5d086a1ab
   // end ["surg3","bone-plate"]
   // ["surg3","cerclage-wire"]
-  ["surg3","cerclage-wire",0,[[3,4,1,1,3,1,0,0]]],
+  ["surg3","cerclage-wire",0,[[3,4,1,1,3,1,0,0]]], // 860aec62a701
   // end ["surg3","cerclage-wire"]
   // ["surg3","esf"]
-  ["surg3","esf",0,[[5,4,1,1,3,1,0,0]]],
+  ["surg3","esf",0,[[5,4,1,1,3,1,0,0]]], // af17e62b5c23
   // end ["surg3","esf"]
   // ["surg3","external-coaptation"]
-  ["surg3","external-coaptation",0,[[6,4,1,1,3,1,0,0]]],
+  ["surg3","external-coaptation",0,[[6,4,1,1,3,1,0,0]]], // 43184427d4ef
   // end ["surg3","external-coaptation"]
   // ["surg3","oral-wiring"]
-  ["surg3","oral-wiring",0,[[1,4,1,1,3,1,0,0]]],
+  ["surg3","oral-wiring",0,[[1,4,1,1,3,1,0,0]]], // a63743660466
   // end ["surg3","oral-wiring"]
   // ["surg3","ortho-exam"]
-  ["surg3","ortho-exam",0,[[6,4,1,1,3,1,0,0]]],
+  ["surg3","ortho-exam",0,[[6,4,1,1,3,1,0,0]]], // 5bb8ee8a58f4
   // end ["surg3","ortho-exam"]
   // ["surg3","pinning"]
-  ["surg3","pinning",0,[[2,4,1,1,3,1,0,0]]],
+  ["surg3","pinning",0,[[2,4,1,1,3,1,0,0]]], // 6fba2d5d33ae
   // end ["surg3","pinning"]
   // ["surg3","tension-band-wire"]
-  ["surg3","tension-band-wire",0,[[3,4,1,1,3,1,0,0]]],
+  ["surg3","tension-band-wire",0,[[3,4,1,1,3,1,0,0]]], // 0128bd1f45ea
   // end ["surg3","tension-band-wire"]
   // ["swine-clinic","swine-asf"]
-  ["swine-clinic","swine-asf",0,[[12,5,1,0,2,1,0,0],[17,5,1,1,2,1,0,0]]],
+  ["swine-clinic","swine-asf",0,[[12,5,1,0,2,1,0,0],[17,5,1,1,2,1,0,0]]], // d048cd221b14
   // end ["swine-clinic","swine-asf"]
   // ["swine-clinic","swine-cns"]
-  ["swine-clinic","swine-cns",0,[[8,5,1,0,1,1,0,0]]],
+  ["swine-clinic","swine-cns",0,[[8,5,1,0,1,1,0,0]]], // c88e5a09bf93
   // end ["swine-clinic","swine-cns"]
   // ["swine-clinic","swine-control-dx"]
-  ["swine-clinic","swine-control-dx",0,[[5,5,1,0,2,0,0,0],[5,5,1,0,2,1,0,0]]],
+  ["swine-clinic","swine-control-dx",0,[[5,5,1,0,2,0,0,0],[5,5,1,0,2,1,0,0]]], // 017cd1bdd48c
   // end ["swine-clinic","swine-control-dx"]
   // ["swine-clinic","swine-csf"]
-  ["swine-clinic","swine-csf",0,[[2,5,1,0,2,1,0,0],[20,5,1,1,2,1,0,0]]],
+  ["swine-clinic","swine-csf",0,[[2,5,1,0,2,1,0,0],[20,5,1,1,2,1,0,0]]], // 6970d0fae02f
   // end ["swine-clinic","swine-csf"]
   // ["swine-clinic","swine-fmd"]
-  ["swine-clinic","swine-fmd",0,[[15,5,1,0,2,1,0,0],[2,5,1,1,2,1,0,0]]],
+  ["swine-clinic","swine-fmd",0,[[15,5,1,0,2,1,0,0],[2,5,1,1,2,1,0,0]]], // 66ec395b0632
   // end ["swine-clinic","swine-fmd"]
   // ["swine-clinic","swine-gi-viral"]
-  ["swine-clinic","swine-gi-viral",0,[[1,5,1,0,1,1,0,0],[11,5,1,1,1,1,0,0]]],
+  ["swine-clinic","swine-gi-viral",0,[[1,5,1,0,1,1,0,0],[11,5,1,1,1,1,0,0]]], // fdfc74cc56cf
   // end ["swine-clinic","swine-gi-viral"]
   // ["swine-clinic","swine-greasypig"]
-  ["swine-clinic","swine-greasypig",0,[[1,5,1,0,2,1,0,0],[15,5,1,1,2,1,0,0]]],
+  ["swine-clinic","swine-greasypig",0,[[1,5,1,0,2,1,0,0],[15,5,1,1,2,1,0,0]]], // aa3ffd3fee18
   // end ["swine-clinic","swine-greasypig"]
   // ["swine-clinic","swine-ileitis-bacti"]
-  ["swine-clinic","swine-ileitis-bacti",2,[[13,5,1,0,2,1,0,0],[6,5,1,1,2,1,0,0]]],
+  ["swine-clinic","swine-ileitis-bacti",2,[[13,5,1,0,2,1,0,0],[6,5,1,1,2,1,0,0]]], // 79408159783e
   // end ["swine-clinic","swine-ileitis-bacti"]
   // ["swine-clinic","swine-pcv2"]
-  ["swine-clinic","swine-pcv2",0,[[10,5,1,0,2,1,0,0],[5,5,1,1,2,1,0,0]]],
+  ["swine-clinic","swine-pcv2",0,[[10,5,1,0,2,1,0,0],[5,5,1,1,2,1,0,0]]], // 5496661f10b9
   // end ["swine-clinic","swine-pcv2"]
   // ["swine-clinic","swine-pornchalit-set"]
-  ["swine-clinic","swine-pornchalit-set",0,[[13,5,1,0,1,0,0,0],[28,5,1,0,1,1,0,0],[21,5,1,1,1,1,0,0]]],
+  ["swine-clinic","swine-pornchalit-set",0,[[13,5,1,0,1,0,0,0],[28,5,1,0,1,1,0,0],[21,5,1,1,1,1,0,0]]], // 7ad799b3abb0
   // end ["swine-clinic","swine-pornchalit-set"]
   // ["swine-clinic","swine-prv-je"]
-  ["swine-clinic","swine-prv-je",0,[[8,5,1,0,2,1,0,0],[17,5,1,1,2,1,0,0]]],
+  ["swine-clinic","swine-prv-je",0,[[8,5,1,0,2,1,0,0],[17,5,1,1,2,1,0,0]]], // ce879d09d7fd
   // end ["swine-clinic","swine-prv-je"]
   // ["swine-clinic","swine-repro"]
-  ["swine-clinic","swine-repro",0,[[10,5,1,0,2,1,0,0],[6,5,1,1,2,1,0,0]]],
+  ["swine-clinic","swine-repro",0,[[10,5,1,0,2,1,0,0],[6,5,1,1,2,1,0,0]]], // afa0df540401
   // end ["swine-clinic","swine-repro"]
   // ["swine-clinic","swine-resp-viral"]
-  ["swine-clinic","swine-resp-viral",1,[[12,5,1,1,1,1,0,0]]],
+  ["swine-clinic","swine-resp-viral",1,[[12,5,1,1,1,1,0,0]]], // c5aae4e4b358
   // end ["swine-clinic","swine-resp-viral"]
   // ["swine-clinic","swine-trichinosis"]
-  ["swine-clinic","swine-trichinosis",0,[[5,5,1,0,2,0,0,0]]],
+  ["swine-clinic","swine-trichinosis",0,[[8,5,1,0,2,0,0,0]]], // cbd5f96717f2
   // end ["swine-clinic","swine-trichinosis"]
   // ["swine-herd","adg-calculation"]
-  ["swine-herd","adg-calculation",0,[[1,4,1,1,1,1,0,0]]],
+  ["swine-herd","adg-calculation",0,[[1,4,1,1,1,1,0,0]]], // a0d8aec5c5f6
   // end ["swine-herd","adg-calculation"]
   // ["swine-herd","aflatoxin-source-effect"]
-  ["swine-herd","aflatoxin-source-effect",0,[[1,4,1,1,1,1,0,0]]],
+  ["swine-herd","aflatoxin-source-effect",0,[[1,4,1,1,1,1,0,0]]], // 34d4337be4ea
   // end ["swine-herd","aflatoxin-source-effect"]
   // ["swine-herd","all-in-all-out-system"]
-  ["swine-herd","all-in-all-out-system",0,[[1,4,1,1,1,1,0,0]]],
+  ["swine-herd","all-in-all-out-system",0,[[1,4,1,1,1,1,0,0]]], // 0fa5a5ce8af7
   // end ["swine-herd","all-in-all-out-system"]
   // ["swine-herd","asf-acute-signs"]
-  ["swine-herd","asf-acute-signs",0,[[1,4,1,1,3,1,0,0]]],
+  ["swine-herd","asf-acute-signs",0,[[1,4,1,1,3,1,0,0]]], // 8063ff5ccdf4
   // end ["swine-herd","asf-acute-signs"]
   // ["swine-herd","biosecurity-segregation-sanitation-resistance"]
-  ["swine-herd","biosecurity-segregation-sanitation-resistance",0,[[1,4,1,1,3,1,0,0]]],
+  ["swine-herd","biosecurity-segregation-sanitation-resistance",0,[[1,4,1,1,3,1,0,0]]], // 4be6cb510330
   // end ["swine-herd","biosecurity-segregation-sanitation-resistance"]
   // ["swine-herd","blup-breeding-value"]
-  ["swine-herd","blup-breeding-value",0,[[1,4,1,1,1,1,0,0]]],
+  ["swine-herd","blup-breeding-value",0,[[1,4,1,1,1,1,0,0]]], // 11ccceda5fef
   // end ["swine-herd","blup-breeding-value"]
   // ["swine-herd","boar-restraint-snare"]
-  ["swine-herd","boar-restraint-snare",0,[[1,4,1,1,1,1,0,0]]],
+  ["swine-herd","boar-restraint-snare",0,[[1,4,1,1,1,1,0,0]]], // ccb3774ffa0f
   // end ["swine-herd","boar-restraint-snare"]
   // ["swine-herd","breeding-system-3-breed-cross"]
-  ["swine-herd","breeding-system-3-breed-cross",0,[[1,4,1,1,1,1,0,0]]],
+  ["swine-herd","breeding-system-3-breed-cross",0,[[1,4,1,1,1,1,0,0]]], // fd1deadff664
   // end ["swine-herd","breeding-system-3-breed-cross"]
   // ["swine-herd","contagious-vs-environmental-mastitis-pathogens"]
-  ["swine-herd","contagious-vs-environmental-mastitis-pathogens",0,[[1,4,1,0,3,0,0,0]]],
+  ["swine-herd","contagious-vs-environmental-mastitis-pathogens",0,[[1,4,1,0,3,0,0,0]]], // cf4faaab01d8
   // end ["swine-herd","contagious-vs-environmental-mastitis-pathogens"]
   // ["swine-herd","cross-sectional-vs-case-control"]
-  ["swine-herd","cross-sectional-vs-case-control",0,[[1,4,1,1,3,1,0,0]]],
+  ["swine-herd","cross-sectional-vs-case-control",0,[[1,4,1,1,3,1,0,0]]], // 7d53a6566b48
   // end ["swine-herd","cross-sectional-vs-case-control"]
   // ["swine-herd","epidemic-vs-endemic"]
-  ["swine-herd","epidemic-vs-endemic",0,[[1,4,1,1,3,1,0,0]]],
+  ["swine-herd","epidemic-vs-endemic",0,[[1,4,1,1,3,1,0,0]]], // f7b10a9f07b6
   // end ["swine-herd","epidemic-vs-endemic"]
   // ["swine-herd","feeding-pregnancy-stage"]
-  ["swine-herd","feeding-pregnancy-stage",0,[[1,4,1,1,2,1,0,0]]],
+  ["swine-herd","feeding-pregnancy-stage",0,[[1,4,1,1,2,1,0,0]]], // 9b9f5c3a606c
   // end ["swine-herd","feeding-pregnancy-stage"]
   // ["swine-herd","halothane-gene-pss"]
-  ["swine-herd","halothane-gene-pss",0,[[1,4,1,1,1,1,0,0]]],
+  ["swine-herd","halothane-gene-pss",0,[[1,4,1,1,1,1,0,0]]], // aa3002814e0c
   // end ["swine-herd","halothane-gene-pss"]
   // ["swine-herd","inbreeding-depression"]
-  ["swine-herd","inbreeding-depression",0,[[1,4,1,1,1,1,0,0]]],
+  ["swine-herd","inbreeding-depression",0,[[1,4,1,1,1,1,0,0]]], // 3598fa413898
   // end ["swine-herd","inbreeding-depression"]
   // ["swine-herd","iron-deficiency-anemia-piglet"]
-  ["swine-herd","iron-deficiency-anemia-piglet",0,[[1,4,1,1,1,1,0,0]]],
+  ["swine-herd","iron-deficiency-anemia-piglet",0,[[1,4,1,1,1,1,0,0]]], // 21dd27176f85
   // end ["swine-herd","iron-deficiency-anemia-piglet"]
   // ["swine-herd","isolation-acclimatization-new-gilts"]
-  ["swine-herd","isolation-acclimatization-new-gilts",0,[[1,4,1,1,3,1,0,0]]],
+  ["swine-herd","isolation-acclimatization-new-gilts",0,[[1,4,1,1,3,1,0,0]]], // 8e475cb425e7
   // end ["swine-herd","isolation-acclimatization-new-gilts"]
   // ["swine-herd","mastitis-subclinical-scc"]
-  ["swine-herd","mastitis-subclinical-scc",0,[[1,4,1,0,3,0,0,0]]],
+  ["swine-herd","mastitis-subclinical-scc",0,[[1,4,1,0,3,0,0,0]]], // b415e9077d65
   // end ["swine-herd","mastitis-subclinical-scc"]
   // ["swine-herd","milk-letdown-oxytocin"]
-  ["swine-herd","milk-letdown-oxytocin",0,[[1,4,1,0,3,0,0,0]]],
+  ["swine-herd","milk-letdown-oxytocin",0,[[1,4,1,0,3,0,0,0]]], // 1c9d6ce3dcd3
   // end ["swine-herd","milk-letdown-oxytocin"]
   // ["swine-herd","milking-machine-pulsation"]
-  ["swine-herd","milking-machine-pulsation",0,[[1,4,1,0,3,0,0,0]]],
+  ["swine-herd","milking-machine-pulsation",0,[[1,4,1,0,3,0,0,0]]], // 8ecee1da27e5
   // end ["swine-herd","milking-machine-pulsation"]
   // ["swine-herd","mycotoxin-zearalenone"]
-  ["swine-herd","mycotoxin-zearalenone",0,[[1,4,1,1,1,1,0,0]]],
+  ["swine-herd","mycotoxin-zearalenone",0,[[1,4,1,1,1,1,0,0]]], // 33dd206f9647
   // end ["swine-herd","mycotoxin-zearalenone"]
   // ["swine-herd","npd-calculation"]
-  ["swine-herd","npd-calculation",0,[[1,4,1,0,1,0,0,0]]],
+  ["swine-herd","npd-calculation",0,[[1,4,1,0,1,0,0,0]]], // 20384ffce7a7
   // end ["swine-herd","npd-calculation"]
   // ["swine-herd","parakeratosis-zinc-deficiency"]
-  ["swine-herd","parakeratosis-zinc-deficiency",0,[[1,4,1,1,1,1,0,0]]],
+  ["swine-herd","parakeratosis-zinc-deficiency",0,[[1,4,1,1,1,1,0,0]]], // cd74da1b7f0f
   // end ["swine-herd","parakeratosis-zinc-deficiency"]
   // ["swine-herd","parity-structure-management"]
-  ["swine-herd","parity-structure-management",0,[[1,4,1,0,1,0,0,0]]],
+  ["swine-herd","parity-structure-management",0,[[1,4,1,0,1,0,0,0]]], // 042492ecda21
   // end ["swine-herd","parity-structure-management"]
   // ["swine-herd","production-tree-low-total-born"]
-  ["swine-herd","production-tree-low-total-born",0,[[1,4,1,0,1,0,0,0]]],
+  ["swine-herd","production-tree-low-total-born",0,[[1,4,1,0,1,0,0,0]]], // 646f59341209
   // end ["swine-herd","production-tree-low-total-born"]
   // ["swine-herd","prrs-vaccination-program"]
-  ["swine-herd","prrs-vaccination-program",0,[[1,4,1,1,2,1,0,0]]],
+  ["swine-herd","prrs-vaccination-program",0,[[1,4,1,1,2,1,0,0]]], // 32ef33042486
   // end ["swine-herd","prrs-vaccination-program"]
   // ["swine-herd","psy-calculation"]
-  ["swine-herd","psy-calculation",0,[[1,4,1,1,1,1,0,0]]],
+  ["swine-herd","psy-calculation",0,[[1,4,1,1,1,1,0,0]]], // 88e98e6a94f9
   // end ["swine-herd","psy-calculation"]
   // ["swine-herd","return-to-estrus-pattern"]
-  ["swine-herd","return-to-estrus-pattern",0,[[1,4,1,0,1,0,0,0]]],
+  ["swine-herd","return-to-estrus-pattern",0,[[1,4,1,0,1,0,0,0]]], // a9f3574b2b01
   // end ["swine-herd","return-to-estrus-pattern"]
   // ["swine-herd","sensitivity-specificity-calculation"]
-  ["swine-herd","sensitivity-specificity-calculation",0,[[1,4,1,1,2,1,0,0]]],
+  ["swine-herd","sensitivity-specificity-calculation",0,[[1,4,1,1,2,1,0,0]]], // 8bbb21abafc2
   // end ["swine-herd","sensitivity-specificity-calculation"]
   // ["swine-herd","sow-feeding-lactation"]
-  ["swine-herd","sow-feeding-lactation",0,[[1,4,1,1,2,1,0,0]]],
+  ["swine-herd","sow-feeding-lactation",0,[[1,4,1,1,2,1,0,0]]], // f8acc5b99b89
   // end ["swine-herd","sow-feeding-lactation"]
   // ["swine-herd","swine-dysentery-brachyspira"]
-  ["swine-herd","swine-dysentery-brachyspira",0,[[1,4,1,1,2,1,0,0]]],
+  ["swine-herd","swine-dysentery-brachyspira",0,[[1,4,1,1,2,1,0,0]]], // edcd081cf7ee
   // end ["swine-herd","swine-dysentery-brachyspira"]
   // ["swine-herd","swine-euthanasia-method"]
-  ["swine-herd","swine-euthanasia-method",0,[[1,4,1,1,1,1,0,0]]],
+  ["swine-herd","swine-euthanasia-method",0,[[1,4,1,1,1,1,0,0]]], // c92d6ada5219
   // end ["swine-herd","swine-euthanasia-method"]
   // ["swine-herd","swine-house-count-calculation"]
-  ["swine-herd","swine-house-count-calculation",0,[[1,4,1,1,1,1,0,0]]],
+  ["swine-herd","swine-house-count-calculation",0,[[1,4,1,1,1,1,0,0]]], // ea763af33319
   // end ["swine-herd","swine-house-count-calculation"]
   // ["swine-herd","swine-welfare-5-freedoms"]
-  ["swine-herd","swine-welfare-5-freedoms",0,[[1,4,1,1,1,1,0,0]]],
+  ["swine-herd","swine-welfare-5-freedoms",0,[[1,4,1,1,1,1,0,0]]], // 2a9fe38ed9ff
   // end ["swine-herd","swine-welfare-5-freedoms"]
   // ["swine-herd","thin-sow-syndrome"]
-  ["swine-herd","thin-sow-syndrome",0,[[1,4,1,1,3,1,0,0]]],
+  ["swine-herd","thin-sow-syndrome",0,[[1,4,1,1,3,1,0,0]]], // d93a42cb3235
   // end ["swine-herd","thin-sow-syndrome"]
   // ["swine-herd","vitamin-e-selenium-deficiency"]
-  ["swine-herd","vitamin-e-selenium-deficiency",0,[[1,4,1,1,1,1,0,0]]],
+  ["swine-herd","vitamin-e-selenium-deficiency",0,[[1,4,1,1,1,1,0,0]]], // a3bf6cac8c4c
   // end ["swine-herd","vitamin-e-selenium-deficiency"]
   // ["swine-herd","wsi-fertility-relationship"]
-  ["swine-herd","wsi-fertility-relationship",0,[[1,4,1,0,3,0,0,0]]],
+  ["swine-herd","wsi-fertility-relationship",0,[[1,4,1,0,3,0,0,0]]], // 0454ae5c6370
   // end ["swine-herd","wsi-fertility-relationship"]
   // ["swine-repro","artificial-insemination"]
-  ["swine-repro","artificial-insemination",0,[[3,4,1,1,1,1,0,0]]],
+  ["swine-repro","artificial-insemination",0,[[3,4,1,1,1,1,0,0]]], // 73b4e715ff7c
   // end ["swine-repro","artificial-insemination"]
   // ["swine-repro","boar-anatomy"]
-  ["swine-repro","boar-anatomy",0,[[3,4,1,1,1,1,0,0]]],
+  ["swine-repro","boar-anatomy",0,[[3,4,1,1,1,1,0,0]]], // 12b14e34bc1e
   // end ["swine-repro","boar-anatomy"]
   // ["swine-repro","boar-management"]
-  ["swine-repro","boar-management",0,[[5,4,1,1,3,1,0,0]]],
+  ["swine-repro","boar-management",0,[[5,4,1,1,3,1,0,0]]], // ec4993399bfd
   // end ["swine-repro","boar-management"]
   // ["swine-repro","embryo-development"]
-  ["swine-repro","embryo-development",0,[[1,4,1,1,2,1,0,0]]],
+  ["swine-repro","embryo-development",0,[[1,4,1,1,2,1,0,0]]], // febb75e88888
   // end ["swine-repro","embryo-development"]
   // ["swine-repro","estrus-detection"]
-  ["swine-repro","estrus-detection",0,[[1,4,1,1,1,1,0,0]]],
+  ["swine-repro","estrus-detection",0,[[1,4,1,1,1,1,0,0]]], // 3a91f8844e1e
   // end ["swine-repro","estrus-detection"]
   // ["swine-repro","estrus-synchronization"]
-  ["swine-repro","estrus-synchronization",0,[[1,4,1,1,1,1,0,0]]],
+  ["swine-repro","estrus-synchronization",0,[[1,4,1,1,1,1,0,0]]], // 71d80867e7f3
   // end ["swine-repro","estrus-synchronization"]
   // ["swine-repro","farrowing-management"]
-  ["swine-repro","farrowing-management",0,[[1,4,1,1,2,1,0,0]]],
+  ["swine-repro","farrowing-management",0,[[1,4,1,1,2,1,0,0]]], // 467fa1ac7b5d
   // end ["swine-repro","farrowing-management"]
   // ["swine-repro","gilt-puberty"]
-  ["swine-repro","gilt-puberty",0,[[1,4,1,1,1,1,0,0]]],
+  ["swine-repro","gilt-puberty",0,[[1,4,1,1,1,1,0,0]]], // fe48b2622206
   // end ["swine-repro","gilt-puberty"]
   // ["swine-repro","lactation"]
-  ["swine-repro","lactation",0,[[1,4,1,1,2,1,0,0]]],
+  ["swine-repro","lactation",0,[[1,4,1,1,2,1,0,0]]], // a12d56b5a281
   // end ["swine-repro","lactation"]
   // ["swine-repro","mma-syndrome"]
-  ["swine-repro","mma-syndrome",0,[[1,4,1,1,2,1,0,0]]],
+  ["swine-repro","mma-syndrome",0,[[1,4,1,1,2,1,0,0]]], // 5d9635b9a296
   // end ["swine-repro","mma-syndrome"]
   // ["swine-repro","parturition"]
-  ["swine-repro","parturition",0,[[4,4,1,1,2,1,0,0]]],
+  ["swine-repro","parturition",0,[[4,4,1,1,2,1,0,0]]], // d8864c6e7a39
   // end ["swine-repro","parturition"]
   // ["swine-repro","piglet-survival"]
-  ["swine-repro","piglet-survival",0,[[1,4,1,1,2,1,0,0]]],
+  ["swine-repro","piglet-survival",0,[[1,4,1,1,2,1,0,0]]], // b1bdeb903fd4
   // end ["swine-repro","piglet-survival"]
   // ["swine-repro","pregnancy-diagnosis"]
-  ["swine-repro","pregnancy-diagnosis",0,[[1,4,1,1,2,1,0,0]]],
+  ["swine-repro","pregnancy-diagnosis",0,[[1,4,1,1,2,1,0,0]]], // 7cf4ddc0d66e
   // end ["swine-repro","pregnancy-diagnosis"]
   // ["swine-repro","pregnancy-recognition"]
-  ["swine-repro","pregnancy-recognition",0,[[1,4,1,1,2,1,0,0]]],
+  ["swine-repro","pregnancy-recognition",0,[[1,4,1,1,2,1,0,0]]], // 0bd9685d84cc
   // end ["swine-repro","pregnancy-recognition"]
   // ["swine-repro","reproductive-surgery"]
-  ["swine-repro","reproductive-surgery",0,[[1,4,1,1,2,1,0,0]]],
+  ["swine-repro","reproductive-surgery",0,[[1,4,1,1,2,1,0,0]]], // 904914a349ba
   // end ["swine-repro","reproductive-surgery"]
   // ["swine-repro","returns-to-estrus"]
-  ["swine-repro","returns-to-estrus",0,[[1,4,1,1,3,1,0,0]]],
+  ["swine-repro","returns-to-estrus",0,[[1,4,1,1,3,1,0,0]]], // 5b9078a6b186
   // end ["swine-repro","returns-to-estrus"]
   // ["swine-repro","semen-evaluation"]
-  ["swine-repro","semen-evaluation",0,[[2,4,1,1,1,1,0,0]]],
+  ["swine-repro","semen-evaluation",0,[[2,4,1,1,1,1,0,0]]], // 719cd9c62207
   // end ["swine-repro","semen-evaluation"]
   // ["vca","anatomy"]
-  ["vca","anatomy",1,[[7,5,1,1,3,1,0,0]]],
+  ["vca","anatomy",1,[[7,5,1,1,3,1,0,0]]], // 941d2f9ae767
   // end ["vca","anatomy"]
   // ["vca","aquatic"]
-  ["vca","aquatic",15,[[31,5,1,0,3,0,0,0],[70,5,1,1,3,1,0,0]]],
+  ["vca","aquatic",15,[[31,5,1,0,3,0,0,0],[70,5,1,1,3,1,0,0]]], // 27def9e092ef
   // end ["vca","aquatic"]
   // ["vca","clinical-pathology"]
-  ["vca","clinical-pathology",1,[[17,5,1,0,3,0,0,0],[13,5,1,1,3,1,0,0]]],
+  ["vca","clinical-pathology",1,[[17,5,1,0,3,0,0,0],[13,5,1,1,3,1,0,0]]], // 6a256272d41a
   // end ["vca","clinical-pathology"]
   // ["vca","dogcat"]
-  ["vca","dogcat",37,[[66,5,1,0,3,0,0,0],[275,5,1,1,3,1,0,0]]],
+  ["vca","dogcat",37,[[66,5,1,0,3,0,0,0],[275,5,1,1,3,1,0,0]]], // 2b111cbae9c7
   // end ["vca","dogcat"]
   // ["vca","epidemiology"]
-  ["vca","epidemiology",0,[[1,5,1,0,3,0,0,0],[12,5,1,1,3,1,0,0]]],
+  ["vca","epidemiology",0,[[1,5,1,0,3,0,0,0],[12,5,1,1,3,1,0,0]]], // 69b52b3fcde5
   // end ["vca","epidemiology"]
   // ["vca","equine"]
-  ["vca","equine",19,[[29,5,1,0,3,0,0,0],[80,5,1,1,3,1,0,0]]],
+  ["vca","equine",19,[[29,5,1,0,3,0,0,0],[80,5,1,1,3,1,0,0]]], // d0e67474a9fa
   // end ["vca","equine"]
   // ["vca","exotic"]
-  ["vca","exotic",13,[[32,5,1,0,3,0,0,0],[58,5,1,1,3,1,0,0]]],
+  ["vca","exotic",13,[[32,5,1,0,3,0,0,0],[58,5,1,1,3,1,0,0]]], // f55a0a640e4c
   // end ["vca","exotic"]
   // ["vca","food-hygiene"]
-  ["vca","food-hygiene",1,[[14,5,1,1,3,1,0,0]]],
+  ["vca","food-hygiene",1,[[14,5,1,1,3,1,0,0]]], // a72b7e75e87b
   // end ["vca","food-hygiene"]
   // ["vca","imaging"]
-  ["vca","imaging",6,[[23,5,1,1,3,1,0,0]]],
+  ["vca","imaging",6,[[23,5,1,1,3,1,0,0]]], // ac0e1eef92da
   // end ["vca","imaging"]
   // ["vca","immunology"]
-  ["vca","immunology",2,[[7,5,1,0,3,0,0,0],[16,5,1,1,3,1,0,0]]],
+  ["vca","immunology",2,[[7,5,1,0,3,0,0,0],[16,5,1,1,3,1,0,0]]], // e306d7c496f0
   // end ["vca","immunology"]
   // ["vca","juris"]
-  ["vca","juris",0,[[11,5,1,1,3,1,0,0]]],
+  ["vca","juris",0,[[11,5,1,1,3,1,0,0]]], // c304e47e71dd
   // end ["vca","juris"]
   // ["vca","microbiology"]
-  ["vca","microbiology",0,[[11,5,1,1,3,1,0,0]]],
+  ["vca","microbiology",0,[[11,5,1,1,3,1,0,0]]], // 3b59cd325370
   // end ["vca","microbiology"]
   // ["vca","neurology"]
-  ["vca","neurology",2,[[1,5,1,0,3,0,0,0],[19,5,1,1,3,1,0,0]]],
+  ["vca","neurology",2,[[1,5,1,0,3,0,0,0],[19,5,1,1,3,1,0,0]]], // ef7f095d7622
   // end ["vca","neurology"]
   // ["vca","ophthalmology"]
-  ["vca","ophthalmology",1,[[9,5,1,0,3,0,0,0],[20,5,1,1,3,1,0,0]]],
+  ["vca","ophthalmology",1,[[9,5,1,0,3,0,0,0],[20,5,1,1,3,1,0,0]]], // 095b74eb7ae3
   // end ["vca","ophthalmology"]
   // ["vca","parasitology"]
-  ["vca","parasitology",5,[[4,5,1,0,3,0,0,0],[33,5,1,1,3,1,0,0]]],
+  ["vca","parasitology",5,[[4,5,1,0,3,0,0,0],[33,5,1,1,3,1,0,0]]], // a0c052ab55d6
   // end ["vca","parasitology"]
   // ["vca","pathology"]
-  ["vca","pathology",0,[[12,5,1,1,3,1,0,0]]],
+  ["vca","pathology",0,[[12,5,1,1,3,1,0,0]]], // f93fa1038434
   // end ["vca","pathology"]
   // ["vca","pharmacology"]
-  ["vca","pharmacology",3,[[18,5,1,1,3,1,0,0]]],
+  ["vca","pharmacology",3,[[18,5,1,1,3,1,0,0]]], // 60a81047c6f9
   // end ["vca","pharmacology"]
   // ["vca","poultry"]
-  ["vca","poultry",0,[[76,5,1,0,3,0,0,0],[13,5,1,1,3,1,0,0]]],
+  ["vca","poultry",0,[[76,5,1,0,3,0,0,0],[13,5,1,1,3,1,0,0]]], // 06a330dec7f2
   // end ["vca","poultry"]
   // ["vca","ruminant"]
-  ["vca","ruminant",2,[[72,5,1,0,3,0,0,0],[17,5,1,1,3,1,0,0]]],
+  ["vca","ruminant",2,[[72,5,1,0,3,0,0,0],[17,5,1,1,3,1,0,0]]], // c1c875cd68c5
   // end ["vca","ruminant"]
   // ["vca","surgery"]
-  ["vca","surgery",14,[[85,5,1,1,3,1,0,0]]],
+  ["vca","surgery",14,[[85,5,1,1,3,1,0,0]]], // df83ad8e6e81
   // end ["vca","surgery"]
   // ["vca","swine"]
-  ["vca","swine",19,[[46,5,1,0,3,0,0,0],[109,5,1,1,3,1,0,0]]],
+  ["vca","swine",19,[[46,5,1,0,3,0,0,0],[109,5,1,1,3,1,0,0]]], // d2e7544c1846
   // end ["vca","swine"]
   // ["vca","theriogenology"]
-  ["vca","theriogenology",6,[[28,5,1,1,3,1,0,0]]],
+  ["vca","theriogenology",6,[[28,5,1,1,3,1,0,0]]], // fda1aa59c207
   // end ["vca","theriogenology"]
   // ["vca","zoonoses"]
-  ["vca","zoonoses",2,[[6,5,1,1,3,1,0,0]]],
+  ["vca","zoonoses",2,[[6,5,1,1,3,1,0,0]]], // 95c9c862a845
   // end ["vca","zoonoses"]
   // ["vet-dev-anat","vd-cardio"]
-  ["vet-dev-anat","vd-cardio",0,[[10,1,1,1,3,1,0,0]]],
+  ["vet-dev-anat","vd-cardio",0,[[10,1,1,1,3,1,0,0]]], // a04968f04e38
   // end ["vet-dev-anat","vd-cardio"]
   // ["vet-dev-anat","vd-git"]
-  ["vet-dev-anat","vd-git",0,[[9,1,1,1,3,1,0,0]]],
+  ["vet-dev-anat","vd-git",0,[[9,1,1,1,3,1,0,0]]], // cd6124560126
   // end ["vet-dev-anat","vd-git"]
   // ["vet-dev-anat","vd-pharyngeal"]
-  ["vet-dev-anat","vd-pharyngeal",0,[[7,1,1,1,3,1,0,0]]],
+  ["vet-dev-anat","vd-pharyngeal",0,[[7,1,1,1,3,1,0,0]]], // 6118c7e5b28b
   // end ["vet-dev-anat","vd-pharyngeal"]
   // ["vet-histo","histo--avian"]
-  ["vet-histo","histo--avian",0,[[5,2,1,0,3,0,0,0]]],
+  ["vet-histo","histo--avian",0,[[5,2,1,0,3,0,0,0]]], // 0e1c4965e083
   // end ["vet-histo","histo--avian"]
   // ["vet-histo","histo--bone-marrow"]
-  ["vet-histo","histo--bone-marrow",0,[[5,2,1,0,3,0,0,0]]],
+  ["vet-histo","histo--bone-marrow",0,[[5,2,1,0,3,0,0,0]]], // fe1216896568
   // end ["vet-histo","histo--bone-marrow"]
   // ["vet-histo","histo--bone-marrow-laboratory"]
-  ["vet-histo","histo--bone-marrow-laboratory",0,[[1,2,1,0,3,0,0,0]]],
+  ["vet-histo","histo--bone-marrow-laboratory",0,[[1,2,1,0,3,0,0,0]]], // ec7a339194d0
   // end ["vet-histo","histo--bone-marrow-laboratory"]
   // ["vet-histo","histo--circulatory-system"]
-  ["vet-histo","histo--circulatory-system",0,[[6,2,1,0,3,0,0,0]]],
+  ["vet-histo","histo--circulatory-system",0,[[6,2,1,0,3,0,0,0]]], // 62e204cc13a5
   // end ["vet-histo","histo--circulatory-system"]
   // ["vet-histo","histo--cytology"]
-  ["vet-histo","histo--cytology",0,[[6,2,1,0,3,0,0,0]]],
+  ["vet-histo","histo--cytology",0,[[6,2,1,0,3,0,0,0]]], // ea2af45244b3
   // end ["vet-histo","histo--cytology"]
   // ["vet-histo","histo--digestive-system-i"]
-  ["vet-histo","histo--digestive-system-i",0,[[2,2,1,0,3,0,0,0]]],
+  ["vet-histo","histo--digestive-system-i",0,[[2,2,1,0,3,0,0,0]]], // 87e8dee7f687
   // end ["vet-histo","histo--digestive-system-i"]
   // ["vet-histo","histo--digestive-system-iii"]
-  ["vet-histo","histo--digestive-system-iii",0,[[4,2,1,0,3,0,0,0]]],
+  ["vet-histo","histo--digestive-system-iii",0,[[4,2,1,0,3,0,0,0]]], // a44017bbff7f
   // end ["vet-histo","histo--digestive-system-iii"]
   // ["vet-histo","histo--endocrine"]
-  ["vet-histo","histo--endocrine",0,[[6,2,1,0,3,0,0,0]]],
+  ["vet-histo","histo--endocrine",0,[[6,2,1,0,3,0,0,0]]], // 64f978456969
   // end ["vet-histo","histo--endocrine"]
   // ["vet-histo","histo--epithelium"]
-  ["vet-histo","histo--epithelium",0,[[3,2,1,0,3,0,0,0]]],
+  ["vet-histo","histo--epithelium",0,[[3,2,1,0,3,0,0,0]]], // 938d861c631c
   // end ["vet-histo","histo--epithelium"]
   // ["vet-histo","histo--female-lab-manual"]
-  ["vet-histo","histo--female-lab-manual",0,[[8,2,1,0,3,0,0,0]]],
+  ["vet-histo","histo--female-lab-manual",0,[[8,2,1,0,3,0,0,0]]], // c8c667094b35
   // end ["vet-histo","histo--female-lab-manual"]
   // ["vet-histo","histo--female-reproductive-organ"]
-  ["vet-histo","histo--female-reproductive-organ",0,[[9,2,1,0,3,0,0,0]]],
+  ["vet-histo","histo--female-reproductive-organ",0,[[9,2,1,0,3,0,0,0]]], // 7386306678c1
   // end ["vet-histo","histo--female-reproductive-organ"]
   // ["vet-histo","histo--fish"]
-  ["vet-histo","histo--fish",0,[[7,2,1,0,3,0,0,0]]],
+  ["vet-histo","histo--fish",0,[[7,2,1,0,3,0,0,0]]], // a33fd19b9f12
   // end ["vet-histo","histo--fish"]
   // ["vet-histo","histo--histo-lab-block-ii"]
-  ["vet-histo","histo--histo-lab-block-ii",0,[[4,2,1,0,3,0,0,0]]],
+  ["vet-histo","histo--histo-lab-block-ii",0,[[4,2,1,0,3,0,0,0]]], // 64eca219b34b
   // end ["vet-histo","histo--histo-lab-block-ii"]
   // ["vet-histo","histo--integument"]
-  ["vet-histo","histo--integument",0,[[3,2,1,0,3,0,0,0]]],
+  ["vet-histo","histo--integument",0,[[3,2,1,0,3,0,0,0]]], // a61debd72359
   // end ["vet-histo","histo--integument"]
   // ["vet-histo","histo--laboratory-of-nervous-system-histology"]
-  ["vet-histo","histo--laboratory-of-nervous-system-histology",0,[[1,2,1,0,3,0,0,0]]],
+  ["vet-histo","histo--laboratory-of-nervous-system-histology",0,[[1,2,1,0,3,0,0,0]]], // 6e1fbf11fbd4
   // end ["vet-histo","histo--laboratory-of-nervous-system-histology"]
   // ["vet-histo","histo--lymphatic-organ-i"]
-  ["vet-histo","histo--lymphatic-organ-i",0,[[1,2,1,0,3,0,0,0]]],
+  ["vet-histo","histo--lymphatic-organ-i",0,[[1,2,1,0,3,0,0,0]]], // e0c9245a3cb0
   // end ["vet-histo","histo--lymphatic-organ-i"]
   // ["vet-histo","histo--lymphatic-organs-ii"]
-  ["vet-histo","histo--lymphatic-organs-ii",0,[[6,2,1,0,3,0,0,0]]],
+  ["vet-histo","histo--lymphatic-organs-ii",0,[[6,2,1,0,3,0,0,0]]], // f13c8b6bc8a0
   // end ["vet-histo","histo--lymphatic-organs-ii"]
   // ["vet-histo","histo--male-reproductive-system"]
-  ["vet-histo","histo--male-reproductive-system",0,[[2,2,1,0,3,0,0,0]]],
+  ["vet-histo","histo--male-reproductive-system",0,[[2,2,1,0,3,0,0,0]]], // e211cdf3be96
   // end ["vet-histo","histo--male-reproductive-system"]
   // ["vet-histo","histo--nervous-system"]
-  ["vet-histo","histo--nervous-system",0,[[1,2,1,0,3,0,0,0]]],
+  ["vet-histo","histo--nervous-system",0,[[1,2,1,0,3,0,0,0]]], // cb0c331d0853
   // end ["vet-histo","histo--nervous-system"]
   // ["vet-histo","histo--placenta"]
-  ["vet-histo","histo--placenta",0,[[1,2,1,0,3,0,0,0]]],
+  ["vet-histo","histo--placenta",0,[[1,2,1,0,3,0,0,0]]], // ae4199c0456d
   // end ["vet-histo","histo--placenta"]
   // ["vet-histo","histo--placenta-lab-manual"]
-  ["vet-histo","histo--placenta-lab-manual",0,[[2,2,1,0,3,0,0,0]]],
+  ["vet-histo","histo--placenta-lab-manual",0,[[2,2,1,0,3,0,0,0]]], // d1fa352670ee
   // end ["vet-histo","histo--placenta-lab-manual"]
   // ["vet-histo","histo--respiratory-system"]
-  ["vet-histo","histo--respiratory-system",0,[[3,2,1,0,3,0,0,0]]],
+  ["vet-histo","histo--respiratory-system",0,[[3,2,1,0,3,0,0,0]]], // 3c79c0b4cd6b
   // end ["vet-histo","histo--respiratory-system"]
   // ["vet-histo","histo--special-sense"]
-  ["vet-histo","histo--special-sense",0,[[8,2,1,0,3,0,0,0]]],
+  ["vet-histo","histo--special-sense",0,[[8,2,1,0,3,0,0,0]]], // fa535d7a08cc
   // end ["vet-histo","histo--special-sense"]
   // ["vet-histo","histo--tissue-preparation"]
-  ["vet-histo","histo--tissue-preparation",0,[[3,2,1,0,3,0,0,0]]],
+  ["vet-histo","histo--tissue-preparation",0,[[3,2,1,0,3,0,0,0]]], // 4cf3ab16e37e
   // end ["vet-histo","histo--tissue-preparation"]
   // ["vet-histo","histo--urinary-system"]
-  ["vet-histo","histo--urinary-system",0,[[7,2,1,0,3,0,0,0]]],
+  ["vet-histo","histo--urinary-system",0,[[7,2,1,0,3,0,0,0]]], // 0f8fccdac2e0
   // end ["vet-histo","histo--urinary-system"]
   // ["vet-imaging","abdomen-radiograph"]
-  ["vet-imaging","abdomen-radiograph",0,[[3,4,1,1,2,1,0,0]]],
+  ["vet-imaging","abdomen-radiograph",0,[[3,4,1,1,2,1,0,0]]], // 2ba246ce0d5b
   // end ["vet-imaging","abdomen-radiograph"]
   // ["vet-imaging","ct-basics"]
-  ["vet-imaging","ct-basics",0,[[5,4,1,1,3,1,0,0]]],
+  ["vet-imaging","ct-basics",0,[[5,4,1,1,3,1,0,0]]], // 32054e8a0656
   // end ["vet-imaging","ct-basics"]
   // ["vet-imaging","echocardiography"]
-  ["vet-imaging","echocardiography",0,[[1,4,1,1,2,1,0,0]]],
+  ["vet-imaging","echocardiography",0,[[1,4,1,1,2,1,0,0]]], // fee345993480
   // end ["vet-imaging","echocardiography"]
   // ["vet-imaging","mri-basics"]
-  ["vet-imaging","mri-basics",0,[[6,4,1,1,2,1,0,0]]],
+  ["vet-imaging","mri-basics",0,[[6,4,1,1,2,1,0,0]]], // ed89ea6219b8
   // end ["vet-imaging","mri-basics"]
   // ["vet-imaging","musculoskeletal-imaging"]
-  ["vet-imaging","musculoskeletal-imaging",0,[[3,4,1,1,2,1,0,0]]],
+  ["vet-imaging","musculoskeletal-imaging",0,[[3,4,1,1,2,1,0,0]]], // cb97e647d76e
   // end ["vet-imaging","musculoskeletal-imaging"]
   // ["vet-imaging","radiograph-projections"]
-  ["vet-imaging","radiograph-projections",0,[[3,4,1,1,2,1,0,0]]],
+  ["vet-imaging","radiograph-projections",0,[[3,4,1,1,2,1,0,0]]], // 6cc9cda21745
   // end ["vet-imaging","radiograph-projections"]
   // ["vet-imaging","thorax-radiograph"]
-  ["vet-imaging","thorax-radiograph",0,[[2,4,1,1,2,1,0,0]]],
+  ["vet-imaging","thorax-radiograph",0,[[2,4,1,1,2,1,0,0]]], // c97db33857bf
   // end ["vet-imaging","thorax-radiograph"]
   // ["vet-imaging","ultrasound-basics"]
-  ["vet-imaging","ultrasound-basics",0,[[12,4,1,1,2,1,0,0]]],
+  ["vet-imaging","ultrasound-basics",0,[[12,4,1,1,2,1,0,0]]], // 90f973c97d9b
   // end ["vet-imaging","ultrasound-basics"]
   // ["vet-juris","animal-epidemic-act-2558"]
-  ["vet-juris","animal-epidemic-act-2558",1,[[11,4,1,1,2,1,0,0]]],
+  ["vet-juris","animal-epidemic-act-2558",1,[[11,4,1,1,2,1,0,0]]], // 8ec7038def1a
   // end ["vet-juris","animal-epidemic-act-2558"]
   // ["vet-juris","animal-hospital-act-2557"]
-  ["vet-juris","animal-hospital-act-2557",0,[[12,4,1,1,2,1,0,0]]],
+  ["vet-juris","animal-hospital-act-2557",0,[[12,4,1,1,2,1,0,0]]], // acdde53985bc
   // end ["vet-juris","animal-hospital-act-2557"]
   // ["vet-juris","drug-act-2510"]
-  ["vet-juris","drug-act-2510",0,[[15,4,1,1,2,1,0,0]]],
+  ["vet-juris","drug-act-2510",0,[[15,4,1,1,2,1,0,0]]], // 0febc37120a3
   // end ["vet-juris","drug-act-2510"]
   // ["vet-juris","slaughter-act-2559"]
-  ["vet-juris","slaughter-act-2559",0,[[3,4,1,1,2,1,0,0]]],
+  ["vet-juris","slaughter-act-2559",0,[[3,4,1,1,2,1,0,0]]], // 84ea09d902ce
   // end ["vet-juris","slaughter-act-2559"]
   // ["vet-juris","wildlife-act-2562"]
-  ["vet-juris","wildlife-act-2562",0,[[5,4,1,1,2,1,0,0]]],
+  ["vet-juris","wildlife-act-2562",0,[[5,4,1,1,2,1,0,0]]], // 776d695f7518
   // end ["vet-juris","wildlife-act-2562"]
   // ["vet-neuroanat","neuroanat--basal-nuclei"]
-  ["vet-neuroanat","neuroanat--basal-nuclei",0,[[2,2,1,0,3,0,0,0]]],
+  ["vet-neuroanat","neuroanat--basal-nuclei",0,[[2,2,1,0,3,0,0,0]]], // a44d1327b243
   // end ["vet-neuroanat","neuroanat--basal-nuclei"]
   // ["vet-neuroanat","neuroanat--diencephalon"]
-  ["vet-neuroanat","neuroanat--diencephalon",0,[[4,2,1,0,3,0,0,0]]],
+  ["vet-neuroanat","neuroanat--diencephalon",0,[[4,2,1,0,3,0,0,0]]], // 163c22356cd1
   // end ["vet-neuroanat","neuroanat--diencephalon"]
   // ["vet-neuroanat","neuroanat--limbic-system-nonolfactory-rhinencephalon"]
-  ["vet-neuroanat","neuroanat--limbic-system-nonolfactory-rhinencephalon",0,[[5,2,1,0,3,0,0,0]]],
+  ["vet-neuroanat","neuroanat--limbic-system-nonolfactory-rhinencephalon",0,[[5,2,1,0,3,0,0,0]]], // 30826cdd4c25
   // end ["vet-neuroanat","neuroanat--limbic-system-nonolfactory-rhinencephalon"]
   // ["vet-neuroanat","neuroanat--metencephalon"]
-  ["vet-neuroanat","neuroanat--metencephalon",0,[[8,2,1,0,3,0,0,0]]],
+  ["vet-neuroanat","neuroanat--metencephalon",0,[[8,2,1,0,3,0,0,0]]], // 689bb71a3172
   // end ["vet-neuroanat","neuroanat--metencephalon"]
   // ["vet-neuroanat","neuroanat--midbrain"]
-  ["vet-neuroanat","neuroanat--midbrain",0,[[6,2,1,0,3,0,0,0]]],
+  ["vet-neuroanat","neuroanat--midbrain",0,[[6,2,1,0,3,0,0,0]]], // 071da8d36ccc
   // end ["vet-neuroanat","neuroanat--midbrain"]
   // ["vet-neuroanat","neuroanat--myelencephalon"]
-  ["vet-neuroanat","neuroanat--myelencephalon",0,[[7,2,1,0,3,0,0,0]]],
+  ["vet-neuroanat","neuroanat--myelencephalon",0,[[7,2,1,0,3,0,0,0]]], // 660d3d32b81d
   // end ["vet-neuroanat","neuroanat--myelencephalon"]
   // ["vet-neuroanat","neuroanat--neuro-exam-anatomy2024"]
-  ["vet-neuroanat","neuroanat--neuro-exam-anatomy2024",0,[[3,2,1,0,3,0,0,0]]],
+  ["vet-neuroanat","neuroanat--neuro-exam-anatomy2024",0,[[3,2,1,0,3,0,0,0]]], // ea4879721ec3
   // end ["vet-neuroanat","neuroanat--neuro-exam-anatomy2024"]
   // ["vet-neuroanat","neuroanat--visual-vestibular-systems"]
-  ["vet-neuroanat","neuroanat--visual-vestibular-systems",0,[[5,2,1,0,3,0,0,0]]],
+  ["vet-neuroanat","neuroanat--visual-vestibular-systems",0,[[5,2,1,0,3,0,0,0]]], // 54494ee51f14
   // end ["vet-neuroanat","neuroanat--visual-vestibular-systems"]
   // ["vet-pharm-2","antibiotics"]
-  ["vet-pharm-2","antibiotics",0,[[3,3,1,0,3,0,0,0]]],
+  ["vet-pharm-2","antibiotics",0,[[3,3,1,0,3,0,0,0]]], // 8ff394a60e88
   // end ["vet-pharm-2","antibiotics"]
   // ["vet-pharm-2","antiparasitic"]
-  ["vet-pharm-2","antiparasitic",0,[[29,3,1,0,3,0,0,0]]],
+  ["vet-pharm-2","antiparasitic",0,[[29,3,1,0,3,0,0,0]]], // 500bb8718d26
   // end ["vet-pharm-2","antiparasitic"]
   // ["vet-pharm-2","autonomic"]
-  ["vet-pharm-2","autonomic",0,[[27,3,1,0,3,0,0,0]]],
+  ["vet-pharm-2","autonomic",0,[[27,3,1,0,3,0,0,0]]], // 335dee633695
   // end ["vet-pharm-2","autonomic"]
   // ["vet-pharm-2","cardio-renal"]
-  ["vet-pharm-2","cardio-renal",0,[[1,3,1,0,3,0,0,0]]],
+  ["vet-pharm-2","cardio-renal",0,[[1,3,1,0,3,0,0,0]]], // a64fe32a6786
   // end ["vet-pharm-2","cardio-renal"]
   // ["vet-pharm-2","nsaids"]
-  ["vet-pharm-2","nsaids",0,[[2,3,1,0,3,0,0,0]]],
+  ["vet-pharm-2","nsaids",0,[[2,3,1,0,3,0,0,0]]], // be6e13ecc17f
   // end ["vet-pharm-2","nsaids"]
   // ["zoonoses","zoo-ai-basic"]
-  ["zoonoses","zoo-ai-basic",0,[[13,5,1,0,1,1,0,0],[9,5,1,1,1,1,0,0]]],
+  ["zoonoses","zoo-ai-basic",0,[[13,5,1,0,1,1,0,0],[9,5,1,1,1,1,0,0]]], // 556843dd0ab1
   // end ["zoonoses","zoo-ai-basic"]
   // ["zoonoses","zoo-bacterial"]
-  ["zoonoses","zoo-bacterial",0,[[9,5,1,0,2,0,0,0],[51,5,1,1,2,1,0,0]]],
+  ["zoonoses","zoo-bacterial",0,[[9,5,1,0,2,0,0,0],[42,5,1,0,2,1,0,0],[51,5,1,1,2,1,0,0]]], // 868929f4ea4a
   // end ["zoonoses","zoo-bacterial"]
   // ["zoonoses","zoo-corona"]
-  ["zoonoses","zoo-corona",0,[[1,5,1,0,1,0,0,0],[2,5,1,0,1,0,["2569-1","midterm"],0],[5,5,1,0,1,1,0,0],[13,5,1,1,1,1,0,0]]],
+  ["zoonoses","zoo-corona",0,[[1,5,1,0,1,0,0,0],[2,5,1,0,1,0,["2569-1","midterm"],0],[5,5,1,0,1,1,0,0],[13,5,1,1,1,1,0,0]]], // 871ea0b7e880
   // end ["zoonoses","zoo-corona"]
   // ["zoonoses","zoo-ebola-nipah"]
-  ["zoonoses","zoo-ebola-nipah",0,[[3,5,1,0,1,0,0,0],[1,5,1,0,1,0,["2569-1","midterm"],0],[1,5,1,0,1,0,["2569-1","midterm"],["2569-1","midterm"]],[7,5,1,0,1,1,0,0],[11,5,1,1,1,1,0,0]]],
+  ["zoonoses","zoo-ebola-nipah",0,[[3,5,1,0,1,0,0,0],[1,5,1,0,1,0,["2569-1","midterm"],0],[1,5,1,0,1,0,["2569-1","midterm"],["2569-1","midterm"]],[7,5,1,0,1,1,0,0],[11,5,1,1,1,1,0,0]]], // 321189ed85d2
   // end ["zoonoses","zoo-ebola-nipah"]
   // ["zoonoses","zoo-eid-cuvet"]
-  ["zoonoses","zoo-eid-cuvet",0,[[4,5,1,0,1,0,["2569-1","midterm"],0]]],
+  ["zoonoses","zoo-eid-cuvet",0,[[4,5,1,0,1,0,["2569-1","midterm"],0]]], // 7f566fd192dd
   // end ["zoonoses","zoo-eid-cuvet"]
   // ["zoonoses","zoo-eid-wildlife"]
-  ["zoonoses","zoo-eid-wildlife",0,[[9,5,1,0,3,0,0,0],[10,5,1,1,3,1,0,0]]],
+  ["zoonoses","zoo-eid-wildlife",0,[[9,5,1,0,3,0,0,0],[4,5,1,0,3,1,0,0],[10,5,1,1,3,1,0,0]]], // 5aca068532a8
   // end ["zoonoses","zoo-eid-wildlife"]
   // ["zoonoses","zoo-epi-approach"]
-  ["zoonoses","zoo-epi-approach",0,[[16,5,1,0,3,0,0,0],[52,5,1,1,3,1,0,0]]],
+  ["zoonoses","zoo-epi-approach",0,[[16,5,1,0,3,0,0,0],[5,5,1,0,3,1,0,0],[52,5,1,1,3,1,0,0]]], // f6e93f1b39c2
   // end ["zoonoses","zoo-epi-approach"]
   // ["zoonoses","zoo-helminthic"]
-  ["zoonoses","zoo-helminthic",0,[[2,5,1,0,1,0,0,0],[38,5,1,0,1,1,0,0],[24,5,1,1,1,1,0,0]]],
+  ["zoonoses","zoo-helminthic",0,[[2,5,1,0,1,0,0,0],[38,5,1,0,1,1,0,0],[24,5,1,1,1,1,0,0]]], // 8250d055b701
   // end ["zoonoses","zoo-helminthic"]
   // ["zoonoses","zoo-intro"]
-  ["zoonoses","zoo-intro",0,[[8,5,1,0,1,0,0,0],[1,5,1,0,1,1,0,0],[12,5,1,1,1,1,0,0]]],
+  ["zoonoses","zoo-intro",0,[[8,5,1,0,1,0,0,0],[1,5,1,0,1,1,0,0],[12,5,1,1,1,1,0,0]]], // 1f47317e51d4
   // end ["zoonoses","zoo-intro"]
   // ["zoonoses","zoo-mycoses"]
-  ["zoonoses","zoo-mycoses",0,[[4,5,1,0,2,1,0,0],[20,5,1,1,2,1,0,0]]],
+  ["zoonoses","zoo-mycoses",0,[[8,5,1,0,2,1,0,0],[20,5,1,1,2,1,0,0]]], // d7cfb2448b2b
   // end ["zoonoses","zoo-mycoses"]
   // ["zoonoses","zoo-outbreak"]
-  ["zoonoses","zoo-outbreak",0,[[12,5,1,0,1,1,0,0]]],
+  ["zoonoses","zoo-outbreak",0,[[12,5,1,0,1,1,0,0]]], // 2ee71e14d52b
   // end ["zoonoses","zoo-outbreak"]
   // ["zoonoses","zoo-prion"]
-  ["zoonoses","zoo-prion",0,[[4,5,1,0,2,0,0,0],[9,5,1,1,2,1,0,0]]],
+  ["zoonoses","zoo-prion",0,[[4,5,1,0,2,0,0,0],[9,5,1,0,2,1,0,0],[9,5,1,1,2,1,0,0]]], // de82c8708d55
   // end ["zoonoses","zoo-prion"]
   // ["zoonoses","zoo-protozoal"]
-  ["zoonoses","zoo-protozoal",0,[[11,5,1,0,1,1,0,0],[17,5,1,1,1,1,0,0]]],
+  ["zoonoses","zoo-protozoal",0,[[11,5,1,0,1,1,0,0],[17,5,1,1,1,1,0,0]]], // caaa1b59226c
   // end ["zoonoses","zoo-protozoal"]
   // ["zoonoses","zoo-rabies"]
-  ["zoonoses","zoo-rabies",0,[[5,5,1,0,1,0,0,0],[16,5,1,0,1,1,0,0],[7,5,1,1,1,1,0,0]]],
+  ["zoonoses","zoo-rabies",0,[[5,5,1,0,1,0,0,0],[16,5,1,0,1,1,0,0],[7,5,1,1,1,1,0,0]]], // 2ab3ca56a5ff
   // end ["zoonoses","zoo-rabies"]
   // ["zoonoses","zoo-rickettsial"]
-  ["zoonoses","zoo-rickettsial",0,[[1,5,1,0,1,0,0,0],[2,5,1,0,1,0,["2569-1","midterm"],["2569-1","midterm"]],[1,5,1,0,1,1,0,0],[21,5,1,1,1,1,0,0]]],
+  ["zoonoses","zoo-rickettsial",0,[[1,5,1,0,1,0,0,0],[2,5,1,0,1,0,["2569-1","midterm"],["2569-1","midterm"]],[1,5,1,0,1,1,0,0],[21,5,1,1,1,1,0,0]]], // 99083cd0caa8
   // end ["zoonoses","zoo-rickettsial"]
   // ["zoonoses","zoo-siv-civ"]
-  ["zoonoses","zoo-siv-civ",0,[[3,5,1,0,1,0,["2569-1","midterm"],0],[4,5,1,0,1,1,0,0],[4,5,1,1,1,1,0,0]]],
+  ["zoonoses","zoo-siv-civ",0,[[3,5,1,0,1,0,["2569-1","midterm"],0],[4,5,1,0,1,1,0,0],[4,5,1,1,1,1,0,0]]], // 1d3f46593d4e
   // end ["zoonoses","zoo-siv-civ"]
   // ["zoonoses","zoo-vbz"]
-  ["zoonoses","zoo-vbz",0,[[2,5,1,0,1,0,["2569-1","midterm"],0],[1,5,1,0,1,0,["2569-1","midterm"],["2569-1","midterm"]],[21,5,1,0,1,1,0,0],[3,5,1,1,1,1,0,0]]],
+  ["zoonoses","zoo-vbz",0,[[2,5,1,0,1,0,["2569-1","midterm"],0],[1,5,1,0,1,0,["2569-1","midterm"],["2569-1","midterm"]],[21,5,1,0,1,1,0,0],[3,5,1,1,1,1,0,0]]], // c0a823b5a3f5
   // end ["zoonoses","zoo-vbz"]
 ];
 

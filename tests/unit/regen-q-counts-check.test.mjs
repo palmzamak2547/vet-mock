@@ -52,11 +52,15 @@ const snapshot = (dir) => [COUNTS, KINDS].map((rel) => {
   };
 });
 
-// Adds one to the third field of the nth leaf (`["subject","topic",12,`: the
-// held-back or the deliverable count) and returns the text with the leaf's
-// subject and topic.
-function bumpLeaf(text, nth) {
-  const leaf = /^ {2}\["([^"\n]+)","([^"\n]+)",(\d+),/gm;
+// Adds one to a number inside the cells of the nth leaf, which no other check
+// recounts, and returns the text with the leaf's subject and topic. In
+// q-counts that is the count of the leaf's first cell (`["s","t",0,[[12,`),
+// in the kind table the first mcq count of its first phase
+// (`["s","t",9,{"1-mid":[12,`).
+const COUNT_CELL = /^ {2}\["([^"\n]+)","([^"\n]+)",\d+,\[\[(\d+),/gm;
+const KIND_CELL = /^ {2}\["([^"\n]+)","([^"\n]+)",\d+,\{"[^"\n]+":\[(\d+),/gm;
+function bumpLeaf(text, nth, leaf) {
+  leaf.lastIndex = 0;
   let m;
   for (let i = 0; i <= nth; i += 1) m = leaf.exec(text);
   assert.ok(m, 'the table must hold leaves');
@@ -94,10 +98,10 @@ test('--check fails on one wrong number in a table no other check recounts, name
     assert.equal(built.status, 0, built.stderr);
 
     const kindsFile = path.join(dir, KINDS);
-    const kinds = bumpLeaf(fs.readFileSync(kindsFile, 'utf8'), 3);
+    const kinds = bumpLeaf(fs.readFileSync(kindsFile, 'utf8'), 3, KIND_CELL);
     fs.writeFileSync(kindsFile, kinds.text, 'utf8');
     const countsFile = path.join(dir, COUNTS);
-    const counts = bumpLeaf(fs.readFileSync(countsFile, 'utf8'), 5);
+    const counts = bumpLeaf(fs.readFileSync(countsFile, 'utf8'), 5, COUNT_CELL);
     fs.writeFileSync(countsFile, counts.text, 'utf8');
     const named = (leaf) => leaf.replace(/[[\]]/g, '\\$&');
     const before = snapshot(dir);

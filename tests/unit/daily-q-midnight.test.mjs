@@ -89,7 +89,7 @@ const { code: rowCode } = await transform(home.slice(rowStart, home.indexOf('\n}
 const R = globalThis.__fakeReact;
 function makeRow(bank) {
   const scope = {
-    h: R.createElement, Fragment: R.Fragment, Suspense: R.Suspense,
+    h: R.createElement, Fragment: R.Fragment, Suspense: R.Suspense, OptionalFeature: R.Suspense,
     useState: R.useState, useMemo: R.useMemo, useEffect: R.useEffect, useCallback: R.useCallback, useRef: R.useRef,
     QB: bank, isQBYearLoaded: () => true, isQuestionDeliverable: () => true,
     pickTodaysQ, readTodaysQStatus, dailyQStreak, todayKey,
