@@ -7,6 +7,7 @@ import { VIDEO_REGISTRY } from '../../src/data/video-registry.generated.js';
 import { COURSE_GROUPS, EXAM_SCHEDULE } from '../../src/data/schedule.js';
 import { NO_TIME, courseDocs, sessionPaper, syllabusDoc, teachingDoc, scopeConflicts, syllabiFor } from '../../src/lib/course-docs.js';
 import { timetablePdf } from '../../src/lib/share-card/timetable-card.js';
+import { topicOnPaper } from '../../src/lib/exam-scope.js';
 import { statusLines } from '../../src/lib/share-card/course-doc-card.js';
 
 // Pinned to the term the data describes, so the tests outlive the app's current term.
@@ -84,6 +85,38 @@ test('a session sits on the paper its date, its document or its evidence puts it
   assert.equal(paper('zoonoses', '2026-09-18'), 'midterm');
   assert.equal(paper('zoonoses', '2026-10-27'), 'final', 'the 27 Oct make-up taught Bacterial zoonoses I, after the midterm');
   assert.equal(paper('zoonoses', '2026-10-02'), 'final');
+});
+
+// The map of each paper: every class a paper examines is held by a topic the
+// app puts on that paper, and every topic the app puts on a final is a class's.
+test('every class a paper examines sits in a topic on that paper', () => {
+  const phase = { midterm: '1-mid', final: '1-final' };
+  // A review class revisits the course and teaches nothing of its own.
+  const review = new Set(['epidemiology 2026-11-16']);
+  const missing = [];
+  for (const [id, c] of Object.entries(Y5)) {
+    for (const s of c.sessions) {
+      const p = sessionPaper(c, s, TERM);
+      if (!p || review.has(`${id} ${s.date}`)) continue;
+      if (!s.topics.some((t) => topicOnPaper(id, t, phase[p]))) missing.push(`${id} ${s.date} ${s.title.slice(0, 40)} (${p})`);
+    }
+  }
+  assert.deepEqual(missing, []);
+  const fiqc = Y5['food-industry'].sessions.find((s) => s.date === '2026-11-11');
+  assert.ok(topicOnPaper('food-industry', fiqc.topics[0], '1-final'), 'the 11 Nov meat QC class is on the final');
+  assert.ok(!topicOnPaper('food-industry', fiqc.topics[0], '1-mid'));
+});
+
+test('every topic on a year-5 final is taught by a class of the term, but tendon injuries', () => {
+  // equine-tendon: no class, deck or recording of 2569 names it yet; the 12 Nov
+  // lameness class is the likely one, and the topic stays on the final.
+  const untaught = [];
+  for (const [id, c] of Object.entries(Y5)) {
+    if (!c.papers?.final) continue;
+    const named = new Set(c.sessions.flatMap((s) => s.topics));
+    for (const t of subject(id).topics) if (!t.hidden && t.examScope === 'final' && !named.has(t.id)) untaught.push(t.id);
+  }
+  assert.deepEqual(untaught, ['equine-tendon']);
 });
 
 test('the syllabus page says what each paper covers and when it sits', () => {
