@@ -22,7 +22,6 @@ import { sameGenerated } from './lib/same-generated.mjs';
 
 
 const OUT = 'src/data/question-delivery.generated.js';
-const QUEUE_OUT = 'docs/content-repair-queue.csv';
 const CHECK = process.argv.includes('--check');
 
 const blocked = [];
@@ -66,20 +65,8 @@ const lines = [
 ];
 const output = lines.join('\n');
 
-// The repair queue is the same list, one row per held question, so it cannot
-// fall behind the gate (it once listed 65 rows while the gate held 212).
-const queue = '\uFEFF' + [
-  '"question_key","reason","source_file"',
-  ...blocked.map((b) => [b.key, b.reason, `src/data/${b.source}`].map((v) => `"${v}"`).join(',')),
-].join('\n') + '\n';
-
 if (CHECK) {
   const current = fs.existsSync(OUT) ? fs.readFileSync(OUT, 'utf8') : '';
-  const currentQueue = fs.existsSync(QUEUE_OUT) ? fs.readFileSync(QUEUE_OUT, 'utf8') : '';
-  if (!sameGenerated(currentQueue, queue)) {
-    console.error(`✗ ${QUEUE_OUT} ไม่ตรงกับโจทย์ที่ปิดไว้ - รัน npm run regen:delivery`);
-    process.exit(1);
-  }
   if (!sameGenerated(current, output)) {
     console.error(`✗ ${OUT} ไม่ตรงกับคลังโจทย์ปัจจุบัน - รัน npm run regen:delivery`);
     process.exit(1);
@@ -87,6 +74,5 @@ if (CHECK) {
   console.log(`✓ question delivery gate ตรงกัน: ปิดไว้ ${blocked.length} ข้อ`);
 } else {
   fs.writeFileSync(OUT, output, 'utf8');
-  fs.writeFileSync(QUEUE_OUT, queue, 'utf8');
   console.log(`✓ wrote ${OUT}: ปิดไว้ ${blocked.length} ข้อที่ยังตอบอย่างมั่นใจไม่ได้`);
 }
