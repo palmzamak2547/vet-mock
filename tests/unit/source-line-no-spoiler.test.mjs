@@ -553,7 +553,8 @@ test('Review applies the same rule: major as the caution, minor as a note, the c
   const review = readFileSync(new URL('../../src/views/ReviewView.jsx', import.meta.url), 'utf8');
   const start = review.indexOf('{cautionChipShown(q.flag) && q.flag.note && (');
   assert.ok(start > 0, 'Review draws the caution through cautionChipShown');
-  const explainAt = review.indexOf("{q.explain && q.type !== 'match' && <div className=\"vmx-review-explain\">", start);
+  const explainAt = review.indexOf("{q.explain && q.type !== 'match' && (", start);
+  assert.ok(explainAt > start, 'the reason follows the caution');
   const block = review.slice(start, explainAt);
   assert.match(block, /\{CAUTION_CHIP_TEXT\}/);
   assert.match(block, /หมายเหตุ: \{q\.flag\.note\}/);

@@ -1,0 +1,11 @@
+/* Read-aloud outside the practice card (components/ReadAloudListen.jsx): the
+   listen button beside a text, and the edge on the text being read. The
+   button and the bar themselves are the practice card's (styles.css). */
+.vmx-read-row { display: flex; align-items: flex-start; gap: 4px; }
+.vmx-read-grow { flex: 1; min-width: 0; }
+.vmx-read-row > .vmx-listen-btn { margin-top: -6px; margin-right: -8px; }
+.vmx-read-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 44px; margin-top: -6px; margin-bottom: -4px; }
+.vmx-read-stem.is-reading, .vmx-read-grow.is-reading, .vmx-review-explain.is-reading .vmx-read-text, .vmx-read-head + .is-reading {
+  box-shadow: inset 3px 0 0 var(--clr-ocean); padding-left: 10px; margin-left: -10px;
+}
+.vmx-wrap-listen { margin: -6px -8px 0 auto; }
