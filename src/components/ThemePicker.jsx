@@ -94,12 +94,13 @@ export default function ThemePicker({ theme, themePref = theme, setTheme, palett
       setOpen(false);
       wrapRef.current?.querySelector('button')?.focus();
     };
-    // Defer attaching the outside-click listener until after the click
-    // that opened the menu has finished bubbling (otherwise the same
-    // pointerdown closes the menu we just opened).
+    // Escape works from the moment the panel is open: a key pressed in the
+    // same frame as the open is not lost. Only the outside-click listener
+    // waits a frame, until the click that opened the menu has finished
+    // bubbling (otherwise the same pointerdown closes the menu we just opened).
+    document.addEventListener('keydown', onKeyDown);
     const raf = requestAnimationFrame(() => {
       document.addEventListener('pointerdown', onDoc);
-      document.addEventListener('keydown', onKeyDown);
     });
     return () => {
       cancelAnimationFrame(raf);
