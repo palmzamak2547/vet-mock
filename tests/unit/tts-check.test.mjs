@@ -70,6 +70,21 @@ test('a second transcript settles numbers the first one joined or glossed', () =
   }
 });
 
+test('table values written back run together are the same reading; a different run is not', () => {
+  // Equine Medicine lab tables, 16 Nov 2026: Paxa speech to text joins neighbouring values.
+  assert.equal(compare('Plasma protein (g/dl) 4.0 5.0 5.2 ถึง 7.9 Fibrinogen (mg/dl) 0 600 100 ถึง 400',
+    'Plasma protein G/DL 4.05.05.2-7.9 Fibrinogen MG/DL 0 600 100-400').ok, true);
+  assert.equal(compare('Lymph (10 ยกกำลัง 3 /µl) 0.66 0.8 1.5 ถึง 5', 'Lymph 10 ยกกำลัง 3/ไมโครลิส 0.66 0.81.5 ถึง 5').ok, true);
+  // "108 10" said as one run is heard as 180 (ร้อยแปดสิบ): that is not the same reading.
+  assert.equal(compare('Creatine kinase (μ/l): 108 10 ถึง 350', 'Creatine Kinase MuL 180 ถึง 350').ok, false);
+  // A decimal point in another place is another number.
+  assert.equal(compare('3.26 2.48', '32.6 24.8').ok, false);
+});
+
+test('a unit heard as its homophone counts', () => {
+  assert.equal(compare('ให้น้ำเกลือ 20 ลิตร', 'ให้น้ำเกลือ 20 ลิส').ok, true);
+});
+
 test('units stay strict', () => {
   assert.deepEqual(compare('ให้ยา 10 มิลลิกรัม', 'ให้ยาสิบกรัม').problems.map((p) => p.kind), ['unit']);
   assert.equal(compare('ให้ยา 10 มิลลิกรัม', 'ให้ยา 10 mg').ok, true);

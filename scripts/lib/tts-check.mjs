@@ -72,7 +72,8 @@ export function numbersIn(text, { thaiWords = false } = {}) {
 }
 
 const UNITS = ['มิลลิกรัม', 'กิโลกรัม', 'ไมโครกรัม', 'กรัม', 'มิลลิลิตร', 'ลิตร', 'เซนติเมตร', 'มิลลิเมตร', 'เปอร์เซ็นต์', 'องศาเซลเซียส', 'ชั่วโมง', 'นาที', 'วินาที', 'สัปดาห์', 'วัน', 'เดือน', 'ปี', 'ครั้ง'];
-const UNIT_ALIASES = { มิลลิกรัม: ['mg', 'มก'], กิโลกรัม: ['kg', 'กก', 'โล'], มิลลิลิตร: ['ml', 'มล', 'ซีซี', 'cc'], เปอร์เซ็นต์: ['%', 'เปอร์เซน'], องศาเซลเซียส: ['องศา', '°'], ไมโครกรัม: ['mcg', 'µg'] };
+// ลิตร and ลิส sound alike (a final ตร or ส is said /t/); both transcribers wrote ลิส (16 Nov 2026).
+const UNIT_ALIASES = { มิลลิกรัม: ['mg', 'มก'], กิโลกรัม: ['kg', 'กก', 'โล'], มิลลิลิตร: ['ml', 'มล', 'ซีซี', 'cc'], เปอร์เซ็นต์: ['%', 'เปอร์เซน'], ลิตร: ['ลิส', 'ลิต'], องศาเซลเซียส: ['องศา', '°'], ไมโครกรัม: ['mcg', 'µg'] };
 export const unitsIn = (text) => UNITS.filter((u) => String(text).includes(u) && !UNITS.some((v) => v !== u && v.includes(u) && String(text).includes(v) && String(text).split(v).join('').indexOf(u) < 0));
 
 const lev = (a, b) => {
@@ -134,6 +135,9 @@ export function termHeard(term, transcript) {
  * their own way (16 Nov 2026: 17 of 29 sampled failures were the check's own,
  * 3 were the voice, 9 need an ear).
  */
+// The digits and the decimal points between digits of a text, in order, nothing else.
+export const digitRun = (text) => String(text).replace(/(?<!\d)\.|\.(?!\d)/g, '').replace(/[^0-9.]/g, '');
+
 export function compare(script, transcript) {
   const all = (Array.isArray(transcript) ? transcript : [transcript]).map((x) => String(x || '')).filter((x) => x.trim());
   if (!all.length) return { ok: false, problems: [{ kind: 'empty' }], unverified: [] };
@@ -147,6 +151,10 @@ export function compare(script, transcript) {
     const pool = [...got];
     const miss = [];
     for (const n of want) { const k = pool.indexOf(n); if (k >= 0) pool.splice(k, 1); else miss.push({ kind: 'number', want: n, got: got.join(' ') }); }
+    // A row of table values read one after another is written back run
+    // together ("4.0 5.0 5.2" as "4.05.05.2"): the same digits and decimal
+    // points in the same order are the same reading.
+    if (miss.length && digitRun(script) && digitRun(t).includes(digitRun(script))) miss.length = 0;
     if (!numberProblems || miss.length < numberProblems.length) numberProblems = miss;
   }
   problems.push(...numberProblems);
