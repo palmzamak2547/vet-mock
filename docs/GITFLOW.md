@@ -29,9 +29,9 @@ and each ran a ~70 min local gate; now:
    `package.json`'s version is not bumped. Nothing else is edited by every release, so two
    releases do not conflict.
 3. **No long local gate before the pull request; the push gate runs by itself** (16 Nov 2026). `npm ci` installs a
-   pre-push hook that runs `npm run gate:push`: every lint, the unit suite in UTC, the build with its size budgets, the
-   contrast audits, and the spec files the branch changed on Chromium and WebKit. It is the same script as CI's first
-   job, so a push that passes it passes that job; bypass once with `VMX_SKIP_GATE=1 git push`. The rules are
+   pre-push hook that runs the lints (about a minute; `VMX_GATE=full git push` adds the unit suite, and `npm run gate:push` runs the whole gate: every lint, the unit suite in UTC, the build with its size budgets, the
+   contrast audits, and the spec files the branch changed on Chromium and WebKit). It is the same script as CI's first
+   job, which runs the unit suite before any browser runner; bypass once with `VMX_SKIP_GATE=1 git push`. The rules are
    [CONTRIBUTING-CI.md](CONTRIBUTING-CI.md). What follows is why the long gate below stays optional. CI runs everything the local gate runs and more (WebKit,
    Firefox, Postgres), free on GitHub, while a local gate waited behind the machine-wide lock
    (`C:\dev\heavy-gate.lock`, held 35-45 min by other projects' gates) and the RAM floor: on 2026-10-22

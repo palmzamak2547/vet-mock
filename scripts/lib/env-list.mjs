@@ -155,6 +155,7 @@ export const ENV = [
   { name: 'PGHOST', group: 'Tests', need: 'optional', does: 'Postgres socket folder for the VCA community harness.' },
   { name: 'PGUSER', group: 'Tests', need: 'optional', does: 'Postgres user for the VCA community harness; default postgres.' },
   { name: 'VMX_GATE_LOCK', group: 'Tests', need: 'optional', does: 'Moves the local gate\'s e2e lock file.' },
+  { name: 'VMX_GATE', group: 'Tests', need: 'optional', does: 'full makes the pre-push hook run the unit suite too (and, for a changed spec file, the build, budgets, contrast and those specs); by default the hook runs the data lints only (VMX_GATE=full git push).' },
   { name: 'VMX_SKIP_GATE', group: 'Tests', need: 'optional', does: '1 skips the pre-push gate for one push (VMX_SKIP_GATE=1 git push); the skip is printed and logged in the git dir.' },
   { name: 'VMX_ROUTE_SWEEP', group: 'Tests', need: 'optional', does: 'Set to 1 by test:e2e:sweep to run the route sweep, which every other run leaves out.' },
   { name: 'VMX_DEFECT_SWEEP', group: 'Tests', need: 'optional', does: 'Set to 1 by sweep:defects to run the defect sweep, which every other run leaves out.' },

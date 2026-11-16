@@ -11,7 +11,7 @@ browser tests that pass only on their retry.
 ## 1. Run the gate before you push (the hook does it for you)
 
 `npm ci` in your worktree installs a pre-push hook (`.githooks/pre-push`, through the `prepare` script).
-Every `git push` then runs the push gate (`scripts/push-gate.mjs --hook`) first. The whole gate,
+Every `git push` then runs the push gate's data step (`scripts/push-gate.mjs --hook`) first. The whole gate,
 `npm run gate:push`, has these steps:
 
 | step | what | why |
@@ -25,16 +25,26 @@ Every `git push` then runs the push gate (`scripts/push-gate.mjs --hook`) first.
 
 CI's first job (`build`) runs every step of the same script.
 
-What the hook runs: **data and unit** always; **build, budget, dist and specs** only when your branch adds
-or changes a spec file (the specs need the build). The whole gate took **588 s** (9.8 min) on a warm tree
-on 16 Nov 2026: data 60 s with unit 418 s beside it, build 73, budget 1, dist 22, specs 75. A hook that
-long gets bypassed, so without a changed spec the build, budget and dist steps (96 s, the 8 budget
-rounds among them) are left to CI's first job; the lints and the unit suite, 27 of the 51 rounds a local
-run would have saved, stay before the push. Run `npm run gate:push` yourself when you grow a chunk or
-touch the build.
+What the hook runs by default: **the data step only**, the lints (about a minute). The whole gate took
+**588 s** (9.8 min) on a warm tree on 16 Nov 2026: data 60 s with unit 418 s beside it, build 73,
+budget 1, dist 22, specs 75. Many worktrees push from one machine in the same hour, so a hook of seven
+minutes or more per push turns that machine into the queue for everything, and a push that outlasts ten
+minutes is cut off by the tools that run it. The unit suite is not lost: CI's first job (`build`) runs the
+data lints and the unit suite before any browser runner starts, so a unit failure shows there within
+minutes and does not spend the eleven runners.
+
+To run more before a push, ask for it:
+
+- `VMX_GATE=full git push`: the hook runs **data and unit**, and **build, budget, dist and specs** too
+  when your branch adds or changes a spec file (the specs need the build). This is what the hook ran
+  before. A tree that passes it is remembered and not run again.
+- `npm run gate:push`: every step, by hand. Run it when you grow a chunk, touch the build or change a
+  spec file, and before a push you cannot afford to lose a CI round on.
+
+The hook prints one line saying what it runs and how to run the whole gate.
 
 - It tests the working tree, so it refuses to run while a tracked file differs from the commit you push:
-  commit or stash first. A tree that already passed is not run again.
+  commit or stash first. A tree that already passed the whole gate (or `VMX_GATE=full`) is not run again.
 - One-off bypass, printed in the push output and logged in the git dir (`vetmock-gate/bypass.log`):
   `VMX_SKIP_GATE=1 git push`. Use it for a docs-only push or when CI is what you want to see; never to
   get around a red step.

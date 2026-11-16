@@ -12,7 +12,7 @@
 // (`git push --no-verify` also skips it, silently; prefer the variable, so the log shows it.)
 import fs from 'node:fs';
 import path from 'node:path';
-import { dirtyTracked, gateRecordPath, passedBefore, runPushGate, treeOf } from './push-gate.mjs';
+import { dirtyTracked, gateRecordPath, hookIsFull, passedBefore, runPushGate, treeOf } from './push-gate.mjs';
 
 const ZERO = /^0+$/;
 const cwd = process.cwd();
@@ -52,8 +52,8 @@ async function main() {
     log(`push gate: already green for this tree (${head.slice(0, 10)}), not run again.`);
     return 0;
   }
-  log('push gate: lints and unit before the push; with a changed spec file also the build, budgets, contrast and those specs.');
-  log('  CI\'s first job runs every step; `npm run gate:push` runs them all here.');
+  if (hookIsFull()) log('push gate: VMX_GATE=full: lints and unit before the push; with a changed spec file also the build, budgets, contrast and those specs.');
+  else log('push gate: runs the data lints only (about a minute); CI\'s first job runs the unit suite. The whole gate here: npm run gate:push, or VMX_GATE=full git push.');
   log('  One-off bypass: VMX_SKIP_GATE=1 git push');
   return runPushGate({ cwd, argv: ['--hook'], log });
 }

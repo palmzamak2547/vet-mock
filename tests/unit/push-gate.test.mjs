@@ -54,9 +54,13 @@ test('the changed specs are the spec files added, changed or renamed since the b
     r.git('add', '-A'); r.git('commit', '-qm', 'branch');
     assert.deepEqual(changedSpecs(r.dir, base), ['tests/e2e/edited.spec.js', 'tests/e2e/new.spec.js']);
     assert.deepEqual(changedSpecs(r.dir, 'HEAD'), []);
-    // The hook runs the build, budgets, contrast and specs only when a spec file changed; CI runs them all.
-    assert.deepEqual(hookSteps(r.dir, base), ALL_STEPS);
-    assert.deepEqual(hookSteps(r.dir, 'HEAD'), ['data', 'unit']);
+    // Default hook: the data lints only, whatever changed. CI's first job runs the unit suite and the rest.
+    assert.deepEqual(hookSteps(r.dir, base, {}), ['data']);
+    assert.deepEqual(hookSteps(r.dir, 'HEAD', {}), ['data']);
+    assert.deepEqual(hookSteps(r.dir, base, { VMX_GATE: 'lint' }), ['data']);
+    // VMX_GATE=full: what the hook ran before. Build, budgets, contrast and specs only when a spec changed.
+    assert.deepEqual(hookSteps(r.dir, base, { VMX_GATE: 'full' }), ALL_STEPS);
+    assert.deepEqual(hookSteps(r.dir, 'HEAD', { VMX_GATE: 'full' }), ['data', 'unit']);
   } finally { r.done(); }
 });
 
@@ -107,6 +111,29 @@ test('the hook: a bypass is said and logged, a deletion runs nothing, a dirty tr
     const again = prePush(r, `refs/heads/x ${head} refs/heads/x ${'0'.repeat(40)}\n`);
     assert.equal(again.status, 0, again.stderr);
     assert.match(again.stderr, /already green for this tree/);
+  } finally { r.done(); }
+});
+
+test('the hook says what it runs: the data lints by default, the full hook with VMX_GATE=full, nothing with a skip', () => {
+  const r = gitRepo();
+  try {
+    r.put('a.txt', '1\n');
+    r.git('add', '-A'); r.git('commit', '-qm', 'one');
+    fs.mkdirSync(path.join(r.dir, 'node_modules', '.bin'), { recursive: true });
+    const sha = r.git('rev-parse', 'HEAD').trim();
+    const line = `refs/heads/x ${sha} refs/heads/x ${'0'.repeat(40)}\n`;
+    // The temp repo has no lint list and no unit files, so the gate itself fails after the line is said;
+    // what matters here is which steps it reports and the line that tells the pusher how to run the rest.
+    const plain = prePush(r, line, { VMX_GATE: '' });
+    assert.match(plain.stderr, /push gate: runs the data lints only .*npm run gate:push, or VMX_GATE=full git push/);
+    assert.doesNotMatch(plain.stderr, /\bunit\b +\d+ s/);
+    const full = prePush(r, line, { VMX_GATE: 'full' });
+    assert.match(full.stderr, /push gate: VMX_GATE=full: lints and unit before the push/);
+    assert.match(full.stderr, /\bunit\b +\d+ s/);
+    const skipped = prePush(r, line, { VMX_GATE: 'full', VMX_SKIP_GATE: '1' });
+    assert.equal(skipped.status, 0, skipped.stderr);
+    assert.match(skipped.stderr, /SKIPPED/);
+    assert.doesNotMatch(skipped.stderr, /\bdata\b +\d+ s/);
   } finally { r.done(); }
 });
 

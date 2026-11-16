@@ -9,7 +9,7 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 - **optional**: a feature turns off or a default applies.
 - Runtime: *browser build* is baked in by Vite at build time (a change needs a rebuild); *function* is read by a Vercel function per request; *edge function* by a Supabase function; *script*, *test* and *build* run on a machine or in CI.
 
-132 names, 12 required; 11 more are set by the platform.
+133 names, 12 required; 11 more are set by the platform.
 
 ## Supabase
 
@@ -178,6 +178,7 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 | `PGHOST` | optional | script | `vca/scripts/test-community-db.mjs` | Postgres socket folder for the VCA community harness. |
 | `PGUSER` | optional | script | `vca/scripts/test-community-db.mjs` | Postgres user for the VCA community harness; default postgres. |
 | `VMX_GATE_LOCK` | optional | script | `scripts/gate.mjs` | Moves the local gate's e2e lock file. |
+| `VMX_GATE` | optional | script | `scripts/push-gate.mjs` | full makes the pre-push hook run the unit suite too (and, for a changed spec file, the build, budgets, contrast and those specs); by default the hook runs the data lints only (VMX_GATE=full git push). |
 | `VMX_SKIP_GATE` | optional | script | `scripts/pre-push.mjs` | 1 skips the pre-push gate for one push (VMX_SKIP_GATE=1 git push); the skip is printed and logged in the git dir. |
 | `VMX_ROUTE_SWEEP` | optional | test | `playwright.config.js` | Set to 1 by test:e2e:sweep to run the route sweep, which every other run leaves out. |
 | `VMX_DEFECT_SWEEP` | optional | test | `playwright.config.js` | Set to 1 by sweep:defects to run the defect sweep, which every other run leaves out. |

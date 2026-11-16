@@ -4,7 +4,8 @@
 // ============================================================
 // npm run gate:push              every step below, then the spec files this branch adds or changes on
 //                                Chromium desktop and WebKit phone.
-// node scripts/push-gate.mjs --hook   what the pre-push hook runs (hookSteps below)
+// node scripts/push-gate.mjs --hook   what the pre-push hook runs (hookSteps below): the data step, or
+//                                with VMX_GATE=full the lints, the unit suite and, for a changed spec, the rest
 // node scripts/push-gate.mjs --steps=data,unit      CI's build job runs the same script, step by step
 //                            --steps=build,budget
 //                            --steps=dist
@@ -47,12 +48,15 @@ export const ALL_STEPS = ['data', 'unit', 'build', 'budget', 'dist', 'specs'];
 export const LOCAL_PROJECTS = ['chromium-desktop', 'webkit-mobile'];
 
 // What the pre-push hook runs (--hook). The whole gate took 588 s on a warm tree on 16 Nov 2026 (data 60,
-// unit 418 beside it, build 73, budget 1, dist 22, specs 75), past the 8 minutes a push can afford before
-// people reach for the bypass. The hook keeps the lints and the unit suite (27 of the 51 rounds a local
-// run would have saved) and, when the branch adds or changes a spec file, the build, budgets, contrast
-// and those specs (the spec needs the build anyway). Without a changed spec the build, budget and dist
-// steps are left to CI's first job, which runs every step of this script. `npm run gate:push` runs all.
-export function hookSteps(cwd, base) {
+// unit 418 beside it, build 73, budget 1, dist 22, specs 75). Many worktrees push from one machine in the
+// same hour, and a push that outlasts ten minutes is cut off by the tools that run it, so by default the
+// hook runs the data step only (the lints, about a minute). CI's first job runs the data lints and the
+// unit suite before any browser runner starts, so a unit failure still shows within minutes.
+// VMX_GATE=full makes the hook run what it ran before: the lints and the unit suite and, when the branch
+// adds or changes a spec file, the build, budgets, contrast and those specs. `npm run gate:push` runs all.
+export const hookIsFull = (env = process.env) => env.VMX_GATE === 'full';
+export function hookSteps(cwd, base, env = process.env) {
+  if (!hookIsFull(env)) return ['data'];
   return changedSpecs(cwd, base).length ? [...ALL_STEPS] : ['data', 'unit'];
 }
 
@@ -118,8 +122,9 @@ export async function runPushGate({ cwd = process.cwd(), argv = [], log = consol
   const summary = opt('summary') || '';
   const ci = !!process.env.CI;
   const jobs = Number(opt('jobs')) || (ci ? 2 : Math.max(1, Math.min(6, Math.floor((os.availableParallelism?.() || 4) / 2))));
-  // A green hook run is remembered as well: it ran what the hook runs for this tree.
-  const whole = hook || ALL_STEPS.every((s) => steps.includes(s));
+  // A green full hook run is remembered as well. The default hook (lints only) is not: a later
+  // VMX_GATE=full push of the same tree must still run the unit suite.
+  const whole = (hook && steps.includes('unit')) || ALL_STEPS.every((s) => steps.includes(s));
   const tree = (() => { try { return treeOf(cwd); } catch { return ''; } })();
   const clean = (() => { try { return dirtyTracked(cwd).length === 0; } catch { return false; } })();
   const verdicts = [];
