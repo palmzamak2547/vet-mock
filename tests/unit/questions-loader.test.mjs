@@ -16,7 +16,8 @@ async function importFreshQuestions() {
 // counts only meant every content commit had to hand-edit them — and a number you
 // re-paste from the failing run is a number that has stopped checking anything.
 // Bank loss is still caught, by lint:registry, lint:curriculum and `npm run stats`.
-const banks = Object.values(BANK_REGISTRY);
+// The registry stores no counts, so each bank is sized by loading it.
+const banks = await Promise.all(Object.values(BANK_REGISTRY).map(async (b) => ({ ...b, count: (await b.load()).length })));
 const sumWhere = (pred) => banks.filter(pred).reduce((n, b) => n + b.count, 0);
 
 const CROSS_YEAR_TOTAL = sumWhere((b) => b.year === null);
