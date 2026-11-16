@@ -8,13 +8,12 @@
 // then this holds only what the highlighter, the eraser of ranges and the hand
 // model need, and hands pen strokes to the pane's own canvas (`pen`).
 //
-// The hand (createHandPolicy, handwriting-pad.js): a pen marks with the tool
+// The hand (createHandPolicy, ink/hand-policy.js): a pen marks with the tool
 // in hand and a finger moves the page with the browser's own scrolling. With
 // the finger switch on, one finger marks and two fingers scroll; a stroke
 // that a second finger joins, at any moment before it is committed, is dropped.
 // ============================================================
-import { quoteAt, legacyPassageHash, ADOPT_KEY, writeCaseMarks } from '../case-marks.js';
-import { applyOp, historyFor, makeRange, newMarkId, penInk } from '../case-ops.js';
+import { applyOp, historyFor, makeRange, newMarkId, penInk, quoteAt, ADOPT_KEY, writeCaseMarks } from '../case-ops.js';
 import { readStoredJson } from '../stored-json.js';
 
 export { applyOp, historyFor, makeRange, newMarkId, penInk } from '../case-ops.js';
@@ -725,9 +724,10 @@ export function convertLegacy(text, hlRaw, drRaw) {
  * The first read of a case with no record (readCaseMarks): the account signed in when a case is first
  * shown after this release (or the visitor) is recorded once in ADOPT_KEY as the owner of the marks
  * saved before it; that owner alone gets a copy of a passage's old marks, written at once so a later
- * clear is not undone by adopting again. The old keys are never written or removed.
+ * clear is not undone by adopting again. The old keys are never written or removed. `legacyKey` is the
+ * passage's old key, made by readCaseMarks: case-marks.js is in the pane's chunk, which this file never imports.
  */
-export function adoptLegacy(storage, key, { ownerId = null, passage = '' }) {
+export function adoptLegacy(storage, key, { ownerId = null, passage = '', legacyKey }) {
   let claim = readStoredJson(ADOPT_KEY, null, { storage });
   const me = ownerId || null;
   if (!claim || !('owner' in claim)) {
@@ -735,7 +735,7 @@ export function adoptLegacy(storage, key, { ownerId = null, passage = '' }) {
     try { storage.setItem(ADOPT_KEY, JSON.stringify(claim)); } catch { /* read-only storage: adopt nothing */ return { ok: true, key, marks: [], adopted: false }; }
   }
   if ((claim.owner || null) !== me) return { ok: true, key, marks: [], adopted: false };
-  const legacy = `vmx-pass-${legacyPassageHash(String(passage))}`;
+  const legacy = legacyKey;
   const hl = storage.getItem(`${legacy}-hl`);
   const dr = storage.getItem(`${legacy}-dr`);
   if (hl == null && dr == null) return { ok: true, key, marks: [], adopted: false };

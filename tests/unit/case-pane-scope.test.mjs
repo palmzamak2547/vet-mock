@@ -5,12 +5,14 @@
 // written over, and the next account on the device sees none of the last one's marks.
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { loadModule, mount as mountNow, settle, findAll, textOf } from '../helpers/fake-react.mjs';
 
 // The pane's tools load with the case, a moment after it draws.
 async function mount(Comp, props) { const inst = mountNow(Comp, props); await settle(inst); return inst; }
 import { QB_ENGPROF } from '../../src/data/questions-engprof.js';
-import { legacyPassageHash, caseKey, marksStorageKey, quoteAt } from '../../src/lib/case-marks.js';
+import { legacyPassageHash, caseKey, marksStorageKey } from '../../src/lib/case-marks.js';
+import { quoteAt } from '../../src/lib/case-ops.js';
 
 const A = QB_ENGPROF.find((q) => q.passage);
 const B = QB_ENGPROF.find((q) => q.passage && q.passage !== A.passage);
@@ -235,4 +237,17 @@ test('on a phone, the sheet\'s ล้างทั้งหมด also removes th
   pane.flush();
   assert.equal(JSON.parse(values.get(keyOf(A))).marks.length, 2, 'the way back returns both');
   pane.unmount();
+});
+
+// A chunk that its own lazy parts import from gets short export names and no `default`, and those parts
+// keep asking for it under its first address: after one failed download the case could never load
+// (CaseSlot.jsx, importFresh). So what the hand, the tools and the sheet share with the pane reaches
+// them as props or arguments, never as an import.
+test('the hand, the tools and the sheet import nothing that is in the pane\'s chunk', () => {
+  const inPaneChunk = ['CasePane.jsx', 'CaseText.jsx', 'case-marks.js', 'case-entry.js', 'hand-policy.js'];
+  for (const file of ['components/case/CaseSheet.jsx', 'components/case/CaseTools.jsx', 'lib/ink/case-hand.js', 'lib/case-ops.js']) {
+    const src = readFileSync(new URL(`../../src/${file}`, import.meta.url), 'utf8');
+    const imported = [...src.matchAll(/from\s+'([^']+)'/g)].map((m) => m[1].split('/').pop());
+    for (const name of inPaneChunk) assert.ok(!imported.includes(name), `${file} imports ${name}`);
+  }
 });

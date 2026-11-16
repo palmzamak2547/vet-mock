@@ -6,7 +6,31 @@
 // here is needed to draw a case with its marks (case-marks.js), so it loads
 // with the hand (ink/case-hand.js) and stays out of the exam's own chunk.
 // ============================================================
-import { quoteAt } from './case-marks.js';
+// This file and the hand import nothing from case-marks.js or the pane's other files: those are in the
+// pane's chunk, and a chunk that its own lazy parts import from cannot be fetched again under a fresh
+// address after a failed download (CaseSlot.jsx).
+
+/** Who took the marks saved before owner-scoped keys: `{ owner, at }`, set once per device. */
+export const ADOPT_KEY = 'vmx-case-adopt';
+
+// The same 16 characters placeRange (case-marks.js) looks for.
+const CONTEXT = 16;
+
+/** The marked text with up to 16 characters of context each side. */
+export function quoteAt(text, start, end) {
+  const str = String(text ?? '');
+  return { pre: str.slice(Math.max(0, start - CONTEXT), start), exact: str.slice(start, end), post: str.slice(end, end + CONTEXT) };
+}
+
+/** Saves the marks. An empty case is saved as an empty record, never removed: removing it would adopt the old marks again. */
+export function writeCaseMarks(storage, key, marks) {
+  try {
+    storage.setItem(key, JSON.stringify({ v: 1, marks }));
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 // ── colours ─────────────────────────────────────────────────
 // None collides with a verdict (right sage, partial gold, wrong rose). The

@@ -8,6 +8,12 @@
 // reading place, new marks and their undo in case-ops.js) is in
 // ink/case-hand.js, loaded with the case.
 //
+// Nothing loaded with the hand or the sheet imports this file: it is in the
+// pane's chunk, and a chunk that its own lazy parts import from cannot be
+// fetched again under a fresh address after a failed download (CaseSlot.jsx).
+// So a new mark's quote, saving and the adoption key are in case-ops.js, and
+// adoptLegacy is handed the old key instead of the hash that makes it.
+//
 // A highlight is a text range, never a page position:
 //   { id, kind: 'range', style: 'wash', start, end, color, quote: { pre, exact, post } }
 // start and end are offsets in the passage. The quote is the marked text with
@@ -46,17 +52,8 @@ export function marksStorageKey(ownerId, key) {
   return `vmx-case-${ownerId ? encodeURIComponent(ownerId) : 'guest'}-${key}`;
 }
 
-/** Who took the marks saved before owner-scoped keys: `{ owner, at }`, set once per device. */
-export const ADOPT_KEY = 'vmx-case-adopt';
-
 // ── ranges and quotes ───────────────────────────────────────
 const CONTEXT = 16;
-
-/** The marked text with up to 16 characters of context each side. */
-export function quoteAt(text, start, end) {
-  const str = String(text ?? '');
-  return { pre: str.slice(Math.max(0, start - CONTEXT), start), exact: str.slice(start, end), post: str.slice(end, end + CONTEXT) };
-}
 
 const commonTail = (a, b) => { let n = 0; while (n < a.length && n < b.length && a[a.length - 1 - n] === b[b.length - 1 - n]) n++; return n; };
 const commonHead = (a, b) => { let n = 0; while (n < a.length && n < b.length && a[n] === b[n]) n++; return n; };
@@ -160,18 +157,8 @@ export function readCaseMarks(storage, { ownerId = null, subject = '', title = '
       return { ok: true, key, marks: rec.marks.filter((m) => isRange(m) || isPx(m)), adopted: false };
     }
     if (!adopt) return { ok: true, key, marks: [], adopted: false, pending: true };
-    return adopt(storage, key, { ownerId, passage });
+    return adopt(storage, key, { ownerId, passage, legacyKey: `vmx-pass-${legacyPassageHash(String(passage))}` });
   } catch {
     return { ok: false, key };
-  }
-}
-
-/** Saves the marks. An empty case is saved as an empty record, never removed: removing it would adopt the old marks again. */
-export function writeCaseMarks(storage, key, marks) {
-  try {
-    storage.setItem(key, JSON.stringify({ v: 1, marks }));
-    return true;
-  } catch {
-    return false;
   }
 }

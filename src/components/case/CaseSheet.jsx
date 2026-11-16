@@ -1,12 +1,9 @@
 import { useEffect, useLayoutEffect, useRef, useState, useId } from 'react';
 import { createPortal } from 'react-dom';
 import NavIcon from '../NavIcon.jsx';
-import CaseText from './CaseText.jsx';
 import RichBlocks from '../RichBlocks.jsx';
 import ZoomableImage from '../ZoomableImage.jsx';
-import ExamClock from '../ExamClock.jsx';
 import { useModalFocus } from '../../hooks/useModalFocus.js';
-import { leaveEntry, ownPop, dropEntry } from '../../lib/case-entry.js';
 
 // ============================================================
 // CaseSheet — the case as a full-screen reading sheet
@@ -29,9 +26,12 @@ import { leaveEntry, ownPop, dropEntry } from '../../lib/case-entry.js';
 // ============================================================
 
 export default function CaseSheet({
-  text, title, ranges, ask, stemBody, figure, clockDeadline, place, onClose,
+  text, title, ranges, ask, stemBody, figure, clock = null, place, onClose,
   policy, penSeen, coarse, phone, rangeColor, penColor, onColor, onRange, onErase, onRecolor, onPenSeen,
   canUndo, canRedo, onUndo, onRedo, onClear, toast, onUndoClear, entry = { on: false }, hand,
+  // What the sheet shares with the pane comes as props. Importing those files here would make the pane's
+  // chunk one that this file imports from, and it could then not be fetched again after a failed download.
+  CaseText, leaveEntry, ownPop, dropEntry,
 }) {
   const { attachCaseSurface, readingPlace, placeDelta, Tools: CaseTools, MarkBar, PickBar } = hand;
   const scrollRef = useRef(null);
@@ -66,7 +66,7 @@ export default function CaseSheet({
       // back: the entry goes without the app hearing it, and never twice.
       dropEntry(entry);
     };
-  }, [entry]);
+  }, [entry, ownPop, dropEntry]);
   const close = () => { if (!leaveEntry(entry)) closeRef.current(); };
   const dialogRef = useModalFocus({ active: true, onClose: close, initialFocusRef: backRef });
 
@@ -166,7 +166,7 @@ export default function CaseSheet({
           <span className="vmx-case-back-label">กลับไปที่คำถาม</span>
         </button>
         <h2 className="vmx-case-sheet-title" id={titleId}>{title || 'Reading Passage'}</h2>
-        {clockDeadline ? <span className="vmx-case-sheet-clock"><ExamClock deadline={clockDeadline} /></span> : null}
+        {clock ? <span className="vmx-case-sheet-clock">{clock}</span> : null}
       </header>
       <div ref={scrollRef} className="vmx-case-sheet-scroll">
         <div className={`vmx-case-sheet-col is-${writeSwitch ? 'writing' : 'reading'}`}>

@@ -2,10 +2,10 @@ import { useState, useRef, useEffect, useMemo, useId, useCallback } from 'react'
 import NavIcon from '../NavIcon.jsx';
 import CaseText from './CaseText.jsx';
 import { hasTable } from '../../lib/rich-blocks.js';
-import { createHandPolicy } from '../../lib/handwriting-pad.js';
+import { createHandPolicy } from '../../lib/ink/hand-policy.js';
 import { importFresh } from '../../lib/chunk-error.js';
 import { readCaseMarks, resolveRanges } from '../../lib/case-marks.js';
-import { pushEntry, dropEntry } from '../../lib/case-entry.js';
+import { pushEntry, dropEntry, leaveEntry, ownPop } from '../../lib/case-entry.js';
 
 // ============================================================
 // CasePane — a case beside its question (the case reader)
@@ -62,7 +62,7 @@ function useMedia(query) {
 
 export default function CasePane({
   text, title, subject = '', ownerId = null, defaultOpen = true, openSignal = 0,
-  ask = '', stemBody = '', figure = null, clockDeadline = null, questionKey = '',
+  ask = '', stemBody = '', figure = null, clock = null, questionKey = '',
 }) {
   const [open, setOpen] = useState(defaultOpen);
   // Another passage is another piece of data: it arrives open, whatever the one before it was left as.
@@ -297,11 +297,15 @@ export default function CasePane({
           ask={ask}
           stemBody={stemBody}
           figure={figure}
-          clockDeadline={clockDeadline}
+          clock={clock}
           place={opening.current?.place || null}
           onClose={closeSheet}
           entry={entry.current}
           hand={handNow()}
+          CaseText={CaseText}
+          leaveEntry={leaveEntry}
+          ownPop={ownPop}
+          dropEntry={dropEntry}
           policy={policy}
           penSeen={penSeen}
           coarse={coarse}

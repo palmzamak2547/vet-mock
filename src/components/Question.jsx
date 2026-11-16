@@ -14,7 +14,7 @@ import { otherOptionsFold } from '../lib/explain-fold.js';
 import { metaLineCut } from '../lib/meta-line.js';
 import FlagChip from './FlagChip.jsx';
 import { safeImageUrl } from '../lib/safe-url.js';
-import CasePane from './case/CasePane.jsx';
+import CaseSlot from './case/CaseSlot.jsx';
 import NavIcon from './NavIcon.jsx';
 import ZoomableImage from './ZoomableImage.jsx';
 import EvidenceSlot, { useEvidenceWarmup } from './EvidenceSlot.jsx';
@@ -80,7 +80,7 @@ const TYPE_LABEL = {
 // set (ExamView renders the card without a key) and a set may be revisited.
 const FILL_CHECKED = new Set();
 
-export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote, revealAnswer, onOpenWiki, answerRun = 0, english = null, englishNote = null, ownerId = null, clockDeadline = null, timed = false }) {
+export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote, revealAnswer, onOpenWiki, answerRun = 0, english = null, englishNote = null, ownerId = null, clock = null, timed = false }) {
   // A verdict is fresh when this visit to the question began unanswered: the
   // student answered it just now. Coming back to a question answered earlier
   // shows its verdict again, but Mochi does not react and the phone stays
@@ -495,7 +495,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   // appears for one-tap "back to passage" access.
   const passageBlock = currentQ.passage && (
     <div ref={passageRef} className={`vmx-q-passage-pane${saysTable && readWhat === 'q' && readKind === 'stem' ? ' is-reading' : ''}`}>
-      <CasePane
+      <CaseSlot
         text={currentQ.passage}
         title={currentQ.passage_title}
         subject={currentQ.subject}
@@ -506,7 +506,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
         ask={stemSplit ? stemSplit.askText : stemShown}
         stemBody={stemSplit ? stemSplit.bodyText : ''}
         figure={figureSrc ? { src: figureSrc, alt: figureAlt, caption: currentQ.imageCaption } : null}
-        clockDeadline={clockDeadline}
+        clock={clock}
       />
     </div>
   );

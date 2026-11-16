@@ -5,11 +5,10 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import {
-  legacyPassageHash, caseKey, marksStorageKey, ADOPT_KEY, readCaseMarks, writeCaseMarks,
-  quoteAt, placeRange, resolveRanges, segmentsFor,
+  legacyPassageHash, caseKey, marksStorageKey, readCaseMarks, placeRange, resolveRanges, segmentsFor,
 } from '../../src/lib/case-marks.js';
-import { makeRange, createHistory, applyOp, HISTORY_LIMIT } from '../../src/lib/case-ops.js';
-import { createHandPolicy, PEN_SEEN_KEY } from '../../src/lib/handwriting-pad.js';
+import { makeRange, createHistory, applyOp, HISTORY_LIMIT, ADOPT_KEY, writeCaseMarks, quoteAt } from '../../src/lib/case-ops.js';
+import { createHandPolicy, PEN_SEEN_KEY } from '../../src/lib/ink/hand-policy.js';
 import { snapRange, adoptLegacy } from '../../src/lib/ink/case-hand.js';
 import { proseBlocks } from '../../src/lib/rich-blocks.js';
 

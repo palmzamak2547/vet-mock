@@ -670,3 +670,30 @@ test('a failed download of the case code is tried again, and the old marks then 
   expect(await page.evaluate(() => window.history.length)).toBe(before + 1);
 });
 
+// The pane itself is fetched with the first card that has a case, so it is in neither the exam's first
+// load nor what Home warms up. A failed fetch says so where the case goes, and a tap brings the case.
+test('a failed download of the case pane says so in its place, and a tap brings the case', async ({ page, browserName }) => {
+  test.skip(browserName === 'webkit', 'Playwright WebKit never asks again for a module that failed once');
+  await page.setViewportSize({ width: 1280, height: 800 });
+  const q = await byId(209588);
+  let blocked = true;
+  await page.route(/\/assets\/CasePane-[^/]*\.js/, (route) => (blocked ? route.abort('internetdisconnected') : route.continue()));
+  const pin = { id: 1, type: 'question', label: 'เคสที่ปักไว้', payload: { id: q.id, subject: q.subject, stem: q.q }, addedAt: 1 };
+  await page.addInitScript(([seed, year]) => {
+    if (localStorage.getItem('case-reader-seeded')) return;
+    localStorage.setItem('case-reader-seeded', '1');
+    localStorage.setItem('vmx-selected-year', String(year));
+    localStorage.setItem('vmx-seen-landing', '1');
+    localStorage.setItem('vmx-consent', JSON.stringify('essential'));
+    localStorage.setItem('vmx-pinboard', JSON.stringify([seed]));
+  }, [pin, q.year]);
+  await page.goto('/app/pinboard', { waitUntil: 'domcontentloaded' });
+  await page.getByRole('button').filter({ has: page.getByText('เคสที่ปักไว้', { exact: true }) }).click();
+  const pane = page.locator('.vmx-q-passage-pane');
+  await expect(pane.getByText('โหลดเคสไม่สำเร็จ')).toBeVisible({ timeout: 30_000 });
+  blocked = false;
+  await pane.getByRole('button', { name: 'ลองอีกครั้ง' }).click();
+  await expect(pane.locator('[data-off]').first()).toBeVisible();
+  await expect(pane.getByRole('button', { name: 'อ่านเต็มจอ' })).toBeVisible();
+});
+
