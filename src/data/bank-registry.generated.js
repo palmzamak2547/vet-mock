@@ -197,7 +197,7 @@ export const BANK_REGISTRY = [
   { file: 'questions-y5-epidemiology-2026.js', export: 'QB_Y5_EPIDEMIOLOGY_2026', year: 5, count: 37,
     subjects: ['epidemiology'],
     load: () => import('./questions-y5-epidemiology-2026.js').then((m) => m.QB_Y5_EPIDEMIOLOGY_2026) },
-  { file: 'questions-y5-eqrepro-2026.js', export: 'QUESTIONS_Y5_EQREPRO_2026', year: 5, count: 149,
+  { file: 'questions-y5-eqrepro-2026.js', export: 'QUESTIONS_Y5_EQREPRO_2026', year: 5, count: 171,
     subjects: ['equine-repro'],
     load: () => import('./questions-y5-eqrepro-2026.js').then((m) => m.QUESTIONS_Y5_EQREPRO_2026) },
   { file: 'questions-y5-equine-2026-b.js', export: 'QUESTIONS_Y5_EQUINE_2026_B', year: 5, count: 52,
@@ -334,4 +334,4 @@ export const BANK_REGISTRY = [
     load: () => import('./questions-vca.js').then((m) => m.QB_VCA) },
 ];
 
-// Built: 2026-11-15T23:57:01.531Z — 108 banks · 9198 Qs
+// Built: 2026-11-16T02:48:29.622Z — 108 banks · 9220 Qs

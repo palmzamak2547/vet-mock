@@ -10,8 +10,8 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 8986;
-export const QB_SOURCE_TOTAL = 9198;
+export const QB_TOTAL = 9008;
+export const QB_SOURCE_TOTAL = 9220;
 export const QB_BLOCKED_TOTAL = 212;
 
 export const Q_COUNTS_BY_SUBJECT = {
@@ -29,7 +29,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'engprof1': 30,
   'epidemiology': 372,
   'equine-medicine': 569,
-  'equine-repro': 242,
+  'equine-repro': 264,
   'exotic': 151,
   'food-industry': 300,
   'food-safety-y4': 31,
@@ -79,7 +79,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'engprof1': 30,
   'epidemiology': 372,
   'equine-medicine': 569,
-  'equine-repro': 242,
+  'equine-repro': 264,
   'exotic': 108,
   'food-industry': 300,
   'food-safety-y4': 31,
@@ -128,7 +128,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'engprof': 1,
   'epidemiology': 297,
   'equine-medicine': 329,
-  'equine-repro': 200,
+  'equine-repro': 222,
   'exotic': 34,
   'food-industry': 154,
   'food-safety-y4': 31,
@@ -212,7 +212,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'engprof': 1,
     'epidemiology': 280,
     'equine-medicine': 325,
-    'equine-repro': 136,
+    'equine-repro': 158,
     'exotic': 34,
     'food-industry': 30,
     'food-safety-y4': 21,
@@ -273,7 +273,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'engprof1': 30,
     'epidemiology': 355,
     'equine-medicine': 565,
-    'equine-repro': 161,
+    'equine-repro': 183,
     'food-industry': 61,
     'food-safety-y4': 21,
     'herd-health-rum': 37,
@@ -354,7 +354,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
     2: 104,
     3: 62,
     4: 302,
-    5: 3812,
+    5: 3834,
   },
   '2-mid': {
     1: 297,
@@ -772,13 +772,13 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'equine-tendon': 5,
     },
     'equine-repro': {
-      'eqrepro-ai': 11,
-      'eqrepro-endometritis': 16,
-      'eqrepro-male': 18,
-      'eqrepro-postpartum': 11,
-      'eqrepro-pregnancy': 81,
-      'eqrepro-stallion-infect': 16,
-      'eqrepro-surgery': 8,
+      'eqrepro-ai': 13,
+      'eqrepro-endometritis': 24,
+      'eqrepro-male': 22,
+      'eqrepro-postpartum': 13,
+      'eqrepro-pregnancy': 83,
+      'eqrepro-stallion-infect': 17,
+      'eqrepro-surgery': 11,
     },
     'food-industry': {
       'fiqc-aquatic': 16,
@@ -2403,7 +2403,7 @@ export const Q_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 2076,
-  5: 6407,
+  5: 6429,
 };
 
 // Visible per-year totals (hidden topics excluded). Every user-facing
@@ -2415,7 +2415,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 1981,
-  5: 6407,
+  5: 6429,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -2698,18 +2698,18 @@ export const Q_COUNTS_BY_TOPIC = {
     "equine-tendon": 5,
   },
   "equine-repro": {
-    "eqrepro-ai": 11,
+    "eqrepro-ai": 13,
     "eqrepro-anatomy-cycle": 15,
     "eqrepro-art-female": 16,
-    "eqrepro-endometritis": 16,
+    "eqrepro-endometritis": 24,
     "eqrepro-exam-mare": 27,
     "eqrepro-infertility": 18,
-    "eqrepro-male": 18,
+    "eqrepro-male": 22,
     "eqrepro-mare-infect": 5,
-    "eqrepro-postpartum": 11,
-    "eqrepro-pregnancy": 81,
-    "eqrepro-stallion-infect": 16,
-    "eqrepro-surgery": 8,
+    "eqrepro-postpartum": 13,
+    "eqrepro-pregnancy": 83,
+    "eqrepro-stallion-infect": 17,
+    "eqrepro-surgery": 11,
   },
   "exotic": {
     "bird-infect": 24,
@@ -3744,4 +3744,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-11-15T23:57:24.159Z
+// Built: 2026-11-16T02:50:25.685Z
