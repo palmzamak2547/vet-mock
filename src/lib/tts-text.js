@@ -194,9 +194,114 @@ export const ELEVEN_TTS = Object.freeze({
   gen: 'e1',
 });
 
+// The Paxa generation (paxa-tts-flash-v2). Its clips are voiced a sentence at
+// a time (clipSegments below), so a corrected sentence costs one sentence and
+// the same sentence in two questions is one clip. A subject reads in this
+// voice only once every clip of the subject is made: its manifest is
+// { complete, keys }, and until complete is true the subject keeps the voice
+// it had, so a student never hears two voices within one subject.
+export const PAXA_TTS = Object.freeze({
+  provider: 'paxa',
+  model: 'paxa-tts-flash-v2',
+  voice: 'foithong',
+  base: SHARED_TTS.base,
+  gen: 'p1',
+  segmented: true,
+  wholeSubject: true,
+});
+
 // Newest first. A question plays the first generation that has every one of
-// its clips, so one question is never read in two voices.
-export const SHARED_GENS = Object.freeze([ELEVEN_TTS, SHARED_TTS]);
+// its clips, so one question is never read in two voices; a whole-subject
+// generation plays only for a subject it has finished.
+export const SHARED_GENS = Object.freeze([PAXA_TTS, ELEVEN_TTS, SHARED_TTS]);
+
+// Thai vowel and tone marks written above or below their consonant, and the
+// vowels written before it: a cut never separates either from its consonant.
+const THAI_MARK = /[ัิ-ฺ็-๎]/;
+const THAI_LEAD = /[เ-ไ]/;
+let thaiWords = null;
+// Where to cut a run longer than max that has no usable space: the last word
+// boundary at or before max (Thai writes no space between words), else the
+// last place that splits no letter from its marks.
+function wordCut(s, max) {
+  try {
+    thaiWords ||= new Intl.Segmenter('th', { granularity: 'word' });
+    let best = 0;
+    for (const { index } of thaiWords.segment(s.slice(0, max + 40))) {
+      if (index > max) break;
+      if (index > 0) best = index;
+    }
+    if (best > 0) return best;
+  } catch { /* no Intl.Segmenter: the rule below */ }
+  let cut = max;
+  while (cut > 1 && (THAI_MARK.test(s[cut]) || THAI_LEAD.test(s[cut - 1]) || /[\uDC00-\uDFFF]/.test(s[cut]))) cut--;
+  return cut;
+}
+
+// A piece of clip text in sentence-sized parts: lines first, then sentences
+// (a full stop, question or exclamation mark before a space), then, for a
+// line still longer than `max`, the last space before it, or, with no space
+// in its second half, the last word boundary. Parts shorter than `min` join
+// the one before them, so a clip is never a single word. The generator and
+// the page cut the same way; changing this renames every segmented clip.
+export function clipSegments(text, { max = 220, min = 40 } = {}) {
+  const out = [];
+  const push = (s) => {
+    const t = s.trim();
+    if (!t) return;
+    if (out.length && (t.length < min || out[out.length - 1].length < min) && out[out.length - 1].length + 1 + t.length <= max) out[out.length - 1] += ` ${t}`;
+    else out.push(t);
+  };
+  for (const line of String(text || '').split('\n')) {
+    // Sentences end at a mark followed by a space ("2.5 mg" stays whole). A
+    // split with a captured separator, not a lookbehind: WebKit before 16.4
+    // cannot parse one.
+    const bits = line.split(/([.!?]+\s+)/);
+    const sentences = [];
+    for (let i = 0; i < bits.length; i += 2) sentences.push(bits[i] + (bits[i + 1] || ''));
+    for (let s of sentences) {
+      s = s.trim();
+      while (s.length > max) {
+        const cut = s.lastIndexOf(' ', max) > max / 2 ? s.lastIndexOf(' ', max) : wordCut(s, max);
+        push(s.slice(0, cut));
+        s = s.slice(cut).trim();
+      }
+      push(s);
+    }
+  }
+  return out;
+}
+
+// The word of `full` each part starts in, words being runs of non-space as
+// the highlight counts them: the parts hold the same letters in the same
+// order, only the spaces between them differ. A part cut inside a long Thai
+// run starts in the word the part before it ends in.
+export function segmentStarts(full, segs) {
+  const text = String(full || '');
+  const wordOf = [];
+  let w = -1;
+  for (let i = 0; i < text.length; i++) {
+    if (/\s/.test(text[i])) continue;
+    if (i === 0 || /\s/.test(text[i - 1])) w++;
+    wordOf[i] = w;
+  }
+  const out = [];
+  let pos = 0;
+  for (const seg of segs) {
+    while (pos < text.length && /\s/.test(text[pos])) pos++;
+    out.push(Math.max(0, wordOf[pos] ?? w));
+    for (const c of String(seg)) {
+      if (/\s/.test(c)) continue;
+      while (pos < text.length && /\s/.test(text[pos])) pos++;
+      pos += c.length;
+    }
+  }
+  return out;
+}
+
+// What a generation stores for one piece of text: the whole text as one clip,
+// or, segmented, one clip per part.
+export const clipParts = (text, g) => (g?.segmented ? clipSegments(text) : [text]).filter(Boolean);
 
 // 64-bit hex name of a clip: model, voice and the exact text.
 export async function clipKey(text, g = SHARED_TTS) {

@@ -31,12 +31,14 @@
 // may carry one short paper tag after the answer (lib/exam-scope.js).
 // ============================================================
 
-import { useState, lazy, Suspense } from 'react';
+import { useState } from 'react';
+import { lazyWithRetry } from '../lib/lazy-retry.js';
+import OptionalFeature from './OptionalFeature.jsx';
 import { originPaperNote, originPaperTag } from '../lib/exam-scope.js';
 import { humanSource, recordingMoments, momentHref } from '../lib/source-label.js';
 import { sourceLineAfterAnswer, readableSource as readable, cautionChipShown, tagTopicLabels } from '../lib/source-line.js';
 // Lazy: a question pays for the video code only when its source opens.
-const TopicClips = lazy(() => import('./TopicClips.jsx'));
+const TopicClips = lazyWithRetry(() => import('./TopicClips.jsx'));
 import { isDisplayableWikiRef, getEligibleCitationForQuestion } from '../lib/citation-gate.js';
 import { archivedSourceUrl, googleDriveSourceUrl, signedArchiveUrl } from '../lib/vca-library.js';
 import { authHeader } from '../lib/api-auth.js';
@@ -207,7 +209,7 @@ export default function QSourceChip({ q, revealed = false }) {
           ))}
           {/* No cited minute: the lecture stretch that teaches the question's
               topic, so a wrong answer still leads to the part that explains it. */}
-          {moments.length === 0 && q.topic && <Suspense fallback={null}><TopicClips topicId={q.topic} limit={1} quiet /></Suspense>}
+          {moments.length === 0 && q.topic && <OptionalFeature><TopicClips topicId={q.topic} limit={1} quiet /></OptionalFeature>}
           {sourceDocumentUrl && (
             <a href={sourceDocumentUrl} target="_blank" rel="noopener noreferrer" onClick={openArchived}
               style={{ display: 'inline-flex', alignItems: 'center', minHeight: 44, color: 'var(--clr-sage-text)', overflowWrap: 'anywhere' }}>

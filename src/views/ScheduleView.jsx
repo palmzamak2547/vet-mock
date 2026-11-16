@@ -1,4 +1,5 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
+import { lazyWithRetry } from '../lib/lazy-retry.js';
 import {
   CLASS_TIMETABLE, EXAM_SCHEDULE, SEMESTER, examTitle, fmtThaiDate, getTopMilestone, getUpcomingEvents, getUpcomingExams,
   shortCountdown, examEndMs, termPhase,
@@ -113,7 +114,7 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
   const [printTable, setPrintTable] = useState(null);
   // React.lazy keeps a rejected import for good, so a failed sheet is given a
   // fresh lazy component on the next try.
-  const [TimetableSheet, setTimetableSheet] = useState(() => lazy(loadSheet));
+  const [TimetableSheet, setTimetableSheet] = useState(() => lazyWithRetry(loadSheet));
   const [sheetFailure, setSheetFailure] = useState(null);
   // Failed opens since the sheet last opened.
   const [sheetFailures, setSheetFailures] = useState(0);
@@ -122,7 +123,7 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
   const [lastOpen, setLastOpen] = useState(null);
   const openPage = (build, what, where = 'exams') => {
     if (sheetFailure) {
-      setTimetableSheet(() => lazy(loadSheet));
+      setTimetableSheet(() => lazyWithRetry(loadSheet));
       setSheetFailure(null);
     }
     setLastOpen({ build, what, where });

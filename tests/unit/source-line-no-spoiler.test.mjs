@@ -51,6 +51,8 @@ const STUBS = {
     'export const jsxs = jsx;',
   ].join('\n'),
   './NavIcon.jsx': 'export default function NavIcon() { return null; }',
+  // The source clips' boundary: draws its children.
+  './OptionalFeature.jsx': 'export default function OptionalFeature({ children }) { return children; }',
 };
 const repoRoot = fileURLToPath(new URL('../../', import.meta.url));
 const chipFile = `${repoRoot}src/components/QSourceChip.jsx`;

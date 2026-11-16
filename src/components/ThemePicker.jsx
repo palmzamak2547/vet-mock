@@ -10,7 +10,8 @@
 // x=16). The hook flips anchor side based on viewport room.
 // ============================================================
 
-import { lazy, Suspense, useState, useEffect, useLayoutEffect, useRef } from 'react';
+import { Suspense, useState, useEffect, useLayoutEffect, useRef } from 'react';
+import { lazyWithRetry } from '../lib/lazy-retry.js';
 import { useDropdownAnchor } from '../hooks/useDropdownAnchor.js';
 import NavIcon from './NavIcon.jsx';
 import ErrorBoundary from './ErrorBoundary.jsx';
@@ -19,7 +20,7 @@ import ErrorBoundary from './ErrorBoundary.jsx';
 // every visit. Until they arrive, and if they cannot, the panel shows the same closed row they open from,
 // so nothing moves when they land. tests/unit/first-load-lazy.test.mjs holds the row to the component's.
 const loadMotionSettings = () => import('./MotionSettings.jsx');
-const MotionSettings = lazy(loadMotionSettings);
+const MotionSettings = lazyWithRetry(loadMotionSettings);
 const MOTION_SETTINGS_SUMMARY = 'ตั้งค่า Mochi และการเคลื่อนไหว';
 function Ready({ onReady }) { useLayoutEffect(onReady, []); return null; }
 // A tap on the row before the settings arrive opens them as soon as they do, and keyboard focus on the

@@ -120,8 +120,10 @@ test('a device that cannot read the question says so, and the note stays until t
   speaks = false; // and the device cannot say it either
   spoken.length = 0;
   try {
+    // An English question on a device with only a Thai voice: the cloud
+    // voice is the one way, and it is out of reach.
     await eng.start(job('e1', 'Which drug treats canine heartworm?', ['Melarsomine', 'Amoxicillin']));
-    await until(() => spoken.length > 0);
+    await until(() => store.readAloud.get().status === 'error');
     await sleep(30);
     const s = store.readAloud.get();
     assert.equal(s.job?.id, 'e1', 'the bar is still up');

@@ -11,14 +11,15 @@
 // type === 'image-occlusion' once the orchestrator wires it.
 // ============================================================
 
-import { lazy, Suspense, useEffect, useState, useCallback } from 'react';
+import { Suspense, useEffect, useState, useCallback } from 'react';
+import { lazyWithRetry } from '../lib/lazy-retry.js';
 import {
   loadDecks, saveDeck, deleteDeck, touchDeck,
   IMAGE_OCCLUSION_EVENT,
 } from '../lib/image-occlusion.js';
 import { confirmDialog, alertDialog } from '../lib/dialog.js';
 
-const ImageOcclusionEditor = lazy(() => import('../components/ImageOcclusionEditor.jsx'));
+const ImageOcclusionEditor = lazyWithRetry(() => import('../components/ImageOcclusionEditor.jsx'));
 
 function formatThaiDate(ts) {
   if (!ts) return '';

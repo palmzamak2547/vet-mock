@@ -48,7 +48,7 @@
 // ============================================================
 
 import { thaiPhoneticTranslit } from './tts-phonetic.js';
-import { normalizeSymbols, expandUnits, questionLang, stripForSpeech } from './tts-text.js';
+import { normalizeSymbols, expandUnits, questionLang, stripForSpeech, clipText, clipSegments, optionLabel, segmentStarts } from './tts-text.js';
 import { sharedPlan, getSharedAudio } from './tts-shared.js';
 import {
   speakViaEdge,
@@ -75,7 +75,7 @@ const SAFE_CHUNK_LIMIT = 240; // chars — under Chrome's reported hang threshol
 // Voice cache + readiness — getVoices() may return [] on Chrome until
 // the 'voiceschanged' event fires.
 let _voicesPromise = null;
-function ensureVoices() {
+export function ensureVoices() {
   if (_voicesPromise) return _voicesPromise;
   _voicesPromise = new Promise((resolve) => {
     if (typeof window === 'undefined' || !window.speechSynthesis) { resolve([]); return; }
@@ -767,4 +767,56 @@ export async function inspectVoices() {
     } : null;
   }
   return out;
+}
+
+// ── The read-aloud's live pieces (lib/read-aloud.js device mode) ──
+// The same text the clips say (clipText), cut into sentence-sized pieces short
+// enough for every engine (Chrome stops an utterance after about 15 s, and the
+// cloud voice answers a short piece in about half a second where 900
+// characters took up to 8 s), each with what the voice is given: the Thai
+// voice gets English terms in Thai spelling, an English one spelled acronyms.
+// The device's voices are waited for up to VOICE_WAIT_MS on the first tap of a
+// session (Chrome lists them a moment after the page asks).
+const VOICE_WAIT_MS = 1200;
+const LIVE_MAX = 160;
+const sayFor = (text, lang) => (lang === 'th' ? thaiPhoneticTranslit(text) : expandAcronyms(text)).replace(/\s+/g, ' ').trim();
+export async function livePlan({ stem, options = [] }) {
+  const opts = (options || []).map(String);
+  const lang = questionLang(stem, opts);
+  // The list as it is now (voices can arrive after the first ask), else the
+  // first list the device gives within the wait.
+  const now = typeof window !== 'undefined' ? window.speechSynthesis?.getVoices?.() : null;
+  const voices = now?.length ? now : await Promise.race([ensureVoices(), pause(VOICE_WAIT_MS).then(() => [])]);
+  const voice = pickVoice(voices, lang);
+  const tier = voiceTier(voice);
+  const parts = [];
+  const add = (full, kind, option = -1) => {
+    if (!full) return;
+    const segs = kind === 'label' ? [full] : clipSegments(full, { max: LIVE_MAX, min: 30 });
+    const starts = segmentStarts(full, segs);
+    segs.forEach((text, k) => {
+      parts.push({ text, say: sayFor(text, lang), kind, option, full, from: starts[k], segs: segs.length });
+    });
+  };
+  add(clipText(stem, lang), 'stem');
+  opts.forEach((o, i) => {
+    const t = clipText(o, lang);
+    if (!t) return;
+    add(optionLabel(i, lang), 'label', i);
+    add(t, 'option', i);
+  });
+  return { lang, voice, tier, rate: rateFor(lang, tier), parts: parts.filter((p) => p.say) };
+}
+
+// The first Thai spelling builds its word list (about 0.3 s on a laptop):
+// done while the clips' manifest loads, so a fallback does not wait for it.
+export function warmLive() {
+  ensureVoices();
+  try { thaiPhoneticTranslit('PRRS mg'); } catch { /* a hint only */ }
+}
+
+// One piece from the cloud voice (Edge Niwat for Thai, Aria for English),
+// at the normal pace: the read-aloud's own speed setting plays it faster.
+export function cloudPiece(text, lang, signal) {
+  return getEdgeAudio({ text: /[.!?]$/.test(text) ? text : `${text}.`, lang, rate: 1 }, signal);
 }

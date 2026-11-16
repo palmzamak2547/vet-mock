@@ -646,4 +646,371 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_C = [
       }
     ]
   },
+  {
+    "id": 215005,
+    "subject": "one-health",
+    "topic": "oh-amr",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "When a bacterial population is exposed to an antibiotic, the susceptible bacteria are killed and the resistant bacteria that were rare become dominant; this step is called selection.",
+    "answer": true,
+    "explain": "การดื้อยาในประชากรแบคทีเรียเกิดเป็นสามขั้น ขั้นแรกคือการเกิดเชื้อดื้อยา (emergence) ขั้นที่สองคือการคัดเลือก (selection) เมื่อได้รับยา เชื้อที่ไวต่อยาตายไป เชื้อดื้อยาซึ่งเดิมมีน้อยจึงเหลืออยู่และกลายเป็นกลุ่มหลัก ขั้นที่สามคือการแพร่กระจาย (distribution) ผ่านการถ่ายทอดยีนดื้อยา ยาต้านจุลชีพจึงทำหน้าที่เป็นแรงคัดเลือก (selective pressure) และการใช้ยาทุกครั้งมีโอกาสคัดเลือกเชื้อดื้อยาได้ ข้อความนี้จึงถูก",
+    "source": "One health AMR หน้า 4 และ 9",
+    "verified": "สไลด์ One health AMR ปี 2569 หน้า 4 และ 9; จุดที่ติดดาวแดงในสรุปปลายภาค One Health ของรุ่นพี่ Vet 83 หน้า 7 และที่ไฮไลต์ในสไลด์ AMR ปี 2567 ที่ Vet 84 จดไว้; ส่วน AMR เคยออกเป็นข้อถูกผิดภาษาอังกฤษ",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ติดดาวหรือเขียนว่าออกในสรุปและสไลด์ของตน",
+    "tags": [
+      "oh-amr",
+      "amr-selection",
+      "selective-pressure",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-amr-2569",
+        "edition": "35p",
+        "page": 4
+      },
+      {
+        "doc": "oh-amr-2569",
+        "edition": "35p",
+        "page": 9
+      },
+      {
+        "doc": "oh-final-summary-vet83",
+        "edition": "15p",
+        "page": 7
+      }
+    ]
+  },
+  {
+    "id": 215006,
+    "subject": "one-health",
+    "topic": "oh-amr",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Vertical transfer spreads resistance determinants to other bacteria, including bacteria of other species, more widely than horizontal transfer does.",
+    "answer": false,
+    "explain": "การถ่ายทอดในแนวดิ่ง (vertical transfer) ส่งยีนดื้อยาจากเซลล์แม่ไปยังเซลล์ลูกเมื่อแบคทีเรียแบ่งตัว เช่น ยีนที่เกิดจากการกลายพันธุ์บนโครโมโซม ส่วนการถ่ายทอดในแนวราบ (horizontal transfer) ส่งยีนดื้อยาผ่านสารพันธุกรรมเคลื่อนที่ได้ เช่น R plasmid ไปยังแบคทีเรียตัวอื่น รวมถึงต่างชนิดกัน จึงแพร่ได้กว้างกว่ามาก ข้อความนี้สลับบทบาทของสองแบบ จึงผิด",
+    "source": "One health AMR หน้า 10 และ 11",
+    "verified": "สไลด์ One health AMR ปี 2569 หน้า 10 และ 11; จุดที่ติดดาวแดงพร้อมคำว่าสำคัญในสรุปปลายภาค One Health ของรุ่นพี่ Vet 83 หน้า 7; ส่วน AMR เคยออกเป็นข้อถูกผิดภาษาอังกฤษ",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ติดดาวหรือเขียนว่าออกในสรุปและสไลด์ของตน",
+    "tags": [
+      "oh-amr",
+      "horizontal-transfer",
+      "vertical-transfer",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-amr-2569",
+        "edition": "35p",
+        "page": 10
+      },
+      {
+        "doc": "oh-amr-2569",
+        "edition": "35p",
+        "page": 11
+      },
+      {
+        "doc": "oh-final-summary-vet83",
+        "edition": "15p",
+        "page": 7
+      }
+    ]
+  },
+  {
+    "id": 215007,
+    "subject": "one-health",
+    "topic": "oh-amr",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Class 1 integrons can sit on R plasmids, which may carry many resistance genes and be transferred horizontally, so a single transfer can make a bacterium resistant to several antimicrobials at once.",
+    "answer": true,
+    "explain": "R plasmid อาจมียีนดื้อยาหลายยีนและถ่ายทอดในแนวราบได้ class 1 integron เป็นโครงสร้างที่เก็บยีนดื้อยาไว้เป็นชุด (gene cassette) และอยู่บน R plasmid ได้ ตัวอย่างจากเชื้อ E. coli ในไทย เช่น dfrA12 ซึ่งดื้อต่อ trimethoprim และ aadA2 ซึ่งดื้อต่อ streptomycin และ spectinomycin การรับพลาสมิดเพียงครั้งเดียวจึงทำให้เชื้อดื้อยาหลายชนิดพร้อมกัน และยีนชุดนี้ส่งต่อระหว่างเชื้อจากคน สัตว์ และสิ่งแวดล้อมได้ ข้อความนี้จึงถูก",
+    "source": "One health AMR หน้า 10 และ 22",
+    "verified": "สไลด์ One health AMR ปี 2569 หน้า 10 และ 22; จุดเดียวกันถูกติดดาวในสามเล่ม ได้แก่ สรุปปลายภาค One Health ของรุ่นพี่ Vet 83 หน้า 7 (เขียนว่าออก) รีวิวข้อสอบปลายภาค One Health รุ่น Vet 82 หน้า 5 และสรุปของรุ่นพี่ที่ไม่ระบุรุ่นในหัวข้อถูกผิด 10 ข้อ; ส่วน AMR เคยออกเป็นข้อถูกผิดภาษาอังกฤษ",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ติดดาวหรือเขียนว่าออกในสรุปและสไลด์ของตน",
+    "tags": [
+      "oh-amr",
+      "integron",
+      "gene-cassette",
+      "r-plasmid",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-amr-2569",
+        "edition": "35p",
+        "page": 10
+      },
+      {
+        "doc": "oh-amr-2569",
+        "edition": "35p",
+        "page": 22
+      },
+      {
+        "doc": "oh-final-summary-vet83",
+        "edition": "15p",
+        "page": 7
+      },
+      {
+        "doc": "oh-final-review-vet82",
+        "edition": "16p",
+        "page": 5
+      }
+    ]
+  },
+  {
+    "id": 215008,
+    "subject": "one-health",
+    "topic": "oh-env-carcinogen",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Among the strategies to reduce environmental health risks from livestock, the diet change strategy means giving livestock feed additives that lower their greenhouse gas emission.",
+    "answer": false,
+    "explain": "กลยุทธ์ลดความเสี่ยงด้านสุขภาพสิ่งแวดล้อมจากปศุสัตว์มีสามกลุ่ม กลุ่มแรกคือ agroecology strategy เช่น ลดจำนวนสัตว์ ใช้สารเสริมในอาหารสัตว์ (feed additives) เพื่อลดการปล่อยก๊าซเรือนกระจก ปรับปรุงพันธุ์ และดูแลสุขภาพสัตว์ กลุ่มที่สองคือ diet change strategy หมายถึงการหันไปบริโภคโปรตีนทางเลือก (alternative proteins) และลดการบริโภคเนื้อสัตว์ของคน กลุ่มที่สามคือการเพิ่มประสิทธิภาพพลังงานของอุตสาหกรรมอาหารสัตว์และอาหาร เช่น พลังงานสะอาดและ precision livestock farming การใช้ feed additives จึงอยู่ใน agroecology ไม่ใช่ diet change ข้อความนี้จึงผิด",
+    "source": "One Health approach to address environmental health risks I หน้า 10 และ 11",
+    "verified": "สไลด์ One Health approach to address environmental health risks I ปี 2569 (21 ต.ค.) หน้า 10 และ 11; จุดที่ติดดาวสีชมพูในสรุปปลายภาค One Health ของรุ่นพี่ Vet 85 หน้า 9 ซึ่งบันทึกส่วนนี้เป็นข้อถูกผิดภาษาอังกฤษ",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ติดดาวหรือเขียนว่าออกในสรุปและสไลด์ของตน",
+    "tags": [
+      "oh-env-carcinogen",
+      "diet-change-strategy",
+      "alternative-protein",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-env-risks-1-2569",
+        "edition": "13p",
+        "page": 10
+      },
+      {
+        "doc": "oh-env-risks-1-2569",
+        "edition": "13p",
+        "page": 11
+      },
+      {
+        "doc": "onehealth-final85",
+        "edition": "16p",
+        "page": 9
+      }
+    ]
+  },
+  {
+    "id": 215009,
+    "subject": "one-health",
+    "topic": "oh-env-carcinogen",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "A farm-to-fork life cycle assessment estimates at which stages of a food system, from the farm to the consumer, environmental impacts arise and how large each impact is.",
+    "answer": true,
+    "explain": "การประเมินวัฏจักรชีวิต (life cycle assessment) แบบ farm-to-fork ไล่ดูระบบอาหารตั้งแต่การผลิตในฟาร์ม การแปรรูป การขนส่ง จนถึงผู้บริโภค แล้วประเมินว่าผลกระทบต่อสิ่งแวดล้อม เช่น การปล่อยก๊าซเรือนกระจก การใช้น้ำและที่ดิน เกิดที่ขั้นตอนใดและมากน้อยเพียงใด จึงใช้วางแผนระบบเกษตรและอาหารที่ยั่งยืนได้ ข้อความนี้จึงถูก",
+    "source": "One Health approach to address environmental health risks I หน้า 4 และ 10",
+    "verified": "สไลด์ One Health approach to address environmental health risks I ปี 2569 (21 ต.ค.) หน้า 4 (Farm-to-Fork Life Cycle) และหน้า 10; จุดที่ติดดาวสีชมพูในสรุปปลายภาค One Health ของรุ่นพี่ Vet 85 หน้า 8 ซึ่งบันทึกส่วนนี้เป็นข้อถูกผิดภาษาอังกฤษ",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ติดดาวหรือเขียนว่าออกในสรุปและสไลด์ของตน",
+    "tags": [
+      "oh-env-carcinogen",
+      "life-cycle-assessment",
+      "farm-to-fork",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-env-risks-1-2569",
+        "edition": "13p",
+        "page": 4
+      },
+      {
+        "doc": "oh-env-risks-1-2569",
+        "edition": "13p",
+        "page": 10
+      },
+      {
+        "doc": "onehealth-final85",
+        "edition": "16p",
+        "page": 8
+      }
+    ]
+  },
+  {
+    "id": 215010,
+    "subject": "one-health",
+    "topic": "oh-env-mutagen",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Lead from old lead-based paint reaches cats, dogs and humans mainly through the oral route, and in a pregnant woman chronic exposure can lead to abortion.",
+    "answer": true,
+    "explain": "แหล่งของตะกั่ว ได้แก่ สีทาบ้านเก่าที่มีตะกั่ว สิ่งมีชีวิตและสิ่งแวดล้อมที่ปนเปื้อน ท่อน้ำ แบตเตอรี่ และกระสุนตะกั่ว ตะกั่วเข้าสู่ร่างกายทางการกินเป็นหลัก และเป็นพิษแบบเรื้อรัง ในสุนัขและแมวทำให้เกิดอาการทางระบบประสาทและทางเดินอาหาร เช่น เดินเซ ชัก ซึม อาเจียน ท้องเสีย ในคนทำให้ปวดท้อง ปวดศีรษะ ชา สมองถูกทำลาย และทำให้แท้งในหญิงตั้งครรภ์ สัตว์เลี้ยงในบ้านเดียวกันจึงเป็นตัวเตือน (sentinel) ของการได้รับตะกั่วของคนในบ้าน ข้อความนี้จึงถูก",
+    "source": "One Health approach to address environmental health risks II หน้า 14",
+    "verified": "สไลด์ One Health approach to address environmental health risks II ปี 2569 (28 ต.ค.) หน้า 14; จุดที่ติดดาวสีชมพูในสรุปปลายภาค One Health ของรุ่นพี่ Vet 85 หน้า 11 ซึ่งบันทึกส่วนนี้เป็นข้อถูกผิด",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ติดดาวหรือเขียนว่าออกในสรุปและสไลด์ของตน",
+    "tags": [
+      "oh-env-mutagen",
+      "lead",
+      "companion-animal-sentinel",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-env-risks-2-2569",
+        "edition": "20p",
+        "page": 14
+      },
+      {
+        "doc": "onehealth-final85",
+        "edition": "16p",
+        "page": 11
+      }
+    ]
+  },
+  {
+    "id": 215011,
+    "subject": "one-health",
+    "topic": "oh-livestock-waste",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ข้อใดไม่ใช่วิธีลดปริมาณของเสีย (reduce) จากแหล่งกำเนิดในฟาร์มปศุสัตว์",
+    "options": [
+      "ปรับการจัดการให้สัตว์ขับถ่ายของเสียออกมาน้อยลง",
+      "ลดอัตราการตายของสัตว์ในฝูงให้ต่ำลง",
+      "นำมูลสัตว์ที่เกิดขึ้นไปหมักทำปุ๋ยอินทรีย์",
+      "ใช้น้ำ อาหาร และพลังงานในฟาร์มอย่างคุ้มค่า",
+      "เพิ่มประสิทธิภาพการเปลี่ยนอาหารเป็นเนื้อ"
+    ],
+    "answer": 2,
+    "explain": "หลักการจัดการของเสียจากฟาร์มมีสามข้อ คือ ลดปริมาณ (reduce) นำไปใช้ประโยชน์ (reuse) และบำบัด (treatment) การลดปริมาณทำที่แหล่งกำเนิด โดยเพิ่มประสิทธิภาพการผลิตและปรับวิธีจัดการฟาร์ม เช่น ทำให้สัตว์ขับถ่ายลดลง ลดอัตราการตาย เพิ่มประสิทธิภาพการเปลี่ยนอาหารเป็นเนื้อ และใช้ทรัพยากรกับพลังงานให้คุ้มค่า การนำมูลไปหมักทำปุ๋ยอินทรีย์เป็นการนำของเสียที่เกิดขึ้นแล้วไปใช้ประโยชน์ (reuse) จึงไม่ใช่การลดปริมาณจากแหล่งกำเนิด",
+    "source": "OHVPH_SP_E4 หน้า 6 และ 7",
+    "verified": "สไลด์ Livestock waste management ปี 2569 (11 พ.ย., ไฟล์ OHVPH_SP_E4) หน้า 6 และ 7; สไลด์ Livestock waste management ปี 2567 ที่รุ่นพี่ Vet 84 ติดดาวไว้ หน้า 7 (หัวข้อการลดปริมาณของเสีย); สรุปปลายภาค One Health ของรุ่นพี่ Vet 85 หน้า 12 คัดลอกหัวข้อนี้ไว้พร้อมดาว",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ติดดาวหรือเขียนว่าออกในสรุปและสไลด์ของตน",
+    "tags": [
+      "oh-livestock-waste",
+      "waste-reduce",
+      "2r1t",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-livestock-waste-2569",
+        "edition": "56p",
+        "page": 6
+      },
+      {
+        "doc": "oh-livestock-waste-2569",
+        "edition": "56p",
+        "page": 7
+      },
+      {
+        "doc": "oh-livestock-waste-2024",
+        "edition": "56p",
+        "page": 7
+      },
+      {
+        "doc": "onehealth-final85",
+        "edition": "16p",
+        "page": 12
+      }
+    ]
+  },
+  {
+    "id": 215012,
+    "subject": "one-health",
+    "topic": "oh-livestock-waste",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "การจัดการโรงเรือน (housing management) เพื่อลดปริมาณของเสียภายในฟาร์ม ครอบคลุมเรื่องใด",
+    "options": [
+      "คัดเลือกพันธุ์สัตว์ ปรับสูตรอาหาร และให้วัคซีนตามโปรแกรมของฟาร์ม",
+      "แยกมูลออกจากน้ำเสีย นำไปหมักทำปุ๋ย และนำก๊าซชีวภาพไปผลิตไฟฟ้า",
+      "ตรวจวัด BOD, COD และ pH ของน้ำทิ้งทุกครั้งก่อนระบายออกนอกฟาร์ม",
+      "วางผังฟาร์ม ออกแบบโรงเรือนให้เหมาะกับชนิดและจำนวนสัตว์ และกำหนดวิธีล้างคอก"
+    ],
+    "answer": 3,
+    "explain": "การลดปริมาณของเสียภายในฟาร์มแบ่งเป็นการจัดการด้านพันธุ์สัตว์ อาหารสัตว์ โรงเรือน สุขาภิบาล สุขภาพสัตว์ และทรัพยากรกับพลังงาน การจัดการโรงเรือนได้แก่ การวางผังฟาร์มและโรงเรือน การจัดพื้นที่และประเภทโรงเรือน การออกแบบให้เหมาะกับชนิด จำนวนสัตว์ และการสุขาภิบาล และการกำหนดวิธีและความถี่ในการล้างคอก โรงเรือน และตัวสัตว์ การคัดพันธุ์ ปรับสูตรอาหาร และให้วัคซีนเป็นการจัดการด้านอื่น การหมักปุ๋ยและผลิตก๊าซชีวภาพเป็นการนำไปใช้ประโยชน์ (reuse) ส่วนการตรวจคุณภาพน้ำทิ้งเป็นการควบคุมตามมาตรฐานการระบายน้ำ",
+    "source": "OHVPH_SP_E4 หน้า 10 และ 11",
+    "verified": "สไลด์ Livestock waste management ปี 2569 (11 พ.ย., ไฟล์ OHVPH_SP_E4) หน้า 10 และ 11; สไลด์ Livestock waste management ปี 2567 ที่รุ่นพี่ Vet 84 ติดดาวไว้ หน้า 11 (หัวข้อการจัดการโรงเรือน); สรุปปลายภาค One Health ของรุ่นพี่ Vet 85 หน้า 12 คัดลอกหัวข้อนี้ไว้พร้อมดาว",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ติดดาวหรือเขียนว่าออกในสรุปและสไลด์ของตน",
+    "tags": [
+      "oh-livestock-waste",
+      "housing-management",
+      "waste-reduce",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-livestock-waste-2569",
+        "edition": "56p",
+        "page": 10
+      },
+      {
+        "doc": "oh-livestock-waste-2569",
+        "edition": "56p",
+        "page": 11
+      },
+      {
+        "doc": "oh-livestock-waste-2024",
+        "edition": "56p",
+        "page": 11
+      },
+      {
+        "doc": "onehealth-final85",
+        "edition": "16p",
+        "page": 12
+      }
+    ]
+  },
+  {
+    "id": 215013,
+    "subject": "one-health",
+    "topic": "oh-livestock-waste",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "มุมมองสุขภาพหนึ่งเดียวต่อการจัดการของเสีย (One Health perspective on waste management) มีหลักสำคัญตรงกับข้อใด",
+    "options": [
+      "ให้ฟาร์มลดต้นทุนการบำบัดลงให้ได้มากที่สุดก่อนพิจารณาเรื่องอื่น",
+      "ใช้แนวทางข้ามสาขาที่พิจารณาสุขภาพคน สัตว์ และสิ่งแวดล้อมร่วมกัน",
+      "ให้กรมปศุสัตว์เป็นหน่วยงานเดียวที่กำกับการระบายน้ำทิ้งจากฟาร์ม",
+      "เน้นป้องกันโรคในสัตว์ในฟาร์มเป็นหลัก แล้วจึงดูผลต่อชุมชนภายหลัง"
+    ],
+    "answer": 1,
+    "explain": "มุมมองสุขภาพหนึ่งเดียวต่อการจัดการของเสียเป็นแนวทางข้ามสาขา (transdisciplinary approach) ที่พิจารณาสุขภาพคน สัตว์ และสิ่งแวดล้อมไปพร้อมกัน และเกี่ยวข้องทั้งการจัดการของเสียและการจัดการน้ำ เพราะกิจกรรมของมนุษย์ทำให้แหล่งน้ำปนเปื้อนทั้งทางชีวภาพ เคมี และกายภาพ เช่น เชื้อโรคจากมูลสัตว์ สารเคมีเกษตร ตะกอนดิน และไมโครพลาสติก การมองเฉพาะต้นทุน เฉพาะหน่วยงานเดียว หรือเฉพาะสุขภาพสัตว์จึงไม่ตรงกับแนวคิดนี้",
+    "source": "OHVPH_SP_E4 หน้า 2",
+    "verified": "สไลด์ Livestock waste management ปี 2569 (11 พ.ย., ไฟล์ OHVPH_SP_E4) หน้า 2; สไลด์ Livestock waste management ปี 2567 ที่รุ่นพี่ Vet 84 ติดดาวไว้ หน้า 2",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่รุ่นพี่ติดดาวหรือเขียนว่าออกในสรุปและสไลด์ของตน",
+    "tags": [
+      "oh-livestock-waste",
+      "one-health-perspective",
+      "transdisciplinary",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-livestock-waste-2569",
+        "edition": "56p",
+        "page": 2
+      },
+      {
+        "doc": "oh-livestock-waste-2024",
+        "edition": "56p",
+        "page": 2
+      }
+    ]
+  },
 ];
