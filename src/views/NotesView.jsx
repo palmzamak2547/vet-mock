@@ -236,10 +236,11 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
     const endIo = end ? new IntersectionObserver(([entry]) => setEndNear(entry.isIntersecting || entry.boundingClientRect.top < 0), { rootMargin: '0px 0px 200px 0px' }) : null;
     if (end) endIo.observe(end);
     return () => { io.disconnect(); endIo?.disconnect(); };
-  }, [notesState.status, subject]);
+  }, [notesState.status, subject, validTopic]);
   const backToTopicHead = () => {
     const el = topicHeadRef.current;
     if (!el) return;
+    setEndNear(false);
     el.scrollIntoView({ block: 'start', behavior: motionIsReduced() ? 'auto' : 'smooth' });
     el.focus({ preventScroll: true });
   };
@@ -259,6 +260,10 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
   useEffect(() => {
     if (mainRef.current) mainRef.current.scrollTop = 0;
     setSearch('');
+    // The end observer reports only when its marker starts or stops touching the
+    // screen. A jump from below the marker to above it never does, so the
+    // "near the end" reading is cleared here and the observer sets it again.
+    setEndNear(false);
     if (scrollToTopicRef.current) {
       scrollToTopicRef.current = false;
       const head = topicHeadRef.current;

@@ -25,6 +25,11 @@ test('a wide wiki table says it scrolls sideways, and scrolls', async ({ page })
   const frame = page.locator('.vw-table.is-wide').first();
   await expect(frame).toBeVisible({ timeout: 60_000 });
   await expect(frame).toHaveAttribute('tabindex', '0');
+  // Each wide table is named by its own head cells, not all by the same words.
+  const names = await page.locator('.vw-table.is-wide').evaluateAll((els) => els.map((el) => el.getAttribute('aria-label')));
+  expect(names[0]).toMatch(/^ตาราง .+ เลื่อนไปด้านข้างได้$/);
+  expect(names[0]).not.toBe('ตาราง เลื่อนไปด้านข้างได้');
+  expect(new Set(names).size).toBe(names.length);
   await expect(page.locator('.vmx-scroll-hint').first()).toHaveText(/เลื่อนตารางไปด้านข้าง/);
   const moved = await frame.evaluate((el) => { el.scrollLeft = 120; return el.scrollLeft; });
   expect(moved).toBeGreaterThan(0);
@@ -51,12 +56,12 @@ test('every subject with notes is in the wiki index; a notes-only one opens the 
   await expect(page.locator('.vmx-notes-grid').first()).toBeVisible({ timeout: 60_000 });
 });
 
-test('the pill never covers the last line of the notes', async ({ page }) => {
+test('the pill shows in the middle of a topic and is gone before the last line reaches it', async ({ page }) => {
   await page.setViewportSize(PHONE);
   await page.goto('/wiki/one-health/oh-gmo');
   await page.getByRole('button', { name: 'อ่านโน้ตเต็ม' }).click();
   await expect(page.locator('.vmx-notes-section-body').first()).toBeVisible({ timeout: 60_000 });
-  const covered = await page.evaluate(async () => {
+  const seen = await page.evaluate(async () => {
     const bodies = document.querySelectorAll('.vmx-notes-section-body');
     const last = bodies[bodies.length - 1];
     const range = document.createRange();
@@ -64,7 +69,13 @@ test('the pill never covers the last line of the notes', async ({ page }) => {
     const rects = [...range.getClientRects()].filter((r) => r.height > 0);
     const lastLineDocY = rects.reduce((m, r) => Math.max(m, r.bottom), 0) + window.scrollY;
     const hits = [];
+    const shownNearEnd = [];
     const frame = () => new Promise((done) => requestAnimationFrame(() => requestAnimationFrame(done)));
+    // In the middle of the topic the pill is there: a pill that never appears must fail this test.
+    window.scrollTo(0, Math.max(0, (lastLineDocY - window.innerHeight) / 2));
+    await frame();
+    await new Promise((done) => setTimeout(done, 150));
+    const shownMid = !!document.querySelector('.vmx-reading-return');
     // Walk the last line from the bottom of the screen up to the top.
     for (let y = lastLineDocY - window.innerHeight + 4; y < lastLineDocY; y += 24) {
       window.scrollTo(0, y);
@@ -72,14 +83,17 @@ test('the pill never covers the last line of the notes', async ({ page }) => {
       await new Promise((done) => setTimeout(done, 60));
       const pill = document.querySelector('.vmx-reading-return');
       if (!pill) continue;
+      shownNearEnd.push(Math.round(y));
       const p = pill.getBoundingClientRect();
       const lineTop = lastLineDocY - window.scrollY - 24;
       const lineBottom = lastLineDocY - window.scrollY;
       if (p.top < lineBottom && p.bottom > lineTop) hits.push(Math.round(y));
     }
-    return hits;
+    return { hits, shownMid, shownNearEnd };
   });
-  expect(covered).toEqual([]);
+  expect(seen.shownMid).toBe(true);
+  expect(seen.shownNearEnd).toEqual([]);
+  expect(seen.hits).toEqual([]);
 });
 
 test('notes tables and callouts are 14 px or more on a desktop', async ({ page }) => {

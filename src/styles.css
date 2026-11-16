@@ -3256,7 +3256,7 @@ html.dark .vmx-panic-scrim {
   -webkit-mask-image: linear-gradient(to right, currentColor calc(100% - 40px), transparent);
   mask-image: linear-gradient(to right, currentColor calc(100% - 40px), transparent);
 }
-.vmx-scroll-frame:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: 2px; }
+.vmx-scroll-frame:focus-visible { outline: 2px solid var(--clr-sage); outline-offset: -2px; }
 .vmx-scroll-hint { margin: -6px 0 12px; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
 @media (max-width: 640px) {
   .vmx-qtable th, .vmx-qtable td { padding: 5px 6px; min-width: 2.5em; }

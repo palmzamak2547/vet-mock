@@ -7,16 +7,31 @@ import { useLayoutEffect, useRef, useState } from 'react';
  * its frame, the frame says so: the edge still to be scrolled to fades, a line
  * under it says the table scrolls sideways, and the frame takes focus so the
  * arrow keys scroll it (the same as RichTable for question tables).
+ *
+ * Each frame is named so a screen reader's list of regions tells them apart:
+ * the table's caption, else its first header cells, else its place on the page.
  */
-export default function ScrollFrame({ children, className = '', style, label = 'ตาราง' }) {
+export function frameName(el) {
+  const caption = el.querySelector('caption')?.textContent?.replace(/s+/g, ' ').trim();
+  if (caption) return `ตาราง ${caption}`;
+  const heads = [...el.querySelectorAll('th')].map((th) => th.textContent.replace(/s+/g, ' ').trim()).filter(Boolean).slice(0, 3);
+  if (heads.length) return `ตาราง ${heads.join(', ')}`;
+  const all = [...document.querySelectorAll('.vmx-scroll-frame')];
+  return `ตารางที่ ${all.indexOf(el) + 1}`;
+}
+
+export default function ScrollFrame({ children, className = '', style, label }) {
   const frame = useRef(null);
   const [wide, setWide] = useState(false);
   const [atEnd, setAtEnd] = useState(false);
+  const [name, setName] = useState('ตาราง');
   useLayoutEffect(() => {
     const el = frame.current;
     if (!el) return undefined;
     const measure = () => {
-      setWide(el.scrollWidth > el.clientWidth + 1);
+      const isWide = el.scrollWidth > el.clientWidth + 1;
+      setWide(isWide);
+      if (isWide) setName(frameName(el));
       setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 1);
     };
     measure();
@@ -39,7 +54,7 @@ export default function ScrollFrame({ children, className = '', style, label = '
         className={`vmx-scroll-frame${wide ? ' is-wide' : ''}${wide && atEnd ? ' is-at-end' : ''}${className ? ` ${className}` : ''}`}
         style={style}
         role={wide ? 'region' : undefined}
-        aria-label={wide ? `${label} เลื่อนไปด้านข้างได้` : undefined}
+        aria-label={wide ? `${label || name} เลื่อนไปด้านข้างได้` : undefined}
         tabIndex={wide ? 0 : undefined}
       >
         {children}
