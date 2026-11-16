@@ -1184,6 +1184,7 @@ export const QUESTIONS_Y5_EPID_FINAL_RECALL = [
   },
   {
     "id": 213518,
+    "flag": { "severity": "minor", "note": "ชื่อภาษาไทยของตัวเลือกที่เป็นคำตอบเขียนว่าแบบหลายขั้นตามที่บันทึกมาจากข้อสอบ แต่การแบ่งสัตว์เป็นกลุ่มตามลักษณะก่อนแล้วสุ่มจากแต่ละกลุ่มคือ stratified sampling หรือการสุ่มแบบแบ่งชั้นภูมิ ส่วนการสุ่มแบบหลายขั้น (multi-stage sampling) คือการสุ่มหน่วยใหญ่ เช่น ฟาร์ม ก่อนแล้วจึงสุ่มสัตว์ในหน่วยนั้น" },
     "subject": "epidemiology",
     "topic": "epidem-surveillance",
     "year": 5,
