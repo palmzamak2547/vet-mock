@@ -10,8 +10,8 @@
 // drag the full Q-bank into the home-screen load graph.
 // ============================================================
 
-export const QB_TOTAL = 8986;
-export const QB_SOURCE_TOTAL = 9198;
+export const QB_TOTAL = 9034;
+export const QB_SOURCE_TOTAL = 9246;
 export const QB_BLOCKED_TOTAL = 212;
 
 export const Q_COUNTS_BY_SUBJECT = {
@@ -31,7 +31,7 @@ export const Q_COUNTS_BY_SUBJECT = {
   'equine-medicine': 569,
   'equine-repro': 242,
   'exotic': 151,
-  'food-industry': 300,
+  'food-industry': 348,
   'food-safety-y4': 31,
   'herd-health-rum': 39,
   'livestock-pathology': 67,
@@ -81,7 +81,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT = {
   'equine-medicine': 569,
   'equine-repro': 242,
   'exotic': 108,
-  'food-industry': 300,
+  'food-industry': 348,
   'food-safety-y4': 31,
   'herd-health-rum': 39,
   'livestock-pathology': 67,
@@ -130,7 +130,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT = {
   'equine-medicine': 329,
   'equine-repro': 200,
   'exotic': 34,
-  'food-industry': 154,
+  'food-industry': 202,
   'food-safety-y4': 31,
   'herd-health-rum': 35,
   'livestock-pathology': 67,
@@ -214,7 +214,7 @@ export const Q_PANIC_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'equine-medicine': 325,
     'equine-repro': 136,
     'exotic': 34,
-    'food-industry': 30,
+    'food-industry': 78,
     'food-safety-y4': 21,
     'herd-health-rum': 33,
     'livestock-pathology': 67,
@@ -274,7 +274,7 @@ export const Q_VISIBLE_COUNTS_BY_SUBJECT_BY_SCOPE = {
     'epidemiology': 355,
     'equine-medicine': 565,
     'equine-repro': 161,
-    'food-industry': 61,
+    'food-industry': 109,
     'food-safety-y4': 21,
     'herd-health-rum': 37,
     'milk-meat-hygiene': 417,
@@ -354,7 +354,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR_BY_SCOPE = {
     2: 104,
     3: 62,
     4: 302,
-    5: 3812,
+    5: 3860,
   },
   '2-mid': {
     1: 297,
@@ -781,9 +781,9 @@ export const Q_COUNTS_BY_TOPIC_BY_SCOPE = {
       'eqrepro-surgery': 8,
     },
     'food-industry': {
-      'fiqc-aquatic': 16,
-      'fiqc-haccp': 24,
-      'fiqc-poultry-export': 21,
+      'fiqc-aquatic': 28,
+      'fiqc-haccp': 36,
+      'fiqc-poultry-export': 45,
     },
     'food-safety-y4': {
       'dose-response': 1,
@@ -2403,7 +2403,7 @@ export const Q_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 2076,
-  5: 6407,
+  5: 6455,
 };
 
 // Visible per-year totals (hidden topics excluded). Every user-facing
@@ -2415,7 +2415,7 @@ export const Q_VISIBLE_COUNTS_BY_YEAR = {
   2: 144,
   3: 62,
   4: 1981,
-  5: 6407,
+  5: 6455,
 };
 
 // Per-topic metadata stays nested by subject so identical topic IDs in
@@ -2725,12 +2725,12 @@ export const Q_COUNTS_BY_TOPIC = {
     "zoo-vet": 24,
   },
   "food-industry": {
-    "fiqc-aquatic": 16,
+    "fiqc-aquatic": 28,
     "fiqc-feed-qc": 71,
-    "fiqc-haccp": 24,
+    "fiqc-haccp": 36,
     "fiqc-intro": 29,
     "fiqc-livestock-qc": 66,
-    "fiqc-poultry-export": 21,
+    "fiqc-poultry-export": 45,
     "fiqc-slaughter-qc": 73,
   },
   "food-safety-y4": {
@@ -3744,4 +3744,4 @@ export const Q_HIGH_PREDICTION_COUNTS =
   }
 };
 
-// Built: 2026-11-15T23:57:24.159Z
+// Built: 2026-11-16T02:56:02.873Z

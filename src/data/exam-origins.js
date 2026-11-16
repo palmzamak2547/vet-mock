@@ -275,6 +275,8 @@ export const EXAM_ORIGINS = Object.freeze({
   // ── aligned: Written from exam guidance a cohort marked, not from a paper ──
   // rows that carry a sourceType
   "จุดที่รุ่นพี่บันทึกว่าออกสอบปลายภาค FIQC": { kind: 'aligned' },
+  // FIQC final: points a senior highlighted, starred or underlined on their copy of a deck, with no exam word beside it.
+  "Food Industry QC final จุดที่รุ่นพี่มาร์คในสไลด์": { kind: 'aligned' },
   "จุดที่รุ่นพี่บันทึกว่าออกสอบในโน้ต Aquatic Med": { kind: 'aligned' },
   "ควิซในคาบ Aquatic Med ของ Vet 83": { kind: 'aligned' },
   "ควิซทบทวนที่ Vet 83 แต่งเอง": { kind: 'aligned' },

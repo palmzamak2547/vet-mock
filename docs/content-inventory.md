@@ -9,9 +9,9 @@ Generated from the working tree at the time of the run.
 
 | | |
 |---|---|
-| **Questions ready for learners** | **8,986** |
+| **Questions ready for learners** | **9,034** |
 | Questions retained but fail-closed pending answer, scope, or figure review | 212 |
-| Total questions in source banks | 9,198 |
+| Total questions in source banks | 9,246 |
 | Question banks (files) | 108 |
 | Subjects with questions | 43 |
 | Years covered | 1, 2, 3, 4, 5 |
@@ -19,9 +19,9 @@ Generated from the working tree at the time of the run.
 | — year 2 | 144 |
 | — year 3 | 62 |
 | — year 4 | 2,076 |
-| — year 5 | 6,407 |
+| — year 5 | 6,455 |
 
-Consistency: source banks **9198**, learner-ready **8986**, fail-closed **212**, registry sums to **9198**, files missing from the registry: **0** → ✅ consistent
+Consistency: source banks **9246**, learner-ready **9034**, fail-closed **212**, registry sums to **9246**, files missing from the registry: **0** → ✅ consistent
 
 ## Study notes
 
@@ -72,7 +72,7 @@ Learner-ready questions that open an article, through their own topic or a judge
 | equine-medicine | 569 | 569 | 0 | 100.0% |
 | equine-repro | 242 | 237 | 0 | 97.9% |
 | exotic | 151 | 101 | 0 | 66.9% |
-| food-industry | 300 | 61 | 0 | 20.3% |
+| food-industry | 348 | 109 | 0 | 31.3% |
 | food-safety-y4 | 31 | 0 | 0 | 0.0% |
 | herd-health-rum | 39 | 0 | 0 | 0.0% |
 | livestock-pathology | 67 | 0 | 0 | 0.0% |
@@ -99,4 +99,4 @@ Learner-ready questions that open an article, through their own topic or a judge
 | vet-neuroanat | 40 | 40 | 0 | 100.0% |
 | vet-pharm-2 | 62 | 0 | 0 | 0.0% |
 | zoonoses | 534 | 522 | 0 | 97.8% |
-| **All** | 8986 | 5841 | 324 | 65.0% |
+| **All** | 9034 | 5889 | 324 | 65.2% |
