@@ -45,6 +45,7 @@ export const QUESTION_MEDIA_SIZES = {
   "/figures/questions/q105208.webp": [1400, 787],
   "/figures/questions/q207498.webp": [196, 339],
   "/figures/questions/q207544.webp": [1393, 662],
+  "/figures/questions/vet-juris-218723.webp": [719, 482],
   "/images/practrum/dystocia/grid-A-L.webp": [1200, 1424],
   "/images/repro-us/q10.webp": [720, 420],
   "/images/repro-us/q4.webp": [720, 450],

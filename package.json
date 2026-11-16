@@ -46,7 +46,7 @@
     "lint:release-number": "node scripts/lint-release-number.mjs",
     "regen:q-counts": "node scripts/regen-q-counts.mjs",
     "lint:q-counts": "node scripts/regen-q-counts.mjs --check",
-    "regen:delivery": "node scripts/regen-question-delivery.mjs",
+    "regen:delivery": "node scripts/regen-question-delivery.mjs && node scripts/regen-content-repair-queue.mjs",
     "regen:exam-recurrence": "node scripts/regen-exam-recurrence.mjs",
     "lint:exam-recurrence": "node scripts/regen-exam-recurrence.mjs --check",
     "regen:question-difficulty": "node scripts/regen-question-difficulty.mjs",
