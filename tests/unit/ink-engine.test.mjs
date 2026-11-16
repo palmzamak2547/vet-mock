@@ -170,6 +170,103 @@ test('pen only: the stylus is never booked as a pinch finger', () => {
   assert.equal(engine.activePointers.current.size, 0);
 });
 
+test('pen only: a hand resting before the pen and still down when the pen lifts keeps the stroke', () => {
+  const { engine, out, wrap } = rig({ penOnly: true, sawPen: true });
+  engine.onPointerDown(ev(9, 'touch', 600, 700));
+  engine.onPointerDown(ev(1, 'pen', ...LINE[0]));
+  for (const p of LINE.slice(1)) engine.onPointerMove(ev(1, 'pen', ...p));
+  engine.onPointerUp(ev(1, 'pen', ...LINE[3]));
+  assert.equal(out.committed.length, 1, 'the stroke was lost because the hand was still on the glass');
+  assert.equal(out.committed[0].points.length, 4);
+  assert.equal(engine.drawingRef.current.on, false, 'the pen stayed "drawing" after it lifted');
+  // The hand lifts afterwards: nothing more is committed, nothing scrolls.
+  engine.onPointerUp(ev(9, 'touch', 600, 700));
+  assert.equal(out.committed.length, 1);
+  assert.equal(wrap.scrollTop, 500);
+  assert.equal(engine.activePointers.current.size, 0);
+  // A palm arriving on the next stroke is a fresh hand, not a mid-stroke palm.
+  stroke(engine, 2, 'pen', LINE);
+  assert.equal(out.committed.length, 2);
+});
+
+// ── Options for the figure markup and the handwriting pad ──
+
+test('pinch off: a second finger is its own stroke, never a zoom or a discard', () => {
+  const { engine, host, out } = rig();
+  host.pinch = false;
+  engine.onPointerDown(ev(1, 'touch', 100, 100));
+  engine.onPointerMove(ev(1, 'touch', 110, 100));
+  engine.onPointerDown(ev(2, 'touch', 300, 100));
+  engine.onPointerMove(ev(2, 'touch', 490, 100));
+  engine.onPointerUp(ev(2, 'touch', 490, 100));
+  engine.onPointerUp(ev(1, 'touch', 110, 100));
+  assert.deepEqual(out.pinches, []);
+  assert.equal(out.discarded, 0);
+  assert.equal(out.committed.length, 1);
+  assert.deepEqual(out.committed[0].points.map((p) => p[0]), [0.3, 0.49]);
+  assert.equal(engine.activePointers.current.size, 0);
+});
+
+test('pen locks touch: a finger draws until a pen has touched, a mouse always draws, reset lets fingers back', () => {
+  const { engine, host, out } = rig();
+  host.penLocksTouch = true;
+  stroke(engine, 1, 'touch', LINE);
+  stroke(engine, 2, 'pen', LINE);
+  stroke(engine, 3, 'touch', LINE);
+  assert.equal(out.committed.length, 2, 'the palm beside the pencil left a mark');
+  stroke(engine, 4, 'mouse', LINE);
+  assert.equal(out.committed.length, 3);
+  engine.resetHand();
+  stroke(engine, 5, 'touch', LINE);
+  assert.equal(out.committed.length, 4);
+  // Without the option a finger draws after a pen as before.
+  const plain = rig();
+  stroke(plain.engine, 1, 'pen', LINE);
+  stroke(plain.engine, 2, 'touch', LINE);
+  assert.equal(plain.out.committed.length, 2);
+});
+
+test('pen only: a turned-away finger or mouse is reported, including a palm mid-stroke', () => {
+  const { engine, host } = rig({ penOnly: true, sawPen: true });
+  const ignored = [];
+  host.onTouchIgnored = (e) => ignored.push(e.pointerType);
+  host.scroller = () => null;
+  stroke(engine, 5, 'touch', [[10, 10], [10, 40]]);
+  stroke(engine, 6, 'mouse', [[10, 10]]);
+  engine.onPointerDown(ev(1, 'pen', ...LINE[0]));
+  engine.onPointerDown(ev(9, 'touch', 600, 700));
+  assert.deepEqual(ignored, ['touch', 'mouse', 'touch']);
+});
+
+test('samples and near: a surface can take only the event itself and its own duplicate rule', () => {
+  const { engine, host, out } = rig();
+  host.samples = (e) => [e];
+  host.near = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1]) < 0.005;
+  engine.onPointerDown(ev(1, 'mouse', 100, 100));
+  const many = [ev(1, 'mouse', 110, 100), ev(1, 'mouse', 120, 100)];
+  engine.onPointerMove(ev(1, 'mouse', 130, 100, { getCoalescedEvents: () => many }));
+  engine.onPointerMove(ev(1, 'mouse', 133, 100));
+  engine.onPointerMove(ev(1, 'mouse', 140, 100));
+  engine.onPointerUp(ev(1, 'mouse', 140, 100));
+  assert.deepEqual(out.committed[0].points.map((p) => p[0]), [0.1, 0.13, 0.14]);
+});
+
+test('started: the first point is handed over as soon as the stroke begins', () => {
+  const { engine, host } = rig();
+  const seen = [];
+  host.started = (st) => seen.push(st.points.length);
+  engine.onPointerDown(ev(1, 'touch', 100, 100));
+  assert.deepEqual(seen, [1]);
+});
+
+test('no double-tap handler: two quick pen taps are two dots', () => {
+  const { engine, host, out } = rig();
+  delete host.onDoubleTap;
+  stroke(engine, 1, 'pen', [[200, 200]]);
+  stroke(engine, 2, 'pen', [[205, 202]]);
+  assert.equal(out.committed.length, 2);
+});
+
 test('the stroke eraser erases along the whole drag and commits nothing', () => {
   const { engine, out } = rig({ tool: 'eraser', eraserMode: 'stroke' });
   stroke(engine, 1, 'mouse', LINE);

@@ -21,7 +21,7 @@
 // ============================================================
 
 import { useEffect, useRef, useState } from 'react';
-import { createPointerPolicy, strokeWidth, padHeight, inkBounds, fitScale } from '../lib/handwriting-pad.js';
+import { strokeWidth, padHeight, inkBounds, fitScale } from '../lib/handwriting-pad.js';
 import { useFullscreen } from '../hooks/useFullscreen.js';
 import NavIcon from './NavIcon.jsx';
 import { authHeader } from '../lib/api-auth.js';
@@ -114,8 +114,10 @@ export default function HandwritingInput({ onText, maxChars = 1000 }) {
   const boxRef = useRef(null);
   const fullscreen = useFullscreen(boxRef);
   const strokes = useRef([]);      // finished strokes: arrays of [x, y, width] in CSS px
-  const current = useRef(null);    // { id: pointerId, pts }
-  const policy = useRef(createPointerPolicy());
+  // The pointer loop is lib/ink/engine.js, loaded when the pad first opens so
+  // the exam card does not carry it for students who never write by hand.
+  const ink = useRef(null);        // { engine, coalescedSamples }
+  const hostRef = useRef(null);
   const onTextRef = useRef(onText);
   useEffect(() => { onTextRef.current = onText; });
   // One pad per question (Question.jsx keys it by the question). A reading
@@ -154,44 +156,51 @@ export default function HandwritingInput({ onText, maxChars = 1000 }) {
     return () => { window.removeEventListener('resize', onResize); if (raf) cancelAnimationFrame(raf); };
   }, [open, height, fullscreen.on]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    if (!open || ink.current) return undefined;
+    let live = true;
+    import('../lib/ink/engine.js').then((m) => {
+      if (!live || ink.current) return;
+      const engine = m.createInkEngine(hostRef.current);
+      ink.current = { engine, coalescedSamples: m.coalescedSamples };
+    }).catch(() => {});
+    return () => { live = false; };
+  }, [open]);
+
   const point = (ev) => {
     const r = padRef.current.getBoundingClientRect();
     return [ev.clientX - r.left, ev.clientY - r.top, strokeWidth(ev.pointerType, ev.pressure)];
   };
-  const down = (e) => {
-    if (busy || current.current) return;
-    if (!policy.current.accept(e.pointerType)) return;
-    if (e.pointerType === 'mouse' && e.button !== 0) return;
-    e.preventDefault();
-    padRef.current.setPointerCapture?.(e.pointerId);
-    const p = point(e);
-    current.current = { id: e.pointerId, pts: [p] };
-    drawStroke(padRef.current.getContext('2d'), [p]);
+  // What the pad asks of the engine: any pointer writes until a pen has
+  // touched (then fingers are the palm, until the pad is cleared), one
+  // pointer at a time, no pinch and no double tap. A pencil reports up to
+  // 240 samples a second; the browser hands the ones between two frames as
+  // coalesced events, which keep the curve.
+  hostRef.current = {
+    penLocksTouch: true,
+    pinch: false,
+    beforeDown: (e) => !(busy || ink.current.engine.drawingRef.current.on
+      || (e.pointerType === 'mouse' && e.button !== 0)),
+    toStored: (ev) => point(ev),
+    samples: (e) => ink.current.coalescedSamples(e.nativeEvent || e),
+    near: (a, b) => Math.hypot(b[0] - a[0], b[1] - a[1]) < 0.5,
+    newId: () => 0,
+    colorFor: () => INK,
+    started: (st) => drawStroke(padRef.current.getContext('2d'), st.points),
+    grow: (st, added) => {
+      const ctx = padRef.current.getContext('2d');
+      const pts = st.points;
+      for (let i = pts.length - added; i < pts.length; i++) drawStroke(ctx, [pts[i - 1], pts[i]]);
+    },
+    commit: (st) => {
+      strokes.current.push(st.points);
+      setStrokeCount(strokes.current.length);
+    },
   };
-  const move = (e) => {
-    const cur = current.current;
-    if (!cur || e.pointerId !== cur.id) return;
-    // A pencil reports up to 240 samples a second; the browser hands the
-    // ones between two frames as coalesced events, which keep the curve.
-    const native = e.nativeEvent;
-    const batch = typeof native.getCoalescedEvents === 'function' ? native.getCoalescedEvents() : [];
-    const list = batch.length ? batch : [native];
-    const ctx = padRef.current.getContext('2d');
-    for (const ev of list) {
-      const p = point(ev);
-      const prev = cur.pts[cur.pts.length - 1];
-      if (Math.hypot(p[0] - prev[0], p[1] - prev[1]) < 0.5) continue;
-      cur.pts.push(p);
-      drawStroke(ctx, [prev, p]);
-    }
-  };
-  const up = (e) => {
-    const cur = current.current;
-    if (!cur || (e && e.pointerId !== cur.id)) return;
-    strokes.current.push(cur.pts);
-    current.current = null;
-    setStrokeCount(strokes.current.length);
-  };
+  ink.current?.engine.setHost(hostRef.current);
+  const down = (e) => ink.current?.engine.onPointerDown(e);
+  const move = (e) => ink.current?.engine.onPointerMove(e);
+  const up = (e) => ink.current?.engine.onPointerUp(e);
 
   const undo = () => {
     if (busy || !strokes.current.length) return;
@@ -201,8 +210,10 @@ export default function HandwritingInput({ onText, maxChars = 1000 }) {
   };
   const clear = () => {
     strokes.current = [];
-    current.current = null;
-    policy.current.reset();
+    if (ink.current) {
+      ink.current.engine.drawingRef.current = { on: false, points: [] };
+      ink.current.engine.resetHand();
+    }
     setStrokeCount(0);
     redraw();
   };

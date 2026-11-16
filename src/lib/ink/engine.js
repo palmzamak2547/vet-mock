@@ -30,10 +30,23 @@
 //   onUp(), onStrokeEnd(), afterStroke(), onDoubleTap()
 //   pinchTo(zoom, cx, cy)       the zoom a pinch asks for, unsnapped
 //
+// Options, for surfaces that are not the PDF reader (each defaults to the
+// reader's behaviour when left out):
+//
+//   pinch: false        no two-finger pinch; a second pointer is its own
+//   penLocksTouch       once a pen has touched, a finger never marks again
+//                       until resetHand() (the handwriting pad's palm rule)
+//   onTouchIgnored(e)   a finger or mouse that pen-only mode turned away
+//   samples(e)          the samples one move carries (default: coalesced)
+//   near(last, pt)      true drops pt as a near-duplicate of last
+//   started(stroke)     a stroke has its first point (paint the dot)
+//   onDoubleTap         left out, a pen tap is an ordinary stroke
+//
 // No predicted events: the PDF reader does not draw them yet.
 // ============================================================
 
 import { strokeHit } from '../shape-fit.js';
+import { createPointerPolicy } from './hand.js';
 
 /** Undo history keeps this many steps. */
 export const REDO_CAP = 40;
@@ -90,6 +103,7 @@ export function createInkEngine(initialHost = {}) {
   // zoom except the toolbar.
   const gestureRef = { current: null };
   const activePointers = { current: new Map() };
+  const hand = createPointerPolicy();
 
   function gestureDown(e) {
     const penOnly = h.penOnly;
@@ -100,6 +114,7 @@ export function createInkEngine(initialHost = {}) {
     // zooming against the hand.
     if (penOnly && e.pointerType === 'pen') return false;
     if (penOnly && e.pointerType !== 'pen' && drawingRef.current?.on) return true;
+    if (h.pinch === false) return false;
     activePointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
     if (activePointers.current.size !== 2) return false;
     // A second finger means this was never a stroke, when the stroke belongs
@@ -143,7 +158,12 @@ export function createInkEngine(initialHost = {}) {
 
   function onPointerDown(e) {
     if (h.beforeDown && h.beforeDown(e) === false) return;
-    if (gestureDown(e)) return;
+    if (gestureDown(e)) {
+      // In pen-only mode a finger that lands here never draws.
+      if (h.penOnly && e.pointerType !== 'pen') h.onTouchIgnored?.(e);
+      return;
+    }
+    if (h.penLocksTouch && !hand.accept(e.pointerType)) return;
     const penOnly = h.penOnly;
     // A stylus anywhere on the page proves this device has one.
     if (e.pointerType === 'pen' && !h.sawPen) h.onPenSeen?.();
@@ -153,6 +173,7 @@ export function createInkEngine(initialHost = {}) {
     // `touch-action: none` would leave a zoomed page with no way to move
     // around it except two-finger pinching.
     if (penOnly && e.pointerType !== 'pen') {
+      h.onTouchIgnored?.(e);
       const wrap = h.scroller?.();
       if (wrap) {
         panRef.current = {
@@ -198,6 +219,7 @@ export function createInkEngine(initialHost = {}) {
         points: [pt],
       },
     };
+    h.started?.(drawingRef.current.stroke);
   }
 
   function onPointerMove(e) {
@@ -227,14 +249,15 @@ export function createInkEngine(initialHost = {}) {
     const surface = h.surface ? h.surface() : true;
     if (!surface) return;
     let added = 0;
-    for (const se of coalescedSamples(e)) {
+    for (const se of (h.samples ? h.samples(e) : coalescedSamples(e))) {
       const pt = withTilt(
         h.toStored(se, stroke.pressure ? se.pressure : 0),
         stroke.pressure ? tiltOf(se) : 0,
       );
       const last = stroke.points[stroke.points.length - 1];
       // Drop near-duplicates so a still hand does not grow the array.
-      if (Math.abs(last[0] - pt[0]) < 0.0004 && Math.abs(last[1] - pt[1]) < 0.0004) continue;
+      if (h.near ? h.near(last, pt)
+        : (Math.abs(last[0] - pt[0]) < 0.0004 && Math.abs(last[1] - pt[1]) < 0.0004)) continue;
       stroke.points.push(pt);
       added++;
     }
@@ -247,7 +270,7 @@ export function createInkEngine(initialHost = {}) {
     // A tap is a pointer that went down and came up in the same place, quickly
     // and without drawing anything worth keeping. Two of them in a row, from a
     // stylus, mean the reader wants the eraser.
-    if (e?.pointerType === 'pen' && drawingRef.current?.on && !drawingRef.current.erase) {
+    if (h.onDoubleTap && e?.pointerType === 'pen' && drawingRef.current?.on && !drawingRef.current.erase) {
       const st = drawingRef.current.stroke;
       const moved = st?.points?.length > 1
         ? Math.hypot(st.points[st.points.length - 1][0] - st.points[0][0],
@@ -280,7 +303,13 @@ export function createInkEngine(initialHost = {}) {
       gestureUp(e);
       return;
     }
-    if (e && gestureUp(e)) return;
+    // Other pointers still down end here, except when the one lifting is the
+    // pen that is drawing: a pen in pen-only mode is never in the pinch map,
+    // so a hand that landed before it and is still resting would otherwise
+    // swallow the stroke and leave the pen "drawing" after it lifted.
+    const live = drawingRef.current;
+    const drawer = !!(e && live?.on && e.pointerId === live.pointerId);
+    if (e && gestureUp(e) && !drawer) return;
     const ref = drawingRef.current;
     if (!ref?.on) return;
     if (e && e.pointerId !== undefined && e.pointerId !== ref.pointerId) return;
@@ -299,6 +328,8 @@ export function createInkEngine(initialHost = {}) {
     gestureRef,
     activePointers,
     setHost(next) { h = next || {}; },
+    /** Fingers count again (penLocksTouch), as on a cleared pad. */
+    resetHand() { hand.reset(); },
     onPointerDown,
     onPointerMove,
     onPointerUp,
