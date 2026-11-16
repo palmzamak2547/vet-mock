@@ -80,6 +80,7 @@ export const EXAM_ORIGINS = Object.freeze({
   "Milk Hygiene & Meat Inspection final และ midterm รุ่นก่อนหน้า (ไม่ระบุรุ่น) บันทึกหลังสอบ": { kind: 'paper', cohort: null, paper: null },
   "Avian Medicine Vet 81 บันทึกข้อสอบเก่า ไม่ระบุว่ากลางภาคหรือปลายภาค": { kind: 'paper', cohort: 81, paper: null },
   "Avian Medicine บันทึกข้อสอบเก่า ไม่ระบุรุ่นและช่วงสอบ": { kind: 'paper', cohort: null, paper: null },
+  "Avian Medicine Vet 80 บันทึกข้อสอบเก่า ไม่ระบุว่ากลางภาคหรือปลายภาค": { kind: 'paper', cohort: 80, paper: null },
   "Avian Medicine final Vet 84 บันทึกหลังสอบ": { kind: 'paper', cohort: 84, paper: 'final' },
   "Avian Medicine final Vet 84, Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: [84, 85], paper: 'final' },
   "Avian Medicine final Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: 85, paper: 'final' },
@@ -98,6 +99,11 @@ export const EXAM_ORIGINS = Object.freeze({
   // Vet 80 wrote down their Aquatic Med midterm by lecturer (a 2-page sheet kept in the Vet 84 midterm folder); the
   // marine-mammal part of that midterm is taught for the final in 2569, so the row sits in a final topic.
   "Aquatic Med midterm Vet 80 บันทึกหลังสอบ": { kind: 'paper', cohort: 80, paper: 'midterm' },
+  // Vet 85 typed up their Vet Juris midterm after the paper (practice act, ethics, welfare, keys in red); Vet 86
+  // marked the same copy: the practice-act part matched their paper item for item, and each welfare item they sat is
+  // ticked. Rows Vet 86 marked as not on their paper, and the written ethics case, name Vet 85 alone.
+  "Vet Juris midterm Vet 85, Vet 86 บันทึกหลังสอบ": { kind: 'paper', cohort: [85, 86], paper: 'midterm' },
+  "Vet Juris midterm Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: 85, paper: 'midterm' },
   "One Health final Vet 82 บันทึกหลังสอบ": { kind: 'paper', cohort: 82, paper: 'final' },
   "One Health final Vet 85 บันทึกหลังสอบ": { kind: 'paper', cohort: 85, paper: 'final' },
   "One Health final บันทึกหลังสอบ (ไม่ระบุรุ่น)": { kind: 'paper', cohort: null, paper: 'final' },
@@ -287,6 +293,10 @@ export const EXAM_ORIGINS = Object.freeze({
   "Equine Med & Surg POA practice case (Vet 84 class session)": { kind: 'aligned' },
   "Swine Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก": { kind: 'aligned' },
   "Swine Medicine final จุดที่รุ่นพี่มาร์คในสไลด์": { kind: 'aligned' },
+  // Avian Medicine final: points a senior marked (star, red pen, highlight, a fact list headed ออกสอบ) on final topics
+  // that no question asked yet (finals gap pass, 16 Nov 2026). A mark, not a paper.
+  "Avian Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก": { kind: 'aligned' },
+  "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป": { kind: 'aligned' },
   // Milk & Meat and Epidemiology finals: questions written from the points seniors marked (5.190.0 marks pass).
   "Milk Hygiene & Meat Inspection final จุดที่รุ่นพี่มาร์คว่าเคยออก": { kind: 'aligned' },
   "Milk Hygiene & Meat Inspection final จุดที่รุ่นพี่มาร์คในสไลด์": { kind: 'aligned' },
@@ -321,6 +331,11 @@ export const EXAM_ORIGINS = Object.freeze({
   // Vet 85 drew a star beside single statements in their copy of the 2568 dermatology deck, and their final summary
   // (p. 6) says the dermatology and surgery points were added in the starred slides. A mark, not a paper.
   "Equine Dermatology (Vet 85) stars this point; their summary of the paper refers to the starred slides": { kind: 'aligned' },
+  "Equine Sx concept (Vet 85) stars this point; their summary of the paper refers to the starred slides": { kind: 'aligned' },
+  // Highlights, underlines, stars and red pen on Vet 84's own copies of the 2567 Equine decks; a mark, not a paper.
+  "Equine Med & Surg (Vet 84) marked this point on their copy of the lecture slides": { kind: 'aligned' },
+  // Highlights, underlines and stars on Vet 84's own copies of the 2567 One Health decks; a mark, not a paper.
+  "One Health final: จุดที่รุ่นพี่ Vet 84 ไฮไลต์ ขีดเส้นใต้ หรือติดดาวในสไลด์ของตน": { kind: 'aligned' },
   // Equine Repro final marked points (5.254.0): a star, asterisk, underline or highlight on a senior's copy of a
   // final-topic deck or summary (Vet 84 annotated decks, the starred K1-4 mind maps, the Vet 81, 83 and 85
   // summaries). A mark, not a paper.
@@ -369,6 +384,7 @@ export const EXAM_ORIGINS = Object.freeze({
   "Equine Sx concept deck (Vet 85 annotated slides)": { kind: 'source-doc' },
   "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2569 เรื่อง infectious diseases and biosecurity": { kind: 'source-doc' },
   "เขียนขึ้นจากเลคเชอร์ Equine Medicine ปี 2569 เรื่อง pythiosis": { kind: 'source-doc' },
+  "เขียนขึ้นจากเลคเชอร์ Avian Medicine ปี 2569 เรื่อง histomoniasis": { kind: 'source-doc' },
   "เขียนขึ้นจากเลคเชอร์ Epidemiology ปี 2569 เรื่อง The Future Veterinarian": { kind: 'source-doc' },
   "เขียนขึ้นจากเลคเชอร์ Epidemiology ปี 2569 เรื่อง Module 1 Diagnostic Tools": { kind: 'source-doc' },
   "เขียนขึ้นจากเลคเชอร์ Epidemiology ปี 2569 เรื่อง Agreement of test": { kind: 'source-doc' },

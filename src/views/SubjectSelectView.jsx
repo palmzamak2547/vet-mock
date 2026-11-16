@@ -7,6 +7,7 @@ import { hasNotes } from '../data/notes-registry.generated.js';
 import BackBar from '../components/BackBar.jsx';
 import Mochi from '../components/Mochi.jsx';
 import { librarySubjectCounts } from '../lib/library.js';
+import { subjectCardCopy, previewYearSubtitle } from '../lib/empty-state-copy.js';
 import { computeSubjectProgress } from '../lib/subject-progress.js';
 import { takeViewIntent, rememberViewIntent, consumeViewIntent } from '../lib/feature-registry.js';
 import SubjectCover from '../components/SubjectCover.jsx';
@@ -33,6 +34,8 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
   // but a full shelf opens the shelf instead of dead-ending. Fetched only
   // when this view actually shows a scaffold year.
   const [docCounts, setDocCounts] = useState(null);
+  // The shelf read has finished (with or without an answer).
+  const [docsChecked, setDocsChecked] = useState(false);
   // QB is lazy-loaded and mutated in place, so on a slow connection this
   // view used to render EVERY subject as "🚧 รอข้อสอบเพิ่ม" and disabled —
   // telling a first-time user the whole curriculum is empty. Loading and
@@ -86,7 +89,7 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
     // the Home grid (which always fetches) kept offering the documents.
     // One session-cached catalog fetch — same cache Home uses.
     let alive = true;
-    librarySubjectCounts().then((m) => { if (alive) setDocCounts(m); });
+    librarySubjectCounts().then((m) => { if (alive) { setDocCounts(m); setDocsChecked(true); } });
     return () => { alive = false; };
   }, []);
   const yearSubjects = selectedYear
@@ -147,7 +150,10 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
         <p>
           {isScaffoldYear ? (
             <>
-              <strong>{yearMeta.label}</strong>, {yearMeta.desc} — วิชาที่มีชั้นเอกสารเปิดอ่านได้เลย ข้อสอบกำลังทยอยเพิ่ม
+              <strong>{yearMeta.label}</strong>, {yearMeta.desc}{(() => {
+                const line = previewYearSubtitle({ subjectIds: yearSubjects.map((x) => x.id), docCounts, docsChecked });
+                return line ? ` — ${line}` : '';
+              })()}
             </>
           ) : readingIntent ? (
             'เลือกวิชาเพื่ออ่านสรุปจากสไลด์ พร้อมแหล่งอ้างอิงในแต่ละส่วน'
@@ -248,14 +254,16 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
           const outOfPhase = isEmpty && !!scopedCounts && s.id !== 'all'
             && (countBySubject.get(s.id) ?? visibleQuestionCount(s.id, allQuestions)) > 0
             && !(s.topics || []).some((t) => !t.hidden && topicOnPaper(s.id, t.id, selectedPhase));
-          const shelfDocs = isEmpty ? (docCounts?.get(s.id) || 0) : 0;
+          // null = the shelf is not known (loading, or unreadable): never "empty".
+          const shelfDocs = isEmpty ? (docCounts ? (docCounts.get(s.id) || 0) : null) : 0;
+          const card = subjectCardCopy({ qbLoading, count, hasNotes: subjectHasNotes, docs: shelfDocs, docsChecked, outOfPhase });
 
           return (
             <button
               key={s.id}
-              className={`vmx-subject-card vmx-subject-card--illustrated${isEmpty && !qbLoading && shelfDocs === 0 ? ' is-quiet' : ''}`}
+              className={`vmx-subject-card vmx-subject-card--illustrated${card.dead ? ' is-quiet' : ''}`}
               data-subject={s.id}
-              disabled={isEmpty && !qbLoading && shelfDocs === 0}
+              disabled={card.dead}
               onClick={() => {
                 if (isEmpty && !qbLoading) {
                   if (shelfDocs > 0) {
@@ -281,29 +289,16 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
                 setView(hasTopics ? 'topic-select' : 'config');
               }}
               style={{
-                cursor: (isEmpty && !qbLoading && shelfDocs === 0) ? 'not-allowed' : 'pointer',
+                cursor: card.dead ? 'not-allowed' : 'pointer',
                 '--subject-accent': s.color,
               }}
-              title={qbLoading ? 'กำลังโหลดคลังข้อสอบ'
-                : (shelfDocs > 0 ? `เปิดชั้นเอกสารจริงของวิชานี้ (${shelfDocs} ไฟล์)`
-                  : (outOfPhase ? 'วิชานี้ไม่อยู่ในช่วงสอบที่เลือก สลับช่วงสอบที่หน้าแรกเพื่อฝึก'
-                    : (isEmpty ? 'ยังไม่มีเนื้อหาของวิชานี้ในแอป' : '')))}
+              title={card.title}
             >
               <SubjectCover subjectId={s.id} />
               <div className="title">{s.name}</div>
               <div className="sub">{s.name_en}</div>
-              <div className="count" style={{ color: (isEmpty && !qbLoading && shelfDocs === 0 && !outOfPhase) ? 'var(--clr-rose-text)' : (shelfDocs > 0 ? 'var(--clr-sage-text)' : 'var(--clr-ink-soft)') }}>
-                {qbLoading
-                  ? 'กำลังโหลด…'
-                  : count === 0 && subjectHasNotes
-                    ? 'มีสรุปให้อ่าน'
-                    : shelfDocs > 0
-                      ? `เอกสารจริง ${shelfDocs} ไฟล์`
-                      : outOfPhase
-                        ? 'ไม่อยู่ในช่วงสอบนี้'
-                      : isEmpty
-                        ? 'ยังไม่มีเนื้อหา'
-                        : `${count.toLocaleString()} ข้อ`}
+              <div className="count" style={{ color: card.kind === 'empty' ? 'var(--clr-rose-text)' : (shelfDocs > 0 ? 'var(--clr-sage-text)' : 'var(--clr-ink-soft)') }}>
+                {card.text}
               </div>
               {/* Coverage mini-bar — how much of this subject's practice
                   pool the student has answered at least once. Sits with

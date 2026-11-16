@@ -59,6 +59,10 @@ const WANT_STATES = env('VMX_DEFECT_STATES') ? env('VMX_DEFECT_STATES').split(',
 const WANT_SIZES = env('VMX_DEFECT_SIZES') ? D.SIZES.filter((s) => env('VMX_DEFECT_SIZES').split(',').includes(s.id)) : D.SIZES;
 const WANT_SCHEMES = env('VMX_DEFECT_SCHEMES') ? env('VMX_DEFECT_SCHEMES').split(',') : SCHEMES;
 const PARTS = env('VMX_DEFECT_PARTS') ? env('VMX_DEFECT_PARTS').split(',') : ['routes', 'probe', 'flows'];
+// VMX_DEFECT_SHOTS=<folder>: also keep a picture of each settled visit there, for judging a change by eye
+// (VMX_DEFECT_CLIP=<selector> narrows it to the first element that matches).
+const SHOTS = env('VMX_DEFECT_SHOTS');
+const CLIP = env('VMX_DEFECT_CLIP');
 const DEV = env('VMX_DEFECT_DEV') === '1'; // against the dev server: React's own warnings are printed there only
 // VMX_DEFECT_SCALE=3 draws the pictures at three times the size, for checking a finding by eye.
 if (env('VMX_DEFECT_SCALE')) test.use({ deviceScaleFactor: Number(env('VMX_DEFECT_SCALE')) });
@@ -361,6 +365,12 @@ if (PARTS.includes('routes')) {
               found = [{ detector: 'console', detail: `the sweep could not finish this visit: ${String(error).split('\n')[0].slice(0, 160)}`, a: { sig: 'sweep', text: '', rect: null }, unreached: true }];
             }
             rows.push(...await record(page, `${path}|${state}|${scheme}|${size.id}`, found, where));
+            if (SHOTS) {
+              mkdirSync(SHOTS, { recursive: true });
+              const file = `${SHOTS}/${view}-${state}-${size.id}-${scheme}.png`;
+              const target = CLIP ? page.locator(CLIP).first() : page;
+              await target.screenshot({ path: file, animations: 'disabled', timeout: 5_000 }).catch(() => {});
+            }
           }
           net.release();
           D.writeFindings(`routes|${path}|${view}|${state}|${scheme}|${DEV ? 'dev' : 'build'}`, rows);

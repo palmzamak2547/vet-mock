@@ -70,6 +70,17 @@ export default function ThemePicker({ theme, themePref = theme, setTheme, palett
   const wrapRef = useRef(null);
   const DROPDOWN_MIN_W = 220;
   const anchorSide = useDropdownAnchor(wrapRef, open, DROPDOWN_MIN_W);
+  const panelRef = useRef(null);
+  // Opening moves focus into the panel, onto the mode in use, so the keys
+  // reach its choices; Tab out of the panel closes it, as a click outside does.
+  useEffect(() => {
+    if (!open) return;
+    const panel = panelRef.current;
+    (panel?.querySelector('[aria-pressed="true"]') || panel?.querySelector('button, summary'))?.focus();
+  }, [open]);
+  const onPanelBlur = (e) => {
+    if (e.relatedTarget && wrapRef.current && !wrapRef.current.contains(e.relatedTarget)) setOpen(false);
+  };
   useEffect(() => {
     if (!open) return;
     const onDoc = (e) => {
@@ -108,8 +119,10 @@ export default function ThemePicker({ theme, themePref = theme, setTheme, palett
       </button>
       {open && (
         <div
+          ref={panelRef}
           role="dialog"
           aria-label="ตั้งค่าธีมและจานสี"
+          onBlur={onPanelBlur}
           style={{
             position: 'absolute',
             top: 'calc(100% + 6px)',

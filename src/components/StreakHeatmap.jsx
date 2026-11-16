@@ -97,6 +97,12 @@ export default function StreakHeatmap({ history = [] }) {
       lastMonth = m;
     }
   }
+  // A label needs about three weeks of width: the first month is often a week
+  // or two of a month cut by the start of the grid, and its name printed over
+  // the next one's. Drop a label the next one follows within four weeks.
+  for (let i = monthLabels.length - 2; i >= 0; i -= 1) {
+    if (monthLabels[i + 1].w - monthLabels[i].w < 4) monthLabels.splice(i, 1);
+  }
 
   const SVG_W = PAD_LEFT + (WEEKS + 1) * (CELL + GAP);
   const SVG_H = PAD_TOP + ROWS * (CELL + GAP);
