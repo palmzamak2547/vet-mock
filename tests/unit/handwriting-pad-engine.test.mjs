@@ -76,7 +76,7 @@ test('a finger writes until a pen touches; then a finger is the palm and a mouse
   const { inst, el } = await openPad();
   write(inst, 1, 'touch');
   assert.equal(button(inst, 'แปลงเป็นข้อความ').props.disabled, false, 'a finger stroke left no ink');
-  assert.deepEqual(el.drawn.slice(0, 2), [[40.1, 40.1], [70, 50]], 'the dot and the segment are drawn in pad pixels');
+  assert.deepEqual(el.drawn, [[40.1, 40.1], [70, 50]], 'the dot and the segment are drawn in pad pixels, and the move under half a pixel adds nothing');
   write(inst, 2, 'pen');
   write(inst, 3, 'touch');
   write(inst, 4, 'mouse');
@@ -106,4 +106,50 @@ test('a second pointer while one is writing is ignored', async () => {
   inst.flush();
   assert.equal(strokesOnPad(inst), 1);
   inst.unmount();
+});
+
+// The pointer loop is its own chunk. While it loads the pad says so; when it
+// cannot be loaded (offline, or a release replaced the files) the pad says
+// that, keeps typing open, and a retry loads it again. Here the first load
+// fails the way a browser reports a missing chunk.
+test('a pad whose pointer loop is loading or failed to load says so, and the retry loads it', async () => {
+  const Pad = (await loadModule('src/components/HandwritingInput.jsx', {
+    stubs: [{
+      match: '/chunk-error\\.js$',
+      contents: `export function importFresh(load) {
+        globalThis.__inkLoads = (globalThis.__inkLoads || 0) + 1;
+        if (globalThis.__inkLoadFails > 0) {
+          globalThis.__inkLoadFails -= 1;
+          return Promise.reject(new TypeError('Failed to fetch dynamically imported module: https://vetmock.com/assets/engine-x.js'));
+        }
+        return load();
+      }`,
+    }],
+  })).default;
+  globalThis.__inkLoads = 0;
+  globalThis.__inkLoadFails = 1;
+  try {
+    const inst = mount(Pad, { onText: () => {}, maxChars: 1000 });
+    findAll(inst.tree, (n) => n.type === 'button')[0].props.onClick();
+    inst.flush();
+    assert.match(textOf(inst.tree), /กำลังเตรียมช่องเขียน/, 'the pad does not say it is not ready yet');
+    const el = fakeCanvas();
+    findAll(inst.tree, (n) => n.type === 'canvas')[0].props.ref.current = el;
+    await settle(inst);
+    assert.match(textOf(inst.tree), /เปิดช่องเขียนไม่ได้/, 'a failed load left a pad that looks alive');
+    write(inst, 1, 'touch');
+    assert.equal(button(inst, 'แปลงเป็นข้อความ').props.disabled, true);
+    button(inst, 'ลองอีกครั้ง').props.onClick();
+    inst.flush();
+    await settle(inst);
+    assert.equal(globalThis.__inkLoads, 2, 'the retry did not load the chunk again');
+    assert.doesNotMatch(textOf(inst.tree), /เปิดช่องเขียนไม่ได้|กำลังเตรียมช่องเขียน/);
+    write(inst, 2, 'touch');
+    assert.equal(button(inst, 'แปลงเป็นข้อความ').props.disabled, false, 'the pad takes no ink after the retry');
+    assert.deepEqual(el.drawn, [[40.1, 40.1], [70, 50]]);
+    inst.unmount();
+  } finally {
+    delete globalThis.__inkLoads;
+    delete globalThis.__inkLoadFails;
+  }
 });

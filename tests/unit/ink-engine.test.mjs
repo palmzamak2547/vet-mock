@@ -154,6 +154,28 @@ test('a second finger turns a stroke into a pinch, and the stroke is thrown away
   assert.equal(engine.gestureRef.current, null);
 });
 
+test('a third finger, or a pen without pen only, that lands during a pinch leaves no dot', () => {
+  for (const [type, lift] of [['touch', 'third finger lifts first'], ['pen', 'pen lifts first']]) {
+    const { engine, out } = rig();
+    engine.onPointerDown(ev(1, 'touch', 100, 100));
+    engine.onPointerDown(ev(2, 'touch', 300, 100));
+    assert.equal(out.discarded, 1, 'the first finger\'s stroke goes when the pinch starts');
+    engine.onPointerDown(ev(3, type, 200, 300));
+    engine.onPointerMove(ev(3, type, 220, 320)); // goes to the pinch
+    engine.onPointerUp(ev(3, type, 220, 320));
+    assert.equal(out.committed.length, 0, `${type}: a dot was committed (${lift})`);
+    assert.equal(out.discarded, 2, `${type}: the live stroke was not taken back`);
+    assert.equal(engine.drawingRef.current.on, false);
+    engine.onPointerUp(ev(2, 'touch', 300, 100));
+    engine.onPointerUp(ev(1, 'touch', 100, 100));
+    assert.equal(out.committed.length, 0);
+    assert.equal(engine.activePointers.current.size, 0);
+    // The next single finger draws again.
+    stroke(engine, 4, 'touch', LINE);
+    assert.equal(out.committed.length, 1);
+  }
+});
+
 test('a pinch never discards a stroke that neither of its fingers is drawing', () => {
   const { engine, out } = rig();
   engine.onPointerDown(ev(1, 'mouse', 100, 100));

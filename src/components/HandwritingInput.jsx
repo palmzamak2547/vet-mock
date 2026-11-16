@@ -25,6 +25,23 @@ import { strokeWidth, padHeight, inkBounds, fitScale } from '../lib/handwriting-
 import { useFullscreen } from '../hooks/useFullscreen.js';
 import NavIcon from './NavIcon.jsx';
 import { authHeader } from '../lib/api-auth.js';
+import { importFresh } from '../lib/chunk-error.js';
+
+// The pointer loop, lib/ink/engine.js, is its own chunk so the exam card does
+// not carry it for students who never write by hand. It is asked for as soon
+// as the student reaches for the pad (pointer or focus on the toggle), and
+// through importFresh, so a chunk that failed to download is fetched again
+// under a new address when the student retries. A failed load is forgotten,
+// never kept as the answer.
+let inkModule = null;
+function loadInk() {
+  if (!inkModule) {
+    inkModule = importFresh(() => import('../lib/ink/engine.js'))
+      .catch((err) => { inkModule = null; throw err; });
+  }
+  return inkModule;
+}
+const prefetchInk = () => { loadInk().catch(() => {}); };
 
 const INK = '#141414';
 const PAPER = '#ffffff';
@@ -114,9 +131,11 @@ export default function HandwritingInput({ onText, maxChars = 1000 }) {
   const boxRef = useRef(null);
   const fullscreen = useFullscreen(boxRef);
   const strokes = useRef([]);      // finished strokes: arrays of [x, y, width] in CSS px
-  // The pointer loop is lib/ink/engine.js, loaded when the pad first opens so
-  // the exam card does not carry it for students who never write by hand.
+  // The pointer loop (loadInk above). Until it is here the pad takes no ink
+  // and says so; if it cannot be loaded the pad says that, with a retry.
   const ink = useRef(null);        // { engine, coalescedSamples }
+  const [inkState, setInkState] = useState('loading'); // 'loading' | 'ready' | 'failed'
+  const [inkTry, setInkTry] = useState(0);
   const hostRef = useRef(null);
   const onTextRef = useRef(onText);
   useEffect(() => { onTextRef.current = onText; });
@@ -159,13 +178,16 @@ export default function HandwritingInput({ onText, maxChars = 1000 }) {
   useEffect(() => {
     if (!open || ink.current) return undefined;
     let live = true;
-    import('../lib/ink/engine.js').then((m) => {
-      if (!live || ink.current) return;
-      const engine = m.createInkEngine(hostRef.current);
-      ink.current = { engine, coalescedSamples: m.coalescedSamples };
-    }).catch(() => {});
+    setInkState('loading');
+    loadInk().then((m) => {
+      if (!live) return;
+      if (!ink.current) ink.current = { engine: m.createInkEngine(hostRef.current), coalescedSamples: m.coalescedSamples };
+      setInkState('ready');
+    }, () => {
+      if (live) setInkState('failed');
+    });
     return () => { live = false; };
-  }, [open]);
+  }, [open, inkTry]);
 
   const point = (ev) => {
     const r = padRef.current.getBoundingClientRect();
@@ -280,7 +302,7 @@ export default function HandwritingInput({ onText, maxChars = 1000 }) {
 
   if (!open) {
     return (
-      <button type="button" className="vmx-hand-toggle" onClick={() => { setOpen(true); setStatus(''); }}>
+      <button type="button" className="vmx-hand-toggle" onPointerDown={prefetchInk} onFocus={prefetchInk} onClick={() => { setOpen(true); setStatus(''); }}>
         <NavIcon name="pen" size={15} /> เขียนมือแทนพิมพ์ (นิ้ว ปากกา Apple Pencil หรือถ่ายรูปที่เขียนบนกระดาษ)
       </button>
     );
@@ -292,17 +314,32 @@ export default function HandwritingInput({ onText, maxChars = 1000 }) {
       <p className="vmx-hand-hint">
         เขียนในกรอบด้วยนิ้ว ปากกา หรือ Apple Pencil (เมื่อใช้ปากกา ฝ่ามือที่วางบนจอจะไม่ถูกนับ) แล้วกด แปลงเป็นข้อความ ข้อความจะไปต่อท้ายในช่องคำตอบให้ตรวจและแก้ก่อนส่ง เขียนตัวใหญ่ตามเส้นบรรทัด ทีละหนึ่งหรือสองบรรทัด อ่านได้แม่นกว่า
       </p>
-      <canvas
-        ref={padRef}
-        className="vmx-hand-pad"
-        style={fullscreen.on ? undefined : { height }}
-        onPointerDown={down}
-        onPointerMove={move}
-        onPointerUp={up}
-        onPointerCancel={up}
-        onPointerLeave={up}
-        onContextMenu={(e) => e.preventDefault()}
-      />
+      <div className="vmx-hand-stage">
+        <canvas
+          ref={padRef}
+          className="vmx-hand-pad"
+          style={fullscreen.on ? undefined : { height }}
+          aria-busy={inkState === 'loading' || undefined}
+          onPointerDown={down}
+          onPointerMove={move}
+          onPointerUp={up}
+          onPointerCancel={up}
+          onPointerLeave={up}
+          onContextMenu={(e) => e.preventDefault()}
+        />
+        {inkState !== 'ready' && (
+          <div className={`vmx-hand-wait${inkState === 'failed' ? ' is-failed' : ''}`} role="status">
+            {inkState === 'failed' ? (
+              <>
+                <span>เปิดช่องเขียนไม่ได้ พิมพ์ตอบได้ตามเดิม</span>
+                <button type="button" onClick={() => setInkTry((n) => n + 1)}>ลองอีกครั้ง</button>
+              </>
+            ) : (
+              <span>กำลังเตรียมช่องเขียน รอสักครู่ก่อนเริ่มเขียน</span>
+            )}
+          </div>
+        )}
+      </div>
       <div className="vmx-hand-actions">
         <button type="button" className="is-primary" onClick={convertPad} disabled={busy || !hasInk}>แปลงเป็นข้อความ</button>
         <button type="button" onClick={undo} disabled={busy || !hasInk}>ย้อนเส้นล่าสุด</button>

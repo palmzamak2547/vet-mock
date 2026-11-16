@@ -210,6 +210,10 @@ export function createInkEngine(initialHost = {}) {
     drawingRef.current = {
       on: true,
       pointerId: e.pointerId,
+      // A third finger, or a pen without pen only, that lands while two
+      // fingers pinch is booked with the pinch and its moves zoom the page.
+      // It was never a stroke: its lift throws it away instead of leaving a dot.
+      inPinch: !!gestureRef.current && activePointers.current.has(e.pointerId),
       stroke: {
         id: h.newId(),
         mode: usedTool,
@@ -310,6 +314,11 @@ export function createInkEngine(initialHost = {}) {
     const live = drawingRef.current;
     const drawer = !!(e && live?.on && e.pointerId === live.pointerId);
     if (e && gestureUp(e) && !drawer) return;
+    if (drawer && live.inPinch) {
+      drawingRef.current = { on: false, points: [] };
+      h.discardLive?.();
+      return;
+    }
     const ref = drawingRef.current;
     if (!ref?.on) return;
     if (e && e.pointerId !== undefined && e.pointerId !== ref.pointerId) return;
