@@ -4,7 +4,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { limitCaller, rateLimit } from '../../api/_lib/rate-limit.js';
-import { chulaGate, resetChulaGate } from '../../api/_lib/chula-gate.js';
+import { chulaGate, resetChulaGate, EXPIRY_MARGIN_S } from '../../api/_lib/chula-gate.js';
 import { sessionToken } from '../helpers/supabase-jwt.mjs';
 import { setDirectStorage } from '../../api/library-blob.js';
 // These pin the REST route (storage ignores Range); the signed S3 route is
@@ -122,8 +122,11 @@ test('expired tokens are guests: no database call, and nobody braked', async () 
   resetChulaGate();
   const { calls, fetchImpl } = database();
   const ip = '203.0.113.78';
-  // 30 students, four parallel calls each, with tokens that expired during a lecture.
-  const stale = Array.from({ length: 30 }, (_, s) => sessionToken(PROJECT, { sub: `student-${s}`, expInSec: -60 }));
+  // 30 students, four parallel calls each, with tokens that expired during a lecture: one second past the
+  // margin the gate allows for clock difference. A token exactly at the margin is still sent to the database
+  // when it is minted and read in the same millisecond on a whole second (about one run in a thousand), and
+  // that failed this case in CI on 17 Nov 2026.
+  const stale = Array.from({ length: 30 }, (_, s) => sessionToken(PROJECT, { sub: `student-${s}`, expInSec: -(EXPIRY_MARGIN_S + 1) }));
   const answers = await Promise.all(stale.flatMap((t) => [1, 2, 3, 4].map(() => chulaGate(withToken(ip, t), { env: ENV, fetchImpl }))));
   for (const a of answers) assert.equal(a.status, 401, 'asked to sign in, as a guest is');
   assert.ok(!calls.bearers.some((b) => stale.includes(b)), 'no expired token reached the database');
