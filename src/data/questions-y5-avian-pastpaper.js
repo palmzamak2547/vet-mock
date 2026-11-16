@@ -1564,4 +1564,3064 @@ export const QB_Y5_AVIAN_PASTPAPER = [
       "อิงแนวข้อสอบ"
     ]
   },
+  {
+    "id": 218202,
+    "subject": "avian-medicine",
+    "topic": "avian-duck-plague",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Duck plague ติดต่อได้ทั้งในแนวราบ คือสัมผัสเป็ดป่วยโดยตรงหรือสิ่งแวดล้อมที่ปนเปื้อน และในแนวดิ่งจากพ่อแม่พันธุ์ที่ติดเชื้อ",
+    "answer": true,
+    "explain": "ถูก ไวรัส duck plague ติดต่อในแนวดิ่งจากพ่อแม่พันธุ์ที่ติดเชื้อ และในแนวราบทั้งการสัมผัสเป็ดป่วยโดยตรงและสิ่งแวดล้อมที่ปนเปื้อน เช่น น้ำในบ่อ เชื้อเข้าทางปาก จมูก ทวาร หรือการฉีด และแมลงดูดเลือดพาเชื้อได้ในช่วง viremia เป็ดที่หายป่วยยังปล่อยเชื้อเป็นระยะๆ ทางอุจจาระหรือที่ผิวเปลือกไข่ได้นานหลายปี ระยะฟักตัวราว 3-7 วัน",
+    "source": "Duck RA DVE DVH DTMUV GP AI Yr5 2026 หน้า 31 และ 32",
+    "verified": "จุดที่รุ่นพี่มาร์ค: แฟ้มรวมโน้ต avian med final ของรุ่น 84 หน้า 3 ติดดาว (ไม่ระบุรุ่น); สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 3 ตัวอักษรสี (รุ่น 85); สรุป avian med final ของรุ่น 83 ในแฟ้มของรุ่น 84 หน้า 18 ปากกาแดง (รุ่น 84)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-duck-plague",
+      "transmission",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 31
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 32
+      },
+      {
+        "doc": "avian-final-notes-vet84",
+        "edition": "12p",
+        "page": 3
+      },
+      {
+        "doc": "avian-final-summary-vet85",
+        "edition": "17p",
+        "page": 3
+      },
+      {
+        "doc": "avian-final-summary-vet83",
+        "edition": "38p",
+        "page": 18
+      }
+    ]
+  },
+  {
+    "id": 218203,
+    "subject": "avian-medicine",
+    "topic": "avian-duck-plague",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "ไวรัส duck plague ทำให้เม็ดเลือดแดงเกาะกลุ่ม จึงตรวจแอนติบอดีด้วย haemagglutination inhibition (HI) ได้",
+    "answer": false,
+    "explain": "ผิด Anatid herpesvirus 1 เป็นไวรัสที่ไม่ทำให้เม็ดเลือดแดงเกาะกลุ่มและไม่จับเม็ดเลือดแดง (non-hemagglutinating, non-hemadsorbing) จึงใช้ HA และ HI ไม่ได้ การวินิจฉัยใช้การแยกไวรัสในไข่เป็ดฟักอายุ 10-12 วันทาง CAM หรือเซลล์เพาะเลี้ยงจากตัวอ่อนเป็ด immunofluorescence หาแอนติเจนในเนื้อเยื่อ PCR จากตับ เบอร์ซา และไต และใช้ ELISA ตรวจแอนติบอดีในซีรัม",
+    "source": "Duck RA DVE DVH DTMUV GP AI Yr5 2026 หน้า 29, 48 และ 49",
+    "verified": "จุดที่รุ่นพี่มาร์ค: แฟ้มรวมโน้ต avian med final ของรุ่น 84 หน้า 3 ติดดาว (ไม่ระบุรุ่น); สรุป avian med final ของรุ่น 83 ในแฟ้มของรุ่น 84 หน้า 18 มีโน้ตเขียนกำกับ (รุ่น 83); Duck Plague deck 2024 หน้า 8 ปากกาแดง (ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-duck-plague",
+      "diagnosis",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 29
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 48
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 49
+      },
+      {
+        "doc": "avian-final-notes-vet84",
+        "edition": "12p",
+        "page": 3
+      },
+      {
+        "doc": "avian-final-summary-vet83",
+        "edition": "38p",
+        "page": 18
+      },
+      {
+        "doc": "avian-duck-plague-2024",
+        "edition": "32p",
+        "page": 8
+      }
+    ]
+  },
+  {
+    "id": 218204,
+    "subject": "avian-medicine",
+    "topic": "avian-duck-plague",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "ใน duck plague เป็ดพ่อแม่พันธุ์ที่โตแล้วมีอัตราตายสูงกว่าลูกเป็ดเนื้ออายุ 2-7 สัปดาห์",
+    "answer": true,
+    "explain": "ถูก อัตราป่วยและอัตราตายของ duck plague มักสูง อยู่ในช่วง 5-100% และเป็ดพ่อแม่พันธุ์ที่โตแล้วตายมากกว่าลูกเป็ด ในพ่อแม่พันธุ์อาการแรกคือตายเฉียบพลันจำนวนมากต่อเนื่อง ตัวที่ตายยังอ้วนดี เพศผู้มีองคชาตยื่นค้าง ไข่ลดชัดเจน เมื่อโรคดำเนินไปจะขนยุ่ง กลัวแสง ตาหรี่ เปลือกตาติดกัน กระหายน้ำ น้ำมูก ก้นเปื้อน ท้องเสียเป็นน้ำ และยืนไม่ได้ ส่วนลูกเป็ดเนื้ออายุ 2-7 สัปดาห์ตายภายใน 1-5 วันแต่ความสูญเสียต่ำกว่า พบขาดน้ำ ปากเขียว และก้นเปื้อนเลือด",
+    "source": "Duck RA DVE DVH DTMUV GP AI Yr5 2026 หน้า 33, 34, 35 และ 36",
+    "verified": "จุดที่รุ่นพี่มาร์ค: แฟ้มรวมโน้ต avian med final ของรุ่น 84 หน้า 3 ติดดาว (ไม่ระบุรุ่น); สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 3 ตัวอักษรสี (รุ่น 85); Duck Plague deck 2024 หน้า 16 ไฮไลต์ (ไม่ระบุรุ่น); Duck Plague deck 2024 หน้า 17 ไฮไลต์ (ไม่ระบุรุ่น); สรุป avian med final ของรุ่น 83 ในแฟ้มของรุ่น 84 หน้า 18 ปากกาแดง (รุ่น 84); Duck Plague deck 2024 หน้า 19 ไฮไลต์ (ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-duck-plague",
+      "clinical-signs",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 33
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 34
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 35
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 36
+      },
+      {
+        "doc": "avian-final-notes-vet84",
+        "edition": "12p",
+        "page": 3
+      },
+      {
+        "doc": "avian-final-summary-vet85",
+        "edition": "17p",
+        "page": 3
+      },
+      {
+        "doc": "avian-duck-plague-2024",
+        "edition": "32p",
+        "page": 16
+      },
+      {
+        "doc": "avian-duck-plague-2024",
+        "edition": "32p",
+        "page": 17
+      },
+      {
+        "doc": "avian-final-summary-vet83",
+        "edition": "38p",
+        "page": 18
+      },
+      {
+        "doc": "avian-duck-plague-2024",
+        "edition": "32p",
+        "page": 19
+      }
+    ]
+  },
+  {
+    "id": 218205,
+    "subject": "avian-medicine",
+    "topic": "avian-duck-plague",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "โรคที่ต้องวินิจฉัยแยกจาก duck plague เพราะทำให้เลือดออกและเนื้อตายเช่นกัน ได้แก่ duck viral hepatitis, fowl cholera, necrotic enteritis, coccidiosis, mycotoxicosis และการติดเชื้อ Riemerella anatipestifer",
+    "answer": true,
+    "explain": "ถูก โรคกลุ่มนี้ทำให้เลือดออกและเนื้อตายในอวัยวะภายในได้เหมือน duck plague การวินิจฉัยเบื้องต้นจึงใช้อาการ รอยโรค และจุลพยาธิวิทยาร่วมกัน เช่น เยื่อเมือกหลอดอาหารเป็นแผ่นเทียมเรียงตามแนวรอยพับ annular band ที่ลำไส้ และ eosinophilic intranuclear inclusion body ในเซลล์ตับ แล้วยืนยันด้วยการแยกไวรัส หรือ PCR จากตับ เบอร์ซา และไต",
+    "source": "Duck RA DVE DVH DTMUV GP AI Yr5 2026 หน้า 40, 46, 47, 48, 49 และ 50",
+    "verified": "จุดที่รุ่นพี่มาร์ค: แฟ้มรวมโน้ต avian med final ของรุ่น 84 หน้า 3 ติดดาว (ไม่ระบุรุ่น); สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 3 ตัวอักษรสี (รุ่น 85); Duck Plague deck 2024 หน้า 28 ไฮไลต์ (ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-duck-plague",
+      "differential-diagnosis",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 40
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 46
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 47
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 48
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 49
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 50
+      },
+      {
+        "doc": "avian-final-notes-vet84",
+        "edition": "12p",
+        "page": 3
+      },
+      {
+        "doc": "avian-final-summary-vet85",
+        "edition": "17p",
+        "page": 3
+      },
+      {
+        "doc": "avian-duck-plague-2024",
+        "edition": "32p",
+        "page": 28
+      }
+    ]
+  },
+  {
+    "id": 218206,
+    "subject": "avian-medicine",
+    "topic": "avian-duck-plague",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "การป้องกัน duck plague อาศัย biosecurity คือสิ่งแวดล้อมสะอาด อุปกรณ์สะอาด และควบคุมสัตว์พาหะ ส่วนเป็ดที่หายป่วยแล้วมีภูมิคุ้มกันต่อการติดเชื้อซ้ำ",
+    "answer": true,
+    "explain": "ถูก มาตรการหลักคือ biosecurity ได้แก่ สิ่งแวดล้อมสะอาด อุปกรณ์สะอาด และควบคุมสัตว์พาหะ เป็ดที่หายป่วยมีภูมิคุ้มกันต่อการติดเชื้อซ้ำ โดยทั้งภูมิคุ้มกันแบบพึ่งเซลล์และแบบสารน้ำมีส่วนป้องกัน การสร้างภูมิคุ้มกันใช้วัคซีนเชื้อเป็นอ่อนเชื้อที่ปรับให้เจริญในตัวอ่อนไก่ เป็ดพ่อแม่พันธุ์ทำวัคซีนเป็นประจำทุกปีก่อนเข้ารอบไข่ แต่ต้องระวังว่าเป็ดที่หายป่วยบางตัวยังเป็นพาหะปล่อยเชื้อได้",
+    "source": "Duck RA DVE DVH DTMUV GP AI Yr5 2026 หน้า 32, 51 และ 52",
+    "verified": "จุดที่รุ่นพี่มาร์ค: Duck Plague deck 2024 หน้า 30 ไฮไลต์ (ไม่ระบุรุ่น); สรุป avian med final ของรุ่น 83 ในแฟ้มของรุ่น 84 หน้า 19 ปากกาแดง (รุ่น 84); สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 3 ตัวอักษรสี (รุ่น 85)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-duck-plague",
+      "prevention",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 32
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 51
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 52
+      },
+      {
+        "doc": "avian-duck-plague-2024",
+        "edition": "32p",
+        "page": 30
+      },
+      {
+        "doc": "avian-final-summary-vet83",
+        "edition": "38p",
+        "page": 19
+      },
+      {
+        "doc": "avian-final-summary-vet85",
+        "edition": "17p",
+        "page": 3
+      }
+    ]
+  },
+  {
+    "id": 218207,
+    "subject": "avian-medicine",
+    "topic": "avian-dvh",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "ลูกเป็ดที่ป่วยด้วย duck viral hepatitis type 1 รักษาให้หายได้ด้วยยาต้านไวรัส จึงควรให้ยาทันทีเมื่อพบตัวแรกตาย",
+    "answer": false,
+    "explain": "ผิด duck viral hepatitis รักษาไม่ได้ เมื่อพบลูกเป็ดตัวแรกตายในการระบาด วิธีควบคุมที่ได้ผลคือการสร้างภูมิคุ้มกันแบบรับมา ด้วย hyperimmune serum หรือ hyperimmune yolk ต่อ DHV type 1 ฉีดเข้ากล้ามหรือใต้ผิวหนัง 0.5-1.0 มิลลิลิตร ร่วมกับสุขอนามัยเข้มงวดและระบบ all-in/all-out ไวรัส DHV type 1 ยังไม่ทำให้เม็ดเลือดแดงเกาะกลุ่ม จึงไม่ใช้ HI ในการตรวจ",
+    "source": "Duck RA DVE DVH DTMUV GP AI Yr5 2026 หน้า 60, 75 และ 78",
+    "verified": "จุดที่รุ่นพี่มาร์ค: แฟ้มรวมโน้ต avian med final ของรุ่น 84 หน้า 3 ติดดาว (ไม่ระบุรุ่น); สรุป avian med final ของรุ่น 83 ในแฟ้มของรุ่น 84 หน้า 20 ปากกาแดง (รุ่น 84)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-dvh",
+      "treatment",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 60
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 75
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 78
+      },
+      {
+        "doc": "avian-final-notes-vet84",
+        "edition": "12p",
+        "page": 3
+      },
+      {
+        "doc": "avian-final-summary-vet83",
+        "edition": "38p",
+        "page": 20
+      }
+    ]
+  },
+  {
+    "id": 218208,
+    "subject": "avian-medicine",
+    "topic": "avian-dvh",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Duck hepatitis virus type 1 ถ่ายทอดจากแม่เป็ดที่ติดเชื้อไปสู่ลูกเป็ดผ่านไข่",
+    "answer": false,
+    "explain": "ผิด ยังไม่มีรายงานการถ่ายทอด DHV type 1 ผ่านไข่ โรคติดต่อในแนวราบทั้งการสัมผัสเป็ดป่วยโดยตรงและสิ่งแวดล้อมที่ปนเปื้อน ทางปาก ทางเดินหายใจ และการฉีดเข้ากล้าม แหล่งเชื้อคือลูกเป็ดป่วย ลูกเป็ดที่หายแล้วซึ่งปล่อยเชื้อทางอุจจาระได้นานถึง 8 สัปดาห์ นกป่าซึ่งเป็นพาหะกล และหนูสีน้ำตาลซึ่งเป็นแหล่งรังโรค",
+    "source": "Duck RA DVE DVH DTMUV GP AI Yr5 2026 หน้า 60, 63 และ 64",
+    "verified": "จุดที่รุ่นพี่มาร์ค: แฟ้มรวมโน้ต avian med final ของรุ่น 84 หน้า 3 ติดดาว (ไม่ระบุรุ่น); สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 4 ตัวอักษรสี (รุ่น 85); Duck Hepatitis deck 2024 หน้า 9 ไฮไลต์ (ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-dvh",
+      "transmission",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 60
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 63
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 64
+      },
+      {
+        "doc": "avian-final-notes-vet84",
+        "edition": "12p",
+        "page": 3
+      },
+      {
+        "doc": "avian-final-summary-vet85",
+        "edition": "17p",
+        "page": 4
+      },
+      {
+        "doc": "avian-duck-hepatitis-2024",
+        "edition": "35p",
+        "page": 9
+      }
+    ]
+  },
+  {
+    "id": 218209,
+    "subject": "avian-medicine",
+    "topic": "avian-dvh",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "การตรวจซีรัมด้วย serum neutralization ไม่ใช้วินิจฉัย duck viral hepatitis ในลูกเป็ดที่ยังมีชีวิต เพราะโรคดำเนินสั้นมาก",
+    "answer": true,
+    "explain": "ถูก ลูกเป็ดป่วยตายภายใน 3-4 วันหลังเริ่มแสดงอาการ แอนติบอดีจึงยังไม่ทันขึ้นให้ตรวจ การวินิจฉัยเบื้องต้นอาศัยประวัติ อาการ และรอยโรคตับเลือดออกในลูกเป็ดอายุไม่เกิน 3 สัปดาห์ ส่วนการยืนยันใช้ตับที่เก็บจากการผ่าซากไปแยกไวรัสในไข่เป็ดฟัก ลูกเป็ดอายุ 1 วัน หรือเซลล์ตับตัวอ่อนเป็ด แล้วพิสูจน์ด้วย neutralization กับแอนติซีรัมจำเพาะ",
+    "source": "Duck RA DVE DVH DTMUV GP AI Yr5 2026 หน้า 71, 72 และ 74",
+    "verified": "จุดที่รุ่นพี่มาร์ค: แฟ้มรวมโน้ต avian med final ของรุ่น 84 หน้า 3 ติดดาว (ไม่ระบุรุ่น); Duck Hepatitis deck 2024 หน้า 14 ไฮไลต์ (ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-dvh",
+      "diagnosis",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 71
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 72
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 74
+      },
+      {
+        "doc": "avian-final-notes-vet84",
+        "edition": "12p",
+        "page": 3
+      },
+      {
+        "doc": "avian-duck-hepatitis-2024",
+        "edition": "35p",
+        "page": 14
+      }
+    ]
+  },
+  {
+    "id": 218210,
+    "subject": "avian-medicine",
+    "topic": "avian-dvh",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Duck hepatitis virus type 3 ก่อโรครุนแรงกว่า type 1 และเป็น type ที่ระบาดกว้างที่สุด",
+    "answer": false,
+    "explain": "ผิด DHV type 3 (DAstV-2) เป็น astrovirus ที่ไม่เกี่ยวข้องกับ type 1 ก่อโรคอ่อนกว่า อัตราตายมักไม่เกิน 30% และรายงานครั้งแรกในสหรัฐอเมริกา ส่วน type ที่รุนแรงที่สุดและกระจายกว้างที่สุดคือ DHV type 1 (picornavirus) ซึ่งก่อโรคในลูกเป็ดอายุน้อยกว่า 5 สัปดาห์ ทั้งสาม type ให้อาการและรอยโรคคล้ายกัน และลูกเป็ดที่มีภูมิต่อ type 1 ยังติด type 2 และ 3 ได้",
+    "source": "Duck RA DVE DVH DTMUV GP AI Yr5 2026 หน้า 58, 62 และ 69",
+    "verified": "จุดที่รุ่นพี่มาร์ค: Duck Hepatitis deck 2024 หน้า 29 ไฮไลต์ (ไม่ระบุรุ่น); แฟ้มรวมโน้ต avian med final ของรุ่น 84 หน้า 3 ติดดาว (ไม่ระบุรุ่น); สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 4 ตัวอักษรสี (รุ่น 85)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-dvh",
+      "etiology",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 58
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 62
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 69
+      },
+      {
+        "doc": "avian-duck-hepatitis-2024",
+        "edition": "35p",
+        "page": 29
+      },
+      {
+        "doc": "avian-final-notes-vet84",
+        "edition": "12p",
+        "page": 3
+      },
+      {
+        "doc": "avian-final-summary-vet85",
+        "edition": "17p",
+        "page": 4
+      }
+    ]
+  },
+  {
+    "id": 218211,
+    "subject": "avian-medicine",
+    "topic": "avian-nds",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "ยาปฏิชีวนะลดการตายและการปล่อยเชื้อ Riemerella anatipestifer ได้ แต่กำจัดการติดเชื้อแฝงไม่ได้ และเป็ดอาจกลับมาปล่อยเชื้ออีก",
+    "answer": true,
+    "explain": "ถูก ยาช่วยลดและป้องกันการตายและการปล่อยเชื้อ แต่ไม่กำจัดการติดเชื้อแฝง การปล่อยเชื้อจึงกลับมาได้ และเชื้ออาจดื้อยาหลายกลุ่ม การเลือกยาครั้งแรกควรอาศัยผลทดสอบความไวต่อยา (enrofloxacin ละลายน้ำได้ผลดีในการลดการตายของลูกเป็ด) แหล่งเชื้อคือสัตว์ป่วย พาหะที่ไม่แสดงอาการ และสิ่งแวดล้อมที่ปนเปื้อน การควบคุมจึงต้องทำความสะอาดและฆ่าเชื้อระหว่างรุ่น แยกฝูงต่างอายุ และในฟาร์มที่เป็นโรคประจำถิ่นอาจต้องปลดฝูงทั้งหมด",
+    "source": "Duck RA DVE DVH DTMUV GP AI Yr5 2026 หน้า 7, 17, 18 และ 19",
+    "verified": "จุดที่รุ่นพี่มาร์ค: สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 2 ตัวอักษรสี (รุ่น 85)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-nds",
+      "riemerella",
+      "treatment",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 7
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 17
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 18
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 19
+      },
+      {
+        "doc": "avian-final-summary-vet85",
+        "edition": "17p",
+        "page": 2
+      }
+    ]
+  },
+  {
+    "id": 218212,
+    "subject": "avian-medicine",
+    "topic": "avian-goose-parvo",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "ลูกห่านที่ติด goose parvovirus เมื่ออายุ 4-5 สัปดาห์ มักป่วยและตายเกือบทั้งฝูง",
+    "answer": false,
+    "explain": "ผิด ความรุนแรงของ goose parvovirus ขึ้นกับอายุที่ติดเชื้อ ลูกห่านอายุน้อยกว่า 1 สัปดาห์ป่วยและตาย 100% อายุ 2-3 สัปดาห์ตายราว 10% แต่ป่วยมาก ส่วนอายุ 4-5 สัปดาห์ไม่ตายและไม่แสดงอาการ พบเพียงการสร้างแอนติบอดี (seroconversion) ห่านที่โตแล้วติดเชื้อแบบไม่แสดงอาการและเป็นพาหะ ลูกห่านอายุ 1 สัปดาห์ที่ติดเชื้อตายภายใน 3-5 วัน",
+    "source": "Duck RA DVE DVH DTMUV GP AI Yr5 2026 หน้า 93, 94 และ 96",
+    "verified": "จุดที่รุ่นพี่มาร์ค: Goose Parvovirus Infection deck 2024 หน้า 9 ไฮไลต์ (ไม่ระบุรุ่น); สรุป avian med final ของรุ่น 83 ในแฟ้มของรุ่น 84 หน้า 21 ปากกาแดง (รุ่น 84)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-goose-parvo",
+      "age-susceptibility",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 93
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 94
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 96
+      },
+      {
+        "doc": "avian-goose-parvo-2024",
+        "edition": "24p",
+        "page": 9
+      },
+      {
+        "doc": "avian-final-summary-vet83",
+        "edition": "38p",
+        "page": 21
+      }
+    ]
+  },
+  {
+    "id": 218213,
+    "subject": "avian-medicine",
+    "topic": "avian-duck-flavi",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Duck Tembusu virus ทำให้รังไข่อักเสบมีเลือดออก (hemorrhagic ovaritis) และไข่ลดในเป็ดไข่",
+    "answer": true,
+    "explain": "ถูก รอยโรคหลักของ Duck Tembusu virus คือสมองอักเสบที่ทำให้มีอาการทางประสาทรุนแรง และรังไข่อักเสบมีเลือดออกในเป็ดไข่ ผลผลิตไข่ลดลงราว 20-60% และอาจถึง 90% โดยเฉพาะในเป็ดไข่ที่แสดงอาการ เชื้อยังติดต่อในแนวดิ่งผ่านรังไข่ที่อักเสบ ส่วนแนวราบติดจากการกินและหายใจเอามูลที่ปนเปื้อน",
+    "source": "Duck RA DVE DVH DTMUV GP AI Yr5 2026 หน้า 83, 85 และ 87",
+    "verified": "จุดที่รุ่นพี่มาร์ค: แฟ้มรวมโน้ต avian med final ของรุ่น 84 หน้า 4 ติดดาว (ไม่ระบุรุ่น); Duck flavivirus deck 2024 หน้า 2 ปากกาแดง (ไม่ระบุรุ่น); Duck flavivirus deck 2024 หน้า 4 ไฮไลต์ (ไม่ระบุรุ่น); Duck flavivirus deck 2024 หน้า 7 ไฮไลต์ (ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-duck-flavi",
+      "egg-drop",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 83
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 85
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 87
+      },
+      {
+        "doc": "avian-final-notes-vet84",
+        "edition": "12p",
+        "page": 4
+      },
+      {
+        "doc": "avian-duck-flavi-2024",
+        "edition": "10p",
+        "page": 2
+      },
+      {
+        "doc": "avian-duck-flavi-2024",
+        "edition": "10p",
+        "page": 4
+      },
+      {
+        "doc": "avian-duck-flavi-2024",
+        "edition": "10p",
+        "page": 7
+      }
+    ]
+  },
+  {
+    "id": 218214,
+    "subject": "avian-medicine",
+    "topic": "avian-duck-flavi",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Duck Tembusu virus ก่อโรคเฉพาะในเป็ดไข่ ไม่พบการป่วยในเป็ดเนื้อ",
+    "answer": false,
+    "explain": "ผิด Duck Tembusu virus เป็นโรคติดต่อร้ายแรงที่ก่อโรคทั้งในเป็ดเนื้อและเป็ดไข่ โรคเกิดได้ตั้งแต่ลูกเป็ดอายุ 10 วัน และพบมากที่สุดช่วงอายุ 20-40 วัน อัตราตายราว 10-30% และอาจสูงถึง 80% อาการในลูกเป็ดคือโตช้า ไข้สูง เบื่ออาหาร และอาการทางประสาท เช่น ยืนไม่มั่นคง ล้ม และสั่นจนตาย",
+    "source": "Duck RA DVE DVH DTMUV GP AI Yr5 2026 หน้า 81, 83 และ 85",
+    "verified": "จุดที่รุ่นพี่มาร์ค: สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 5 ตัวอักษรสี (รุ่น 85); Duck flavivirus deck 2024 หน้า 3 ปากกาแดง (ไม่ระบุรุ่น); Duck flavivirus deck 2024 หน้า 4 ไฮไลต์ (ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-duck-flavi",
+      "epidemiology",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 81
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 83
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 85
+      },
+      {
+        "doc": "avian-final-summary-vet85",
+        "edition": "17p",
+        "page": 5
+      },
+      {
+        "doc": "avian-duck-flavi-2024",
+        "edition": "10p",
+        "page": 3
+      },
+      {
+        "doc": "avian-duck-flavi-2024",
+        "edition": "10p",
+        "page": 4
+      }
+    ]
+  },
+  {
+    "id": 218215,
+    "subject": "avian-medicine",
+    "topic": "avian-duck-flavi",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "ตัวอย่างที่ใช้ตรวจ PCR หา Duck Tembusu virus คือสมองหรือม้าม",
+    "answer": true,
+    "explain": "ถูก การวินิจฉัยใช้ประวัติ การแยกไวรัสในไข่ไก่ SPF หรือไข่เป็ดฟักอายุ 10 วัน และการตรวจทางอณูชีววิทยา (PCR) จากสมองหรือม้าม การควบคุมเน้นควบคุมยุงและแมลงพาหะ ให้อาหารและน้ำประคับประคอง และ biosecurity ส่วนวัคซีนทั้งชนิดเชื้อเป็นอ่อนเชื้อและเชื้อตายยังอยู่ในขั้นวิจัย",
+    "source": "Duck RA DVE DVH DTMUV GP AI Yr5 2026 หน้า 88 และ 89",
+    "verified": "จุดที่รุ่นพี่มาร์ค: แฟ้มรวมโน้ต avian med final ของรุ่น 84 หน้า 4 ติดดาว (ไม่ระบุรุ่น); สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 5 ตัวอักษรสี (รุ่น 85); Duck flavivirus deck 2024 หน้า 8 ไฮไลต์ (ไม่ระบุรุ่น); Duck flavivirus deck 2024 หน้า 9 ไฮไลต์ (ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-duck-flavi",
+      "diagnosis",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 88
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 89
+      },
+      {
+        "doc": "avian-final-notes-vet84",
+        "edition": "12p",
+        "page": 4
+      },
+      {
+        "doc": "avian-final-summary-vet85",
+        "edition": "17p",
+        "page": 5
+      },
+      {
+        "doc": "avian-duck-flavi-2024",
+        "edition": "10p",
+        "page": 8
+      },
+      {
+        "doc": "avian-duck-flavi-2024",
+        "edition": "10p",
+        "page": 9
+      }
+    ]
+  },
+  {
+    "id": 218216,
+    "subject": "avian-medicine",
+    "topic": "avian-duck-flavi",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Tembusu virus เป็นไวรัสในวงศ์ Herpesviridae เช่นเดียวกับไวรัส duck plague",
+    "answer": false,
+    "explain": "ผิด Tembusu virus อยู่ใน genus Flavivirus วงศ์ Flaviviridae ร่วมกับไวรัสไข้เลือดออก ไข้เหลือง West Nile และ Japanese encephalitis ซึ่งติดได้ทั้งคนและสัตว์ ไวรัสแยกได้จากยุง ส่วนไวรัส duck plague คือ Anatid herpesvirus 1 ในวงศ์ Herpesviridae",
+    "source": "Duck RA DVE DVH DTMUV GP AI Yr5 2026 หน้า 28 และ 82",
+    "verified": "จุดที่รุ่นพี่มาร์ค: Duck flavivirus deck 2024 หน้า 4 ไฮไลต์ (ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-duck-flavi",
+      "etiology",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 28
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 82
+      },
+      {
+        "doc": "avian-duck-flavi-2024",
+        "edition": "10p",
+        "page": 4
+      }
+    ]
+  },
+  {
+    "id": 218217,
+    "subject": "avian-medicine",
+    "topic": "avian-ort",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ข้อใดถูกต้องเกี่ยวกับ Ornithobacterium rhinotracheale (ORT)",
+    "options": [
+      "แบคทีเรียแกรมบวก อยู่ในเซลล์ ใกล้เคียงกับ Listeria monocytogenes และ Erysipelothrix",
+      "แบคทีเรียแกรมลบ อยู่นอกเซลล์ ใกล้เคียงกับ Riemerella anatipestifer และ Pasteurella multocida",
+      "แบคทีเรียแกรมลบ อยู่ในเซลล์ ใกล้เคียงกับ Salmonella Enteritidis และ Salmonella Gallinarum",
+      "แบคทีเรียไม่มีผนังเซลล์ อยู่นอกเซลล์ ใกล้เคียงกับ Mycoplasma gallisepticum"
+    ],
+    "answer": 1,
+    "explain": "ORT เป็นสปีชีส์ที่ตั้งขึ้นในปี 1994 เป็นแบคทีเรียแกรมลบที่อยู่นอกเซลล์ (extracellular) ใกล้เคียงกับ R. anatipestifer และ P. multocida ต้องการ CO2 5-10% ในการเจริญบน Columbia agar ปัจจุบันมี 18 serotype ซึ่งป้องกันข้ามกันได้บางส่วน และมากกว่า 90% ของเชื้อที่แยกจากไก่เป็น serotype A\n\n❌ ทำไมข้ออื่นผิด\nแกรมบวกและอยู่ในเซลล์: ตรงกับ Listeria ไม่ใช่ ORT\nอยู่ในเซลล์ใกล้ Salmonella: ORT อยู่นอกเซลล์\nไม่มีผนังเซลล์: เป็นลักษณะของ Mycoplasma",
+    "source": "Ornithobacteriosis (ORT) (3 พ.ย. 69) หน้า 2 และ 12",
+    "verified": "จุดที่รุ่นพี่มาร์ค: สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 9 ตัวอักษรสี (รุ่น 85); แฟ้มรวมโน้ต avian med final ของรุ่น 84 หน้า 4 ติดดาว (ไม่ระบุรุ่น); สรุป avian med final ของรุ่น 83 ในแฟ้มของรุ่น 84 หน้า 27 ปากกาแดง (รุ่น 84); ORT deck 2024 หน้า 3 ไฮไลต์ (ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก",
+    "tags": [
+      "avian-ort",
+      "etiology",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-ort-2569",
+        "edition": "32p",
+        "page": 2
+      },
+      {
+        "doc": "avian-ort-2569",
+        "edition": "32p",
+        "page": 12
+      },
+      {
+        "doc": "avian-final-summary-vet85",
+        "edition": "17p",
+        "page": 9
+      },
+      {
+        "doc": "avian-final-notes-vet84",
+        "edition": "12p",
+        "page": 4
+      },
+      {
+        "doc": "avian-final-summary-vet83",
+        "edition": "38p",
+        "page": 27
+      },
+      {
+        "doc": "avian-ort-2024",
+        "edition": "32p",
+        "page": 3
+      }
+    ]
+  },
+  {
+    "id": 218218,
+    "subject": "avian-medicine",
+    "topic": "avian-ort",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ORT ติดต่อในฝูงสัตว์ปีกได้ทางใด",
+    "options": [
+      "แนวราบทางเดียว ทั้งสัมผัสโดยตรงและโดยอ้อม ไม่พบเชื้อในไข่",
+      "แนวดิ่งทางเดียว จากแม่สู่ลูกผ่านไข่ ไม่ติดระหว่างไก่ในฝูง",
+      "ผ่านยุงและริ้นที่ดูดเลือดไก่ในช่วงที่เชื้ออยู่ในกระแสเลือด",
+      "ทั้งแนวราบ (สัมผัสโดยตรงและโดยอ้อม) และแนวดิ่งจากแม่สู่ลูก"
+    ],
+    "answer": 3,
+    "explain": "ORT ติดต่อจากไก่สู่ไก่ทั้งการสัมผัสโดยตรงและโดยอ้อม และจากแม่สู่ลูก โดยแยกเชื้อได้จากท่อนำไข่ เปลือกไข่ ไข่ตายโคม และไข่ไม่มีเชื้อ ระยะฟักตัว 2-4 วัน\n\n❌ ทำไมข้ออื่นผิด\nแนวราบทางเดียว: แยกเชื้อได้จากท่อนำไข่และไข่ จึงติดแนวดิ่งด้วย\nแนวดิ่งทางเดียว: ไก่ในฝูงติดกันเองได้ทั้งโดยตรงและโดยอ้อม\nยุงและริ้น: ไม่ใช่ทางติดต่อของ ORT",
+    "source": "Ornithobacteriosis (ORT) (3 พ.ย. 69) หน้า 6 และ 7",
+    "verified": "จุดที่รุ่นพี่มาร์ค: สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 9 ตัวอักษรสี (รุ่น 85); สรุป avian med final ของรุ่น 83 ในแฟ้มของรุ่น 84 หน้า 28 ปากกาแดง (รุ่น 84)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก",
+    "tags": [
+      "avian-ort",
+      "transmission",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-ort-2569",
+        "edition": "32p",
+        "page": 6
+      },
+      {
+        "doc": "avian-ort-2569",
+        "edition": "32p",
+        "page": 7
+      },
+      {
+        "doc": "avian-final-summary-vet85",
+        "edition": "17p",
+        "page": 9
+      },
+      {
+        "doc": "avian-final-summary-vet83",
+        "edition": "38p",
+        "page": 28
+      }
+    ]
+  },
+  {
+    "id": 218219,
+    "subject": "avian-medicine",
+    "topic": "avian-ort",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ข้อใดถูกต้องเกี่ยวกับการรักษา ORT ในฝูงไก่",
+    "options": [
+      "เชื้อดื้อยาเร็วและดื้อเกือบทุกชนิด ความไวต่อยาต่างกันในแต่ละประเทศ จึงเลือกยาตามผลทดสอบความไว",
+      "เชื้อไวต่อ enrofloxacin ในทุกประเทศที่มีรายงาน จึงใช้ enrofloxacin เป็นยาตัวแรกโดยไม่ต้องทดสอบ",
+      "ไม่ต้องรักษาด้วยยา เพราะโรคหายได้เองและไม่ทำให้สูญเสียทางเศรษฐกิจ ใช้เพียงการจัดการ",
+      "ใช้ nystatin ผสมน้ำเป็นยาหลัก ร่วมกับการพ่น enilconazole ในโรงเรือนทุกวัน"
+    ],
+    "answer": 0,
+    "explain": "ORT ดื้อต่อยาปฏิชีวนะเร็วและเกือบทุกชนิด และพบเกือบทั่วโลก ผลความไวต่างกันไปตามประเทศ เช่น เยอรมนีไวต่อ amoxycillin, chlortetracycline, tiamulin แต่ดื้อ enrofloxacin ขณะที่ฝรั่งเศสและเบลเยียมไวต่อ enrofloxacin ตัวอย่างขนาดยาคือ amoxycillin 250 ppm 3-7 วัน, chlortetracycline 500 ppm 4-5 วัน และ tilmicosin 10-20 มก./กก. ในระยะแรกของการติดเชื้อ\n\n❌ ทำไมข้ออื่นผิด\nenrofloxacin ทุกประเทศ: บางประเทศพบเชื้อดื้อ enrofloxacin\nไม่ต้องรักษา: ORT ทำให้ตาย โตช้า และสูญเสียทางเศรษฐกิจ\nnystatin และ enilconazole: เป็นยาต้านเชื้อรา ไม่ใช่ยาต่อแบคทีเรีย",
+    "source": "Ornithobacteriosis (ORT) (3 พ.ย. 69) หน้า 4 และ 30",
+    "verified": "จุดที่รุ่นพี่มาร์ค: ORT deck 2024 หน้า 4 ปากกาแดง (ไม่ระบุรุ่น); ORT deck 2024 หน้า 30 ไฮไลต์ (ไม่ระบุรุ่น); สรุป avian med final ของรุ่น 83 ในแฟ้มของรุ่น 84 หน้า 28 ปากกาแดง (รุ่น 84)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-ort",
+      "treatment",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-ort-2569",
+        "edition": "32p",
+        "page": 4
+      },
+      {
+        "doc": "avian-ort-2569",
+        "edition": "32p",
+        "page": 30
+      },
+      {
+        "doc": "avian-ort-2024",
+        "edition": "32p",
+        "page": 4
+      },
+      {
+        "doc": "avian-ort-2024",
+        "edition": "32p",
+        "page": 30
+      },
+      {
+        "doc": "avian-final-summary-vet83",
+        "edition": "38p",
+        "page": 28
+      }
+    ]
+  },
+  {
+    "id": 218220,
+    "subject": "avian-medicine",
+    "topic": "avian-ort",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ระยะฟักตัวและอัตราป่วยของ ORT ในฝูงไก่ ข้อใดถูกต้อง",
+    "options": [
+      "ระยะฟักตัว 3-4 สัปดาห์ อัตราป่วยต่ำกว่า 5% ในทุกระบบการเลี้ยง",
+      "ระยะฟักตัว 10-14 วัน อัตราป่วยใกล้ 100% ในทุกฝูงที่ติดเชื้อ",
+      "ระยะฟักตัว 2-4 วัน อัตราป่วย 2-95% แปรผันตามการจัดการ",
+      "ระยะฟักตัว 7-10 วัน อัตราป่วยคงที่ราว 50% ไม่ขึ้นกับการจัดการ"
+    ],
+    "answer": 2,
+    "explain": "ORT มีระยะฟักตัว 2-4 วัน อัตราป่วย 2-95% แปรผันตามการจัดการ การจัดการและสภาพแวดล้อมที่ไม่ดีทำให้อาการรุนแรงขึ้น อัตราตายในไก่เนื้อ 2-10% แต่มีรายงานถึง 50% ไก่พันธุ์ไวต่อโรคช่วงอายุ 24-56 สัปดาห์ ไข่ลด เปลือกไข่ไม่ดี ไข่เชื้อและอัตราฟักลดลง ไก่เนื้อไวช่วง 3-4 สัปดาห์\n\n❌ ทำไมข้ออื่นผิด\n3-4 สัปดาห์ และอัตราป่วยต่ำ: ระยะฟักตัวสั้นเพียงไม่กี่วัน\n10-14 วัน และเกือบ 100%: อัตราป่วยแปรผันมาก ไม่ได้สูงทุกฝูง\nคงที่ราว 50%: อัตราป่วยขึ้นกับการจัดการ",
+    "source": "Ornithobacteriosis (ORT) (3 พ.ย. 69) หน้า 5, 6, 13, 15 และ 16",
+    "verified": "จุดที่รุ่นพี่มาร์ค: ORT deck 2024 หน้า 16 ไฮไลต์ (ไม่ระบุรุ่น); ORT deck 2024 หน้า 15 ไฮไลต์ (ไม่ระบุรุ่น); ORT deck 2024 หน้า 6 ไฮไลต์ (ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-ort",
+      "epidemiology",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-ort-2569",
+        "edition": "32p",
+        "page": 5
+      },
+      {
+        "doc": "avian-ort-2569",
+        "edition": "32p",
+        "page": 6
+      },
+      {
+        "doc": "avian-ort-2569",
+        "edition": "32p",
+        "page": 13
+      },
+      {
+        "doc": "avian-ort-2569",
+        "edition": "32p",
+        "page": 15
+      },
+      {
+        "doc": "avian-ort-2569",
+        "edition": "32p",
+        "page": 16
+      },
+      {
+        "doc": "avian-ort-2024",
+        "edition": "32p",
+        "page": 16
+      },
+      {
+        "doc": "avian-ort-2024",
+        "edition": "32p",
+        "page": 15
+      },
+      {
+        "doc": "avian-ort-2024",
+        "edition": "32p",
+        "page": 6
+      }
+    ]
+  },
+  {
+    "id": 218221,
+    "subject": "avian-medicine",
+    "topic": "avian-ort",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ไก่พันธุ์มีปัญหาระบบทางเดินหายใจ ผ่าซากพบถุงลมขุ่นหนามีฟอง สงสัย ORT การเก็บตัวอย่างเพาะเชื้อข้อใดเหมาะสมที่สุด",
+    "options": [
+      "เก็บอุจจาระสดจากพื้นโรงเรือน ใส่ถุงพลาสติก วางที่อุณหภูมิห้อง ส่งภายใน 7 วัน",
+      "ป้ายหลอดลมและปอดเป็นหลัก ใส่หลอดขนส่งเชื้อ แช่เย็น 4 องศาเซลเซียส ส่งภายใน 3 วัน",
+      "ตัดเยื่อบุกระเพาะพักแช่ฟอร์มาลิน 10% แล้วส่งเพาะเชื้อภายใน 3 วัน",
+      "เจาะเลือดใส่สารกันเลือดแข็ง แช่แข็ง -20 องศาเซลเซียส ส่งเพาะเชื้อภายใน 7 วัน"
+    ],
+    "answer": 1,
+    "explain": "เมื่อผ่าซากพบรอยโรคที่เข้ากับ ORT เช่น ถุงลมขุ่นหนามีฟองหรือหนอง ปอดเนื้อตาย หลอดลมอักเสบแดง ให้ป้ายเชื้อจากหลอดลม ปอด ถุงลม และไซนัสใต้ตา โดยเฉพาะหลอดลมและปอด ใส่หลอดขนส่งเชื้อที่มีอาหารเลี้ยงเชื้อ แช่เย็น 4 องศาเซลเซียสหรือแช่น้ำแข็ง และส่งให้เร็วที่สุด ไม่ควรเกิน 3 วันหลังป้าย การแยกเชื้อต้องทำในช่วงแรกของการติดเชื้อ\n\n❌ ทำไมข้ออื่นผิด\nอุจจาระที่อุณหภูมิห้อง: ไม่ใช่ตัวอย่างของโรคทางเดินหายใจ และเชื้อตายก่อนถึงแล็บ\nฟอร์มาลิน: ฆ่าเชื้อ เพาะไม่ขึ้น\nเลือดแช่แข็ง: ไม่ใช่ตัวอย่างเพาะเชื้อ ORT",
+    "source": "Ornithobacteriosis (ORT) (3 พ.ย. 69) หน้า 25 และ 28",
+    "verified": "จุดที่รุ่นพี่มาร์ค: ORT deck 2024 หน้า 28 ไฮไลต์ (ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-ort",
+      "sampling",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-ort-2569",
+        "edition": "32p",
+        "page": 25
+      },
+      {
+        "doc": "avian-ort-2569",
+        "edition": "32p",
+        "page": 28
+      },
+      {
+        "doc": "avian-ort-2024",
+        "edition": "32p",
+        "page": 28
+      }
+    ]
+  },
+  {
+    "id": 218222,
+    "subject": "avian-medicine",
+    "topic": "avian-campy",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ลักษณะของ Campylobacter jejuni ข้อใดถูกต้อง",
+    "options": [
+      "แบคทีเรียแกรมบวก รูปแท่งตรง ไม่มีแฟลเจลลา เจริญได้ดีในอากาศปกติ",
+      "แบคทีเรียแกรมลบ รูปกลมเรียงเป็นคู่ ไม่เคลื่อนที่ ต้องการ CO2 5-10%",
+      "แบคทีเรียแกรมบวก รูปแท่งโค้ง สร้างสปอร์ เจริญในสภาพไร้ออกซิเจน",
+      "แบคทีเรียแกรมลบ รูปแท่งโค้งเรียว มีแคปซูลและแฟลเจลลา ต้องการ O2 ต่ำ"
+    ],
+    "answer": 3,
+    "explain": "C. jejuni, C. coli และ C. lari เป็น Campylobacter ที่ก่อปัญหาในสัตว์ปีก เป็นแบคทีเรียแกรมลบ รูปแท่งโค้งเรียว มีแคปซูลและแฟลเจลลา เจริญในสภาพ microaerophilic (O2 5%, CO2 10%, N2 85%) และไม่ทนต่อสภาพแห้ง\n\n❌ ทำไมข้ออื่นผิด\nแกรมบวก แท่งตรง: ไม่ตรงกับ Campylobacter\nรูปกลมเป็นคู่: Campylobacter เป็นแท่งโค้งที่เคลื่อนที่ได้\nสร้างสปอร์ ไร้ออกซิเจน: เป็นลักษณะของ Clostridium",
+    "source": "Campylobacteriosis (3 พ.ย. 69) หน้า 2 และ 8",
+    "verified": "จุดที่รุ่นพี่มาร์ค: รายการจุดออกสอบ PART2 ในแฟ้มของรุ่น 84 หน้า 2 อยู่ในรายการจุดออกสอบ (ไม่ระบุรุ่น); แฟ้มรวมโน้ต avian med final ของรุ่น 84 หน้า 4 ติดดาว (ไม่ระบุรุ่น); สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 9 ตัวอักษรสี (รุ่น 85)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก",
+    "tags": [
+      "avian-campy",
+      "etiology",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-campylobacter-2569",
+        "edition": "17p",
+        "page": 2
+      },
+      {
+        "doc": "avian-campylobacter-2569",
+        "edition": "17p",
+        "page": 8
+      },
+      {
+        "doc": "avian-fact-list-part2-vet84",
+        "edition": "6p",
+        "page": 2
+      },
+      {
+        "doc": "avian-final-notes-vet84",
+        "edition": "12p",
+        "page": 4
+      },
+      {
+        "doc": "avian-final-summary-vet85",
+        "edition": "17p",
+        "page": 9
+      }
+    ]
+  },
+  {
+    "id": 218223,
+    "subject": "avian-medicine",
+    "topic": "avian-campy",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ไก่เนื้อในฟาร์มที่ตรวจพบ Campylobacter jejuni ในลำไส้ส่วนใหญ่มีอาการอย่างไร",
+    "options": [
+      "ไม่แสดงอาการทางคลินิก แต่เป็นแหล่งเชื้อที่ติดสู่คน",
+      "ท้องเสียเป็นน้ำ ตายสูงในสัปดาห์แรกของการเลี้ยง",
+      "ข้ออักเสบ เดินกะเผลกในไก่อายุ 3-4 สัปดาห์",
+      "หน้าบวม น้ำมูกข้น และเปลือกไข่ผิดรูป"
+    ],
+    "answer": 0,
+    "explain": "Campylobacter ไม่ก่อให้เกิดอาการทางคลินิกในไก่พันธุ์และไก่เนื้อ แต่ไก่เป็นแหล่งเชื้อที่ติดสู่คน ไก่โตที่ติดเชื้อมีอาการไม่ชัดเจน ความสำคัญอยู่ที่คน เพราะ 50-70% ของเชื้อที่ก่อโรคในคนมาจากสัตว์ปีก จึงไม่จำเป็นต้องรักษาไก่ อาการที่เห็นได้มาจากการทดลองให้เชื้อพิษ คือท้องเสียปนมูกเลือด ซึม ขี้ติดก้น ตับมีเนื้อตายเป็นจุด และ jejunum ขยาย\n\n❌ ทำไมข้ออื่นผิด\nท้องเสียตายสูงในสัปดาห์แรก: มักแยกเชื้อไม่ได้ในไก่อายุ 1-2 สัปดาห์ และเชื้อไม่ทำให้ไก่ตาย\nข้ออักเสบ: ไม่ใช่อาการของ Campylobacter ในไก่\nหน้าบวม น้ำมูก: เป็นอาการโรคทางเดินหายใจ",
+    "source": "Campylobacteriosis (3 พ.ย. 69) หน้า 7, 8, 10, 11 และ 13",
+    "verified": "จุดที่รุ่นพี่มาร์ค: สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 9 ตัวอักษรสี (รุ่น 85); แฟ้มรวมโน้ต avian med final ของรุ่น 84 หน้า 4 ติดดาว (ไม่ระบุรุ่น); Campylobacteriosis deck 2024 หน้า 7 ไฮไลต์ (ไม่ระบุรุ่น); Campylobacteriosis deck 2024 หน้า 11 ไฮไลต์ (ไม่ระบุรุ่น); สรุป avian med final ของรุ่น 83 ในแฟ้มของรุ่น 84 หน้า 29 ปากกาแดง (รุ่น 84)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก",
+    "tags": [
+      "avian-campy",
+      "clinical-signs",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-campylobacter-2569",
+        "edition": "17p",
+        "page": 7
+      },
+      {
+        "doc": "avian-campylobacter-2569",
+        "edition": "17p",
+        "page": 8
+      },
+      {
+        "doc": "avian-campylobacter-2569",
+        "edition": "17p",
+        "page": 10
+      },
+      {
+        "doc": "avian-campylobacter-2569",
+        "edition": "17p",
+        "page": 11
+      },
+      {
+        "doc": "avian-campylobacter-2569",
+        "edition": "17p",
+        "page": 13
+      },
+      {
+        "doc": "avian-final-summary-vet85",
+        "edition": "17p",
+        "page": 9
+      },
+      {
+        "doc": "avian-final-notes-vet84",
+        "edition": "12p",
+        "page": 4
+      },
+      {
+        "doc": "avian-campy-2024",
+        "edition": "17p",
+        "page": 7
+      },
+      {
+        "doc": "avian-campy-2024",
+        "edition": "17p",
+        "page": 11
+      },
+      {
+        "doc": "avian-final-summary-vet83",
+        "edition": "38p",
+        "page": 29
+      }
+    ]
+  },
+  {
+    "id": 218224,
+    "subject": "avian-medicine",
+    "topic": "avian-campy",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ข้อใดถูกต้องเกี่ยวกับระบาดวิทยาของ Campylobacter jejuni ในไก่เนื้อ",
+    "options": [
+      "ไก่เริ่มปล่อยเชื้อตั้งแต่อายุ 1 วัน เพราะได้รับเชื้อผ่านไข่จากแม่ไก่",
+      "อาหารไก่เป็นแหล่งรังโรคหลัก ไก่จึงติดเชื้อตั้งแต่มื้อแรกที่กิน",
+      "ไก่เริ่มปล่อยเชื้อเมื่ออายุราว 3 สัปดาห์ และภายใน 2-4 วันพบเชื้อเกือบทั้งฝูง",
+      "เชื้อทนแล้งได้ดี จึงสะสมในวัสดุรองพื้นที่แห้งได้นานหลายเดือน"
+    ],
+    "answer": 2,
+    "explain": "ไก่เริ่มปล่อยเชื้อ C. jejuni เมื่ออายุราว 3 สัปดาห์ ภายใน 2-4 วันพบเชื้อ 90-100% ของฝูง ในไทยพบได้ถึงราว 60-80% ของฝูงไก่เนื้อ เชื้อติดต่อโดยตรงจากมูลไก่และโดยอ้อมทางน้ำดื่ม ยานพาหนะ คน และแมลงวัน แหล่งรังโรคคือน้ำ แมลง หนู สัตว์เลี้ยง นกป่า ปศุสัตว์ และไก่ที่ตายในโรงเรือนแล้วไม่เก็บ เชื้อเพียง 300-500 เซลล์ก็ก่อโรคในคนได้\n\n❌ ทำไมข้ออื่นผิด\nติดผ่านไข่: มีรายงานแม่ไก่ปล่อยเชื้อ แต่ไม่ทำให้ไข่ติดเชื้อ และมักแยกเชื้อไม่ได้ในไก่อายุ 1-2 สัปดาห์\nอาหารเป็นแหล่งรังโรค: อาหารไม่ใช่แหล่งรังโรคของเชื้อนี้\nทนแล้ง: เชื้อไม่ทนต่อสภาพแห้ง",
+    "source": "Campylobacteriosis (3 พ.ย. 69) หน้า 7, 8 และ 9",
+    "verified": "จุดที่รุ่นพี่มาร์ค: สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 9 ตัวอักษรสี (รุ่น 85); Campylobacteriosis deck 2024 หน้า 9 ไฮไลต์ (ไม่ระบุรุ่น); Campylobacteriosis deck 2024 หน้า 8 ไฮไลต์ (ไม่ระบุรุ่น); สรุป avian med final ของรุ่น 83 ในแฟ้มของรุ่น 84 หน้า 28 ปากกาแดง (รุ่น 84)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก",
+    "tags": [
+      "avian-campy",
+      "epidemiology",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-campylobacter-2569",
+        "edition": "17p",
+        "page": 7
+      },
+      {
+        "doc": "avian-campylobacter-2569",
+        "edition": "17p",
+        "page": 8
+      },
+      {
+        "doc": "avian-campylobacter-2569",
+        "edition": "17p",
+        "page": 9
+      },
+      {
+        "doc": "avian-final-summary-vet85",
+        "edition": "17p",
+        "page": 9
+      },
+      {
+        "doc": "avian-campy-2024",
+        "edition": "17p",
+        "page": 9
+      },
+      {
+        "doc": "avian-campy-2024",
+        "edition": "17p",
+        "page": 8
+      },
+      {
+        "doc": "avian-final-summary-vet83",
+        "edition": "38p",
+        "page": 28
+      }
+    ]
+  },
+  {
+    "id": 218225,
+    "subject": "avian-medicine",
+    "topic": "avian-campy",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ข้อใดถูกต้องเกี่ยวกับการตรวจเชื้อ Listeria monocytogenes และ Campylobacter ในไก่ส่งออก",
+    "options": [
+      "Campylobacter บังคับให้ตรวจในไก่ส่งออก ส่วน Listeria ยังเป็นเพียงเชื้อที่อาจเป็นอุปสรรคในภายหน้า",
+      "Listeria บังคับให้ตรวจในไก่ส่งออก ส่วน Campylobacter ยังเป็นเพียงเชื้อที่อาจเป็นอุปสรรคทางการค้าในภายหน้า",
+      "ทั้ง Listeria และ Campylobacter บังคับให้ตรวจ และพบเชื้อตัวใดก็ห้ามส่งออกทั้งล็อต",
+      "ทั้งสองเชื้อไม่ต้องตรวจในไก่ส่งออก เพราะไม่ก่อโรคในไก่และไม่ติดต่อสู่คน"
+    ],
+    "answer": 1,
+    "explain": "Listeria monocytogenes เป็นเชื้อที่บังคับให้ตรวจในไก่ส่งออก ส่วน Campylobacter แม้ก่อลำไส้อักเสบในคนจำนวนมาก แต่ยังไม่มีวัคซีนหรือวิธีควบคุมที่ได้ผลแน่นอนในฟาร์ม จึงยังเป็นเพียงโรคที่อาจเป็นอุปสรรคทางการค้าในภายหน้า การลดการปนเปื้อน Campylobacter ในเนื้อไก่อาศัยการควบคุมก่อนจับไก่ (biosecurity, competitive exclusion, น้ำคลอรีน 2-3 ppm) และหลังจับไก่ (ฆ่าเชื้อยานพาหนะและกรง, HACCP ในโรงงาน)\n\n❌ ทำไมข้ออื่นผิด\nสลับกัน: เชื้อที่บังคับตรวจคือ Listeria\nบังคับทั้งสอง: Campylobacter ยังไม่บังคับ\nไม่ต้องตรวจทั้งสอง: ทั้งสองเชื้อติดสู่คนได้ และ Listeria บังคับตรวจ",
+    "source": "Campylobacteriosis (3 พ.ย. 69) หน้า 7, 14, 15 และ 16; Listeriosis (3 พ.ย. 69) หน้า 4",
+    "verified": "จุดที่รุ่นพี่มาร์ค: สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 9 ตัวอักษรสี (รุ่น 85); แฟ้มรวมโน้ต avian med final ของรุ่น 84 หน้า 2 ติดดาว (ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก",
+    "tags": [
+      "avian-campy",
+      "trade",
+      "food-safety",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-campylobacter-2569",
+        "edition": "17p",
+        "page": 7
+      },
+      {
+        "doc": "avian-campylobacter-2569",
+        "edition": "17p",
+        "page": 14
+      },
+      {
+        "doc": "avian-campylobacter-2569",
+        "edition": "17p",
+        "page": 15
+      },
+      {
+        "doc": "avian-campylobacter-2569",
+        "edition": "17p",
+        "page": 16
+      },
+      {
+        "doc": "avian-listeriosis-2569",
+        "edition": "13p",
+        "page": 4
+      },
+      {
+        "doc": "avian-final-summary-vet85",
+        "edition": "17p",
+        "page": 9
+      },
+      {
+        "doc": "avian-final-notes-vet84",
+        "edition": "12p",
+        "page": 2
+      }
+    ]
+  },
+  {
+    "id": 218226,
+    "subject": "avian-medicine",
+    "topic": "avian-listeria",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "กลุ่มคนใดเสี่ยงต่อ listeriosis รุนแรงจากการกินเนื้อไก่หรือผลิตภัณฑ์ไก่ที่ปนเปื้อน Listeria monocytogenes",
+    "options": [
+      "ผู้ทำงานในโรงเชือด ผู้เลี้ยงไก่ และสัตวแพทย์ประจำฟาร์ม",
+      "ทารกแรกเกิด หญิงตั้งครรภ์ และผู้มีภูมิคุ้มกันบกพร่อง",
+      "เด็กวัยเรียน วัยรุ่น และผู้ใหญ่ที่มีสุขภาพแข็งแรง",
+      "ผู้แพ้ไข่ ผู้แพ้โปรตีนไก่ และผู้ป่วยโรคเบาหวาน"
+    ],
+    "answer": 1,
+    "explain": "คนติด Listeria จากการกินอาหารที่ปนเปื้อน เกิดโลหิตติดเชื้อ สมองอักเสบ และเยื่อหุ้มสมองอักเสบ ตายราว 25% ผู้ที่ป่วยมักเป็นทารกแรกเกิด หญิงตั้งครรภ์ และผู้มีภูมิคุ้มกันบกพร่อง เชื้อปนเปื้อนเนื้อไก่และผลิตภัณฑ์ไก่ และพบในดินและอุจจาระสัตว์ปีก\n\n❌ ทำไมข้ออื่นผิด\nผู้ทำงานในโรงเชือดและฟาร์ม: ความเสี่ยงหลักมาจากการกินอาหารปนเปื้อน ไม่ใช่อาชีพ\nคนสุขภาพดี: ไม่ใช่กลุ่มที่ป่วยรุนแรง\nผู้แพ้อาหาร: ไม่เกี่ยวกับการติดเชื้อ",
+    "source": "Listeriosis (3 พ.ย. 69) หน้า 5",
+    "verified": "จุดที่รุ่นพี่มาร์ค: รายการจุดออกสอบ PART2 ในแฟ้มของรุ่น 84 หน้า 2 อยู่ในรายการจุดออกสอบ (ไม่ระบุรุ่น); แฟ้มรวมโน้ต avian med final ของรุ่น 84 หน้า 4 ติดดาว (ไม่ระบุรุ่น); สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 10 ตัวอักษรสี (รุ่น 85); Listeriosis deck 2024 หน้า 5 ไฮไลต์ (ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก",
+    "tags": [
+      "avian-listeria",
+      "zoonosis",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-listeriosis-2569",
+        "edition": "13p",
+        "page": 5
+      },
+      {
+        "doc": "avian-fact-list-part2-vet84",
+        "edition": "6p",
+        "page": 2
+      },
+      {
+        "doc": "avian-final-notes-vet84",
+        "edition": "12p",
+        "page": 4
+      },
+      {
+        "doc": "avian-final-summary-vet85",
+        "edition": "17p",
+        "page": 10
+      },
+      {
+        "doc": "avian-listeria-2024",
+        "edition": "13p",
+        "page": 5
+      }
+    ]
+  },
+  {
+    "id": 218227,
+    "subject": "avian-medicine",
+    "topic": "avian-listeria",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ข้อใดถูกต้องเกี่ยวกับ listeriosis ในสัตว์ปีก",
+    "options": [
+      "เป็นโรคระบาดรุนแรง ฝูงไก่ตายเกือบทั้งหมดภายใน 1 สัปดาห์",
+      "พบเฉพาะลูกไก่อายุน้อยกว่า 1 สัปดาห์ที่ติดเชื้อผ่านไข่",
+      "เกิดโรคไม่บ่อยและพบประปราย สัตว์ปีกเป็นแหล่งกักโรคของเชื้อ",
+      "ติดต่อผ่านยุงเป็นหลัก จึงพบมากในฤดูฝน"
+    ],
+    "answer": 2,
+    "explain": "listeriosis ในสัตว์ปีกพบน้อยและเกิดประปราย มักระบาดหลังการตัดปาก สัตว์ปีกเป็นแหล่งกักโรคของเชื้อและเป็นทางที่เชื้อปนเปื้อนเนื้อไก่ เชื้อติดทางการหายใจ การกิน มูลของตัวป่วย และบาดแผลที่ปนเปื้อน ไม่มีหลักฐานการติดเชื้อผ่านไข่\n\n❌ ทำไมข้ออื่นผิด\nระบาดรุนแรง: โรคพบน้อยและเป็นประปราย\nติดผ่านไข่: ไม่มีหลักฐานการติดผ่านไข่\nยุงเป็นพาหะ: ไม่ใช่ทางติดต่อของ Listeria",
+    "source": "Listeriosis (3 พ.ย. 69) หน้า 4, 5 และ 6",
+    "verified": "จุดที่รุ่นพี่มาร์ค: Listeriosis deck 2024 หน้า 4 ไฮไลต์ (ไม่ระบุรุ่น); แฟ้มรวมโน้ต avian med final ของรุ่น 84 หน้า 4 ติดดาว (ไม่ระบุรุ่น); สรุป avian med final ของรุ่น 83 ในแฟ้มของรุ่น 84 หน้า 30 ปากกาแดง (รุ่น 84)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-listeria",
+      "epidemiology",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-listeriosis-2569",
+        "edition": "13p",
+        "page": 4
+      },
+      {
+        "doc": "avian-listeriosis-2569",
+        "edition": "13p",
+        "page": 5
+      },
+      {
+        "doc": "avian-listeriosis-2569",
+        "edition": "13p",
+        "page": 6
+      },
+      {
+        "doc": "avian-listeria-2024",
+        "edition": "13p",
+        "page": 4
+      },
+      {
+        "doc": "avian-final-notes-vet84",
+        "edition": "12p",
+        "page": 4
+      },
+      {
+        "doc": "avian-final-summary-vet83",
+        "edition": "38p",
+        "page": 30
+      }
+    ]
+  },
+  {
+    "id": 218228,
+    "subject": "avian-medicine",
+    "topic": "avian-listeria",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ไก่ในฝูงได้รับการยืนยันว่าเป็น listeriosis ยาที่ใช้รักษาคือข้อใด",
+    "options": [
+      "nystatin หรือ amphotericin B",
+      "amprolium หรือ toltrazuril",
+      "dimetridazole หรือ ronidazole",
+      "tetracycline หรือ chlortetracycline"
+    ],
+    "answer": 3,
+    "explain": "listeriosis ในสัตว์ปีกรักษาด้วย tetracycline หรือ chlortetracycline แต่เชื้อมักดื้อต่อยาปฏิชีวนะหลายชนิด การวินิจฉัยอาศัยอาการ การแยกและพิสูจน์เชื้อ การฉีดเชื้อเข้า allantoic cavity ของไข่ไก่ฟัก ELISA การวิเคราะห์ DNA และ immunofluorescence\n\n❌ ทำไมข้ออื่นผิด\nnystatin หรือ amphotericin B: ยาต้านเชื้อรา\namprolium หรือ toltrazuril: ยาต้านบิด\ndimetridazole หรือ ronidazole: ยากลุ่ม nitroimidazole ที่ใช้กับ histomoniasis",
+    "source": "Listeriosis (3 พ.ย. 69) หน้า 10 และ 11",
+    "verified": "จุดที่รุ่นพี่มาร์ค: แฟ้มรวมโน้ต avian med final ของรุ่น 84 หน้า 4 ติดดาว (ไม่ระบุรุ่น); Listeriosis deck 2024 หน้า 10 ไฮไลต์ (ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-listeria",
+      "treatment",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-listeriosis-2569",
+        "edition": "13p",
+        "page": 10
+      },
+      {
+        "doc": "avian-listeriosis-2569",
+        "edition": "13p",
+        "page": 11
+      },
+      {
+        "doc": "avian-final-notes-vet84",
+        "edition": "12p",
+        "page": 4
+      },
+      {
+        "doc": "avian-listeria-2024",
+        "edition": "13p",
+        "page": 10
+      }
+    ]
+  },
+  {
+    "id": 218229,
+    "subject": "avian-medicine",
+    "topic": "avian-listeria",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "การป้องกัน listeriosis ในฟาร์มสัตว์ปีกเน้นมาตรการใด",
+    "options": [
+      "ให้วัคซีน Listeria เชื้อเป็นแก่ลูกไก่อายุ 1 วันทุกฝูง",
+      "หาแหล่งปนเปื้อนเชื้อแล้วกำจัดทิ้ง และจัดระบบสุขาภิบาลฟาร์ม",
+      "ถ่ายพยาธิตัวกลมเป็นประจำ เพราะเชื้ออาศัยในไข่พยาธิ",
+      "ควบคุมยุงและริ้นในโรงเรือน เพราะเป็นทางติดต่อหลัก"
+    ],
+    "answer": 1,
+    "explain": "การป้องกัน listeriosis คือหลีกเลี่ยงแหล่งปนเปื้อนเชื้อ ค้นหาแหล่งปนเปื้อนแล้วกำจัดทิ้ง และจัดระบบสุขาภิบาลฟาร์ม เพราะเชื้ออยู่ในดินและอุจจาระสัตว์ปีก และเข้าสู่ไก่ทางการหายใจ การกิน และบาดแผล\n\n❌ ทำไมข้ออื่นผิด\nวัคซีน Listeria ในลูกไก่: ไม่ใช่มาตรการป้องกันของโรคนี้\nถ่ายพยาธิ: เป็นการป้องกัน histomoniasis ซึ่งเชื้ออาศัยในพยาธิ Heterakis\nควบคุมยุง: ยุงไม่ใช่ทางติดต่อของ Listeria",
+    "source": "Listeriosis (3 พ.ย. 69) หน้า 5, 6 และ 12",
+    "verified": "จุดที่รุ่นพี่มาร์ค: Listeriosis deck 2024 หน้า 12 ไฮไลต์ (ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-listeria",
+      "prevention",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-listeriosis-2569",
+        "edition": "13p",
+        "page": 5
+      },
+      {
+        "doc": "avian-listeriosis-2569",
+        "edition": "13p",
+        "page": 6
+      },
+      {
+        "doc": "avian-listeriosis-2569",
+        "edition": "13p",
+        "page": 12
+      },
+      {
+        "doc": "avian-listeria-2024",
+        "edition": "13p",
+        "page": 12
+      }
+    ]
+  },
+  {
+    "id": 218230,
+    "subject": "avian-medicine",
+    "topic": "avian-histomoniasis",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ยากลุ่มใดใช้รักษา histomoniasis แต่ปัจจุบันหลายประเทศห้ามใช้",
+    "options": [
+      "ionophores เช่น monensin, lasalocid, salinomycin",
+      "nitroimidazoles เช่น dimetridazole, ipronidazole, ronidazole",
+      "sulfonamides เช่น sulfadiazine, sulfaquinoxaline",
+      "macrolides เช่น tylosin, tilmicosin, erythromycin"
+    ],
+    "answer": 1,
+    "explain": "การรักษา histomoniasis ใช้ยาถ่ายพยาธิตัวกลม และยากลุ่ม nitroimidazoles (dimetridazole, ipronidazole, ronidazole) ซึ่งปัจจุบันหลายประเทศห้ามใช้ ร่วมกับการจัดการ ได้แก่ biosecurity โปรแกรมถ่ายพยาธิ และส่งเสริมสุขภาพไก่ด้วยอาหาร น้ำ และสิ่งแวดล้อมที่ดี เพราะ Histomonas meleagridis แพร่สู่สัตว์ปีกผ่านไข่ของพยาธิ Heterakis gallinarum\n\n❌ ทำไมข้ออื่นผิด\nionophores: ยาป้องกันบิด\nsulfonamides: ใช้กับบิดและแบคทีเรียบางชนิด ไม่ใช่ยาหลักของโรคนี้\nmacrolides: ใช้กับ Mycoplasma",
+    "source": "Histomoniasis (3 พ.ย. 69) หน้า 2 และ 8",
+    "verified": "จุดที่รุ่นพี่มาร์ค: สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 10 ตัวอักษรสี (รุ่น 85)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก",
+    "tags": [
+      "avian-histomoniasis",
+      "treatment",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-histomoniasis-2569",
+        "edition": "9p",
+        "page": 2
+      },
+      {
+        "doc": "avian-histomoniasis-2569",
+        "edition": "9p",
+        "page": 8
+      },
+      {
+        "doc": "avian-final-summary-vet85",
+        "edition": "17p",
+        "page": 10
+      }
+    ]
+  },
+  {
+    "id": 218231,
+    "subject": "avian-medicine",
+    "topic": "avian-mycosis",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "อาหารไก่ที่ปนเปื้อนเชื้อรามีลักษณะและผลต่อคุณค่าทางโภชนาการอย่างไร",
+    "options": [
+      "อาหารแห้งร่วน สีคงเดิม และโปรตีนเพิ่มขึ้นจากเส้นใยเชื้อรา",
+      "อาหารมีกลิ่นหอมขึ้น ไก่กินมากขึ้น แต่แร่ธาตุถูกทำลาย",
+      "อาหารเกาะเป็นก้อน กลิ่นสดหายไปมีกลิ่นโคลน ไขมัน กรดอะมิโน และวิตามินถูกทำลาย",
+      "อาหารเป็นผงละเอียด ไม่มีกลิ่น และพลังงานเพิ่มขึ้นจากการหมัก"
+    ],
+    "answer": 2,
+    "explain": "อาหารที่ปนเปื้อนเชื้อราเกาะเป็นก้อน สัตว์ไม่อยากกิน กลิ่นสดใหม่หายไป มีกลิ่นโคลน และสีเปลี่ยน เช่น Aspergillus ทำให้เป็นสีน้ำตาลเข้ม Fusarium เป็นสีชมพู เชื้อราทำลายไขมันในเมล็ดพืชจนพลังงานลดลง ทำลายกรดอะมิโนและวิตามิน และเปลี่ยนสี กลิ่น และความน่ากินของอาหาร\n\n❌ ทำไมข้ออื่นผิด\nโปรตีนเพิ่ม: เชื้อราทำลายสารอาหาร ไม่ได้เพิ่ม\nกลิ่นหอม กินมากขึ้น: อาหารมีกลิ่นโคลนและสัตว์กินน้อยลง\nพลังงานเพิ่ม: ไขมันถูกทำลาย พลังงานจึงลดลง",
+    "source": "Mycotic infections in poultry (27 ต.ค. 69) หน้า 2 และ 3",
+    "verified": "จุดที่รุ่นพี่มาร์ค: Mycotic infection deck 2024 หน้า 2 ไฮไลต์ (ไม่ระบุรุ่น); Mycotic infection deck 2024 หน้า 3 ไฮไลต์ (ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-mycosis",
+      "feed-quality",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-mycosis-2569",
+        "edition": "60p",
+        "page": 2
+      },
+      {
+        "doc": "avian-mycosis-2569",
+        "edition": "60p",
+        "page": 3
+      },
+      {
+        "doc": "avian-mycosis-2024",
+        "edition": "60p",
+        "page": 2
+      },
+      {
+        "doc": "avian-mycosis-2024",
+        "edition": "60p",
+        "page": 3
+      }
+    ]
+  },
+  {
+    "id": 218232,
+    "subject": "avian-medicine",
+    "topic": "avian-mycosis",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "มาตรการใดป้องกัน aspergillosis ได้ตรงต้นเหตุที่สุด",
+    "options": [
+      "ฉีดวัคซีน Aspergillus เชื้อตายให้ลูกไก่อายุ 1 วันทุกตัวที่โรงฟักก่อนลงเล้า",
+      "ผสม nystatin ในอาหารต่อเนื่องตลอดการเลี้ยงในไก่เนื้อทุกฝูงเพื่อกันเชื้อรา",
+      "เพิ่มความชื้นในตู้ฟักและวัสดุรองพื้นให้เกิน 85% เพื่อลดฝุ่นสปอร์",
+      "สุขาภิบาลโรงฟักและห้อง preheat เลี่ยงอาหารเก่าชื้น ใช้ enilconazole กับวัสดุรองพื้น"
+    ],
+    "answer": 3,
+    "explain": "aspergillosis ไม่ติดต่อจากตัวสู่ตัว ไก่รับสปอร์จากสิ่งแวดล้อม โดยเฉพาะในโรงฟัก การป้องกันจึงอยู่ที่สุขาภิบาลโรงฟักและการตรวจอากาศในโรงฟัก มีห้อง preheat เพื่อลดไข่เหงื่อ คัดลูกไก่ที่แสดงอาการทิ้ง ให้อาหารและโรงเรือนปราศจากเชื้อรา หลีกเลี่ยงอาหารเก่าและเปียกชื้น ใช้ยาฆ่าเชื้อราในวัสดุรองพื้น (enilconazole) และการรม enilconazole ช่วยลดอัตราป่วยและอัตราตาย\n\n❌ ทำไมข้ออื่นผิด\nวัคซีน Aspergillus: ไม่มีวัคซีนเชิงการค้า และวัคซีนไม่ป้องกันรอยโรคที่ปอด\nnystatin ตลอดการเลี้ยง: ยาต้านเชื้อราเป็นเพียง fungistat และไม่คุ้มค่าในสัตว์ปีก\nเพิ่มความชื้น: เชื้อราเจริญดีที่ความชื้นสัมพัทธ์ 85% ขึ้นไป",
+    "source": "Mycotic infections in poultry (27 ต.ค. 69) หน้า 7, 18, 41 และ 43",
+    "verified": "จุดที่รุ่นพี่มาร์ค: Mycotic infection deck 2024 หน้า 41 ไฮไลต์ (ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-mycosis",
+      "aspergillosis",
+      "prevention",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-mycosis-2569",
+        "edition": "60p",
+        "page": 7
+      },
+      {
+        "doc": "avian-mycosis-2569",
+        "edition": "60p",
+        "page": 18
+      },
+      {
+        "doc": "avian-mycosis-2569",
+        "edition": "60p",
+        "page": 41
+      },
+      {
+        "doc": "avian-mycosis-2569",
+        "edition": "60p",
+        "page": 43
+      },
+      {
+        "doc": "avian-mycosis-2024",
+        "edition": "60p",
+        "page": 41
+      }
+    ]
+  },
+  {
+    "id": 218233,
+    "subject": "avian-medicine",
+    "topic": "avian-mycosis",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ปัจจัยใดทำให้ไก่เกิด aspergillosis ได้ง่ายขึ้น",
+    "options": [
+      "ความเครียดจากความเย็น แอมโมเนีย ฝุ่น ภาวะกดภูมิคุ้มกัน และการเลี้ยงหนาแน่น",
+      "การให้วัคซีน ND เชื้อเป็น การให้แสงยาว และอาหารโปรตีนสูง",
+      "อากาศร้อนแห้ง ความชื้นต่ำกว่า 40% และการเลี้ยงในกรงตับ",
+      "การตัดปาก การเปลี่ยนสูตรอาหาร และการให้น้ำผสมคลอรีน"
+    ],
+    "answer": 0,
+    "explain": "ปัจจัยโน้มนำของ aspergillosis คือความเครียด ได้แก่ ความเย็น แอมโมเนีย ฝุ่น ภาวะกดภูมิคุ้มกัน การจัดการไม่ดี และการเลี้ยงหนาแน่น เชื้อเป็น saprophyte ในดิน โตดีในอินทรียวัตถุที่อุณหภูมิเกิน 25 องศาเซลเซียสและมีความชื้น เช่น ไข่ที่มีรอยแตก ตู้ฟัก ตู้เกิด ช่องระบายอากาศ วัสดุรองพื้น และอาหาร\n\n❌ ทำไมข้ออื่นผิด\nวัคซีน ND แสงยาว โปรตีนสูง: ไม่ใช่ปัจจัยโน้มนำของโรคนี้\nอากาศร้อนแห้ง: เชื้อราต้องการความชื้นสูง\nตัดปาก เปลี่ยนสูตร คลอรีน: ไม่เกี่ยวกับการรับสปอร์เชื้อรา",
+    "source": "Mycotic infections in poultry (27 ต.ค. 69) หน้า 7 และ 14",
+    "verified": "จุดที่รุ่นพี่มาร์ค: สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 11 ตัวอักษรสี (รุ่น 85); Mycotic infection deck 2024 หน้า 14 ไฮไลต์ (ไม่ระบุรุ่น); Mycotic infection deck 2024 หน้า 45 ไฮไลต์ (ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก",
+    "tags": [
+      "avian-mycosis",
+      "aspergillosis",
+      "risk-factors",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-mycosis-2569",
+        "edition": "60p",
+        "page": 7
+      },
+      {
+        "doc": "avian-mycosis-2569",
+        "edition": "60p",
+        "page": 14
+      },
+      {
+        "doc": "avian-final-summary-vet85",
+        "edition": "17p",
+        "page": 11
+      },
+      {
+        "doc": "avian-mycosis-2024",
+        "edition": "60p",
+        "page": 14
+      },
+      {
+        "doc": "avian-mycosis-2024",
+        "edition": "60p",
+        "page": 45
+      }
+    ]
+  },
+  {
+    "id": 218234,
+    "subject": "avian-medicine",
+    "topic": "avian-mycosis",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ข้อใดตรงกับ aspergillosis แบบเฉียบพลันในไก่",
+    "options": [
+      "พบในไก่พันธุ์อายุมาก ผอมลงช้าๆ มีรอยโรคที่ผิวหนังของหงอนและเหนียง",
+      "พบในลูกไก่อายุน้อยกว่า 1 สัปดาห์ที่ติดเชื้อจากตู้ฟัก อ้าปากหายใจ ตายสูงสุดที่อายุ 2-3 วัน",
+      "พบในไก่ไข่ช่วงพีคไข่ที่ติดเชื้อจากอาหาร ไข่ลดแต่ไม่มีตัวตาย",
+      "พบในไก่เนื้ออายุ 5-6 สัปดาห์ที่ติดเชื้อจากน้ำดื่ม ท้องเสียเป็นเลือด"
+    ],
+    "answer": 1,
+    "explain": "aspergillosis แบบเฉียบพลันมักพบในลูกไก่อายุน้อยกว่า 1 สัปดาห์ที่ติดเชื้อจากตู้ฟัก ไก่แสดงอาการตั้งแต่อายุ 1 วัน อ้าปากหายใจ ขาซีด ขาดน้ำ สะดืออักเสบ อัตราตายสูงสุดที่อายุ 2-3 วัน ตัวที่ไม่ตายมักติดเชื้อเรื้อรังและแคระแกร็น ส่วนแบบเรื้อรังพบในไก่ใหญ่ อาการไม่เด่นชัด ซูบผอม เบื่ออาหาร หายใจลำบาก ผลผลิตลด อาจมีอาการทางประสาท และในไก่พันธุ์พบรอยโรคที่ผิวหนัง หงอน และเหนียง\n\n❌ ทำไมข้ออื่นผิด\nไก่พันธุ์อายุมาก ผอมลงช้าๆ: เป็นแบบเรื้อรัง\nไก่ไข่ช่วงพีคไข่: ไม่ใช่ลักษณะของแบบเฉียบพลัน\nท้องเสียเป็นเลือด: aspergillosis เป็นโรคทางเดินหายใจส่วนล่าง",
+    "source": "Mycotic infections in poultry (27 ต.ค. 69) หน้า 17, 19, 20 และ 21",
+    "verified": "จุดที่รุ่นพี่มาร์ค: สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 11 ตัวอักษรสี (รุ่น 85); Mycotic infection deck 2024 หน้า 17 ไฮไลต์ (ไม่ระบุรุ่น); Mycotic infection deck 2024 หน้า 19 ไฮไลต์ (ไม่ระบุรุ่น); Mycotic infection deck 2024 หน้า 20 ไฮไลต์ (ไม่ระบุรุ่น); Mycotic infection deck 2024 หน้า 21 ไฮไลต์ (ไม่ระบุรุ่น); สรุป avian med final ของรุ่น 83 ในแฟ้มของรุ่น 84 หน้า 22 ปากกาแดง (รุ่น 84)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก",
+    "tags": [
+      "avian-mycosis",
+      "aspergillosis",
+      "clinical-signs",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-mycosis-2569",
+        "edition": "60p",
+        "page": 17
+      },
+      {
+        "doc": "avian-mycosis-2569",
+        "edition": "60p",
+        "page": 19
+      },
+      {
+        "doc": "avian-mycosis-2569",
+        "edition": "60p",
+        "page": 20
+      },
+      {
+        "doc": "avian-mycosis-2569",
+        "edition": "60p",
+        "page": 21
+      },
+      {
+        "doc": "avian-final-summary-vet85",
+        "edition": "17p",
+        "page": 11
+      },
+      {
+        "doc": "avian-mycosis-2024",
+        "edition": "60p",
+        "page": 17
+      },
+      {
+        "doc": "avian-mycosis-2024",
+        "edition": "60p",
+        "page": 19
+      },
+      {
+        "doc": "avian-mycosis-2024",
+        "edition": "60p",
+        "page": 20
+      },
+      {
+        "doc": "avian-mycosis-2024",
+        "edition": "60p",
+        "page": 21
+      },
+      {
+        "doc": "avian-final-summary-vet83",
+        "edition": "38p",
+        "page": 22
+      }
+    ]
+  },
+  {
+    "id": 218235,
+    "subject": "avian-medicine",
+    "topic": "avian-mycosis",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "aspergillosis แบบปอดต้องวินิจฉัยแยกจากโรคกลุ่มใด และใช้ลักษณะใดช่วยแยก",
+    "options": [
+      "Marek's disease, lymphoid leukosis, reticuloendotheliosis แยกจากก้อนเนื้องอกในอวัยวะภายใน",
+      "coccidiosis, necrotic enteritis, histomoniasis แยกจากรอยโรคในลำไส้และไส้ตัน",
+      "mycoplasmosis, colibacillosis, fowl cholera, chlamydiosis แยกจากรอยโรคแบบ granuloma",
+      "avian encephalomyelitis, ND, avian influenza แยกจากอาการทางประสาทและคอบิด"
+    ],
+    "answer": 2,
+    "explain": "pulmonary aspergillosis แยกจากโรคทางเดินหายใจของสัตว์ปีกด้วยรอยโรคแบบ granuloma โรคที่ต้องแยกคือโรคที่ทำให้ถุงลมอักเสบแบบ fibrinous หรือมีหนองและปอดอักเสบ ได้แก่ mycoplasmosis, colibacillosis, fowl cholera และ chlamydiosis\n\n❌ ทำไมข้ออื่นผิด\nโรคเนื้องอก: ไม่ใช่กลุ่มโรคทางเดินหายใจที่ต้องแยก\nโรคลำไส้: aspergillosis เป็นโรคทางเดินหายใจส่วนล่าง\nโรคทางประสาท: แม้เชื้อราไปสมองได้ แต่การวินิจฉัยแยกหลักอยู่ที่ถุงลมและปอด",
+    "source": "Mycotic infections in poultry (27 ต.ค. 69) หน้า 42",
+    "verified": "จุดที่รุ่นพี่มาร์ค: สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 11 ตัวอักษรสี (รุ่น 85)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก",
+    "tags": [
+      "avian-mycosis",
+      "aspergillosis",
+      "differential-diagnosis",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-mycosis-2569",
+        "edition": "60p",
+        "page": 42
+      },
+      {
+        "doc": "avian-final-summary-vet85",
+        "edition": "17p",
+        "page": 11
+      }
+    ]
+  },
+  {
+    "id": 218236,
+    "subject": "avian-medicine",
+    "topic": "avian-mycosis",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "candidiasis ที่ผิวหนังบริเวณหงอน (comb candidiasis) มักพบในไก่กลุ่มใด",
+    "options": [
+      "ลูกไก่เนื้ออายุน้อยกว่า 3 สัปดาห์",
+      "ไก่ไข่อายุ 16-18 สัปดาห์ก่อนเริ่มไข่",
+      "ลูกไก่อายุ 1-3 วันที่ติดเชื้อในตู้ฟัก",
+      "ไก่พ่อพันธุ์อายุมากกว่า 35 สัปดาห์"
+    ],
+    "answer": 3,
+    "explain": "comb candidiasis พบไม่บ่อย มักพบในไก่พ่อพันธุ์อายุมากกว่า 35 สัปดาห์ อัตราป่วย 2-10% และไก่ป่วยมักไม่ตาย รอยโรคเป็นแผ่นเชื้อราสีขาวกระจายตามหงอน หน้า หู และมุมปาก ติดแน่น ค่อนไปทางกลม ขอบเขตชัด อาจพบผิวหนังอักเสบ หนาตัว ขนร่วง หรือสะเก็ด\n\n❌ ทำไมข้ออื่นผิด\nลูกไก่อายุน้อยกว่า 3 สัปดาห์: เป็นกลุ่มที่พบ crop mycosis ไม่ใช่ที่หงอน\nไก่ไข่ก่อนเริ่มไข่: ไม่ใช่กลุ่มที่รายงาน\nลูกไก่ 1-3 วันจากตู้ฟัก: เป็นลักษณะของ aspergillosis แบบเฉียบพลัน",
+    "source": "Mycotic infections in poultry (27 ต.ค. 69) หน้า 44, 52 และ 53",
+    "verified": "จุดที่รุ่นพี่มาร์ค: รายการจุดออกสอบ PART2 ในแฟ้มของรุ่น 84 หน้า 3 อยู่ในรายการจุดออกสอบ (ไม่ระบุรุ่น); แฟ้มรวมโน้ต avian med final ของรุ่น 84 หน้า 5 ติดดาว (ไม่ระบุรุ่น); สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 12 ตัวอักษรสี (รุ่น 85); Mycotic infection deck 2024 หน้า 44 ไฮไลต์ (ไม่ระบุรุ่น); สรุป avian med final ของรุ่น 83 ในแฟ้มของรุ่น 84 หน้า 23 ปากกาแดง (รุ่น 84); Mycotic infection deck 2024 หน้า 52 ไฮไลต์ (ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก",
+    "tags": [
+      "avian-mycosis",
+      "candidiasis",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-mycosis-2569",
+        "edition": "60p",
+        "page": 44
+      },
+      {
+        "doc": "avian-mycosis-2569",
+        "edition": "60p",
+        "page": 52
+      },
+      {
+        "doc": "avian-mycosis-2569",
+        "edition": "60p",
+        "page": 53
+      },
+      {
+        "doc": "avian-fact-list-part2-vet84",
+        "edition": "6p",
+        "page": 3
+      },
+      {
+        "doc": "avian-final-notes-vet84",
+        "edition": "12p",
+        "page": 5
+      },
+      {
+        "doc": "avian-final-summary-vet85",
+        "edition": "17p",
+        "page": 12
+      },
+      {
+        "doc": "avian-mycosis-2024",
+        "edition": "60p",
+        "page": 44
+      },
+      {
+        "doc": "avian-final-summary-vet83",
+        "edition": "38p",
+        "page": 23
+      },
+      {
+        "doc": "avian-mycosis-2024",
+        "edition": "60p",
+        "page": 52
+      }
+    ]
+  },
+  {
+    "id": 218237,
+    "subject": "avian-medicine",
+    "topic": "avian-mycosis",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ฝูงไก่ที่พบ crop mycosis (Candida albicans) มีไก่ตาย สาเหตุการตายส่วนใหญ่คือข้อใด",
+    "options": [
+      "Candida ลุกลามเข้ากระแสเลือดไปสมองและไตในไก่ส่วนใหญ่",
+      "โรคอื่นที่ติดเชื้อร่วม เพราะ Candida เองทำให้ตายต่ำหรือไม่ทำให้ตาย",
+      "สารพิษ gliotoxin ที่ Candida สร้างขึ้นทำลายตับเฉียบพลัน",
+      "กระเพาะพักอุดตันจาก pseudomembrane จนไก่กินอาหารไม่ได้"
+    ],
+    "answer": 1,
+    "explain": "Candida albicans ทำให้ตายต่ำหรือไม่ทำให้ตาย อาการที่พบส่วนใหญ่มาจากโรคอื่นที่ติดเชื้อร่วม การติดเชื้อตามระบบจนเกิดโรคของระบบประสาท ไต และทางเดินอาหารพบน้อยมาก เชื้อพบที่ปาก หลอดอาหาร และกระเพาะพักได้บ่อยโดยไม่แสดงอาการ และมักพบร่วมกับภาวะขาดอาหารและภาวะกดภูมิคุ้มกัน\n\n❌ ทำไมข้ออื่นผิด\nลุกลามเข้ากระแสเลือด: พบน้อยมาก\ngliotoxin: เป็นสารที่ Aspergillus สร้าง\nกระเพาะพักอุดตัน: รอยโรคเป็นแผ่นคล้ายนมตกตะกอนที่ผนัง ไม่ได้ทำให้ตายเป็นหลัก",
+    "source": "Mycotic infections in poultry (27 ต.ค. 69) หน้า 16, 44, 47 และ 48",
+    "verified": "จุดที่รุ่นพี่มาร์ค: Mycotic infection deck 2024 หน้า 47 ไฮไลต์ (ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-mycosis",
+      "candidiasis",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-mycosis-2569",
+        "edition": "60p",
+        "page": 16
+      },
+      {
+        "doc": "avian-mycosis-2569",
+        "edition": "60p",
+        "page": 44
+      },
+      {
+        "doc": "avian-mycosis-2569",
+        "edition": "60p",
+        "page": 47
+      },
+      {
+        "doc": "avian-mycosis-2569",
+        "edition": "60p",
+        "page": 48
+      },
+      {
+        "doc": "avian-mycosis-2024",
+        "edition": "60p",
+        "page": 47
+      }
+    ]
+  },
+  {
+    "id": 218238,
+    "subject": "avian-medicine",
+    "topic": "avian-mycosis",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ข้อใดถูกต้องเกี่ยวกับวัคซีนป้องกันโรคจากเชื้อราในสัตว์ปีก",
+    "options": [
+      "มีวัคซีน Aspergillus เชื้อตายใช้ในไก่พันธุ์ ป้องกันรอยโรคที่ปอดได้ดี",
+      "มีวัคซีน Candida เชื้อเป็นหยอดปากในลูกไก่เนื้ออายุ 1 วัน",
+      "ยังไม่มีวัคซีนเชิงการค้า ป้องกันด้วยการจัดการ biosecurity และตรวจวัตถุดิบอาหาร",
+      "มีวัคซีน favus ชนิด recombinant แทงปีกในไก่ไข่ก่อนขึ้นไข่"
+    ],
+    "answer": 2,
+    "explain": "ปัจจุบันไม่มีวัคซีนป้องกันโรคจากเชื้อรา วัคซีนที่เคยทดลองไม่ป้องกันรอยโรคที่ปอด การป้องกันจึงดีกว่าการรักษา คือการจัดการที่ดี biosecurity เข้มงวด การวินิจฉัยแม่นยำ และมาตรการป้องกันและรักษาที่เหมาะสม เชื้อรายังเป็นต้นกำเนิดของสารพิษที่กดภูมิคุ้มกัน การตรวจวัตถุดิบและอาหารสัตว์จึงควรทำเป็นประจำ\n\n❌ ทำไมข้ออื่นผิด\nวัคซีน Aspergillus: ไม่มีเชิงการค้าและไม่ป้องกันรอยโรคที่ปอด\nวัคซีน Candida: ไม่มี\nวัคซีน favus: ไม่มี การควบคุมใช้การแยกหรือคัดทิ้งและยาทาเฉพาะที่",
+    "source": "Mycotic infections in poultry (27 ต.ค. 69) หน้า 43 และ 59",
+    "verified": "จุดที่รุ่นพี่มาร์ค: สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 12 ตัวอักษรสี (รุ่น 85); Mycotic infection deck 2024 หน้า 59 ไฮไลต์ (ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก",
+    "tags": [
+      "avian-mycosis",
+      "vaccine",
+      "prevention",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-mycosis-2569",
+        "edition": "60p",
+        "page": 43
+      },
+      {
+        "doc": "avian-mycosis-2569",
+        "edition": "60p",
+        "page": 59
+      },
+      {
+        "doc": "avian-final-summary-vet85",
+        "edition": "17p",
+        "page": 12
+      },
+      {
+        "doc": "avian-mycosis-2024",
+        "edition": "60p",
+        "page": 59
+      }
+    ]
+  },
+  {
+    "id": 218239,
+    "subject": "avian-medicine",
+    "topic": "avian-mycosis",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ฝูงไก่ไข่ได้รับอาหารปนเปื้อน aflatoxin จนไข่และอัตราฟักลดลง เมื่อเปลี่ยนเป็นอาหารที่ไม่ปนเปื้อนแล้ว คาดว่าจะเป็นอย่างไร",
+    "options": [
+      "ผลผลิตไข่และอัตราฟักไม่ฟื้น เพราะ aflatoxin สะสมในไขมันและไข่แดงไปตลอดรุ่น",
+      "ผลผลิตไข่และอัตราฟักฟื้นหลังผ่านไปราว 6 เดือน เมื่อตับสร้างเซลล์ใหม่ทั้งหมด",
+      "ผลผลิตไข่และอัตราฟักฟื้นเฉพาะเมื่อให้ยาปฏิชีวนะร่วม เพราะ aflatoxin กดภูมิคุ้มกัน",
+      "ผลผลิตไข่และอัตราฟักฟื้นกลับเร็ว เพราะ aflatoxin ถูกขับทางน้ำดีและปัสสาวะเร็วและไม่สะสม"
+    ],
+    "answer": 3,
+    "explain": "aflatoxin ถูกขับออกทางน้ำดีและปัสสาวะอย่างรวดเร็ว ไม่สะสมในของเหลวในร่างกาย เมื่อหยุดให้อาหารที่ปนเปื้อน ผลผลิตไข่และอัตราฟักจึงฟื้นกลับเร็ว ด้วยเหตุเดียวกัน การตรวจหาสารพิษในเนื้อเยื่อสัตว์ป่วยมักไม่พบ การยืนยันจึงตรวจจากอาหารและวัตถุดิบ\n\n❌ ทำไมข้ออื่นผิด\nสะสมตลอดรุ่น: aflatoxin ไม่สะสม\nรอ 6 เดือน: การฟื้นเกิดเร็วหลังหยุดสารพิษ\nต้องให้ยาปฏิชีวนะ: ยาไม่ใช่สิ่งที่ทำให้ฟื้น การหยุดสารพิษคือสิ่งสำคัญ",
+    "source": "Mycotoxicosis in poultry (27 ต.ค. 69) หน้า 17 และ 67",
+    "verified": "จุดที่รุ่นพี่มาร์ค: รายการจุดออกสอบ PART2 ในแฟ้มของรุ่น 84 หน้า 3 อยู่ในรายการจุดออกสอบ (ไม่ระบุรุ่น); Mycotoxicosis deck 2024 หน้า 17 ไฮไลต์ (ไม่ระบุรุ่น); สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 15 ตัวอักษรสี (รุ่น 85)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก",
+    "tags": [
+      "avian-mycosis",
+      "aflatoxin",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 17
+      },
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 67
+      },
+      {
+        "doc": "avian-fact-list-part2-vet84",
+        "edition": "6p",
+        "page": 3
+      },
+      {
+        "doc": "avian-mycotoxicosis-2024",
+        "edition": "75p",
+        "page": 17
+      },
+      {
+        "doc": "avian-final-summary-vet85",
+        "edition": "17p",
+        "page": 15
+      }
+    ]
+  },
+  {
+    "id": 218240,
+    "subject": "avian-medicine",
+    "topic": "avian-mycosis",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "aflatoxin ในอาหารระดับใดที่เริ่มทำให้ไก่โตช้าและอัตราแลกเนื้อ (FCR) แย่ลง",
+    "options": [
+      "มากกว่า 1 ppb",
+      "มากกว่า 10 ppb",
+      "มากกว่า 100 ppb",
+      "มากกว่า 1,000 ppb"
+    ],
+    "answer": 0,
+    "explain": "aflatoxin ที่ปนเปื้อนในระดับทั่วไปไม่ทำให้ตาย แต่สำคัญทางเศรษฐกิจ ระดับมากกว่า 1 ppb ทำให้โตช้าและ FCR แย่ลง มากกว่า 0.5 ppb ลดภูมิคุ้มกันต่อ salmonellosis, IBD และ candidiasis สัตว์ปีกโตเต็มวัยที่ได้รับมากกว่า 2 ppb ไข่ลด อัตราฟักต่ำ น้ำหนักอัณฑะและจำนวนอสุจิลด และระดับมากกว่า 10 ppb เป็นระดับที่ทำให้ตาย ลูกเป็ดที่ได้รับสารพิษพบขาและเท้าเป็นสีม่วง ขาเจ็บ และก่อนตายมีอาการเดินเซ ชัก และคอแหงน\n\n❌ ทำไมข้ออื่นผิด\nมากกว่า 10 ppb: เป็นระดับที่ทำให้ตาย ผลต่อการเจริญเติบโตเริ่มที่ระดับต่ำกว่านี้มาก\nมากกว่า 100 และ 1,000 ppb: สูงเกินระดับที่เริ่มเกิดผลไปมาก",
+    "source": "Mycotoxicosis in poultry (27 ต.ค. 69) หน้า 18 และ 20",
+    "verified": "จุดที่รุ่นพี่มาร์ค: Mycotoxicosis deck 2024 หน้า 18 ไฮไลต์ (ไม่ระบุรุ่น); Mycotoxicosis deck 2024 หน้า 20 ไฮไลต์ (ไม่ระบุรุ่น); Mycotoxicosis deck 2024 หน้า 22 ไฮไลต์ (ไม่ระบุรุ่น); Mycotoxicosis deck 2024 หน้า 28 ปากกาแดง (ไม่ระบุรุ่น); แฟ้มรวมโน้ต avian med final ของรุ่น 84 หน้า 5 ติดดาว (ไม่ระบุรุ่น); Mycotoxicosis deck 2024 หน้า 27 ปากกาแดง (ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-mycosis",
+      "aflatoxin",
+      "dose",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 18
+      },
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 20
+      },
+      {
+        "doc": "avian-mycotoxicosis-2024",
+        "edition": "75p",
+        "page": 18
+      },
+      {
+        "doc": "avian-mycotoxicosis-2024",
+        "edition": "75p",
+        "page": 20
+      },
+      {
+        "doc": "avian-mycotoxicosis-2024",
+        "edition": "75p",
+        "page": 22
+      },
+      {
+        "doc": "avian-mycotoxicosis-2024",
+        "edition": "75p",
+        "page": 28
+      },
+      {
+        "doc": "avian-final-notes-vet84",
+        "edition": "12p",
+        "page": 5
+      },
+      {
+        "doc": "avian-mycotoxicosis-2024",
+        "edition": "75p",
+        "page": 27
+      }
+    ]
+  },
+  {
+    "id": 218241,
+    "subject": "avian-medicine",
+    "topic": "avian-mycosis",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "การเติมกรดอินทรีย์ เช่น propionic acid ลงในอาหารสัตว์ ช่วยควบคุมสารพิษจากเชื้อราอย่างไร",
+    "options": [
+      "ยับยั้งการเจริญของเชื้อราใหม่ แต่ไม่มีผลต่อสารพิษที่สร้างไว้แล้ว",
+      "ทำลายสารพิษที่มีอยู่แล้วในอาหาร แต่ไม่ยับยั้งเชื้อราใหม่",
+      "จับสารพิษทุกชนิดในทางเดินอาหาร จึงใช้แทนสารจับพิษได้",
+      "เร่งการขับ aflatoxin ทางน้ำดี จึงใช้รักษาไก่ที่ป่วยแล้ว"
+    ],
+    "answer": 0,
+    "explain": "สารกันเชื้อราในอาหาร ได้แก่ กรดอินทรีย์ (propionic acid), formalin phosphate และยาต้านเชื้อรา เติมเพื่อป้องกันการเจริญของเชื้อราใหม่ แต่ไม่มีผลต่อสารพิษที่สร้างไว้แล้ว การลดผลของสารพิษที่มีอยู่จึงต้องใช้สารจับพิษ (ดินเหนียว, zeolites, HSCAS, glucomannan จากผนังเซลล์ยีสต์) การเสริมอาหารต้านภาวะ oxidative stress (methionine, selenium, วิตามิน) และในระดับอุตสาหกรรมใช้โอโซนหรือแอมโมเนียลดความเป็นพิษ\n\n❌ ทำไมข้ออื่นผิด\nทำลายสารพิษที่มีอยู่: กรดอินทรีย์ไม่มีผลต่อสารพิษที่เกิดแล้ว\nจับสารพิษทุกชนิด: เป็นหน้าที่ของสารจับพิษ และแต่ละชนิดจับได้ไม่เท่ากัน\nเร่งการขับ aflatoxin: ไม่ใช่กลไกของกรดอินทรีย์",
+    "source": "Mycotoxicosis in poultry (27 ต.ค. 69) หน้า 69, 70, 71, 73, 74 และ 75",
+    "verified": "จุดที่รุ่นพี่มาร์ค: สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 15 ตัวอักษรสี (รุ่น 85); Mycotoxicosis deck 2024 หน้า 67 ไฮไลต์ (ไม่ระบุรุ่น); Mycotoxicosis deck 2024 หน้า 68 ไฮไลต์ (ไม่ระบุรุ่น); Mycotoxicosis deck 2024 หน้า 73 ไฮไลต์ (ไม่ระบุรุ่น); Mycotoxicosis deck 2024 หน้า 74 ไฮไลต์ (ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก",
+    "tags": [
+      "avian-mycosis",
+      "mycotoxin-control",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 69
+      },
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 70
+      },
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 71
+      },
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 73
+      },
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 74
+      },
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 75
+      },
+      {
+        "doc": "avian-final-summary-vet85",
+        "edition": "17p",
+        "page": 15
+      },
+      {
+        "doc": "avian-mycotoxicosis-2024",
+        "edition": "75p",
+        "page": 67
+      },
+      {
+        "doc": "avian-mycotoxicosis-2024",
+        "edition": "75p",
+        "page": 68
+      },
+      {
+        "doc": "avian-mycotoxicosis-2024",
+        "edition": "75p",
+        "page": 73
+      },
+      {
+        "doc": "avian-mycotoxicosis-2024",
+        "edition": "75p",
+        "page": 74
+      }
+    ]
+  },
+  {
+    "id": 218242,
+    "subject": "avian-medicine",
+    "topic": "avian-mycosis",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "อาหารไก่ปนเปื้อนสารพิษจากเชื้อราหลายชนิดพร้อมกันในระดับต่ำ ผลต่อไก่มักเป็นอย่างไร",
+    "options": [
+      "สารพิษหักล้างฤทธิ์กันเอง จึงเป็นพิษน้อยกว่าแต่ละชนิดเดี่ยวๆ",
+      "เป็นพิษเท่ากับชนิดที่มีปริมาณมากที่สุดเพียงชนิดเดียว",
+      "เป็นพิษเท่ากับผลรวมของแต่ละชนิดพอดี",
+      "ความเป็นพิษเสริมฤทธิ์กันจนรุนแรงกว่าผลรวมของแต่ละชนิด"
+    ],
+    "answer": 3,
+    "explain": "สารพิษจากเชื้อรามักปนเปื้อนร่วมกันหลายชนิด เช่น Fusarium สร้าง trichothecenes, fumonisins และ moniliformin พร้อมกัน และ citrinin มักพบร่วมกับ ochratoxin เมื่อปนเปื้อนร่วมกัน ผลมักเสริมฤทธิ์กัน (synergistic) คือหนึ่งบวกหนึ่งมากกว่าสอง การควบคุมสารพิษจึงต้องพิจารณาว่ามีสารพิษชนิดอื่นร่วมด้วยหรือไม่\n\n❌ ทำไมข้ออื่นผิด\nหักล้างกัน: สารพิษเสริมฤทธิ์ ไม่ได้หักล้าง\nเท่ากับชนิดที่มากที่สุด: มองข้ามผลของชนิดอื่น\nเท่ากับผลรวมพอดี: ผลรวมจริงมักมากกว่าการบวกกันตรงๆ",
+    "source": "Mycotoxicosis in poultry (27 ต.ค. 69) หน้า 43, 45 และ 69",
+    "verified": "จุดที่รุ่นพี่มาร์ค: สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 13 ตัวอักษรสี (รุ่น 85); แฟ้มรวมโน้ต avian med final ของรุ่น 84 หน้า 2 มีโน้ตเขียนกำกับ (ไม่ระบุรุ่น); คลิปบันทึกการสอน 2 พ.ย. 2569 นาที 42:25-42:28 และ 3 พ.ย. 2569 นาที 26:13 (ปนเปื้อนร่วมกัน หนึ่งบวกหนึ่งไม่ใช่สอง)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก",
+    "tags": [
+      "avian-mycosis",
+      "mycotoxin-interaction",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 43
+      },
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 45
+      },
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 69
+      },
+      {
+        "doc": "avian-final-summary-vet85",
+        "edition": "17p",
+        "page": 13
+      },
+      {
+        "doc": "avian-final-notes-vet84",
+        "edition": "12p",
+        "page": 2
+      }
+    ]
+  },
+  {
+    "id": 218243,
+    "subject": "avian-medicine",
+    "topic": "avian-mycosis",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ในประเทศไทย สารพิษจากเชื้อราที่ไก่ได้รับส่วนใหญ่มาจากแหล่งใด และฟาร์มกลุ่มใดเสี่ยงกว่า",
+    "options": [
+      "จากเชื้อราที่เจริญในโรงเรือน ฟาร์มระบบปิดขนาดใหญ่เสี่ยงกว่า",
+      "จากวัตถุดิบอาหารสัตว์คุณภาพไม่ดี ฟาร์มรายย่อยที่มีอำนาจต่อรองซื้อต่ำเสี่ยงกว่า",
+      "จากน้ำดื่มที่ปนเปื้อน ฟาร์มที่ใช้น้ำบาดาลโดยไม่ปรับปรุงเสี่ยงกว่า",
+      "จากวัสดุรองพื้นที่เปียกชื้น ฟาร์มไก่ไข่ที่เลี้ยงในกรงตับเสี่ยงกว่า"
+    ],
+    "answer": 1,
+    "explain": "สารพิษจากเชื้อราที่ไก่ได้รับส่วนใหญ่มากับวัตถุดิบอาหารสัตว์คุณภาพไม่ดี ส่วนที่เกิดจากเชื้อราในฟาร์มเองมีน้อยมาก คุณภาพวัตถุดิบขึ้นกับอำนาจต่อรอง ซึ่งขึ้นกับปริมาณที่ซื้อ ผู้ที่ซื้อครั้งละหลายร้อยตันมักได้วัตถุดิบคุณภาพดี ส่วนเกษตรกรรายย่อยได้วัตถุดิบคุณภาพดียากกว่า ปัจจัยที่เพิ่มการปนเปื้อนระหว่างเก็บรักษาคือเมล็ดแตกหัก ความชื้นในอาหารเกิน 13% ความชื้นสัมพัทธ์เกิน 80% อุณหภูมิเกิน 30 องศาเซลเซียสที่แปรปรวน และแมลง\n\n❌ ทำไมข้ออื่นผิด\nเชื้อราในโรงเรือน: เป็นแหล่งที่มีน้อยมาก\nน้ำดื่ม: ไม่ใช่แหล่งหลักของสารพิษจากเชื้อรา\nวัสดุรองพื้นในกรงตับ: ไก่ในกรงตับแทบไม่สัมผัสวัสดุรองพื้น",
+    "source": "Mycotoxicosis in poultry (27 ต.ค. 69) หน้า 12",
+    "verified": "จุดที่รุ่นพี่มาร์ค: สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 13 ตัวอักษรสี (รุ่น 85); คลิปบันทึกการสอน 26 ต.ค. 2569 นาที 44:50-46:30 (สารพิษส่วนใหญ่มากับวัตถุดิบคุณภาพไม่ดี ขึ้นกับอำนาจต่อรองซื้อ)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก",
+    "tags": [
+      "avian-mycosis",
+      "feed-raw-material",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 12
+      },
+      {
+        "doc": "avian-final-summary-vet85",
+        "edition": "17p",
+        "page": 13
+      }
+    ]
+  },
+  {
+    "id": 218244,
+    "subject": "avian-medicine",
+    "topic": "avian-mycosis",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ข้อใดถูกต้องเกี่ยวกับสารพิษกลุ่ม trichothecenes ในสัตว์ปีก",
+    "options": [
+      "สร้างโดย Aspergillus ในสภาพร้อนชื้นเกิน 30 องศาเซลเซียส ทำให้ตับโตและเป็นสารก่อมะเร็งที่แรงที่สุด",
+      "สร้างโดย Penicillium ในข้าวโพด ทำลายท่อไตส่วนต้น และพบยูเรตสะสมตามอวัยวะภายใน",
+      "สร้างโดย Fusarium ได้ดีที่ความชื้นสูงและ 6-24 องศาเซลเซียส มักไม่ทำให้ตาย แต่กินลด โตช้า กดภูมิ",
+      "สร้างโดย Claviceps บนเมล็ดธัญพืช ทำให้เนื้อตายที่จงอยปาก เหนียง และนิ้วเท้า"
+    ],
+    "answer": 2,
+    "explain": "trichothecenes สร้างโดยเชื้อหลายชนิด แต่หลักๆ คือ Fusarium สร้างได้ดีในสภาพความชื้นสูงและอุณหภูมิ 6-24 องศาเซลเซียส ทำลายโครงสร้างไขมันและยับยั้งการสังเคราะห์โปรตีนและ DNA ในธรรมชาติมักไม่ทำให้สัตว์ปีกตาย ความเสียหายมาจากการกินอาหารลด โตช้า และกดภูมิคุ้มกัน แบ่งเป็น type A (T-2 toxin, neosolaniol, DAS) และ type B (nivalenol, DON หรือ vomitoxin, fusarenon-X)\n\n❌ ทำไมข้ออื่นผิด\nAspergillus ร้อนชื้น ก่อมะเร็ง: ตรงกับ aflatoxin\nPenicillium ทำลายท่อไต ยูเรต: ตรงกับ ochratoxin\nClaviceps เนื้อตายส่วนปลาย: ตรงกับ ergotism",
+    "source": "Mycotoxicosis in poultry (27 ต.ค. 69) หน้า 46 และ 47",
+    "verified": "จุดที่รุ่นพี่มาร์ค: รายการจุดออกสอบ PART2 ในแฟ้มของรุ่น 84 หน้า 3 อยู่ในรายการจุดออกสอบ (ไม่ระบุรุ่น); สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 14 ตัวอักษรสี (รุ่น 85); Mycotoxicosis deck 2024 หน้า 44 ไฮไลต์ (ไม่ระบุรุ่น); Mycotoxicosis deck 2024 หน้า 45 ไฮไลต์ (ไม่ระบุรุ่น); สรุป avian med final ของรุ่น 83 ในแฟ้มของรุ่น 84 หน้า 26 ปากกาแดง (รุ่น 84)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก",
+    "tags": [
+      "avian-mycosis",
+      "trichothecenes",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 46
+      },
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 47
+      },
+      {
+        "doc": "avian-fact-list-part2-vet84",
+        "edition": "6p",
+        "page": 3
+      },
+      {
+        "doc": "avian-final-summary-vet85",
+        "edition": "17p",
+        "page": 14
+      },
+      {
+        "doc": "avian-mycotoxicosis-2024",
+        "edition": "75p",
+        "page": 44
+      },
+      {
+        "doc": "avian-mycotoxicosis-2024",
+        "edition": "75p",
+        "page": 45
+      },
+      {
+        "doc": "avian-final-summary-vet83",
+        "edition": "38p",
+        "page": 26
+      }
+    ]
+  },
+  {
+    "id": 218245,
+    "subject": "avian-medicine",
+    "topic": "avian-mycosis",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ข้อใดตรงกับผลของ zearalenone ในแม่พันธุ์ไก่เนื้อ",
+    "options": [
+      "ไข่ลดแต่ไม่กระทบการผสมติดและการฟัก พบท้องมานและท่อนำไข่เป็นถุงน้ำ",
+      "ไข่ลดพร้อมอัตราฟักต่ำมาก พบไตซีดบวมและผลึกยูเรตในไต",
+      "ไข่ปกติแต่ไข่ขาวขุ่นขาว เยื่อหุ้มไข่แดงเปราะ และตับซีด",
+      "ไข่ลด มีเนื้อตายที่ปากและผิวหนังที่สัมผัสอาหาร"
+    ],
+    "answer": 0,
+    "explain": "zearalenone สร้างโดย Fusarium graminearum และ F. roseum มีฤทธิ์คล้ายฮอร์โมนเอสโตรเจน และค่อนข้างไม่เป็นพิษต่อไก่ ในแม่พันธุ์ไก่เนื้อทำให้ผลผลิตไข่ลดลงแต่ไม่กระทบการผสมติด การฟัก หรือสมรรถภาพของลูกไก่เนื้อ พบท้องมานและท่อนำไข่เป็นถุงน้ำ (cystic oviduct) ซึ่งต้องแยกจากสาเหตุอื่นที่ทำให้ท่อนำไข่เป็นถุงน้ำ\n\n❌ ทำไมข้ออื่นผิด\nไตซีดบวม ยูเรต: ตรงกับ ochratoxin A\nไข่ขาวขุ่น เยื่อหุ้มไข่แดงเปราะ: ตรงกับ aflatoxin\nเนื้อตายที่ปากและผิวหนัง: ตรงกับ T-2 toxin",
+    "source": "Mycotoxicosis in poultry (27 ต.ค. 69) หน้า 58 และ 59",
+    "verified": "จุดที่รุ่นพี่มาร์ค: สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 14 ตัวอักษรสี (รุ่น 85); แฟ้มรวมโน้ต avian med final ของรุ่น 84 หน้า 5 ติดดาว (ไม่ระบุรุ่น); สรุป avian med final ของรุ่น 83 ในแฟ้มของรุ่น 84 หน้า 26 ปากกาแดง (รุ่น 84); Mycotoxicosis deck 2024 หน้า 55 ไฮไลต์ (ไม่ระบุรุ่น); Mycotoxicosis deck 2024 หน้า 56 ไฮไลต์ (ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก",
+    "tags": [
+      "avian-mycosis",
+      "zearalenone",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 58
+      },
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 59
+      },
+      {
+        "doc": "avian-final-summary-vet85",
+        "edition": "17p",
+        "page": 14
+      },
+      {
+        "doc": "avian-final-notes-vet84",
+        "edition": "12p",
+        "page": 5
+      },
+      {
+        "doc": "avian-final-summary-vet83",
+        "edition": "38p",
+        "page": 26
+      },
+      {
+        "doc": "avian-mycotoxicosis-2024",
+        "edition": "75p",
+        "page": 55
+      },
+      {
+        "doc": "avian-mycotoxicosis-2024",
+        "edition": "75p",
+        "page": 56
+      }
+    ]
+  },
+  {
+    "id": 218246,
+    "subject": "avian-medicine",
+    "topic": "avian-mycosis",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "สารพิษจากเชื้อราชนิดใดทำให้ไก่ไตบวมน้ำ ท้องเสียเป็นน้ำ และเยื่อบุกึ๋นเปลี่ยนสีและแตก และมักพบร่วมกับ ochratoxin",
+    "options": [
+      "fumonisin B1",
+      "citrinin",
+      "zearalenone",
+      "moniliformin"
+    ],
+    "answer": 1,
+    "explain": "citrinin ผลิตจาก Penicillium citrinum และ Aspergillus หลายชนิด ปนเปื้อนในข้าว ข้าวโพด และธัญพืช ทำให้ไตบวมน้ำ ท้องเสียเป็นน้ำ เยื่อบุกึ๋นเปลี่ยนสีและแตก และมักพบร่วมกับ ochratoxin ระดับเกิน 300 ppb ทำให้ปัสสาวะมากและมูลเหลว อาการเกิดภายใน 1 ชั่วโมงหลังได้รับ และหยุดภายใน 8-10 ชั่วโมงหลังหยุดรับสารพิษ\n\n❌ ทำไมข้ออื่นผิด\nfumonisin B1: ตับ ไต ตับอ่อน กึ๋น และกระเพาะแท้ขยายใหญ่ และกระดูกอ่อน\nzearalenone: ฤทธิ์คล้ายเอสโตรเจน ไข่ลด ท่อนำไข่เป็นถุงน้ำ\nmoniliformin: กล้ามเนื้อตายเฉียบพลันและกระดูกยาวผิดรูป",
+    "source": "Mycotoxicosis in poultry (27 ต.ค. 69) หน้า 43, 44, 55, 56, 57 และ 59",
+    "verified": "จุดที่รุ่นพี่มาร์ค: สรุปปลายภาค Avian Medicine ของรุ่น 85 (สอบเสร็จจะกิน KFC) หน้า 14 ตัวอักษรสี (รุ่น 85)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คว่าเคยออก",
+    "tags": [
+      "avian-mycosis",
+      "citrinin",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 43
+      },
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 44
+      },
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 55
+      },
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 56
+      },
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 57
+      },
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 59
+      },
+      {
+        "doc": "avian-final-summary-vet85",
+        "edition": "17p",
+        "page": 14
+      }
+    ]
+  },
+  {
+    "id": 218247,
+    "subject": "avian-medicine",
+    "topic": "avian-mycosis",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "การควบคุม favus (white comb) ในฝูงไก่ข้อใดถูกต้อง",
+    "options": [
+      "ให้ tetracycline ผสมน้ำทั้งฝูง 5-7 วัน แล้วพ่นยาฆ่าเชื้อในโรงเรือน",
+      "ฉีดวัคซีน Microsporum เชื้อตายทั้งฝูง แล้วกระตุ้นซ้ำทุก 3 เดือน",
+      "ให้ amprolium ผสมน้ำร่วมกับวิตามิน A เพื่อเร่งการหายของผิวหนัง",
+      "แยกตัวป่วยออกจากฝูงหรือคัดทิ้ง และหยอดยาเฉพาะที่ เช่น 0.5% pentachlorophenol"
+    ],
+    "answer": 3,
+    "explain": "favus เกิดจาก Microsporum gallinae, M. gypseum และ Trichophyton simii สปอร์ติดเข้าสู่ผิวหนังและรูขุมขน รอยโรคอยู่ที่ผิวหนังส่วนที่ไม่มีขน เช่น หงอน เหนียง หน้าแข้ง การควบคุมคือแยกสัตว์ป่วยออกจากฝูงหรือคัดทิ้ง และใช้ยาเฉพาะที่ เช่น หยอด 0.5% pentachlorophenol หรือ 5-bromosalicyl-4-chloranilide หรือทาขี้ผึ้งต้านเชื้อรา\n\n❌ ทำไมข้ออื่นผิด\ntetracycline: เป็นยาต่อแบคทีเรีย ไม่ได้ผลกับ dermatophyte\nวัคซีน Microsporum: ไม่มีวัคซีนป้องกันโรคจากเชื้อรา\namprolium: เป็นยาต้านบิด",
+    "source": "Mycotic infections in poultry (27 ต.ค. 69) หน้า 57 และ 58",
+    "verified": "จุดที่รุ่นพี่มาร์ค: Mycotic infection deck 2024 หน้า 58 ไฮไลต์ (ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-mycosis",
+      "favus",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-mycosis-2569",
+        "edition": "60p",
+        "page": 57
+      },
+      {
+        "doc": "avian-mycosis-2569",
+        "edition": "60p",
+        "page": 58
+      },
+      {
+        "doc": "avian-mycosis-2024",
+        "edition": "60p",
+        "page": 58
+      }
+    ]
+  },
+  {
+    "id": 218248,
+    "subject": "avian-medicine",
+    "topic": "avian-mycosis",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ไก่พ่อแม่พันธุ์เนื้อที่ได้รับ aflatoxin แบบเรื้อรังมีอาการตามข้อใด",
+    "options": [
+      "คอแหงนไปด้านหลัง (opisthotonus) แล้วตายภายในไม่กี่ชั่วโมงหลังกินอาหาร",
+      "ขาเป็นอัมพาต ขาข้างหนึ่งเหยียดไปข้างหน้าอีกข้างเหยียดไปข้างหลัง",
+      "เดินด้วยปลายนิ้ว ขาโก่ง (cowboy leg) ปีกเอียงออก (angle wing) และปีกหัก",
+      "หน้าบวม น้ำตาไหล หายใจมีเสียง และมีน้ำมูกข้นเหนียว"
+    ],
+    "answer": 2,
+    "explain": "aflatoxicosis แบบเฉียบพลันทำให้คอแหงนไปด้านหลัง (opisthotonus) ส่วนแบบเรื้อรังทำให้เดินด้วยปลายนิ้ว (toe walk) ขาโก่ง (cowboy leg) ปีกเอียงออกคล้ายใบพัด (helicopter หรือ angle wing disease) ในไก่พ่อแม่พันธุ์เนื้อพบปีกหัก และกระดูกหน้าแข้งพรุน (perosis) ตามระดับสารพิษ\n\n❌ ทำไมข้ออื่นผิด\nopisthotonus ตายเร็ว: เป็นแบบเฉียบพลัน\nขาเหยียดหน้าหลัง: เป็นท่าทางของ Marek's disease\nหน้าบวม น้ำมูก: เป็นอาการโรคทางเดินหายใจ",
+    "source": "Mycotoxicosis in poultry (27 ต.ค. 69) หน้า 25, 26, 31 และ 34",
+    "verified": "จุดที่รุ่นพี่มาร์ค: Mycotoxicosis deck 2024 หน้า 25 ไฮไลต์ (ไม่ระบุรุ่น); Mycotoxicosis deck 2024 หน้า 26 ไฮไลต์ (ไม่ระบุรุ่น); Mycotoxicosis deck 2024 หน้า 31 ไฮไลต์ (ไม่ระบุรุ่น); แฟ้มรวมโน้ต avian med final ของรุ่น 84 หน้า 5 ติดดาว (ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-mycosis",
+      "aflatoxin",
+      "clinical-signs",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 25
+      },
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 26
+      },
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 31
+      },
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 34
+      },
+      {
+        "doc": "avian-mycotoxicosis-2024",
+        "edition": "75p",
+        "page": 25
+      },
+      {
+        "doc": "avian-mycotoxicosis-2024",
+        "edition": "75p",
+        "page": 26
+      },
+      {
+        "doc": "avian-mycotoxicosis-2024",
+        "edition": "75p",
+        "page": 31
+      },
+      {
+        "doc": "avian-final-notes-vet84",
+        "edition": "12p",
+        "page": 5
+      }
+    ]
+  },
+  {
+    "id": 218249,
+    "subject": "avian-medicine",
+    "topic": "avian-mycosis",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ไก่ไข่ได้รับ ochratoxin A ในอาหารเกิน 2 ppb ผลข้อใดพบได้",
+    "options": [
+      "เข้าวัยเจริญพันธุ์ช้า ไข่ลด อัตราฟักลด และลูกไก่ตายหลังฟัก",
+      "ไข่เพิ่มขึ้นแต่เปลือกบางลง เพราะสารพิษเร่งการตกไข่",
+      "หงอนและเหนียงมีแผ่นสะเก็ดสีขาวกระจายติดแน่น",
+      "แผลหลุมที่มุมปาก เพดานปาก และผิวด้านบนของลิ้น"
+    ],
+    "answer": 0,
+    "explain": "ochratoxin A เกิดในอาหารสัตว์ปีกในสภาพที่อุณหภูมิและความชื้นสูง หน่วงหรือหยุดยั้งการเจริญพันธุ์ ลดความสามารถในการฟัก และทำให้ลูกไก่ตายหลังฟัก ในไก่ไข่ระดับเกิน 2 ppb ทำให้มูลเปียก เข้าวัยเจริญพันธุ์ช้า ไข่ลด และอัตราฟักลด กลไกหลักคือทำลายท่อไตส่วนต้นและยับยั้งการขับกรดยูริก\n\n❌ ทำไมข้ออื่นผิด\nไข่เพิ่มขึ้น: ochratoxin ทำให้ไข่ลด\nสะเก็ดสีขาวที่หงอน: เป็นรอยโรคของ favus\nแผลที่ปาก: เป็นรอยโรคของ T-2 toxin",
+    "source": "Mycotoxicosis in poultry (27 ต.ค. 69) หน้า 36, 38 และ 39",
+    "verified": "จุดที่รุ่นพี่มาร์ค: Mycotoxicosis deck 2024 หน้า 36 ไฮไลต์ (ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-mycosis",
+      "ochratoxin",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 36
+      },
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 38
+      },
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 39
+      },
+      {
+        "doc": "avian-mycotoxicosis-2024",
+        "edition": "75p",
+        "page": 36
+      }
+    ]
+  },
+  {
+    "id": 218250,
+    "subject": "avian-medicine",
+    "topic": "avian-mycosis",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ข้อใดถูกต้องเกี่ยวกับการใช้ยาต้านเชื้อราในฝูงไก่ที่เป็น aspergillosis",
+    "options": [
+      "ยาเป็นเพียง fungistat ไม่คุ้มค่าในสัตว์ปีก จึงคัดตัวป่วยทิ้งและแก้ที่ต้นเหตุ",
+      "amphotericin B ฉีดเข้ากล้ามรายตัวทำให้หายขาดและคุ้มค่าในไก่เนื้อ",
+      "nystatin ผสมน้ำ 3 วันกำจัด granuloma ในปอดและถุงลมได้หมดทั้งฝูง",
+      "tetracycline ผสมน้ำใช้แทนยาต้านเชื้อราได้ผลเท่ากันและราคาถูกกว่า"
+    ],
+    "answer": 0,
+    "explain": "ยาต้านเชื้อรา เช่น nystatin, amphotericin B, crystal violet, brilliant green, itraconazole, enilconazole เป็นเพียง fungistat และไม่คุ้มค่าในการรักษาสัตว์ปีก การจัดการจึงเน้นคัดลูกไก่ที่แสดงอาการทิ้ง สุขาภิบาลโรงฟัก อาหารและโรงเรือนที่ปราศจากเชื้อรา และใช้ enilconazole กับวัสดุรองพื้นหรือรมโรงเรือนเพื่อลดอัตราป่วยและอัตราตาย ในไก่พันธุ์ใช้ครีมฆ่าเชื้อราป้ายรอยโรคที่ผิวหนัง\n\n❌ ทำไมข้ออื่นผิด\namphotericin B ฉีดรายตัว: ไม่คุ้มค่าในสัตว์ปีก\nnystatin กำจัด granuloma: ยาเป็น fungistat และ granuloma ไม่หายด้วยยา\ntetracycline: เป็นยาต่อแบคทีเรีย ไม่มีผลต่อเชื้อรา",
+    "source": "Mycotic infections in poultry (27 ต.ค. 69) หน้า 41",
+    "verified": "จุดที่รุ่นพี่ไฮไลต์: ตารางสรุป Mycotic disease และ Mycotoxin ของรุ่น 79 ในแฟ้มกลางภาคของรุ่น 84 หน้า 2 ช่อง Treatment ไฮไลต์เหลือง \"ใช้ยารักษาตัวไก่ไม่คุ้ม\"",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-mycosis",
+      "aspergillosis",
+      "treatment",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-mycosis-2569",
+        "edition": "60p",
+        "page": 41
+      },
+      {
+        "doc": "avian-mycosis-table-vet79",
+        "edition": "2p",
+        "page": 2
+      }
+    ]
+  },
+  {
+    "id": 218251,
+    "subject": "avian-medicine",
+    "topic": "avian-mycosis",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "aflatoxin ในอาหารและผลิตภัณฑ์อาหารมีคุณสมบัติข้อใด",
+    "options": [
+      "สลายไปเองเมื่อเก็บอาหารไว้ในโกดังนานเกิน 1 เดือน",
+      "ถูกทำลายหมดเมื่ออัดเม็ดอาหารด้วยไอน้ำร้อนตามปกติ",
+      "ค่อนข้างคงตัว แต่ถูกทำลายได้ด้วยสารออกซิไดซ์ เช่น hypochlorite",
+      "ละลายน้ำได้ดี ล้างวัตถุดิบด้วยน้ำเปล่าก็กำจัดได้หมด"
+    ],
+    "answer": 2,
+    "explain": "aflatoxin ค่อนข้างคงตัวในอาหารและผลิตภัณฑ์จากอาหาร แต่ไวต่อสารออกซิไดซ์ เช่น hypochlorite แบ่งเป็น B1, B2, G1, G2 โดย B1 เป็นพิษสูงสุดและพบมากที่สุด เป็นพิษต่อตับในสัตว์เกือบทุกชนิด สร้างโดย Aspergillus flavus, A. parasiticus และ Penicillium puberulum โดยเฉพาะในข้าวโพด\n\n❌ ทำไมข้ออื่นผิด\nสลายเองเมื่อเก็บนาน: aflatoxin คงตัว\nความร้อนจากการอัดเม็ด: ไม่ทำลายสารพิษได้หมด\nล้างด้วยน้ำ: ไม่ใช่วิธีกำจัด aflatoxin",
+    "source": "Mycotoxicosis in poultry (27 ต.ค. 69) หน้า 13 และ 14",
+    "verified": "จุดที่รุ่นพี่ไฮไลต์: ตารางสรุป Mycotic disease และ Mycotoxin ของรุ่น 79 ในแฟ้มกลางภาคของรุ่น 84 หน้า 2 แถว Aflatoxin B1 ไฮไลต์ \"ไวต่อ oxidising agent เช่น Hypochlorite\"",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-mycosis",
+      "aflatoxin",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 13
+      },
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 14
+      },
+      {
+        "doc": "avian-mycosis-table-vet79",
+        "edition": "2p",
+        "page": 2
+      }
+    ]
+  },
+  {
+    "id": 218252,
+    "subject": "avian-medicine",
+    "topic": "avian-mycosis",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "สารพิษจากเชื้อราชนิดใดทำให้ไก่กินอาหารลด ไข่ลด เดินกะเผลก กระดูกอ่อน (rickets) ร่วมกับตับ ไต ตับอ่อน กึ๋น และกระเพาะแท้ขยายใหญ่",
+    "options": [
+      "ochratoxin A",
+      "zearalenone",
+      "fumonisin",
+      "citrinin"
+    ],
+    "answer": 2,
+    "explain": "fumonisin ผลิตจาก Fusarium moniliforme และ Fusarium ชนิดอื่น มี B1, B2 และ B3 โดย B1 พบมากที่สุด ทำให้กินอาหารลด ผลผลิตไข่และน้ำหนักลด ตามด้วยขาเจ็บและตาย ท้องเสีย รอยโรคคือตับ ไต ตับอ่อน กึ๋น และกระเพาะแท้ขยายใหญ่ อวัยวะน้ำเหลืองฝ่อ และกระดูกอ่อน (rickets)\n\n❌ ทำไมข้ออื่นผิด\nochratoxin A: ทำลายไต พบไตซีดบวมและยูเรต\nzearalenone: ฤทธิ์คล้ายเอสโตรเจน ท่อนำไข่เป็นถุงน้ำ\ncitrinin: ไตบวมน้ำ ท้องเสียเป็นน้ำ และเยื่อบุกึ๋นแตก",
+    "source": "Mycotoxicosis in poultry (27 ต.ค. 69) หน้า 54, 55 และ 56",
+    "verified": "จุดที่รุ่นพี่ไฮไลต์: ตารางสรุป Mycotic disease และ Mycotoxin ของรุ่น 79 ในแฟ้มกลางภาคของรุ่น 84 หน้า 2 แถว Fumonisin ไฮไลต์ lameness, rickets และอวัยวะน้ำเหลืองฝ่อ",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-mycosis",
+      "fumonisin",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 54
+      },
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 55
+      },
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 56
+      },
+      {
+        "doc": "avian-mycosis-table-vet79",
+        "edition": "2p",
+        "page": 2
+      }
+    ]
+  },
+  {
+    "id": 218253,
+    "subject": "avian-medicine",
+    "topic": "avian-mycosis",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ไก่ที่ได้รับ aflatoxin ฟกช้ำง่าย เพราะเหตุใด",
+    "options": [
+      "เกล็ดเลือดถูกทำลายโดยแอนติบอดีที่ร่างกายสร้างต่อสารพิษ",
+      "การสังเคราะห์ปัจจัยการแข็งตัวของเลือดลดลง และหลอดเลือดฝอยเปราะแตกง่าย",
+      "สารพิษทำลายวิตามิน C ในอาหาร จนผนังหลอดเลือดสร้างคอลลาเจนไม่ได้",
+      "ไขกระดูกถูกแทนที่ด้วยเซลล์เนื้องอก จึงสร้างเกล็ดเลือดไม่ได้"
+    ],
+    "answer": 1,
+    "explain": "aflatoxin เป็นพิษต่อตับ ทำให้การสังเคราะห์ปัจจัยการแข็งตัวของเลือดลดลง ร่วมกับหลอดเลือดฝอยเปราะแตกง่าย ไก่จึงฟกช้ำง่าย รอยโรคอื่นคือตับและไตขยายใหญ่สีซีด เบอร์ซา ไธมัส และอัณฑะฝ่อ รายเรื้อรังพบน้ำในช่องเยื่อหุ้มหัวใจ ท้องมาน ตับแข็งเป็นตุ่ม และน้ำดีคั่ง\n\n❌ ทำไมข้ออื่นผิด\nแอนติบอดีทำลายเกล็ดเลือด: aflatoxin กดภูมิคุ้มกัน ไม่ได้กระตุ้นภูมิต่อเกล็ดเลือด\nวิตามิน C: ไม่ใช่กลไกของการฟกช้ำจาก aflatoxin\nเนื้องอกในไขกระดูก: เนื้องอกจาก aflatoxin พบที่ตับเป็นหลัก",
+    "source": "Mycotoxicosis in poultry (27 ต.ค. 69) หน้า 19 และ 21",
+    "verified": "จุดที่รุ่นพี่ไฮไลต์: ตารางสรุป Mycotic disease และ Mycotoxin ของรุ่น 79 ในแฟ้มกลางภาคของรุ่น 84 หน้า 2 แถว Aflatoxin B1 ช่อง Lesion ไฮไลต์ \"ช้ำง่าย หลอดเลือดแตกง่าย\"",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-mycosis",
+      "aflatoxin",
+      "lesions",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 19
+      },
+      {
+        "doc": "avian-mycotoxicosis-2569",
+        "edition": "77p",
+        "page": 21
+      },
+      {
+        "doc": "avian-mycosis-table-vet79",
+        "edition": "2p",
+        "page": 2
+      }
+    ]
+  },
+  {
+    "id": 218254,
+    "subject": "avian-medicine",
+    "topic": "avian-mycosis",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ปัจจัยใดโน้มนำให้ไก่พันธุ์เกิด candidiasis",
+    "options": [
+      "ให้วัคซีนเชื้อเป็นหลายชนิดพร้อมกันในวันเดียวกันทั้งฝูง",
+      "เลี้ยงในโรงเรือนระบบปิดที่ควบคุมอุณหภูมิและความชื้นได้",
+      "ให้แสงสว่างต่อเนื่อง 24 ชั่วโมงตลอดช่วงการให้ไข่",
+      "ใช้ยาปฏิชีวนะนาน ความเครียด และเชื้อปนเปื้อนในน้ำ อาหาร วัสดุรองนอน"
+    ],
+    "answer": 3,
+    "explain": "ปัจจัยโน้มนำของ candidiasis คือความเครียด การใช้ยาปฏิชีวนะเป็นเวลานาน (ในไก่พันธุ์) และการปนเปื้อนเชื้อปริมาณมากในน้ำ อาหาร และวัสดุรองนอน ภาวะขาดอาหารและภาวะกดภูมิคุ้มกันก็พบร่วมบ่อย การควบคุมจึงเริ่มจากเข้มงวดการใช้ยาปฏิชีวนะ สุขศาสตร์ฟาร์มที่ดี ให้ยาฆ่าเชื้อรา เสริมวิตามิน A และผสมกรดในน้ำเพื่อลดเชื้อรา\n\n❌ ทำไมข้ออื่นผิด\nวัคซีนเชื้อเป็นหลายชนิด: ไม่ใช่ปัจจัยโน้มนำที่ระบุของโรคนี้\nโรงเรือนระบบปิด: ไม่ได้เพิ่มการปนเปื้อน Candida\nแสงสว่าง 24 ชั่วโมง: ไม่เกี่ยวกับการเกิดโรค",
+    "source": "Mycotic infections in poultry (27 ต.ค. 69) หน้า 44, 45 และ 56",
+    "verified": "จุดที่รุ่นพี่ไฮไลต์: ตารางสรุป Mycotic disease และ Mycotoxin ของรุ่น 79 ในแฟ้มกลางภาคของรุ่น 84 หน้า 2 แถว Candidiasis ไฮไลต์การใช้ยาปฏิชีวนะเป็นเวลานานในไก่พันธุ์",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-mycosis",
+      "candidiasis",
+      "risk-factors",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-mycosis-2569",
+        "edition": "60p",
+        "page": 44
+      },
+      {
+        "doc": "avian-mycosis-2569",
+        "edition": "60p",
+        "page": 45
+      },
+      {
+        "doc": "avian-mycosis-2569",
+        "edition": "60p",
+        "page": 56
+      },
+      {
+        "doc": "avian-mycosis-table-vet79",
+        "edition": "2p",
+        "page": 2
+      }
+    ]
+  },
+  {
+    "id": 218255,
+    "subject": "avian-medicine",
+    "topic": "avian-serology",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "เจาะเลือดลูกไก่อายุ 1 วันจากฝูงเดียว 30 ตัว ตรวจแอนติบอดีต่อ IBD พบ 7 ตัวไม่มีแอนติบอดี ขณะที่ตัวอื่นมีระดับสูงใกล้เคียงกัน ควรตีความอย่างไร",
+    "options": [
+      "ลูกไก่ 7 ตัวกำลังติดเชื้อ IBD ระยะแรก จึงยังไม่สร้างแอนติบอดี",
+      "ห้องปฏิบัติการตรวจผิด ให้ตัดค่าศูนย์ทิ้งแล้วหาค่าเฉลี่ยใหม่",
+      "MDA ไม่สม่ำเสมอ ลูกไก่อาจมาจากแม่พันธุ์มากกว่าหนึ่งฝูง หรือภูมิในฝูงแม่ไม่สม่ำเสมอ",
+      "ลูกไก่ 7 ตัวได้รับวัคซีน IBD ที่โรงฟักแล้ว แอนติบอดีจึงถูกใช้หมด"
+    ],
+    "answer": 2,
+    "explain": "แอนติบอดีในลูกไก่อายุ 1 วันคือ MDA ที่ได้จากแม่ ก่อนนำค่าเฉลี่ยไปใช้ต้องดูความสม่ำเสมอ (uniformity) ของค่าแต่ละตัว ถ้าบางตัวเป็นศูนย์ขณะที่ส่วนใหญ่สูงใกล้กัน ต้องตรวจสอบว่าลูกไก่รวมมาจากแม่พันธุ์มากกว่าหนึ่งฝูงหรือไม่ ถ้ามาจากแม่ฝูงเดียว แสดงว่าภูมิในฝูงแม่ไม่สม่ำเสมอ ต้องกลับไปปรับโปรแกรมวัคซีนและดูอายุกับสุขภาพของแม่ เพราะ MDA ของลูกสะท้อนภูมิของแม่ ความไม่สม่ำเสมอนี้ยังทำให้กำหนดวันทำวัคซีนในลูกไก่ยากขึ้น\n\n❌ ทำไมข้ออื่นผิด\nกำลังติดเชื้อ: ค่าที่วัดในวันแรกคือ MDA ไม่ใช่การตอบสนองต่อการติดเชื้อ\nตัดค่าศูนย์ทิ้ง: ค่าศูนย์เป็นข้อมูลที่บอกความไม่สม่ำเสมอ ไม่ใช่ความผิดพลาด\nวัคซีนที่โรงฟักใช้แอนติบอดีหมด: วัคซีนไม่ทำให้ MDA หายไปจนเป็นศูนย์ในวันเดียว",
+    "source": "เอกสาร Serology ปี 2565 หน้า 1",
+    "verified": "จุดที่รุ่นพี่ไฮไลต์: สรุปการแปลผลซีรัมวิทยาในแฟ้มกลางภาคของรุ่น 84 หน้า 2 (uniformity และ MDA); โน้ตของรุ่น 84 บนเอกสาร Serology ปี 2565 หน้า 1 (ดู uniformity ในการตอบสนองว่าใกล้กันไหม); คลิปบันทึกการสอน 6 ต.ค. 2569 นาที 183:54-186:11 (ลูกไก่ 1 วัน IBD 7 ใน 30 ตัวเป็นศูนย์ ให้ดูว่ารวมมาจากมากกว่าหนึ่งฝูงหรือไม่ และปรับ uniformity ในแม่)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-serology",
+      "mda",
+      "uniformity",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-serology-handout-2565",
+        "edition": "10p",
+        "page": 1
+      },
+      {
+        "doc": "avian-serology-sum-vet84",
+        "edition": "2p",
+        "page": 2
+      }
+    ]
+  },
+  {
+    "id": 218256,
+    "subject": "avian-medicine",
+    "topic": "avian-nds",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Riemerella anatipestifer มีหลาย serotype ที่ป้องกันข้ามกันไม่ได้ การเลือกวัคซีนจึงต้องรู้ serotype ที่พบในฟาร์ม",
+    "answer": true,
+    "explain": "ถูก R. anatipestifer มีมากกว่า 20 serotype และไม่ป้องกันข้ามกัน serotype ที่พบต่างกันไปตามฟาร์ม พื้นที่ ประเทศ และช่วงเวลา เช่น ในไทยปี 1999 พบ 17 serotype โดย serotype 7 พบมากที่สุด (27.5%) รองลงมาคือ serotype 1 (10%) การหา serotype จึงจำเป็นต่อการเลือกวัคซีน วัคซีนที่ให้ผลดีที่สุดในแต่ละฟาร์มคือวัคซีนชนิด homologous กับเชื้อในฟาร์ม หรือ autogenous oil-emulsion bacterin",
+    "source": "Duck RA DVE DVH DTMUV GP AI Yr5 2026 หน้า 6, 15, 19 และ 20",
+    "verified": "จุดที่รุ่นพี่มาร์ค: New Duck Syndrome deck 2024 ในแฟ้มกลางภาคของรุ่น 84 หน้า 4, 8 และ 11 (ขีดเส้นใต้ More than 19 serotypes พร้อมโน้ตแดง, ไฮไลต์ No cross antibody response และ combined serotypes 1, 2, 5; ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-nds",
+      "riemerella",
+      "serotype",
+      "vaccine",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 6
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 15
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 19
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 20
+      },
+      {
+        "doc": "avian-nds-2024",
+        "edition": "11p",
+        "page": 4
+      },
+      {
+        "doc": "avian-nds-2024",
+        "edition": "11p",
+        "page": 8
+      },
+      {
+        "doc": "avian-nds-2024",
+        "edition": "11p",
+        "page": 11
+      }
+    ]
+  },
+  {
+    "id": 218257,
+    "subject": "avian-medicine",
+    "topic": "avian-nds",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Riemerella anatipestifer ก่อโรครุนแรงในเป็ดโตมากกว่าในลูกเป็ด",
+    "answer": false,
+    "explain": "ผิด โรคนี้เกิดกับลูกเป็ดเป็นหลัก อาการมักพบในลูกเป็ดอายุราว 1-7 สัปดาห์ และพบในไก่งวงและห่านได้น้อยกว่า ลูกเป็ดป่วยมีน้ำตาน้ำมูก ไอจาม หัวและคอสั่น เดินเซ แคระแกร็น และนอนหงายตีขา อัตราตายราว 2-50% ในไก่งวงพบช่วงอายุ 5-15 สัปดาห์",
+    "source": "Duck RA DVE DVH DTMUV GP AI Yr5 2026 หน้า 4, 9 และ 11",
+    "verified": "จุดที่รุ่นพี่มาร์ค: New Duck Syndrome deck 2024 ในแฟ้มกลางภาคของรุ่น 84 หน้า 5 (ไฮไลต์ Age susceptibility และ Ducklings more susceptible than mature ducks; ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-nds",
+      "riemerella",
+      "age-susceptibility",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 4
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 9
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 11
+      },
+      {
+        "doc": "avian-nds-2024",
+        "edition": "11p",
+        "page": 5
+      }
+    ]
+  },
+  {
+    "id": 218258,
+    "subject": "avian-medicine",
+    "topic": "avian-nds",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "การทำวัคซีน Riemerella anatipestifer ในเป็ดพ่อแม่พันธุ์ ให้ภูมิคุ้มกันแก่ลูกเป็ดได้ถึงอายุราว 2-3 สัปดาห์",
+    "answer": true,
+    "explain": "ถูก เป็ดพ่อแม่พันธุ์ที่ได้รับวัคซีนส่งภูมิคุ้มกันให้ลูกเป็ด ป้องกันได้ถึงอายุราว 2-3 สัปดาห์ วัคซีนที่ใช้มีทั้ง bacterin และวัคซีนเชื้อเป็นเชิงการค้า และ autogenous oil-emulsion bacterin จากเชื้อในฟาร์ม ร่วมกับ biosecurity ระดับสูง ทำความสะอาดฆ่าเชื้อระหว่างรุ่น แยกฝูงต่างอายุ และสุขาภิบาลเข้มงวด",
+    "source": "Duck RA DVE DVH DTMUV GP AI Yr5 2026 หน้า 19 และ 20",
+    "verified": "จุดที่รุ่นพี่มาร์ค: New Duck Syndrome deck 2024 ในแฟ้มกลางภาคของรุ่น 84 หน้า 8 และ 11 (ไฮไลต์ Maternal antibody prevents infection for 2 weeks และ Lived vaccine; ไม่ระบุรุ่น)",
+    "sourceType": "exam-aligned",
+    "examOrigin": "Avian Medicine final จุดที่รุ่นพี่มาร์คในสไลด์หรือสรุป",
+    "tags": [
+      "avian-nds",
+      "riemerella",
+      "maternal-immunity",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 19
+      },
+      {
+        "doc": "avian-duck-goose-2569",
+        "edition": "119p",
+        "page": 20
+      },
+      {
+        "doc": "avian-nds-2024",
+        "edition": "11p",
+        "page": 8
+      },
+      {
+        "doc": "avian-nds-2024",
+        "edition": "11p",
+        "page": 11
+      }
+    ]
+  },
 ];

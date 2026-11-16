@@ -584,9 +584,9 @@ export const QUESTIONS_Y5_MILK_MEAT_FINAL_MARKED = [
       "กลิ่นผิดปกติตรวจพบได้ง่ายในการตรวจก่อนฆ่าตามปกติ"
     ],
     "answer": 1,
-    "explain": "สีผิดปกติที่พบได้ ได้แก่ บริเวณสีดำบนม้าและสุกร บริเวณสีแดงบนผิวหนังสีอ่อนซึ่งบ่งชี้การอักเสบ และบริเวณสีน้ำเงินเข้มที่ผิวหนังหรือเต้านมซึ่งบ่งชี้ gangrene ส่วนกลิ่นผิดปกติตรวจพบได้ยากในการตรวจก่อนฆ่าตามปกติ ตัวอย่างเช่น กลิ่นฝี กลิ่นยา กลิ่น stinkweed และกลิ่น acetone ของ ketosis กลิ่น acetone จึงบ่งชี้ ketosis ไม่ใช่ฝี",
+    "explain": "สีผิดปกติที่พบได้ ได้แก่ บริเวณสีดำและสีน้ำเงินเข้มที่ผิวหนังหรือเต้านมซึ่งบ่งชี้ gangrene บริเวณสีแดงบนผิวหนังสีอ่อนซึ่งบ่งชี้การอักเสบ และบริเวณสีเหลืองหรือซีดที่เยื่อเมือก ส่วนกลิ่นผิดปกติตรวจพบได้ยากในการตรวจก่อนฆ่าตามปกติ ตัวอย่างเช่น กลิ่นฝี กลิ่นยา กลิ่น stinkweed และกลิ่น acetone ของ ketosis กลิ่น acetone จึงบ่งชี้ ketosis ไม่ใช่ฝี",
     "source": "Antemortem & Postmortem Inspection deck 2024 หน้า 11",
-    "verified": "สไลด์ Antemortem & Postmortem Inspection ชุดปี 2567 หน้า 11 มาร์คโดย Vet 84 (ไฮไลต์ที่หัวข้อ color และ odor)",
+    "verified": "สไลด์ Antemortem & Postmortem Inspection ชุดปี 2567 หน้า 11 มาร์คโดย Vet 84 (ไฮไลต์ที่หัวข้อ color และ odor); ตรวจกับสไลด์ MI_SP_E3 ปี 2569 หน้า 11: ปีนี้รวมสีดำกับสีน้ำเงินเข้มเป็น gangrene และเพิ่มสีเหลืองหรือซีดที่เยื่อเมือก คำตอบไม่เปลี่ยน",
     "sourceType": "exam-aligned",
     "examOrigin": "Milk Hygiene & Meat Inspection final จุดที่รุ่นพี่มาร์คในสไลด์",
     "tags": [
@@ -597,6 +597,11 @@ export const QUESTIONS_Y5_MILK_MEAT_FINAL_MARKED = [
     "sourcePages": [
       {
         "doc": "mm-ante-post-mortem-2024",
+        "edition": "75p",
+        "page": 11
+      },
+      {
+        "doc": "mm-ante-post-mortem-2569",
         "edition": "75p",
         "page": 11
       }
@@ -7538,9 +7543,9 @@ export const QUESTIONS_Y5_MILK_MEAT_FINAL_MARKED = [
       "กระแสผ่านทั้งตัวขณะจุ่มหัวและคอในอ่างน้ำ และสัตว์อยู่ในอ่าง 10 ถึง 20 วินาที"
     ],
     "answer": 0,
-    "explain": "Head-only stunning ปล่อยกระแสผ่านสมองอย่างเดียว ทำให้หมดสติเพียงชั่วคราว สัตว์จะฟื้นได้ถ้าไม่ปล่อยเลือดโดยเร็ว ต่างจากการทำสลบแบบหัวใจหยุดเต้น (cardiac arrest) ทั้งแบบ head-to-body ที่กระแสผ่านสมองและหัวใจพร้อมกัน และแบบ two-step ที่ผ่านศีรษะก่อนแล้วผ่านหน้าอก ซึ่งทำให้หมดสติถาวรเมื่อทำถูกต้องและแนะนำให้ปล่อยเลือดภายใน 60 วินาที",
+    "explain": "Head-only stunning ปล่อยกระแสผ่านสมองอย่างเดียว ทำให้หมดสติเพียงชั่วคราว สัตว์จะฟื้นได้ถ้าไม่ปล่อยเลือดภายใน 10-15 วินาที ต่างจากการทำสลบแบบหัวใจหยุดเต้น (cardiac arrest) ทั้งแบบ head-to-body ที่กระแสผ่านสมองและหัวใจพร้อมกัน และแบบ two-step ที่ผ่านศีรษะก่อนแล้วผ่านหน้าอก ซึ่งทำให้หมดสติถาวรเมื่อทำถูกต้องและแนะนำให้ปล่อยเลือดภายใน 60 วินาที",
     "source": "Slaughterhouse: Production Facilities & Sanitary Practices deck 2024 หน้า 17, 18, 19 และ 21",
-    "verified": "สไลด์ Slaughterhouse: Production Facilities & Sanitary Practices ชุดปี 2567 หน้า 17 มาร์คโดย Vet 84",
+    "verified": "สไลด์ Slaughterhouse: Production Facilities & Sanitary Practices ชุดปี 2567 หน้า 17 มาร์คโดย Vet 84; MI_SP_E2 ปี 2569 หน้า 17 พิมพ์ 10-15 วินาที (สำเนาปี 2567 มีลายมือขีดฆ่าแก้เป็น 15-20 วินาที)",
     "sourceType": "exam-aligned",
     "examOrigin": "Milk Hygiene & Meat Inspection final จุดที่รุ่นพี่มาร์คในสไลด์",
     "tags": [
@@ -7569,6 +7574,11 @@ export const QUESTIONS_Y5_MILK_MEAT_FINAL_MARKED = [
         "doc": "mm-slaughter-2024",
         "edition": "52p",
         "page": 21
+      },
+      {
+        "doc": "mm-slaughter-2569",
+        "edition": "52p",
+        "page": 17
       }
     ]
   },

@@ -27,6 +27,7 @@ import { decide } from '../lib/decide.js';
 import { PRACTICE_SETUP } from '../lib/decisions/practice-setup.js';
 import { practiceSignals } from '../lib/decide-signals.js';
 import { rememberPhaseReturn, takePhaseReturn } from '../lib/phase-return.js';
+import { topicPrimaryLabel } from '../lib/empty-state-copy.js';
 
 // The profile, and the faculty directory behind it (papers and sources, about
 // 300 KB gzip), load when a lecturer's name is tapped: most students browse
@@ -826,11 +827,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           // unknown is never filtered out) and says so, apart from the topics
           // that are on this paper.
           const unscoped = Boolean(paperScope) && !scopeForTopic(subject, t.id);
-          const primaryLabelBase = hasQuestions
-            ? `ฝึกข้อสอบ ${t.label} ${count} ข้อ`
-            : hasNotesForTopic
-              ? `อ่าน Notes ${t.label}`
-              : `หัวข้อ ${t.label} ยังไม่มีเนื้อหาพร้อมใช้`;
+          const primaryLabelBase = topicPrimaryLabel({ label: t.label, count, notes: hasNotesForTopic, wiki: hasWikiForTopic });
           const primaryLabel = `${primaryLabelBase}${unscoped ? ', ยังไม่ระบุช่วงสอบ' : ''}${isRead ? ', อ่านแล้ว' : ''}${caveat && !isEmpty ? `, ${t.lecturerNote}` : ''}`;
           const openPrimary = () => {
             if (hasQuestions) choose(t.id);

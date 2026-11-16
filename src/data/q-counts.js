@@ -213,7 +213,7 @@ const LEAVES = [
   ["avian-medicine","avian-ai",0,[[17,5,1,0,1,1,0,0],[7,5,1,1,1,1,0,0]]], // b958e7210798
   // end ["avian-medicine","avian-ai"]
   // ["avian-medicine","avian-campy"]
-  ["avian-medicine","avian-campy",0,[[2,5,1,0,2,0,0,0],[1,5,1,0,2,1,0,0],[3,5,1,1,2,1,0,0]]], // a43f69b8b3f9
+  ["avian-medicine","avian-campy",0,[[2,5,1,0,2,0,0,0],[5,5,1,0,2,1,0,0],[3,5,1,1,2,1,0,0]]], // d3ff19f93b2b
   // end ["avian-medicine","avian-campy"]
   // ["avian-medicine","avian-cia"]
   ["avian-medicine","avian-cia",0,[[2,5,1,0,1,0,0,0],[8,5,1,0,1,0,["2569-1","midterm"],0],[2,5,1,0,1,1,0,0],[2,5,1,1,1,1,0,0]]], // c660ed565f4c
@@ -228,13 +228,13 @@ const LEAVES = [
   ["avian-medicine","avian-coryza",0,[[5,5,1,0,1,0,0,0],[13,5,1,0,1,1,0,0]]], // 65cad4862bb6
   // end ["avian-medicine","avian-coryza"]
   // ["avian-medicine","avian-duck-flavi"]
-  ["avian-medicine","avian-duck-flavi",0,[[1,5,1,0,2,0,0,0],[1,5,1,1,2,1,0,0]]], // 52eecaa1bcea
+  ["avian-medicine","avian-duck-flavi",0,[[1,5,1,0,2,0,0,0],[4,5,1,0,2,1,0,0],[1,5,1,1,2,1,0,0]]], // f8afa0e9bf5c
   // end ["avian-medicine","avian-duck-flavi"]
   // ["avian-medicine","avian-duck-plague"]
-  ["avian-medicine","avian-duck-plague",0,[[1,5,1,0,2,0,0,0],[4,5,1,1,2,1,0,0]]], // 0df6b610839f
+  ["avian-medicine","avian-duck-plague",0,[[1,5,1,0,2,0,0,0],[5,5,1,0,2,1,0,0],[4,5,1,1,2,1,0,0]]], // 98080e6a9bd0
   // end ["avian-medicine","avian-duck-plague"]
   // ["avian-medicine","avian-dvh"]
-  ["avian-medicine","avian-dvh",0,[[1,5,1,0,2,0,0,0],[10,5,1,1,2,1,0,0]]], // a644dc41e0be
+  ["avian-medicine","avian-dvh",0,[[1,5,1,0,2,0,0,0],[4,5,1,0,2,1,0,0],[10,5,1,1,2,1,0,0]]], // ebb771156764
   // end ["avian-medicine","avian-dvh"]
   // ["avian-medicine","avian-egg-breakout"]
   ["avian-medicine","avian-egg-breakout",0,[[1,5,1,0,1,0,0,0]]], // b4b0ca659251
@@ -243,10 +243,10 @@ const LEAVES = [
   ["avian-medicine","avian-fowl-cholera",0,[[3,5,1,0,1,0,0,0],[14,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]], // 62feb7d7c16d
   // end ["avian-medicine","avian-fowl-cholera"]
   // ["avian-medicine","avian-goose-parvo"]
-  ["avian-medicine","avian-goose-parvo",0,[[1,5,1,0,2,0,0,0],[6,5,1,1,2,1,0,0]]], // 37826598866c
+  ["avian-medicine","avian-goose-parvo",0,[[1,5,1,0,2,0,0,0],[1,5,1,0,2,1,0,0],[6,5,1,1,2,1,0,0]]], // ad103a1db7e3
   // end ["avian-medicine","avian-goose-parvo"]
   // ["avian-medicine","avian-histomoniasis"]
-  ["avian-medicine","avian-histomoniasis",0,[[2,5,1,0,2,0,0,0]]], // 92b7c80603ac
+  ["avian-medicine","avian-histomoniasis",0,[[4,5,1,0,2,0,0,0],[1,5,1,0,2,1,0,0]]], // b2c15095bd6a
   // end ["avian-medicine","avian-histomoniasis"]
   // ["avian-medicine","avian-ib"]
   ["avian-medicine","avian-ib",0,[[16,5,1,0,1,0,0,0],[3,5,1,0,1,1,0,0]]], // d81febd614ac
@@ -261,7 +261,7 @@ const LEAVES = [
   ["avian-medicine","avian-leuko",0,[[2,5,1,0,1,0,0,0],[8,5,1,0,1,0,["2569-1","midterm"],0],[2,5,1,0,1,1,0,0],[2,5,1,1,1,1,0,0]]], // 4983f665cd53
   // end ["avian-medicine","avian-leuko"]
   // ["avian-medicine","avian-listeria"]
-  ["avian-medicine","avian-listeria",0,[[1,5,1,0,2,0,0,0],[2,5,1,1,2,1,0,0]]], // b0fba89ab58e
+  ["avian-medicine","avian-listeria",0,[[1,5,1,0,2,0,0,0],[4,5,1,0,2,1,0,0],[2,5,1,1,2,1,0,0]]], // 24fcfc45a993
   // end ["avian-medicine","avian-listeria"]
   // ["avian-medicine","avian-lt"]
   ["avian-medicine","avian-lt",0,[[14,5,1,0,1,0,0,0],[2,5,1,0,1,1,0,0]]], // 32b4c93dbf82
@@ -279,19 +279,19 @@ const LEAVES = [
   ["avian-medicine","avian-myco",0,[[2,5,1,0,1,0,0,0],[30,5,1,0,1,1,0,0],[3,5,1,1,1,1,0,0]]], // 5a40edf75340
   // end ["avian-medicine","avian-myco"]
   // ["avian-medicine","avian-mycosis"]
-  ["avian-medicine","avian-mycosis",0,[[9,5,1,0,2,0,0,0],[23,5,1,1,2,1,0,0]]], // c5c37f9b8b28
+  ["avian-medicine","avian-mycosis",0,[[9,5,1,0,2,0,0,0],[24,5,1,0,2,1,0,0],[23,5,1,1,2,1,0,0]]], // 8fb61428a498
   // end ["avian-medicine","avian-mycosis"]
   // ["avian-medicine","avian-nd"]
   ["avian-medicine","avian-nd",0,[[22,5,1,0,1,0,0,0],[2,5,1,0,1,1,0,0]]], // 392868d37401
   // end ["avian-medicine","avian-nd"]
   // ["avian-medicine","avian-nds"]
-  ["avian-medicine","avian-nds",0,[[1,5,1,0,2,0,0,0]]], // 2d4e9ff83953
+  ["avian-medicine","avian-nds",0,[[1,5,1,0,2,0,0,0],[4,5,1,0,2,1,0,0],[2,5,1,1,2,1,0,0]]], // 523fb5e81906
   // end ["avian-medicine","avian-nds"]
   // ["avian-medicine","avian-ne"]
   ["avian-medicine","avian-ne",0,[[1,5,1,0,1,0,0,0],[9,5,1,0,1,0,["2569-1","midterm"],0],[2,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]], // 2a29bb5c2b76
   // end ["avian-medicine","avian-ne"]
   // ["avian-medicine","avian-ort"]
-  ["avian-medicine","avian-ort",0,[[2,5,1,0,2,0,0,0],[7,5,1,1,2,1,0,0]]], // f0417c204331
+  ["avian-medicine","avian-ort",0,[[2,5,1,0,2,0,0,0],[5,5,1,0,2,1,0,0],[7,5,1,1,2,1,0,0]]], // 9f14fe86ba09
   // end ["avian-medicine","avian-ort"]
   // ["avian-medicine","avian-pox"]
   ["avian-medicine","avian-pox",0,[[13,5,1,0,1,0,0,0],[3,5,1,0,1,1,0,0],[2,5,1,1,1,1,0,0]]], // 1be3e764826c
@@ -306,7 +306,7 @@ const LEAVES = [
   ["avian-medicine","avian-salmonella",0,[[14,5,1,0,1,0,0,0],[10,5,1,0,1,0,["2569-1","midterm"],0],[3,5,1,0,1,1,0,0]]], // c8bef46aef77
   // end ["avian-medicine","avian-salmonella"]
   // ["avian-medicine","avian-serology"]
-  ["avian-medicine","avian-serology",0,[[6,5,1,0,2,0,0,0],[2,5,1,0,2,1,0,0],[8,5,1,1,2,1,0,0]]], // 4df9839a5889
+  ["avian-medicine","avian-serology",0,[[6,5,1,0,2,0,0,0],[3,5,1,0,2,1,0,0],[8,5,1,1,2,1,0,0]]], // a881ab03644b
   // end ["avian-medicine","avian-serology"]
   // ["avian-medicine","avian-vaccine-prog"]
   ["avian-medicine","avian-vaccine-prog",0,[[2,5,1,0,2,0,0,0],[5,5,1,0,2,1,0,0],[8,5,1,1,2,1,0,0]]], // c184a2ae8641
@@ -846,7 +846,7 @@ const LEAVES = [
   ["epidemiology","epidem-test-agreement",0,[[1,5,1,0,2,0,0,0],[6,5,1,0,2,0,["2569-1","final"],0],[2,5,1,0,2,1,0,0],[1,5,1,0,2,1,["2569-1","final"],0]]], // 729013772ab8
   // end ["epidemiology","epidem-test-agreement"]
   // ["equine-medicine","equine-anesthesia"]
-  ["equine-medicine","equine-anesthesia",0,[[6,5,1,0,2,0,0,0],[11,5,1,1,2,1,0,0]]], // e02cdc28be47
+  ["equine-medicine","equine-anesthesia",0,[[6,5,1,0,2,0,0,0],[2,5,1,0,2,1,0,0],[11,5,1,1,2,1,0,0]]], // b5c0d16f32d7
   // end ["equine-medicine","equine-anesthesia"]
   // ["equine-medicine","equine-colic-bestfit"]
   ["equine-medicine","equine-colic-bestfit",0,[[15,5,1,0,3,0,0,0],[14,5,1,0,3,0,["2569-1","both"],0],[6,5,1,0,3,1,0,0],[13,5,1,1,3,1,0,0]]], // 56970ba18dae
@@ -867,19 +867,19 @@ const LEAVES = [
   ["equine-medicine","equine-hoof",0,[[5,5,1,0,2,0,0,0]]], // 844e1fcfe444
   // end ["equine-medicine","equine-hoof"]
   // ["equine-medicine","equine-infectious"]
-  ["equine-medicine","equine-infectious",0,[[5,5,1,0,2,0,0,0],[8,5,1,1,2,1,0,0]]], // e6d9850889fb
+  ["equine-medicine","equine-infectious",0,[[5,5,1,0,2,0,0,0],[16,5,1,0,2,1,0,0],[8,5,1,1,2,1,0,0]]], // 1784fb71cdc9
   // end ["equine-medicine","equine-infectious"]
   // ["equine-medicine","equine-intro"]
   ["equine-medicine","equine-intro",0,[[19,5,1,0,3,0,0,0],[8,5,1,0,3,0,["2569-1","both"],0],[29,5,1,0,3,1,0,0],[31,5,1,1,3,1,0,0]]], // 054ad9a9bd7c
   // end ["equine-medicine","equine-intro"]
   // ["equine-medicine","equine-lameness"]
-  ["equine-medicine","equine-lameness",0,[[18,5,1,1,2,1,0,0]]], // 0b232708cb55
+  ["equine-medicine","equine-lameness",0,[[4,5,1,0,2,1,0,0],[18,5,1,1,2,1,0,0]]], // 5810cf1a4c22
   // end ["equine-medicine","equine-lameness"]
   // ["equine-medicine","equine-nutrition"]
   ["equine-medicine","equine-nutrition",0,[[31,5,1,0,3,0,0,0],[12,5,1,0,3,1,0,0],[14,5,1,1,3,1,0,0]]], // 37fa049684b3
   // end ["equine-medicine","equine-nutrition"]
   // ["equine-medicine","equine-ophth"]
-  ["equine-medicine","equine-ophth",0,[[5,5,1,0,2,0,0,0],[17,5,1,1,2,1,0,0]]], // 1e5bdaf35069
+  ["equine-medicine","equine-ophth",0,[[5,5,1,0,2,0,0,0],[8,5,1,0,2,1,0,0],[17,5,1,1,2,1,0,0]]], // 9fd931a447e2
   // end ["equine-medicine","equine-ophth"]
   // ["equine-medicine","equine-parasites"]
   ["equine-medicine","equine-parasites",0,[[32,5,1,0,3,0,0,0],[19,5,1,0,3,1,0,0],[24,5,1,1,3,1,0,0]]], // c14f5a09f6c4
@@ -888,13 +888,13 @@ const LEAVES = [
   ["equine-medicine","equine-poa",0,[[3,5,1,0,2,0,0,0],[10,5,1,0,2,1,0,0],[22,5,1,1,2,1,0,0]]], // d42e9a5a5329
   // end ["equine-medicine","equine-poa"]
   // ["equine-medicine","equine-pythium"]
-  ["equine-medicine","equine-pythium",0,[[7,5,1,0,2,0,0,0]]], // a5d20b86dbe9
+  ["equine-medicine","equine-pythium",0,[[7,5,1,0,2,0,0,0],[1,5,1,0,2,1,0,0]]], // 43a67310d4ca
   // end ["equine-medicine","equine-pythium"]
   // ["equine-medicine","equine-respi"]
   ["equine-medicine","equine-respi",0,[[7,5,1,0,3,0,0,0],[25,5,1,0,3,1,0,0],[12,5,1,1,3,1,0,0]]], // 290fc1d750c4
   // end ["equine-medicine","equine-respi"]
   // ["equine-medicine","equine-surgery-wound"]
-  ["equine-medicine","equine-surgery-wound",0,[[19,5,1,0,2,0,0,0],[5,5,1,0,2,1,0,0]]], // b82af108c5ea
+  ["equine-medicine","equine-surgery-wound",0,[[9,5,1,0,2,0,0,0],[17,5,1,0,2,1,0,0]]], // b17f681f40f1
   // end ["equine-medicine","equine-surgery-wound"]
   // ["equine-medicine","equine-tendon"]
   ["equine-medicine","equine-tendon",0,[[5,5,1,0,2,0,0,0]]], // 5f34c5a3cb59
@@ -1182,7 +1182,7 @@ const LEAVES = [
   ["milk-meat-hygiene","milk-borne-pathogens",0,[[29,5,1,0,1,0,0,0],[10,5,1,0,1,1,0,0],[5,5,1,1,1,1,0,0]]], // 371372083d95
   // end ["milk-meat-hygiene","milk-borne-pathogens"]
   // ["milk-meat-hygiene","milk-cleaning"]
-  ["milk-meat-hygiene","milk-cleaning",0,[[5,5,1,0,3,0,0,0],[52,5,1,0,3,1,0,0],[14,5,1,1,3,1,0,0]]], // dac13071f7f0
+  ["milk-meat-hygiene","milk-cleaning",0,[[5,5,1,0,3,0,0,0],[52,5,1,0,3,1,0,0],[16,5,1,1,3,1,0,0]]], // dc4b93745fa9
   // end ["milk-meat-hygiene","milk-cleaning"]
   // ["milk-meat-hygiene","milk-industry-std"]
   ["milk-meat-hygiene","milk-industry-std",0,[[27,5,1,0,1,0,0,0],[14,5,1,0,1,1,0,0],[22,5,1,1,1,1,0,0]]], // 9c7457212f34
@@ -1191,13 +1191,13 @@ const LEAVES = [
   ["milk-meat-hygiene","milk-mastitis",0,[[32,5,1,0,1,0,0,0],[43,5,1,0,1,1,0,0],[14,5,1,1,1,1,0,0]]], // 11f962e751fd
   // end ["milk-meat-hygiene","milk-mastitis"]
   // ["milk-meat-hygiene","milk-microbiology"]
-  ["milk-meat-hygiene","milk-microbiology",0,[[20,5,1,0,1,0,0,0],[52,5,1,0,1,1,0,0],[7,5,1,1,1,1,0,0]]], // 0d1ed29037b1
+  ["milk-meat-hygiene","milk-microbiology",0,[[20,5,1,0,1,0,0,0],[51,5,1,0,1,1,0,0],[7,5,1,1,1,1,0,0]]], // 1feaddc2350c
   // end ["milk-meat-hygiene","milk-microbiology"]
   // ["milk-meat-hygiene","milk-overview"]
   ["milk-meat-hygiene","milk-overview",0,[[14,5,1,0,1,0,0,0],[13,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]], // 13a83f1d4b7d
   // end ["milk-meat-hygiene","milk-overview"]
   // ["milk-meat-hygiene","milk-processing"]
-  ["milk-meat-hygiene","milk-processing",0,[[32,5,1,0,1,0,0,0],[56,5,1,0,1,1,0,0],[18,5,1,1,1,1,0,0]]], // 6fb7e44eaf2c
+  ["milk-meat-hygiene","milk-processing",0,[[32,5,1,0,1,0,0,0],[55,5,1,0,1,1,0,0],[18,5,1,1,1,1,0,0]]], // 42e6285f8400
   // end ["milk-meat-hygiene","milk-processing"]
   // ["milk-meat-hygiene","milk-products-storage"]
   ["milk-meat-hygiene","milk-products-storage",1,[[15,5,1,0,1,0,0,0],[2,5,1,0,1,1,0,0]]], // 2dcb58bf148e
@@ -1215,7 +1215,7 @@ const LEAVES = [
   ["milk-meat-hygiene","milk-raw-storage",0,[[20,5,1,0,1,0,0,0],[21,5,1,0,1,1,0,0],[23,5,1,1,1,1,0,0]]], // 5ce41e51aa08
   // end ["milk-meat-hygiene","milk-raw-storage"]
   // ["one-health","oh-amr"]
-  ["one-health","oh-amr",0,[[9,5,1,0,2,0,0,0],[4,5,1,0,2,1,0,0],[3,5,1,1,2,1,0,0]]], // 9f945a466124
+  ["one-health","oh-amr",0,[[9,5,1,0,2,0,0,0],[9,5,1,0,2,1,0,0],[3,5,1,1,2,1,0,0]]], // 75b53999eb9c
   // end ["one-health","oh-amr"]
   // ["one-health","oh-collaboration"]
   ["one-health","oh-collaboration",0,[[6,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]], // b48f537e3a9c
@@ -1236,19 +1236,19 @@ const LEAVES = [
   ["one-health","oh-env-mutagen",0,[[7,5,1,0,2,0,0,0],[2,5,1,0,2,1,0,0],[11,5,1,1,2,1,0,0]]], // 52036bc39c36
   // end ["one-health","oh-env-mutagen"]
   // ["one-health","oh-foodborne"]
-  ["one-health","oh-foodborne",0,[[4,5,1,0,2,0,0,0],[2,5,1,0,2,1,0,0],[2,5,1,1,2,1,0,0]]], // ddca3302e19a
+  ["one-health","oh-foodborne",0,[[4,5,1,0,2,0,0,0],[5,5,1,0,2,1,0,0],[2,5,1,1,2,1,0,0]]], // 58632210a7c2
   // end ["one-health","oh-foodborne"]
   // ["one-health","oh-global-network"]
   ["one-health","oh-global-network",0,[[6,5,1,0,1,0,0,0],[16,5,1,0,1,0,["2569-1","midterm"],0],[14,5,1,0,1,1,0,0]]], // 587a0668c9c9
   // end ["one-health","oh-global-network"]
   // ["one-health","oh-gmo"]
-  ["one-health","oh-gmo",0,[[2,5,1,0,2,0,0,0],[2,5,1,0,2,1,0,0],[10,5,1,1,2,1,0,0]]], // 63c3cc4348fc
+  ["one-health","oh-gmo",0,[[2,5,1,0,2,0,0,0],[4,5,1,0,2,1,0,0],[10,5,1,1,2,1,0,0]]], // ce6ee7d74994
   // end ["one-health","oh-gmo"]
   // ["one-health","oh-import-risk"]
-  ["one-health","oh-import-risk",0,[[10,5,1,0,2,0,0,0]]], // 3f77f641b4d2
+  ["one-health","oh-import-risk",0,[[10,5,1,0,2,0,0,0],[1,5,1,0,2,1,0,0]]], // 952a47e4ff9e
   // end ["one-health","oh-import-risk"]
   // ["one-health","oh-livestock-waste"]
-  ["one-health","oh-livestock-waste",0,[[5,5,1,0,2,0,0,0],[4,5,1,0,2,1,0,0],[8,5,1,1,2,1,0,0]]], // c327764d0f63
+  ["one-health","oh-livestock-waste",0,[[5,5,1,0,2,0,0,0],[19,5,1,0,2,1,0,0],[8,5,1,1,2,1,0,0]]], // 8a71f079a8b6
   // end ["one-health","oh-livestock-waste"]
   // ["one-health","oh-risk-analysis"]
   ["one-health","oh-risk-analysis",0,[[4,5,1,0,2,0,0,0],[9,5,1,0,2,1,0,0],[2,5,1,1,2,1,0,0]]], // aa8833595747
@@ -1973,12 +1973,21 @@ const LEAVES = [
   // ["vet-juris","animal-hospital-act-2557"]
   ["vet-juris","animal-hospital-act-2557",0,[[12,4,1,1,2,1,0,0]]], // acdde53985bc
   // end ["vet-juris","animal-hospital-act-2557"]
+  // ["vet-juris","animal-welfare-act-2557"]
+  ["vet-juris","animal-welfare-act-2557",0,[[20,4,1,1,1,1,0,0]]], // aae0a0dd3a59
+  // end ["vet-juris","animal-welfare-act-2557"]
   // ["vet-juris","drug-act-2510"]
   ["vet-juris","drug-act-2510",0,[[15,4,1,1,2,1,0,0]]], // 0febc37120a3
   // end ["vet-juris","drug-act-2510"]
   // ["vet-juris","slaughter-act-2559"]
   ["vet-juris","slaughter-act-2559",0,[[3,4,1,1,2,1,0,0]]], // 84ea09d902ce
   // end ["vet-juris","slaughter-act-2559"]
+  // ["vet-juris","vet-practice-act-2545"]
+  ["vet-juris","vet-practice-act-2545",0,[[12,4,1,1,1,1,0,0]]], // 4c7e5641b99a
+  // end ["vet-juris","vet-practice-act-2545"]
+  // ["vet-juris","vet-professional-ethics"]
+  ["vet-juris","vet-professional-ethics",0,[[1,4,1,1,1,1,0,0]]], // ecb5d13c1f95
+  // end ["vet-juris","vet-professional-ethics"]
   // ["vet-juris","wildlife-act-2562"]
   ["vet-juris","wildlife-act-2562",0,[[5,4,1,1,2,1,0,0]]], // 776d695f7518
   // end ["vet-juris","wildlife-act-2562"]
