@@ -4,8 +4,8 @@
 // ImageAnnotator's pointer loop is lib/ink/engine.js now. Driven through the
 // real component (fake-react harness): every pointer draws; with
 // รับเฉพาะปากกา on, only the stylus draws and a finger gets the hint; the
-// choice is kept while the app is open, never in localStorage; each
-// finished stroke is one undo step.
+// choice survives a reload (localStorage 'vmx-anno-palm-reject', off by
+// default); each finished stroke is one undo step.
 // ============================================================
 
 import test, { before, after } from 'node:test';
@@ -13,19 +13,18 @@ import assert from 'node:assert/strict';
 import { loadModule, mount, settle, findAll, textOf } from '../helpers/fake-react.mjs';
 
 let ImageAnnotator;
+const STUBS = [{ match: '/hooks/useModalFocus\\.js$', contents: 'export const useModalFocus = () => ({ current: null });' },
+  { match: '/hooks/useFullscreen\\.js$', contents: 'export const useFullscreen = () => ({ on: false, toggle() {}, exit() {}, justExited: () => false });' },
+  { match: '/NavIcon\\.jsx$', contents: 'export default () => null;' }];
 const saved = {};
-const stored = [];
+const store = new Map();
 before(async () => {
   for (const k of ['window', 'document', 'localStorage', 'Image']) saved[k] = globalThis[k];
   globalThis.window = { innerWidth: 1280, devicePixelRatio: 1, addEventListener() {}, removeEventListener() {} };
   globalThis.document = { addEventListener() {}, removeEventListener() {}, activeElement: null, fullscreenEnabled: false };
   globalThis.Image = class { set src(_v) {} };
-  globalThis.localStorage = { getItem: () => null, setItem: (k) => stored.push(k), removeItem() {} };
-  ImageAnnotator = (await loadModule('src/components/ImageAnnotator.jsx', {
-    stubs: [{ match: '/hooks/useModalFocus\\.js$', contents: 'export const useModalFocus = () => ({ current: null });' },
-      { match: '/hooks/useFullscreen\\.js$', contents: 'export const useFullscreen = () => ({ on: false, toggle() {}, exit() {}, justExited: () => false });' },
-      { match: '/NavIcon\\.jsx$', contents: 'export default () => null;' }],
-  })).default;
+  globalThis.localStorage = { getItem: (k) => (store.has(k) ? store.get(k) : null), setItem: (k, v) => store.set(k, String(v)), removeItem: (k) => store.delete(k) };
+  ImageAnnotator = (await loadModule('src/components/ImageAnnotator.jsx', { stubs: STUBS })).default;
 });
 after(() => {
   for (const [k, v] of Object.entries(saved)) { if (v === undefined) delete globalThis[k]; else globalThis[k] = v; }
@@ -86,7 +85,8 @@ test('a finger, a mouse and a pen each draw, at canvas scale, one undo step per 
   inst.unmount();
 });
 
-test('pen only: a finger draws nothing and gets the hint; the choice outlives the board but not in localStorage', async () => {
+test('pen only: a finger draws nothing and gets the hint; the choice survives a reload', async () => {
+  store.clear();
   const { inst, el } = open();
   await settle(inst);
   penOnly(inst).props.onClick();
@@ -98,11 +98,22 @@ test('pen only: a finger draws nothing and gets the hint; the choice outlives th
   draw(inst, 2, 'pen');
   assert.ok(el.ops.length > before, 'the pen did not draw');
   inst.unmount();
-  const again = open();
-  await settle(again.inst);
-  assert.equal(penOnly(again.inst).props['aria-pressed'], true, 'the choice was forgotten on reopening');
-  penOnly(again.inst).props.onClick();
-  again.inst.flush();
-  again.inst.unmount();
-  assert.deepEqual(stored.filter((k) => /palm/.test(k)), [], 'the old palm-reject key is still written');
+  assert.equal(store.get('vmx-anno-palm-reject'), '1', 'the choice is not saved for the next load');
+  // A reload: a fresh copy of the component reads only what storage holds.
+  const Fresh = (await loadModule('src/components/ImageAnnotator.jsx', { stubs: STUBS })).default;
+  const again = mount(Fresh, { src: null, mode: 'sketch', onClose() {} });
+  await settle(again);
+  assert.equal(penOnly(again).props['aria-pressed'], true, 'the choice was forgotten after a reload');
+  penOnly(again).props.onClick();
+  again.flush();
+  again.unmount();
+  assert.equal(store.get('vmx-anno-palm-reject'), '0');
+});
+
+test('pen only is off by default', async () => {
+  store.clear();
+  const { inst } = open();
+  await settle(inst);
+  assert.equal(penOnly(inst).props['aria-pressed'], false);
+  inst.unmount();
 });

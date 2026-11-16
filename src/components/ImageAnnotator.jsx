@@ -32,10 +32,6 @@ const PEN_COLORS = [
 ];
 const HIGHLIGHTER = '#f1c40f';
 
-// Pen only (รับเฉพาะปากกา) is remembered while the app stays open, so closing
-// and reopening the markup keeps the choice.
-let penOnlyChoice = false;
-
 export default function ImageAnnotator({ src, alt, onClose, mode = 'annotate', templateUrl = null }) {
   // mode='annotate' → image background (from src prop, e.g. Q image).
   // mode='sketch'   → blank white pad.
@@ -65,8 +61,14 @@ export default function ImageAnnotator({ src, alt, onClose, mode = 'annotate', t
   // Palm rejection — when ON, only pointerType==='pen' (Apple Pencil /
   // Surface Pen / Android stylus) draws. Touch + mouse are ignored,
   // letting the user rest their palm on the iPad while writing.
-  const [palmReject, setPalmReject] = useState(() => penOnlyChoice);
-  useEffect(() => { penOnlyChoice = palmReject; }, [palmReject]);
+  const [palmReject, setPalmReject] = useState(() => {
+    try { return localStorage.getItem('vmx-anno-palm-reject') === '1'; }
+    catch { return false; }
+  });
+  useEffect(() => {
+    try { localStorage.setItem('vmx-anno-palm-reject', palmReject ? '1' : '0'); }
+    catch {}
+  }, [palmReject]);
   // Transient "palm rejected" toast — { x, y, t } where t is the
   // mount timestamp. Cleared by a 1.5 s timer.
   const [palmFlash, setPalmFlash] = useState(null);
