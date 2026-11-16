@@ -32,8 +32,8 @@ const OTHER = '22222222-2222-4222-8222-222222222222';
 const env = { CLOUDFLARE_API_TOKEN: 'test-token', R2_ACCOUNT_ID: 'acct' };
 const MEMBER = { ok: true, userId: ME, token: 'member-token', member: true };
 
-function harness({ who = MEMBER, own = null, rows = null, rpcStatus = 200, signedResult = { ok: true, previous_key: null }, limited = null } = {}) {
-  const log = { stored: [], deleted: [], rpc: [], signed: [] };
+function harness({ who = MEMBER, own = null, rows = null, rpcStatus = 200, signedResult = { ok: true, previous_key: null }, limited = null, deleteResult = true } = {}) {
+  const log = { stored: [], deleted: [], rpc: [], signed: [], errors: [] };
   const handler = createHandler({
     env,
     gate: async () => who,
@@ -50,10 +50,12 @@ function harness({ who = MEMBER, own = null, rows = null, rpcStatus = 200, signe
     },
     signed: async (name, purpose, data) => { log.signed.push({ name, purpose, data }); return signedResult; },
     store: async (method, key, opts) => {
-      if (method === 'PUT') log.stored.push({ key, ...opts });
-      else log.deleted.push(key);
-      return true;
+      if (method === 'PUT') { log.stored.push({ key, ...opts }); return true; }
+      log.deleted.push(key);
+      if (deleteResult instanceof Error) throw deleteResult;
+      return deleteResult;
     },
+    log: { error: (line) => log.errors.push(line) },
   });
   return { handler, log };
 }
@@ -241,6 +243,40 @@ test('a replaced picture is deleted from storage, and so is a removed one', asyn
   assert.equal(answer.status, 200);
   assert.deepEqual(removed.log.signed[0].data, { user_id: ME, key: null });
   assert.deepEqual(removed.log.deleted, [old]);
+});
+
+test('a stored picture that cannot be removed is logged with its key and the reason', async () => {
+  const old = 'profile-pictures/00000000-0000-4000-8000-000000000000.webp';
+  const refused = harness({ own: { picture_key: old, picture_state: 'shown' }, signedResult: { ok: true, previous_key: old }, deleteResult: false });
+  assert.equal((await call(refused.handler, request('DELETE'))).status, 200, 'the student is still answered');
+  assert.equal(refused.log.errors.length, 1);
+  assert.ok(refused.log.errors[0].includes(old) && /removed/.test(refused.log.errors[0]) && /did not accept/.test(refused.log.errors[0]), refused.log.errors[0]);
+
+  const thrown = harness({ own: { picture_key: old, picture_state: 'shown' }, signedResult: { ok: true, previous_key: old }, deleteResult: new Error('network down') });
+  assert.equal((await call(thrown.handler, request('POST', { body: b64(fixture('valid.png')) }))).status, 200);
+  assert.ok(thrown.log.errors[0].includes(old) && /replaced/.test(thrown.log.errors[0]) && /network down/.test(thrown.log.errors[0]), thrown.log.errors[0]);
+
+  const unsaved = harness({ signedResult: { ok: false, reason: 'refused' }, deleteResult: false });
+  await call(unsaved.handler, request('POST', { body: b64(fixture('valid.png')) }));
+  assert.ok(unsaved.log.errors[0].includes(unsaved.log.stored[0].key), unsaved.log.errors[0]);
+
+  const fine = harness({ own: { picture_key: old, picture_state: 'shown' }, signedResult: { ok: true, previous_key: old } });
+  await call(fine.handler, request('DELETE'));
+  assert.equal(fine.log.errors.length, 0, 'nothing logged when the delete works');
+});
+
+test('a link is kept by the seconds the server says are left, whatever this device clock says', async () => {
+  const { keepUntil } = await import('../../src/lib/profile-picture.js');
+  const { handler } = harness({ rows: [{ user_id: OTHER, picture_key: 'profile-pictures/11111111-0000-4000-8000-000000000000.webp', picture_state: 'shown' }] });
+  const row = (await call(handler, request('GET', { query: `?users=${OTHER}` }))).body.pictures[OTHER];
+  assert.ok(Math.abs(row.expiresIn - (row.expiresAt - Date.now()) / 1000) <= 1.5, 'expiresIn matches expiresAt on the server clock');
+  for (const skew of [-5 * 60 * 1000, 0, 5 * 60 * 1000]) {
+    const deviceNow = Date.now() + skew;
+    const until = keepUntil(row, deviceNow);
+    assert.equal(until - deviceNow, row.expiresIn * 1000 - 60 * 1000, `clock off by ${skew / 60000} min`);
+  }
+  assert.equal(keepUntil({ url: null }, 1000), 1000 + 4 * 60 * 1000, 'no link: asked again after 4 minutes');
+  assert.equal(keepUntil({ url: 'x', expiresAt: 600000 }, 0), 540000, 'an older answer falls back to expiresAt');
 });
 
 test('a database refusal after storing removes the new object again', async () => {

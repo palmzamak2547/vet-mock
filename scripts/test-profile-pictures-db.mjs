@@ -9,7 +9,8 @@
 // also a hidden one, a guest or an outside account nothing; three distinct
 // reporters hide a picture and a new picture starts clean; reporters read only
 // their own reports and write none directly; only the admin lists, hides and
-// restores; deleting an account takes its reports, made and received; the undo
+// restores, and the block outlives the profile row; deleting an account takes its
+// reports, made and received; the undo
 // at the top of the file takes everything back out.
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -126,6 +127,9 @@ try {
     create policy profiles_read on public.profiles for select to anon, authenticated using (true);
     create policy profiles_insert_own on public.profiles for insert to authenticated with check (id = auth.uid());
     create policy profiles_update_own on public.profiles for update to authenticated using (id = auth.uid()) with check (id = auth.uid());
+    -- On the live database and in no migration: a student may delete their own row.
+    grant delete on public.profiles to authenticated;
+    create policy "users self-delete profile" on public.profiles for delete to authenticated using (auth.uid() = id);
     create table public.admin_users (user_id uuid primary key);
     create table public.members (user_id uuid primary key);
     create function public.is_admin() returns boolean language sql stable security definer set search_path = '' as
@@ -254,12 +258,35 @@ try {
     assert.equal(await visibleTo(OWNER, [OWNER]), `${OWNER}:none`, 'the owner reads the block');
     assert.equal(await visibleTo(R2, [OWNER]), '', 'nobody else does');
     assert.equal(await read('authenticated', OWNER, `select coalesce(bool_or(blocked), false)::text from public.profile_pictures_for(array['${OWNER}'::uuid])`), 'true');
-    assert.match(await as('authenticated', OWNER, `update public.profiles set picture_blocked = false where id = '${OWNER}'`), /^42501 /);
+    assert.match(await as('authenticated', OWNER, `delete from private.profile_picture_blocks where user_id = '${OWNER}'`), /^42501 /);
+    assert.match(await as('authenticated', OWNER, 'select count(*) from private.profile_picture_blocks'), /^42501 /);
     const listed = JSON.parse(await read('authenticated', ADMIN, 'select public.admin_profile_pictures()::text'));
     assert.equal(listed.find((r) => r.user_id === OWNER)?.blocked, true, 'a blocked account with no picture stays on the admin list');
     assert.match(await read('authenticated', ADMIN, `select public.admin_set_profile_picture('${OWNER}', 'shown')::text`), /"ok": ?true/);
     assert.match(await setPicture(OWNER, key()), /"ok": ?true/);
     assert.equal(await stateOf(OWNER), 'shown');
+  });
+
+  await check("the admin's hide survives the student deleting and recreating their own profile row", async () => {
+    assert.match(await setPicture(R3, key()), /"ok": ?true/);
+    assert.match(await read('authenticated', ADMIN, `select public.admin_set_profile_picture('${R3}', 'hidden_admin')::text`), /"ok": ?true/);
+    // With the student's own token, as the live policy allows, then recreated as ensure_profile does.
+    assert.equal(await as('authenticated', R3, `delete from public.profiles where id = '${R3}'`), 'ok 1');
+    assert.equal(await as('authenticated', R3, `insert into public.profiles (id, username) values ('${R3}', 'again')`), 'ok 1');
+    assert.equal(await stateOf(R3), 'none');
+    assert.match(await setPicture(R3, key()), /"refused"/, 'the upload is refused');
+    assert.equal(await stateOf(R3), 'none', 'nothing is stored');
+    assert.equal(await visibleTo(R1, [R3]), '', 'nobody else sees a picture');
+    assert.equal(await read('authenticated', R3, `select coalesce(bool_or(blocked), false)::text from public.profile_pictures_for(array['${R3}'::uuid])`), 'true', 'the owner reads the block');
+    const listed = JSON.parse(await read('authenticated', ADMIN, 'select public.admin_profile_pictures()::text'));
+    assert.equal(listed.find((r) => r.user_id === R3)?.blocked, true, 'still on the admin list');
+    // A block with no profiles row at all still holds and is listed.
+    assert.equal(await as('authenticated', R3, `delete from public.profiles where id = '${R3}'`), 'ok 1');
+    const bare = JSON.parse(await read('authenticated', ADMIN, 'select public.admin_profile_pictures()::text'));
+    assert.equal(bare.find((r) => r.user_id === R3)?.state, 'none');
+    assert.match(await read('authenticated', ADMIN, `select public.admin_set_profile_picture('${R3}', 'shown')::text`), /"ok": ?true/);
+    assert.equal(await as('authenticated', R3, `insert into public.profiles (id, username) values ('${R3}', 'again')`), 'ok 1');
+    assert.match(await setPicture(R3, key()), /"ok": ?true/, 'the admin lifts it');
   });
 
   await check('clearing a picture goes back to none', async () => {
@@ -282,15 +309,21 @@ try {
     }
     assert.equal(await run(`select has_function_privilege('authenticated', 'private.guard_profile_picture()', 'execute')::text;`), 'false');
     assert.equal(await run(`select has_table_privilege('authenticated', 'public.profile_picture_reports', 'insert')::text;`), 'false');
+    assert.equal(await run(`select count(*)::text from information_schema.table_privileges where table_name = 'profile_picture_blocks' and grantee in ('anon', 'authenticated', 'PUBLIC');`), '0');
+    assert.equal(await run(`select count(*)::text from pg_policies where tablename = 'profile_picture_blocks';`), '0');
+    assert.equal(await run(`select relrowsecurity::text from pg_class where oid = 'private.profile_picture_blocks'::regclass;`), 'true');
   });
 
   await check('the undo at the top of the file takes everything out, and the file applies again', async () => {
     await run(between('begin;', 'commit;'));
     assert.equal(await run(`select count(*)::text from information_schema.columns where table_name = 'profiles' and column_name like 'picture%';`), '0');
     assert.equal(await run(`select (to_regclass('public.profile_picture_reports') is null)::text;`), 'true');
+    assert.equal(await run(`select (to_regclass('private.profile_picture_blocks') is null)::text;`), 'true');
     assert.equal(await run(`select count(*)::text from pg_proc where proname like '%profile_picture%';`), '0');
     await run(MIGRATION);
-    assert.equal(await run(`select count(*)::text from information_schema.columns where table_name = 'profiles' and column_name like 'picture%';`), '4');
+    assert.equal(await run(`select count(*)::text from information_schema.columns where table_name = 'profiles' and column_name like 'picture%';`), '3');
+    await assert.rejects(run(MIGRATION), /already exists/, 'a second run fails whole');
+    assert.equal(await run(`select count(*)::text from information_schema.columns where table_name = 'profiles' and column_name like 'picture%';`), '3');
   });
 } catch (error) {
   checks.push({ name: 'setup', ok: false, error: String(error.message).slice(0, 1500) });
@@ -301,4 +334,4 @@ try {
 const failed = checks.filter((c) => !c.ok);
 for (const c of checks) console.log(`${c.ok ? 'ok  ' : 'FAIL'} ${c.name}${c.ok ? '' : `\n     ${c.error}`}`);
 console.log(JSON.stringify({ backend, passed: checks.length - failed.length, failed: failed.length }));
-process.exitCode = failed.length || checks.length < 14 ? 1 : 0;
+process.exitCode = failed.length || checks.length < 15 ? 1 : 0;

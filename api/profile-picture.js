@@ -80,6 +80,7 @@ export function createHandler({
   remake = remakePicture,
   now = () => Date.now(),
   makeKey = () => `profile-pictures/${randomUUID()}.webp`,
+  log = console,
 } = {}) {
   const bucket = () => r2Config(env).bucket;
   // A link and the moment it stops working (ms), so the browser keeps it no longer.
@@ -90,7 +91,22 @@ export function createHandler({
       { storage_bucket: bucket(), storage_key: key, mime: 'image/webp', status: 'restricted', file_name: 'picture.webp' },
       { expiresAtSec, env, now: now(), user: userId },
     );
-    return token ? { url: `/api/library-blob?t=${token.t}&s=${token.s}`, expiresAt: expiresAtSec * 1000 } : null;
+    // expiresIn (seconds left) lets the browser count from its own clock, so a
+    // phone whose clock is off neither keeps a dead link nor re-asks at once.
+    return token ? { url: `/api/library-blob?t=${token.t}&s=${token.s}`, expiresAt: expiresAtSec * 1000, expiresIn: expiresAtSec - nowSec } : null;
+  };
+  // Removes a stored picture. A failure leaves the object behind, so it is
+  // logged with its key and the reason; the student's answer does not change.
+  const discard = async (key, why) => {
+    let reason;
+    try {
+      if (await store('DELETE', key)) return true;
+      reason = 'storage did not accept the delete';
+    } catch (error) {
+      reason = error instanceof Error ? error.message : String(error);
+    }
+    log.error(`[profile-picture] could not remove ${key} (${why}): ${reason}`);
+    return false;
   };
   const ownRow = async (who) => {
     const asked = await rpc('profile_pictures_for', { p_users: [who.userId] }, who.token);
@@ -146,7 +162,7 @@ export function createHandler({
           // already filtered, and the owner is the one who needs to see which.
           const address = link(row.picture_key, who.userId);
           if (!address) return send(res, 503, { error: 'storage_not_configured' });
-          pictures[row.user_id] = { url: address.url, expiresAt: address.expiresAt, state: shown ? 'shown' : row.picture_state };
+          pictures[row.user_id] = { url: address.url, expiresAt: address.expiresAt, expiresIn: address.expiresIn, state: shown ? 'shown' : row.picture_state };
         }
         return send(res, 200, { pictures, ready: true });
       }
@@ -167,7 +183,7 @@ export function createHandler({
         if (!own.row) return send(res, 200, { ok: true, removed: false });
         const result = await signed('set_profile_picture', 'profile-picture', { user_id: who.userId, key: null }, who.token);
         if (result?.ok !== true) return send(res, 502, { error: 'database_unavailable' });
-        if (result.previous_key) await store('DELETE', result.previous_key).catch(() => false);
+        if (result.previous_key) await discard(result.previous_key, 'removed');
         return send(res, 200, { ok: true, removed: true });
       }
 
@@ -193,16 +209,16 @@ export function createHandler({
       try {
         result = await signed('set_profile_picture', 'profile-picture', { user_id: who.userId, key }, who.token);
       } catch (error) {
-        await store('DELETE', key).catch(() => false);
+        await discard(key, 'not saved');
         throw error;
       }
       if (result?.ok !== true) {
-        await store('DELETE', key).catch(() => false);
+        await discard(key, 'not saved');
         return send(res, result?.reason === 'refused' ? 403 : 502, { error: result?.reason === 'refused' ? 'refused' : 'database_unavailable' });
       }
-      if (result.previous_key && result.previous_key !== key) await store('DELETE', result.previous_key).catch(() => false);
+      if (result.previous_key && result.previous_key !== key) await discard(result.previous_key, 'replaced');
       const address = link(key, who.userId);
-      return send(res, 200, { url: address?.url || null, expiresAt: address?.expiresAt || null, state: 'shown' });
+      return send(res, 200, { url: address?.url || null, expiresAt: address?.expiresAt || null, expiresIn: address?.expiresIn || null, state: 'shown' });
     } catch {
       return send(res, 502, { error: 'database_unavailable' });
     }

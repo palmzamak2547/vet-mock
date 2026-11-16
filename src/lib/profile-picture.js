@@ -14,7 +14,15 @@ export const MAX_UPLOAD_BYTES = 2 * 1024 * 1024;
 // answer with no link (no picture, or a failure) is asked again after this.
 const LINK_MARGIN_MS = 60 * 1000;
 const NO_LINK_LIFE_MS = 4 * 60 * 1000;
-const keepUntil = (expiresAt, now) => (Number(expiresAt) > now ? Number(expiresAt) - LINK_MARGIN_MS : now + NO_LINK_LIFE_MS);
+/** How long to keep a link. Counted from this device's clock with the seconds
+ *  the server says are left (expiresIn), so a clock that is off does not keep a
+ *  dead link or re-ask at once; expiresAt is the fallback for an older answer. */
+export function keepUntil(answer, now) {
+  if (!answer?.url) return now + NO_LINK_LIFE_MS;
+  const left = Number(answer.expiresIn);
+  if (Number.isFinite(left) && left > 0) return now + Math.max(0, left * 1000 - LINK_MARGIN_MS);
+  return Number(answer.expiresAt) > now ? Number(answer.expiresAt) - LINK_MARGIN_MS : now + NO_LINK_LIFE_MS;
+}
 
 // What the student reads, by what happened. 14 px or more where shown.
 export const PICTURE_WORDS = Object.freeze({
@@ -143,7 +151,7 @@ export async function uploadPicture(file, userId) {
   await sameViewer();
   const sent = await call('POST', '', `b64:${await asBase64(blob)}`);
   if (!sent.ok) return sent;
-  links.set(userId, { url: sent.data.url || null, state: 'shown', until: keepUntil(sent.data.expiresAt, Date.now()) });
+  links.set(userId, { url: sent.data.url || null, state: 'shown', until: keepUntil(sent.data, Date.now()) });
   announce();
   return { ok: true };
 }
@@ -179,7 +187,7 @@ export async function picturesFor(ids) {
     // again on every redraw: the next try comes when these entries expire.
     for (const id of chunk) {
       const row = got.ok ? got.data.pictures?.[id] : null;
-      links.set(id, { url: row?.url || null, state: row?.state || 'none', until: keepUntil(row?.url ? row.expiresAt : 0, now) });
+      links.set(id, { url: row?.url || null, state: row?.state || 'none', until: keepUntil(row, now) });
     }
   }
   /** @type {Record<string, { url: string | null, state: string }>} */
