@@ -142,6 +142,7 @@ export const ENV = [
   { name: 'PAPER_OUT', group: 'Tests', need: 'optional', does: 'Folder where the question-paper e2e keeps the PDFs it saves, for page pictures.' },
   { name: 'VMX_SHOT_DIR', group: 'Tests', need: 'optional', does: 'Folder where the document loading layout e2e keeps a picture of each size it checks.' },
   { name: 'VMX_SHOT_TAG', group: 'Tests', need: 'optional', does: 'Prefix of those picture names (before, after); default shot.' },
+  { name: 'PROFILE_PICTURE_VIEW', group: 'Tests', need: 'optional', does: 'Viewport and colour scheme (390x664:dark) the profile picture e2e uses for its design pictures.' },
   { name: 'PLAYWRIGHT_PORT', group: 'Tests', need: 'optional', does: 'Port of the e2e server; scope it to e2e only.' },
   { name: 'PLAYWRIGHT_OUTPUT_DIR', group: 'Tests', need: 'optional', does: 'Where Playwright writes results; default test-results.' },
   { name: 'PLAYWRIGHT_JSON_OUTPUT_FILE', group: 'Tests', need: 'optional', does: 'Where CI writes the JSON e2e report; default e2e-results.json.' },

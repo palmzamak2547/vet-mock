@@ -9,6 +9,21 @@ import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 import { createHandler, RATES } from '../../api/profile-picture.js';
 import { verifyBlobToken } from '../../api/_lib/blob-token.js';
+import { writeObject } from '../../api/_lib/r2.js';
+
+test('storage receives exactly the redrawn bytes, at a signed private address', async () => {
+  const calls = [];
+  const fetchImpl = async (url, init) => { calls.push({ url: String(url), method: init.method, bytes: Buffer.from(await new Response(init.body).arrayBuffer()), type: init.headers['Content-Type'] }); return new Response('', { status: 200 }); };
+  const keys = { R2_ACCOUNT_ID: 'acct', R2_ACCESS_KEY_ID: 'id', R2_SECRET_ACCESS_KEY: 'secret' };
+  const bytes = Buffer.from([1, 2, 3, 250]);
+  assert.equal(await writeObject('PUT', 'profile-pictures/a.webp', { body: bytes, mime: 'image/webp', bucket: 'b', env: keys, fetchImpl }), true);
+  assert.equal(calls[0].method, 'PUT');
+  assert.match(calls[0].url, /^https:\/\/acct\.r2\.cloudflarestorage\.com\/b\/profile-pictures\/a\.webp\?.*X-Amz-Signature=/);
+  assert.deepEqual([...calls[0].bytes], [...bytes]);
+  assert.equal(calls[0].type, 'image/webp');
+  const gone = async () => new Response('', { status: 404 });
+  assert.equal(await writeObject('DELETE', 'profile-pictures/a.webp', { env: keys, fetchImpl: gone }), true, 'already gone counts as removed');
+});
 
 const DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), '../fixtures/profile-picture');
 const fixture = (name) => fs.readFileSync(path.join(DIR, name));

@@ -60,6 +60,7 @@ const STUBS = {
   '../lib/supabase.js': 'export const hasSupabase = true;',
   '../components/PrivateNotes.jsx': 'export default function PrivateNotes() { return null; }',
   '../components/AdminFailures.jsx': 'export default function AdminFailures() { return null; }',
+  '../components/AdminProfilePictures.jsx': 'export default function AdminProfilePictures() { return null; }',
   '../data/bank-registry.generated.js': 'export const BANK_REGISTRY = [];',
   '../styles-admin.css': '',
 };

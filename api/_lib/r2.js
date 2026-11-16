@@ -252,22 +252,29 @@ export async function tokenKeyEnv(env = process.env, fetchImpl = fetch) {
 
 /** Writes (PUT) or removes (DELETE) one object: the signed S3 route when it can
  *  be signed, else the Cloudflare REST API with the standing token. Resolves to
- *  true when storage accepted it; a DELETE of a missing object counts as done. */
+ *  true when storage accepted it; a DELETE of a missing object counts as done.
+ * @param {'PUT' | 'DELETE'} method
+ * @param {string} key
+ * @param {{ body?: Uint8Array, mime?: string, bucket?: string, env?: Env, fetchImpl?: typeof fetch }} [opts]
+ * @returns {Promise<boolean>}
+ */
 export async function writeObject(method, key, { body, mime, bucket, env = process.env, fetchImpl = fetch } = {}) {
   const b = bucket || r2Config(env).bucket;
   const keyed = await tokenKeyEnv(env, fetchImpl).catch(() => null);
   const signed = keyed ? presign(key, { method, expiresIn: 120, bucket: b, env: keyed }) : null;
+  const payload = body ? new Blob([new Uint8Array(body)]) : undefined;
+  /** @type {Record<string, string>} */
   const headers = mime ? { 'Content-Type': mime } : {};
   let response;
   if (signed) {
-    response = await fetchImpl(signed, { method, body, headers, redirect: 'error', signal: AbortSignal.timeout(10000) });
+    response = await fetchImpl(signed, { method, body: payload, headers, redirect: 'error', signal: AbortSignal.timeout(10000) });
   } else {
     const cf = cfConfig(env);
     if (!cf.configured) return false;
     const path = key.split('/').map(encodeURIComponent).join('/');
     response = await fetchImpl(
-      `https://api.cloudflare.com/client/v4/accounts/${encodeURIComponent(cf.accountId)}/r2/buckets/${encodeURIComponent(b)}/objects/${path}`,
-      { method, body, headers: { ...headers, Authorization: `Bearer ${cf.apiToken}` }, redirect: 'error', signal: AbortSignal.timeout(10000) },
+      `https://api.cloudflare.com/client/v4/accounts/${encodeURIComponent(String(cf.accountId))}/r2/buckets/${encodeURIComponent(b)}/objects/${path}`,
+      { method, body: payload, headers: { ...headers, Authorization: `Bearer ${cf.apiToken}` }, redirect: 'error', signal: AbortSignal.timeout(10000) },
     );
   }
   return response.ok || (method === 'DELETE' && response.status === 404);

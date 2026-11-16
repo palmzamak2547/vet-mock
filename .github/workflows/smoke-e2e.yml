@@ -433,6 +433,7 @@ jobs:
             tests/e2e/header-no-overlap.spec.js \
             tests/e2e/pdf-recent-delete.spec.js \
             tests/e2e/private-notes-reader.spec.js \
+            tests/e2e/profile-picture.spec.js \
             tests/e2e/student-profile.spec.js
 
       - name: The connected specs ran, none skipped

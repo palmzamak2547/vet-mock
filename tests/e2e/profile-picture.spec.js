@@ -15,10 +15,13 @@ import { test, expect } from './fixtures.js';
 //   3. Remove: after a confirmation the ready-made picture is back.
 //   4. A picture hidden after reports: its owner is told on the card.
 test.use({ serviceWorkers: 'block', reducedMotion: 'reduce' });
+// For the design pictures only: PROFILE_PICTURE_VIEW=390x664:dark and so on.
+const VIEW = /^(\d+)x(\d+):(light|dark)$/.exec(process.env.PROFILE_PICTURE_VIEW || '');
+if (VIEW) test.use({ viewport: { width: Number(VIEW[1]), height: Number(VIEW[2]) }, colorScheme: VIEW[3] });
 
 const FIXTURES = path.join(path.dirname(fileURLToPath(import.meta.url)), '../fixtures/profile-picture');
 const fixture = (name) => fs.readFileSync(path.join(FIXTURES, name));
-const SHOTS = process.env.PROFILE_PICTURE_SHOTS ? path.resolve(process.env.PROFILE_PICTURE_SHOTS) : '';
+const SHOTS = process.env.VMX_SHOT_DIR ? path.resolve(process.env.VMX_SHOT_DIR) : '';
 
 const HOST = 'mpovsdzdggvksmeehqfj.supabase.co';
 const TOKEN_KEY = 'sb-mpovsdzdggvksmeehqfj-auth-token';
@@ -28,7 +31,7 @@ const user = {
   id: ME, email: '6600000031@student.chula.ac.th', aud: 'authenticated', role: 'authenticated',
   identities: [{ provider: 'google', identity_data: { email: '6600000031@student.chula.ac.th', email_verified: true, custom_claims: { hd: 'student.chula.ac.th' } } }],
   app_metadata: { provider: 'google', providers: ['google'] },
-  user_metadata: { full_name: 'Modeled Student', vmx_public_name_chosen: true },
+  user_metadata: { full_name: 'Modeled Student', identity_intro_done: true },
   created_at: '2026-01-01T00:00:00Z', email_confirmed_at: '2026-01-01T00:00:00Z',
 };
 const session = {
@@ -87,7 +90,7 @@ async function modeled(page, context, { own = null, answer = null } = {}) {
 async function openHub(page, state) {
   await page.goto('/');
   await expect(page.locator('#main, .vmx-gate').first()).toBeVisible();
-  for (let i = 0; i < 30 && state.db === 0; i++) await page.waitForTimeout(100);
+  for (let i = 0; i < 100 && state.db === 0; i++) await page.waitForTimeout(100);
   test.skip(state.db === 0, 'Built bundle has no Supabase configuration; accounts need it');
   await page.getByRole('button', { name: 'โปรไฟล์', exact: true }).filter({ visible: true }).first().click();
   await expect(page.locator('.vmx-hero h1')).toHaveText('โปรไฟล์');

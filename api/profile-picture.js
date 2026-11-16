@@ -30,6 +30,7 @@ import { backendConfig, signedRpc } from './_lib/app-backend.js';
 import { mintBlobToken } from './_lib/blob-token.js';
 import { r2Config, writeObject } from './_lib/r2.js';
 import { remakePicture, PICTURE_LIMITS } from './_lib/profile-picture-image.js';
+import { readEncodedBytes } from './_lib/body.js';
 
 export const RATES = Object.freeze({
   read: { max: 300, windowMs: 10 * 60 * 1000 },
@@ -67,39 +68,10 @@ async function postgrest(name, args, token, env, fetchImpl) {
   return { status: response.status, data: response.ok ? await response.json() : null };
 }
 
-/** The request body as the picture's bytes; { tooLarge } past the cap; null when unreadable. */
-async function readPicture(req) {
-  const declared = Number(req.headers?.['content-length']);
-  if (Number.isFinite(declared) && declared > MAX_BODY_CHARS) return { tooLarge: true };
-  let raw = '';
-  try {
-    const parsed = req.body;
-    if (typeof parsed === 'string') raw = parsed;
-    else if (Buffer.isBuffer(parsed)) raw = parsed.toString('latin1');
-    else if (req.readable) {
-      const chunks = [];
-      let size = 0;
-      for await (const chunk of req) {
-        size += chunk.length;
-        if (size > MAX_BODY_CHARS) return { tooLarge: true };
-        chunks.push(chunk);
-      }
-      raw = Buffer.concat(chunks).toString('latin1');
-    }
-  } catch {
-    return null;
-  }
-  if (raw.length > MAX_BODY_CHARS) return { tooLarge: true };
-  if (!raw.startsWith('b64:')) return null;
-  const text = raw.slice(4).replace(/\s+/g, '');
-  if (!/^[A-Za-z0-9+/]*={0,2}$/.test(text)) return null;
-  return { bytes: Buffer.from(text, 'base64') };
-}
-
 export function createHandler({
   env = process.env,
   fetchImpl = fetch,
-  gate = (req) => chulaGate(req, { env, fetchImpl }),
+  gate = null, // tests only: a stand-in for the Chula gate
   limit = limitCaller,
   rpc = (name, args, token) => postgrest(name, args, token, env, fetchImpl),
   signed = (name, purpose, data, token) => signedRpc(name, purpose, data, token, env),
@@ -132,7 +104,7 @@ export function createHandler({
 
     let who;
     try {
-      who = await gate(req);
+      who = gate ? await gate(req) : await chulaGate(req, { env, fetchImpl });
     } catch {
       return send(res, 503, { error: 'backend-unavailable' });
     }
@@ -189,7 +161,7 @@ export function createHandler({
       }
 
       // POST: a new picture.
-      const body = await readPicture(req);
+      const body = await readEncodedBytes(req, MAX_BODY_CHARS);
       if (body?.tooLarge) return send(res, 413, { error: 'too_large' });
       if (!body) return send(res, 415, { error: 'not_picture' });
       const own = await ownRow(who);

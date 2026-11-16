@@ -10,7 +10,8 @@ import { SUBJECTS } from '../data/questions.js';
 import { confirmDialog, alertDialog } from '../lib/dialog.js';
 import { thaiError } from '../lib/errors.js';
 import StatePanel from '../components/StatePanel.jsx';
-import ProfilePicture, { usePictures } from '../components/ProfilePicture.jsx';
+import ProfilePicture from '../components/ProfilePicture.jsx';
+import { usePictures } from '../components/ProfilePicture.jsx';
 import { reportPicture, PICTURE_WORDS } from '../lib/profile-picture.js';
 
 // "รายงานรูปนี้" under another member's own picture. A picture several members

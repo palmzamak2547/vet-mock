@@ -38,8 +38,8 @@ export default function AdminProfilePictures({ tick }) {
       await adminRpc('admin_set_profile_picture', { p_owner: userId, p_state: state });
       forgetPictures();
       setRound((n) => n + 1);
-    } catch (error) {
-      setList((prev) => ({ ...prev, actionError: error?.message || 'บันทึกไม่สำเร็จ' }));
+    } catch {
+      setList((prev) => ({ ...prev, actionError: 'บันทึกไม่สำเร็จ ลองอีกครั้ง' }));
     } finally {
       setBusy('');
     }

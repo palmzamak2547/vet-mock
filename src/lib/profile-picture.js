@@ -1,4 +1,3 @@
-// @ts-check
 // profile-picture.js — a student's own picture, through /api/profile-picture.
 //
 // The browser's part: shrink the chosen picture (longest side 512 px) before it
