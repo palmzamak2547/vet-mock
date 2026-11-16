@@ -10,6 +10,8 @@
 // ============================================================
 import { useEffect, useMemo, useRef, useState } from 'react';
 import '../styles-gate.css';
+import SharedSetCard from '../components/SharedSetCard.jsx';
+import { readShareUrlFromLocation } from '../lib/share-link.js';
 import { MOCHI_POSE_ASSETS } from '../data/mochi-poses.generated.js';
 import { CHULA_HD, chulaEmailOf, readAuthErrorFromUrl, signInProblem, takeAuthErrorFromUrl } from '../lib/chula.js';
 import { inAppBrowser, externalUrl, APP_NAMES } from '../lib/inapp.js';
@@ -278,6 +280,8 @@ export default function ChulaGateView({ wall, user, onAbout }) {
   const online = useOnline();
   const inApp = useMemo(() => (typeof navigator === 'undefined' ? null : inAppBrowser(navigator.userAgent)), []);
   const [busy, setBusy] = useState(null);
+  // A set sent by link (?qset=, where every /s/ link lands) waits behind the wall.
+  const [sharedSet] = useState(() => readShareUrlFromLocation());
   // Only read here: a render can be thrown away, or the gate mounted again after
   // its checking screen, and Google's refusal must survive both.
   const [problem, setProblem] = useState(() => {
@@ -458,9 +462,12 @@ export default function ChulaGateView({ wall, user, onAbout }) {
       <main className="vmx-gate-main vmx-gate-rise">
         <div className="vmx-gate-hello">
           {mochi}
-          <h1 ref={heading} tabIndex={-1} className="vmx-gate-title">เข้าสู่ระบบด้วยอีเมลจุฬา</h1>
+          <h1 ref={heading} tabIndex={-1} className="vmx-gate-title">{sharedSet.length ? 'เพื่อนส่งชุดโจทย์มาให้' : 'เข้าสู่ระบบด้วยอีเมลจุฬา'}</h1>
         </div>
-        <p className="vmx-gate-lead">กดปุ่ม Google ด้านล่าง แล้วเลือกอีเมลจุฬาของคุณ</p>
+        {/* A set a friend sent stays in view: after signing in the address
+            comes back with it and the set opens (App.jsx, the shared-set effect). */}
+        {sharedSet.length ? <SharedSetCard items={sharedSet} className="vmx-gate-set" /> : null}
+        <p className="vmx-gate-lead">{sharedSet.length ? 'เข้าสู่ระบบด้วยอีเมลจุฬาก่อน แล้วเริ่มชุดนี้ได้เลย' : 'กดปุ่ม Google ด้านล่าง แล้วเลือกอีเมลจุฬาของคุณ'}</p>
         <section className="vmx-gate-id" data-play="1" aria-label="อีเมลที่ใช้เข้าสู่ระบบ">
           <span className="vmx-gate-corner" data-c="tl" /><span className="vmx-gate-corner" data-c="tr" />
           <span className="vmx-gate-corner" data-c="bl" /><span className="vmx-gate-corner" data-c="br" />

@@ -2416,19 +2416,6 @@ html.dark .vmx-panic-scrim {
    actions): it starts at the left, and a phone stacks it in DOM order
    instead of reversing it (see the 640px block). */
 .vmx-btn-row.is-stack { justify-content: flex-start; }
-/* "ชวนเพื่อน": the three ways to bring a friend behind one native
-   disclosure, so they stop outranking the answer review. */
-.vmx-invite { flex: 0 0 auto; }
-.vmx-invite[open] { flex-basis: 100%; }
-.vmx-invite > summary { list-style: none; cursor: pointer; }
-.vmx-invite > summary::-webkit-details-marker { display: none; }
-.vmx-invite > summary::after {
-  content: ''; width: 6px; height: 6px; margin-left: 2px;
-  border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
-  transform: translateY(-2px) rotate(45deg);
-}
-.vmx-invite[open] > summary::after { transform: translateY(2px) rotate(-135deg); }
-.vmx-invite-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 
 /* Top back-bar: sticky at top of sub-views so users always know
    how to escape — especially helpful inside long pages (Notes,
@@ -3312,9 +3299,6 @@ html.dark .vmx-panic-scrim {
 .vmx-written-reveal-hint { margin-top: 6px; font-size: 14px; color: var(--clr-ink-soft); }
 .vmx-written-reveal-model, .vmx-written-reveal-why { margin-top: 10px; }
 
-.vmx-match-row { display: flex; flex-direction: column; gap: 12px; }
-.vmx-match-item { display: flex; gap: 12px; align-items: center; padding: 12px; background: var(--clr-bg); border-radius: 10px; border: 1px solid var(--clr-border); flex-wrap: wrap; }
-.vmx-match-left { font-size: 14px; flex: 1; color: var(--clr-ink-soft); min-width: 140px; }
 .vmx-match-select { padding: 8px 12px; border-radius: 8px; border: 1px solid var(--clr-border); background: var(--clr-surface); font-family: 'IBM Plex Sans Thai', sans-serif; font-size: 14px; cursor: pointer; min-width: 160px; color: var(--clr-ink); }
 
 /* ── Match Drag-Drop (Matching Game Showcase) ───────────────────────── */
@@ -3322,67 +3306,18 @@ html.dark .vmx-panic-scrim {
 .vmx-match-dnd-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 .vmx-match-dnd-status { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; flex: 1; min-width: min(240px, 100%); }
 .vmx-match-dnd-hint { font-size: 14px; color: var(--clr-ink-soft); line-height: 1.5; }
-.vmx-match-status-pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; font-size: 14px; line-height: 1.4; }
-.vmx-match-status-pill.selected { background: rgba(184, 137, 64, 0.14); border: 1px solid var(--clr-gold); color: var(--clr-gold-text); animation: vmx-pulse-subtle 2s infinite ease-in-out; }
-.vmx-match-status-cancel { width: 18px; height: 18px; border-radius: 999px; border: none; background: rgba(0, 0, 0, 0.15); color: var(--clr-ink); font-size: 14px; cursor: pointer; display: grid; place-items: center; line-height: 1; }
-.vmx-match-status-cancel:hover { background: var(--clr-rose); color: #fff; }
 .vmx-match-clear-all-btn { font-size: 14px; padding: 4px 10px; }
 
-@keyframes vmx-pulse-subtle {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(184, 137, 64, 0.3); }
-  50% { box-shadow: 0 0 0 4px rgba(184, 137, 64, 0.15); }
-}
-
-.vmx-match-dnd-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 16px; align-items: start; }
-@media (max-width: 768px) { .vmx-match-dnd-grid { grid-template-columns: 1fr; } }
-
-/* Left slots */
-.vmx-match-dnd-leftcol { display: flex; flex-direction: column; gap: 10px; }
-.vmx-match-dnd-slot { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; padding: 12px 14px; background: var(--clr-surface); border: 1.5px solid var(--clr-border); border-radius: 14px; cursor: pointer; position: relative; transition: border-color .15s, background .15s, box-shadow .15s, transform .15s; min-height: 60px; user-select: none; -webkit-user-select: none; }
-.vmx-match-dnd-slot:hover { border-color: var(--clr-ink-soft); }
-.vmx-match-dnd-slot.is-selected { border-color: var(--clr-gold); box-shadow: 0 0 0 3px rgba(184, 137, 64, 0.22); background: var(--clr-surface-2); }
-.vmx-match-dnd-slot.is-drag-over { border-color: var(--clr-gold); background: rgba(184, 137, 64, 0.12); box-shadow: 0 0 0 4px rgba(184, 137, 64, 0.28); transform: scale(1.015); }
-.vmx-match-dnd-slot.filled { border-color: var(--clr-sage); background: rgba(74, 107, 74, 0.04); }
-.vmx-match-dnd-slot.empty { border-style: dashed; }
-.vmx-match-dnd-slot.correct { border-color: var(--clr-right); background: rgba(74, 107, 74, 0.08); }
-.vmx-match-dnd-slot.wrong { border-color: var(--clr-rose); background: rgba(194, 109, 109, 0.08); }
-
 .vmx-match-dnd-slot-num { width: 24px; height: 24px; border-radius: 999px; background: var(--clr-surface-2); border: 1px solid var(--clr-border); color: var(--clr-ink-soft); font-size: 11px; font-weight: 700; font-family: var(--vmx-mono); display: grid; place-items: center; flex-shrink: 0; }
-.vmx-match-dnd-left { font-size: 14px; color: var(--clr-ink); line-height: 1.45; font-weight: 500; }
-.vmx-match-dnd-target { display: flex; align-items: center; justify-content: flex-end; min-width: 130px; }
-.vmx-match-dnd-placeholder { font-size: 14px; color: var(--clr-ink-soft); padding: 7px 12px; border: 1.5px dashed var(--clr-border); border-radius: 10px; background: var(--clr-surface-2); font-style: normal; text-align: center; transition: all .15s; white-space: nowrap; }
-.vmx-match-dnd-chip { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 10px; background: var(--clr-surface); border: 1.5px solid var(--clr-sage); font-size: 14px; font-weight: 500; color: var(--clr-ink); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06); max-width: 200px; }
 .vmx-match-dnd-chip-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.vmx-match-dnd-clear { width: 20px; height: 20px; border-radius: 999px; border: none; background: var(--clr-surface-2); color: var(--clr-ink-soft); cursor: pointer; font-size: 10px; line-height: 1; display: grid; place-items: center; flex-shrink: 0; transition: all .15s; }
-.vmx-match-dnd-clear:hover { background: var(--clr-rose); color: #fff; }
 
 .vmx-match-dnd-badge { position: absolute; top: -8px; right: -8px; width: 22px; height: 22px; border-radius: 999px; display: grid; place-items: center; font-size: 12px; font-weight: 800; color: #fff; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); }
 .vmx-match-dnd-badge.ok { background: var(--clr-right); }
 .vmx-match-dnd-badge.no { background: var(--clr-rose); }
 
 /* Right pool cards */
-.vmx-match-dnd-rightcol { display: flex; flex-direction: column; gap: 10px; padding: 14px; background: var(--clr-surface-2); border: 1px solid var(--clr-border); border-radius: 16px; position: sticky; top: 12px; }
-.vmx-match-dnd-rightcol-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 8px; border-bottom: 1px solid var(--clr-border); }
 .vmx-match-dnd-rightcol-title { font-size: 14px; font-weight: 700; color: var(--clr-ink); }
-.vmx-match-dnd-rightcol-count { font-size: 14px; font-family: var(--vmx-mono); color: var(--clr-ink-soft); background: var(--clr-surface); padding: 2px 8px; border-radius: 999px; border: 1px solid var(--clr-border); }
-.vmx-match-dnd-cards-list { display: flex; flex-direction: column; gap: 8px; }
-.vmx-match-dnd-card { display: flex; align-items: center; gap: 8px; text-align: left; padding: 10px 12px; border-radius: 12px; background: var(--clr-surface); border: 1.5px solid var(--clr-border); font-size: 14px; color: var(--clr-ink); cursor: grab; transition: transform .12s, box-shadow .15s, opacity .15s, border-color .15s; line-height: 1.4; user-select: none; -webkit-user-select: none; touch-action: none; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04); }
-.vmx-match-dnd-card:hover { transform: translateY(-2px); border-color: var(--clr-ink-soft); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); }
-.vmx-match-dnd-card:active { cursor: grabbing; transform: scale(.98); }
-.vmx-match-dnd-card.is-used { opacity: .55; border-style: dashed; background: var(--clr-surface-2); }
-.vmx-match-dnd-card.is-selected { border-color: var(--clr-gold); box-shadow: 0 0 0 3px rgba(184, 137, 64, 0.22); background: var(--clr-surface); }
-.vmx-match-dnd-card.is-dragging { opacity: .35; transform: scale(.96); }
-.vmx-match-dnd-grip { color: var(--clr-ink-soft); opacity: .6; font-size: 14px; cursor: grab; flex-shrink: 0; }
 .vmx-match-dnd-card-text { flex: 1; word-break: break-word; }
-.vmx-match-dnd-used-badge { font-size: 14px; color: var(--clr-sage-text); background: rgba(74, 107, 74, 0.12); padding: 2px 6px; border-radius: 6px; flex-shrink: 0; font-weight: 600; }
-.vmx-match-dnd-selected-tag { font-size: 14px; color: var(--clr-gold-text); background: rgba(184, 137, 64, 0.15); padding: 2px 6px; border-radius: 6px; flex-shrink: 0; font-weight: 700; }
-
-/* Floating ghost card */
-.vmx-match-dnd-floating-ghost { position: fixed; pointer-events: none; z-index: 10000; display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; background: var(--clr-surface); border: 2px solid var(--clr-gold); box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22); border-radius: 12px; font-size: 14px; font-weight: 600; color: var(--clr-ink); transform: translate(-50%, -50%) rotate(2.5deg) scale(1.05); max-width: 280px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; user-select: none; -webkit-user-select: none; }
-
-/* Fallback accordion */
-.vmx-match-dnd-fallback { margin-top: 4px; padding: 10px 12px; background: var(--clr-surface-2); border: 1px solid var(--clr-border); border-radius: 12px; }
-.vmx-match-dnd-fallback summary { cursor: pointer; font-size: 14px; color: var(--clr-ink-soft); font-weight: 500; }
 
 /* Reveal score banner */
 .vmx-match-dnd-reveal { margin-top: 6px; }
@@ -3427,47 +3362,6 @@ html.dark .vmx-panic-scrim {
 }
 @media (prefers-reduced-motion: reduce) {
   .vmx-burst { display: none; }
-}
-
-/* ── Clinical Evaluator Seal ──────────────────────────────────────────────────
-   Elevates Mochi from a cartoon sticker into an authentic clinical accreditation seal. */
-.vmx-results-seal-wrapper {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  margin-bottom: 12px;
-}
-.vmx-clinical-seal {
-  margin-top: 10px;
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 4px 14px;
-  border-radius: 4px;
-  font-family: var(--vmx-mono);
-  font-size: 14px;
-  letter-spacing: 0;
-  border: 1px solid currentColor;
-  line-height: 1.35;
-  user-select: none;
-}
-.vmx-clinical-seal .vmx-seal-title { font-weight: 700; }
-.vmx-clinical-seal .vmx-seal-sub { font-size: 14px; }
-.vmx-clinical-seal.is-pass {
-  color: var(--clr-right-text);
-  background: rgba(74, 107, 74, 0.08);
-  border-color: var(--clr-right);
-}
-.vmx-clinical-seal.is-review {
-  color: var(--clr-rose-text);
-  background: rgba(194, 109, 109, 0.08);
-  border-color: var(--clr-rose);
-}
-.vmx-clinical-seal.is-writing {
-  color: var(--clr-gold-text);
-  background: rgba(184, 137, 64, 0.08);
-  border-color: var(--clr-gold);
 }
 
 /* ── Benchmark Telemetry ────────────────────────────────────────────────────
@@ -3517,39 +3411,12 @@ html.dark .vmx-panic-scrim {
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
-.vmx-benchmark-legend {
-  display: flex;
-  justify-content: space-between;
-  font-size: 14px;
-  color: var(--clr-ink-soft);
-  margin-top: 6px;
-  font-variant-numeric: tabular-nums;
-}
-
-/* ── Pacing Telemetry ───────────────────────────────────────────────────────
-   Clinical session pacing data (elapsed time + speed per case). */
-.vmx-pacing-telemetry {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 4px 12px;
-  margin-top: 14px;
-  border-radius: 999px;
-  background: var(--clr-surface-2);
-  border: 1px solid var(--clr-border);
-  font-size: 14px;
-  color: var(--clr-ink-soft);
-  font-variant-numeric: tabular-nums;
-}
 
 .vmx-score-big { font-family: var(--vmx-display); font-variant-numeric: tabular-nums; font-weight: 800; font-size: 96px; line-height: 1; letter-spacing: -0.04em; margin: 0; color: var(--clr-ink); }
 .vmx-score-big.pass { color: var(--clr-right-text); }
 .vmx-score-big.fail { color: var(--clr-rose-text); }
 .vmx-score-label { font-family: inherit; font-size: 14px; color: var(--clr-ink-soft); margin: 8px 0 20px; }
 .vmx-score-frac { font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--clr-ink); }
-.vmx-score-msg { font-family: inherit; font-size: 17px; line-height: 1.55; color: var(--clr-ink-soft); margin-top: 16px; }
-/* The first thing to do after a set, right under the score (ResultsView NextPlayPanel part="primary"). */
-.vmx-results-primary { display: flex; flex-direction: column; gap: 10px; max-width: 480px; margin: 16px auto 0; }
 
 .vmx-stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 24px; }
 .vmx-stat-card {
@@ -3566,11 +3433,6 @@ html.dark .vmx-panic-scrim {
   box-shadow: var(--shadow-md);
 }
 .vmx-stat-num { font-family: inherit; font-variant-numeric: tabular-nums; font-weight: 700; font-size: 32px; line-height: 1; color: var(--clr-ink); }
-/* The line icon that leads each Results action card (NavIcon, not an emoji):
-   rose on the retry card, sage on the one that offers more. */
-.vmx-results-card-icon { display: inline-flex; flex: 0 0 auto; }
-.vmx-results-card-icon.is-retry { color: var(--clr-rose-text); }
-.vmx-results-card-icon.is-more { color: var(--clr-sage-text); }
 .vmx-stat-lbl { font-size: 14px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--clr-ink-soft); margin-top: 6px; }
 
 .vmx-review-item {
@@ -3988,9 +3850,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
 }
 
 @media (max-width: 640px) {
-  .vmx-btn-row.is-stack > .vmx-invite { width: 100%; }
   .vmx-btn-row.is-stack { flex-direction: column; align-items: stretch; }
-  .vmx-invite-actions { flex-direction: column; }
 }
 
 @media (max-width: 640px) {
@@ -4890,7 +4750,6 @@ button.vmx-chip-quick:focus-visible {
    wordmark was decoration, and the block also carried a stray
    `body { font-family: Plus Jakarta Sans }` + an invalid mid-file @import
    that was quietly dropping Thai body text to a system fallback.) */
-
 
 /* ── Mobile bottom navigation (<1024px) ──────────────────────────────
    Primary nav for touch/phone; desktop uses the Sidebar instead. Same
@@ -5847,7 +5706,6 @@ body.vmx-reading .vmx-pdf-body {
   letter-spacing: 0; text-transform: none;
 }
 
-
 /* Mochi break room: bounded activity, existing study/navigation contracts. */
 .vmx-mochi-page { min-width: 0; padding-bottom: 80px; }
 .vmx-mochi-heading { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin: 12px 0 24px; }
@@ -5924,7 +5782,6 @@ body.vmx-reading .vmx-pdf-body {
   .vmx-motion-stage { height: 470px; }
 }
 
-
 /* Mochi lives in existing UI slots; artwork never receives input or owns data. */
 .vmx-mochi { display: inline-flex; position: relative; flex: 0 0 auto; vertical-align: middle; pointer-events: none; user-select: none; line-height: 0; max-width: 100%; }
 .vmx-mochi > img { width: 100%; height: 100%; object-fit: contain; }
@@ -5984,7 +5841,10 @@ body.vmx-reading .vmx-pdf-body {
   .vmx-res-step.is-paced { animation-timing-function: linear(0, 0.053, 0.174, 0.32, 0.467, 0.6, 0.712, 0.802, 0.871, 0.922, 0.958, 0.982, 0.997, 1.005, 1.01, 1.011, 1.011, 1.01, 1.008, 1.006, 1.005, 1.004, 1.002, 1.002, 1); }
 }
 @keyframes vmx-res-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
-@media (prefers-reduced-motion: reduce) { .vmx-res-step.is-paced { animation: none; } }
+/* The pinned button is drawn at the screen's edge from its first frame: it fades in, never rises from below the fold. */
+.vmx-res-thumb.is-paced { animation-name: vmx-res-fade; }
+@keyframes vmx-res-fade { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .vmx-res-step.is-paced, .vmx-res-thumb.is-paced { animation: none; } }
 
 /* The day count after the first set of a day (StreakMoment). */
 .vmx-streak-moment { display: flex; align-items: center; gap: 12px; margin: 0 auto 16px; max-width: 480px; padding: 12px 16px; border: 1px solid var(--clr-gold); border-radius: var(--r-lg); background: var(--clr-surface); }
@@ -6421,7 +6281,6 @@ body.vmx-reading .vmx-pdf-body {
 @media (prefers-reduced-motion: reduce) {
   .vmx-lesson__bar > span { transition: none; }
 }
-
 
 /* ============================================================
    The printed lecture summary
@@ -6988,7 +6847,6 @@ body.vmx-reading .vmx-pdf-body {
   color: var(--clr-ink-soft);
   flex-shrink: 0;
 }
-
 
 /* ============================================================
    Faculty Directory — Clinical Staff Registry (FacultyView)
@@ -7760,18 +7618,6 @@ button.vmx-ladder-step:focus-visible { outline: 2px solid var(--clr-ink); outlin
 /* The results screen */
 .vmx-next-ladder { margin: 0 0 12px; padding: 12px 14px; border: 1px solid var(--clr-border); border-radius: var(--r-lg); background: var(--clr-surface); }
 .vmx-next-ladder-title { margin: 0 0 var(--space-2); font-size: 14px; font-weight: 700; color: var(--clr-ink); }
-.vmx-next-ladder-note { margin: 10px 0 0; font-size: 14px; line-height: 1.55; color: var(--clr-ink); }
-.vmx-next-primary {
-  appearance: none; -webkit-appearance: none; width: 100%; box-sizing: border-box; cursor: pointer;
-  padding: 14px 16px; border-radius: var(--r-lg); background: var(--clr-surface); border: 2px solid var(--clr-sage);
-  display: flex; align-items: center; gap: 14px; min-height: 56px; text-align: left; font: inherit; color: var(--clr-ink);
-}
-.vmx-next-primary:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 2px; }
-.vmx-next-primary-go { padding: 6px 12px; border-radius: var(--r-pill); background: var(--clr-sage); color: var(--clr-sage-on); font-size: 14px; font-weight: 700; flex-shrink: 0; }
-/* The seal and the bar's flag speak Thai now: the sans stack, no tracking,
-   no uppercase, text at full opacity. */
-.vmx-clinical-seal { font-family: var(--vmx-sans); letter-spacing: 0; text-transform: none; font-size: 14px; }
-.vmx-clinical-seal .vmx-seal-sub { font-size: 14px; opacity: 1; }
 .vmx-benchmark-flag { font-family: var(--vmx-sans); font-size: 14px; }
 
 /* The topic screen: a subject with nothing on the paper in scope */
@@ -9085,14 +8931,6 @@ button.vmx-ladder-step:focus-visible { outline: 2px solid var(--clr-ink); outlin
 .vmx-wrapped-badges img { width: 72px; height: 72px; object-fit: contain; display: block; margin: 0 auto 6px; }
 .vmx-wrapped-badge-name { font-size: 14px; font-weight: 600; color: var(--clr-ink); }
 .vmx-wrapped-badge-why { font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
-.vmx-share-cta {
-  margin-top: 24px; padding: 16px; border-radius: 14px; display: flex; flex-wrap: wrap; gap: 12px;
-  align-items: center; justify-content: space-between;
-  border: 1px solid color-mix(in srgb, var(--clr-sage-text) 30%, transparent);
-  background: color-mix(in srgb, var(--clr-sage-text) 6%, transparent);
-}
-.vmx-share-cta > p { margin: 0; flex: 1 1 200px; font-size: 14px; line-height: 1.6; color: var(--clr-ink); }
-.vmx-share-cta > .vmx-btn { min-height: 44px; white-space: nowrap; }
 
 /* ── Conflict note (components/ConflictNote.jsx): the wiki and the notes ── */
 .vmx-conflict { margin-top: 16px; border: 1px solid var(--clr-border); border-left: 3px solid var(--clr-rose); border-radius: 10px; background: var(--clr-surface); }
@@ -9382,4 +9220,73 @@ body.vmx-fullscreen .vmx-tools-fab, body.vmx-fullscreen .vmx-tools-fab-wrap { di
   margin: 4px 0 0;
   font-size: 14px;
   color: var(--clr-ink-soft);
+}
+
+/* ── The screen after a set (5.282.0): one card, one thumb ─────────────
+   work/results-design direction 1. The score is said once in one card; one
+   filled button sits under the thumb on a phone (bottom edge, 56 px, full
+   width, above the tab bar and the safe area) and at the top of the right
+   column on a wide screen; then the answers and the share entry side by
+   side, and one next-step row. Spacing 8 12 16 24, type 14 16 and the
+   numeral. */
+.vmx-results { padding-bottom: calc(96px + var(--vmx-bottom-nav-h, 0px) + env(safe-area-inset-bottom, 0px)); }
+.vmx-results-grid { display: grid; gap: 16px; max-width: 520px; margin: 0 auto; }
+.vmx-res-card { position: relative; isolation: isolate; overflow: hidden; padding: 16px 16px 20px; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--r-xl); box-shadow: var(--shadow-md); }
+.vmx-res-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.vmx-res-card-words { min-width: 0; }
+.vmx-res-scope { margin: 0 0 4px; font-size: 14px; line-height: 1.4; color: var(--clr-ink-soft); }
+.vmx-res-verdict { margin: 0; font-size: 16px; font-weight: 700; line-height: 1.3; color: var(--clr-ink); }
+.vmx-res-verdict.is-pass { color: var(--clr-right-text); }
+.vmx-res-card .vmx-score-big { font-size: 72px; margin: 4px 0 0; text-align: left; }
+.vmx-res-card .vmx-score-big.is-writing { color: var(--clr-gold-text); }
+.vmx-score-unit { font-size: 0.4em; font-weight: 400; }
+.vmx-res-card .vmx-result-mochi { margin: 0; flex-shrink: 0; }
+.vmx-res-card .vmx-score-frac { margin: 8px 0 0; font-size: 16px; font-weight: 600; text-align: left; }
+.vmx-res-card .vmx-benchmark-container { max-width: none; margin: 36px 0 0; }
+/* A low score stings already: the bar under the mark is ink, like the number, not rose. */
+.vmx-res-card .vmx-benchmark-fill.is-review { background: var(--clr-ink-soft); }
+.vmx-res-note { margin: 8px 0 0; font-size: 14px; line-height: 1.5; color: var(--clr-ink-soft); }
+.vmx-res-actions { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.vmx-res-actions > .vmx-next-ladder { margin: 12px 0 0; }
+.vmx-res-thumb { position: fixed; z-index: 40; left: 0; right: 0; bottom: 0; padding: 8px max(16px, env(safe-area-inset-left, 0px)) calc(8px + var(--vmx-bottom-nav-h, 0px) + env(safe-area-inset-bottom, 0px)); background: linear-gradient(to top, var(--clr-bg) 70%, transparent); pointer-events: none; }
+.vmx-res-primary { pointer-events: auto; display: flex; align-items: center; gap: 12px; width: 100%; max-width: 520px; min-height: 56px; margin: 0 auto; padding: 8px 16px; border: 0; border-radius: var(--r-lg); background: var(--vmx-color-learning); color: var(--vmx-color-learning-on); font: inherit; text-align: left; cursor: pointer; box-shadow: var(--shadow-md); }
+.vmx-res-primary:hover { filter: brightness(0.95); }
+.vmx-res-primary:focus-visible { outline: 3px solid var(--clr-ink); outline-offset: 2px; }
+.vmx-res-primary-words { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.vmx-res-primary-label { font-size: 16px; font-weight: 700; line-height: 1.3; }
+.vmx-res-primary-sub { font-size: 14px; line-height: 1.4; }
+.vmx-res-primary-arrow { font-size: 20px; flex-shrink: 0; }
+.vmx-res-pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); gap: 8px; }
+.vmx-res-pair > .vmx-btn { min-height: 48px; width: 100%; justify-content: center; }
+.vmx-res-next { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 56px; padding: 8px 16px; border: 1px solid var(--clr-border); border-radius: var(--r-lg); background: var(--clr-surface); color: var(--clr-ink); font: inherit; text-align: left; cursor: pointer; }
+.vmx-res-next:hover { border-color: var(--clr-ink-soft); }
+.vmx-res-next:focus-visible { outline: 3px solid var(--clr-ink); outline-offset: 2px; }
+.vmx-res-next-icon { display: inline-flex; color: var(--clr-ink-soft); flex-shrink: 0; }
+.vmx-res-next-words { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.vmx-res-next-label { font-size: 16px; font-weight: 700; line-height: 1.3; }
+.vmx-res-next-sub { font-size: 14px; line-height: 1.4; color: var(--clr-ink-soft); }
+.vmx-res-next-go { font-size: 20px; color: var(--clr-ink-soft); }
+@media (min-width: 900px) {
+  .vmx-results { padding-bottom: 24px; }
+  .vmx-results-grid { grid-template-columns: minmax(0, 360px) minmax(0, 420px); max-width: 804px; gap: 24px; align-items: start; }
+  .vmx-res-thumb { position: static; padding: 0; background: none; order: -1; }
+  .vmx-res-primary { max-width: none; box-shadow: none; }
+}
+
+/* The share sheet: the set as the friend gets it, then the ways out. */
+.vmx-set-card { display: flex; flex-direction: column; gap: 4px; padding: 16px; border: 1px solid var(--clr-border); border-radius: var(--r-lg); background: var(--clr-bg); text-align: left; }
+.vmx-set-card-title { font-family: var(--vmx-display); font-size: 24px; font-weight: 700; line-height: 1.2; letter-spacing: 0; color: var(--clr-ink); }
+.vmx-set-card-topic { font-size: 16px; line-height: 1.4; color: var(--clr-ink); }
+.vmx-set-card-count { font-size: 14px; line-height: 1.4; color: var(--clr-ink-soft); }
+.vmx-send-sheet { display: flex; flex-direction: column; gap: 12px; }
+.vmx-send-lead { margin: 0; font-size: 14px; color: var(--clr-ink-soft); }
+.vmx-send-link { margin: 0; font-size: 14px; color: var(--clr-ink-soft); overflow-wrap: anywhere; user-select: all; -webkit-user-select: all; }
+.vmx-send-line { min-height: 52px; width: 100%; justify-content: center; text-decoration: none; }
+.vmx-send-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); gap: 8px; }
+.vmx-send-row > .vmx-btn { min-height: 44px; justify-content: center; }
+.vmx-send-hint { margin: 0; min-height: 1.5em; font-size: 14px; color: var(--clr-sage-text); }
+.vmx-send-race { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; padding: 8px 0 0; border: 0; border-top: 1px solid var(--clr-border); background: none; color: var(--clr-ink); font: inherit; font-size: 14px; text-align: left; cursor: pointer; }
+@media (max-width: 599px) {
+  .vmx-sheet-overlay { align-items: flex-end; padding: 0; }
+  .vmx-sheet-overlay > .vmx-send-sheet { max-width: none; border-radius: var(--r-xl) var(--r-xl) 0 0; padding: 20px 16px calc(16px + env(safe-area-inset-bottom, 0px)); }
 }

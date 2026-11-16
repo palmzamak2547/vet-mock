@@ -238,9 +238,7 @@ test.describe('VetMock smoke flow', () => {
     await page.getByRole('button', { name: 'ดูผลลัพธ์ →', exact: true }).click();
     await expect(page.getByRole('heading', { name: 'ส่งข้อสอบ?' })).toHaveCount(0);
 
-    await expect(page.getByText(
-      /Auto-graded Score|Writing Practice Done|คะแนนตรวจอัตโนมัติ|ฝึกข้อเขียนเสร็จแล้ว/,
-    )).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByRole('region', { name: 'ผลชุดนี้' })).toBeVisible({ timeout: 15_000 });
     expect(consoleErrors, `Unexpected console errors in Quick Practice flow:\n${consoleErrors.join('\n')}`).toEqual([]);
   });
 
@@ -280,9 +278,7 @@ test.describe('VetMock smoke flow', () => {
     await expect(page.getByRole('heading', { name: 'ส่งข้อสอบ?' })).toBeVisible();
     await page.getByRole('button', { name: 'ส่งข้อสอบ', exact: true }).click();
 
-    await expect(page.getByText(
-      /Auto-graded Score|Writing Practice Done|คะแนนตรวจอัตโนมัติ|ฝึกข้อเขียนเสร็จแล้ว/,
-    )).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByRole('region', { name: 'ผลชุดนี้' })).toBeVisible({ timeout: 15_000 });
     await expect(page.getByRole('button', { name: 'ส่งข้อสอบ', exact: true })).toHaveCount(0);
     // The duplicate "🏠 หน้าแรก" button under the back bar was removed —
     // the back bar itself was already the way home. Same destination.

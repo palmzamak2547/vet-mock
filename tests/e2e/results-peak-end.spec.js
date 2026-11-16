@@ -73,7 +73,9 @@ async function play(page, plan) {
   }
 }
 
-const results = (page) => expect(page.getByText('คะแนนตรวจอัตโนมัติ')).toBeVisible({ timeout: 15_000 });
+const results = (page) => expect(page.getByRole('region', { name: 'ผลชุดนี้' })).toBeVisible({ timeout: 15_000 });
+// The one filled button (5.282.0): pinned under the thumb on a phone.
+const filled = (page) => page.locator('.vmx-res-primary');
 
 test('a perfect first set of the day: no submit check, the count starts, Mochi celebrates', async ({ page, context }) => {
   await setup(context);
@@ -105,7 +107,7 @@ test('a perfect first set of the day: no submit check, the count starts, Mochi c
   await page.goBack();
   await results(page);
   await expect(page.locator('.vmx-streak-moment')).not.toHaveClass(/is-first/);
-  await expect(page.locator('.vmx-results-hero')).not.toHaveClass(/is-paced/);
+  await expect(page.locator('.vmx-res-card')).not.toHaveClass(/is-paced/);
 });
 
 test('a seventh day says so; a second set the same day shows no card', async ({ page, context }) => {
@@ -132,11 +134,20 @@ test('misses come first, and the buddy and the ladder say one thing', async ({ p
   await play(page, 'rrrww'); // 60%: the practice mark, under the 80% to climb
   await page.getByRole('button', { name: 'ดูผลลัพธ์ →', exact: true }).click();
   await results(page);
-  // Since 5.224.0 the line under the score is for 80% and up; below it the ladder note says how far the
-  // climb is (it was "ถึงเกณฑ์ซ้อมแล้ว อีกนิดถึง 80% ก็ขึ้นขั้นถัดไปได้ ลองอีกชุดนะ!" under the score).
-  await expect(page.getByText(/ได้ 60% ยังไม่ถึง 80% ที่จะขึ้นขั้นต่อไป ทำขั้นนี้อีกชุดให้แม่นก่อน/)).toBeVisible();
+  // 5.282.0: the score is said once, in the card; the misses are the one filled button, and the rung
+  // waits as the next step (the ladder's "ได้ 60% ..." sentence went).
+  const card = page.getByRole('region', { name: 'ผลชุดนี้' });
+  await expect(card).toContainText('ถึงเกณฑ์ซ้อมแล้ว');
+  await expect(card).toContainText('ถูก 3 จาก 5 ข้อ');
+  await expect(page.getByText(/ได้ 60%/)).toHaveCount(0);
   await expect(page.getByText('ทำได้ดีมาก! ถึงเกณฑ์ซ้อมแล้ว', { exact: false })).toHaveCount(0);
-  await expect(page.getByRole('button', { name: /แก้ข้อที่ผิด 2 ข้อ ทันที/ })).toBeVisible();
+  await expect(filled(page)).toHaveCount(1);
+  await expect(filled(page)).toContainText('แก้ข้อที่ผิด 2 ข้อ');
+  await expect(page.locator('.vmx-res-next')).toContainText('ทำขั้น 1 อีกชุด');
+  // Under the thumb: the filled button's bottom is inside the window, near its edge.
+  const box = await filled(page).boundingBox();
+  const fold = await page.evaluate(() => window.innerHeight);
+  expect(box.y + box.height).toBeLessThanOrEqual(fold);
 });
 
 test('a climb the set earned waits under the misses', async ({ page, context }) => {
@@ -145,12 +156,11 @@ test('a climb the set earned waits under the misses', async ({ page, context }) 
   await play(page, 'rrrrw'); // 80%: climbs from rung 1
   await page.getByRole('button', { name: 'ดูผลลัพธ์ →', exact: true }).click();
   await results(page);
-  const redo = page.getByRole('button', { name: /แก้ข้อที่ผิด 1 ข้อ ทันที/ });
-  const climb = page.getByRole('button', { name: /ขึ้นขั้น 2/ });
-  await expect(redo).toBeVisible();
-  await expect(climb).toBeVisible();
-  const [redoY, climbY] = await Promise.all([redo.boundingBox(), climb.boundingBox()]).then((b) => b.map((x) => x.y));
-  expect(redoY).toBeLessThan(climbY);
+  // The redo is the one filled button; the climb is the next-step row, one tap away.
+  await expect(filled(page)).toContainText('แก้ข้อที่ผิด 1 ข้อ');
+  await expect(page.locator('.vmx-res-next')).toContainText(/ขั้นต่อไป ใช้ความรู้/);
+  await page.locator('.vmx-res-next').click();
+  await expect(page.locator('.vmx-option').first()).toBeVisible({ timeout: 30_000 });
 });
 
 test('a blank question keeps the submit check, and the result offers it again', async ({ page, context }) => {
@@ -162,7 +172,7 @@ test('a blank question keeps the submit check, and the result offers it again', 
   await expect(dialog).toContainText('ยังไม่ได้ตอบอีก 1 ข้อ');
   await dialog.getByRole('button', { name: 'ส่งข้อสอบ', exact: true }).click();
   await results(page);
-  await expect(page.getByRole('button', { name: /ทำข้อที่ผิดและข้ามไป 2 ข้อ/ })).toContainText('ผิด 1 ข้อ ยังไม่ได้ตอบ 1 ข้อ');
+  await expect(filled(page)).toContainText('ผิด 1 ข้อ ยังไม่ได้ตอบ 1 ข้อ');
 });
 
 test('reduced motion: the result is simply there', async ({ page, context }) => {
@@ -172,7 +182,35 @@ test('reduced motion: the result is simply there', async ({ page, context }) => 
   await play(page, 'rrrrr');
   await page.getByRole('button', { name: 'ดูผลลัพธ์ →', exact: true }).click();
   await results(page);
-  expect(await page.locator('.vmx-results-hero').evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
+  expect(await page.locator('.vmx-res-card').evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
   expect(await page.locator('.vmx-streak-moment-flame').evaluate((el) => getComputedStyle(el).animationName)).toBe('none');
   await expect(page.locator('.vmx-result-mochi')).toHaveAttribute('data-mochi-live', 'still');
+});
+
+// One share entry (5.282.0): ส่งให้เพื่อน opens one sheet with the set as the friend gets it and a
+// short /s/ link that carries the question ids and no score.
+test('one share entry opens one sheet with a short link and no score', async ({ page, context }) => {
+  await setup(context);
+  await openPractice(page);
+  await play(page, 'rrrww');
+  await page.getByRole('button', { name: 'ดูผลลัพธ์ →', exact: true }).click();
+  await results(page);
+  for (const old of ['ท้าเพื่อนทำชุดนี้', 'ส่งเข้ากลุ่ม', 'สร้างรูปคะแนน', 'ชวนเพื่อน']) {
+    await expect(page.getByText(old)).toHaveCount(0);
+  }
+  await page.getByRole('button', { name: 'ส่งให้เพื่อน' }).click();
+  const sheet = page.getByRole('dialog', { name: 'ส่งให้เพื่อน' });
+  await expect(sheet).toContainText('ไม่มีคะแนนของคุณ');
+  await expect(sheet.getByTestId('shared-set-card')).toContainText('5 ข้อ');
+  const link = await sheet.getByTestId('share-link').innerText();
+  expect(link).toMatch(/\/s\/[A-Za-z0-9_-]+$/);
+  expect(link.length).toBeLessThan(80);
+  const line = await sheet.getByRole('link', { name: 'ส่งใน LINE' }).getAttribute('href');
+  const text = decodeURIComponent(line.split('text=')[1]);
+  expect(text).toContain(link);
+  expect(text).not.toMatch(/3\/5|60%|sc=/);
+  // Below 70% the score picture is not offered.
+  await expect(sheet.getByRole('button', { name: 'สตอรี่' })).toHaveCount(0);
+  await sheet.getByRole('button', { name: 'ปิด', exact: true }).click();
+  await expect(sheet).toHaveCount(0);
 });

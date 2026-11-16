@@ -23,10 +23,13 @@ test('the stash is one-shot and only holds a real from/to pair', () => {
   assert.equal(takePromotion(), null, 'half a promotion is not stashed');
 });
 
-test('finishExam stashes the promotion before dispatching, and ResultsView takes it on mount', () => {
+// Since 5.282.0 the promotion is said on Progress, in the night rank card, not
+// between the score and what to do next: the stash now carries it there.
+test('finishExam stashes the promotion before dispatching, and the night rank card takes it on mount', () => {
   const app = read('../../src/App.jsx');
   assert.match(app, /stashPromotion\(detail\);\n\s*window\.dispatchEvent\(new CustomEvent\(NIGHT_RANK_EVENT, \{ detail \}\)\);/);
-  const results = read('../../src/views/ResultsView.jsx');
-  assert.match(results, /const pending = takePromotion\(\);\n\s*if \(pending\) setRankPromo\(pending\);/);
-  assert.match(results, /window\.addEventListener\(NIGHT_RANK_EVENT, onPromo\);/, 'the live listener stays for events fired after mount');
+  const card = read('../../src/components/NightRankCard.jsx');
+  assert.match(card, /const pending = takePromotion\(\);\n\s*if \(pending\) setPromo\(pending\);/);
+  assert.match(card, /window\.addEventListener\(NIGHT_RANK_EVENT, onPromo\);/, 'the live listener stays for events fired after mount');
+  assert.equal(read('../../src/views/ResultsView.jsx').includes('takePromotion'), false, 'the results would take it first');
 });

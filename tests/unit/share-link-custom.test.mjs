@@ -10,7 +10,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { encodeQuizSet, decodeQuizSet, buildShareUrl, shareableQuestions, isShareableQuestion } from '../../src/lib/share-link.js';
+import { encodeQuizSet, decodeQuizSet, buildShareUrl, buildShortShareUrl, decodeShareCode, readShareUrlFromLocation, shareableQuestions, isShareableQuestion } from '../../src/lib/share-link.js';
 import { CUSTOM_QUESTION_ID_RANGE } from '../../src/lib/custom-question-ids.js';
 
 const read = (p) => readFileSync(new URL(`../../${p}`, import.meta.url), 'utf8').replace(/\r\n/g, '\n');
@@ -38,16 +38,38 @@ test('the encoded set skips custom questions, and a custom-only set makes no lin
   assert.match(buildShareUrl([bank(7)]), /\?qset=/);
 });
 
-test('the results screen offers the link only for what can travel, and says why otherwise', () => {
-  const results = read('src/views/ResultsView.jsx');
-  assert.match(results, /const shareable = shareableQuestions\(questions\)/);
-  assert.ok(results.includes('ข้อที่สร้างเองแชร์ผ่านลิงก์ไม่ได้'), 'the hint when nothing can be shared');
-  const invite = results.slice(results.indexOf('<details className="vmx-invite">'), results.indexOf('</details>'));
-  assert.match(invite, /shareable\.length > 0 \? \(/, 'the link buttons are drawn only when there is a link to make');
-  assert.match(invite, /<ChallengeQuizButton questions=\{shareable\}/);
-  assert.match(invite, /<SendToGroupButton questions=\{shareable\}/);
-  const writing = results.slice(results.indexOf('if (autoQs.length === 0) {'), results.indexOf('const handleRedoWrong'));
-  assert.match(writing, /<ShareQuizButton questions=\{shareable\} \/>/);
+test('the short link leaves custom questions out, and a custom-only set makes no link', () => {
+  const url = buildShortShareUrl([bank(1), custom(MIN + 1), bank(2)], 'https://vetmock.com');
+  assert.match(url, /^https:\/\/vetmock\.com\/s\/[A-Za-z0-9_-]+$/);
+  assert.deepEqual(decodeShareCode(url.split('/s/')[1]), [{ subject: 'one-health', id: 1 }, { subject: 'one-health', id: 2 }]);
+  assert.equal(buildShortShareUrl([custom(MIN), custom(MAX)], 'https://vetmock.com'), null);
+});
+
+// 5.282.0: the results screen's one share entry makes this link.
+test('a /s/ link round-trips the set, ids and order, and carries nothing else', () => {
+  const set = Array.from({ length: 10 }, (_, i) => ({ subject: 'epidemiology', id: 107019 - i, q: 'stem', answer: 0 }));
+  const url = buildShortShareUrl(set, 'https://vetmock.com');
+  assert.ok(url.length <= 60, `short: ${url.length} characters`);
+  const code = url.slice('https://vetmock.com/s/'.length);
+  assert.deepEqual(decodeShareCode(code), set.map(({ subject, id }) => ({ subject, id })));
+  assert.equal(/[?&#]/.test(url), false, 'no score, time or name parameters');
+  // What api/s.js sends a browser on to opens the same set in the app.
+  const target = `?qset=${encodeQuizSet(set)}`;
+  assert.deepEqual(readShareUrlFromLocation({ search: target }), decodeShareCode(code));
+});
+
+test('a set the short form cannot hold falls back to the old link, still without a score', () => {
+  const url = buildShortShareUrl([{ subject: 'not-in-the-table', id: 5 }], 'https://vetmock.com');
+  assert.equal(url, 'https://vetmock.com/?qset=' + encodeQuizSet([{ subject: 'not-in-the-table', id: 5 }]));
+  assert.equal(/[&](sc|t|by)=/.test(url), false);
+});
+
+test('links sent before 5.282.0 still open, score, time and name included', () => {
+  const old = buildShareUrl([bank(7), bank(9)], { senderScore: { correct: 1, total: 2 }, senderName: 'ฟ้า', senderTimeSec: 61 });
+  const loc = new URL(old);
+  assert.deepEqual(readShareUrlFromLocation(loc), [{ subject: 'one-health', id: 7 }, { subject: 'one-health', id: 9 }]);
+  assert.deepEqual(readShareUrlFromLocation({ search: '' }), []);
+  assert.deepEqual(readShareUrlFromLocation({ search: '?qset=%%%' }), []);
 });
 
 test('a link that opens nothing says so before Home', () => {
