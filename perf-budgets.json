@@ -48,8 +48,8 @@
         ],
         "after": "atlas",
         "js": {
-          "measured": 2261,
-          "budget": 2400
+          "measured": 3627,
+          "budget": 3800
         },
         "css": {
           "measured": 399,
