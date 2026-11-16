@@ -144,7 +144,10 @@ test('the moved clock reads the window, keeps running, and a test that sets its 
   assert.equal(r.own, 7, 'a node:vm sandbox handed its own Date keeps it');
   assert.ok(Math.abs(r.age) < 5000, 'a file written now reads as written now');
   assert.ok(Math.abs(r.oldAge - 120000) < 5000, 'a file time set two minutes back reads two minutes old');
-  assert.ok(Math.abs(r.real - Date.now()) < 5000, 'a reminder dated on the real calendar can still read the real clock');
+  // This file itself runs under the moved clock in the clock-windows job, so compare with the real
+  // clock, not with this process's Date.now().
+  const realNow = globalThis[Symbol.for('vmx.realDateNow')] || Date.now;
+  assert.ok(Math.abs(r.real - realNow()) < 5000, 'a reminder dated on the real calendar can still read the real clock');
   assert.equal(r.inst, true);
   assert.equal(r.str, 'string');
 });
