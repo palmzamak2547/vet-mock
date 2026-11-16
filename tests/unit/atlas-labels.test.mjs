@@ -73,7 +73,7 @@ test('registry builder: emits display anchors, th only when overridden', () => {
   assert.equal(entry['spec-x'].labels[0].latin, 'Cor');
   assert.equal(entry['spec-x'].labels[0].th, undefined);
   assert.equal(entry['spec-x'].labels[1].th, 'ปอด');
-  const expected = sourceToDisplay([1, 2, 3], SYNTHETIC_PROOF.sourceToDisplay).map((v) => Math.round(v * 1e5) / 1e5);
+  const expected = sourceToDisplay([1, 2, 3], SYNTHETIC_PROOF.sourceToDisplay);
   assert.deepEqual(entry['spec-x'].labels[0].display, expected);
 });
 

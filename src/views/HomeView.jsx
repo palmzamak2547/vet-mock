@@ -5,6 +5,7 @@ import { shownName, shownPicture } from '../lib/public-display.js';
 import { isAutoName } from '../lib/identity-gate.js';
 import { subjectText, streakShown, bangkokDayNumber } from '../hooks/utils.js';
 import { QB, isQBYearLoaded } from '../data/questions.js';
+import { planWaiting as planWaitingNow, welcomeShown } from '../lib/home-plan-wait.js';
 // Phase 2 perf: lightweight precomputed Q counts for header/total
 // displays — keeps "1,612 ข้อ" labels cheap and doesn't require the
 // full QB to be scanned on every re-render.
@@ -323,17 +324,18 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   // An account that could not be read is not a first visit: the header's sync line says so.
   // Nor is an account still being read: the banner would show for a moment
   // and then make way for the tour button, moving the whole page.
-  const showWelcome = history.length === 0 && !accountUnread && !accountReading && !welcomeDismissed && !legacyOnboardingSeen;
   // The day's plan is built from the account's history and this year's
   // questions. Until both are here it holds its place instead of drawing a
   // first plan that changes, and grows, a second later; at most 6 s (a bank
   // that cannot load offline must not hold it for good).
+  // The same cap holds the welcome banner (lib/home-plan-wait.js), and a plan
+  // once drawn on this visit is never replaced by the placeholder.
   const [planHold, setPlanHold] = useState(true);
   useEffect(() => { const t = setTimeout(() => setPlanHold(false), 6000); return () => clearTimeout(t); }, []);
-  // With no history and no account to read, the plan is one first-question
-  // card whatever the bank holds: nothing to wait for.
-  const planWaiting = planHold && !pendingResume
-    && (accountReading || (history.length > 0 && !isQBYearLoaded(selectedYear)));
+  const planShown = useRef(false);
+  const planWaiting = planWaitingNow({ capped: !planHold, shown: planShown.current, pendingResume: Boolean(pendingResume), accountReading, historyLength: history.length, bankLoaded: isQBYearLoaded(selectedYear) });
+  if (!planWaiting) planShown.current = true;
+  const showWelcome = welcomeShown({ historyLength: history.length, accountUnread, accountReading, capped: !planHold, dismissed: welcomeDismissed, legacySeen: legacyOnboardingSeen });
 
   // Email-verify banner dismiss — session-only state. We don't persist
   // because we WANT a gentle re-nag if they ignore it across sessions

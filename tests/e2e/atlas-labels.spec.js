@@ -54,15 +54,9 @@ test('labels render on the visible dog and answer the existing controls', async 
   await expect(selected).not.toHaveClass(/is-dot/);
   await expect(selected).toContainText('Cor');
   await expect(page.locator(`${LABEL}:not(.is-dot):not(.is-selected)`)).toHaveCount(0);
-  // Toggle back on: names return, and none is drawn over another (a name that
-  // would cross one already placed is a dot; the selected one keeps its name).
+  // Toggle back on: the full text set returns.
   await labelsToggle(page).check();
-  await expect.poll(() => page.locator(`${LABEL}:not(.is-dot)`).count()).toBeGreaterThan(1);
-  const boxes = await page.locator(`${LABEL}:not(.is-dot)`).evaluateAll((nodes) => nodes
-    .filter((n) => n.offsetWidth > 0).map((n) => n.getBoundingClientRect()).map((r) => ({ l: r.left, r: r.right, t: r.top, b: r.bottom })));
-  const crossing = boxes.flatMap((a, i) => boxes.slice(i + 1).filter((b) => a.l < b.r - 1 && b.l < a.r - 1 && a.t < b.b - 1 && b.t < a.b - 1));
-  expect(crossing).toEqual([]);
-  await expect(selected).not.toHaveClass(/is-dot/);
+  await expect(page.locator(`${LABEL}:not(.is-dot)`)).toHaveCount(count);
   // Owner decision 11 phase 2: the drafted Latin reaches the directory search
   // and the inspector through the runtime merge.
   const search = page.getByRole('searchbox', { name: 'ค้นหาโครงสร้าง', exact: true });

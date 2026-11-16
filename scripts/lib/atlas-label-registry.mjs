@@ -10,11 +10,6 @@ import { sourceToDisplay } from './atlas-label-transform.mjs';
 const finitePoint = value => Array.isArray(value) && value.length === 3 && value.every(Number.isFinite);
 const nonEmpty = value => typeof value === 'string' && value.trim().length > 0;
 
-// Display anchors to five decimals: the model spans about two units, so 1e-5 is
-// under a hundredth of a pixel on any screen, and the label chunk is a third smaller
-// than with seventeen-digit floats (its bundle budget, perf-budgets.json).
-export const roundDisplay = (point) => point.map((v) => Math.round(v * 1e5) / 1e5);
-
 export function buildLabelRegistry(proof, authored) {
   if (!authored) return null;
   if (authored.specimen !== proof.id) throw new Error(`Label file targets "${authored.specimen}" but provenance is "${proof.id}".`);
@@ -26,7 +21,7 @@ export function buildLabelRegistry(proof, authored) {
     if (!nonEmpty(label.latin)) throw new Error(`Label "${label.partId}" ships with an empty latin field.`);
     if (!finitePoint(label.source)) throw new Error(`Label "${label.partId}" has no finite source anchor.`);
     if (!nonEmpty(label.pickedAt) || !nonEmpty(label.pickedAgainst)) throw new Error(`Label "${label.partId}" lacks pick provenance (pickedAt/pickedAgainst).`);
-    const row = { partId: label.partId, display: roundDisplay(sourceToDisplay(label.source, proof.sourceToDisplay)), latin: label.latin.trim() };
+    const row = { partId: label.partId, display: sourceToDisplay(label.source, proof.sourceToDisplay), latin: label.latin.trim() };
     if (label.th !== undefined) {
       if (!nonEmpty(label.th)) throw new Error(`Label "${label.partId}" has an empty th override.`);
       row.th = label.th;

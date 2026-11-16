@@ -50,9 +50,6 @@ export default function AtlasLabels({
   const nameOf = useMemo(() => new Map(parts.map((part) => [part.id, part])), [parts]);
   const layer = useRef(null);
   const nodes = useRef(new Map());
-  // Each name's box, measured once while it is drawn as a name (collision pass).
-  const sizes = useRef(new Map());
-  const retries = useRef(0);
   const [stageSize, setStageSize] = useState(Infinity);
 
   // The density rule reads the stage size, which changes on resize and
@@ -79,7 +76,6 @@ export default function AtlasLabels({
       }
       el.hidden = false;
       const clip = payload.clip;
-      const entries = [];
       for (const label of labels) {
         const node = nodes.current.get(label.partId);
         if (!node) continue;
@@ -94,48 +90,14 @@ export default function AtlasLabels({
           anchorVisible({ visible: true, clipped, behindCamera: projected.behind, offFrustum: false });
         node.style.display = shown ? '' : 'none';
         if (!shown) continue;
-        entries.push({ partId: label.partId, node, emphasized,
-          x: payload.pane.left + projected.x, y: payload.pane.top + projected.y });
-      }
-      // Collision pass: a name whose box would cross one already placed is
-      // drawn as a dot at its point instead (the part list still names it).
-      // The selected part is placed first, so it always keeps its name.
-      entries.sort((p, q) => Number(q.emphasized) - Number(p.emphasized));
-      const placed = [];
-      let unmeasured = false;
-      for (const { partId, node, emphasized, x, y } of entries) {
-        let dot = presentation === 'dots' && !emphasized;
-        if (!dot) {
-          let size = sizes.current.get(partId);
-          if (!size) {
-            // Measured as a name, once per label (a dot has no name box).
-            node.classList.remove('is-dot');
-            size = { w: node.offsetWidth, h: node.offsetHeight };
-            if (size.w && size.h) sizes.current.set(partId, size);
-            else size = null;
-          }
-          if (size) {
-            const box = { l: x - size.w / 2, r: x + size.w / 2, t: y - size.h * 1.18, b: y - size.h * 0.18 };
-            if (placed.some((o) => box.l < o.r && box.r > o.l && box.t < o.b && box.b > o.t)) dot = true;
-            else placed.push(box);
-          } else {
-            // Not laid out yet: a dot until the next frame can measure it.
-            unmeasured = true;
-            dot = !emphasized;
-          }
-        }
-        node.style.transform = dot
-          ? `translate(${x}px, ${y}px) translate(-50%, -50%)`
-          : `translate(${x}px, ${y}px) translate(-50%, -118%)`;
-        node.classList.toggle('is-dot', dot);
+        const x = payload.pane.left + projected.x;
+        const y = payload.pane.top + projected.y;
+        node.style.transform =
+          presentation === 'dots' && !emphasized
+            ? `translate(${x}px, ${y}px) translate(-50%, -50%)`
+            : `translate(${x}px, ${y}px) translate(-50%, -118%)`;
+        node.classList.toggle('is-dot', presentation === 'dots' && !emphasized);
         node.classList.toggle('is-selected', emphasized);
-      }
-      // An idle scene draws no next frame: ask for one while a name is unmeasured.
-      if (unmeasured && retries.current < 30) {
-        retries.current += 1;
-        requestAnimationFrame(() => apply(payload));
-      } else if (!unmeasured) {
-        retries.current = 0;
       }
     };
     registerFrame(apply);

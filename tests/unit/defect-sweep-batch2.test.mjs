@@ -32,6 +32,13 @@ test('the day plan holds its place while the account and the year\'s questions a
   assert.match(read('src/styles.css'), /\.vmx-next-actions-wait \{ min-height: \d+px;/);
 });
 
+test('a plan step keeps its count and "ข้อ" on one line', () => {
+  const src = read('src/components/NextActionCard.jsx');
+  const titles = src.slice(src.indexOf("title: step.kind === 'sr'"), src.indexOf('sub: `', src.indexOf("title: step.kind === 'sr'")));
+  assert.equal((titles.match(/\$\{step\.count\}\\u00a0ข้อ`/g) || []).length, 5);
+  assert.doesNotMatch(titles, /\$\{step\.count\} ข้อ/);
+});
+
 test('no text faded with opacity or a fixed colour where a token belongs', () => {
   assert.doesNotMatch(read('src/views/ScoresView.jsx'), /opacity: 0\.4/);
   assert.doesNotMatch(read('src/views/FacultyView.jsx'), /<span style=\{\{ opacity: 0\.6 \}\}>/);
@@ -53,10 +60,6 @@ test('rail rows, the account pill and the PDF tools are a finger tall', () => {
 
 test('a month name is dropped when the next follows within four weeks', () => {
   assert.match(read('src/components/StreakHeatmap.jsx'), /monthLabels\[i \+ 1\]\.w - monthLabels\[i\]\.w < 4/);
-});
-
-test('atlas names that would cross are drawn as dots', () => {
-  assert.match(read('src/components/AtlasLabels.jsx'), /placed\.some\(/);
 });
 
 test('opening the theme panel moves focus into it', () => {
