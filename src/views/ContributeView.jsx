@@ -419,7 +419,7 @@ function ContributeForm({ goHome, setView, user, selectedYear = 4 }) {
                       onChange={(e) => setOption(i, e.target.value)}
                       placeholder={`ตัวเลือก ${String.fromCharCode(65 + i)}`}
                       maxLength={500}
-                      style={{ flex: 1, minHeight: 40, padding: '8px 10px', borderRadius: 6 }}
+                      style={{ flex: 1, minHeight: 44, padding: '8px 10px', borderRadius: 6, boxSizing: 'border-box' }}
                     />
                     {payload.options.length > 2 && (
                       <button
@@ -488,7 +488,7 @@ function ContributeForm({ goHome, setView, user, selectedYear = 4 }) {
               step={1}
               value={payload.difficulty}
               onChange={(e) => patch({ difficulty: Number(e.target.value) })}
-              style={{ width: '100%' }}
+              style={{ width: '100%', height: 44, margin: 0 }}
             />
             <div style={{
               display: 'flex', justifyContent: 'space-between',

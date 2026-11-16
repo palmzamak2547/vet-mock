@@ -148,7 +148,7 @@ export default function YearSelectView({ goHome, selectedYear, setSelectedYear, 
             <span style={{ fontSize: 14 }}>{showAll ? '▾' : '▸'}</span>
             <span style={{ flex: 1 }}>
               ดูชั้นปีอื่น
-              <span style={{ marginLeft: 8, fontSize: 14, fontFamily: 'var(--vmx-mono)', opacity: 0.6 }}>
+              <span style={{ marginLeft: 8, fontSize: 14, fontFamily: 'var(--vmx-mono)' }}>
                 {scaffoldYears.length} ปี, กำลังเตรียมเนื้อหา
               </span>
             </span>

@@ -1,10 +1,10 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
 import { lazyWithRetry } from '../lib/lazy-retry.js';
 import OptionalFeature from '../components/OptionalFeature.jsx';
 import { shownName, shownPicture } from '../lib/public-display.js';
 import { isAutoName } from '../lib/identity-gate.js';
 import { subjectText, streakShown, bangkokDayNumber } from '../hooks/utils.js';
-import { QB, isQBYearLoaded } from '../data/questions.js';
+import { QB, isQBYearLoaded, onQBMerged } from '../data/questions.js';
 import { planWaiting as planWaitingNow, welcomeShown } from '../lib/home-plan-wait.js';
 // Phase 2 perf: lightweight precomputed Q counts for header/total
 // displays — keeps "1,612 ข้อ" labels cheap and doesn't require the
@@ -333,7 +333,10 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
   const [planHold, setPlanHold] = useState(true);
   useEffect(() => { const t = setTimeout(() => setPlanHold(false), 6000); return () => clearTimeout(t); }, []);
   const planShown = useRef(false);
-  const planWaiting = planWaitingNow({ capped: !planHold, shown: planShown.current, pendingResume: Boolean(pendingResume), accountReading, historyLength: history.length, bankLoaded: isQBYearLoaded(selectedYear) });
+  // Read as a store: Home draws the plan the moment the year's bank lands,
+  // whether or not anything above it renders again.
+  const bankLoaded = useSyncExternalStore(onQBMerged, () => isQBYearLoaded(selectedYear), () => false);
+  const planWaiting = planWaitingNow({ capped: !planHold, shown: planShown.current, pendingResume: Boolean(pendingResume), accountReading, historyLength: history.length, bankLoaded });
   if (!planWaiting) planShown.current = true;
   const showWelcome = welcomeShown({ historyLength: history.length, accountUnread, accountReading, capped: !planHold, dismissed: welcomeDismissed, legacySeen: legacyOnboardingSeen });
 

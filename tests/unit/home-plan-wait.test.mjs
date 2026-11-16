@@ -62,3 +62,13 @@ test('the placeholder announces itself to a screen reader', async () => {
   assert.match(wait[0], /role="status"/);
   assert.match(wait[0], /aria-busy="true"/);
 });
+
+test('a plan step is named by its words, and its arrow is not read out', async () => {
+  // Runs after the test above, which teaches node to load the .jsx files.
+  const { default: NextActionCard } = await import('../../src/components/NextActionCard.jsx');
+  const html = renderToStaticMarkup(createElement(NextActionCard, { history: [], subjects: [], waiting: false }));
+  const cta = html.match(/<span class="vmx-next-action-cta">([\s\S]*?)<\/span><\/span>/);
+  assert.ok(cta, 'the step has its button word');
+  assert.match(cta[1], /<span class="vmx-next-action-cta-word">เริ่ม[^<]+<\/span>/);
+  assert.match(cta[1], /<span class="vmx-next-action-cta-arrow" aria-hidden="true">→/);
+});

@@ -6,7 +6,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import test from 'node:test';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { anchorVisible, DENSITY_THRESHOLD_PX, labelPresentation, projectToScreen } from '../../src/lib/atlas-labels.js';
+import { anchorVisible, DENSITY_THRESHOLD_PX, labelPresentation, placeLabels, projectToScreen } from '../../src/lib/atlas-labels.js';
 import { buildLabelRegistry } from '../../scripts/lib/atlas-label-registry.mjs';
 import { displayToSource, sourceToDisplay } from '../../scripts/lib/atlas-label-transform.mjs';
 
@@ -154,4 +154,46 @@ test('the built atlas first-load graph carries no label chunk (run after npm run
       assert.ok(!/atlas-labels/i.test(file), `label asset ${file} leaked into the atlas static graph`);
     }
   }
+});
+
+const overlapping = (a, b) => a.left < b.left + b.w && b.left < a.left + a.w && a.top < b.top + b.h && b.top < a.top + a.h;
+
+test('placement: crowded names never cross, and every one keeps a box of its own', () => {
+  // Fourteen names whose points sit almost on each other, as the dog's organs do.
+  const items = Array.from({ length: 14 }, (_, i) => ({ id: 'p' + i, x: 600 + (i % 4) * 9, y: 380 + Math.floor(i / 4) * 7, w: 96, h: 38 }));
+  const spots = placeLabels(items, { width: 1180, height: 760 });
+  assert.equal(spots.length, items.length);
+  const boxes = spots.map((spot, i) => ({ ...spot, w: items[i].w, h: items[i].h }));
+  for (let i = 0; i < boxes.length; i += 1) {
+    assert.ok(boxes[i].left >= 0 && boxes[i].top >= 0 && boxes[i].left + boxes[i].w <= 1180 && boxes[i].top + boxes[i].h <= 760, 'inside the stage');
+    for (let j = i + 1; j < boxes.length; j += 1) assert.equal(overlapping(boxes[i], boxes[j]), false, boxes[i].id + ' crosses ' + boxes[j].id);
+  }
+  // A name moved away from its point is joined back to it.
+  for (const spot of spots.slice(1)) {
+    if (!spot.leader) continue;
+    const item = items.find((it) => it.id === spot.id);
+    assert.deepEqual([spot.leader.x1, spot.leader.y1], [item.x, item.y]);
+  }
+  assert.ok(spots.filter((spot) => spot.leader).length >= 10, 'the crowded names are moved out with a line');
+  // No line runs under another name: sampled along each line.
+  for (const spot of spots) {
+    if (!spot.leader) continue;
+    const { x1, y1, x2, y2 } = spot.leader;
+    for (let t = 0.02; t <= 1; t += 0.02) {
+      const px = x1 + (x2 - x1) * t; const py = y1 + (y2 - y1) * t;
+      const under = boxes.find((box) => box.id !== spot.id && px > box.left + 1 && px < box.left + box.w - 1 && py > box.top + 1 && py < box.top + box.h - 1);
+      assert.equal(under, undefined, spot.id + "'s line runs under " + under?.id);
+    }
+  }
+});
+
+test('placement: a lone name sits straight above its point with no line, the selected name is placed first', () => {
+  const [alone] = placeLabels([{ id: 'a', x: 300, y: 300, w: 80, h: 30 }], { width: 900, height: 600 });
+  assert.deepEqual(alone, { id: 'a', left: 260, top: 264, leader: null });
+  const pair = placeLabels([
+    { id: 'other', x: 300, y: 300, w: 80, h: 30 },
+    { id: 'chosen', x: 302, y: 302, w: 80, h: 30, first: true },
+  ], { width: 900, height: 600 });
+  assert.equal(pair[1].leader, null, 'the selected name keeps the spot above its point');
+  assert.notEqual(pair[0].leader, null);
 });

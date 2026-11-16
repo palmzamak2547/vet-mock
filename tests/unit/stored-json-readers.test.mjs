@@ -37,7 +37,6 @@ const KNOWN = [
   ['src/components/OSCEDrill.jsx', 1, 'not yet moved to readStoredJson; no screen broke through it in the 11 Nov stored-key sweep'],
   ['src/components/Question.jsx', 1, 'not yet moved to readStoredJson; no screen broke through it in the 11 Nov stored-key sweep'],
   ['src/components/SmartGrader.jsx', 4, 'not yet moved to readStoredJson; no screen broke through it in the 11 Nov stored-key sweep'],
-  ['src/components/SmartPassage.jsx', 2, 'not yet moved to readStoredJson; no screen broke through it in the 11 Nov stored-key sweep'],
   ['src/data/how-to.js', 1, 'not yet moved to readStoredJson; no screen broke through it in the 11 Nov stored-key sweep'],
   ['src/hooks/useExamSession.js', 1, 'not yet moved to readStoredJson; no screen broke through it in the 11 Nov stored-key sweep'],
   ['src/hooks/useOnlineCount.js', 1, 'not yet moved to readStoredJson; no screen broke through it in the 11 Nov stored-key sweep'],

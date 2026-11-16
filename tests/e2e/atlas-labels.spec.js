@@ -36,6 +36,21 @@ test('labels render on the visible dog and answer the existing controls', async 
   // Thai primary + Latin secondary on one label.
   await expect(page.locator(`${LABEL} b`, { hasText: 'หัวใจ' })).toHaveCount(1);
   await expect(page.locator(`${LABEL} i`, { hasText: 'Cor' })).toHaveCount(1);
+  // Every name on screen is text, and no two names cross (a crowded name moves
+  // to another side of its point or out along a leader line).
+  await expect(page.locator(`${LABEL}.is-dot`)).toHaveCount(0);
+  const boxes = await page.locator(`${LABEL}`).evaluateAll((nodes) => nodes
+    .filter((n) => getComputedStyle(n).display !== 'none')
+    .map((n) => { const r = n.getBoundingClientRect(); return { text: n.textContent, l: r.left, t: r.top, r: r.right, b: r.bottom }; }));
+  expect(boxes.length).toBeGreaterThanOrEqual(10);
+  const crossings = [];
+  for (let i = 0; i < boxes.length; i += 1) {
+    for (let j = i + 1; j < boxes.length; j += 1) {
+      const a = boxes[i]; const b = boxes[j];
+      if (a.l < b.r - 0.5 && b.l < a.r - 0.5 && a.t < b.b - 0.5 && b.t < a.b - 0.5) crossings.push(`${a.text} x ${b.text}`);
+    }
+  }
+  expect(crossings).toEqual([]);
   // Orbiting keeps the layer alive (the scene fires a fresh payload per render).
   await page.locator('.vmx-atlas-interaction').first().hover({ position: { x: 200, y: 200 } });
   await page.mouse.down();

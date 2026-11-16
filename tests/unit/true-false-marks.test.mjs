@@ -25,7 +25,7 @@ const STUBS = [
   { match: '/hooks/useMotionPreferences\\.js$', contents: 'export const useMotionPreferences = () => ({ preferences: { mode: "auto", companion: true, haptics: false }, reduced: true });' },
   { match: '/lib/haptics\\.js$', contents: 'export const haptic = () => false;' },
   { match: 'EvidenceSlot\\.jsx$', contents: `${nothing}\nexport const useEvidenceWarmup = () => {};` },
-  ...['WikiLinkForQuestion', 'SmartPassage', 'NavIcon', 'ZoomableImage', 'VoiceInputButton',
+  ...['WikiLinkForQuestion', 'CasePane', 'NavIcon', 'ZoomableImage', 'VoiceInputButton',
     'HandwritingInput', 'QSourceChip', 'PinButton', 'MissCoach', 'Mochi', 'AiGradePanel', 'MatchDragDrop']
     .map((name) => ({ match: `${name}\\.jsx$`, contents: nothing })),
 ];
