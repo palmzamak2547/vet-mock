@@ -6,6 +6,7 @@ import fs from 'node:fs';
 import { namesIn } from '../../scripts/lib/env-scan.mjs';
 import { contract, renderExample } from '../../scripts/env-contract.mjs';
 import { ENV } from '../../scripts/lib/env-list.mjs';
+import { lintDataCommands } from '../../scripts/lib/lint-list.mjs';
 
 test('reads are found in every form the code uses; writes and comments are not reads', () => {
   const names = namesIn([
@@ -41,5 +42,5 @@ test('.env.example holds names and comments only, never a value', () => {
 test('lint:env runs in lint:data', () => {
   const { scripts } = JSON.parse(fs.readFileSync('package.json', 'utf8'));
   assert.equal(scripts['lint:env'], 'node scripts/env-contract.mjs --check');
-  assert.ok(scripts['lint:data'].split(' && ').includes('npm run lint:env'));
+  assert.ok(lintDataCommands().includes('npm run lint:env'));
 });

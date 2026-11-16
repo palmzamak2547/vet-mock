@@ -27,6 +27,7 @@ import { originPaperNote, originPaperTag, paperNamedIn, scopeOfQuestion } from '
 import { questionNeedsAnswerReview } from '../../src/lib/question-prediction.js';
 import { leakOf, answerParts, figureTextLeak } from '../../scripts/lib/answer-leak.mjs';
 import { preAnswerText, figureTextLeaks, FIGURE_TEXT_FIELDS } from '../../scripts/lint-source-line.mjs';
+import { lintDataCommands } from '../../scripts/lib/lint-list.mjs';
 
 // ── The chip, compiled and rendered without a DOM (as source-label.test.mjs) ──
 const CHIP = 'vetmock-test:source-line-chip';
@@ -263,7 +264,7 @@ test('the question card hands the chip whether the key is on screen, and the dat
   assert.match(card, /const keyShown = mcqRevealed \|\| tfRevealed \|\| fillRevealed \|\| Boolean\(revealAnswer && matchFilled\) \|\| Boolean\(writtenRevealPanel\);/);
   const pkg = JSON.parse(readFileSync(new URL('../../package.json', import.meta.url), 'utf8'));
   assert.equal(pkg.scripts['lint:source-line'], 'node scripts/lint-source-line.mjs');
-  assert.match(pkg.scripts['lint:data'], /npm run lint:source-line/);
+  assert.match(lintDataCommands().join(' && '), /npm run lint:source-line/);
 });
 
 // ── The topic chip in the card's meta row ────────────────────────────────

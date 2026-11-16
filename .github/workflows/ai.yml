@@ -3,7 +3,7 @@
 # ============================================================
 # Runs when the AI app changes, or the shared brand files it serves from
 # the main app's public/. The model route (api/ai-chat.js, api/_lib/ai/)
-# lives in the main project and is covered by its unit suite in build.yml.
+# lives in the main project and is covered by its unit suite in the build job of smoke-e2e.yml.
 #
 # Steps, in the order a contributor runs them locally:
 #   npm test       physics and colour models, a simulated minute of every

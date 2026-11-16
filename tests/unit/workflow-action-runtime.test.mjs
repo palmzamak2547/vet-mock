@@ -2,8 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
+// The build job moved into smoke-e2e.yml on 16 Nov 2026 (build.yml is gone).
 const workflowPaths = [
-  '../../.github/workflows/build.yml',
   '../../.github/workflows/lint-questions.yml',
   '../../.github/workflows/smoke-e2e.yml',
 ];

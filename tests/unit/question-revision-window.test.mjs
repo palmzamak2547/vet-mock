@@ -31,7 +31,10 @@ test('the two-revision window holds only while the grading fields of 4002 and 40
 });
 
 test('the two-revision window is closed after 1 Jan 2027', async () => {
-  if (Date.now() < WINDOW_CLOSES) return;
+  // A reminder dated on the real calendar: it reads the real clock even while the clock windows
+  // (tests/unit/clock-shift.mjs) move Date.now() to a moment years ahead.
+  const realNow = globalThis[Symbol.for('vmx.realDateNow')] || Date.now;
+  if (realNow() < WINDOW_CLOSES) return;
   const open = [];
   for (const entry of BANK_REGISTRY) {
     for (const q of await entry.load()) if (acceptedQuestionRevisions(q).length > 1) open.push(q.id);

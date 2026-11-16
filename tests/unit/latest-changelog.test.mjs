@@ -12,6 +12,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { lintDataCommands } from '../../scripts/lib/lint-list.mjs';
 
 const read = (path) => readFileSync(new URL(path, import.meta.url), 'utf8');
 const full = await import('../../src/data/changelog-all.js');
@@ -53,7 +54,7 @@ test('build, dev and the unit suite write the modules first, and lint:data valid
   assert.match(pkg.scripts['test:unit'], /--import \.\/tests\/unit\/setup-generated\.mjs/);
   assert.match(pkg.scripts['test:unit:utc'], /setup-generated\.mjs/);
   assert.equal(pkg.scripts['lint:changelog-latest'], 'node scripts/regen-latest-changelog.mjs --check');
-  assert.match(pkg.scripts['lint:data'], /npm run lint:changelog-latest/);
+  assert.match(lintDataCommands().join(' && '), /npm run lint:changelog-latest/);
   // Derived files are not committed: two releases in flight would both rewrite them.
   const ignored = read('../../.gitignore');
   for (const f of ['src/data/latest-changelog.generated.js', 'src/data/changelog-releases.generated.js']) assert.match(ignored, new RegExp(`^${f}$`, 'm'));

@@ -72,11 +72,23 @@
 # 2026-11-09 (CI economy, Palm through the main session): a draft pull request
 # runs none of the heavy work here. In the week to 9 Nov this workflow ran 131
 # times, 7 runners of about 9 minutes each, many of them on pushes to pull
-# requests still in progress. A draft gets Build only (build.yml, the cheap
+# requests still in progress. A draft gets the build job only (build.yml until 16 Nov, the cheap
 # signal). Marking it ready for review (`ready_for_review`) runs this workflow
 # once, and every push after that runs it as before. The PostgreSQL boundary
 # job moved here from build.yml on the same day, so marking a pull request
-# ready reruns only what its draft skipped, never the build.
+# ready reran only what its draft skipped. Since 16 Nov the build job is in this
+# workflow too and runs again when a draft is marked ready (see the job).
+#
+# 2026-11-16: one workflow, in the order that answers soonest. Measured 9-15 Nov
+# on 100 pull requests: 47.5% of first pushes green, median 2 pushes, 84 rounds
+# lost, 51 of them to things a two-to-five-minute check finds (unit, a spec the
+# pull request changed, size budget, env contract, lints). So: `build` (the
+# push gate, scripts/push-gate.mjs, also run before a push by the pre-push
+# hook) first; then `changed specs` (the spec files the change adds or changes,
+# on all four engines); then the eleven e2e runners. `unit (clock windows)`,
+# `Annotation PostgreSQL` and `changes` run beside them. Nothing left the gate:
+# `smoke` still needs every runner, and now the changed specs and the clock
+# windows as well.
 #
 # On a draft the job that reports `smoke` runs under another name, so the
 # commit has no result named `smoke` at all. A skipped job passes a required
@@ -103,15 +115,82 @@ on:
     types: [opened, synchronize, reopened, ready_for_review]
   workflow_dispatch:
 
-# A newer push replaces a pull request's run, as in build.yml: 16 of 91 runs between 27 Oct and
+# A newer push replaces a pull request's run: 16 of 91 runs between 27 Oct and
 # 1 Nov were superseded mid-flight and spent 501 runner-minutes after the newer push, holding
 # runners other lanes waited for. Each main commit keeps a group of its own and is never cancelled,
-# because Vercel promotes that commit only after `smoke` passes on it (build.yml has the history).
+# because Vercel promotes that commit only after `smoke` passes on it (on 22 Oct #58 merged, #48 merged a minute later, #58's Build was cancelled and its deployment never
+# promoted; one shared main group without cancel-in-progress was not enough either, since GitHub keeps one
+# pending run per group and cancels the older pending one).
 concurrency:
   group: smoke-${{ github.ref == 'refs/heads/main' && github.sha || github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
+  # The required check `build`, here since 16 Nov 2026 (it was build.yml, its own workflow). It is the
+  # first job of this workflow so that the browsers start only once it passes: a job cannot wait for a
+  # job in another workflow, and before this one push started all eleven e2e runners even when a
+  # two-second lint was about to fail it. It runs scripts/push-gate.mjs, the same script as
+  # `npm run gate:push` and the pre-push hook, so a push that passed the gate on a laptop passes this
+  # job. Measured 9-15 Nov (100 pull requests): 51 of the 84 CI rounds lost were things this job runs.
+  #
+  # It runs on every pull request push, a draft's included: it is the cheap signal while work is in
+  # progress, and Vercel waits for it on main. Marking a draft ready runs it again on the same commit:
+  # skipping it there would leave a skipped `build`, which passes a required check whatever the draft's
+  # run said.
+  #
+  # The lints run before the build on purpose. The build regenerates the changelog banner and prebuild
+  # regenerates the Mochi poses, so a lint that ran after it saw freshly written files and could not
+  # fail on a stale committed one. The lints and the unit suite run at the same time and both report
+  # (every lint step to the end, one annotation per failure, a table in the run summary); the build
+  # waits for both.
+  build:
+    runs-on: ubuntu-24.04
+    # 2026-09-04: a cold-cache npm ci + build measured past 5m and the old cap killed the job mid-audit,
+    # while the Vercel deploy kept shipping. The audit step carries its own 2-minute cap.
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Lints, generated files and the unit suite (push gate, data + unit)
+        run: node scripts/push-gate.mjs --steps=data,unit --github --summary="$GITHUB_STEP_SUMMARY"
+
+      - name: Build and the size budgets (push gate, build + budget)
+        # perf-budgets.json holds each gzip budget beside the size it was set from; docs/GITFLOW.md
+        # section 1 says how one changes.
+        run: node scripts/push-gate.mjs --steps=build,budget --github --summary="$GITHUB_STEP_SUMMARY"
+
+      - name: Install browser for contrast checks
+        # apt goes through scripts/ci-apt-mirrors.sh: on 22 Oct azure.archive.ubuntu.com made this step
+        # take 12.5 min, and on 11 Nov archive.ubuntu.com stopped resolving. The script starts from
+        # whichever mirror answers.
+        run: bash scripts/ci-apt-mirrors.sh 150 npx playwright install --with-deps chromium
+
+      - name: Accessibility gates on the built bundle (push gate, dist)
+        run: node scripts/push-gate.mjs --steps=dist --github --summary="$GITHUB_STEP_SUMMARY"
+
+      - name: Report bundle sizes
+        run: |
+          echo "## Bundle sizes" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          du -sh dist/ >> $GITHUB_STEP_SUMMARY || true
+          ls -lh dist/assets/ | awk 'NR>1 {print $5, $9}' | sort -rh | head -20 >> $GITHUB_STEP_SUMMARY || true
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+      # Soft audit: warns, never blocks (upstream advisories often outpace upstream fixes), with its own
+      # short timeout so a stalled registry cancels the step, not the build.
+      - name: Security audit (warn-only)
+        continue-on-error: true
+        timeout-minutes: 2
+        run: npm audit --omit=dev --audit-level=high || echo "::warning title=Security audit::npm audit found high-severity advisories (warn-only step, does not block)"
+
   changes:
     # A pull request that changes only docs/ and markdown at the repository root cannot change what a browser sees,
     # so it skips the e2e runners (7 of them, 7-10 min each on the docs-only #67 and #71) and `smoke` still reports.
@@ -126,6 +205,7 @@ jobs:
       actions: read
     outputs:
       app: ${{ steps.diff.outputs.app }}
+      specs: ${{ steps.diff.outputs.specs }}
       tree: ${{ steps.reuse.outputs.tree }}
       reuse: ${{ steps.reuse.outputs.reuse }}
     steps:
@@ -138,6 +218,10 @@ jobs:
           elif git diff --quiet HEAD^1 HEAD -- . ':(exclude)docs' ':(exclude,glob)*.md'; then app=false
           else app=true; fi
           echo "app=$app" | tee -a "$GITHUB_OUTPUT"
+          # The spec files this change adds or changes (HEAD^1 is main on a pull request's merge commit,
+          # and the previous main commit on a push): the `changed specs` job runs them first.
+          specs=$(git diff --name-only --diff-filter=AMR HEAD^1 HEAD -- tests/e2e | grep -E '^tests/e2e/[^/]+\.spec\.js$' | grep -vE '/(zz-[^/]*|route-sweep\.spec\.js)$' | tr '\n' ' ' | sed 's/ *$//' || true)
+          echo "specs=$specs" | tee -a "$GITHUB_OUTPUT"
       # Reuse, in shadow (Palm's call through the main session, 2 Nov): a green pull request run
       # records the tree it tested (`smoke` below), and a push to main whose tree one already
       # tested could skip e2e. Nothing is skipped: the full gate runs and decides, `smoke` logs the
@@ -223,10 +307,90 @@ jobs:
           PG_CONTAINER: ${{ job.services.postgres.id }}
         run: node scripts/test-profile-pictures-db.mjs --backend=postgres
 
-  e2e:
-    name: e2e (${{ matrix.label }})
+  # The unit suite with the wall clock moved into the windows where a test that reads the real clock or
+  # the runner's zone breaks (scripts/unit-clock-windows.mjs: 17:05 and 23:55 UTC today, the last day of
+  # the month, the next 29 February). On 15 Nov 2026 a test that built "today" from the runner's date
+  # failed every Build from 17:00 to 24:00 UTC and nobody saw it in daytime runs. Beside the browsers,
+  # not before them: it costs no wall-clock time, and `smoke` waits for it.
+  unit-clock:
+    name: unit (clock windows)
     needs: changes
     if: needs.changes.outputs.app == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: 'npm'
+      - run: npm ci --no-audit --no-fund
+      - name: Unit suite in four clock windows
+        run: node scripts/unit-clock-windows.mjs --jobs=2
+
+  # The spec files this change adds or changes, on all four engines, before the full matrix. Measured
+  # 9-15 Nov: a spec the same pull request changed failed 83 e2e jobs on 14 pull requests, usually on
+  # every engine at once, each time after all eleven runners had started. Same script as the local gate
+  # (scripts/push-gate.mjs --steps=specs), with one retry and --fail-on-flaky-tests: a new spec that
+  # passes only on its retry is not ready. Skipped when no spec file changed. Nothing leaves the full
+  # matrix below, which runs these files again.
+  changed-specs:
+    name: changed specs (${{ matrix.project }})
+    needs: [changes, build]
+    if: needs.changes.outputs.app == 'true' && needs.changes.outputs.specs != ''
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { project: chromium-desktop, browsers: chromium, workers: 2 }
+          - { project: chromium-mobile, browsers: chromium, workers: 2 }
+          - { project: webkit-mobile, browsers: webkit, workers: 1 }
+          - { project: firefox-desktop, browsers: firefox, workers: 1 }
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: 'npm'
+      - run: npm ci --no-audit
+      - name: Cache Playwright browsers
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ matrix.browsers }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-${{ matrix.browsers }}-
+      - name: Install Playwright browsers
+        run: bash scripts/ci-apt-mirrors.sh 300 npx playwright install --with-deps ${{ matrix.browsers }}
+      - name: Prepare software graphics
+        run: bash scripts/ci-apt-mirrors.sh 120 sudo apt-get install -y libgl1-mesa-dri libglx-mesa0 libegl-mesa0 mesa-utils
+      - name: Build production bundle
+        run: npm run build
+      - name: Changed specs (push gate, specs)
+        timeout-minutes: 12
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run --auto-servernum node scripts/push-gate.mjs --steps=specs --projects=${{ matrix.project }} --base=HEAD^1 --workers=${{ matrix.workers }}
+      - name: Upload HTML report on failure
+        if: failure() || cancelled()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report-changed-${{ matrix.project }}
+          path: playwright-report/
+          retention-days: 7
+
+  e2e:
+    name: e2e (${{ matrix.label }})
+    # After the build job and the changed specs, so that a push that fails either never starts eleven
+    # runners. A skipped `changed specs` (no spec file changed) lets the matrix start at once.
+    needs: [changes, build, changed-specs]
+    if: >-
+      always() && needs.changes.outputs.app == 'true' && needs.build.result == 'success' &&
+      (needs.changed-specs.result == 'success' || needs.changed-specs.result == 'skipped')
     runs-on: ubuntu-24.04
     strategy:
       # One engine failing must not cancel the others: the report of every
@@ -464,6 +628,14 @@ jobs:
         if: always()
         run: node scripts/e2e-durations.mjs e2e-results.json connected-e2e.json
 
+      # A test that failed once and passed on its retry fails this step unless tests/e2e/unsteady.json
+      # lists it (with its reason and date; the list can only shrink, tests/unit/e2e-unsteady.test.mjs).
+      # Measured 9-15 Nov 2026: specs a pull request did not touch cost 22 of 84 lost rounds, each one a
+      # retry-flaky test that finally failed both attempts.
+      - name: Only a listed test may pass on its retry
+        if: ${{ !cancelled() }}
+        run: node scripts/e2e-unsteady.mjs e2e-results.json connected-e2e.json
+
       - name: Upload the duration report
         if: always()
         uses: actions/upload-artifact@v7
@@ -492,7 +664,7 @@ jobs:
   # skips there so that the name is evaluated and the check reads plainly.
   smoke:
     name: ${{ github.event.pull_request.draft && 'smoke (draft, e2e runs once marked ready)' || 'smoke' }}
-    needs: [changes, e2e]
+    needs: [changes, build, unit-clock, changed-specs, e2e]
     if: always()
     runs-on: ubuntu-24.04
     timeout-minutes: 5
@@ -506,11 +678,17 @@ jobs:
           CHANGES: ${{ needs.changes.result }}
           APP: ${{ needs.changes.outputs.app }}
           RESULT: ${{ needs.e2e.result }}
+          CHANGED: ${{ needs.changed-specs.result }}
+          CLOCK: ${{ needs.unit-clock.result }}
+          BUILD: ${{ needs.build.result }}
         run: |
-          echo "changes: $CHANGES, app: $APP, e2e runners: $RESULT"
+          echo "changes: $CHANGES, app: $APP, build: $BUILD, changed specs: $CHANGED, clock windows: $CLOCK, e2e runners: $RESULT"
           test "$CHANGES" = "success"
           if [ "$APP" = "false" ]; then exit 0; fi
+          # A failed build skips the e2e runners; that is a red smoke, never a pass.
           test "$RESULT" = "success"
+          test "$CLOCK" = "success"
+          test "$CHANGED" = "success" || test "$CHANGED" = "skipped"
       # Reuse shadow (see `changes`): only a run where every e2e runner passed records its tree.
       - name: Record the tree this green run tested
         if: success() && github.event_name == 'pull_request' && needs.e2e.result == 'success'

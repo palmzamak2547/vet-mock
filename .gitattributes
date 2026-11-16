@@ -23,3 +23,5 @@ public/Sarabun/OFL.txt text eol=lf
 
 # Shell scripts run on the Linux runners; a CRLF checkout must never reach a commit.
 *.sh text eol=lf
+# Git hooks run under sh, which reads a CRLF shebang as part of the interpreter name.
+.githooks/* text eol=lf

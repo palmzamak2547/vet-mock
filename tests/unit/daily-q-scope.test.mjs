@@ -112,6 +112,13 @@ function fakeStorage() {
   };
 }
 
+// The answer sweep keeps 365 days counted back from the clock's day, so a record filed under DATE
+// is only kept while the clock is near DATE: give these tests one fixed instant, noon in Bangkok
+// on DATE, never the real clock.
+function onDate(t) {
+  t.mock.timers.enable({ apis: ['Date'], now: Date.parse(`${DATE}T12:00:00+07:00`) });
+}
+
 function withStorage(t) {
   const storage = fakeStorage();
   const had = globalThis.window;
@@ -122,6 +129,7 @@ function withStorage(t) {
 
 test('the ✓ belongs to the question that was answered, not to the day', (t) => {
   withStorage(t);
+  onDate(t);
   const year4 = { subject: 'com4', id: 1 };
   const year5 = { subject: 'epidemiology', id: 9 };
 
@@ -152,6 +160,7 @@ test('the ✓ belongs to the question that was answered, not to the day', (t) =>
 
 test('a record written before per-question entries still marks its own question, and only its own', (t) => {
   const storage = withStorage(t);
+  onDate(t);
   storage.setItem(TODAY_KEY_PREFIX + DATE, JSON.stringify({ qSubject: 'com4', qId: 1, choice: 0, correct: true, ts: 1 }));
   assert.equal(readTodaysQStatus(DATE, { subject: 'com4', id: 1 }).completed, true);
   assert.equal(readTodaysQStatus(DATE, { subject: 'epidemiology', id: 9 }).completed, false);

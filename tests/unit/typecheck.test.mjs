@@ -8,6 +8,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { lintDataCommands } from '../../scripts/lib/lint-list.mjs';
 
 const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const { scripts } = JSON.parse(fs.readFileSync(path.join(repo, 'package.json'), 'utf8'));
@@ -22,7 +23,7 @@ function seeded(body) {
 
 test('typecheck runs in lint:data as its own step', () => {
   assert.equal(scripts.typecheck, 'node scripts/typecheck.mjs');
-  assert.equal(scripts['lint:data'].split(' && ').filter((s) => s === 'npm run typecheck').length, 1);
+  assert.equal(lintDataCommands().filter((s) => s === 'npm run typecheck').length, 1);
 });
 
 test('every listed file exists and the list has no duplicates', () => {

@@ -9,7 +9,7 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 - **optional**: a feature turns off or a default applies.
 - Runtime: *browser build* is baked in by Vite at build time (a change needs a rebuild); *function* is read by a Vercel function per request; *edge function* by a Supabase function; *script*, *test* and *build* run on a machine or in CI.
 
-132 names, 12 required; 10 more are set by the platform.
+134 names, 12 required; 11 more are set by the platform.
 
 ## Supabase
 
@@ -179,6 +179,8 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 | `PGHOST` | optional | script | `vca/scripts/test-community-db.mjs` | Postgres socket folder for the VCA community harness. |
 | `PGUSER` | optional | script | `vca/scripts/test-community-db.mjs` | Postgres user for the VCA community harness; default postgres. |
 | `VMX_GATE_LOCK` | optional | script | `scripts/gate.mjs` | Moves the local gate's e2e lock file. |
+| `VMX_GATE` | optional | script | `scripts/push-gate.mjs` | full makes the pre-push hook run the unit suite too (and, for a changed spec file, the build, budgets, contrast and those specs); by default the hook runs the data lints only (VMX_GATE=full git push). |
+| `VMX_SKIP_GATE` | optional | script | `scripts/pre-push.mjs` | 1 skips the pre-push gate for one push (VMX_SKIP_GATE=1 git push); the skip is printed and logged in the git dir. |
 | `VMX_ROUTE_SWEEP` | optional | test | `playwright.config.js` | Set to 1 by test:e2e:sweep to run the route sweep, which every other run leaves out. |
 | `VMX_DEFECT_SWEEP` | optional | test | `playwright.config.js` | Set to 1 by sweep:defects to run the defect sweep, which every other run leaves out. |
 | `VMX_DEFECT_OUT` | optional | script, test | `scripts/defect-sweep.mjs`, `tests/e2e/lib/defects.js` | Folder the defect sweep writes its findings and pictures to; default work/defect-sweep. |
@@ -212,10 +214,11 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 
 | Name | Read in | Meaning |
 |---|---|---|
-| `CI` | `playwright.config.js`, `research/playwright.config.js`, `scripts/check-ci-graphics.mjs` +1 | set by GitHub Actions; Playwright and a few scripts switch to CI mode |
+| `CI` | `playwright.config.js`, `research/playwright.config.js`, `scripts/check-ci-graphics.mjs` +4 | set by GitHub Actions; Playwright and a few scripts switch to CI mode |
 | `GITHUB_ACTIONS` | `scripts/test-annotation-db.mjs`, `scripts/test-chula-wall-db.mjs`, `scripts/test-failure-record-db.mjs` +6 | set by GitHub Actions; the SQL harnesses refuse native Postgres without it |
-| `GITHUB_STEP_SUMMARY` | `scripts/e2e-durations.mjs`, `scripts/perf-budget.mjs`, `tests/e2e/perf-budget.spec.js` | set by GitHub Actions; perf and e2e duration reports append to it |
+| `GITHUB_STEP_SUMMARY` | `scripts/e2e-durations.mjs`, `scripts/e2e-unsteady.mjs`, `scripts/perf-budget.mjs` +1 | set by GitHub Actions; perf and e2e duration reports append to it |
 | `NODE_ENV` | `api/_lib/rate-limit.js` | set by Node tooling and Vercel; production makes the rate limiter require Upstash |
+| `NODE_OPTIONS` | `scripts/unit-clock-windows.mjs` | read by Node itself; test:unit:clock keeps what is set and adds the preload that moves the clock |
 | `PATH` | `scripts/video-asr.py` | the system search path; scripts/video-asr.py adds its CUDA folder |
 | `VERCEL_ENV` | `api/_lib/chula-gate.js`, `api/_lib/rate-limit.js` | set by Vercel; production makes the rate limiter and the Chula gate fail closed |
 | `VERCEL_GIT_COMMIT_SHA` | `vite.config.js` | set by Vercel builds; vite.config.js writes it into the vmx-build meta tag |

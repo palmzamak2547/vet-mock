@@ -16,6 +16,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { lintDataCommands } from '../../scripts/lib/lint-list.mjs';
 
 const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const SCRIPT = path.join(repo, 'scripts', 'lint-untracked.mjs');
@@ -128,5 +129,5 @@ test('it reads the repository root even when run from a subdirectory', () => {
 test('lint:data runs lint:untracked first, so it costs nothing and precedes the build', () => {
   const { scripts } = JSON.parse(fs.readFileSync(path.join(repo, 'package.json'), 'utf8'));
   assert.equal(scripts['lint:untracked'], 'node scripts/lint-untracked.mjs');
-  assert.equal(scripts['lint:data'].split(' && ')[0], 'npm run lint:untracked');
+  assert.equal(lintDataCommands()[0], 'npm run lint:untracked');
 });
