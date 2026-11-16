@@ -80,6 +80,12 @@ test('the bar opens the voice settings; speed, tone and voice are heard at once 
   await expect(bar.getByRole('status')).toHaveText('เสียงอ่านของเครื่อง');
   const barBox = await bar.boundingBox();
   const card = page.locator('.vmx-question-card');
+  // A new question slides in from 8 px to the right for 160 ms, and the steps above can end inside that slide.
+  // Read then, the card was 1.5 px short of its place and the comparison below failed (once in CI, on
+  // 17 Nov 2026). Its place is read once the motion that carries it has ended.
+  await card.evaluate(async (el) => {
+    await Promise.allSettled(document.getAnimations().filter((a) => a.effect?.target?.contains(el)).map((a) => a.finished));
+  });
   const cardBox = await card.boundingBox();
 
   // Two taps from the bar to any speed: the button, then the speed.
