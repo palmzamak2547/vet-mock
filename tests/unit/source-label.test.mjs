@@ -107,6 +107,8 @@ const STUBS = {
   '../hooks/useModalFocus.js': 'export const useModalFocus = () => ({ current: null });',
   // The chip's line icon. A named function, so the tree can say which glyph.
   './NavIcon.jsx': 'export default function NavIcon() { return null; }',
+  // The source clips' boundary: draws its children.
+  './OptionalFeature.jsx': 'export default function OptionalFeature({ children }) { return children; }',
 };
 const repoRoot = fileURLToPath(new URL('../../', import.meta.url));
 const fileUrl = (rel) => pathToFileURL(repoRoot + rel).href;

@@ -1,4 +1,6 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { lazyWithRetry } from '../lib/lazy-retry.js';
+import OptionalFeature from '../components/OptionalFeature.jsx';
 import BackBar from '../components/BackBar.jsx';
 import PanicCard from '../components/PanicCard.jsx';
 import { hasPanicCard } from '../data/panic-cards.js';
@@ -13,7 +15,7 @@ import { fetchRelatedDocs, librarySubjectCounts } from '../lib/library.js';
 import { takeRelatedReturn } from '../lib/related-return.js';
 import RelatedDocs from '../components/RelatedDocs.jsx';
 // Lazy: the topic screen pays for the video code only when a list opens.
-const TopicClips = lazy(() => import('../components/TopicClips.jsx'));
+const TopicClips = lazyWithRetry(() => import('../components/TopicClips.jsx'));
 import { takeViewIntent, consumeViewIntent } from '../lib/feature-registry.js';
 import { lessonsForSubject } from '../data/lessons.js';
 import { hasLecturerSet, lecturerSetFor } from '../data/lecturer-sets.js';
@@ -47,7 +49,7 @@ const VCA_NOTES_MAP = {
 
 // Loaded when the tab is opened: it carries the per-kind count table (~96 KB)
 // that no other screen needs, so the topic screen's own chunk stays as it was.
-const LecturerSets = lazy(() => import('../components/LecturerSets.jsx'));
+const LecturerSets = lazyWithRetry(() => import('../components/LecturerSets.jsx'));
 
 // One lazy index for the whole view (and every later visit): the names that
 // have a profile, not the profiles (data/instructor-index.js).
@@ -551,7 +553,22 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
         {/* Interactive lessons belong to their subject, not to the left rail:
             a year-5 module is not a destination a first year should walk past
             on every screen. */}
-        {lessonsForSubject(subject).map((lesson) => (
+        {lessonsForSubject(subject).map((lesson) => (lesson.links ? (
+          // A lesson hosted outside VetMock: one card, one link per module,
+          // each opening the lecturer's page in a new tab.
+          <div key={lesson.id} className="vmx-mode-card vmx-mode-card--links">
+            <div className="icon"><NavIcon name="link" size={20} /></div>
+            <div className="title">{lesson.title}</div>
+            <div className="sub">{lesson.sub}</div>
+            <ul className="vmx-mode-card__links">
+              {lesson.links.map((link) => (
+                <li key={link.url}>
+                  <a href={link.url} target="_blank" rel="noopener noreferrer">{link.label}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
           <button
             key={lesson.id}
             className="vmx-mode-card"
@@ -561,7 +578,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
             <div className="title">{lesson.title}</div>
             <div className="sub">{lesson.sub}</div>
           </button>
-        ))}
+        )))}
       </div>
 
       {subjectMeta?.examFormat && (
@@ -672,7 +689,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
         <div className="vmx-lect-block">
           <div className="vmx-section-label">ข้อสอบ{EXAM_SCOPE_LABEL[scopeForPhase(paperPhase)]}แยกตามอาจารย์ผู้สอน</div>
           {oldContentLine(lecturerSource) && <p className="vmx-old-content">{oldContentLine(lecturerSource)}</p>}
-          <Suspense fallback={<LecturerSetsSkeleton count={lecturerCount} />}>
+          <OptionalFeature pending={<LecturerSetsSkeleton count={lecturerCount} />}>
             <LecturerSets
               subject={subject}
               topics={topics}
@@ -684,7 +701,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
               instantFeedback={instantFeedback}
               setInstantFeedback={setInstantFeedback}
             />
-          </Suspense>
+          </OptionalFeature>
         </div>
       )}
       {/* A subject can be real and still have nothing on the paper the
@@ -921,7 +938,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
               )}
               {openClips === t.id && (
                 <div className="vmx-topic-related">
-                  <Suspense fallback={null}><TopicClips topicId={t.id} /></Suspense>
+                  <OptionalFeature><TopicClips topicId={t.id} /></OptionalFeature>
                 </div>
               )}
               {openRelated === t.id && related.length > 0 && (

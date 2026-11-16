@@ -13,8 +13,9 @@
 //   • No external lib, ~50 LOC
 // ============================================================
 
-import { lazy, useEffect, useRef, useState } from 'react';
-const MotionLoader = lazy(() => import('./MotionLoader.jsx'));
+import { useEffect, useRef, useState } from 'react';
+import { lazyWithRetry } from '../lib/lazy-retry.js';
+const MotionLoader = lazyWithRetry(() => import('./MotionLoader.jsx'));
 import Mochi from './Mochi.jsx';
 import OptionalFeature from './OptionalFeature.jsx';
 

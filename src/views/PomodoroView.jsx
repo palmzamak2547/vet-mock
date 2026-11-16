@@ -12,7 +12,8 @@
 //   {view === 'pomodoro' && <PomodoroView goHome={goHome} />}
 // alongside the existing view branches.
 
-import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { lazyWithRetry } from '../lib/lazy-retry.js';
 import BackBar from '../components/BackBar.jsx';
 import PomodoroTimer from '../components/PomodoroTimer.jsx';
 import BuddySelector from '../components/BuddySelector.jsx';
@@ -33,7 +34,7 @@ import {
   POMODORO_DEFAULTS,
 } from '../lib/pomodoro.js';
 
-const MascotSquad3DViewer = lazy(() => import('../components/MascotSquad3DViewer.jsx'));
+const MascotSquad3DViewer = lazyWithRetry(() => import('../components/MascotSquad3DViewer.jsx'));
 
 // Pomodoro's own story is the hatching chick: the status line, the escape
 // banner and Strict Mode all talk about it. It stays the buddy here until the

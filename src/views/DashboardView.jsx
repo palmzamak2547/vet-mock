@@ -1,4 +1,6 @@
-import { useMemo, useState, useEffect, useRef, lazy, Suspense } from 'react';
+import { useMemo, useState, useEffect, useRef } from 'react';
+import { lazyWithRetry } from '../lib/lazy-retry.js';
+import OptionalFeature from '../components/OptionalFeature.jsx';
 import { SUBJECTS, QB } from '../data/questions.js';
 import { buildExamPool } from '../lib/exam-pool.js';
 import { yearForSubject } from '../data/curriculum.js';
@@ -20,13 +22,14 @@ import { confirmDialog, alertDialog } from '../lib/dialog.js';
 import { thaiError } from '../lib/errors.js';
 import { computeSubjectProgress } from '../lib/subject-progress.js';
 import EmptyState from '../components/EmptyState.jsx';
+import StatePanel from '../components/StatePanel.jsx';
 import NavIcon from '../components/NavIcon.jsx';
 import { EMPTY_ART } from '../data/art.js';
 
 // OSCE drill is a heavier interactive modal — lazy load when launched.
-const OSCEDrill = lazy(() => import('../components/OSCEDrill.jsx'));
+const OSCEDrill = lazyWithRetry(() => import('../components/OSCEDrill.jsx'));
 // Diagram label exercise — anatomy hot-spot labeling (canvas-light SVG drill).
-const DiagramLabelDrill = lazy(() => import('../components/DiagramLabelDrill.jsx'));
+const DiagramLabelDrill = lazyWithRetry(() => import('../components/DiagramLabelDrill.jsx'));
 
 // Bucket history into per-subject daily accuracy over the last `daysBack`
 // days. Returns { dayLabels, subjects: [{id, name, icon, color, points,
@@ -298,7 +301,7 @@ function WebVitalsPanel() {
   );
 }
 
-export default function DashboardView({ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, setSubject, setTopic, history, notes, srCards, streak, streakData, customQuestions, selectedYear = 4, selectedPhase, readingChecklist = {}, pendingExamResults = [], restoreUserData, ownerId = null, recoveryArchive = null }) {
+export default function DashboardView({ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, setSubject, setTopic, history, notes, srCards, streak, streakData, customQuestions, selectedYear = 4, selectedPhase, readingChecklist = {}, pendingExamResults = [], restoreUserData, ownerId = null, recoveryArchive = null, accountUnread = false, onRetrySync = null }) {
   const [archiveBusy, setArchiveBusy] = useState(false);
   const [eventArchiveParts, setEventArchiveParts] = useState([]);
   const mountedRef = useRef(true);
@@ -569,7 +572,16 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
         )}
       </div>
 
-      {!scopedAnalytics ? (
+      {!scopedAnalytics && accountUnread ? (
+        // Nothing on this device and the account could not be read: not "no progress yet".
+        <StatePanel
+          kind="error"
+          title="ยังอ่านข้อมูลจากบัญชีไม่ได้"
+          body="ข้อมูลในเครื่องยังอยู่ครบ ความคืบหน้าที่ทำจากเครื่องอื่นจะขึ้นเมื่ออ่านบัญชีได้"
+          actionLabel={typeof onRetrySync === 'function' ? 'ลองอีกครั้ง' : undefined}
+          onAction={typeof onRetrySync === 'function' ? onRetrySync : undefined}
+        />
+      ) : !scopedAnalytics ? (
         <EmptyState
           art={EMPTY_ART.dashboard}
           icon={<NavIcon name="progress" size={44} />}
@@ -770,9 +782,9 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
       </div>
 
       {osceOpen && (
-        <Suspense fallback={null}>
+        <OptionalFeature label="แบบฝึก OSCE" onClose={() => setOsceOpen(false)}>
           <OSCEDrill onClose={() => setOsceOpen(false)} />
-        </Suspense>
+        </OptionalFeature>
       )}
 
       <div className="vmx-dash-card">
@@ -790,9 +802,9 @@ export default function DashboardView({ analytics, bookmarks, setHistory, setBoo
       </div>
 
       {diagramOpen && (
-        <Suspense fallback={null}>
+        <OptionalFeature label="แบบฝึก diagram" onClose={() => setDiagramOpen(false)}>
           <DiagramLabelDrill onClose={() => setDiagramOpen(false)} />
-        </Suspense>
+        </OptionalFeature>
       )}
 
       <WebVitalsPanel />

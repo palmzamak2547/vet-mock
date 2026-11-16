@@ -1,4 +1,5 @@
-import { useState, useEffect, useMemo, useCallback, useRef, Suspense, lazy } from 'react';
+import { useState, useEffect, useMemo, useCallback, useRef, Suspense } from 'react';
+import { lazyWithRetry } from './lib/lazy-retry.js';
 import { getShuffledOptions } from './lib/option-shuffle.js';
 import { flushSync } from 'react-dom';
 // Phase 3 perf: QB is now lazy. The static export here is the SAME
@@ -40,6 +41,7 @@ import HeaderBar from './components/HeaderBar.jsx';
 import Sidebar from './components/Sidebar.jsx';
 import Footer from './components/Footer.jsx';
 import SyncStatusNotice from './components/SyncStatusNotice.jsx';
+import { isAccountUnread } from './lib/account-unread.js';
 import AuthRequiredState, { AuthUnavailableState } from './components/AuthRequiredState.jsx';
 import { useStudyBuddies } from './hooks/useStudyBuddies.js';
 import { useExamSession } from './hooks/useExamSession.js';
@@ -236,17 +238,13 @@ const INFLIGHT_SAVE_FAILED = 'บันทึกคำตอบลงเคร�
 // preview` serves the PRODUCTION build, so the tags would inject and the
 // SPA fallback answers /_vercel/*.js with HTML — two guaranteed console
 // SyntaxErrors polluting every local verification sweep.
-const Analytics = lazy(() =>
-  import('@vercel/analytics/react').then((m) => ({ default: m.Analytics })),
-);
-const SpeedInsights = lazy(() =>
-  import('@vercel/speed-insights/react').then((m) => ({ default: m.SpeedInsights })),
-);
+const Analytics = lazyWithRetry(() => import('@vercel/analytics/react'), (m) => ({ default: m.Analytics }));
+const SpeedInsights = lazyWithRetry(() => import('@vercel/speed-insights/react'), (m) => ({ default: m.SpeedInsights }));
 // Mochi voice ships dark: only admins ask the server whether it is on, so no
 // one else downloads the panel or calls the route. Flip to true (and set
 // MOCHI_VOICE_OPEN=1 on the server) to open it to every signed-in student.
 const MOCHI_VOICE_FOR_ALL = false;
-const MochiVoice = lazy(() => import('./components/MochiVoice.jsx'));
+const MochiVoice = lazyWithRetry(() => import('./components/MochiVoice.jsx'));
 const IS_LOCAL_HOST = typeof window !== 'undefined'
   && /^(localhost|127\.|192\.168\.|\[::1\])/.test(window.location.hostname);
 
@@ -3467,7 +3465,7 @@ export default function App() {
               {AUTH_REQUIRED_VIEWS.has(view) && !user && (
                 <AuthRequiredState page={viewTitle(view)} onSignIn={() => setView('auth')} onHome={goHome} />
               )}
-              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, srCards, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, phaseStatus, pendingResume: resumeBusy && pendingResume ? { ...pendingResume, busy: true } : pendingResume, resumePendingExam, dismissPendingExam, history, streakData, setFeedbackPrefill, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true), onOpenTour: openTour, isAdmin }} onStartPanic={startPanicSession} onStartSubjectPanic={startSubjectPanic} onOpenWrapUp={openWrapUp} />}
+              {view === 'home' && <HomeView {...{ setView, setMode, setSubject, setTopic, setPracticeMode, setNumQuestions, setUseTimer, setTimePerQ, startExam, replayQuestions, srCards, bookmarks, customQuestions, user, profile, readingChecklist, onlineCount, onlineStatus, selectedYear, setSelectedYear, selectedPhase, setSelectedPhase, phaseStatus, pendingResume: resumeBusy && pendingResume ? { ...pendingResume, busy: true } : pendingResume, resumePendingExam, dismissPendingExam, history, streakData, setFeedbackPrefill, onSketch: () => setSketchOpen(true), onVoiceSettings: () => setVoiceSettingsOpen(true), onOpenTour: openTour, isAdmin, accountUnread: isAccountUnread(Boolean(user), userDataSync) }} onStartPanic={startPanicSession} onStartSubjectPanic={startSubjectPanic} onOpenWrapUp={openWrapUp} />}
               {view === 'auth' && hasSupabase && <AuthView onBack={goHome} onSuccess={goHome} user={user} />}
               {view === 'auth' && !hasSupabase && <AuthUnavailableState onHome={goHome} />}
               {view === 'groups' && user && <GroupsView {...{ user, profile, goHome, setActiveGroup, setView }} />}
@@ -3498,7 +3496,7 @@ export default function App() {
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, useTimer, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions: replayWrongRound, challengeSender, sessionKind, examStartTime, completedAt: session.completedAt ?? completedAtRef.current, saveStatus: examSaveStatus }} />}
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes: notesView, setNote, user, selectedYear, selectedPhase, onOpenWiki: openWiki }} />}
               {view === 'sr-session' && <SRSessionView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady, qbRevision, loadAllYears, onOpenWiki: openWiki, history, startExam }} />}
-              {view === 'dashboard' && <DashboardView key={user?.id || 'guest'} ownerId={user?.id || null} recoveryArchive={userDataSync.recoveryArchive} {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, setSubject, setTopic, history, notes, srCards, streak: streakShown(streakData), streakData, customQuestions, selectedYear, selectedPhase, readingChecklist, pendingExamResults, restoreUserData: changeUserData }} />}
+              {view === 'dashboard' && <DashboardView key={user?.id || 'guest'} ownerId={user?.id || null} recoveryArchive={userDataSync.recoveryArchive} accountUnread={isAccountUnread(Boolean(user), userDataSync)} onRetrySync={userDataSync.retry} {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, setSubject, setTopic, history, notes, srCards, streak: streakShown(streakData), streakData, customQuestions, selectedYear, selectedPhase, readingChecklist, pendingExamResults, restoreUserData: changeUserData }} />}
               {view === 'question-manager' && <QuestionManagerView key={user?.id || 'guest'} appendQuestions={incoming => changeUserData((data, sync) => ({ customQuestions: appendCustomQuestions(data, incoming, sync?.takenCustomQuestionIds()) }))} {...{ customQuestions, setCustomQuestions, goHome, selectedYear }} />}
               {view === 'schedule' && <ScheduleView {...{ goHome, setSubject, setTopic, setMode, setView, setPracticeMode, selectedYear, selectedPhase, setSelectedPhase, customQuestions }} />}
               {view === 'scores' && <ScoresView {...{ goHome }} />}

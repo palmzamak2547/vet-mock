@@ -103,3 +103,51 @@ test('a failed loading animation still lets the requested page finish loading', 
     finishView();
   }
 });
+
+// The header's level chip once took the whole app with it: one failed request
+// for its script and every screen was blank (defect sweep, 16 Nov 2026). It is
+// optional now, so the page under it draws and works. WebKit is left out of the
+// retry half: Playwright's WebKit never asks again for a chunk that failed.
+test('a level chip that cannot load leaves the header and the page working', async ({ page }) => {
+  let chipFailed = false;
+  await page.route(/\/assets\/XpChip-[^/]+\.js/, route => { chipFailed = true; return route.abort(); });
+  await page.goto('/app/feedback');
+  await expect.poll(() => chipFailed).toBe(true);
+  const draft = page.locator('#vmx-feedback-message');
+  await draft.fill('ส่วนหัวยังใช้ได้');
+  await expect(draft).toHaveValue('ส่วนหัวยังใช้ได้');
+  await expect(page.getByRole('heading', { name: 'หน้านี้ขัดข้อง', exact: true })).toHaveCount(0);
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  const search = page.getByRole('button', { name: /^ค้นหา/ }).filter({ visible: true }).first();
+  await search.click();
+  await expect(page.getByRole('dialog', { name: 'ค้นหาอัจฉริยะ' })).toBeVisible();
+});
+
+test('one dropped request for a part of Home is asked for again, and the part appears', async ({ page, browserName }) => {
+  test.skip(browserName === 'webkit', 'Playwright WebKit never refetches a chunk that failed (chunk-error.js)');
+  let failures = 0;
+  let served = 0;
+  await page.route(/\/assets\/QuestsPanel-[^/]+\.js/, route => {
+    if (failures === 0) { failures += 1; return route.abort(); }
+    served += 1;
+    return route.continue();
+  });
+  await page.goto('/');
+  await expect(page.locator('#main')).toBeVisible();
+  await expect.poll(() => failures).toBe(1);
+  await expect.poll(() => served).toBeGreaterThan(0);
+  await expect(page.getByRole('heading', { name: 'หน้านี้ขัดข้อง', exact: true })).toHaveCount(0);
+  await page.locator('.vmx-home-extras > summary').click();
+  await expect(page.getByLabel('ภารกิจประจำวัน')).toBeVisible();
+});
+
+test('a part of Home that never loads leaves the rest of Home in place', async ({ page }) => {
+  let failed = false;
+  await page.route(/\/assets\/QuestsPanel-[^/]+\.js/, route => { failed = true; return route.abort(); });
+  await page.goto('/');
+  await expect.poll(() => failed).toBe(true);
+  await expect(page.locator('.vmx-home-extras > summary')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'หน้านี้ขัดข้อง', exact: true })).toHaveCount(0);
+  await page.locator('.vmx-home-extras > summary').click();
+  await expect(page.getByLabel('ภารกิจประจำวัน')).toHaveCount(0);
+});

@@ -4,7 +4,8 @@
 // advisory; it is meant to become a CI job, then a gate after the finals (4 Dec 2026).
 //
 // The routes come from the code: every view in `APP_VIEW_ROUTES` (src/lib/view-route.js), plus the
-// two addresses in EXTRA_ROUTES. Every view App.jsx renders must have an address or a reason in
+// two addresses in EXTRA_ROUTES (both lists in tests/e2e/lib/routes.js, which the defect sweep reads
+// too). Every view App.jsx renders must have an address or a reason in
 // NOT_ROUTED, so a new view that is neither fails here the day it is added.
 //
 // Each route is opened at a phone's width as a student (a year, a paper, history, review cards, a
@@ -30,37 +31,9 @@
 import { readFileSync } from 'node:fs';
 import { test, expect, PINNED_NOW } from './fixtures.js';
 import { APP_VIEW_ROUTES, YEAR_SCOPED_VIEW_IDS, frontDoorFor } from '../../src/lib/view-route.js';
-import { QB, loadQB } from '../../src/data/questions.js';
-import { isQuestionDeliverable } from '../../src/data/question-delivery.generated.js';
+import { NOT_ROUTED, ROUTES, studiedQuestions, seedStudent, isNoise, visit, readScreen } from './lib/routes.js';
 
 const LOADING_BUDGET_MS = 30_000;
-
-// Views App.jsx renders that have no address of their own, and why.
-const NOT_ROUTED = {
-  landing: 'the front door at / for a visitor with no year (the visitor persona of / and of year-scoped routes)',
-  auth: 'sign-in screen, opened from a button; this bundle has no backend to sign in to',
-  'topic-select': 'needs a chosen subject: a step of the practice flow',
-  config: 'needs a chosen subject and topic: a step of the practice flow',
-  exam: 'needs a running set',
-  results: 'needs a finished set',
-  review: 'needs a finished set',
-  wrapup: 'needs a chosen paper wrap-up, opened from Home',
-  notes: 'needs a chosen subject; reached from a topic',
-  knowledge: 'the wiki reader, served at /wiki/* (opened below as an extra route)',
-  wiki: 'the wiki reader, served at /wiki/* (opened below as an extra route)',
-  profile: 'a personal hub opened from the bar; view-route.js explains why it has no link',
-  'group-detail': 'needs a signed-in account and a chosen group',
-  lab: 'Imaging Practical, opened at /#lab (an extra route below)',
-  'connect-apps': 'opened from settings with a signed-in account',
-  'mock-exam': 'retired; renders the fallback only',
-  'mock-results': 'retired; renders the fallback only',
-};
-
-// Addresses that are routes but not views of APP_VIEW_ROUTES: [view App shows, path].
-const EXTRA_ROUTES = [
-  ['knowledge', '/wiki'],
-  ['lab', '/#lab'],
-];
 
 const appSource = readFileSync(new URL('../../src/App.jsx', import.meta.url), 'utf8');
 const rendered = new Set([...appSource.matchAll(/\{\(?view === '([\w-]+)'(?: \|\| view === '([\w-]+)')?\)? &&/g)]
@@ -93,7 +66,6 @@ const KNOWN = [
 
 const PERSONAS = ['student', 'visitor'];
 const PHONE = { width: 390, height: 844 };
-const ROUTES = [...Object.entries(APP_VIEW_ROUTES), ...EXTRA_ROUTES];
 
 test('every view App.jsx renders has an address or a reason it has none', () => {
   const routed = new Set(Object.keys(APP_VIEW_ROUTES));
@@ -118,66 +90,6 @@ test('the expected redirects are exactly the ones the code makes', () => {
   expect([...YEAR_SCOPED_VIEW_IDS].every((v) => OUTCOME[v]?.visitor === 'landing')).toBe(true);
 });
 
-// The student's history and cards name real questions of their year, as a real student's do.
-let studiedOnce;
-function studiedQuestions() {
-  studiedOnce ??= loadQB().then(() => {
-    const picked = QB.filter((q) => q.year === 5 && isQuestionDeliverable(q) && (q.type === 'mcq' || q.type === 'tf')).slice(0, 12)
-      .map((q) => ({ id: q.id, subject: q.subject }));
-    if (picked.length < 12) throw new Error('the sweep needs twelve year-5 questions for its student');
-    return picked;
-  });
-  return studiedOnce;
-}
-
-function seedStudent({ now, studied }) {
-  try {
-    const day = 86_400_000;
-    localStorage.setItem('vmx-selected-year', '5');
-    localStorage.setItem('vmx-selected-phase', JSON.stringify('1-mid'));
-    localStorage.setItem('vmx-seen-landing', '1');
-    localStorage.setItem('vmx-consent', JSON.stringify('essential'));
-    localStorage.setItem('vmx-pwa-install-dismissed', '1');
-    localStorage.setItem('vmx-history', JSON.stringify(studied.map((q, i) => ({
-      date: now - i * 3_600_000, questionId: q.id, subject: q.subject, year: 5, phase: '1-mid', correct: i % 3 !== 0,
-    }))));
-    localStorage.setItem('vmx-sr-cards', JSON.stringify(Object.fromEntries(studied.slice(0, 3).map(({ id }) => [id, {
-      questionId: id, easeFactor: 2.5, interval: 1, repetitions: 1, lapses: 0, totalReviews: 1,
-      lastReview: now - 3 * day, nextReview: now - day,
-    }]))));
-    localStorage.setItem('vmx-bookmarks', JSON.stringify([studied[0].id]));
-    localStorage.setItem('vmx-streak', JSON.stringify({ streak: 3, lastDate: now - day, freezeUsedAt: null }));
-  } catch { /* storage refused: the visit itself will say so */ }
-}
-
-const isNoise = (text) => /Vercel Web Analytics|Vercel Speed Insights|va\.vercel-scripts|vitals\.vercel-insights|_vercel\/(insights|speed-insights)|Unrecognized feature|downloadable font.*fonts\.gstatic\.com|__cf_bm|rejected for invalid domain/i.test(text);
-
-async function visit(page, path) {
-  for (let attempt = 0; attempt < 3; attempt += 1) {
-    try {
-      await page.goto(`.${path}`, { waitUntil: 'domcontentloaded' });
-      return;
-    } catch (error) {
-      // The transient navigation cancels mobile-compat.spec.js retries, and only those.
-      if (!/NS_BINDING_ABORTED|NS_ERROR_FAILURE|unknown error|frame was detached|interrupted by another navigation|Frame load interrupted/i.test(String(error)) || attempt === 2) throw error;
-      await page.waitForTimeout(100 * (attempt + 1));
-    }
-  }
-}
-
-// The screen a visit drew, read in the page.
-function readScreen() {
-  const main = document.querySelector('#main') || document.querySelector('main');
-  const loading = !!main && (!!main.querySelector('.vmx-view-fallback')
-    || [...main.querySelectorAll('[aria-busy="true"]')].some((el) => /กำลังโหลด/.test(el.textContent || '')));
-  return {
-    landing: !!document.querySelector('.lp-root main#lp-main'),
-    view: document.querySelector('#main')?.getAttribute('data-view') || null,
-    authCard: !!document.getElementById('vmx-auth-required-title'),
-    errorCard: /หน้านี้ขัดข้อง/.test(main?.innerText || ''),
-    loading,
-  };
-}
 
 async function readPage(page) {
   return page.evaluate(() => {

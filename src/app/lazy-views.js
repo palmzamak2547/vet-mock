@@ -9,30 +9,24 @@
 // to that: each resolves to a file loaded lazily and never statically.
 // ============================================================
 
-import { createElement, lazy, useEffect } from 'react';
+import { useEffect } from 'react';
+import { lazyWithRetry } from '../lib/lazy-retry.js';
 import { hasSavedSession } from '../lib/supabase.js';
-import { importFresh } from '../lib/chunk-error.js';
 
-// lazy() keeps a failed import failed for good, so a screen offered with a
-// retry (the search palette's frame) needs a new lazy() for the next try, and
-// importFresh for Chromium's module map. `.retry()` swaps it in; the next
-// render of the returned component suspends on the fresh import.
-export function lazyWithRetry(load) {
-  let Current = lazy(load);
-  function Retryable(props) { return createElement(Current, props); }
-  Retryable.retry = () => { Current = lazy(() => importFresh(load)); };
-  return Retryable;
-}
+// Every declaration goes through lazyWithRetry (src/lib/lazy-retry.js): a screen
+// whose download fails once is asked for again under a fresh URL before the
+// page boundary shows its card. Re-exported for the callers that import it here.
+export { lazyWithRetry };
 
 // Lazy — HomeView is 1300+ lines and pulls curriculum.js + changelog.
 // Splitting it shaves ~80KB off the initial bundle. We prefetch it on
 // idle below so navigation feels instant even on first cold load.
-export const HomeView = lazy(() => import('../views/HomeView.jsx'));
+export const HomeView = lazyWithRetry(() => import('../views/HomeView.jsx'));
 
 // Lazy — the Chula sign-in wall (docs/CHULA-SIGNIN.md). Its screen and the door
 // that opens over the app after a sign-in share one chunk.
-export const ChulaGateView = lazy(() => import('../views/ChulaGateView.jsx'));
-export const ChulaGateExit = lazy(() => import('../views/ChulaGateView.jsx').then((m) => ({ default: m.ChulaGateExit })));
+export const ChulaGateView = lazyWithRetry(() => import('../views/ChulaGateView.jsx'));
+export const ChulaGateExit = lazyWithRetry(() => import('../views/ChulaGateView.jsx'), (m) => ({ default: m.ChulaGateExit }));
 
 // Lazy — pulls VIDEO_SUMMARIES (~200KB) into a separate chunk so it
 // only ships when the user actually presses ⌘K (or clicks the search
@@ -41,108 +35,108 @@ export const CommandPalette = lazyWithRetry(() => import('../components/CommandP
 
 // InstructorProfile — also lazy. Opens when an instructor is selected
 // from the palette, and brings the faculty directory with it.
-export const InstructorProfile = lazy(() => import('../components/InstructorProfile.jsx'));
+export const InstructorProfile = lazyWithRetry(() => import('../components/InstructorProfile.jsx'));
 // VoiceSettings — sliders for TTS pace + pause defaults. Lazy because
 // most sessions never tweak voice — keep the main bundle slim.
-export const VoiceSettings = lazy(() => import('../components/VoiceSettings.jsx'));
+export const VoiceSettings = lazyWithRetry(() => import('../components/VoiceSettings.jsx'));
 
 // Sketchpad — opens a blank canvas for free-form drawing/diagrams.
 // Lazy because it includes canvas + image processing only used when
 // the user opens the pad.
-export const ImageAnnotator = lazy(() => import('../components/ImageAnnotator.jsx'));
+export const ImageAnnotator = lazyWithRetry(() => import('../components/ImageAnnotator.jsx'));
 
 // VetMock's practical Imaging Lab intentionally stays separate from the
 // full CUVETSMO imaging workstation. Keep it lazy: the Cornerstone/DICOM
 // stack is only downloaded when a learner opens #lab.
-export const LabView = lazy(() => import('../views/LabView.jsx'));
-export const WrapUpView = lazy(() => import('../views/WrapUpView.jsx'));
-export const AtlasView = lazy(() => import('../views/AtlasView.jsx'));
+export const LabView = lazyWithRetry(() => import('../views/LabView.jsx'));
+export const WrapUpView = lazyWithRetry(() => import('../views/WrapUpView.jsx'));
+export const AtlasView = lazyWithRetry(() => import('../views/AtlasView.jsx'));
 
 // PinboardView — personal pin grid (Qs / summaries / flashcards /
 // notes). Lazy because most sessions never open it.
-export const PinboardView = lazy(() => import('../views/PinboardView.jsx'));
-export const ContributeView = lazy(() => import('../views/ContributeView.jsx'));
-export const ConnectAppsView = lazy(() => import('../views/ConnectAppsView.jsx'));
-export const ReviewQueueView = lazy(() => import('../views/ReviewQueueView.jsx'));
+export const PinboardView = lazyWithRetry(() => import('../views/PinboardView.jsx'));
+export const ContributeView = lazyWithRetry(() => import('../views/ContributeView.jsx'));
+export const ConnectAppsView = lazyWithRetry(() => import('../views/ConnectAppsView.jsx'));
+export const ReviewQueueView = lazyWithRetry(() => import('../views/ReviewQueueView.jsx'));
 
 // BenchView — the screening-test bench. Self-contained and rarely the first
 // screen of a session, so it stays out of the main bundle.
-export const BenchView = lazy(() => import('../views/BenchView.jsx'));
+export const BenchView = lazyWithRetry(() => import('../views/BenchView.jsx'));
 
 // AdminView — the back-office. One account ever sees it, so its code stays
 // out of everyone else's bundle.
-export const AdminView = lazy(() => import('../views/AdminView.jsx'));
+export const AdminView = lazyWithRetry(() => import('../views/AdminView.jsx'));
 
 // HighlightToCard — listens for text selections inside
 // .vmx-summary-body (SummaryModal content) and offers a floating
 // "✨ ทำ flashcard" button that opens a save modal. Lazy because
 // users only need it when reading a video summary.
-export const HighlightToCard = lazy(() => import('../components/HighlightToCard.jsx'));
+export const HighlightToCard = lazyWithRetry(() => import('../components/HighlightToCard.jsx'));
 
 // ShortcutSheet — Linear-style "press ? for keyboard help" modal.
 // Tiny, but only opened on `?` press from exam/review, so lazy keeps
 // it out of the first-paint bundle.
-export const ShortcutSheet = lazy(() => import('../components/ShortcutSheet.jsx'));
-export const OnboardingTour = lazy(() => import('../components/OnboardingTour.jsx'));
+export const ShortcutSheet = lazyWithRetry(() => import('../components/ShortcutSheet.jsx'));
+export const OnboardingTour = lazyWithRetry(() => import('../components/OnboardingTour.jsx'));
 
 // Lazy — pulled in only when the user navigates to that view.
 // Big wins on cold load (esp. iPad / mobile Safari) since NotesView,
 // VideoView, GroupsView etc. ship their own chunks.
-export const SubjectSelectView = lazy(() => import('../views/SubjectSelectView.jsx'));
-export const ConfigView = lazy(() => import('../views/ConfigView.jsx'));
-export const ExamView = lazy(() => import('../views/ExamView.jsx'));
-export const ResultsView = lazy(() => import('../views/ResultsView.jsx'));
-export const ReviewView = lazy(() => import('../views/ReviewView.jsx'));
-export const SRSessionView = lazy(() => import('../views/SRSessionView.jsx'));
-export const DashboardView = lazy(() => import('../views/DashboardView.jsx'));
-export const QuestionManagerView = lazy(() => import('../views/QuestionManagerView.jsx'));
-export const AuthView = lazy(() => import('../views/AuthView.jsx'));
-export const GroupsView = lazy(() => import('../views/GroupsView.jsx'));
-export const GroupDetailView = lazy(() => import('../views/GroupDetailView.jsx'));
-export const LeaderboardView = lazy(() => import('../views/LeaderboardView.jsx'));
-export const ScheduleView = lazy(() => import('../views/ScheduleView.jsx'));
-export const ScoresView = lazy(() => import('../views/ScoresView.jsx'));
-export const VideoView = lazy(() => import('../views/VideoView.jsx'));
-export const AboutView = lazy(() => import('../views/AboutView.jsx'));
-export const FeedbackView = lazy(() => import('../views/FeedbackView.jsx'));
-export const IgCardStudioView = lazy(() => import('../views/IgCardStudioView.jsx'));
-export const YearSelectView = lazy(() => import('../views/YearSelectView.jsx'));
+export const SubjectSelectView = lazyWithRetry(() => import('../views/SubjectSelectView.jsx'));
+export const ConfigView = lazyWithRetry(() => import('../views/ConfigView.jsx'));
+export const ExamView = lazyWithRetry(() => import('../views/ExamView.jsx'));
+export const ResultsView = lazyWithRetry(() => import('../views/ResultsView.jsx'));
+export const ReviewView = lazyWithRetry(() => import('../views/ReviewView.jsx'));
+export const SRSessionView = lazyWithRetry(() => import('../views/SRSessionView.jsx'));
+export const DashboardView = lazyWithRetry(() => import('../views/DashboardView.jsx'));
+export const QuestionManagerView = lazyWithRetry(() => import('../views/QuestionManagerView.jsx'));
+export const AuthView = lazyWithRetry(() => import('../views/AuthView.jsx'));
+export const GroupsView = lazyWithRetry(() => import('../views/GroupsView.jsx'));
+export const GroupDetailView = lazyWithRetry(() => import('../views/GroupDetailView.jsx'));
+export const LeaderboardView = lazyWithRetry(() => import('../views/LeaderboardView.jsx'));
+export const ScheduleView = lazyWithRetry(() => import('../views/ScheduleView.jsx'));
+export const ScoresView = lazyWithRetry(() => import('../views/ScoresView.jsx'));
+export const VideoView = lazyWithRetry(() => import('../views/VideoView.jsx'));
+export const AboutView = lazyWithRetry(() => import('../views/AboutView.jsx'));
+export const FeedbackView = lazyWithRetry(() => import('../views/FeedbackView.jsx'));
+export const IgCardStudioView = lazyWithRetry(() => import('../views/IgCardStudioView.jsx'));
+export const YearSelectView = lazyWithRetry(() => import('../views/YearSelectView.jsx'));
 // Marketing landing — signed-out front door. Full-bleed (own nav/footer),
 // so it early-returns before the app chrome. Own scoped CSS.
-export const LandingView = lazy(() => import('../views/LandingView.jsx'));
-export const PhaseSelectView = lazy(() => import('../views/PhaseSelectView.jsx'));
-export const TopicSelectView = lazy(() => import('../views/TopicSelectView.jsx'));
-export const NotesView = lazy(() => import('../views/NotesView.jsx'));
-export const LibraryView = lazy(() => import('../views/LibraryView.jsx'));
+export const LandingView = lazyWithRetry(() => import('../views/LandingView.jsx'));
+export const PhaseSelectView = lazyWithRetry(() => import('../views/PhaseSelectView.jsx'));
+export const TopicSelectView = lazyWithRetry(() => import('../views/TopicSelectView.jsx'));
+export const NotesView = lazyWithRetry(() => import('../views/NotesView.jsx'));
+export const LibraryView = lazyWithRetry(() => import('../views/LibraryView.jsx'));
 // ExternalDocView is removed
-export const KnowledgeView = lazy(() => import('../views/KnowledgeView.jsx'));
-export const ReadingChecklistView = lazy(() => import('../views/ReadingChecklistView.jsx'));
-export const FacultyView = lazy(() => import('../views/FacultyView.jsx'));
-export const PrivacyView = lazy(() => import('../views/PrivacyView.jsx'));
-export const AccountSettingsView = lazy(() => import('../views/AccountSettingsView.jsx'));
-export const OfflineGameView = lazy(() => import('../views/OfflineGameView.jsx'));
-export const MochiView = lazy(() => import('../views/MochiView.jsx'));
+export const KnowledgeView = lazyWithRetry(() => import('../views/KnowledgeView.jsx'));
+export const ReadingChecklistView = lazyWithRetry(() => import('../views/ReadingChecklistView.jsx'));
+export const FacultyView = lazyWithRetry(() => import('../views/FacultyView.jsx'));
+export const PrivacyView = lazyWithRetry(() => import('../views/PrivacyView.jsx'));
+export const AccountSettingsView = lazyWithRetry(() => import('../views/AccountSettingsView.jsx'));
+export const OfflineGameView = lazyWithRetry(() => import('../views/OfflineGameView.jsx'));
+export const MochiView = lazyWithRetry(() => import('../views/MochiView.jsx'));
 // PomodoroView — Forest-style focus timer with a hatching-chick companion.
 // Lazy: only loaded when the user opens it from the command palette.
-export const PomodoroView = lazy(() => import('../views/PomodoroView.jsx'));
-export const RaceView = lazy(() => import('../views/RaceView.jsx'));
+export const PomodoroView = lazyWithRetry(() => import('../views/PomodoroView.jsx'));
+export const RaceView = lazyWithRetry(() => import('../views/RaceView.jsx'));
 // PdfAnnotateView — lazy because pdfjs-dist is heavy (~1 MB) and only
 // needed when the user opens "PDF + annotate" from the command palette.
 // Worker chunk is dynamically imported inside the view itself.
-export const PdfAnnotateView = lazy(() => import('../views/PdfAnnotateView.jsx'));
-export const ImageOcclusionView = lazy(() => import('../views/ImageOcclusionView.jsx'));
+export const PdfAnnotateView = lazyWithRetry(() => import('../views/PdfAnnotateView.jsx'));
+export const ImageOcclusionView = lazyWithRetry(() => import('../views/ImageOcclusionView.jsx'));
 // PhaseWrappedView — end-of-phase recap (Spotify-Wrapped style).
 // Only shown after a phase ends or opened via command palette,
 // so lazy-load is appropriate.
-export const PhaseWrappedView = lazy(() => import('../views/PhaseWrappedView.jsx'));
+export const PhaseWrappedView = lazyWithRetry(() => import('../views/PhaseWrappedView.jsx'));
 // ProfileView — the personal hub behind the bottom bar's fifth tab. It reads
 // study data App already holds, so the split buys no second network round trip
 // on Home; it keeps the hub and the installer chip it mounts out of the entry
 // chunk, which is what tests/unit/boot-weight.test.mjs holds every declaration
 // here to.
-export const ProfileView = lazy(() => import('../views/ProfileView.jsx'));
+export const ProfileView = lazyWithRetry(() => import('../views/ProfileView.jsx'));
 // The first-run "how classmates see you" sheet: once per account, on Home.
-export const IdentityStep = lazy(() => import('../components/IdentityStep.jsx'));
+export const IdentityStep = lazyWithRetry(() => import('../components/IdentityStep.jsx'));
 // (Removed MockExamView/MockResultsView — an unwired English "DEMO ONLY" stub.
 //  "Mock Exam" nav now routes into the real config → exam engine. 2026-07-24)
 
