@@ -142,7 +142,7 @@ test('misses come first, and the buddy and the ladder say one thing', async ({ p
   await expect(page.getByText(/ได้ 60%/)).toHaveCount(0);
   await expect(page.getByText('ทำได้ดีมาก! ถึงเกณฑ์ซ้อมแล้ว', { exact: false })).toHaveCount(0);
   await expect(filled(page)).toHaveCount(1);
-  await expect(filled(page)).toContainText('แก้ 2 ข้อที่ผิด');
+  await expect(filled(page)).toContainText('แก้ข้อที่ผิด 2 ข้อ');
   await expect(page.locator('.vmx-res-next')).toContainText('ทำขั้น 1 อีกชุด');
   // Under the thumb: the filled button's bottom is inside the window, near its edge.
   const box = await filled(page).boundingBox();
@@ -157,7 +157,7 @@ test('a climb the set earned waits under the misses', async ({ page, context }) 
   await page.getByRole('button', { name: 'ดูผลลัพธ์ →', exact: true }).click();
   await results(page);
   // The redo is the one filled button; the climb is the next-step row, one tap away.
-  await expect(filled(page)).toContainText('แก้ 1 ข้อที่ผิด');
+  await expect(filled(page)).toContainText('แก้ข้อที่ผิด 1 ข้อ');
   await expect(page.locator('.vmx-res-next')).toContainText(/ขั้นต่อไป ใช้ความรู้/);
   await page.locator('.vmx-res-next').click();
   await expect(page.locator('.vmx-option').first()).toBeVisible({ timeout: 30_000 });

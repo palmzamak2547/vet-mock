@@ -81,7 +81,7 @@ test('one filled button; in practice it redoes the misses', () => {
   const inst = run({ right: 8, views });
   const f = filled(inst.tree);
   assert.equal(f.length, 1, 'exactly one filled button');
-  assert.match(fr.textOf(f[0]), /^แก้ 2 ข้อที่ผิด/);
+  assert.match(fr.textOf(f[0]), /^แก้ข้อที่ผิด 2 ข้อ/);
   f[0].props.onClick();
   assert.deepEqual(views, ['redo']);
   inst.unmount();
@@ -95,7 +95,7 @@ test('after an exam the filled button is the key, and the redo is second', () =>
   assert.match(fr.textOf(f[0]), /^ดูเฉลยข้อที่ผิด 3 ข้อ/);
   f[0].props.onClick();
   assert.deepEqual(views, ['review']);
-  assert.ok(buttons(inst.tree).some((b) => fr.textOf(b) === 'แก้ 3 ข้อที่ผิด'), 'the redo is one tap away');
+  assert.ok(buttons(inst.tree).some((b) => fr.textOf(b) === 'แก้ข้อที่ผิด 3 ข้อ'), 'the redo is one tap away');
   inst.unmount();
 });
 
@@ -122,7 +122,7 @@ test('one share entry, which opens one sheet with the bank questions and no scor
 test('below the pass line on the same rung the misses lead, and the rung waits as the next step', () => {
   const views = [];
   const inst = run({ right: 3, views });
-  assert.match(fr.textOf(filled(inst.tree)[0]), /^แก้ 7 ข้อที่ผิด/);
+  assert.match(fr.textOf(filled(inst.tree)[0]), /^แก้ข้อที่ผิด 7 ข้อ/);
   const next = fr.findAll(inst.tree, (n) => /(^|\s)vmx-res-next(\s|$)/.test(cls(n)));
   assert.equal(next.length, 1, 'one next-step row');
   assert.match(fr.textOf(next[0]), /^ทำขั้น 1 อีกชุด/);

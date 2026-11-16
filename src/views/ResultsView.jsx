@@ -271,10 +271,10 @@ export default function ResultsView({
   const skippedMissed = missedQs.filter((q) => answerOutcome(q, answers[q.id]) === 'skipped').length;
   const hasMissed = missedQs.length > 0;
   const missedLabel = skippedMissed === 0
-    ? { title: `แก้ ${missedQs.length} ข้อที่ผิด`, sub: 'ทำซ้ำเฉพาะข้อที่ผิดในรอบนี้', key: `ดูเฉลยข้อที่ผิด ${missedQs.length} ข้อ` }
+    ? { title: `แก้ข้อที่ผิด ${missedQs.length} ข้อ`, sub: 'ทำซ้ำเฉพาะข้อที่ผิดในรอบนี้', key: `ดูเฉลยข้อที่ผิด ${missedQs.length} ข้อ` }
     : skippedMissed === missedQs.length
-      ? { title: `ทำ ${missedQs.length} ข้อที่ข้ามไป`, sub: 'ข้อในรอบนี้ที่ยังไม่ได้ตอบ', key: `ดูเฉลยข้อที่ข้ามไป ${missedQs.length} ข้อ` }
-      : { title: `ทำ ${missedQs.length} ข้อที่ผิดและข้ามไป`, sub: `ผิด ${missedQs.length - skippedMissed} ข้อ ยังไม่ได้ตอบ ${skippedMissed} ข้อ`, key: `ดูเฉลยข้อที่ผิดและข้ามไป ${missedQs.length} ข้อ` };
+      ? { title: `ทำข้อที่ข้ามไป ${missedQs.length} ข้อ`, sub: 'ข้อในรอบนี้ที่ยังไม่ได้ตอบ', key: `ดูเฉลยข้อที่ข้ามไป ${missedQs.length} ข้อ` }
+      : { title: `ทำข้อที่ผิดและข้ามไป ${missedQs.length} ข้อ`, sub: `ผิด ${missedQs.length - skippedMissed} ข้อ ยังไม่ได้ตอบ ${skippedMissed} ข้อ`, key: `ดูเฉลยข้อที่ผิดและข้ามไป ${missedQs.length} ข้อ` };
 
   const handleRedoWrong = () => {
     if (missedQs.length === 0) return;
