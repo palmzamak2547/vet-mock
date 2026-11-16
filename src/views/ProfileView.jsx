@@ -343,7 +343,7 @@ export default function ProfileView({
 
           <section className="vmx-dash-card vmx-profile-card" aria-labelledby="hub-settings">
             <h2 id="hub-settings">การตั้งค่า</h2>
-            <Row label="ตั้งค่าเสียงอ่าน" note="ความเร็วและช่วงพักของเสียงอ่าน" onClick={onVoiceSettings} />
+            <Row label="ตั้งค่าเสียงอ่าน" note="ความเร็ว โทนเสียง และเสียงที่อ่าน" onClick={onVoiceSettings} />
             {/* Theme + motion: ThemePicker is the app's one owner of both, and it
                 lives in the header as a popover. Mounting the same component here
                 keeps them from drifting instead of growing a second copy. */}

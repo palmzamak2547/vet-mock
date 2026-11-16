@@ -20,7 +20,7 @@
 // change, so nothing moves) with the page following it unless they scroll.
 // ============================================================
 
-import { playerElement, readAloud, RATES, savedRate } from './read-aloud-store.js';
+import { getVoicePrefs, playerElement, readAloud, RATES, savedRate, session, setVoicePrefs, stopSampleSound, subscribeVoicePrefs } from './read-aloud-store.js';
 import { sharedPlan, getSharedAudio, loadWords } from './tts-shared.js';
 import { questionLang } from './tts-text.js';
 
@@ -38,7 +38,6 @@ export const CLOUD_WAIT_MS = 4000;
 export const NO_START_MS = 2500;
 export const NO_START_FIRST_MS = 6000;
 let speechWarm = false;   // the device voice has spoken once this session
-let cloudRefused = false; // the cloud voice refused this visitor (signed out): not asked again this session
 const OFFLINE_NOTE = 'ต่ออินเทอร์เน็ตแล้วลองอีกครั้ง';
 const noVoiceNote = (lang) => (lang === 'en'
   ? 'เครื่องนี้ไม่มีเสียงอ่านภาษาอังกฤษ ต่ออินเทอร์เน็ตแล้วลองอีกครั้ง'
@@ -47,7 +46,7 @@ const noVoiceNote = (lang) => (lang === 'en'
 const signInNote = (lang) => (lang === 'en'
   ? 'เครื่องนี้ไม่มีเสียงอ่านภาษาอังกฤษ เข้าสู่ระบบด้วยอีเมลจุฬาเพื่อใช้เสียงอ่านออนไลน์'
   : 'เครื่องนี้ไม่มีเสียงอ่านภาษาไทย เพิ่มได้ในการตั้งค่าเสียงของเครื่อง หรือเข้าสู่ระบบด้วยอีเมลจุฬาเพื่อใช้เสียงอ่านออนไลน์');
-const failNote = (r) => (r.offline || !online() ? OFFLINE_NOTE : cloudRefused ? signInNote(r.live?.lang) : noVoiceNote(r.live?.lang));
+const failNote = (r) => (r.offline || !online() ? OFFLINE_NOTE : session.cloudRefused ? signInNote(r.live?.lang) : noVoiceNote(r.live?.lang));
 const positions = new Map(); // job id -> { part, t, device }: where a student stopped
 let run = null;              // the job being read, private to this module
 let liveTts = null;          // tts.js, asked for at the tap so a fallback never waits for it
@@ -94,6 +93,7 @@ function wire(el) {
  * phrase is marked in; stemLabel, what the bar calls the stem.
  */
 export async function start(job) {
+  stopSampleSound();
   if (run?.job.id === job.id) { toggle(); return; }
   stop();
   const el = playerElement();
@@ -205,11 +205,12 @@ export function resume() {
   if (!r) return;
   const status = readAloud.get().status;
   if (status !== 'paused' && status !== 'error') return;
+  stopSampleSound();
   // A note that nothing can read this question: play starts it again from
   // its first choice of voice (the network or a voice may be back), also
   // when it failed before it had any pieces. The student's tap asks the
   // cloud voice once more (a sign-in since); nothing else re-asks it.
-  if (r.dead) { const job = r.job; cloudRefused = false; stop(); start(job); return; }
+  if (r.dead) { const job = r.job; session.cloudRefused = false; stop(); start(job); return; }
   if (!r.plan) return;
   r.paused = false;
   if (r.gapPending) { r.gapPending = false; afterGap(r); return; }
@@ -262,15 +263,96 @@ function jump(dir) {
 
 export function setRate(rate) {
   if (!RATES.includes(rate)) return;
-  try { window.localStorage.setItem('vmx-read-aloud-rate', String(rate)); } catch { /* private mode */ }
-  const el = playerElement();
-  if (el) { el.defaultPlaybackRate = rate; el.playbackRate = rate; }
-  readAloud.set({ rate });
-  // The device voice takes a rate per sentence: the one it is saying starts
-  // again at the new speed.
-  const r = run;
-  if (r?.plan?.[r.i]?.src === 'speech' && r.utter && !r.paused) playPart(r, r.i, 0);
+  setVoicePrefs({ rate }); // applyPrefs below does the rest
 }
+
+// A stored clip plays faster or slower with its pitch kept (the browsers'
+// default, set here so no engine drops it).
+function setElementRate(el, rate) {
+  el.defaultPlaybackRate = rate;
+  el.playbackRate = rate;
+  try { el.preservesPitch = true; el.mozPreservesPitch = true; el.webkitPreservesPitch = true; } catch { /* read-only in an old engine */ }
+}
+
+// The voice settings changed (the bar's sheet, or another tab): the speed
+// applies at once, to a clip mid-word and to the device voice; a new tone or
+// voice applies to the device voice from the sentence it is saying, which
+// starts again. Tone does not change a stored clip: shifting a clip's pitch
+// on the device without changing its speed would cost its quality.
+let applied = getVoicePrefs();
+function applyPrefs() {
+  const prefs = getVoicePrefs();
+  const was = applied;
+  applied = prefs;
+  const el = playerElement();
+  if (prefs.rate !== readAloud.get().rate) {
+    if (el) setElementRate(el, prefs.rate);
+    readAloud.set({ rate: prefs.rate });
+  }
+  const r = run;
+  if (!r?.live) return;
+  // Only the voice for the language being read matters to this reading.
+  const key = r.live.lang === 'en' ? 'voiceEn' : 'voiceTh';
+  const voiceChanged = prefs[key] !== was[key];
+  if (!voiceChanged && prefs.pitch === was.pitch && prefs.rate === was.rate) return;
+  // A new voice is taken now, for the device pieces still to come, even while
+  // a cloud piece plays.
+  if (voiceChanged) {
+    loadLive().then((m) => {
+      if (run !== r) return;
+      const v = m.voiceNow(r.live.lang);
+      if (v.voice) Object.assign(r.live, v);
+      restartSoon(r);
+    }).catch(() => {});
+  } else restartSoon(r);
+}
+// The sentence the device voice is saying starts again in the new settings,
+// once the student stops tapping (each restart is a cancel and a speak, and
+// some engines drop a speak that follows a cancel). The old utterance is let
+// go first, so an engine that reports 'end' on cancel does not move on.
+function restartSoon(r) {
+  clearTimeout(r.retune);
+  r.retune = setTimeout(() => {
+    if (run !== r) return;
+    loadLive().then((m) => {
+      if (run !== r || followSource(r, m)) return;
+      if (r.paused || r.plan?.[r.i]?.src !== 'speech' || !r.utter) return;
+      r.utter = null;
+      clearTimeout(r.watch);
+      playPart(r, r.i, 0);
+    }, () => {});
+  }, 250);
+}
+// A new tone or voice can change which voice reads (readerSource, the rule
+// the dialog's line and ลองฟัง follow): the pieces still to come take the new
+// one, and the sentence being read starts again in it, so what the listener
+// hears next is what the dialog names. A voice that already failed in this
+// reading is not gone back to. Paused, the sentence waits for play.
+function followSource(r, m) {
+  if (!r.device || !r.plan || r.dead || r.done) return false;
+  const src = m.readerSource(r.live, session.cloudRefused);
+  const from = r.inGap || r.gapPending ? r.i + 1 : r.i;
+  if (from >= r.plan.length || r.plan[from].src === src) return false;
+  if (src === 'cloud' ? r.cloudGone : r.speechGone) return false;
+  for (let k = from; k < r.plan.length; k++) r.plan[k].src = src;
+  r.triedCloud = src === 'cloud' || Boolean(r.cloudGone);
+  r.triedSpeech = src === 'speech' || Boolean(r.speechGone);
+  if (from !== r.i) return true; // between two pieces: the next one starts in it
+  clearTimeout(r.watch);
+  if (r.utter) { r.utter = null; cancelDeviceSpeech(); }
+  if (r.onElement != null) {
+    const el = playerElement();
+    r.switching = true;
+    el.pause();
+    el.removeAttribute('src');
+    try { el.load(); } catch { /* nothing loaded */ }
+    r.onElement = null;
+  }
+  playPart(r, r.i, 0);
+  return true;
+}
+session.pause = () => pause();
+subscribeVoicePrefs(applyPrefs);
 
 /** For a student who has used read-aloud: the manifests ahead of the tap, and
  *  with clip, the first clip and its timings too (never on Save-Data). */
@@ -305,6 +387,10 @@ async function playPart(r, i, offset = 0) {
   // The piece being read comes up above the bar (which renders a moment
   // after the first one starts), unless the student is scrolling.
   setTimeout(() => { if (run === r && r.i === i) keepBlockInView((r.job.block || r.job.container)?.(p.kind, p.option)); }, 60);
+  // A download that a later start of a piece overtook (a change of voice in
+  // followSource replays the same one) is let go.
+  const ticket = (r.ticket = (r.ticket || 0) + 1);
+  const mine = () => run === r && r.i === i && r.ticket === ticket;
   if (p.src === 'speech') { speakPart(r, i); return; }
   if (p.src === 'cloud') aheadCloud(r, i);
   let buf;
@@ -318,7 +404,7 @@ async function playPart(r, i, offset = 0) {
   } catch {
     // Forget the failed download, so play fetches it again.
     p.buf = null;
-    if (run !== r || r.i !== i) return;
+    if (!mine()) return;
     r.loading = false;
     if (p.src === 'cloud') { cloudFailed(r, i); return; }
     if (firstWait) { r.abort.abort(); r.abort = new AbortController(); device(r); return; }
@@ -326,7 +412,7 @@ async function playPart(r, i, offset = 0) {
     return;
   }
   p.ready = true;
-  if (run !== r || r.i !== i) return;
+  if (!mine()) return;
   r.loading = false;
   r.switching = true;
   if (r.url) URL.revokeObjectURL(r.url);
@@ -334,8 +420,7 @@ async function playPart(r, i, offset = 0) {
   el.muted = false;
   el.src = r.url;
   r.onElement = i;
-  el.defaultPlaybackRate = readAloud.get().rate;
-  el.playbackRate = readAloud.get().rate;
+  setElementRate(el, readAloud.get().rate);
   // r.offset, not offset: a seek made while the piece downloaded moved it.
   const at = r.offset;
   if (at > 0) el.addEventListener('loadedmetadata', () => { if (run === r && r.i === i) el.currentTime = Math.min(at, el.duration || at); }, { once: true });
@@ -420,12 +505,11 @@ async function device(r) {
   if (run !== r) return;
   if (!live?.parts.length) { dead(r, noVoiceNote(live?.lang)); return; }
   r.live = live;
-  const good = live.voice && live.tier !== 'standard';
-  const speechOk = typeof window !== 'undefined' && Boolean(window.speechSynthesis) && typeof SpeechSynthesisUtterance !== 'undefined';
-  const first = good && speechOk ? 'speech' : cloudRefused && speechOk && live.voice ? 'speech' : 'cloud';
+  // Which voice reads first: the rule the voice settings show and sample with.
+  const first = tts.readerSource(live, session.cloudRefused);
   // The cloud voice already refused this visitor and the device has no voice:
   // say so at once, without asking the cloud again.
-  if (first === 'cloud' && cloudRefused) { dead(r, signInNote(live.lang)); return; }
+  if (first === 'cloud' && session.cloudRefused) { dead(r, signInNote(live.lang)); return; }
   r.plan = live.parts.map((p) => ({ ...p, src: first }));
   r.triedCloud = first === 'cloud';
   r.triedSpeech = first === 'speech';
@@ -454,6 +538,7 @@ function speakPart(r, i) {
   const v = r.live.voice;
   if (v) { u.voice = v; u.lang = v.lang; } else u.lang = r.live.lang === 'en' ? 'en-US' : 'th-TH';
   u.rate = Math.max(0.5, Math.min(2, (r.live.rate || 1) * (readAloud.get().rate || 1)));
+  u.pitch = getVoicePrefs().pitch;
   r.utter = u;
   const mine = () => run === r && r.utter === u;
   let started = false;
@@ -502,8 +587,21 @@ function cancelDeviceSpeech() {
 // once; then a note.
 function speechFailed(r, i) {
   if (run !== r) return;
+  // A voice the listener chose that does not speak (on this device, or in a
+  // timed paper where the settings cannot be opened): the device's own
+  // default voice reads at once, before the cloud is asked.
+  if (r.live?.chosen && !r.triedDefault) {
+    r.triedDefault = true;
+    loadLive().then((m) => {
+      if (run !== r) return;
+      const v = m.voiceNow(r.live.lang, { ignoreChoice: true });
+      if (v.voice && v.voice !== r.live.voice) { Object.assign(r.live, v, { chosen: false }); playPart(r, i, 0); } else speechFailed(r, i);
+    }, () => speechFailed(r, i));
+    return;
+  }
   if (!r.triedCloud && online()) {
     r.triedCloud = true;
+    r.speechGone = true;
     for (let k = i; k < r.plan.length; k++) r.plan[k].src = 'cloud';
     playPart(r, i, 0);
     return;
@@ -519,6 +617,7 @@ function cloudFailed(r, i) {
   if (!r.triedSpeech && speechOk && r.live?.voice) {
     r.triedSpeech = true;
     r.triedCloud = true;
+    r.cloudGone = true;
     for (let k = i; k < r.plan.length; k++) r.plan[k].src = 'speech';
     playPart(r, i, 0);
     return;
@@ -543,7 +642,7 @@ function cloudAudio(r, p) {
     p.cloud.catch((e) => {
       p.cloud = null;
       if (e?.name === 'TypeError') r.offline = true;
-      if (/^tts 40[13]/.test(String(e?.message))) cloudRefused = true;
+      if (/^tts 40[13]/.test(String(e?.message))) session.cloudRefused = true;
     });
   }
   return p.cloud;
