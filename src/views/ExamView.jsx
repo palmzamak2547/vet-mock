@@ -222,6 +222,7 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
         showNote={showNote}
         setShowNote={setShowNote}
         revealAnswer={revealAnswer}
+        timed={Boolean(useTimer)}
         answerRun={answerRun}
         onOpenWiki={revealAnswer ? onOpenWiki : undefined}
         english={lang === 'en' && translationsById ? (translationsById[String(currentQ.id)] ?? null) : null}
