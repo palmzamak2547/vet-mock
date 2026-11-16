@@ -61,7 +61,8 @@ import TapeLayer from '../components/TapeLayer.jsx';
 import { TAPE_COLORS, isTape, makeTape } from '../lib/tape.js';
 import TextNoteEditor from '../components/TextNoteEditor.jsx';
 import { makeTextNote, textNoteAt } from '../lib/textnote.js';
-import NotebookShelf from '../components/NotebookShelf.jsx';
+import NotebookShelf, { NOT_SAVED } from '../components/NotebookShelf.jsx';
+import { reportFailure } from '../lib/report-failure.js';
 import { buildNotebookPdf, notebookKey, updateNotebook, NOTEBOOK_MAX_PAGES } from '../lib/notebook.js';
 import { selectStrokes, boundsOf, transformStroke } from '../lib/lasso.js';
 import { RangedPdfSource, rangeableLength, RANGE_CHUNK } from '../lib/pdf-range-source.js';
@@ -369,7 +370,7 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // The store moved to IndexedDB, so the recent list arrives a tick late
   // instead of during render. Nothing depends on it being there immediately.
   const refreshRecent = useCallback(() => {
-    listRecentPdfs().then((all) => setRecent(all.filter((r) => !String(r.hash || '').startsWith('nb:')))).catch(() => {});
+    listRecentPdfs().then((all) => setRecent(all.filter((r) => !String(r.hash || '').startsWith('nb:')))).catch((error) => reportFailure('load', error));
   }, [listRecentPdfs]);
   useEffect(() => { refreshRecent(); }, [refreshRecent]);
   useEffect(() => onSyncState(setSync), [onSyncState]);
@@ -2376,7 +2377,10 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
   // so its ink survives the paper being made again with more pages.
   const notebookRef = useRef(null);
   const openNotebook = useCallback(async (nb, { page = 0 } = {}) => {
-    nb = updateNotebook(nb.id, {}) || nb; // "เปิดล่าสุด" on the shelf
+    const touched = updateNotebook(nb.id, {}); // "เปิดล่าสุด" on the shelf
+    // A refused write means this notebook is not being kept: say so here.
+    if (!touched) alertDialog(NOT_SAVED);
+    nb = touched || nb;
     const bytes = await buildNotebookPdf({ paper: nb.paper, pages: nb.pages });
     notebookRef.current = nb;
     ingestRemote({
@@ -2394,7 +2398,10 @@ export default function PdfAnnotateView({ goHome, initialDoc = null, onExit = nu
     if (!nb) return;
     if (nb.pages >= NOTEBOOK_MAX_PAGES) { showToast(`สมุดหนึ่งเล่มมีได้ ${NOTEBOOK_MAX_PAGES} หน้า`, 3000); return; }
     saveNow();
-    const next = updateNotebook(nb.id, { pages: nb.pages + 1 }) || { ...nb, pages: nb.pages + 1 };
+    const next = updateNotebook(nb.id, { pages: nb.pages + 1 });
+    // A page the device refused to keep would vanish at the next open, with
+    // anything written on it: add none, and say why.
+    if (!next) { alertDialog(NOT_SAVED); return; }
     openNotebook(next, { page: next.pages });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [openNotebook, showToast]);
