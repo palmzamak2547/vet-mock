@@ -36,8 +36,12 @@ export const CommandPalette = lazyWithRetry(() => import('../components/CommandP
 // InstructorProfile — also lazy. Opens when an instructor is selected
 // from the palette, and brings the faculty directory with it.
 export const InstructorProfile = lazyWithRetry(() => import('../components/InstructorProfile.jsx'));
-// VoiceSettings — sliders for TTS pace + pause defaults. Lazy because
-// most sessions never tweak voice — keep the main bundle slim.
+// VoiceSettings — speed, tone and the device voice. Lazy because most
+// sessions never tweak voice. The settings it edits (read-aloud-store.js,
+// 2 KB) ride in the main bundle: the practice card's chunk, which Home warms
+// on every first visit, already needs them, and shared by this lazy chunk as
+// well they would otherwise be a request of their own on Home.
+import '../lib/read-aloud-store.js';
 export const VoiceSettings = lazyWithRetry(() => import('../components/VoiceSettings.jsx'));
 
 // Sketchpad — opens a blank canvas for free-form drawing/diagrams.
