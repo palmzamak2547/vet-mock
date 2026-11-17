@@ -1,0 +1,4 @@
+#!/bin/sh
+# The push gate: scripts/pre-push.mjs (installed by the prepare script, scripts/install-hooks.mjs).
+# One-off bypass: VMX_SKIP_GATE=1 git push
+exec node scripts/pre-push.mjs "$@"

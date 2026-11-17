@@ -22,10 +22,11 @@ function fixture() {
   const owned = fs.realpathSync(dir);
   const put = (name, content) => { const file = path.join(dir, name); fs.mkdirSync(path.dirname(file), { recursive: true }); fs.writeFileSync(file, content); };
   put('package.json', JSON.stringify({ type: 'module', scripts: {
-    'lint:data': 'node ok.mjs', 'lint:dist': 'node ok.mjs', build: 'node ok.mjs',
+    'lint:ok': 'node ok.mjs', 'lint:dist': 'node ok.mjs', build: 'node ok.mjs',
     'test:unit': 'node --test unit/*.test.mjs',
     'test:e2e:chromium': 'node native-run.mjs chromium', 'test:e2e:gl': 'node native-run.mjs gl',
   } }));
+  put('scripts/lint-data.list', 'lint:ok\n');
   put('.gitignore', 'test-results/\n'); put('ok.mjs', 'console.log("fixture step");');
   put('unit/pass.test.mjs', 'import test from "node:test"; test("fixture unit", () => {});');
   put('playwright.config.mjs', `export default { testDir: './native', workers: 1, retries: 0, forbidOnly: true,

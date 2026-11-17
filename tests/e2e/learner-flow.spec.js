@@ -269,8 +269,11 @@ test('at 320x812 the score and the next step still open the page with a personal
   });
   await page.getByRole('button', { name: 'ดูผลลัพธ์ →', exact: true }).click();
   await expect(page.getByRole('region', { name: 'ผลชุดนี้' })).toBeVisible();
-  // 5.282.0: the personal best is still recorded, and no banner says the score a second time.
-  expect(JSON.parse(await page.evaluate(() => localStorage.getItem('vmx-personal-best')))).toMatchObject({ [qs[0].subject]: 80 });
+  // 5.282.0: the personal best is still recorded, and no banner says the score a second time. The results
+  // view records it in an effect, which can run after the card is on screen (up to 27 ms later, measured on
+  // 17 Nov 2026), so the read waits for it: read at once, it was empty twice in a row in CI that night.
+  await expect.poll(async () => JSON.parse(await page.evaluate(() => localStorage.getItem('vmx-personal-best'))) ?? {})
+    .toMatchObject({ [qs[0].subject]: 80 });
   await expect(page.getByText(/สถิติใหม่ของคุณ/)).toHaveCount(0);
   await expect(page.getByRole('status', { name: 'สถานะการบันทึกผลสอบ' })).toBeVisible();
   await page.evaluate(() => window.scrollTo(0, 0));

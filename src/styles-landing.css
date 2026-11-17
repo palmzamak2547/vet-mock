@@ -210,6 +210,13 @@ html.lp-active { background: var(--clr-bg); }
    ================================================================ */
 /* A section scrolled to lands below the sticky nav, not under it. */
 .lp-root section[id] { scroll-margin-top: calc(var(--lp-nav-clearance) + env(safe-area-inset-top, 0px)); }
+/* Scroll anchoring is off while the landing shows. In WebKit, when the layout above the screen shifts, the
+   engine corrects the scroll position, and that correction stops a smooth scroll in flight: a tap on the nav
+   stopped short of its section, or the page did not move (10 of 40 runs of the nav case on a busy machine,
+   0 of 40 with anchoring off, 17 Nov 2026; Chromium and Firefox finish the scroll either way). What on the
+   landing sets the correction off was not identified. Its sections kept their heights in 18 measured runs,
+   so anchoring has little to protect here. */
+html.lp-active { overflow-anchor: none; }
 .lp-nav { position: sticky; top: 0; z-index: var(--z-nav); padding: 10px 0; padding-top: max(10px, env(safe-area-inset-top, 0px)); }
 .lp-nav-row {
   width: min(var(--lp-max), 100% - 2 * var(--lp-gutter)); margin-inline: auto;

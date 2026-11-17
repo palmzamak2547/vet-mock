@@ -23,9 +23,10 @@ import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
-  resolveSteps, phaseATasks, runPool, strayProcesses, treeChange, concurrentE2ePort,
+  resolveSteps, lintDataSteps, phaseATasks, runPool, strayProcesses, treeChange, concurrentE2ePort,
   researchChanged, researchTasks, sqlChanged, sqlTasks, uncoveredMigrations, HARNESS_MIGRATIONS, acquireGateLock,
 } from '../../scripts/gate.mjs';
+import { readLintList } from '../../scripts/lib/lint-list.mjs';
 
 const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const GATE = path.join(repo, 'scripts', 'gate.mjs');
@@ -48,7 +49,7 @@ test('lint:all is lint:data then lint:dist, and only lint:dist reads the build (
   // A path into the build: 'dist/index.html', or join(ROOT, 'dist').
   const READS_DIST = /['"`]dist[\\/][\w.-]|['"`]dist['"`]\s*[,)]/;
   assert.match(read('scripts/audit-contrast.mjs'), READS_DIST, 'the detector must see the one known reader');
-  const data = resolveSteps(scripts, 'lint:data');
+  const data = lintDataSteps(scripts, repo);
   for (const leaf of data) {
     assert.equal(leaf.shell, undefined, `${leaf.label} must be a plain node command the gate can run directly`);
     const file = leaf.args[0];
@@ -62,11 +63,11 @@ test('lint:all is lint:data then lint:dist, and only lint:dist reads the build (
 // lint:dist leaf, so the rule is pinned on those leaves: a generator in the
 // gate only ever checks, it never rewrites the file it is judging.
 test('every generator the gate runs is a --check, so the gate never regenerates', () => {
-  const leaves = [...resolveSteps(scripts, 'lint:data'), ...resolveSteps(scripts, 'lint:dist')];
+  const leaves = [...lintDataSteps(scripts, repo), ...resolveSteps(scripts, 'lint:dist')];
   const generators = leaves.filter((l) => /(^|[\\/])(regen-|stats\.mjs)/.test(l.args?.[0] || l.command));
   assert.ok(generators.length >= 10, `the scan finds the generator checks (${generators.length})`);
   for (const g of generators) assert.ok(g.args.includes('--check'), `${g.label} (${g.command}) would rewrite its output`);
-  assert.doesNotMatch(`${scripts['lint:data']} ${scripts['lint:dist']}`, /regen:/);
+  assert.doesNotMatch(`${readLintList(repo).join(' ')} ${scripts['lint:dist']}`, /regen:/);
 });
 
 test('the gate scripts are the orchestrator, its concurrent variant and a no-script fallback', () => {
@@ -96,25 +97,26 @@ test('npm "-- args" land on the last command of the script they follow', () => {
 });
 
 test('lint:atlas runs in lint:data, and CI no longer adds it on its own (STAB-06)', () => {
-  assert.equal(chain('lint:data').filter((s) => s === 'npm run lint:atlas').length, 1);
-  const runs = read('.github/workflows/build.yml').split('\n').filter((l) => /^\s*(- )?run: /.test(l));
+  assert.equal(readLintList(repo).filter((s) => s === 'lint:atlas').length, 1);
+  const runs = read('.github/workflows/smoke-e2e.yml').split('\n').filter((l) => /^\s*(- )?run: /.test(l));
   assert.deepEqual(runs.filter((l) => /lint:atlas/.test(l)), [], 'so the Build log shows it exactly once');
 });
 
 test('CI runs the data lints before the build and only lint:dist after it (STAB-13)', () => {
-  const steps = read('.github/workflows/build.yml').split(/\n\s*- name: /).slice(1)
+  // Since 16 Nov 2026 the build job is the first job of smoke-e2e.yml and runs scripts/push-gate.mjs,
+  // the script the pre-push hook runs, step by step: data + unit together, then build + budget, then dist.
+  const wf = read('.github/workflows/smoke-e2e.yml');
+  const job = wf.slice(wf.indexOf('\n  build:\n'), wf.indexOf('\n  changes:\n'));
+  const steps = job.split(/\n\s*- name: /).slice(1)
     .map((s) => ({ name: s.split('\n')[0].trim(), run: /run: (.+)/.exec(s)?.[1]?.trim() }));
-  const at = (run) => steps.findIndex((s) => s.run === run);
-  // Since 15 Nov 2026 Build runs every lint:data step to the end through scripts/lint-all.mjs, which
-  // reads the chain from package.json (tests/unit/lint-all.test.mjs), where it ran the chain itself.
-  const dataLints = 'npm run lint:data:all -- --github --summary="$GITHUB_STEP_SUMMARY"';
-  assert.ok(at(dataLints) >= 0, 'build.yml runs every lint:data step');
-  assert.ok(at('npm run build') > at(dataLints), 'lint:data runs before the build');
-  assert.ok(at('npm run test:unit') < at('npm run build'), 'the unit tests run before the build');
-  assert.ok(at('npm run lint:dist') > at('npm run build'), 'lint:dist runs after the build');
+  const at = (re) => steps.findIndex((s) => re.test(s.run || ''));
+  assert.ok(at(/push-gate\.mjs --steps=data,unit /) >= 0, 'the build job runs every lint:data step and the unit suite');
+  assert.ok(at(/push-gate\.mjs --steps=build,budget /) > at(/push-gate\.mjs --steps=data,unit /), 'the lints and the unit suite run before the build');
+  assert.ok(at(/push-gate\.mjs --steps=dist /) > at(/push-gate\.mjs --steps=build,budget /), 'lint:dist runs after the build');
   assert.equal(steps.filter((s) => /lint:all/.test(s.run || '')).length, 0, 'lint:all would rerun the data lints after the build');
-  // The CI job names are what production promotion waits on.
-  assert.match(read('.github/workflows/build.yml'), /^name: Build$/m);
+  // The CI job names are what production promotion and the ruleset wait on.
+  assert.match(wf, /^ {2}build:\n {4}runs-on: /m);
+  assert.ok(!fs.existsSync(path.join(repo, '.github/workflows/build.yml')), 'one workflow: the browsers wait for the build job');
 });
 
 test('phase A runs the unit suite in UTC and in Bangkok time (STAB-16)', () => {
@@ -361,7 +363,6 @@ function fixture({ stale = false, tzBound = false, e2eWrites = false, overBudget
   put('package.json', `${JSON.stringify({
     type: 'module',
     scripts: {
-      'lint:data': 'npm run lint:ok && npm run lint:stale',
       'lint:ok': 'node scripts/ok.mjs',
       'lint:stale': 'node scripts/stale.mjs --check',
       'lint:dist': 'node scripts/dist.mjs',
@@ -373,6 +374,7 @@ function fixture({ stale = false, tzBound = false, e2eWrites = false, overBudget
       'test:e2e:quick': 'node scripts/e2e.mjs quick',
     },
   }, null, 2)}\n`);
+  put('scripts/lint-data.list', 'lint:ok\nlint:stale\n');
   put('.gitignore', 'dist/\ntest-results/\n');
   put('src/app.js', 'export const app = 1;\n');
   put('scripts/ok.mjs', "console.log('ok');\n");

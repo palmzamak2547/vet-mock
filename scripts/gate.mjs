@@ -77,6 +77,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { e2ePorts } from '../tests/e2e/local-port.js';
+import { readLintList } from './lib/lint-list.mjs';
 
 export const DEFAULT_JOBS = 6;
 // The second e2e step's port, per checkout (tests/e2e/local-port.js).
@@ -124,8 +125,13 @@ function withArgs(leaf, extra) {
   return leafOf(label, command);
 }
 
+/** Every lint:data leaf: the scripts named in scripts/lint-data.list, each resolved to the commands it runs. */
+export function lintDataSteps(scripts, cwd = process.cwd()) {
+  return readLintList(cwd).flatMap((name) => resolveSteps(scripts, name));
+}
+
 /** Phase A: every lint:data leaf, plus the unit suite in UTC and in Bangkok time. */
-export function phaseATasks(scripts, { extra = [] } = {}) {
+export function phaseATasks(scripts, { extra = [], cwd = process.cwd() } = {}) {
   const unit = resolveSteps(scripts, 'test:unit');
   if (unit.length !== 1 || unit[0].shell) {
     throw new Error('test:unit must be a single `node --test <glob>` command');
@@ -136,7 +142,7 @@ export function phaseATasks(scripts, { extra = [] } = {}) {
     { ...u, label: 'unit tests (TZ=Asia/Bangkok)', env: { TZ: 'Asia/Bangkok' } },
   ];
   // The unit suite is the longest step, so it starts first.
-  return [...units, ...resolveSteps(scripts, 'lint:data'), ...extra];
+  return [...units, ...lintDataSteps(scripts, cwd), ...extra];
 }
 
 // ── The Research origin (research/, its own vite app + package) ─────────
@@ -496,7 +502,7 @@ export async function runGate({ cwd = process.cwd(), argv = process.argv.slice(2
     log('  CI postgres remains the concurrent-lock proof (the harness receipts say the same).');
   }
   if (notes.length) log(notes.join('\n'));
-  const tasks = phaseATasks(scripts, { extra: sql });
+  const tasks = phaseATasks(scripts, { extra: sql, cwd });
   log(`── phase A (data): ${tasks.length} steps, ${jobs} at a time`);
   let t = Date.now();
   const results = await runPool(tasks, jobs, {

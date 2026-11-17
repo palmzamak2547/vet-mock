@@ -83,9 +83,9 @@ test('the script is checked out with Unix line ends, or bash on the runner canno
 });
 
 test('every apt call of a release-gate workflow goes through the script', () => {
-  // The five workflows whose checks a pull request waits for. android.yml installs ffmpeg with apt too,
+  // The four workflows whose checks a pull request waits for (build.yml joined smoke-e2e.yml on 16 Nov 2026). android.yml installs ffmpeg with apt too,
   // but it builds the app wrapper by hand and gates nothing.
-  const gate = ['build.yml', 'smoke-e2e.yml', 'vca.yml', 'ai.yml', 'research-r-parity.yml'];
+  const gate = ['smoke-e2e.yml', 'vca.yml', 'ai.yml', 'research-r-parity.yml'];
   const bare = [];
   for (const name of gate) {
     const lines = readFileSync(path.join(ROOT, '.github/workflows', name), 'utf8').split(/\r?\n/);

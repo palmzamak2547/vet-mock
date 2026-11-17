@@ -97,13 +97,16 @@ jobs:
           profile: pixel_6
           cores: 4
           ram-size: 4096M
-          # The emulator process dies after a few app starts on every run since
-          # 14 Nov 2026 (adb then refuses port 5554). Pinning 37.2.12 (build
-          # 16428233, green on 22 Oct) did not change it, so the cause is the
-          # runner image, not the emulator build. measure.py writes where it
-          # stopped to measure-out/failure.txt and the summary shows it.
+          # From 14 Nov 2026 the emulator process died after about sixteen app
+          # starts on every run (adb then refused port 5554), with emulator 37.2.12
+          # and 37.2.13 alike. Each WebView start made and dropped a host Vulkan
+          # instance through SwiftShader. Measured on 15 Nov (run 43741163220, one
+          # job per backend): swiftshader_indirect with Vulkan off and guest
+          # rendering both died at the same point; swangle_indirect (SwiftShader
+          # behind ANGLE) ran the whole measurement. measure.py still writes
+          # where it stopped to measure-out/failure.txt if it ever stops again.
           disable-animations: false
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -dns-server 8.8.8.8,1.1.1.1
+          emulator-options: -no-window -gpu swangle_indirect -noaudio -no-boot-anim -camera-back none -dns-server 8.8.8.8,1.1.1.1
           script: python3 mobile/scripts/measure.py vetmock-ci.apk measure-out --aab mobile/android/app/build/outputs/bundle/release/app-release.aab --bundletool bundletool.jar
 
       - name: Keep the emulator's crash data
@@ -111,7 +114,9 @@ jobs:
         run: mkdir -p measure-out && cp /tmp/android-runner/emu-crash-*.db measure-out/ 2>/dev/null || echo "::warning::no emulator crash data"
 
       - name: Numbers in the run summary and on the pull request
-        if: always()
+        # Not on a cancelled run. A newer push stops this job part of the way; with always() this step still
+        # ran, found no results, and wrote on the pull request that the Measure step had failed (17 Nov 2026).
+        if: ${{ !cancelled() }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -123,7 +128,7 @@ jobs:
               echo
               if [ -f measure-out/failure.txt ]; then echo '```'; cat measure-out/failure.txt; echo '```'; else echo 'measure.py left no failure record: read the Measure step log.'; fi
               echo
-              echo 'Known since 14 Nov 2026: the emulator process dies after a few app starts (adb then refuses port 5554), on emulator 37.2.12 and 37.2.13 alike. A red scheduled run opens an issue (scheduled-red.yml).'
+              echo 'From 14 to 15 Nov 2026 the emulator died after about sixteen app starts under -gpu swiftshader_indirect; the job now uses swangle_indirect. A red scheduled run opens an issue (scheduled-red.yml).'
             } > report.md
           fi
           cat report.md >> "$GITHUB_STEP_SUMMARY"

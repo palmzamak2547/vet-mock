@@ -1,0 +1,251 @@
+{
+  "note": "The only e2e tests allowed to pass on their retry (scripts/e2e-unsteady.mjs). Seeded 16 Nov 2026 from the duration reports of recent Smoke e2e runs. Remove an entry when its cause is fixed and lower BUDGET in tests/unit/e2e-unsteady.test.mjs; never add one to make a run green.",
+  "tests": [
+    {
+      "spec": "tests/e2e/counts-agree.spec.js",
+      "title": "is kept under its plain URL, so an offline reload finds it",
+      "line": 329,
+      "projects": [
+        "chromium-desktop",
+        "chromium-mobile"
+      ],
+      "since": "2026-11-16",
+      "reason": "Passed only on its retry in 18 runner report(s) of the last 35 Smoke e2e runs up to 15 Nov 2026 (chromium-desktop 14, chromium-mobile 4); cause not yet found."
+    },
+    {
+      "spec": "tests/e2e/counts-agree.spec.js",
+      "title": "Start pressed offline recovers once the network is back",
+      "line": 220,
+      "projects": [
+        "chromium-desktop",
+        "chromium-mobile"
+      ],
+      "since": "2026-11-16",
+      "reason": "Passed only on its retry in 13 runner report(s) of the last 35 Smoke e2e runs up to 15 Nov 2026 (chromium-mobile 3, chromium-desktop 10); cause not yet found."
+    },
+    {
+      "spec": "tests/e2e/first-load-lazy.spec.js",
+      "title": "a first-time visitor: the move and app-layer code is never fetched, and blocking it changes nothing on the first screen",
+      "line": 67,
+      "projects": [
+        "webkit-mobile"
+      ],
+      "since": "2026-11-16",
+      "reason": "Passed only on its retry in 11 runner report(s) of the last 35 Smoke e2e runs up to 15 Nov 2026 (webkit-mobile 11); cause not yet found. Found 16 Nov: pauseAt(PINNED_NOW + 20 s) threw \"Cannot fast-forward to the past\" whenever a page took more than 20 s of its own clock to settle (reproduced 4 of 4 on a loaded machine); now setFixedTime. Earlier CI failures were a first-screen HTML mismatch whose diff the log truncates; come off the list after two weeks with no retry."
+    },
+    {
+      "spec": "tests/e2e/counts-agree.spec.js",
+      "title": "another year's course opened offline gets its count once the network is back",
+      "line": 146,
+      "projects": [
+        "chromium-desktop",
+        "chromium-mobile"
+      ],
+      "since": "2026-11-16",
+      "reason": "Passed only on its retry in 7 runner report(s) of the last 35 Smoke e2e runs up to 15 Nov 2026 (chromium-desktop 4, chromium-mobile 3); cause not yet found."
+    },
+    {
+      "spec": "tests/e2e/counts-agree.spec.js",
+      "title": "a course whose retry fails right after reconnecting is tried again",
+      "line": 307,
+      "projects": [
+        "chromium-desktop",
+        "chromium-mobile"
+      ],
+      "since": "2026-11-16",
+      "reason": "Passed only on its retry in 7 runner report(s) of the last 35 Smoke e2e runs up to 15 Nov 2026 (chromium-mobile 5, chromium-desktop 2); cause not yet found."
+    },
+    {
+      "spec": "tests/e2e/first-load-lazy.spec.js",
+      "title": "a returning Year-5 student: the move and app-layer code is never fetched, and blocking it changes nothing on the first screen",
+      "line": 67,
+      "projects": [
+        "webkit-mobile"
+      ],
+      "since": "2026-11-16",
+      "reason": "Passed only on its retry in 5 runner report(s) of the last 35 Smoke e2e runs up to 15 Nov 2026 (webkit-mobile 5); cause not yet found."
+    },
+    {
+      "spec": "tests/e2e/mochi-presence.spec.js",
+      "title": "one preference hides companions everywhere while the learning UI remains available",
+      "line": 115,
+      "projects": [
+        "webkit-mobile"
+      ],
+      "since": "2026-11-16",
+      "reason": "Passed only on its retry in 4 runner report(s) of the last 35 Smoke e2e runs up to 15 Nov 2026 (webkit-mobile 4); cause not yet found."
+    },
+    {
+      "spec": "tests/e2e/update-note.spec.js",
+      "title": "a note opened from the chip and left without the ✕ raises no chip a day or a week later",
+      "line": 187,
+      "projects": [
+        "webkit-mobile"
+      ],
+      "since": "2026-11-16",
+      "reason": "Passed only on its retry in 3 runner report(s) of the last 35 Smoke e2e runs up to 15 Nov 2026 (webkit-mobile 3); cause not yet found."
+    },
+    {
+      "spec": "tests/e2e/counts-agree.spec.js",
+      "title": "Start pressed while another year's banks load serves the whole course",
+      "line": 126,
+      "projects": [
+        "webkit-mobile"
+      ],
+      "since": "2026-11-16",
+      "reason": "Passed only on its retry in 2 runner report(s) of the last 35 Smoke e2e runs up to 15 Nov 2026 (webkit-mobile 2); cause not yet found."
+    },
+    {
+      "spec": "tests/e2e/schedule-study-loop.spec.js",
+      "title": "ปรับเอง holds still while the practice set is counted",
+      "line": 43,
+      "projects": [
+        "chromium-desktop",
+        "firefox-desktop"
+      ],
+      "since": "2026-11-16",
+      "reason": "Passed only on its retry in 2 runner report(s) of the last 35 Smoke e2e runs up to 15 Nov 2026 (chromium-desktop 1, firefox-desktop 1); cause not yet found."
+    },
+    {
+      "spec": "tests/e2e/student-profile.spec.js",
+      "title": "the first-run step: never the student number, saved to the profile row, then gone",
+      "line": 110,
+      "projects": [
+        "chromium-desktop"
+      ],
+      "since": "2026-11-16",
+      "reason": "Passed only on its retry in 2 runner report(s) of the last 35 Smoke e2e runs up to 15 Nov 2026 (chromium-desktop 2); cause not yet found."
+    },
+    {
+      "spec": "tests/e2e/wrap-up-slide.spec.js",
+      "title": "offline, the frame says so and fills in when the connection is back",
+      "line": 98,
+      "projects": [
+        "webkit-mobile"
+      ],
+      "since": "2026-11-16",
+      "reason": "Passed only on its retry in 2 runner report(s) of the last 35 Smoke e2e runs up to 15 Nov 2026 (webkit-mobile 2); cause not yet found."
+    },
+    {
+      "spec": "tests/e2e/smoke.spec.js",
+      "title": "skipped-answer results can return home without changing hook order",
+      "line": 247,
+      "projects": [
+        "webkit-mobile"
+      ],
+      "since": "2026-11-16",
+      "reason": "Passed only on its retry in 2 runner report(s) of the last 35 Smoke e2e runs up to 15 Nov 2026 (webkit-mobile 2); cause not yet found."
+    },
+    {
+      "spec": "tests/e2e/update-note.spec.js",
+      "title": "the chip appears on one Home visit a day, and the next day again while the news is unread",
+      "line": 60,
+      "projects": [
+        "webkit-mobile"
+      ],
+      "since": "2026-11-16",
+      "reason": "Passed only on its retry in 2 runner report(s) of the last 35 Smoke e2e runs up to 15 Nov 2026 (webkit-mobile 2); cause not yet found."
+    },
+    {
+      "spec": "tests/e2e/flag-chip-own-question.spec.js",
+      "title": "a caution chip shows on its own question only, with the key, all the way through a set",
+      "line": 34,
+      "projects": [
+        "chromium-desktop",
+        "chromium-mobile"
+      ],
+      "since": "2026-11-16",
+      "reason": "Passed only on its retry in 2 runner report(s) of the last 35 Smoke e2e runs up to 15 Nov 2026 (chromium-desktop 1, chromium-mobile 1); cause not yet found."
+    },
+    {
+      "spec": "tests/e2e/read-aloud.spec.js",
+      "title": "a subject with no clips reads in the device voice, and says so",
+      "line": 218,
+      "projects": [
+        "webkit-mobile"
+      ],
+      "since": "2026-11-16",
+      "reason": "Passed only on its retry in 1 runner report(s) of the last 35 Smoke e2e runs up to 15 Nov 2026 (webkit-mobile 1); cause not yet found."
+    },
+    {
+      "spec": "tests/e2e/service-worker-live-update.spec.js",
+      "title": "failed B precaching still opens the cached A shell offline after natural activation",
+      "line": 323,
+      "projects": [
+        "webkit-mobile"
+      ],
+      "since": "2026-11-16",
+      "reason": "Passed only on its retry in 1 runner report(s) of the last 35 Smoke e2e runs up to 15 Nov 2026 (webkit-mobile 1); cause not yet found."
+    },
+    {
+      "spec": "tests/e2e/first-tip.spec.js",
+      "title": "dismissing writes today's date, survives a reload and leaves the other ids alone",
+      "line": 75,
+      "projects": [
+        "webkit-mobile"
+      ],
+      "since": "2026-11-16",
+      "reason": "Passed only on its retry in 1 runner report(s) of the last 35 Smoke e2e runs up to 15 Nov 2026 (webkit-mobile 1); cause not yet found."
+    },
+    {
+      "spec": "tests/e2e/learner-flow.spec.js",
+      "title": "a fill-in item shows its key in practice once checked, and nothing in a timed paper",
+      "line": 46,
+      "projects": [
+        "webkit-mobile"
+      ],
+      "since": "2026-11-16",
+      "reason": "Passed only on its retry in 1 runner report(s) of the last 35 Smoke e2e runs up to 15 Nov 2026 (webkit-mobile 1); cause not yet found."
+    },
+    {
+      "spec": "tests/e2e/first-load-lazy.spec.js",
+      "title": "a merge the device refuses three boots running: the app says once that the data is still at the old address",
+      "line": 164,
+      "projects": [
+        "webkit-mobile"
+      ],
+      "since": "2026-11-16",
+      "reason": "Passed only on its retry in 1 runner report(s) of the last 35 Smoke e2e runs up to 15 Nov 2026 (webkit-mobile 1); cause not yet found."
+    },
+    {
+      "spec": "tests/e2e/landing-hero-fit.spec.js",
+      "title": "the hero headline stays in its column and the lightbox in its stage (en)",
+      "line": 15,
+      "projects": [
+        "webkit-mobile"
+      ],
+      "since": "2026-11-16",
+      "reason": "Passed only on its retry in 1 runner report(s) of the last 35 Smoke e2e runs up to 15 Nov 2026 (webkit-mobile 1); cause not yet found."
+    },
+    {
+      "spec": "tests/e2e/wrap-up-board.spec.js",
+      "title": "the keyboard reaches and opens a disease",
+      "line": 89,
+      "projects": [
+        "webkit-mobile"
+      ],
+      "since": "2026-11-16",
+      "reason": "Passed only on its retry in 1 runner report(s) of the last 35 Smoke e2e runs up to 15 Nov 2026 (webkit-mobile 1); cause not yet found."
+    },
+    {
+      "spec": "tests/e2e/atlas-offline.spec.js",
+      "title": "the very first visit survives a real origin connection loss on every engine",
+      "line": 27,
+      "projects": [
+        "webkit-mobile"
+      ],
+      "since": "2026-11-16",
+      "reason": "Passed only on its retry in 1 runner report(s) of the last 35 Smoke e2e runs up to 15 Nov 2026 (webkit-mobile 1); cause not yet found."
+    },
+    {
+      "spec": "tests/e2e/matching-answer-key.spec.js",
+      "title": "a wrong pair shows what the right pairing was",
+      "line": 14,
+      "projects": [
+        "webkit-mobile"
+      ],
+      "since": "2026-11-16",
+      "reason": "Passed only on its retry in 1 runner report(s) of the last 35 Smoke e2e runs up to 15 Nov 2026 (webkit-mobile 1); cause not yet found."
+    }
+  ]
+}

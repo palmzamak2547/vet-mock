@@ -8,27 +8,15 @@ import { test, expect } from './fixtures.js';
 
 const SECTIONS = ['#solution', '#panic', '#lab', '#subjects', '#progress'];
 
-test('the nav scrolls the landing instead of leaving it', async ({ page }) => {
-  // Six smooth scrolls at 1280x800: on webkit-mobile that is 3840x2400 pixels
-  // painted in software here, slow but correct (see the chrome test in
-  // connected-study.spec.js).
-  test.setTimeout(90_000);
-  await page.setViewportSize({ width: 1280, height: 800 });
-  await page.goto('/?e2e-fresh=1');
-  // Tapped at once, before the sections below the hero have rendered: the tap
-  // is held and served when they arrive, and the address still never changes.
-  await page.locator('.lp-navlink[href="#progress"]').click();
-  await expect(page.locator('#progress')).toBeInViewport();
-  expect(new URL(page.url()).pathname).toBe('/');
-  for (const href of SECTIONS) {
-    await page.locator(`.lp-navlink[href="${href}"]`).click();
-    await expect(page.locator(href)).toBeInViewport();
-    await expect(page.locator('.lp-nav')).toBeVisible();
-    const url = new URL(page.url());
-    expect(url.pathname, `${href} left the landing`).toBe('/');
-    expect(url.hash, `${href} changed the address`).toBe('');
-  }
+// How far a section's top is from where a tap on its link leaves it: under the nav, at its own scroll
+// margin. Read twice, 120 ms apart, and the larger kept, so a small number means the page has stopped there.
+const offRest = (page, href) => page.locator(href).evaluate(async (el) => {
+  const off = () => Math.abs(el.getBoundingClientRect().top - parseFloat(getComputedStyle(el).scrollMarginTop));
+  const first = off();
+  await new Promise((done) => { setTimeout(done, 120); });
+  return Math.max(first, off());
 });
+const arrives = (page, href) => expect.poll(() => offRest(page, href), { message: `${href} did not come to rest under the nav` }).toBeLessThan(2);
 
 test('the phone menu closes and scrolls to the section', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
@@ -41,14 +29,46 @@ test('the phone menu closes and scrolls to the section', async ({ page }) => {
   expect(new URL(page.url()).pathname).toBe('/');
 });
 
-test('the skip link moves focus to the landing content', async ({ page }) => {
-  await page.setViewportSize({ width: 1280, height: 800 });
-  await page.goto('/?e2e-fresh=1');
-  await page.locator('#subjects').waitFor();
-  // Focused directly: WebKit's Tab skips links unless the reader turned that on.
-  await page.locator('.lp-skip').focus();
-  await expect(page.locator('.lp-skip')).toBeFocused();
-  await page.keyboard.press('Enter');
-  await expect(page.locator('#lp-main')).toBeFocused();
-  expect(new URL(page.url()).pathname).toBe('/');
+// The two cases at desktop width run at a scale of 1, as a desktop screen has. The phone projects keep
+// their 3x scale, which made 1280x800 into 3840x2400 pixels painted in software: the nav case took 35 s
+// on WebKit, and in CI on 17 Nov 2026 its page died after 42 s of it and passed on the retry.
+test.describe('at desktop width', () => {
+  test.use({ deviceScaleFactor: 1 });
+
+  // Each tap must bring its section to rest under the nav, which says more than "some of it is on screen".
+  // Before 5.298.0 a tap could stop short of its section on WebKit, or not move the page at all: scroll
+  // anchoring corrected the scroll position while the page's own motion ran, and the correction stopped the
+  // smooth scroll in flight (10 of 40 runs of this case with six workers on 17 Nov 2026, none with anchoring
+  // off; Chromium and Firefox finish the scroll either way). The landing now turns anchoring off.
+  test('the nav scrolls the landing instead of leaving it', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto('/?e2e-fresh=1');
+    // Tapped at once, before the sections below the hero have rendered: the tap
+    // is held and served when they arrive, and the address still never changes.
+    await page.locator('.lp-navlink[href="#progress"]').click();
+    await arrives(page, '#progress');
+    expect(new URL(page.url()).pathname).toBe('/');
+    // The rule itself (styles-landing.css). An engine without scroll anchoring reports nothing for it.
+    expect(await page.evaluate(() => getComputedStyle(document.documentElement).overflowAnchor ?? 'none')).toBe('none');
+    for (const href of SECTIONS) {
+      await page.locator(`.lp-navlink[href="${href}"]`).click();
+      await arrives(page, href);
+      await expect(page.locator('.lp-nav')).toBeVisible();
+      const url = new URL(page.url());
+      expect(url.pathname, `${href} left the landing`).toBe('/');
+      expect(url.hash, `${href} changed the address`).toBe('');
+    }
+  });
+
+  test('the skip link moves focus to the landing content', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto('/?e2e-fresh=1');
+    await page.locator('#subjects').waitFor();
+    // Focused directly: WebKit's Tab skips links unless the reader turned that on.
+    await page.locator('.lp-skip').focus();
+    await expect(page.locator('.lp-skip')).toBeFocused();
+    await page.keyboard.press('Enter');
+    await expect(page.locator('#lp-main')).toBeFocused();
+    expect(new URL(page.url()).pathname).toBe('/');
+  });
 });
