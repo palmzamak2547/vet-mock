@@ -5441,7 +5441,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
       },
       {
         "heading": "คุณภาพเฉพาะของเนื้อวัวและเนื้อหมู: PSE, DFD, halothane gene, RN- gene",
-        "source": "Meat quality and wholesomeness p.12-18; บันทึกคาบ 21 ต.ค. 2569 [88:45-95:40]",
+        "source": "Meat quality and wholesomeness p.12-18; บันทึกคาบ 21 ต.ค. 2569 [88:45-95:40]; หนังสือสุขศาสตร์เนื้อสัตว์ p.26",
         "body": [
           {
             "sub": "Beef",
@@ -5449,7 +5449,7 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
               {
                 "bullets": [
                   "The traditional beef may be better เช่น **Hereford, Angus**",
-                  "Beef from **Bos indicus** is better than beef from **Bos taurus**"
+                  "เนื้อจากโค **Bos indicus** (มีโหนกสูง) เหนียวและแข็งกว่าเนื้อโค **Bos taurus** และสลายโปรตีนหลังการฆ่าน้อยกว่า ความต่างนี้เกี่ยวกับระบบ calpain และ calpastatin"
                 ]
               }
             ]
@@ -8644,64 +8644,1405 @@ export const NOTES_Y5_MILK_MEAT_HYGIENE = {
 
   // ─────────────────────────────────────────────────────────────
   'meat-cutting-grading': {
-    topic: 'meat-cutting-grading',
-    title: 'Postmortem changes + meat cutting & grading',
-    lecturer: 'Sirawit Pagdepanichkit (SP)',
-    icon: '🔪',
-    summary: 'Muscle-to-meat conversion เกิดเมื่อ homeostasis หาย หลัง slaughter, 2 ขั้นเริ่ม: immobilization (electrical/gas stunning) + exsanguination (~50% blood removed) → จุดเริ่ม postmortem changes.',
-    sections: [
+    "topic": "meat-cutting-grading",
+    "title": "Postmortem changes, meat cutting & grading",
+    "lecturer": "สิรวิทย์ ภักดีพาณิชย์กิจ (SP)",
+    "icon": "🔪",
+    "summary": "การเปลี่ยนแปลงของกล้ามเนื้อหลังสัตว์ตาย ปัจจัยก่อนฆ่าและหลังฆ่าที่มีผลต่อคุณภาพเนื้อ การตัดแต่งซาก และการตัดสินคุณภาพซาก ปี 2569: pH ลดลง ความร้อน rigor mortis, PSE และ DFD, thaw rigor และ cold shortening, การตัดแต่งซากโค สุกร และสัตว์ปีกตามระบบ National Livestock & Meat Board, เกรดคุณภาพและเกรดปริมาณซากโคของ USDA, Wagyu, การแบ่งเกรดซากสุกร และเกรด A B C ของสัตว์ปีก",
+    "sections": [
       {
-        heading: 'Lecture identity',
-        source: '10 - MeatHyg_E4PmChngCuttGrad_67_1.pdf p.1',
-        body: [
-          { bullets: [
-            'หัวข้อ: **Postmortem changes & factors + Meat cutting & grading** (lecture E4)',
-            'ผู้สอน: Sirawit Pagdepanichkit',
-          ] },
-        ],
+        "heading": "Conversion of muscle to meat",
+        "source": "Postmortem Changes & Factors, Meat Cutting & Grading p.2; บันทึกคาบ 18 พ.ย. 2569 [2:00-8:00]",
+        "body": [
+          {
+            "bullets": [
+              "กล้ามเนื้อทำงานได้ดีเฉพาะในช่วงสภาวะทางสรีรวิทยาที่แคบ ได้แก่ **pH, temperature, oxygen concentration และ energy supply**",
+              "**Homeostasis** คือระบบ check & balance ที่รักษาสภาวะทางสรีรวิทยาของร่างกายไว้",
+              "หลังฆ่า การควบคุม homeostasis หายไป จึงเกิดการเปลี่ยนแปลงหลายอย่างระหว่าง **conversion of muscle to meat**",
+              "**สภาวะของสัตว์ก่อนฆ่า (condition immediately prior to slaughter)** มีผลต่อการเปลี่ยนแปลงหลังตายที่ตามมา"
+            ]
+          },
+          {
+            "sub": "สภาวะก่อนฆ่าและระหว่างปล่อยเลือด",
+            "body": [
+              {
+                "bullets": [
+                  "ความเครียดจากการขนส่งและการต้อนสัตว์ทำให้ cortisol, heart rate และ blood pressure สูงขึ้น",
+                  "ระหว่างปล่อยเลือด ร่างกายพยายามชดเชย heart rate และ blood pressure เพิ่มขึ้น หลอดเลือดในกล้ามเนื้อหดตัวเพื่อให้เลือดไปเลี้ยงสมอง"
+                ]
+              }
+            ]
+          }
+        ]
       },
       {
-        heading: 'Conversion of muscle to meat',
-        source: '10 - MeatHyg_E4PmChngCuttGrad_67_1.pdf p.2',
-        body: [
-          { bullets: [
-            'Muscle function efficiency only within **narrow range of physiological conditions** (pH, temperature, O₂ concentration, energy supply)',
-            '**Homeostasis** = system of check & balance maintaining body physiological state',
-            'After slaughter → loss of homeostasis control → many changes occur during conversion of muscle to meat',
-            'Condition **immediately prior to slaughter** ส่งผลต่อคุณภาพเนื้อปลายทาง',
-          ] },
-        ],
+        "heading": "Immobilization & exsanguination",
+        "source": "Postmortem Changes & Factors, Meat Cutting & Grading p.3; บันทึกคาบ 18 พ.ย. 2569 [6:00-12:00]",
+        "body": [
+          "ในโรงฆ่า ขั้นตอนที่มีผลต่อการเปลี่ยนแปลงหลังตายมากคือ immobilization และ exsanguination",
+          {
+            "sub": "Immobilization (การทำให้สลบ)",
+            "body": [
+              {
+                "bullets": [
+                  "สุกรใช้ gas หรือ electrical stunning ไก่ใช้ electrical stunning เป็นหลัก สัตว์เคี้ยวเอื้องใช้ captive bolt",
+                  "เป้าหมายคือให้สัตว์หมดสติแต่ยังไม่ตาย และต้องทำให้เร็วที่สุด",
+                  "เลี่ยงวิธีที่ทำให้เนื้อเยื่อเสียหาย",
+                  "สัตว์ที่ดิ้นรนมากและเคลื่อนไหวมากเกินไปจะมี **hemorrhage of blood into muscle and other tissue** คุณภาพซากและเนื้อจึงเสีย"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Exsanguination (การปล่อยเลือด)",
+            "body": [
+              {
+                "bullets": [
+                  "เป็น **จุดเริ่มต้นของ postmortem changes** ในกล้ามเนื้อ",
+                  "ต้องเอาเลือดออกให้มากที่สุดด้วยเหตุผลสองข้อ",
+                  {
+                    "label": "ความปลอดภัยของอาหาร",
+                    "value": "เลือดเป็นอาหารอย่างดีของจุลินทรีย์ที่ปนเปื้อนมาจากผิวหนังหรือจาก cross-contamination"
+                  },
+                  {
+                    "label": "คุณภาพ",
+                    "value": "เลือดที่ค้างในซากเห็นเป็นจุดเลือด (blood spot) ซากดูไม่น่ากินและผู้บริโภคไม่ยอมรับ"
+                  },
+                  "การปล่อยเลือดเอาออกได้เพียง **~50% ของปริมาตรเลือดทั้งหมด** ส่วนที่เหลือค้างอยู่ในซากเสมอ"
+                ]
+              }
+            ]
+          }
+        ]
       },
       {
-        heading: 'Immobilization & exsanguination',
-        source: '10 - MeatHyg_E4PmChngCuttGrad_67_1.pdf p.3',
-        body: [
-          { sub: 'Immobilization',
-            body: [
-              { bullets: [
-                'Methods: **electrical, gas stunning**',
-                'Goal: render unconscious — must be done as quick as possible',
-                'Avoid method that cause tissue damage',
-                'Extensive struggling & excessive movement → **hemorrhage of blood into muscle and other tissue**',
-              ] },
-            ] },
-          { sub: 'Exsanguination',
-            body: [
-              { bullets: [
-                '**Beginning of postmortem changes** in muscles',
-                'Only **~50% of total blood volume** can be removed via bleeding process',
-              ] },
-            ] },
-        ],
+        "heading": "การเปลี่ยนแปลงหลังตาย: pH ลดลง ความร้อน และ rigor mortis",
+        "source": "Postmortem Changes & Factors, Meat Cutting & Grading p.4-7; หนังสือสุขศาสตร์เนื้อสัตว์ p.26; บันทึกคาบ 18 พ.ย. 2569 [12:00-28:00]",
+        "body": [
+          "การเปลี่ยนแปลงทางเคมีและกายภาพของกล้ามเนื้อหลังตายมี 6 ข้อ: muscle pH decline, heat production & dissipation, rigor mortis, failure of protective mechanisms, disruption of muscle structure และ changes in physical properties of muscles",
+          {
+            "sub": "Muscle pH decline",
+            "body": [
+              {
+                "bullets": [
+                  "หลังปล่อยเลือด O₂ ที่สะสมในกล้ามเนื้อหมดไป energy metabolism เปลี่ยนเป็น **anaerobic pathway** จึงมี **lactic acid** สะสม",
+                  "ในสัตว์มีชีวิต ระบบไหลเวียนพา lactic acid ออกไป หลังตาย lactic acid ค้างในกล้ามเนื้อ pH จึงลดลง",
+                  "ถ้า pH ต่ำตั้งแต่ก่อน carcass chilling โปรตีนกล้ามเนื้อจะ denature: protein solubility ลดลง ความสามารถจับน้ำและจับโปรตีน (water & protein binding capacity) ลดลง และสีของ muscle pigment จางลง",
+                  "ผลคือเนื้อสีซีด หน้าตัดเปียก (wet meat cut surface) สีออกชมพูหรือขาวซีดแล้วแต่ชนิดสัตว์"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Heat production & dissipation",
+            "body": [
+              {
+                "bullets": [
+                  "anaerobic metabolism ที่ยังดำเนินต่อสร้างความร้อน อุณหภูมิกล้ามเนื้อสูงขึ้น ซากจึงเย็นช้าลง",
+                  "สัตว์ที่เครียดเฉียบพลันก่อนฆ่ามี glycolysis เร็วและสร้างความร้อนมาก การทำให้ซากเย็นจึงนานขึ้นหรือไม่ถึงอุณหภูมิเป้าหมาย shelf life สั้นลง",
+                  {
+                    "label": "Internal factors",
+                    "value": "ขนาดและตำแหน่งของกล้ามเนื้อ (กล้ามเนื้อใหญ่และอยู่ลึกเก็บความร้อนนาน โคและกระบือได้รับผลมากที่สุด รองลงมาคือสุกร ไก่น้อยที่สุด) และชนิดเส้นใยที่เด่น (white vs red) กล้ามเนื้อที่มี red fiber มากสะสมความร้อนมากกว่า"
+                  },
+                  {
+                    "label": "External factors",
+                    "value": "อุณหภูมิของห้องฆ่าและห้องเย็นแรก (initial chill cooler) และระยะเวลาของการฆ่าและขั้นตอนต่างๆ ตั้งแต่การขนส่ง ความเครียด การทำให้สลบ จนถึงการปล่อยเลือด"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Rigor mortis",
+            "body": [
+              {
+                "bullets": [
+                  "คือการแข็งตัวของกล้ามเนื้อหลังตาย เกิดจาก **cross-bridge ระหว่าง actin กับ myosin filament** เมื่อ ATP หมด cross-bridge จึงคลายออกไม่ได้",
+                  {
+                    "label": "Delay phase",
+                    "value": "ยังมี O₂ เหลือ จึงยังมี ATP"
+                  },
+                  {
+                    "label": "Onset phase (rigor onset)",
+                    "value": "ATP ลดลง กล้ามเนื้อเริ่มแข็ง"
+                  },
+                  {
+                    "label": "Rigor completion",
+                    "value": "cross-bridge จับกันครบ กล้ามเนื้อแข็งที่สุด"
+                  },
+                  {
+                    "label": "Resolution of rigor",
+                    "value": "เอนไซม์ย่อยโครงสร้างอื่นของกล้ามเนื้อ กล้ามเนื้อคลายลง แต่ cross-bridge ยังจับกันอยู่ จึงไม่กลับไปเหมือนก่อนตาย"
+                  },
+                  "sarcomere ของสัตว์ปกติยาวประมาณ 2 µm ในระยะ rigor mortis หดเหลือ 1.8 µm หรือน้อยกว่า เนื้อจึงเริ่มเหนียว เมื่อ sarcomere หดตัวถึง 40% เนื้อเหนียวที่สุด"
+                ]
+              }
+            ]
+          }
+        ]
       },
       {
-        heading: 'Rigor mortis → ageing → cutting → grading detail',
-        source: '10 - MeatHyg_E4PmChngCuttGrad_67_1.pdf p.4+',
-        body: [
-          { bullets: ['🚧 รอเติม — rigor mortis biochemistry, ageing 14-day, primal cuts (beef/pork/poultry), USDA Prime/Choice/Select grading, marbling score, yield grade'] },
-        ],
+        "heading": "Rigor mortis กับ pH decline: สามรูปแบบ, PSE และ DFD",
+        "source": "Postmortem Changes & Factors, Meat Cutting & Grading p.8, 14; หนังสือสุขศาสตร์เนื้อสัตว์ p.27; บันทึกคาบ 18 พ.ย. 2569 [26:00-34:00], [42:00-44:00]",
+        "body": [
+          "ทั้ง rigor mortis และ pH decline ขึ้นกับ glycolysis จึงเห็นรูปแบบของ pH decline ได้สามแบบ",
+          {
+            "table": {
+              "headers": [
+                "รูปแบบ",
+                "พลังงานในกล้ามเนื้อ",
+                "ผลต่อเนื้อ"
+              ],
+              "rows": [
+                [
+                  "**Normal pH decline** (เส้นกลาง)",
+                  "มี glycogen พอ",
+                  "pH ค่อยๆ ลดลงและคงที่ภายในประมาณ 24 ชั่วโมง"
+                ],
+                [
+                  "**Abbreviated pH decline** (เส้นบน)",
+                  "initial energy supply จำกัด จากความเครียดระยะยาว อาหารไม่ดี อดอาหาร หรือป่วยเรื้อรัง เช่น โคที่เลี้ยงปล่อยทุ่ง สัตว์ป่วยหนัก",
+                  "glycolysis หลังตายจำกัด pH ลดน้อย ultimate pH สูง น้ำยังอยู่ในเซลล์ สีเข้ม เป็น **DFD** พบในโคเป็นส่วนใหญ่"
+                ],
+                [
+                  "**Rapid early pH decline** (เส้นล่าง)",
+                  "ความเครียดเฉียบพลันก่อนฆ่า พลังงานถูกใช้หมดเร็ว",
+                  "pH ลดทันทีขณะซากยังร้อน เสียการอุ้มน้ำ ผิวเปียก นุ่ม และซีด เป็น **PSE** พบในสุกรเป็นส่วนใหญ่ (pork loin และ ham)"
+                ]
+              ]
+            }
+          },
+          {
+            "sub": "Stress & muscle characteristics",
+            "body": [
+              {
+                "bullets": [
+                  "ร่างกายปรับตัวต่อความเครียดด้วยการหลั่ง hormone และสลาย glycogen เป็น lactic acid",
+                  "**Short-term stress** (antemortem stress): glycolysis เร็ว pH ลดเร็ว อุณหภูมิร่างกายสูงขึ้น ได้ **PSE (pale, soft, exudative)**",
+                  "**Long-term stress**: glycogen deficiency glycolysis หลังตายจำกัด ultimate pH สูง ได้ **DFD (dark, firm, dry)**",
+                  "การปรับปรุงพันธุ์ทำให้สุกรเครียดง่ายน้อยลง ปัจจุบันจึงพบ PSE น้อยลง"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "PSE, DFD และยีนในสุกร",
+            "body": [
+              {
+                "bullets": [
+                  "สุกรที่ไวต่อความเครียดมีอาการสั่น กระวนกระวาย และผิวหนังแดง",
+                  "PSE เกิดเมื่อ pH ลดเร็วขณะอุณหภูมิกล้ามเนื้อยังสูง เห็นได้หลังแช่เย็นซาก 18-24 ชั่วโมง ได้เนื้อน้อยลงและสูญเสียระหว่างปรุงมากขึ้น",
+                  "DFD ผิวหน้าเนื้อสีเข้ม แน่น และแห้ง เพราะ pH สูง โปรตีนจึงจับน้ำไว้ได้",
+                  "**Halothane gene (Hal n)** เป็นยีนด้อย สุกรที่ halothane positive (ขาเกร็งแข็ง อุณหภูมิสูง และตาย) ต้องเป็น nn เท่านั้น สุกร Nn และ NN เป็น halothane negative แต่เนื้อจากสุกร Nn ก็ยังคุณภาพไม่ดีเท่า NN",
+                  "สุกร halothane positive มี calcium channel ใน sarcoplasmic reticulum บกพร่อง calcium ถูกปล่อยออกมามาก metabolism เร็วขึ้น และได้เนื้อ PSE",
+                  "**RN- gene** (Rendement Napole, acid meat gene) พบในสุกร Hampshire เพิ่ม glycogen ในกล้ามเนื้อ โดยเฉพาะกล้ามเนื้อที่มี white fiber มาก ultimate pH จึงต่ำและเนื้อสีซีด หลังปรุง semimembranosus จากสุกร RN- RN- ลดปริมาณลงถึง 8%"
+                ]
+              }
+            ]
+          }
+        ]
       },
-    ],
+      {
+        "heading": "Failure of protective mechanisms, disruption of muscle structure และ physical properties",
+        "source": "Postmortem Changes & Factors, Meat Cutting & Grading p.9-11; บันทึกคาบ 18 พ.ย. 2569 [32:00-42:00]",
+        "body": [
+          {
+            "sub": "Failure of protective mechanisms",
+            "body": [
+              {
+                "bullets": [
+                  "ยิ่งนานหลังตาย homeostatic mechanism ยิ่งหายไป เกิด uncontrolled nerve impulse เห็นเป็นกล้ามเนื้อกระตุกแบบ reflex",
+                  "สมบัติของ connective tissue และ membrane เปลี่ยนไป เนื้อเยื่อจึงถูก bacteria รุกรานได้ง่าย",
+                  "ระบบไหลเวียนเลือดและน้ำเหลืองหยุดทำงาน ไม่มีด่านกั้นการแพร่ของจุลินทรีย์",
+                  "ผิวหนังและผนังลำไส้กั้น normal flora และสิ่งปนเปื้อนบนผิวไว้ไม่ได้อีก"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Disruption of muscle structure",
+            "body": [
+              {
+                "bullets": [
+                  "myofibril แตกเป็นชิ้นจาก proteolytic degradation **ยกเว้น actin และ myosin** และเกิด polypeptide ใหม่ซึ่งมีผลต่อกลิ่นรส เป็นหลักที่ใช้ใน beef ageing",
+                  "**Calpains** ถูกกระตุ้นด้วย calcium ที่ปล่อยจาก mitochondria และ sarcoplasmic reticulum (SR) ระหว่างเก็บหลังตาย ทำให้เนื้อนุ่มขึ้น",
+                  "**Calpastatin** ยับยั้ง calpains เนื้อโคมี calpastatin มาก ถ้าทำงานมาก เนื้อจะเหนียว"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Changes in physical properties of muscle",
+            "body": [
+              {
+                "bullets": [
+                  {
+                    "label": "Color",
+                    "value": "dark red เปลี่ยนเป็น bright red เมื่อสัมผัสอากาศ"
+                  },
+                  {
+                    "label": "Tone",
+                    "value": "แน่น (firm) ในช่วง full rigor แล้วแน่นน้อยลงจาก enzymatic degradation และ protein denaturation"
+                  },
+                  {
+                    "label": "pH และการจับน้ำ",
+                    "value": "pH ยังสูงมาก (>6.5) จับน้ำได้ปกติ; pH ลดลงเร็ว จับน้ำได้น้อย"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "ปัจจัยก่อนฆ่า: อายุ เพศ พันธุกรรม ตำแหน่งกล้ามเนื้อ และอาหาร",
+        "source": "Postmortem Changes & Factors, Meat Cutting & Grading p.13, 15-17; หนังสือสุขศาสตร์เนื้อสัตว์ p.25-26; บันทึกคาบ 18 พ.ย. 2569 [40:00-52:00]",
+        "body": [
+          {
+            "bullets": [
+              {
+                "label": "Antemortem effects",
+                "value": "stress & muscle characteristics, age, sex, genetic & major genes, diet, muscle location, preslaughter handling, immobilization method"
+              },
+              {
+                "label": "Postmortem effects",
+                "value": "temperature (thaw rigor, cold shortening), accelerated processing, carcass electrical stimulation"
+              }
+            ]
+          },
+          {
+            "sub": "Age",
+            "body": [
+              {
+                "bullets": [
+                  "สัตว์อายุมากขึ้น สีเนื้อเข้มขึ้นและความนุ่มลดลง เพราะกล้ามเนื้อถูกใช้งานมากขึ้น",
+                  "กลิ่นรสเนื้อเข้มขึ้นตามอายุ จากความเข้มข้นของ nucleotide และ amino acid ในกล้ามเนื้อที่เพิ่มขึ้น ความนุ่มกับกลิ่นรสจึงได้อย่างหนึ่งเสียอย่างหนึ่ง"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Sex",
+            "body": [
+              {
+                "bullets": [
+                  "เนื้อ bull และ ram สีเข้มกว่าเนื้อ steer และ wether อายุใกล้กันเล็กน้อย",
+                  "Boar มีกลิ่นเพศในเนื้อ (boar taint) จาก androstenone และ skatole พ่อพันธุ์และแม่พันธุ์สุกรที่คัดทิ้งจึงนำไปทำผลิตภัณฑ์แปรรูป เช่น กุนเชียง เพราะกลิ่นกำจัดได้ยาก",
+                  "Broiler เพศผู้ตัวใหญ่กว่าเพศเมียที่อายุเท่ากัน ปัจจุบันความต่างนี้น้อยลง"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Genetic & major genes",
+            "body": [
+              {
+                "bullets": [
+                  "โคพันธุ์เนื้อ เช่น Hereford และ Angus ให้เนื้อดีกว่าโคนม แม้โดยรวมจะต่างกันไม่มาก",
+                  "เนื้อ **Bos indicus** (โคมีหนอก) เหนียวและแข็งกว่า **Bos taurus** และการย่อยโปรตีนหลังตายน้อยกว่า ความต่างนี้เกี่ยวกับการทำงานของ calpain และ calpastatin",
+                  "Halothane gene และ RN- gene ของสุกรอยู่ในหัวข้อ PSE และ DFD"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Muscle location",
+            "body": [
+              {
+                "bullets": [
+                  "แรงตึงที่กระทำต่อกล้ามเนื้อแต่ละมัด และอุณหภูมิที่กล้ามเนื้อถึงก่อน rigor มีผลต่อความยาว sarcomere และความนุ่ม",
+                  "ความนุ่มที่ต่างกันระหว่างกล้ามเนื้อมาจากปริมาณ connective tissue ที่ต่างกัน",
+                  "กล้ามเนื้อใหญ่และอยู่ลึก rigor สมบูรณ์ช้ากว่า กล้ามเนื้อที่ใช้งานมากเนื้อหยาบกว่า กล้ามเนื้อที่มีไขมันแทรกนุ่มกว่ากล้ามเนื้อที่มีแต่เนื้อแดง",
+                  "วัดความนุ่มเป็นแรงตัด (shear force) หน่วย kg ยิ่งมากยิ่งเหนียว"
+                ]
+              },
+              {
+                "table": {
+                  "headers": [
+                    "Muscle",
+                    "Shear (kg)",
+                    "Tenderness"
+                  ],
+                  "rows": [
+                    [
+                      "Trapezius, sternocephalicus",
+                      "~6.7",
+                      "Very tough"
+                    ],
+                    [
+                      "Semimembranosus, semitendinosus",
+                      "~5.2",
+                      "Slightly tough"
+                    ],
+                    [
+                      "Triceps brachii, supraspinatus",
+                      "~4.0",
+                      "Medium"
+                    ],
+                    [
+                      "Longissimus",
+                      "3.8",
+                      "Slightly tender"
+                    ],
+                    [
+                      "Gluteus medius",
+                      "3.7",
+                      "Slightly tender"
+                    ],
+                    [
+                      "Psoas major",
+                      "3.2",
+                      "Very tender"
+                    ]
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "sub": "Diet",
+            "body": [
+              {
+                "bullets": [
+                  "การพักและให้อาหารสัตว์ก่อนฆ่ามีผลต่อปริมาณพลังงานสะสมในกล้ามเนื้อ",
+                  "ควรงดอาหารก่อนฆ่าเพื่อลดโอกาสปนเปื้อนจุลินทรีย์ ลำไส้มีสิ่งค้างน้อย ถ้าลำไส้แตกก็ปนเปื้อนข้ามน้อยลง",
+                  "อาหารที่มี forage สูงทำให้เกิดสารกลิ่นรสที่ไม่ต้องการในเนื้อ (grassy flavor)",
+                  "อาหาร forage ที่มี β-carotene สูงทำให้ไขมันซากสีเหลือง",
+                  "ปัจจุบันอาหารสัตว์ค่อนข้างสม่ำเสมอ ผลของอาหารจึงเห็นชัดในสัตว์ป่วยหรือสัตว์ที่ไม่กินอาหาร",
+                  "อาหารให้กลิ่นรสเฉพาะได้ เช่น clover และพืชตระกูลถั่วให้กลิ่นรสเฉพาะของเนื้อแกะ สุกรที่เลี้ยงด้วยปลาป่นมีกลิ่นเหม็นสาบ"
+                ]
+              },
+              {
+                "callout": "หนังสือ p.25 เขียนกลับกัน: เนื้อจากโคที่เลี้ยงด้วยหญ้ามีกลิ่นและรสดีกว่าโคที่เลี้ยงด้วยข้าวโพด ส่วนสไลด์ว่าอาหารที่มี forage สูงให้กลิ่นรส grassy ที่ไม่ต้องการ",
+                "kind": "flag"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "ปัจจัยก่อนฆ่า: preslaughter handling และ immobilization method",
+        "source": "Postmortem Changes & Factors, Meat Cutting & Grading p.18-19; บันทึกคาบ 18 พ.ย. 2569 [50:00-60:00]",
+        "body": [
+          {
+            "sub": "Preslaughter handling",
+            "body": [
+              {
+                "bullets": [
+                  "การคัดแยก (sorting) การต้อนขึ้นรถ (loading) การขนส่ง (driving) และการทำให้สลบรวมกันเป็นสิ่งเร้าจากสิ่งแวดล้อม ผลที่ไม่ต้องการคือซากช้ำ (carcass bruising) และ PSE",
+                  "การขนส่งเป็นช่วงที่รุนแรงที่สุดช่วงหนึ่ง: สัตว์ตาย ซากช้ำ กล้ามเนื้อหดหาย (muscle shrinkage) และน้ำหนักซากลดลง",
+                  "สิ่งที่ควบคุมได้: วิธีจับสัตว์ ช่องบรรทุกบนรถ พฤติกรรมคนขับ เส้นทาง เวลา และคอกพักสัตว์ (lairage)",
+                  "ไก่: ใส่จำนวนต่อกรงหรือต่อ module ให้พอดี และกรงต้องไม่ชำรุด",
+                  "เลือกเส้นทางที่มีสัญญาณไฟน้อยและถนนดี ออกรถและเบรกนุ่มนวล ขนส่งช่วงเช้ามืดให้ถึงตรงเวลาฆ่า เลี่ยงช่วงอากาศร้อน ถ้าร้อนมากมีจุดพักและพ่นน้ำ",
+                  "ซากช้ำถูกตัดราคา การจัดการที่แย่ลงไปอีกทำให้ขาหรือปีกหักและสัตว์ขาเจ็บ"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Immobilization method",
+            "body": [
+              {
+                "bullets": [
+                  "ทำให้สัตว์หมดสติโดยหัวใจยังเต้น และทำให้เร็วที่สุดเพื่อไม่ให้สัตว์ฟื้นคืนสติ",
+                  {
+                    "label": "โคและกระบือ",
+                    "value": "captive bolt pistol ทำลายสมอง ถ้า bolt ใหญ่เกินหรือแรงดันสูงเกินกะโหลกจะแตก สัตว์ถือว่าตายก่อนปล่อยเลือดซึ่งขัดกับหลัก halal และคุณภาพซากเสีย"
+                  },
+                  {
+                    "label": "สุกร (electrical stunning)",
+                    "value": "under-stun สัตว์ไม่หมดสติและดิ้น ถ้าช็อตซ้ำผิดตำแหน่งอาจกลายเป็น over-stun; over-stun (กระแสมากหรือนานเกิน) ทำให้กระดูกสันหลังหัก (vertebral fracture) และมีจุดเลือดในกล้ามเนื้อ (blooding meat) โดยเฉพาะที่ไหล่ ถ้ารุนแรงจะมีจุดเลือดใน tenderloin ซึ่งเป็นชิ้นราคาแพง และถูกตัดราคา"
+                  },
+                  "เครื่องตั้งค่าตามน้ำหนักเฉลี่ยของสุกรทั้งคันรถ สุกรตัวเล็กจะ over-stun หรือหลุดจากคีม ตัวใหญ่ความต้านทานสูงได้กระแสน้อยลง จึงสลบไม่สมบูรณ์",
+                  {
+                    "label": "ไก่เนื้อ",
+                    "value": "under-stun ไก่กระพือปีก (wing flapping) มีปัญหาด้านสวัสดิภาพสัตว์และขั้นตอนถัดไป; over-stun เกิด blood splash หรือ blood splatter (จุดเลือดเล็กๆ) ในเนื้ออก และ blown shoulders (เลือดออกที่โคนปีก) บอกว่าตั้งค่าไม่ดีหรือไก่ตัวเล็ก"
+                  },
+                  "ถ้าไก่ขนาดไม่เท่ากัน ตัวเล็กจะ over-stun ตัวใหญ่จะ under-stun ขนาดที่สม่ำเสมอจึงช่วยได้"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "ปัจจัยหลังฆ่า: อุณหภูมิ, accelerated processing และ electrical stimulation",
+        "source": "Postmortem Changes & Factors, Meat Cutting & Grading p.20-25; หนังสือสุขศาสตร์เนื้อสัตว์ p.26; บันทึกคาบ 18 พ.ย. 2569 [58:00-72:00]",
+        "body": [
+          {
+            "sub": "Temperature",
+            "body": [
+              {
+                "bullets": [
+                  "อุณหภูมิเก็บซากหลังฆ่ามีผลต่อปฏิกิริยาเคมีและการเติบโตของจุลินทรีย์ในกล้ามเนื้อ",
+                  "การลดอุณหภูมิกล้ามเนื้อเร็วมากเกินไปให้ผลที่ไม่ต้องการ เนื้อโคและเนื้อแกะไวที่สุด จึงควรให้ rigor เริ่มก่อนแล้วค่อยทำให้เย็น"
+                ]
+              },
+              {
+                "table": {
+                  "headers": [
+                    "ประเด็น",
+                    "Thaw rigor",
+                    "Cold shortening"
+                  ],
+                  "rows": [
+                    [
+                      "เกิดเมื่อ",
+                      "กล้ามเนื้อถูกแช่แข็งก่อน rigor mortis เกิด ATP ยังไม่ถูกใช้",
+                      "กล้ามเนื้อถูกทำให้เย็น (ไม่ถึงแข็ง) ก่อน rigor onset"
+                    ],
+                    [
+                      "กลไก",
+                      "การแช่แข็งทำลาย SR เมื่อละลาย calcium ทะลักเข้า sarcoplasm ทันทีขณะ ATP ยังสูง กล้ามเนื้อหดตัวรุนแรง",
+                      "SR เก็บ calcium ไม่อยู่ calcium รั่วออกทีละน้อย กล้ามเนื้อหดตัวขณะยังมี ATP"
+                    ],
+                    [
+                      "ความรุนแรง",
+                      "กล้ามเนื้อที่ไม่ถูกยึดหดสั้นลง 60-80% ของความยาวเดิม (10 cm เหลือ 2-4 cm) แข็งมากจนนำไปแปรรูปไม่ได้",
+                      "รุนแรงน้อยกว่า thaw rigor"
+                    ],
+                    [
+                      "ที่ไวกว่า",
+                      "-",
+                      "red fiber ไวกว่า white fiber; ซากโคและแกะได้รับผลมากกว่าซากสุกร"
+                    ]
+                  ]
+                }
+              },
+              "การลดอุณหภูมิกล้ามเนื้อให้ต่ำกว่า 10°C เพื่อกันแบคทีเรียเจริญทำให้กล้ามเนื้อหดตัวรุนแรง (cold shortening) เนื้อเหนียวกว่าเนื้อที่เข้าสู่ rigor ตามปกติ"
+            ]
+          },
+          {
+            "sub": "Heat ring",
+            "body": [
+              {
+                "bullets": [
+                  "พบในซากโคที่มีไขมันหุ้มภายนอกบาง ส่วนนอกของ ribeye ที่ตัดเห็นสีเข้มและเนื้อหยาบกว่า",
+                  "เกิดจากอัตราการเย็นของ ribeye ไม่เท่ากัน ส่วนนอกเย็นเร็วกว่า glycolysis และ pH decline จึงช้า และ rigor onset ช้าออกไป",
+                  "มีผลต่อเกรดไม่มากแต่ดูไม่น่ากิน ส่วนนอกมี pH สูงกว่า bacteria จึงเจริญได้ง่าย shelf life ลดลงเล็กน้อย"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Accelerated processing",
+            "body": [
+              {
+                "bullets": [
+                  "ตัดแต่ง เลาะกระดูก และบดเนื้อทันทีหลังฆ่า",
+                  "เนื้อที่ pH ยังสูงจับน้ำได้ดี ได้ processing yield ดีขึ้น เนื้อฉ่ำขึ้น (juiciness) และดูดซับเครื่องปรุงได้ดี",
+                  "ตัดชิ้นเนื้อ (intact cut) ทันทีหลังฆ่าใช้พื้นที่ห้องเย็นน้อยลง และผู้บริโภคได้เนื้อที่รสสดกว่า",
+                  "Hot boning ยังไม่เป็นที่ยอมรับแพร่หลายในสหรัฐฯ",
+                  "ไก่: ซากเล็ก rigor ผ่านไปเร็ว การทำให้เย็นเร็วจึงไม่เป็นปัญหา โรงงานตัดแต่งและบรรจุกล่องเร็วเพื่อประหยัดพื้นที่และยืด shelf life"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "ซากอุ่น (warm carcass)",
+            "body": [
+              {
+                "bullets": [
+                  "เนื้อสุกรในตลาดสดไทยส่วนใหญ่เป็นซากอุ่นจากโรงฆ่าท้องถิ่น ไม่ผ่านการแช่เย็น ซึ่งไม่ผิดกฎหมายในไทย และผู้บริโภคบางส่วนชอบเนื้อที่เพิ่งฆ่า",
+                  "โรงฆ่าเพื่อการส่งออกแช่เย็นซากเสมอ การขายซากอุ่นไม่เป็นที่ยอมรับในระดับสากล และไม่มีในสหรัฐฯ"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Carcass electrical stimulation",
+            "body": [
+              {
+                "bullets": [
+                  "ใช้เพิ่มความนุ่มและคุณภาพเนื้อในไก่งวง แกะ โค และลูกโค (veal)",
+                  "กล้ามเนื้อหดตัวจากการกระตุ้นใช้ ATP และพลังงานสะสมจนหมด pH decline และ proteolytic activity จึงเร็วขึ้น rigor mortis เกิดเร็วขึ้น และป้องกัน cold shortening",
+                  "ไม่ใช้กับไก่เพราะเนื้อนุ่มอยู่แล้ว (มีบางบริษัทใช้ตามวิธีของตัวเอง) ในสุกรผลเสียมากกว่าผลดี"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "หลักการตัดแต่งซากและนิยามซากโค",
+        "source": "Postmortem Changes & Factors, Meat Cutting & Grading p.27-33; หนังสือสุขศาสตร์เนื้อสัตว์ p.33; บันทึกคาบ 18 พ.ย. 2569 [78:00-88:00]",
+        "body": [
+          {
+            "sub": "จุดประสงค์ของการตัดแต่ง",
+            "body": [
+              {
+                "bullets": [
+                  "ให้ขายส่ง (wholesale) ต่อได้ง่าย",
+                  "ตรงกับความต้องการของผู้บริโภคและดูน่าซื้อ fresh meat display ทำหน้าที่ขายหลักของเนื้อสดและเป็นตัวโน้มน้าวผู้ซื้อ",
+                  "Meat merchandising คือการนำเสนอเนื้อแก่ผู้บริโภคในร้านค้าปลีก",
+                  "เหมาะกับวิธีปรุง เช่น steak หรือ stew",
+                  "หั่นบาง (thin meat) สำหรับชาบูหรือปิ้งย่าง ได้จำนวนจานต่อชิ้นมากขึ้นและเหลือทิ้งน้อย"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Good cuts",
+            "body": [
+              {
+                "bullets": [
+                  "ได้เนื้อตรงกับที่ผู้บริโภคต้องการ เสียเนื้อที่กินได้น้อยที่สุด และใช้ซากให้ได้มากที่สุด"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "ระดับของชิ้นส่วนในระบบ MB",
+            "body": [
+              {
+                "bullets": [
+                  "ระบบที่ใช้คือ **National Livestock & Meat Board (MB)** แบ่งเป็น primal cuts, sub-primal cuts และ retail cuts",
+                  {
+                    "label": "Wholesale cuts",
+                    "value": "ชิ้นส่วนขนาดใหญ่"
+                  },
+                  {
+                    "label": "Primal cuts",
+                    "value": "ชิ้นใหญ่ที่ตัดแต่งให้ได้ขนาดและความหนาไขมันตามกำหนด"
+                  },
+                  {
+                    "label": "Sub-primal cuts",
+                    "value": "ชิ้นที่แบ่งจาก primal cut ให้เล็กลงแต่ยังเป็นชิ้นใหญ่"
+                  },
+                  {
+                    "label": "Retail cuts",
+                    "value": "ชิ้นเล็กสำหรับปรุงอาหารหรือแปรรูป ขายในร้านค้าปลีก"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Meat cut nomenclature ของซากโค",
+            "body": [
+              {
+                "bullets": [
+                  {
+                    "label": "Beef",
+                    "value": "เนื้อจากซากโคที่ dress แล้ว น้ำหนักซากอุ่น ≥160 kg ทั้งเพศผู้ เพศเมีย และ steer ลูกโคแยกต่างหาก"
+                  },
+                  {
+                    "label": "Dressed beef carcass",
+                    "value": "ซากโคที่เอาหนัง หัว เต้านม และขาที่ข้อ carpal และ tarsal ออก เอาเครื่องในออกและผ่าซีกแล้ว"
+                  },
+                  {
+                    "label": "Beef side",
+                    "value": "ซีกซากหนึ่งในสองซีกที่เท่ากันโดยประมาณ ได้จากการผ่าจากหางถึงคอตามแนวกึ่งกลางลำตัว"
+                  },
+                  {
+                    "label": "Front quarter และ hind quarter",
+                    "value": "แบ่ง beef side ด้วยแนวตัดผ่านระหว่างซี่โครงที่ 12 และ 13"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Quartering ตามวิธี MB",
+            "body": [
+              {
+                "bullets": [
+                  "แช่เย็นซากที่ 3°C นาน 24 ชั่วโมงก่อนตัดแต่ง",
+                  "ซี่โครงซี่สุดท้ายติดไปกับ hind quarter เพื่อรักษารูปร่างของ loin และให้ตัด steak ได้ง่าย",
+                  "หน้าตัด loin eye (longissimus dorsi) บอกปริมาณกล้ามเนื้อของซาก เห็นสี ไขมันแทรก ความแน่น และลักษณะเนื้อได้ชัด",
+                  "ตัดแต่ง fore quarter ก่อน เพราะชิ้นส่วนเล็กและบางกว่าของ hind quarter จึงเน่าเสียเร็วกว่า"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Primal cuts ของซากโค",
+        "source": "Postmortem Changes & Factors, Meat Cutting & Grading p.34-50; หนังสือสุขศาสตร์เนื้อสัตว์ p.33-36; บันทึกคาบ 18 พ.ย. 2569 [86:00-100:00]",
+        "body": [
+          {
+            "sub": "Front quarter",
+            "body": [
+              {
+                "bullets": [
+                  "ประกอบด้วย chuck (26%), rib (9.5%), fore shank (4%), brisket (6%) และ plate (5.5%) กล้ามเนื้อส่วนนี้ถูกใช้งานมากและมี connective tissue มาก จึงนุ่มน้อยกว่า hind quarter",
+                  {
+                    "label": "Chuck",
+                    "value": "ตัดระหว่างซี่โครงที่ 5 และ 6 แนวตัดผ่านเหนือข้อศอกและผ่านกระดูกอ่อนใต้ซี่โครงที่ 1 และ sternum เป็นชิ้นใหญ่ที่สุด คือเนื้อไหล่ blade chuck มี scapula (blade) ติดอยู่ ต้องระวังเศษกระดูกและราคาต่ำกว่า ความนุ่มและราคาปานกลาง เศษเนื้อใช้ทำ stew และเนื้อบด"
+                  },
+                  {
+                    "label": "Rib",
+                    "value": "แยกจาก chuck และ brisket ด้วยแนวตัดตรงระหว่างซี่โครงที่ 5 และ 6 แยกจาก plate ด้วยแนวตัดตรงขวางซี่โครง ตั้งฉากกับแนวแรก ที่จุดต่ำกว่ากึ่งกลางทรวงอก เป็นชิ้นที่ดีที่สุดของ fore quarter เพราะ longissimus นุ่มมาก ได้ ribeye ทั้งแบบมีกระดูกและไม่มีกระดูก ส่วน back ribs ใช้ทำซุป"
+                  },
+                  {
+                    "label": "Fore shank",
+                    "value": "แยกจาก brisket ตามแนวโค้งของกระดูกข้อศอก เศษเนื้อใช้ทำ stew และเนื้อบด"
+                  },
+                  {
+                    "label": "Brisket (เนื้อฐานอก หรือเนื้อเสือร้องไห้)",
+                    "value": "มีไขมันเป็นก้อนอยู่ด้านนอก ไม่ใช่ไขมันแทรก ค่อนข้างเหนียว ใช้ทำเนื้อตุ๋น ประกอบด้วยซี่โครงส่วนล่างซี่ที่ 1-5 และ sternum ไขมันด้านบนของ brisket เรียกว่าเนื้อมะพร้าว"
+                  },
+                  {
+                    "label": "Plate (short plate)",
+                    "value": "อยู่ใต้ rib ได้ skirt steak ชิ้นที่มีกระดูกคือ short ribs ตัดขนานกับกระดูกสันหลังห่างจากขอบด้านในราว 18-25 cm ประกอบด้วยซี่โครงที่ 6-12 และ sternum บางส่วน"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Hind quarter",
+            "body": [
+              {
+                "bullets": [
+                  "ประกอบด้วย loin (17%: short loin 8% และ sirloin 9%), round (27%) และ flank (4%)",
+                  {
+                    "label": "Short loin",
+                    "value": "ตั้งแต่ซี่โครงซี่สุดท้ายถึงด้านหน้า ilium ได้ T-bone steak และ porterhouse steak ปลาย tenderloin ยื่นมาถึงส่วนหน้าของ short loin ชิ้นส่วนหน้าจึงเป็น T-bone ส่วน porterhouse มี tenderloin มากกว่าและราคาแพงกว่า"
+                  },
+                  {
+                    "label": "Sirloin",
+                    "value": "แยกจาก short loin ด้วยแนวตัดตรงที่ผ่านด้านหน้า ilium (tuber coxae) หรือนับเป็นตำแหน่ง lumbar vertebra ข้อที่ 5 ได้ steak, sirloin tip และ tri-tip ที่ปลายด้านขาหลัง"
+                  },
+                  {
+                    "label": "Round",
+                    "value": "ส่วนสะโพกและต้นขา คล้าย ham แบ่งเป็น top และ bottom ทำ roast และ steak เศษเนื้อทำเคบับและเนื้อบด เป็นชิ้นใหญ่รองจาก chuck แยกจาก loin ที่ราว sacral joint ที่ 4 หรือประมาณ 5 cm หน้า stifle joint"
+                  },
+                  {
+                    "label": "Flank (เนื้อใบบัว)",
+                    "value": "แนวตัดตรงขนานกับกระดูกสันหลังส่วนเอว เริ่มผ่าน prefemoral lymph node แล้วผ่านระหว่างซี่โครงที่ 12 และ 13 และกระดูกอ่อน เป็นกล้ามเนื้อบางเรียงเป็นชั้นกับไขมัน มันน้อยและบางกว่าเนื้อเสือร้องไห้ ได้ flank steak ชิ้นละประมาณ 1.2-1.4 kg"
+                  },
+                  {
+                    "label": "Kidney knob",
+                    "value": "ไขมันรอบไตและบน psoas major ตัดออกเป็นอย่างแรก ต้องระวังไม่ให้ตัดโดน tenderloin"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Thick cuts และ thin cuts",
+            "body": [
+              {
+                "bullets": [
+                  "**Major primal cuts (thick cuts)** ได้แก่ chuck, rib, loin และ round รวมประมาณ 75% ของซาก",
+                  "Primal cuts อื่น **(thin cuts)** ได้แก่ shank, brisket, short plate และ flank ส่วนที่เหลือ (miscellaneous) คือไต ไขมัน และส่วนที่เสียจากการตัด",
+                  "fore shank, brisket, plate, flank และ kidney knob เรียกรวมว่า rough cuts รวมประมาณ 25% ของซาก ปริมาณที่ได้ไม่แน่นอน"
+                ]
+              },
+              {
+                "table": {
+                  "headers": [
+                    "Primal",
+                    "Sub-primal"
+                  ],
+                  "rows": [
+                    [
+                      "Chuck",
+                      "Neck, blade, shoulder, cross rib"
+                    ],
+                    [
+                      "Rib",
+                      "Short rib, 7-bone rib"
+                    ],
+                    [
+                      "Loin",
+                      "Short loin, sirloin"
+                    ],
+                    [
+                      "Round",
+                      "Inside round, outside round, hind shank"
+                    ],
+                    [
+                      "Fore shank, brisket, short plate, flank",
+                      "-"
+                    ]
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "sub": "Retail cuts",
+            "body": [
+              {
+                "bullets": [
+                  "Steak หนา ¾-1 นิ้ว มีหรือไม่มีกระดูกก็ได้; roast เป็นชิ้นใหญ่; stew เป็นชิ้นลูกเต๋าเล็ก",
+                  {
+                    "label": "Chuck",
+                    "value": "7-bone pot roast or steak, arm roast or steak, chuck eye, cross rib roast, shoulder roast or steak"
+                  },
+                  {
+                    "label": "Rib",
+                    "value": "back ribs, rib-eye roast or steak, rib roast or steak"
+                  },
+                  {
+                    "label": "Loin",
+                    "value": "club steak, filet mignon, porterhouse, T-bone, sirloin, tenderloin, top loin, tri-tip"
+                  },
+                  {
+                    "label": "Round",
+                    "value": "bottom round, eye round, London broil, round steak, top round"
+                  },
+                  {
+                    "label": "Flank และ plate",
+                    "value": "flank, hanger, skirt, short ribs"
+                  },
+                  {
+                    "label": "อื่นๆ",
+                    "value": "oxtail, ground beef, stew beef, cube steak, bones"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "callout": "สัดส่วน primal cut ในสไลด์กับหนังสือ p.34 ไม่ตรงกันบางชิ้น: brisket 6% กับ 4%, plate 5.5% กับ 9.5%, round 27% กับ 23% และ rib 9.5% กับ 8-10% ส่วน chuck 26%, fore shank 4%, loin 17% และ flank 4% ตรงกัน หนังสือให้ kidney knob 3.5% ซึ่งสไลด์ไม่ได้แยกไว้",
+            "kind": "flag"
+          }
+        ]
+      },
+      {
+        "heading": "การตัดแต่งซากสุกร",
+        "source": "Postmortem Changes & Factors, Meat Cutting & Grading p.51-60; หนังสือสุขศาสตร์เนื้อสัตว์ p.36-38; บันทึกคาบ 18 พ.ย. 2569 [100:00-108:00]",
+        "body": [
+          {
+            "bullets": [
+              "ระบบ MB แบ่งเป็น wholesale cuts (primal และ sub-primal) และ retail cuts",
+              "ซากสุกรแบ่งเป็น 3 ส่วนหลัก คือ คอและไหล่ ช่วงกลางลำตัว (ซี่โครงและสัน) และขาหลัง ต่างจากโคที่แบ่งเป็น front และ hind quarter"
+            ]
+          },
+          {
+            "table": {
+              "headers": [
+                "Wholesale cut",
+                "สัดส่วนซาก",
+                "Retail cuts"
+              ],
+              "rows": [
+                [
+                  "Ham (ขาหลัง)",
+                  "17-19%",
+                  "center ham slice, boneless leg, smoked ham rump portion, sliced cooked ham ใช้ทำ cured, smoked และ cooked ham"
+                ],
+                [
+                  "Loin",
+                  "13-15%",
+                  "tenderloin, boneless top loin, sirloin steak, back ribs, butterfly chop, Frenched rib chop"
+                ],
+                [
+                  "Boston shoulder (สันไหล่)",
+                  "7-9%",
+                  "blade steak, boneless blade Boston roast, Boston butt roast"
+                ],
+                [
+                  "Picnic shoulder",
+                  "7-9%",
+                  "arm steak, arm picnic, arm roast, hock (ขาหมู)"
+                ],
+                [
+                  "Belly",
+                  "14%",
+                  "slab bacon, sliced bacon, spareribs; ใช้ทำชาชูได้"
+                ]
+              ]
+            }
+          },
+          {
+            "bullets": [
+              "**Four lean cuts** คือ ham, loin, Boston shoulder และ picnic shoulder มีเนื้อแดงมาก จึงใช้วัดมูลค่าซาก",
+              "Butterfly chop คือชิ้นที่ผ่าแล้วแบะออกโดยไม่ให้ขาดจากกัน Frenched rib chop เหลือกระดูกไว้เป็นด้ามจับ loin และ tenderloin ใช้ทำทงคัตสึ",
+              "Miscellaneous: ขาหมู (pig feet), คอหมู (pork jowl), fat back, น้ำมันหมู (lard), หมูบด, หมูหั่นเต๋า และกระดูกสันหลัง (เล้ง) คนไทยกินขาหมูแต่ชาวตะวันตกไม่กิน"
+            ]
+          },
+          {
+            "sub": "ลำดับการตัดแต่งและตัวอย่าง retail cut",
+            "body": [
+              {
+                "bullets": [
+                  "ตัด jowl ออกก่อนเป็นชิ้นสี่เหลี่ยม (bacon square) แล้วตัด shank, shoulder, ham, loin, belly และ spare rib",
+                  "ตัดแต่งเอาจุดเลือด รอยช้ำ และเศษเนื้อออก ให้เสียเนื้อน้อยที่สุด",
+                  "loin chop เป็นชิ้นมีกระดูก หนา ½-1 นิ้ว; loin roast คือ loin ทั้งชิ้นที่มีกระดูก ถ้ามัดม้วนเป็นวงเรียก crown roast; tenderloin คือ psoas ทั้งมัด"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "สองแนวทางของการตัดแต่ง",
+            "body": [
+              {
+                "bullets": [
+                  {
+                    "label": "ยุโรป ออสเตรเลีย และอเมริกา",
+                    "value": "ตัด wholesale และ retail cut ตามชนิดกล้ามเนื้อ ราคาตามคุณภาพในการบริโภค เช่น pork chop จาก loin นุ่มและแพงกว่า blade steak จาก Boston shoulder"
+                  },
+                  {
+                    "label": "เอเชียและแอฟริกา",
+                    "value": "แยกเป็นไขมัน เนื้อแดง กระดูก เศษเนื้อ และเอ็น ทำได้ง่าย"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "การตัดแต่งแบบไทย",
+            "body": [
+              {
+                "bullets": [
+                  "แยกเป็นเนื้อแดง ซี่โครง สามชั้น มันหมู หนังหมู และกระดูกหมู เน้นความง่ายและปริมาณเนื้อแดง ไม่แยกเนื้อตามคุณภาพในการบริโภค",
+                  "ลำดับ: เลาะไขมันออกทั้งไขมันหุ้มไตและไขมันช่องท้อง (มันเปลว) เลาะกล้ามเนื้อสันนอก ตัดแยกขาสะโพกที่ hock joint ตัดแยกขาหน้า ตัดคาง เลาะซี่โครงและสามชั้น แล้วเลาะกระดูกออกจากชิ้นส่วนต่างๆ",
+                  "หนังหมูแยกไปใช้ทำอย่างอื่น"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "การตัดแต่งซากสัตว์ปีก",
+        "source": "Postmortem Changes & Factors, Meat Cutting & Grading p.61-67; หนังสือสุขศาสตร์เนื้อสัตว์ p.39-41; บันทึกคาบ 18 พ.ย. 2569 [106:00-112:00]",
+        "body": [
+          {
+            "sub": "Dressed poultry carcass (whole poultry)",
+            "body": [
+              {
+                "bullets": [
+                  "ซากสัตว์ปีกที่เอาขน หัว ขาที่ข้อ tarsal และต่อมน้ำมัน (uropygial gland) ออก และเอาเครื่องในออกแล้ว",
+                  "ตัดเป็นชิ้นส่วน (parts) แล้วจัดกลุ่มตามขนาดและชนิดชิ้นส่วน หนึ่งแพ็กเป็นชิ้นส่วนเดียวกันจากหลายตัว ขนาดต่างกันราคาต่างกัน",
+                  "poultry รวมสัตว์ปีกชนิดอื่นนอกจากไก่ จึงต้องระบุชนิดสัตว์ปีกด้วย",
+                  "ไก่ไหว้เจ้ายังคงหัวและขาไว้"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Halves และ quarters",
+            "body": [
+              {
+                "bullets": [
+                  {
+                    "label": "Poultry half",
+                    "value": "หนึ่งในสองซีกที่เท่ากันโดยประมาณ ไม่รวมคอและข้อ tarsal ผ่าตามแนวกึ่งกลางของกระดูกสันหลังส่วนอก เชิงกราน และกระดูก keel"
+                  },
+                  {
+                    "label": "Front quarter (breast quarter)",
+                    "value": "ส่วนหน้าของ poultry half ตัดขนานกับแนวซี่โครงทางด้านหลังซี่โครง"
+                  },
+                  {
+                    "label": "Hind quarter (leg quarter)",
+                    "value": "ส่วนหลังของ poultry half คือ leg, back attached"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "8-piece cut",
+            "body": [
+              "ไก่ทั้งตัวตัดเป็น 8 ชิ้น: breast half 2 ชิ้น (ติดซี่โครงและส่วนหลัง), wing 2 ชิ้น, thigh 2 ชิ้น (ติดส่วนหลัง) และ drumstick 2 ชิ้น"
+            ]
+          },
+          {
+            "sub": "White meat cuts",
+            "body": [
+              {
+                "bullets": [
+                  {
+                    "label": "Breast",
+                    "value": "half breast, half trimmed breast และ breast fillet ซึ่งมีทั้งแบบมีหนังและไม่มีหนัง"
+                  },
+                  {
+                    "label": "Wing",
+                    "value": "wing drumette (ปีกบน หรือน่องเล็ก ช่วงข้อไหล่ถึงข้อศอก), wing flat (ปีกกลาง) และ wing tip (ปลายปีก) ปีกกลางรวมปลายปีกเรียก V-wing หรือ winglet ตั้งแต่ข้อศอกถึงปลายปีก"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Dark meat cuts",
+            "body": [
+              {
+                "bullets": [
+                  "Leg คือ thigh รวมกับ drumstick เริ่มที่ข้อสะโพก ไม่รวมเชิงกราน",
+                  "Thigh ตั้งแต่ข้อสะโพกถึงข้อเข่า drumstick ตัดแยกจาก thigh ที่ข้อเข่า"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Meat grading และเกรดคุณภาพซากโคของ USDA",
+        "source": "Postmortem Changes & Factors, Meat Cutting & Grading p.69-76; หนังสือสุขศาสตร์เนื้อสัตว์ p.42-43, 45-47; บันทึกคาบ 18 พ.ย. 2569 [110:00-120:00]",
+        "body": [
+          {
+            "sub": "Meat grading",
+            "body": [
+              {
+                "bullets": [
+                  "การแยกเนื้อและผลิตภัณฑ์ตามความน่ากินที่คาดไว้ (palatability) ผลผลิต (yield) และลักษณะทางการค้าอื่น ได้แก่ ลักษณะภายนอก สมบัติทางกายภาพ และส่วนที่กินได้",
+                  {
+                    "label": "Quality grade",
+                    "value": "tenderness, juiciness, flavor"
+                  },
+                  {
+                    "label": "Yield grade",
+                    "value": "ปริมาณเนื้อแดงที่ใช้ได้"
+                  },
+                  "การจัดเกรดไม่บังคับ แต่บอกคุณภาพและมีผลต่อราคา ผู้ส่งออกต้องรู้มาตรฐานของประเทศคู่ค้า ส่วน meat evaluation ละเอียดกว่า บอกองค์ประกอบและมูลค่าของซากได้แม่นกว่า",
+                  "ไทยมีมาตรฐาน มกษ. ของเนื้อแต่ละชนิดซึ่งอ้างอิงระบบเหล่านี้ การจัดเกรดเป็นคนละเรื่องกับ postmortem inspection"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Beef grading",
+            "body": [
+              {
+                "bullets": [
+                  "**Quality grades 8 ระดับ**: Prime, Choice, Select, Standard, Commercial, Utility, Cutter, Canner ซากที่ผ่านการจัดเกรดได้ตรา USDA grade shield; Commercial ลงไปใช้ทำผลิตภัณฑ์แปรรูป เช่น อาหารกระป๋อง",
+                  "**Yield grades 1-5** โดย 1 ดีที่สุด",
+                  "ปัจจัยของ quality grade: maturity, marbling, conformation fleshing & finish, firmness, color & structure of lean และ carcass defects"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Maturity",
+            "body": [
+              {
+                "bullets": [
+                  "ดูจากขนาด รูปร่าง และการกลายเป็นกระดูก (ossification) ของกระดูกและกระดูกอ่อน และสีกับลักษณะเนื้อของ ribeye",
+                  "สัตว์อายุน้อยมีกระดูกอ่อนมากและกลายเป็นกระดูกตามอายุ ในโคดูที่ buttons บน dorsal process ซี่โครงของสัตว์อายุน้อยแคบและแดง อายุมากขึ้นกว้างและขาวขึ้น ความหยาบของเนื้อขึ้นกับขนาดมัดเส้นใยและ perimysium",
+                  "Grade A กระดูกสันหลังนุ่มพรุน ซี่โครงแคบสีแดง; Grade E กระดูกสันหลังแข็งสีขาว ซี่โครงกว้าง longissimus สีแดงเข้มจัดและเนื้อหยาบ"
+                ]
+              },
+              {
+                "table": {
+                  "headers": [
+                    "Maturity",
+                    "อายุ (USDA 2007)"
+                  ],
+                  "rows": [
+                    [
+                      "A",
+                      "9-30 เดือน"
+                    ],
+                    [
+                      "B",
+                      "30-42 เดือน"
+                    ],
+                    [
+                      "C",
+                      "42-72 เดือน"
+                    ],
+                    [
+                      "D",
+                      "72-96 เดือน"
+                    ],
+                    [
+                      "E",
+                      "≥96 เดือน"
+                    ]
+                  ]
+                }
+              },
+              "อายุต่ำกว่า 9 เดือนเป็นลูกโค ไม่ใช้ระบบนี้",
+              {
+                "callout": "ช่วงอายุ maturity ในหนังสือ p.47 ต่างจากสไลด์ (USDA 2007) ตั้งแต่กลุ่ม C: หนังสือให้ C 42-60, D 60-84 และ E ตั้งแต่ 84 เดือน ส่วน A 9-30 และ B 30-42 เดือนตรงกัน",
+                "kind": "flag"
+              }
+            ]
+          },
+          {
+            "sub": "Marbling",
+            "body": [
+              {
+                "bullets": [
+                  "ไขมันแทรกในกล้ามเนื้อที่มองเห็นได้ อยู่ใน perimysium ระหว่างมัดเส้นใย มีผลต่อ tenderness, juiciness และ flavor",
+                  "ประเมินบนหน้าตัด longissimus dorsi ที่ซี่โครงที่ 12 ดูเส้นไขมันเล็กๆ ใน intercostal ประกอบ ในต่างประเทศใช้เครื่องสแกน",
+                  "9 ระดับจากมากไปน้อย: abundant, moderately abundant, slightly abundant, moderate, modest, small, slight, traces, practically devoid"
+                ]
+              },
+              {
+                "table": {
+                  "headers": [
+                    "USDA quality grade",
+                    "Marbling",
+                    "ไขมันแทรก (%)"
+                  ],
+                  "rows": [
+                    [
+                      "Prime",
+                      "Abundant",
+                      ">11"
+                    ],
+                    [
+                      "Prime",
+                      "Moderately abundant",
+                      "9.5-11"
+                    ],
+                    [
+                      "Prime",
+                      "Slightly abundant",
+                      "8-9.5"
+                    ],
+                    [
+                      "Choice",
+                      "Moderate",
+                      "7-8"
+                    ],
+                    [
+                      "Choice",
+                      "Modest",
+                      "5-6"
+                    ],
+                    [
+                      "Choice",
+                      "Small",
+                      "4-5"
+                    ],
+                    [
+                      "Select",
+                      "Slight",
+                      "3.5-4"
+                    ],
+                    [
+                      "Select",
+                      "Slight",
+                      "3-3.5"
+                    ],
+                    [
+                      "Standard",
+                      "Traces",
+                      "2.5-3"
+                    ],
+                    [
+                      "Standard",
+                      "Practically devoid",
+                      "<2.5"
+                    ]
+                  ]
+                }
+              },
+              "ไขมันแทรกระดับ Select เหมาะและเป็นที่ยอมรับของผู้บริโภคส่วนใหญ่ ผู้บริโภคจำนวนมากเลือก Select หรือ Standard เพราะคุ้มราคา"
+            ]
+          },
+          {
+            "sub": "อ่านเกรดจาก maturity และ marbling",
+            "body": [
+              {
+                "bullets": [
+                  "อายุเกิน 42 เดือนได้สูงสุดแค่ Commercial ต้องอายุไม่เกิน 42 เดือนจึงได้ Standard ขึ้นไป",
+                  "marbling สูงที่อายุไม่เกิน 30 เดือนได้ Prime แต่ slightly abundant ที่อายุถึง 42 เดือนได้แค่ Choice",
+                  "moderate หรือ modest ที่อายุไม่เกิน 42 เดือนได้ Choice",
+                  "small ที่อายุไม่เกิน 30 เดือนได้เกรดดีกว่าที่อายุเกิน 30 เดือน ซึ่งตกไปเป็น Standard",
+                  "slight ได้ Select เฉพาะอายุไม่เกิน 30 เดือน"
+                ]
+              },
+              {
+                "callout": "หนังสือ p.46 ใช้อายุ 48 เดือนเป็นเส้นแบ่ง: ซากโคอายุถึง 48 เดือนอยู่ในเกรด Prime ถึง Standard เกิน 48 เดือนอยู่ในเกรด Commercial ถึง Canner และอายุ 30-48 เดือนต้องมีไขมันแทรกมากขึ้นจึงได้เกรดเดียวกับอายุต่ำกว่า 30 เดือน ส่วนการอ่านเกรดข้างบนใช้ 42 เดือนตามแผนภูมิ USDA 2007 ในสไลด์",
+                "kind": "flag"
+              }
+            ]
+          },
+          {
+            "sub": "ปัจจัยอื่น",
+            "body": [
+              {
+                "bullets": [
+                  {
+                    "label": "Conformation, fleshing & finish",
+                    "value": "หลังกว้าง เนื้อแน่น ปริมาณกล้ามเนื้อ (muscling) ไม่เปลี่ยนความน่ากินแต่มีผลต่อการตัดแต่ง"
+                  },
+                  {
+                    "label": "Firmness",
+                    "value": "ความแน่นของบริเวณ flank หรือเนื้อแดง เกี่ยวกับไขมัน ซากที่มีไขมันมากเมื่อแช่เย็นจะแน่นและตัดง่าย"
+                  },
+                  {
+                    "label": "Color & structure of lean",
+                    "value": "PSE และ dark cutting beef (อีกชื่อของ DFD) dark cutter ถูกลดลง 1 เกรด แต่ไม่มีผลกับซากที่อยู่ในเกรด Cutter หรือ Canner อยู่แล้ว ผู้บริโภคไม่ยอมรับเนื้อสีเข้ม"
+                  },
+                  {
+                    "label": "Carcass defects",
+                    "value": "รอยตัด รอยฉีก หนังหาย หรือรอยตัดผิดปกติ ซึ่งอาจมาจากการตัดแต่งรอยโรคออก"
+                  }
+                ]
+              },
+              {
+                "callout": "รายชื่อ 8 เกรดในหนังสือ p.45 พิมพ์เกรดที่ 3 เป็นชั้นกลาง (Good) ส่วนสไลด์และตาราง 5.1 ในหน้าเดียวกันของหนังสือใช้ Select",
+                "kind": "flag"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Wagyu และเกรดปริมาณซากโค (yield grade)",
+        "source": "Postmortem Changes & Factors, Meat Cutting & Grading p.77-81; หนังสือสุขศาสตร์เนื้อสัตว์ p.44, 46-47; บันทึกคาบ 18 พ.ย. 2569 [118:00-126:00]",
+        "body": [
+          {
+            "sub": "Wagyu",
+            "body": [
+              {
+                "bullets": [
+                  "พันธุ์ที่รับรองเป็น Wagyu beef: Japanese Black, Japanese Brown, Japanese Shorthorn, Japanese Polled และลูกผสมระหว่าง 4 พันธุ์นี้",
+                  "ชิ้นส่วนที่เป็น Wagyu beef: ribloin, sirloin, fillet และ chuck",
+                  "มีมาตรฐานและตรารับรองของตัวเอง ไทยนำเข้าจากญี่ปุ่นและออสเตรเลียเป็นหลัก และจากสหรัฐฯ",
+                  "เกรดใช้ตัวอักษร A-C (A ดีที่สุด) คู่กับตัวเลข 1-5 (5 ดีที่สุด) A5 สูงสุด A5 และ A4 นิยมที่สุด B5 ไขมันแทรกดีในราคาที่ต่ำกว่ามาก",
+                  "ไขมันแทรกของ Wagyu ตั้งแต่ A3 ขึ้นไปเกินระดับ USDA Prime",
+                  "Wagyu ไทยคือโคพื้นเมืองผสมน้ำเชื้อ Wagyu ไม่ได้อ้างว่าเป็น Wagyu ญี่ปุ่น"
+                ]
+              }
+            ]
+          },
+          {
+            "sub": "Yield grade",
+            "body": [
+              {
+                "bullets": [
+                  "วัดเป็น **%CTBRC** (combined yield of closely trimmed, boneless retail cuts) จาก chuck, rib, loin และ round",
+                  "Cutability คือสัดส่วนของ retail cut ที่ขายได้หลังตัดไขมันและกระดูกออก ปัจจัยคือไขมัน (ภายนอก ภายใน และระหว่างกล้ามเนื้อ) ปริมาณกล้ามเนื้อ (มีผลน้อยกว่าไขมัน) และน้ำหนักซาก (สัตว์ตัวใหญ่ต้องมี loin eye ใหญ่ตาม)"
+                ]
+              },
+              {
+                "table": {
+                  "headers": [
+                    "Yield grade",
+                    "%CTBRC (USDA 2007)"
+                  ],
+                  "rows": [
+                    [
+                      "1",
+                      ">52.3"
+                    ],
+                    [
+                      "2",
+                      "50.0-52.3"
+                    ],
+                    [
+                      "3",
+                      "47.7-50.0"
+                    ],
+                    [
+                      "4",
+                      "45.4-47.7"
+                    ],
+                    [
+                      "5",
+                      "<45.4"
+                    ]
+                  ]
+                }
+              },
+              {
+                "callout": "เกณฑ์ yield grade ในหนังสือ p.47 ต่างจากสไลด์: 1 มากกว่า 53.5%, 2 51.2-53.4%, 3 49.0-51.1%, 4 47.0-48.9% และ 5 น้อยกว่า 45.0%",
+                "kind": "flag"
+              }
+            ]
+          },
+          {
+            "sub": "ปัจจัยและสูตรของ yield grade",
+            "body": [
+              {
+                "bullets": [
+                  "ความหนาไขมันเหนือ ribeye ที่ซี่โครงที่ 12 วัดที่ ¾ ของความยาว longissimus ระหว่างซี่โครงที่ 12 และ 13",
+                  "พื้นที่ ribeye: วางแผ่นใสที่มีจุดเป็นตารางบน longissimus แล้วนับจุดที่อยู่ในกล้ามเนื้อ",
+                  "%KPH (kidney, pelvic & heart fat) ไขมันภายในเก็บไว้กับซากจนถึงขั้นตัด retail cut เพื่อวัดเป็นเปอร์เซ็นต์ของน้ำหนักซาก",
+                  "น้ำหนักซาก"
+                ]
+              },
+              "**YG = 2.5 + (2.5 × adjusted fat thickness, in.) + (0.20 × %KPH) − (0.32 × ribeye area, sq. in.) + (0.0038 × carcass weight, lbs.)**",
+              {
+                "callout": "หนังสือ p.47 พิมพ์สูตรเป็น 2.5 + 2.5F − 0.32L + 0.20F + 0.0038W แต่นิยามตัวแปรเป็น B = ความหนาไขมันสันหลัง (นิ้ว), L = พื้นที่หน้าตัดสันนอก (ตารางนิ้ว), F = เปอร์เซ็นต์ไขมันหุ้มไต หัวใจ และเชิงกราน, W = น้ำหนักซากอุ่น (ปอนด์) พจน์ 2.5F ตัวแรกจึงต้องเป็น 2.5B ซึ่งตรงกับสูตรในสไลด์",
+                "kind": "flag"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "การแบ่งเกรดซากสุกร",
+        "source": "Postmortem Changes & Factors, Meat Cutting & Grading p.82-88; หนังสือสุขศาสตร์เนื้อสัตว์ p.48; บันทึกคาบ 18 พ.ย. 2569 [124:00-134:00]",
+        "body": [
+          {
+            "bullets": [
+              "มาตรฐาน USDA 1985 ครอบคลุมซาก barrow และ gilt และซาก sow แยกต่างหาก สุกรประเภทอื่นใช้เกรดอื่น",
+              "ในสุกร เกรดคุณภาพสำคัญน้อยกว่าเกรดปริมาณ",
+              {
+                "label": "Acceptable",
+                "value": "เนื้อแดงผ่านคุณภาพขั้นต่ำ ประเมินจากหน้าตัด loin eye ที่ซี่โครงที่ 10 ถ้าเป็นซากทั้งตัว (intact carcass) ที่มองไม่เห็น loin eye ให้ดูความแน่นของไขมันและเนื้อแดง feathering และสีเนื้อแดงของทั้งซาก และดู belly ด้วย ความหนาของ belly มีผลเพราะสหรัฐฯ กินเบคอนมาก ขณะที่ไทยให้ค่ากับเนื้อแดง"
+              },
+              {
+                "label": "Unacceptable",
+                "value": "ไขมันนิ่มและหรือเยิ้มน้ำมัน (soft and/or oily fat) ได้เกรด Utility"
+              }
+            ]
+          },
+          {
+            "sub": "เกรดของซากที่ยอมรับได้",
+            "body": [
+              "แบ่งเป็น U.S. No. 1-4 จากผลผลิตที่คาดของ four lean cuts ความหนาไขมันสันหลังเหนือซี่โครงซี่สุดท้าย และ degree of muscling ผลผลิตของ four lean cuts เป็นเกณฑ์หลัก",
+              {
+                "table": {
+                  "headers": [
+                    "Grade",
+                    "Yield of 4 lean cuts (%) จากน้ำหนักซากเย็น",
+                    "Backfat เหนือซี่โครงซี่สุดท้าย (preliminary grade)"
+                  ],
+                  "rows": [
+                    [
+                      "U.S. No. 1",
+                      ">60.4",
+                      "<1.00 นิ้ว"
+                    ],
+                    [
+                      "U.S. No. 2",
+                      "57.4-60.3",
+                      "1.00-1.24 นิ้ว"
+                    ],
+                    [
+                      "U.S. No. 3",
+                      "54.4-57.3",
+                      "1.25-1.49 นิ้ว"
+                    ],
+                    [
+                      "U.S. No. 4",
+                      "<54.4",
+                      "≥1.5 นิ้ว"
+                    ]
+                  ]
+                }
+              },
+              "Degree of muscling ประเมินด้วยตา เป็นความหนาของกล้ามเนื้อเทียบกับขนาดโครงกระดูก แบ่งเป็น thick, average และ thin",
+              {
+                "callout": "หนังสือ p.48 ให้เกณฑ์ผลผลิต four lean cuts อีกชุด: เกรด 1 ตั้งแต่ 53%, 2 50-52.9%, 3 47-49.9%, 4 ไม่เกิน 47% และ Utility คือคุณภาพที่ยอมรับไม่ได้",
+                "kind": "flag"
+              }
+            ]
+          },
+          {
+            "sub": "Revised standards (USDA 2017)",
+            "body": [
+              "เสนอให้ดูคุณภาพสองอย่างบนหน้าตัด longissimus dorsi ที่ซี่โครงที่ 10 (พื้นที่ ≥4 ตารางนิ้ว): สีของเนื้อแดง 6 ระดับ และ marbling 10 ระดับ",
+              {
+                "table": {
+                  "headers": [
+                    "Quality grade",
+                    "Lean color score",
+                    "Lean marbling score"
+                  ],
+                  "rows": [
+                    [
+                      "USDA Prime",
+                      "4-5",
+                      "≥4"
+                    ],
+                    [
+                      "USDA Choice",
+                      "3",
+                      "≥2"
+                    ],
+                    [
+                      "USDA Select",
+                      "2",
+                      "≥2"
+                    ]
+                  ]
+                }
+              },
+              "ข้อเสนอนี้ตกไป อุตสาหกรรมเห็นว่าต้องเปลี่ยนสายพันธุ์สุกร ซึ่งกระทบการผลิตของสหรัฐฯ และชื่อเกรดอาจสับสนกับเกรดเนื้อโค จึงยังใช้เกณฑ์เดิม"
+            ]
+          },
+          {
+            "sub": "Canadian pork quality standards (CPI 2014)",
+            "body": [
+              "ใช้แผ่นเทียบคล้ายไม้บรรทัดวางบนกล้ามเนื้อเดียวกัน ดู marbling 6 ระดับ สีกล้ามเนื้อ 6 ระดับ และสีไขมัน เนื้อยิ่งซีดยิ่งแย่ ไขมันแทรกยิ่งมากยิ่งดี"
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "การแบ่งเกรดซากสัตว์ปีก",
+        "source": "Postmortem Changes & Factors, Meat Cutting & Grading p.89-91; หนังสือสุขศาสตร์เนื้อสัตว์ p.44, 50; บันทึกคาบ 18 พ.ย. 2569 [132:00-140:00]",
+        "body": [
+          {
+            "bullets": [
+              "USDA 2002 แบ่งคุณภาพของสัตว์ปีกพร้อมปรุง (ready-to-cook) เป็น U.S. grade A, B และ C ใช้กับไก่ ไก่งวง เป็ด ห่าน ไก่ต๊อก (guinea) และนกพิราบ เป็นเกรดคุณภาพอย่างเดียว",
+              "เทียบได้กับเกรด 1 (Quality A) เกรด 2 (Quality B) และเกรด 3 (Quality C) ซากที่ต่ำกว่าเกรด 3 ถูกคัดทิ้ง",
+              "ความเสียหายของซากมีผลมากในสัตว์ปีก ได้แก่ ขน รอยฉีก หนังหาย กระดูกหักหรือข้อหลุด สีผิดปกติ และรอยช้ำ ความเสียหายที่อกมีน้ำหนักมากที่สุด ความเข้มงวดต่างกันไปตามท้องถิ่น"
+            ]
+          },
+          {
+            "sub": "ปัจจัยที่ใช้แบ่งเกรด",
+            "body": [
+              {
+                "bullets": [
+                  {
+                    "label": "Conformation",
+                    "value": "กระดูกอก หลัง (ตรงหรือคด) ขาและปีกครบ"
+                  },
+                  {
+                    "label": "Fleshing & fat covering",
+                    "value": "ปริมาณกล้ามเนื้อและไขมันใต้หนัง"
+                  },
+                  {
+                    "label": "Defeathering",
+                    "value": "ดูที่อกและขาเป็นหลัก ต้องไม่มีขนเหลือทั้ง pin feathers และขนอ่อน"
+                  },
+                  {
+                    "label": "Discolorations",
+                    "value": "สีเข้มขึ้น สีเขียว หรือรอยช้ำ ดูที่อกและขาเป็นหลัก"
+                  },
+                  {
+                    "label": "Freezing defects",
+                    "value": "รอยน้ำแข็งจากการคุมอุณหภูมิไม่ดี ตัดสินจากพื้นที่และการกระจาย"
+                  }
+                ]
+              },
+              {
+                "table": {
+                  "headers": [
+                    "ข้อบกพร่อง",
+                    "Grade A",
+                    "Grade B",
+                    "Grade C"
+                  ],
+                  "rows": [
+                    [
+                      "Exposed flesh (หนังขาด)",
+                      "ที่อกและขาน้อยกว่า ½ นิ้ว",
+                      "ทั้งตัวน้อยกว่า ⅓",
+                      "ทั้งตัวตั้งแต่ ⅓ ขึ้นไป"
+                    ],
+                    [
+                      "Disjointed & broken bones",
+                      "ข้อหลุดได้ 1 ข้อ ไม่มีกระดูกหัก",
+                      "ข้อหลุด 2 ข้อโดยไม่มีกระดูกหัก หรือข้อหลุด 1 ข้อกับกระดูกหัก 1 ที่ไม่ทะลุออกนอกหนัง",
+                      "มากกว่านั้น"
+                    ],
+                    [
+                      "Missing parts",
+                      "ขาดได้แค่ปลายปีกและหาง",
+                      "ขาดปลายปีก หาง และปีกกลางได้",
+                      "ขาดมากกว่านั้น"
+                    ]
+                  ]
+                }
+              },
+              {
+                "bullets": [
+                  "หนังขาดที่อกและขาเกิน ½ นิ้วได้เกรด B ปีกหายทั้งข้างได้เกรด C",
+                  "ปลายปีกและหางถูกตัดทิ้งอยู่แล้วในการตัดแต่งของสหรัฐฯ"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
 
   // ─────────────────────────────────────────────────────────────

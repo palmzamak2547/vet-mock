@@ -2,8 +2,8 @@
   "note": "lint:voice budgets: findings by pattern and group (scripts/voice-patterns.json says what each pattern is and how to rewrite it). A number may only go down. \"files\" is where the findings were when the numbers were last written, so a count that grows can name the file. node scripts/lint-voice.mjs --list prints every finding; --write lowers the numbers after a cleanup.",
   "budget": {
     "long-dash": {
-      "interface": 185,
-      "notes": 1484,
+      "interface": 160,
+      "notes": 1438,
       "questions": 16154,
       "wrapups": 353,
       "changelog": 109
@@ -37,7 +37,7 @@
       "changelog": 1
     },
     "cheer-chat": {
-      "interface": 5,
+      "interface": 3,
       "notes": 3,
       "questions": 6,
       "wrapups": 0,
@@ -89,10 +89,8 @@
       "src/components/MotionSettings.jsx": 1,
       "src/components/OSCEDrill.jsx": 3,
       "src/components/QComments.jsx": 2,
-      "src/components/Question.jsx": 4,
+      "src/components/Question.jsx": 2,
       "src/components/SmartGrader.jsx": 6,
-      "src/components/SmartPassage.jsx": 9,
-      "src/components/StudyBuddiesPanel.jsx": 1,
       "src/components/SyncStatusNotice.jsx": 4,
       "src/components/TermLinkedRichText.jsx": 2,
       "src/components/TodaysQModal.jsx": 2,
@@ -118,7 +116,7 @@
       "src/data/notes-y2-physio-lab-2.js": 1,
       "src/data/notes-y5-epidemiology.js": 41,
       "src/data/notes-y5-equine-medicine.js": 45,
-      "src/data/notes-y5-milk-meat-hygiene.js": 133,
+      "src/data/notes-y5-milk-meat-hygiene.js": 87,
       "src/data/notes-y5-one-health.js": 42,
       "src/data/notes-y5-zoonoses.js": 496,
       "src/data/questions-biochem-lab.js": 128,
@@ -226,7 +224,7 @@
       "src/views/AccountSettingsView.jsx": 4,
       "src/views/AdminView.jsx": 2,
       "src/views/AuthView.jsx": 19,
-      "src/views/ConfigView.jsx": 13,
+      "src/views/ConfigView.jsx": 10,
       "src/views/ContributeView.jsx": 11,
       "src/views/DashboardView.jsx": 4,
       "src/views/ExamView.jsx": 2,
@@ -240,10 +238,10 @@
       "src/views/PdfAnnotateView.jsx": 2,
       "src/views/QuestionManagerView.jsx": 5,
       "src/views/RaceView.jsx": 2,
-      "src/views/ResultsView.jsx": 10,
+      "src/views/ResultsView.jsx": 2,
       "src/views/ReviewQueueView.jsx": 5,
       "src/views/ReviewView.jsx": 2,
-      "src/views/SRSessionView.jsx": 3,
+      "src/views/SRSessionView.jsx": 1,
       "src/views/SubjectSelectView.jsx": 3,
       "src/views/VideoView.jsx": 8
     },
@@ -420,12 +418,11 @@
       "src/data/questions-y5-avian-2026-b.js": 1,
       "src/data/questions-y5-epid-final-marked.js": 1,
       "src/lib/motion-kit/play.js": 1,
-      "src/views/GroupDetailView.jsx": 2,
-      "src/views/ResultsView.jsx": 2
+      "src/views/GroupDetailView.jsx": 2
     },
     "big-word": {
       "src/components/CommandPalette.jsx": 1,
-      "src/components/PaletteFrame.jsx": 1,
+      "src/components/PaletteShell.jsx": 1,
       "src/data/changelog.js": 5,
       "src/data/notes-85-aquatic-clinic.js": 2,
       "src/data/notes-85-equine-medicine.js": 2,

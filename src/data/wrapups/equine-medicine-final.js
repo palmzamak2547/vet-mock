@@ -1,5 +1,5 @@
 // GENERATED from the authored-and-verified wrap-up JSON (ingest-wrapup-final.mjs)
-// on 2026-11-13, for the 2569-1 year-5 1-final paper. Edit the JSON and
+// on 2026-11-20, for the 2569-1 year-5 1-final paper. Edit the JSON and
 // re-run the ingest, not this file. Every bullet names its source (a recording
 // timestamp, a deck page, or a past-paper item); the ingest refuses one that does not.
 export const WRAPUP = {
@@ -8,7 +8,7 @@ export const WRAPUP = {
     "date": "2026-11-24",
     "time": "13:00-16:00"
   },
-  "intro": "ปลายภาค Equine Medicine & Surgery วันที่ 24 พ.ย. 13:00-16:00 ครอบคลุมคาบหลังกลางภาค แยกตามอาจารย์สามท่าน รศ.นลินี สอน ophthalmology (1 ต.ค.) อ.ศวิตา สอน dermatology และ wound management (8 ต.ค.) กับ concept of surgery และ anesthesia (22 ต.ค.) อ.ธีรพล สอน infectious disease และ biosecurity (15 ต.ค.) lameness (5 และ 12 พ.ย.) POA case discussion (16 พ.ย.) และ exercise related disease (19 พ.ย.) ส่วน POA ของปลายภาคดึงได้ทุกหัวข้อรวมหัวข้อกลางภาค ส่วน lameness และ foot เขียนจากเดคปีนี้กับคลิปปีก่อน และจะเติมเมื่อคลิปปีนี้เข้า",
+  "intro": "ปลายภาค Equine Medicine & Surgery วันที่ 24 พ.ย. 13:00-16:00 ครอบคลุมคาบหลังกลางภาค แยกตามอาจารย์สามท่าน รศ.นลินี สอน ophthalmology (1 ต.ค.) อ.ศวิตา สอน dermatology และ wound management (8 ต.ค.) กับ concept of surgery และ anesthesia (22 ต.ค.) อ.ธีรพล สอน infectious disease และ biosecurity (15 ต.ค.) lameness (5 พ.ย. และช่วงเช้า 19 พ.ย. ซึ่งย้ายมาจาก 12 พ.ย.) และ POA case discussion (ช่วงบ่าย 19 พ.ย.) ส่วน exercise related disease ยังไม่มีคลิปหรือประกาศว่าสอนวันไหน รุ่นแจ้งเมื่อ 19 พ.ย. ว่าสอบในแอป exampod พาร์ท POA มีเคสเดียวเป็น lameness อย่างเดียว ข้อสอบเปิดทีละข้อและจำกัดเวลาแต่ละข้อ เมื่อ POA เปิดครบ ข้อสอบรวมของส่วนอื่นจะเปิด ซึ่งไม่มี lameness ส่วน lameness และ foot เขียนจากเดคปีนี้กับคลิปปีก่อน และจะเติมเมื่อคลิปปีนี้เข้า",
   "groups": [
     {
       "id": "nalinee",
@@ -2130,7 +2130,7 @@ export const WRAPUP = {
       "id": "teerapol",
       "lecturer": "อ.น.สพ.ดร.ธีรพล ชินกังสดาร",
       "format": "all",
-      "formatNote": "ปลายภาคส่วนนี้มี POA ที่เริ่มจากการซักประวัติ [14B7TUfov00 14:05] และตั้งใจให้ POA มีสัดส่วนค่อนข้างมาก [14B7TUfov00 23:11] โดยชอบข้อเขียนตอบสั้นที่ต้องเขียนคีย์เวิร์ดให้ครบมากกว่าช้อยส์ [14B7TUfov00 21:52] [14B7TUfov00 93:54] ประกาศห้องเมื่อ 16 ก.ย. 2569 ระบุว่า POA ดึงได้ทุกหัวข้อของวิชา รวมหัวข้อที่สอบกลางภาคแล้ว",
+      "formatNote": "ปลายภาคส่วนนี้มี POA ที่เริ่มจากการซักประวัติ [14B7TUfov00 14:05] และตั้งใจให้ POA มีสัดส่วนค่อนข้างมาก [14B7TUfov00 23:11] โดยชอบข้อเขียนตอบสั้นที่ต้องเขียนคีย์เวิร์ดให้ครบมากกว่าช้อยส์ [14B7TUfov00 21:52] [14B7TUfov00 93:54] รุ่นแจ้งในกลุ่มไลน์ชั้นปีวันที่ 19 พ.ย. 2569 ว่าพาร์ท POA ของปลายภาคมีเคสเดียว เนื้อหา lameness อย่างเดียว ไม่บอกจำนวนข้อล่วงหน้าแต่ระบบจะแจ้งก่อนเริ่ม ข้อสอบเปิดทีละข้อและแต่ละข้อจำกัดเวลา ควรทำเรียงตามลำดับข้อ ไม่ข้ามไปมา แต่ละข้อให้ข้อมูลใหม่และถามเฉพาะข้อมูลในข้อนั้น คำตอบจึงไม่ต่อกันเป็นลูกโซ่ ลักษณะคล้ายงานกลุ่ม POA บ่าย 19 พ.ย. เมื่อ POA เปิดครบ ข้อสอบรวมของส่วนอื่นจะเปิด ซึ่งไม่มี lameness และเมื่อเวลาของ POA หมดจะย้อนกลับไปทำ POA ไม่ได้",
       "items": [
         {
           "topic": "equine-infectious",
@@ -2989,7 +2989,7 @@ export const WRAPUP = {
           ],
           "sources": [
             "14B7TUfov00 (บันทึกคาบ 15 ต.ค. 2569) [13:41-28:26], [42:17-45:16]",
-            "ประมวลรายวิชา 2569-1 หมายเหตุวิชาจากประกาศห้อง 16 ก.ย. 2569",
+            "ประกาศรูปแบบข้อสอบปลายภาคในกลุ่มไลน์ชั้นปี 19 พ.ย. 2569",
             "เดค Eq Respi หน้า 68-69, 73, 76-78 (ตรวจเฉลยเคสระบบหายใจ)",
             "เดค Equine lameness: an introduction (2026) หน้า 28, 34, 37, 56, 59",
             "ข้อสอบเก่า 209587, 209599, 209630, 209631, 209632, 209592, 209593, 209594, 209596, 105276, 209628"

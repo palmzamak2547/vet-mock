@@ -286,6 +286,12 @@ export const EXAM_ORIGINS = Object.freeze({
   "จุดที่รุ่นพี่บันทึกว่าออกสอบในโน้ต Aquatic Med": { kind: 'aligned' },
   "ควิซในคาบ Aquatic Med ของ Vet 83": { kind: 'aligned' },
   "ควิซทบทวนที่ Vet 83 แต่งเอง": { kind: 'aligned' },
+  // Aquatic Med final 2569, class LINE 20 Oct and 20 Nov 2026: the format and guidance the cohort relayed for
+  // อ.นันทริกา's part (the deck's last two pages) and รศ.ภัทรพล's (drug calculation, ไร่ and งาน), and the
+  // chlorine quiz set in the 6 Oct shrimp class. Guidance and a class quiz, not a paper.
+  "แนวข้อสอบ Aquatic Med ปลายภาค 2569 ที่รุ่นแจ้งในกลุ่มไลน์ชั้นปี: ห้าหลักคิดและคำถามทบทวนท้ายคาบ Aquarium Management": { kind: 'aligned' },
+  "แนวข้อสอบ Aquatic Med ปลายภาค 2569 ที่รุ่นแจ้งในกลุ่มไลน์ชั้นปี: โจทย์คำนวณการใช้ยาและหน่วยไร่ งาน": { kind: 'aligned' },
+  "ควิซในคาบ Aquatic Med ของ Vet 86 เรื่องโรคกุ้ง": { kind: 'aligned' },
   "ควิซวิชาอื่นที่รุ่นพี่แปะไว้ในสรุปปลายภาค One Health": { kind: 'aligned' },
   // Points a senior starred or wrote "ออก" beside in their own One Health final summary or slide copy (Vet 85, the
   // Vet 83 summary and Vet 82 review kept by Vet 84, Vet 84's starred 2567 waste deck). A mark, not a paper.

@@ -7035,6 +7035,7 @@ export const QUESTIONS_Y5_MILK_MEAT_FINAL_MARKED = [
     "subject": "milk-meat-hygiene",
     "topic": "meat-quality",
     "year": 5,
+    "flag": {"severity":"major","note":"เฉลยข้อนี้ตรงกับสไลด์ Meat quality and wholesomeness หน้า 12 ซึ่งเขียนว่า Beef from Bos indicus is better than beef from Bos taurus แต่หนังสือสุขศาสตร์เนื้อสัตว์ p.26 เขียนกลับกัน: เนื้อจากโค Bos indicus (มีโหนกสูง) เหนียวและแข็งกว่าโค Bos taurus และสลายโปรตีนหลังการฆ่าน้อยกว่า ความต่างนี้เกี่ยวกับการทำงานของ calpain และ calpastatin งานวิจัยด้านเนื้อสัตว์ให้ผลแบบเดียวกับหนังสือ (PMID 37924645, 28946054) ถ้าโจทย์ยกข้อความของสไลด์มาตรงๆ ให้ตอบตามสไลด์ ถ้าถามเรื่องความนุ่มหรือการสลายโปรตีนหลังการฆ่า ให้ตอบตามหนังสือ"},
     "type": "mcq",
     "q": "ข้อใดถูกต้องเกี่ยวกับคุณภาพเฉพาะ (some specific qualities) ของเนื้อโคและเนื้อสุกร",
     "options": [

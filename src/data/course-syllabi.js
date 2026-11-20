@@ -95,6 +95,10 @@ export const SYLLABI = {
         slot: { day: 'จันทร์', time: '10:00–12:00 บรรยาย, 13:00–15:00 ปฏิบัติการ', room: 'VET6 807' },
         sources: [MCV_PRINT('3107508', 2569), RECORDINGS, CLASS_LINE, FACULTY_ROOM],
         papers: { final: {} },
+        notes: [
+          { text: 'คะแนนส่วนของ อ.นพวรรณ รวมอยู่ในคะแนนส่วนของ อ.นิวัตร', source: classLine('2026-11-15') },
+          { text: 'สอบปลายภาคเป็นปรนัย 110 ข้อ เวลาทำข้อสอบ 2 ชั่วโมง 30 นาที และนำเครื่องคิดเลขเข้าห้องสอบได้', source: classLine('2026-11-20') },
+        ],
         sessions: [
           { date: '2026-08-03', held: true, title: 'Introduction to Epidemiology, Concept of disease transmission, Concept of Causal Association', lecturers: [NIWAT, THANICHA], topics: ['epidem-intro', 'epidem-disease-transmission', 'epidem-causation'], change: classLine('2026-07-27', 'คาบ อ.นิวัตร เหลือ 10:00–11:00 และเรียนชดเชย 10 ส.ค.') },
           { date: '2026-08-10', time: '09:00–12:00', planned: ['2026-08-03', '2026-08-10'], held: true, title: 'Basic concept in Epidemiology, Measurement of Disease Frequency, Diagnostic and screening test, Agreement of Test', lecturers: [NIWAT, VACHIRA], topics: ['epidem-basic-concepts', 'epidem-disease-frequency', 'epidem-dx-screening', 'epidem-test-agreement'], note: clip('Basic concept in Epidemiology + Measurement') },
@@ -131,6 +135,8 @@ export const SYLLABI = {
         notes: [
           { text: 'การเช็กชื่อและควิซในคาบ อ.ภัทรพล คิดเป็น 20% ของคะแนนสอบส่วนของอาจารย์', source: classLine('2026-08-20') },
           { text: 'ส่วนของ อ.นันทริกา ในปลายภาคเป็นปรนัย 14 ข้อ', source: classLine('2026-10-20') },
+          { text: 'เนื้อหาที่เพื่อนนำเสนอในคาบไม่ออกสอบ และการนำเสนอกับการตั้งคำถามไม่มีคะแนน เพราะคะแนนของงานนี้มาจาก info ที่ทำส่งแล้ว', source: classLine('2026-11-16') },
+          { text: 'ปลายภาคแยกตามผู้สอน อ.ภัทรพล ปรนัย 80 ข้อ มีโจทย์คำนวณการใช้ยาและให้จำหน่วยวัดแบบไทย เช่น ไร่ และงาน, อ.ฐนิดา ปรนัย 14 ข้อ, อ.นันทริกา ปรนัย 14 ข้อ แนวข้อสอบตามสองหน้าในเดคของคาบ 20 ต.ค. คือสรุปหลักคิดและคำถามทบทวนท้ายคาบ, อ.วรญาณี ปรนัย 20 ข้อ และคาบหน่วยงานและองค์กรที่เกี่ยวข้องกับการควบคุมโรคระบาดสัตว์น้ำมีออกสอบ แต่ไม่ได้บอกรูปแบบและจำนวนข้อ', source: classLine('2026-11-20') },
         ],
         sessions: [
           { date: '2026-08-04', held: true, title: 'Aquaculture in Thailand, Aquaculture Industry & Technology', lecturers: [ARANYA, THANIDA, PATHARAPOL, 'ผู้แทน CPF'], topics: ['aqua-intro-thailand'] },
@@ -148,7 +154,7 @@ export const SYLLABI = {
           { date: '2026-11-03', held: true, title: 'Aquatic toxicology and aquatic animal impact', lecturers: [WORAYANEE], topics: ['aqua-toxicology'] },
           { date: '2026-11-10', held: true, title: 'Aquatic Animal Diseases Regulation & Involving Organizations', lecturers: [ARANYA, THANIDA, PATHARAPOL, 'ผู้แทน มกอช.'], topics: ['aqua-disease-control'] },
           { date: '2026-11-17', planned: '2026-10-13', title: 'Biosecurity & Disease Control in Aquaculture, The Role of Aquatic Veterinarians in the International Community', lecturers: [PATHARAPOL], topics: ['aqua-shrimp-diseases', 'aqua-disease-control'], change: classLine('2026-08-20', '13 ต.ค. เป็นวันหยุด ย้ายมาสอนวันนี้ราว 1 ชั่วโมงก่อนการนำเสนอ') },
-          { date: '2026-11-17', title: 'Aquatic animal disease in Animal Epidemics Act 2558 (นิสิตนำเสนอผลงาน)', lecturers: ['นิสิตนำเสนอหน้าชั้นเรียน'], topics: ['aqua-disease-control'] },
+          { date: '2026-11-17', title: 'Aquatic animal disease in Animal Epidemics Act 2558 (นิสิตนำเสนอผลงาน)', lecturers: ['นิสิตนำเสนอหน้าชั้นเรียน'], topics: [], paper: null, note: 'เนื้อหาที่นำเสนอไม่ออกสอบ ตามประกาศในกลุ่มไลน์ชั้นปี 16 พ.ย.' },
         ],
       },
 
@@ -159,7 +165,10 @@ export const SYLLABI = {
         slot: { day: 'อังคาร', time: '13:00–16:00', room: 'ห้อง 807' },
         sources: [{ title: 'ตารางเรียนวิชา Avian Medicine ปีการศึกษา 2569', where: 'myCourseVille', checked: CHECKED }, RECORDINGS, CLASS_LINE],
         papers: { midterm: { to: '2026-09-15' }, final: { from: '2026-10-06' } },
-        notes: [{ text: 'ผู้เข้าร่วมกิจกรรม HIPRA วันที่ 17 พ.ย. ได้คะแนนพิเศษ 0.5% บวกกับคะแนนสอบปลายภาคส่วนที่ อ.เกรียงวิชญ์ สอน', source: classLine('2026-10-28') }],
+        notes: [
+          { text: 'ผู้เข้าร่วมกิจกรรม HIPRA วันที่ 17 พ.ย. ได้คะแนนพิเศษ 0.5% บวกกับคะแนนสอบปลายภาคส่วนที่ อ.เกรียงวิชญ์ สอน', source: classLine('2026-10-28') },
+          { text: 'เนื้อหาที่ออกสอบปลายภาคยึดตามตารางที่อาจารย์สอน ส่วนคาบที่บริษัทมาพูดแนะแนวไม่ออกสอบ', source: classLine('2026-11-14') },
+        ],
         assessment: {
           items: [
             { label: 'สอบกลางภาค', pct: 54, parts: [[JIROJ, 8], [SOMSAK, 15], [NATAYA, 23], [KRIENG, 8]] },
@@ -243,7 +252,10 @@ export const SYLLABI = {
         slot: { day: 'พุธ', time: '13:00–14:00', room: 'ห้อง 807 ตึก 60 ปี' },
         sources: [{ title: 'ตารางเรียนวิชาสุขภาพหนึ่งเดียว (One Health) ปีการศึกษา 2569', where: 'myCourseVille', checked: CHECKED }, RECORDINGS, CLASS_LINE],
         papers: { midterm: {}, final: {} },
-        notes: [{ text: 'ตัดเกรดอิงเกณฑ์ สัดส่วนกลางภาคและปลายภาคตามจำนวนชั่วโมงเรียน (กลางภาค 6 คาบ ปลายภาค 8 คาบ)', source: classLine('2026-10-28') }],
+        notes: [
+          { text: 'ตัดเกรดอิงเกณฑ์ สัดส่วนกลางภาคและปลายภาคตามจำนวนชั่วโมงเรียน (กลางภาค 6 คาบ ปลายภาค 8 คาบ)', source: classLine('2026-10-28') },
+          { text: 'ส่วน imported risk ของ อ.ศุภชัย ในปลายภาคมีข้อสอบ 10 ข้อ', source: classLine('2026-11-18') },
+        ],
         sessions: [
           { date: '2026-08-05', held: true, title: 'Role of veterinarians in One Health', lecturers: [SAHA], topics: ['oh-vet-role'] },
           { date: '2026-08-12', kind: 'holiday', title: 'วันหยุด (The Queen Mother’s birthday)', lecturers: [], topics: [] },
@@ -307,7 +319,7 @@ export const SYLLABI = {
         },
         notes: [
           { text: 'หัวข้อในการสอบกลางภาคปรับได้ตามความเหมาะสมกับช่วงเวลาของการเรียน', source: 'ประมวลรายวิชา' },
-          { text: 'ส่วน POA ของปลายภาคเป็นข้อสอบรวมที่ดึงได้ทุกหัวข้อ รวมหัวข้อที่สอบกลางภาคแล้ว', source: classLine('2026-09-16') },
+          { text: 'ปลายภาคสอบในแอป exampod พาร์ท POA มีเคสเดียว เนื้อหา lameness อย่างเดียว ไม่บอกจำนวนข้อล่วงหน้า แต่ระบบจะแจ้งก่อนเริ่มทำ ข้อสอบเปิดทีละข้อและแต่ละข้อจำกัดเวลา ควรทำเรียงตามลำดับข้อ แต่ละข้อให้ข้อมูลใหม่และถามเฉพาะข้อมูลในข้อนั้น ลักษณะคล้ายงานกลุ่ม POA บ่าย 19 พ.ย. เมื่อ POA เปิดครบ ข้อสอบรวมของส่วนอื่นจะเปิด ซึ่งไม่มี lameness และเมื่อเวลาของ POA หมดจะย้อนกลับไปทำ POA ไม่ได้', source: classLine('2026-11-19') },
         ],
         sessions: [
           { date: '2026-08-06', time: '09:00–09:30', held: true, title: 'Intro to Eq Med/Sur, Vet in Sport Event, Eq ID and Tack', lecturers: [TEERAPOL], topics: ['equine-intro'] },
@@ -323,9 +335,8 @@ export const SYLLABI = {
           { date: '2026-10-15', held: true, title: 'Equine infectious disease, vaccination, Biosecurity and Biosafety', lecturers: [TEERAPOL], topics: ['equine-infectious', 'equine-pythium'], note: 'pythiosis สอนในคาบนี้ (สไลด์หน้า 66-70)' },
           { date: '2026-10-22', planned: ['2026-10-22', '2026-10-29'], held: true, title: 'Concept of equine surgery, Equine anesthesia, analgesia and euthanasia', lecturers: [SAWITA], topics: ['equine-surgery-wound', 'equine-anesthesia'] },
           { date: '2026-11-05', held: true, title: 'Lameness 1: Lameness exam and hoof, diagnostic analgesia', lecturers: [TEERAPOL], topics: ['equine-lameness', 'equine-hoof'] },
-          { date: '2026-11-12', title: 'Lameness 2: Pathology and treatment of lame horse', lecturers: [TEERAPOL], topics: ['equine-lameness'] },
-          { date: '2026-11-16', time: '10:30–12:00', title: 'POA case discussion', lecturers: [TEERAPOL], topics: ['equine-poa'] },
-          { date: '2026-11-19', time: '09:00–10:30', title: 'Exercise related disease', lecturers: [TEERAPOL], topics: ['equine-exercise'] },
+          { date: '2026-11-19', planned: ['2026-11-12', '2026-11-16'], title: 'ช่วงเช้า Lameness 2: Pathology and treatment of lame horse, ช่วงบ่าย POA case discussion (ฝึกทำเคสเป็นกลุ่ม)', lecturers: [TEERAPOL], topics: ['equine-lameness', 'equine-poa'], change: classLine('2026-11-05', '12 พ.ย. ไม่มีสอน lameness 2 ย้ายมาเรียนเช้า 19 พ.ย. และบ่ายวันเดียวกันเป็น POA') },
+          { date: '2026-11-19', title: 'Exercise related disease', lecturers: [TEERAPOL], topics: ['equine-exercise'], dayUnknown: true, note: 'ประกาศ 5 พ.ย. ให้ 19 พ.ย. เป็น lameness 2 ช่วงเช้าและ POA ช่วงบ่าย ยังไม่มีคลิปหรือประกาศว่าหัวข้อนี้สอนวันไหน' },
         ],
       },
 
