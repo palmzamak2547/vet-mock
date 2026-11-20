@@ -17,7 +17,7 @@ const LEAVES = [
   ["aquatic-clinic","aqua-amphibian",12,{"1-mid":[12,0,0,0]},{"1-mid":[1,0,0,0]}], // 92f95cbcf983
   // end ["aquatic-clinic","aqua-amphibian"]
   // ["aquatic-clinic","aqua-aquarium-vet"]
-  ["aquatic-clinic","aqua-aquarium-vet",13,{"1-final":[12,0,0,1]},{"1-final":[0,0,0,1]}], // b59e180addeb
+  ["aquatic-clinic","aqua-aquarium-vet",26,{"1-final":[20,0,0,6]},{"1-final":[0,0,0,1]}], // db14de51d0c3
   // end ["aquatic-clinic","aqua-aquarium-vet"]
   // ["aquatic-clinic","aqua-conservation"]
   ["aquatic-clinic","aqua-conservation",20,{"1-final":[17,0,0,3]},{"1-final":[0,0,0,2]}], // 9a7121908c1c
@@ -29,7 +29,7 @@ const LEAVES = [
   ["aquatic-clinic","aqua-fish-biology",45,{"1-mid":[43,2,0,0]},{"1-mid":[9,0,0,0]}], // ccd580ccf7fc
   // end ["aquatic-clinic","aqua-fish-biology"]
   // ["aquatic-clinic","aqua-fish-diseases"]
-  ["aquatic-clinic","aqua-fish-diseases",58,{"1-final":[57,0,1,0]},{"1-final":[14,0,0,0]}], // fd5ab701baba
+  ["aquatic-clinic","aqua-fish-diseases",60,{"1-final":[59,0,1,0]},{"1-final":[14,0,0,0]}], // 4c946a4ce8a6
   // end ["aquatic-clinic","aqua-fish-diseases"]
   // ["aquatic-clinic","aqua-frog-diseases"]
   ["aquatic-clinic","aqua-frog-diseases",14,{"1-mid":[14,0,0,0]},{"1-mid":[1,0,0,0]}], // b435d0e112e9
@@ -44,7 +44,7 @@ const LEAVES = [
   ["aquatic-clinic","aqua-ornamental",38,{"1-mid":[38,0,0,0]},{"1-mid":[6,0,0,0]}], // 3df686bdcc25
   // end ["aquatic-clinic","aqua-ornamental"]
   // ["aquatic-clinic","aqua-shrimp-diseases"]
-  ["aquatic-clinic","aqua-shrimp-diseases",41,{"1-final":[40,0,0,1]},{"1-final":[11,0,0,1]}], // c00e8975901f
+  ["aquatic-clinic","aqua-shrimp-diseases",42,{"1-final":[41,0,0,1]},{"1-final":[11,0,0,1]}], // 1af62e2efc55
   // end ["aquatic-clinic","aqua-shrimp-diseases"]
   // ["aquatic-clinic","aqua-shrimp-immunology"]
   ["aquatic-clinic","aqua-shrimp-immunology",26,{"1-mid":[25,0,0,1]},{"1-mid":[6,0,0,1]}], // 87e43355dee2

@@ -6,6 +6,7 @@
 // in the claim's `review.rationale`, and a second reader fetched the source again
 // and found them there. verification.js merges this overlay in code with the
 // curated and the generated ones, so no key of one object literal can shadow another.
+// The 14 meat-cutting-grading sections were added on 21 Nov 2026 the same way.
 // ============================================================
 
 /** @type {Record<string, Record<string, {claims: object[]}>>} */
@@ -3591,6 +3592,386 @@ export const MILK_MEAT_HYGIENE_VERIFICATIONS = {
               "assessment"
             ],
             "rationale": "The temperature of the wash water shall be maintained at 90 °F (32.2 °C) or higher, and shall be at least 20 °F (6.7 °C) warmer than the internal temperature of the eggs to be washed."
+          }
+        }
+      ]
+    }
+  },
+  "milk-meat-hygiene--meat-cutting-grading": {
+    "milk-meat-hygiene--meat-cutting-grading--การเปลี่ยนแปลงหลังตาย-ph-ลดลง-ความร้อน-และ-rigor-mortis": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--meat-cutting-grading--การเปลี่ยนแปลงหลังตาย-ph-ลดลง-ความร้อน-และ-rigor-mortis--v1",
+          "statement": "หลังตาย glycogen ในกล้ามเนื้อถูกสลายผ่าน glycogenolysis และ glycolysis ได้ ATP และสร้าง lactate ซึ่งทำให้ pH ของกล้ามเนื้อลดลง",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22061391",
+              "locator": "Abstract (Meat Sci 2007;77(1):7-16)",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-11-21",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The postmortem degradation of glycogen through glycogenolysis and glycolysis provides ATP to help meet energy demand and decreases pH by generating lactate and H+."
+          }
+        }
+      ]
+    },
+    "milk-meat-hygiene--meat-cutting-grading--rigor-mortis-กับ-ph-decline-สามรูปแบบ-pse-และ-dfd": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--meat-cutting-grading--rigor-mortis-กับ-ph-decline-สามรูปแบบ-pse-และ-dfd--v1",
+          "statement": "ความเครียดก่อนฆ่าทำให้ lactic acid metabolism ผิดปกติ pH ของกล้ามเนื้อหลังตายจึงลดลงฉับพลัน และได้เนื้อสุกร PSE",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-27854153",
+              "locator": "Abstract (Anim Biotechnol 2017;28(2):148-155)",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-11-21",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Abnormal lactic acid metabolism caused by stress prior to slaughter leads to the sudden drop in postmortem muscle pH producing the PSE pork."
+          }
+        }
+      ]
+    },
+    "milk-meat-hygiene--meat-cutting-grading--failure-of-protective-mechanisms-disruption-of-muscle-structure-": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--meat-cutting-grading--failure-of-protective-mechanisms-disruption-of-muscle-structure---v1",
+          "statement": "การย่อยโปรตีนกล้ามเนื้อหลังตาย (postmortem proteolysis) เกิดจาก μ-calpain เป็นส่วนใหญ่",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-16971586",
+              "locator": "Abstract (J Anim Sci 2006;84(10):2834-40)",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-11-21",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The results of the current study show that even in a species in which m-calpain is activated to some extent postmortem, micro-calpain is largely responsible for postmortem proteolysis."
+          }
+        }
+      ]
+    },
+    "milk-meat-hygiene--meat-cutting-grading--ปัจจัยก่อนฆ่า-อายุ-เพศ-พันธุกรรม-ตำแหน่งกล้ามเนื้อ-และอาหาร": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--meat-cutting-grading--ปัจจัยก่อนฆ่า-อายุ-เพศ-พันธุกรรม-ตำแหน่งกล้ามเนื้อ-และอาหาร--v1",
+          "statement": "ความนุ่มของเนื้อลดลงเมื่อสัดส่วนสายเลือด Bos indicus ในโคมากขึ้น",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22061281",
+              "locator": "Abstract (Meat Sci 2000;55(3):265-72)",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-11-21",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "There was a significant reduction in tenderness with increasing Bos indicus content."
+          }
+        }
+      ]
+    },
+    "milk-meat-hygiene--meat-cutting-grading--ปัจจัยก่อนฆ่า-preslaughter-handling-และ-immobilization-method": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--meat-cutting-grading--ปัจจัยก่อนฆ่า-preslaughter-handling-และ-immobilization-method--v1",
+          "statement": "การทำให้สุกรสลบด้วยไฟฟ้าแรงดันสูงแบบ head-to-back ทำให้กระดูกสันหลังหัก (vertebral compression fracture) เกิดจุดเลือดในเนื้อ (blood splash) และคุณภาพเนื้อไม่ดีได้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22059811",
+              "locator": "Abstract (Meat Sci 1992;32(3):245-55)",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-11-21",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "High voltage head-to-back electrical stunning can induce vertebral compression fractures, blood splash and poor meat quality in pigs."
+          }
+        }
+      ]
+    },
+    "milk-meat-hygiene--meat-cutting-grading--ปัจจัยหลังฆ่า-อุณหภูมิ-accelerated-processing-และ-electrical-sti": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--meat-cutting-grading--ปัจจัยหลังฆ่า-อุณหภูมิ-accelerated-processing-และ-electrical-sti--v1",
+          "statement": "การกระตุ้นซากด้วยไฟฟ้า (carcass electrical stimulation) เพิ่มอัตรา glycolysis หลังตายของกล้ามเนื้อ",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "pmid-22063428",
+              "locator": "Abstract (Meat Sci 2003;65(2):677-91)",
+              "kind": "primary-literature"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-11-21",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "it is well established that stimulation increases the rate of post-mortem glycolysis"
+          }
+        }
+      ]
+    },
+    "milk-meat-hygiene--meat-cutting-grading--หลักการตัดแต่งซากและนิยามซากโค": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--meat-cutting-grading--หลักการตัดแต่งซากและนิยามซากโค--v1",
+          "statement": "ซีกซากโคแบ่งเป็น front quarter และ hind quarter ด้วยแนวตัดตามความโค้งธรรมชาติระหว่างซี่โครงที่ 12 และ 13",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-usda-imps-100-fresh-beef-2014",
+              "locator": "Section 8.2 Foodservice Cut Descriptions, Item No. 100 - Beef Carcass (p. 33)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-11-21",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The quarters are produced by completely or partially separating the forequarters from the hindquarters by a cut following the natural curvature between the 12th and 13th ribs."
+          }
+        }
+      ]
+    },
+    "milk-meat-hygiene--meat-cutting-grading--primal-cuts-ของซากโค": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--meat-cutting-grading--primal-cuts-ของซากโค--v1",
+          "statement": "rib แยกจาก chuck ด้วยแนวตัดตรงระหว่างซี่โครงที่ 5 และ 6",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-usda-imps-100-fresh-beef-2014",
+              "locator": "Section 8.2 Foodservice Cut Descriptions, Item No. 103 - Beef Rib, Primal (p. 33)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-11-21",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The chuck is removed by a straight cut between the 5th and 6th ribs."
+          }
+        }
+      ]
+    },
+    "milk-meat-hygiene--meat-cutting-grading--การตัดแต่งซากสุกร": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--meat-cutting-grading--การตัดแต่งซากสุกร--v1",
+          "statement": "four lean cuts ของซากสุกรคือ ham, loin, picnic shoulder และ Boston butt (ชิ้นที่หัวข้อนี้เรียก Boston shoulder) และเกรดซาก barrow และ gilt อิงคุณภาพกับผลผลิตที่คาดของ four lean cuts นี้",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-usda-pork-carcass-standard-1985",
+              "locator": "AMS 54.134(a) Application of standards for grades of barrow and gilt carcasses (PDF p. 3)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-11-21",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Grades for barrow and gilt carcasses are based on two general considerations: (1) Quality -- which includes characteristics of the lean and fat, and (2) the expected yield of the four lean cuts (ham, loin, picnic shoulder, and Boston butt)."
+          }
+        }
+      ]
+    },
+    "milk-meat-hygiene--meat-cutting-grading--การตัดแต่งซากสัตว์ปีก": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--meat-cutting-grading--การตัดแต่งซากสัตว์ปีก--v1",
+          "statement": "drumstick ตัดแยกจาก thigh ที่ข้อเข่า (femorotibial และ patellar joint) และแยกจาก hock ที่ข้อ tarsal",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-usda-poultry-grading-manual-1998",
+              "locator": "Section III.D Cutting Poultry Parts (p. 12, PDF p. 13)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-11-21",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Drumsticks (fig. 23) are separated from the thigh and hock by cuts through the knee joint (femorotibial and patellar joint) and the hock joint (tarsal joint), respectively."
+          }
+        }
+      ]
+    },
+    "milk-meat-hygiene--meat-cutting-grading--meat-grading-และเกรดคุณภาพซากโคของ-usda": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--meat-cutting-grading--meat-grading-และเกรดคุณภาพซากโคของ-usda--v1",
+          "statement": "เกรดคุณภาพ (quality grade) ของซากโค steer และ heifer ตามมาตรฐาน USDA มี 8 ระดับ คือ Prime, Choice, Select, Standard, Commercial, Utility, Cutter และ Canner",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-usda-carcass-beef-standard-2017",
+              "locator": "AMS 54.104(b) Application of standards for grades of carcass beef (PDF p. 7)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-11-21",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Eight quality grade designations -- Prime, Choice, Select, Standard, Commercial, Utility, Cutter, and Canner -- are applicable to steer and heifer carcasses."
+          }
+        }
+      ]
+    },
+    "milk-meat-hygiene--meat-cutting-grading--wagyu-และเกรดปริมาณซากโค-yield-grade": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--meat-cutting-grading--wagyu-และเกรดปริมาณซากโค-yield-grade--v1",
+          "statement": "yield grade ของซากโคคำนวณจาก 2.50 + (2.50 × ความหนาไขมันที่ปรับแล้ว, นิ้ว) + (0.20 × %KPH) + (0.0038 × น้ำหนักซากอุ่น, ปอนด์) − (0.32 × พื้นที่ ribeye, ตารางนิ้ว)",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-usda-carcass-beef-standard-2017",
+              "locator": "AMS 54.105(a) Specifications for official United States standards for grades of carcass beef (yield) (PDF p. 12)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-11-21",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Yield grade -- 2.50 + (2.50 x adjusted fat thickness, inches) + (0.20 x percent kidney, pelvic, and heart fat) + (0.0038 x hot carcass weight, pounds) - (0.32 x area ribeye, square inches)."
+          }
+        }
+      ]
+    },
+    "milk-meat-hygiene--meat-cutting-grading--การแบ่งเกรดซากสุกร": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--meat-cutting-grading--การแบ่งเกรดซากสุกร--v1",
+          "statement": "ซากสุกร barrow และ gilt ที่มีไขมันนิ่มและหรือเยิ้มน้ำมัน (soft and/or oily fat) ได้เกรด U.S. Utility",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-usda-pork-carcass-standard-1985",
+              "locator": "AMS 54.134(c) Application of standards for grades of barrow and gilt carcasses (PDF p. 4)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-11-21",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "Also graded U.S. Utility are carcasses which have soft and/or oily fat."
+          }
+        }
+      ]
+    },
+    "milk-meat-hygiene--meat-cutting-grading--การแบ่งเกรดซากสัตว์ปีก": {
+      "claims": [
+        {
+          "id": "milk-meat-hygiene--meat-cutting-grading--การแบ่งเกรดซากสัตว์ปีก--v1",
+          "statement": "เกรดผู้บริโภค (consumer grades) ของสัตว์ปีกตามมาตรฐาน USDA คือ U.S. Grade A, B และ C",
+          "evidenceStatus": "established",
+          "reviewStatus": "verified",
+          "sourceRefs": [
+            {
+              "sourceId": "guide-usda-poultry-grading-manual-1998",
+              "locator": "Section III Grading According to Quality Standards and Grades (p. 6, PDF p. 7)",
+              "kind": "guideline"
+            }
+          ],
+          "review": {
+            "reviewedBy": "reference-verified",
+            "reviewedAt": "2026-11-21",
+            "method": "reference-cross-check",
+            "approvedScopes": [
+              "learning",
+              "assessment"
+            ],
+            "rationale": "The U.S. consumer grades for poultry are U.S. Grades A, B, and C."
           }
         }
       ]

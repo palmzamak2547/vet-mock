@@ -1402,6 +1402,15 @@ export const CORRECTIONS = {
       "sourceRef": "PMID 30002421 (DOI 10.1038/s41572-018-0005-8)"
     }
   ],
+  "milk-meat-hygiene--meat-cutting-grading--ปัจจัยก่อนฆ่า-อายุ-เพศ-พันธุกรรม-ตำแหน่งกล้ามเนื้อ-และอาหาร": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "หนังสือสุขศาสตร์เนื้อสัตว์ หน้า 25 เขียนว่าเนื้อสุกรตัวผู้มีกลิ่นที่เรียกว่า boar taint เพราะมีระดับ androsterone และ skatole สูง",
+      "evidenceSays": "สารที่ทำให้เกิด boar taint คือ androstenone ซึ่งเป็น steroid จากอัณฑะ ร่วมกับ skatole ซึ่งเป็น metabolite ของ tryptophan ทั้งสองสะสมในไขมัน บทความทบทวนใน Genetics Selection Evolution ปี 2008 ระบุว่าระดับ androstenone และ skatole ที่สูงในไขมันเป็นสาเหตุหลักของ boar taint ในสุกรเพศผู้ที่ไม่ตอน ส่วน androsterone เป็น steroid อีกตัวที่ชื่อคล้ายกัน",
+      "examAdvice": "ถ้าตัวเลือกมี androstenone ให้ตอบ androstenone กับ skatole ถ้าโจทย์ใช้คำตามหนังสือคือ androsterone และไม่มี androstenone ในตัวเลือก ให้เลือกตัวเลือกที่มี androsterone กับ skatole",
+      "sourceRef": "หนังสือสุขศาสตร์เนื้อสัตว์ หน้า 25; PMID 18096119 (doi 10.1186/1297-9686-40-1-129); PMID 26486918 (doi 10.3390/ani2020221)"
+    }
+  ],
   "milk-meat-hygiene--meat-microbiology--เนื้อสัตว์ปนเปื้อนจากไหน-และเชื้อกลุ่มใดสำคัญ": [
     {
       "severity": "narrows",
@@ -1418,6 +1427,15 @@ export const CORRECTIONS = {
       "evidenceSays": "งาน genomics ในปศุสัตว์เป็นการทำงานร่วมกันของหลายสาขาจริง คือ genome sequencing และ assembly ร่วมกับ bioinformatics การคัดเลือกลักษณะเชิงปริมาณ (quantitative production traits) และการกำจัด deleterious recessive variant ซึ่งเป็นงานฝั่ง Mendelian genetics แต่แหล่งอ้างอิงไม่ได้รับรอง taxonomy ตายตัวว่าต้องเป็น 4 หรือ 5 สาขา (Symposium review: Advances in sequencing technology herald a new frontier in cattle genomics and genome-enabled selection, PMID 32331872, doi 10.3168/jds.2019-17693)",
       "examAdvice": "ถ้าข้อสอบถามจำนวนสาขา ให้ตอบตามสไลด์อาจารย์ และท่องรายชื่อให้ได้ครบทั้ง 5 ข้อที่สไลด์ไล่ไว้",
       "sourceRef": "PMID 32331872"
+    }
+  ],
+  "milk-meat-hygiene--meat-quality--คุณภาพเฉพาะของเนื้อวัวและเนื้อหมู-pse-dfd-halothane-gene-rn-gene": [
+    {
+      "severity": "contradicts",
+      "lectureSays": "สไลด์หน้า 12 เขียนว่า \"Beef from Bos indicus is better than beef from Bos taurus\" และในคาบ 21 ต.ค. อ่านข้อนี้ตามสไลด์โดยไม่ได้อธิบายเพิ่ม",
+      "evidenceSays": "หนังสือสุขศาสตร์เนื้อสัตว์ หน้า 26 เขียนกลับกันว่าเนื้อจากโค Bos indicus (มีโหนกสูง) เหนียวและแข็งกว่าโค Bos taurus และสลายโปรตีนหลังการฆ่าน้อยกว่า บทความทบทวนใน Meat Science ปี 2024 ก็ระบุว่าเนื้อโค Bos indicus ถูกมองว่าด้อยกว่าเนื้อโค Bos taurus เพราะความนุ่มต่ำกว่าและไขมันแทรกน้อยกว่า งานในฝูง Angus-Brahman ปี 2018 พบว่ายิ่งมีสายเลือด Brahman มาก ค่า shear force ยิ่งสูง calpain-1 autolysis และการสลายโปรตีนยิ่งลดลง และงานปี 1997 พบว่า calpastatin activity เพิ่มขึ้นตามสัดส่วนสายเลือด Brahman",
+      "examAdvice": "ถ้าโจทย์ยกข้อความของสไลด์มาตรงๆ ว่าเนื้อ Bos indicus ดีกว่าเนื้อ Bos taurus ให้ตอบว่าถูกตามที่สอน ถ้าโจทย์ถามเรื่องความนุ่ม calpastatin หรือการสลายโปรตีนหลังการฆ่า ให้ตอบว่าเนื้อ Bos indicus เหนียวกว่า",
+      "sourceRef": "หนังสือสุขศาสตร์เนื้อสัตว์ หน้า 26; PMID 37924645 (doi 10.1016/j.meatsci.2023.109375); PMID 28946054 (doi 10.1016/j.meatsci.2017.09.006); PMID 9374310 (doi 10.2527/1997.75112955x)"
     }
   ],
   "milk-meat-hygiene--meat-quality--เนื้อสดและคุณภาพเนื้อสัตว์": [

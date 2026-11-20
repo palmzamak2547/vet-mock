@@ -66,7 +66,6 @@ export const METADATA_SECTIONS = new Set([
   "equine-medicine--equine-lapove--outline-2-parts", // Outline — 2 parts
   "equine-medicine--equine-poa--source-pdf-poa-workflow-snapshots", // Source PDF — POA workflow snapshots
   "equine-medicine--equine-tumors--title-lecturer", // Title + lecturer
-  "milk-meat-hygiene--meat-cutting-grading--lecture-identity", // Lecture identity
   "milk-meat-hygiene--milk-borne-pathogens--lecture-identity", // Lecture identity
   "milk-meat-hygiene--milk-industry-std--lecture-identity", // Lecture identity
   "milk-meat-hygiene--milk-mastitis--lecture-identity", // Lecture identity

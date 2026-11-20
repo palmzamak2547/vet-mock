@@ -846,6 +846,88 @@ const Y5_MIDTERM = {
   },
 };
 
+// ปี 5 เทอม 1 ปลายภาค.
+const Y5_FINAL = {
+  // Aquatic Animal Medicine, final. The split by lecturer and the counts are the class
+  // announcement in the year's LINE group, 20 พ.ย. 2569 18:06, read through the LINE bridge.
+  // Its last line says the 10 พ.ย. class on agencies and organisations is examined, with no
+  // format or count; a NUL byte inside that line made the forwarded copy look cut off.
+  // อ.นันทริกา's part was first
+  // announced on 20 ต.ค. (course-syllabi.js); the 20 พ.ย. line adds that it follows two
+  // pages of her deck (PDF pages 36 and 37, numbered 38 and 39 on the slides; 20 pages follow them). Sessions continue the midterm's numbering;
+  // recordings are the VET86 uploads (video-cards.generated.js); 17 พ.ย. has none.
+  // Covers are page 1 of each deck as shelved in the library.
+  'aquatic-clinic': {
+    examDate: '2026-11-27',
+    coverage: 'เนื้อหาตั้งแต่ 29 ก.ย. ถึง 17 พ.ย.',
+    lecturers: [
+      {
+        id: 'patharapol',
+        name: 'รศ.น.สพ.ดร.ภัทรพล เปี่ยมสมบูรณ์',
+        lecturer: 'Patharapol Piamsomboon',
+        format: 'mcq',
+        count: 80,
+        announced: true,
+        note: 'รุ่นแจ้งในกลุ่มไลน์ชั้นปีวันที่ 20 พ.ย. ว่าส่วนนี้เป็นปรนัย 80 ข้อ มีโจทย์คำนวณการใช้ยา และให้จำหน่วยวัดแบบไทยด้วย เช่น ไร่ และงาน',
+        sessions: [
+          { n: 8, date: '2026-09-29', videoId: 'J0_PVwAL884', decks: [{ cover: 'aqua-fish-diseases', title: 'Disease in fish culture', topics: ['aqua-fish-diseases'], doc: 'disease-in-fish-culture-ac13c3' }] },
+          { n: 9, date: '2026-10-06', videoId: 'PvMzY6UNM8M', decks: [{ cover: 'aqua-shrimp-diseases', title: 'Diseases in shrimp culture', topics: ['aqua-shrimp-diseases'], doc: 'diseases-in-shrimp-culture-0c4a96' }] },
+          { n: 14, date: '2026-11-17', videoId: null, decks: [{ cover: 'aqua-biosecurity', title: 'Biosecurity and disease control in aquaculture', topics: ['aqua-disease-control'], doc: 'aq-biosecurity-af027b' }] },
+        ],
+      },
+      {
+        id: 'nantarika',
+        name: 'ศ.สพ.ญ.ดร.นันทริกา ชันซื่อ',
+        lecturer: 'Nantarika Chansue',
+        format: 'mcq',
+        count: 14,
+        announced: true,
+        note: 'รุ่นแจ้งในกลุ่มไลน์ชั้นปีวันที่ 20 ต.ค. และ 20 พ.ย. ว่าส่วนนี้เป็นปรนัย 14 ข้อ แนวข้อสอบตามสองหน้าในเดคของคาบ คือสรุปหลักคิด ห้าหลักที่ควรนำไปใช้ในทุกระบบ และคำถามทบทวน ตอบสั้นๆ ก่อนจบชั้นเรียน',
+        sessions: [
+          { n: 10, date: '2026-10-20', videoId: '8efJw7eJlBw', decks: [{ cover: 'aqua-aquarium', title: 'Aquarium management and medicine', topics: ['aqua-aquarium-vet'], doc: 'aquarium-management-สรุปภาษาไทย-20-ต-ค-69-4b3d76' }] },
+        ],
+      },
+      {
+        id: 'thanida',
+        name: 'อ.สพ.ญ.ดร.ฐนิดา เหตระกูล',
+        lecturer: 'Thanida Haetrakul',
+        format: 'mcq',
+        count: 14,
+        announced: true,
+        note: 'รุ่นแจ้งในกลุ่มไลน์ชั้นปีวันที่ 20 พ.ย. ว่าส่วนนี้เป็นปรนัย 14 ข้อ',
+        sessions: [
+          { n: 11, date: '2026-10-27', videoId: 'EQnBE3-pL94', decks: [{ cover: 'aqua-marine-mammals', title: 'Conservation aquatic animal management and medicine: marine mammals', topics: ['aqua-conservation'], doc: 'conservation-aquatic-animal-management-medicine-marine-mammals-2026-52bd37' }] },
+        ],
+      },
+      {
+        id: 'woranyanee',
+        name: 'อ.สพ.ญ.ดร.วรญาณี ธรรมธร',
+        lecturer: 'Worrayanee Thammatorn',
+        format: 'mcq',
+        count: 20,
+        announced: true,
+        note: 'รุ่นแจ้งในกลุ่มไลน์ชั้นปีวันที่ 20 พ.ย. ว่าส่วนนี้เป็นปรนัย 20 ข้อ',
+        sessions: [
+          { n: 12, date: '2026-11-03', videoId: 'zYRQuoLlrWg', decks: [{ cover: 'aqua-toxicology', title: 'Aquatic toxicology', topics: ['aqua-toxicology'], doc: 'aquatic-toxicology-3-พ-ย-69-056b3c' }] },
+        ],
+      },
+      {
+        id: 'regs',
+        name: 'รศ.สพ.ญ.ดร.อรัญญา พลพรพิสิฐ และ อ.สพ.ญ.ดร.ฐนิดา เหตระกูล และ รศ.น.สพ.ดร.ภัทรพล เปี่ยมสมบูรณ์',
+        lecturer: 'Aranya Ponpornpisit',
+        lecturers: ['Aranya Ponpornpisit', 'Thanida Haetrakul', 'Patharapol Piamsomboon'],
+        format: 'all',
+        count: null,
+        announced: false,
+        note: 'รุ่นแจ้งในกลุ่มไลน์ชั้นปีวันที่ 20 พ.ย. ว่าคาบนี้มีออกสอบ แต่ไม่ได้บอกรูปแบบและจำนวนข้อ ข้อสอบเก่าของส่วนนี้ในคลังเป็นปรนัยทั้งหมด วิทยากรของคาบเป็นผู้แทน มกอช.',
+        sessions: [
+          { n: 13, date: '2026-11-10', videoId: '4ISFo-PV2lc', decks: [{ cover: 'aqua-regs-orgs', title: 'หน่วยงานและองค์กรที่เกี่ยวข้องกับการควบคุมโรคระบาดสัตว์น้ำ', topics: ['aqua-disease-control'], doc: 'หน่วยงานและองค์กรที่เกี่ยวข้องกับการควบคุมโรคระบาดสัตว์น้ำ-10-พ-ย-69-313444' }] },
+        ],
+      },
+    ],
+  },
+};
+
 /**
  * The sets, per paper: the term of the timetable (SEMESTER.id), then year,
  * then phase (lib/current-phase.js), then subject. A set shows while its paper
@@ -854,7 +936,7 @@ const Y5_MIDTERM = {
  * formats are that year's), until this term's goes in as one more key.
  */
 export const LECTURER_SETS_BY_PAPER = {
-  '2569-1': { 5: { '1-mid': Y5_MIDTERM } },
+  '2569-1': { 5: { '1-mid': Y5_MIDTERM, '1-final': Y5_FINAL } },
 };
 
 /** This subject's set for one paper, this term's or the newest earlier one of

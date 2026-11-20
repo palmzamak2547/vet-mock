@@ -160,7 +160,10 @@ test('the teaching timetable lists every session and the faculty table’s paper
   assert.match(epi.change, /ย้ายมาสอนวันนี้ \(กลุ่มไลน์ชั้นปี 30 ก\.ย\. 69\)$/, 'a moved class carries the announcement and its date');
   assert.equal(z.rows.find((r) => r.date === '2026-08-28').status, 'เดิม 14 และ 28 ส.ค.', 'two planned classes taught in one name both days');
   assert.equal(z.rows.find((r) => r.title === 'Prion zoonoses').status, 'เดิม 13 พ.ย.', 'taught on 4 Nov with Bacterial zoonoses II');
-  assert.equal(teachingDoc('equine-medicine', 5, AT).rows.find((r) => r.date === '2026-11-12').status, '', 'a class past the course’s evidence is the plan, which the note says once');
+  assert.equal(teachingDoc('aquatic-clinic', 5, AT).rows.find((r) => r.title.startsWith('Aquatic animal disease in Animal Epidemics Act')).status, '', 'a class past the course’s evidence is the plan, which the note says once');
+  const equine = teachingDoc('equine-medicine', 5, AT);
+  assert.equal(equine.rows.find((r) => r.title.includes('Lameness 2')).status, 'เดิม 12 และ 16 พ.ย.', 'lameness 2 and POA moved to 19 Nov by the 5 Nov notice');
+  assert.equal(equine.rows.find((r) => r.title === 'Exercise related disease').status, 'ยังไม่ทราบวัน', 'its 19 Nov slot went to lameness 2, its day not yet known');
   const swine = teachingDoc('swine-clinic', 5, AT);
   assert.equal(swine.rows.find((r) => r.title.startsWith('โรคปากและเท้าเปื่อย')).status, 'เดิม 16 ต.ค.', 'planned on a holiday, taught on 30 Oct');
   assert.equal(swine.rows.find((r) => r.title.includes('โคไลบาซิลโลซิส')).status, 'ยังไม่ทราบวัน', 'its 30 Oct slot went to another class, its day not yet known');

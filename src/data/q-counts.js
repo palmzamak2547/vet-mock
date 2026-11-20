@@ -159,7 +159,7 @@ const LEAVES = [
   ["aquatic-clinic","aqua-amphibian",0,[[11,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]], // 564c490fbf72
   // end ["aquatic-clinic","aqua-amphibian"]
   // ["aquatic-clinic","aqua-aquarium-vet"]
-  ["aquatic-clinic","aqua-aquarium-vet",0,[[12,5,1,0,2,0,0,0],[1,5,1,1,2,1,0,0]]], // c16d33a10d40
+  ["aquatic-clinic","aqua-aquarium-vet",0,[[10,5,1,0,2,0,0,0],[15,5,1,0,2,1,0,0],[1,5,1,1,2,1,0,0]]], // e6213d030fff
   // end ["aquatic-clinic","aqua-aquarium-vet"]
   // ["aquatic-clinic","aqua-conservation"]
   ["aquatic-clinic","aqua-conservation",0,[[7,5,1,0,2,0,0,0],[11,5,1,0,2,1,0,0],[2,5,1,1,2,1,0,0]]], // b3ea76c76e21
@@ -171,7 +171,7 @@ const LEAVES = [
   ["aquatic-clinic","aqua-fish-biology",0,[[18,5,1,0,1,0,0,0],[18,5,1,0,1,1,0,0],[9,5,1,1,1,1,0,0]]], // cd4da805e6b8
   // end ["aquatic-clinic","aqua-fish-biology"]
   // ["aquatic-clinic","aqua-fish-diseases"]
-  ["aquatic-clinic","aqua-fish-diseases",0,[[10,5,1,0,2,0,0,0],[34,5,1,0,2,1,0,0],[14,5,1,1,2,1,0,0]]], // e41ecfcf2f34
+  ["aquatic-clinic","aqua-fish-diseases",0,[[10,5,1,0,2,0,0,0],[36,5,1,0,2,1,0,0],[14,5,1,1,2,1,0,0]]], // d383022b5873
   // end ["aquatic-clinic","aqua-fish-diseases"]
   // ["aquatic-clinic","aqua-frog-diseases"]
   ["aquatic-clinic","aqua-frog-diseases",0,[[13,5,1,0,1,1,0,0],[1,5,1,1,1,1,0,0]]], // 18b68d8aed80
@@ -186,7 +186,7 @@ const LEAVES = [
   ["aquatic-clinic","aqua-ornamental",0,[[32,5,1,0,1,1,0,0],[6,5,1,1,1,1,0,0]]], // 42387acbf014
   // end ["aquatic-clinic","aqua-ornamental"]
   // ["aquatic-clinic","aqua-shrimp-diseases"]
-  ["aquatic-clinic","aqua-shrimp-diseases",0,[[10,5,1,0,2,0,0,0],[19,5,1,0,2,1,0,0],[12,5,1,1,2,1,0,0]]], // adf63ec2c395
+  ["aquatic-clinic","aqua-shrimp-diseases",0,[[10,5,1,0,2,0,0,0],[20,5,1,0,2,1,0,0],[12,5,1,1,2,1,0,0]]], // 048b8b6e3321
   // end ["aquatic-clinic","aqua-shrimp-diseases"]
   // ["aquatic-clinic","aqua-shrimp-immunology"]
   ["aquatic-clinic","aqua-shrimp-immunology",0,[[19,5,1,0,1,1,0,0],[7,5,1,1,1,1,0,0]]], // 099ff768b796

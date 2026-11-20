@@ -1,10 +1,7 @@
 // GENERATED from the authored-and-verified wrap-up JSON (ingest-wrapup-final.mjs)
-// on 2026-11-10, for the 2569-1 year-5 1-final paper. Edit the JSON and
+// on 2026-11-20, for the 2569-1 year-5 1-final paper. Edit the JSON and
 // re-run the ingest, not this file. Every bullet names its source (a recording
 // timestamp, a deck page, or a past-paper item); the ingest refuses one that does not.
-// EDITED BY HAND on 2026-11-11 after review (docs/releases/5.198.0.md lists each edit):
-// neither the ingest script nor the source JSON is in this repository, so carry these
-// edits into the source JSON before any re-ingest, or a re-ingest will undo them.
 export const WRAPUP = {
   "subject": "one-health",
   "exam": {
@@ -243,7 +240,7 @@ export const WRAPUP = {
       "id": "suphachai",
       "lecturer": "ศ.น.สพ.ดร.ศุภชัย เนื้อนวลสุวรรณ",
       "format": "all",
-      "formatNote": "ยังไม่มีประกาศรูปแบบข้อสอบปลายภาคของส่วนนี้ ต้นคาบ 7 ต.ค. แจ้งว่าเวลาสอบให้อ่าน PowerPoint ของคาบ ไม่ต้องอ่าน Reading Material [hLl7taXYRWQ 6:13] ข้อสอบเก่าของส่วนนี้ในคลังจากปลายภาครุ่น Vet 85 เป็นปรนัย",
+      "formatNote": "รุ่นแจ้งในกลุ่มไลน์ชั้นปีวันที่ 18 พ.ย. 2569 ว่าส่วน imported risk มีข้อสอบ 10 ข้อ แต่ไม่ได้บอกรูปแบบ ต้นคาบ 7 ต.ค. แจ้งว่าเวลาสอบให้อ่าน PowerPoint ของคาบ ไม่ต้องอ่าน Reading Material [hLl7taXYRWQ 6:13] ข้อสอบเก่าของส่วนนี้ในคลังจากปลายภาครุ่น Vet 85 เป็นปรนัย",
       "items": [
         {
           "topic": "oh-risk-analysis",

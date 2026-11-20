@@ -70,9 +70,9 @@ Generated from the source by `npm run stats -- --write`; `npm run stats:check` f
 | | |
 |---|---|
 | ข้อสอบ | จำนวนข้อพร้อมฝึก ข้อที่พักไว้ตรวจ และรายชั้นปี นับใหม่จาก bank ทุกครั้งด้วย `npm run stats` (ไม่เก็บตัวเลขไว้ในไฟล์นี้ เพราะทุก pull request ที่เพิ่มข้อสอบจะแก้บรรทัดเดียวกัน) |
-| สรุปโน้ต | 39 ไฟล์, 431 หัวข้อ, 4,605 sections, อ้างอิงแหล่งที่มาครบ 100% |
+| สรุปโน้ต | 39 ไฟล์, 431 หัวข้อ, 4,617 sections, อ้างอิงแหล่งที่มาครบ 100% |
 | สรุปคลิป | 644 คลิป ใน 32 ไฟล์ |
-| VetWiki (governed) | 253 หัวข้อ, 2,279 sections = 49.5% ของ note sections |
+| VetWiki (governed) | 253 หัวข้อ, 2,292 sections = 49.6% ของ note sections |
 | Taxonomy | 86 วิชา, 1,087 หัวข้อ |
 | ชนิดคำถาม | MCQ, True/False, Fill-in, Matching, Short answer, Writing |
 <!-- content-stats:end -->

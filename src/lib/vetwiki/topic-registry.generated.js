@@ -1557,9 +1557,9 @@ export const VETWIKI_TOPICS = [
     "id": "milk-meat-hygiene--meat-cutting-grading",
     "subject": "milk-meat-hygiene",
     "topic": "meat-cutting-grading",
-    "title": "Postmortem changes + meat cutting & grading",
+    "title": "Postmortem changes, meat cutting & grading",
     "icon": "🔪",
-    "summary": "Muscle-to-meat conversion เกิดเมื่อ homeostasis หาย หลัง slaughter, 2 ขั้นเริ่ม: immobilization (electrical/gas stunning) + exsanguination (~50% blood removed) → จุดเริ่ม postmortem changes.",
+    "summary": "การเปลี่ยนแปลงของกล้ามเนื้อหลังสัตว์ตาย ปัจจัยก่อนฆ่าและหลังฆ่าที่มีผลต่อคุณภาพเนื้อ การตัดแต่งซาก และการตัดสินคุณภาพซาก ปี 2569: pH ลดลง ความร้อน rigor mortis, PSE และ DFD, thaw rigor และ cold shortening, การตัดแต่งซากโค สุกร และสัตว์ปีกตามระบบ National Livestock & Meat Board, เกรดคุณภาพและเกรดปริมาณซากโคของ USDA, Wagyu, การแบ่งเกรดซากสุกร และเกรด A B C ของสัตว์ปีก",
     "flagship": false
   },
   {

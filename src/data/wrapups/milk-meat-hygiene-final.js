@@ -1,5 +1,5 @@
 // GENERATED from the authored-and-verified wrap-up JSON (ingest-wrapup-final.mjs)
-// on 2026-11-14, for the 2569-1 year-5 1-final paper. Edit the JSON and
+// on 2026-11-20, for the 2569-1 year-5 1-final paper. Edit the JSON and
 // re-run the ingest, not this file. Every bullet names its source (a recording
 // timestamp, a deck page, or a past-paper item); the ingest refuses one that does not.
 export const WRAPUP = {
@@ -8,7 +8,7 @@ export const WRAPUP = {
     "date": "2026-11-30",
     "time": "08:30-11:30"
   },
-  "intro": "ปลายภาค Milk Hygiene & Meat Inspection วันที่ 30 พ.ย. 08:30-11:30 ครอบคลุมคาบหลังกลางภาค แยกตามอาจารย์ห้าท่านตามลำดับคาบ รศ.สหฤทัย (30 ก.ย.) ผศ.ธราดล (7 ต.ค.) อ.สิรวิทย์ (14 ต.ค. และ 4, 11, 18 พ.ย.) ศ.รุ่งทิพย์ (21 ต.ค.) และ ศ.ศุภชัย (28 ต.ค.) คาบที่ยังไม่มีคลิปของปีนี้เขียนจากเดคปี 2569 คลิปปีก่อน และข้อสอบเก่า ส่วนคาบ 18 พ.ย. ยังไม่ได้สอนและใช้เดคฉบับปี 2567 เพราะคลังยังไม่มีฉบับปีนี้",
+  "intro": "ปลายภาค Milk Hygiene & Meat Inspection วันที่ 30 พ.ย. 08:30-11:30 ครอบคลุมคาบหลังกลางภาค แยกตามอาจารย์ห้าท่านตามลำดับคาบ รศ.สหฤทัย (30 ก.ย.) ผศ.ธราดล (7 ต.ค.) อ.สิรวิทย์ (14 ต.ค. และ 4, 11, 18 พ.ย.) ศ.รุ่งทิพย์ (21 ต.ค.) และ ศ.ศุภชัย (28 ต.ค.) คาบที่ยังไม่มีคลิปของปีนี้เขียนจากเดคปี 2569 คลิปปีก่อน และข้อสอบเก่า ส่วนคาบ 18 พ.ย. ข้อในหน้านี้ยังมาจากเดคฉบับปี 2567 และคลิปปีก่อน โน้ตของหัวข้อนี้ใน VetWiki เขียนจากเดคและคาบของปีนี้แล้ว",
   "groups": [
     {
       "id": "saha",
@@ -2418,7 +2418,7 @@ export const WRAPUP = {
           "th": "คุณภาพเฉพาะของเนื้อโคและเนื้อสุกร",
           "keywords": [
             "Beef: traditional beef (Hereford, Angus)",
-            "Bos indicus ดีกว่า Bos taurus",
+            "Bos indicus กับ Bos taurus (สไลด์กับหนังสือเขียนกลับกัน)",
             "PSE (pale, soft, exudative) pH 5.2",
             "RFN (reddish pink, firm, non-exudative) pH 5.7",
             "DFD (dark, firm, dry) pH 6.2",
@@ -2441,8 +2441,8 @@ export const WRAPUP = {
               "src": "เดค Meat quality and Wholesomeness หน้า 18"
             },
             {
-              "text": "เนื้อโคพันธุ์ดั้งเดิม เช่น Hereford และ Angus อาจดีกว่า และเนื้อจาก Bos indicus ดีกว่า Bos taurus",
-              "src": "WX7vrDP9MjA [88:46], [89:11]; เดค Meat quality and Wholesomeness หน้า 12"
+              "text": "เนื้อโคพันธุ์ดั้งเดิม เช่น Hereford และ Angus อาจดีกว่า สไลด์เขียนว่าเนื้อจาก Bos indicus ดีกว่า Bos taurus แต่หนังสือสุขศาสตร์เนื้อสัตว์ p.26 เขียนว่าเนื้อ Bos indicus เหนียวและแข็งกว่า และสลายโปรตีนหลังการฆ่าน้อยกว่า",
+              "src": "WX7vrDP9MjA [88:46], [89:11]; เดค Meat quality and Wholesomeness หน้า 12; หนังสือสุขศาสตร์เนื้อสัตว์ หน้า 26"
             }
           ],
           "examined": [
@@ -2459,7 +2459,7 @@ export const WRAPUP = {
               "src": "แนวข้อสอบ 214160"
             },
             {
-              "text": "เนื้อจาก Bos indicus จัดว่าดีกว่าเนื้อจาก Bos taurus",
+              "text": "เนื้อจาก Bos indicus จัดว่าดีกว่าเนื้อจาก Bos taurus แม้หนังสือ p.26 จะเขียนว่าเนื้อ Bos indicus เหนียวกว่า",
               "src": "แนวข้อสอบ 214159"
             }
           ],

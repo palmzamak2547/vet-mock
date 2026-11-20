@@ -189,6 +189,13 @@ export const LECTURE_COVERS = {
     'aqua-amphibian': { src: base('lecture-covers', 'aquatic-clinic-aqua-amphibian'), alt: 'ปกสไลด์ Basic Amphibian Medicine พื้นดำ ภาพเงาซาลาแมนเดอร์และกบ' },
     'aqua-turtle-1': { src: base('lecture-covers', 'aquatic-clinic-aqua-turtle'), alt: 'ปกสไลด์ Chelonian พื้นเหลือง ภาพเงาเต่า' },
     'aqua-turtle-2': { src: base('lecture-covers', 'aquatic-clinic-aqua-turtle'), alt: 'ปกสไลด์ Chelonian พื้นเหลือง ภาพเงาเต่า' },
+    'aqua-fish-diseases': { src: base('lecture-covers', 'aquatic-clinic-aqua-fish-diseases'), alt: 'ปกสไลด์ Disease in Fish Culture ของ Patharapol Piamsomboon ภาพบ่อน้ำกับแนวต้นไม้ยามเย็น' },
+    'aqua-shrimp-diseases': { src: base('lecture-covers', 'aquatic-clinic-aqua-shrimp-diseases'), alt: 'ปกสไลด์ Shrimp Diseases Class of 2026 ภาพกุ้งที่มีจุดขาวบนนิ้วมือ และบ่อกุ้งกับเครื่องตีน้ำ' },
+    'aqua-biosecurity': { src: base('lecture-covers', 'aquatic-clinic-aqua-biosecurity'), alt: 'ปกสไลด์ Biosecurity & Disease Control in Aquaculture ภาพบ่อเลี้ยงกับป้ายเตือนอันตรายทางชีวภาพ' },
+    'aqua-aquarium': { src: base('lecture-covers', 'aquatic-clinic-aqua-aquarium'), alt: 'ปกสไลด์ การจัดการอะควาเรียม Aquarium Management พื้นฟ้า วงกลมสีเขียวน้ำทะเล' },
+    'aqua-marine-mammals': { src: base('lecture-covers', 'aquatic-clinic-aqua-marine-mammals'), alt: 'ปกสไลด์ Conservation Aquatic Animal Management & Medicine ภาพวาฬ โลมา และพะยูน' },
+    'aqua-toxicology': { src: base('lecture-covers', 'aquatic-clinic-aqua-toxicology'), alt: 'ปกสไลด์ Aquatic Toxicology ของ Worrayanee Thammatorn ภาพใต้น้ำโทนน้ำตาล' },
+    'aqua-regs-orgs': { src: base('lecture-covers', 'aquatic-clinic-aqua-regs-orgs'), alt: 'ปกสไลด์ หน่วยงานและองค์กรที่เกี่ยวข้องกับการควบคุมโรคระบาดสัตว์น้ำ ภาพฝูงปลาและชาวประมงถือปลา' },
   },
   'zoonoses': {
     'zoo-intro': { src: base('lecture-covers', 'zoonoses-zoo-intro'), alt: 'ปกสไลด์ 3109504 Zoonoses ภาพอาคารคณะสัตวแพทยศาสตร์ จุฬาฯ' },

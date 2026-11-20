@@ -16,8 +16,8 @@ per subject), counted from the banks at the time of the run.
 |---|---|
 | Note files | 39 |
 | Topics | 431 |
-| Sections | 4605 |
-| Sections carrying a source locator | 4605 (100%) |
+| Sections | 4617 |
+| Sections carrying a source locator | 4617 (100%) |
 
 ## Video summaries
 
@@ -32,7 +32,7 @@ per subject), counted from the banks at the time of the run.
 | | |
 |---|---|
 | Governed topics | 253 |
-| Governed sections | 2279 |
-| Claims verified against an external source | 3578 |
-| Distinct external sources cited | 2251 |
-| Share of note sections governed | 49.5% |
+| Governed sections | 2292 |
+| Claims verified against an external source | 3592 |
+| Distinct external sources cited | 2260 |
+| Share of note sections governed | 49.6% |

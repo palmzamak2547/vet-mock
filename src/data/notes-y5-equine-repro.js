@@ -2679,7 +2679,7 @@ export const NOTES_Y5_EQUINE_REPRO = {
       },
       {
         "heading": "Castration anesthesia, restraint และ local anesthesia",
-        "source": "Equine reproductive surgery p.5-7; บันทึกคาบ 29 ต.ค. 2569 [10:01-20:31]",
+        "source": "Equine reproductive surgery p.5-7; หน้า Castration Anesthesia ฉบับแก้ ส่งในกลุ่มไลน์ชั้นปี 18 พ.ย. 2569; บันทึกคาบ 29 ต.ค. 2569 [10:01-20:31]",
         "body": [
           {
             "sub": "ตารางยา",
@@ -2692,12 +2692,12 @@ export const NOTES_Y5_EQUINE_REPRO = {
                   ],
                   "rows": [
                     [
-                      "Xylazine / Detomidine, Ketamine, Diazepam",
-                      "Ketamine, Xylazine"
+                      "Xylazine / Detomidine, Acepromazine",
+                      "Xylazine"
                     ],
                     [
-                      "Xylazine / Detomidine, Tiletamine/Zolazepam",
-                      "Detomidine, Tiletamine/Zolazepam"
+                      "Xylazine / Detomidine",
+                      "Xylazine / Detomidine"
                     ]
                   ]
                 }
@@ -2711,7 +2711,7 @@ export const NOTES_Y5_EQUINE_REPRO = {
                 ]
               },
               {
-                "callout": "p.5 ตารางฝั่ง Standing castration พิมพ์ ketamine, diazepam และ tiletamine/zolazepam ไว้ในคอลัมน์ Induction drug แต่ standing castration ไม่ควรให้ ketamine เพราะให้แล้วม้าล้มลงนอนทันที ยา induction เช่น ketamine หรือ Zoletil (tiletamine/zolazepam) ใช้กับ recumbent castration ตารางหน้านี้ถูกแจ้งในคาบว่ายาไม่ถูกต้องและจะมีหน้าที่แก้ไขตามมา (บันทึกคาบ 29 ต.ค. 2569 [12:01-12:32])",
+                "callout": "ตารางนี้เป็นหน้าที่แก้แล้ว ส่งในกลุ่มไลน์ชั้นปีวันที่ 18 พ.ย. 2569 ฉบับเดิมในเดคหน้า 5 พิมพ์ ketamine, diazepam และ tiletamine/zolazepam ไว้ฝั่ง standing ซึ่งในคาบแจ้งว่าไม่ถูกต้อง เพราะ ketamine ทำให้ม้าล้มลงนอนทันที ยา induction เช่น ketamine หรือ Zoletil (tiletamine/zolazepam) ใช้กับ recumbent castration (บันทึกคาบ 29 ต.ค. 2569 [12:01-12:32])",
                 "kind": "flag"
               },
               {
