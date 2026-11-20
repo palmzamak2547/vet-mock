@@ -336,7 +336,7 @@ export const SYLLABI = {
           { date: '2026-10-22', planned: ['2026-10-22', '2026-10-29'], held: true, title: 'Concept of equine surgery, Equine anesthesia, analgesia and euthanasia', lecturers: [SAWITA], topics: ['equine-surgery-wound', 'equine-anesthesia'] },
           { date: '2026-11-05', held: true, title: 'Lameness 1: Lameness exam and hoof, diagnostic analgesia', lecturers: [TEERAPOL], topics: ['equine-lameness', 'equine-hoof'] },
           { date: '2026-11-19', planned: ['2026-11-12', '2026-11-16'], title: 'ช่วงเช้า Lameness 2: Pathology and treatment of lame horse, ช่วงบ่าย POA case discussion (ฝึกทำเคสเป็นกลุ่ม)', lecturers: [TEERAPOL], topics: ['equine-lameness', 'equine-poa'], change: classLine('2026-11-05', '12 พ.ย. ไม่มีสอน lameness 2 ย้ายมาเรียนเช้า 19 พ.ย. และบ่ายวันเดียวกันเป็น POA') },
-          { date: '2026-11-19', time: '09:00–10:30', title: 'Exercise related disease', lecturers: [TEERAPOL], topics: ['equine-exercise'], dayUnknown: true, note: 'ประกาศ 5 พ.ย. ให้ 19 พ.ย. เป็น lameness 2 ช่วงเช้าและ POA ช่วงบ่าย ยังไม่มีคลิปหรือประกาศว่าหัวข้อนี้สอนวันไหน' },
+          { date: '2026-11-19', title: 'Exercise related disease', lecturers: [TEERAPOL], topics: ['equine-exercise'], dayUnknown: true, note: 'ประกาศ 5 พ.ย. ให้ 19 พ.ย. เป็น lameness 2 ช่วงเช้าและ POA ช่วงบ่าย ยังไม่มีคลิปหรือประกาศว่าหัวข้อนี้สอนวันไหน' },
         ],
       },
 

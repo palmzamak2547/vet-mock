@@ -38,6 +38,8 @@ test('every session is a dated row of this term that names who taught it and wha
       last = s.date;
       assert.ok(s.date < week.start || s.date > week.end, `${where}: no class in the midterm week`);
       if (s.time) assert.match(s.time, /^\d{2}:\d{2}–\d{2}:\d{2}$/, `${where}: time as HH:MM–HH:MM`);
+      // A class whose day is not known holds no hours: its planned hours may now belong to another class (Equine, 19 Nov).
+      if (s.dayUnknown) assert.ok(!s.time, `${where}: a class whose day is not known claims no hours`);
       if (!s.kind) assert.ok(s.lecturers.length > 0, `${where}: names its lecturers`);
       for (const t of s.topics) assert.ok(topics.has(t), `${where}: topic ${t} is one of ${id}'s`);
       if (s.change) assert.ok(s.change.text && s.change.posted <= c.evidenceUntil, `${where}: a change carries its text and a day it was posted on`);
