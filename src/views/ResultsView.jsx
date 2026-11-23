@@ -69,6 +69,9 @@ export default function ResultsView({
   // 'redo' for the wrong-answer round opened from this page: its keys were
   // just on screen, so it never sets a personal best.
   sessionKind,
+  // The set was drawn from past papers only (the topic screen's ข้อสอบเก่า
+  // switch, the config screen's ข้อที่ใช้ row). Its next sets continue it.
+  pastOnly = false,
   // Round 3 2026-05-18: examStartTime → compute receiver elapsed time
   // for "เทียบคะแนน/เวลา" (Phase 5 spec). When this user later shares
   // the same set, their own time goes into the URL for THEIR receiver.
@@ -292,7 +295,7 @@ export default function ResultsView({
     if (!startExam) return;
     startExam({
       mode: 'quick', practiceMode: 'all', subject: ctxSubj || 'all', topic: ctxTopic || null,
-      questionCategory: 'all', numQuestions: n, useTimer: false,
+      questionCategory: 'all', numQuestions: n, useTimer: false, onlyPastPaper: pastOnly,
       // "อีก" means more, not again: a topic can hold fewer questions than the
       // row offers, and the set was padded with the ones just answered.
       excludeIds: new Set((questions || []).map((q) => `${q.subject}:${q.id}`)),
@@ -314,13 +317,13 @@ export default function ResultsView({
       // An exam rung is the whole subject: a paper is a subject, not one topic.
       startExam({
         mode: 'exam', practiceMode: 'all', subject: ctxSubj || 'all', topic: null, questionCategory: 'all',
-        numQuestions: step.count, useTimer: true, timePerQ: 60,
+        numQuestions: step.count, useTimer: true, timePerQ: 60, onlyPastPaper: pastOnly,
       });
       return;
     }
     startExam({
       mode: 'quick', practiceMode: 'all', subject: ctxSubj || 'all', topic: ctxTopic || null, questionCategory: 'all',
-      numQuestions: step.count, useTimer: step.useTimer, timePerQ: 60,
+      numQuestions: step.count, useTimer: step.useTimer, timePerQ: 60, onlyPastPaper: pastOnly,
       ...(id === 'understand' ? { gentle: true } : {}),
     });
   };
@@ -331,12 +334,14 @@ export default function ResultsView({
     setNumQuestions?.(50); setUseTimer?.(true);
     setView('config');
   };
-  const scopeName = ctxTopic ? topicLabel : ctxSubj ? subjLabel : 'ทุกวิชาในปีนี้';
+  // Said once in each row it applies to, after the set's name.
+  const pastTag = pastOnly ? ', ข้อสอบเก่า' : '';
+  const scopeName = `${ctxTopic ? topicLabel : ctxSubj ? subjLabel : 'ทุกวิชาในปีนี้'}${pastTag}`;
   const ladderRow = verdict.kind === 'up'
     ? {
         icon: 'progress', onClick: () => launchStep(verdict.next),
         label: `ขั้นต่อไป ${nextStep.label} ${nextStep.count} ข้อ`,
-        sub: verdict.next === 'exam' ? `ทั้งวิชา ${subjLabel || 'ที่เลือก'} นาฬิกาเดียวทั้งชุด` : `${scopeName} จับเวลาต่อข้อ`,
+        sub: verdict.next === 'exam' ? `ทั้งวิชา ${subjLabel || 'ที่เลือก'}${pastTag} นาฬิกาเดียวทั้งชุด` : `${scopeName} จับเวลาต่อข้อ`,
       }
     : verdict.kind === 'done'
       ? { icon: 'progress', onClick: openExamConfig, label: 'ซ้อมสอบชุดต่อไป', sub: 'เลือกวิชาได้ในหน้าถัดไป' }
@@ -352,7 +357,7 @@ export default function ResultsView({
   const moreRow = startExam ? {
     icon: 'practice', onClick: () => handleContinueMore(5),
     label: ctxTopic ? 'ทำหัวข้อนี้อีก 5 ข้อ' : ctxSubj ? `ทำ${subjLabel}อีก 5 ข้อ` : 'ทำต่ออีก 5 ข้อ',
-    sub: ctxTopic ? topicLabel : ctxSubj ? subjLabel : 'สุ่มจากทุกวิชาในปีนี้',
+    sub: `${ctxTopic ? topicLabel : ctxSubj ? subjLabel : 'สุ่มจากทุกวิชาในปีนี้'}${pastTag}`,
   } : null;
 
   // The set's VetWiki page, when the whole set is one governed topic

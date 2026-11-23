@@ -195,7 +195,14 @@ export function createStudyCatalog({ customQuestions = [], readingChecklist = {}
         .filter(([topicId]) => matches(topicId) && !hidden.has(topicId))
         .reduce((sum, [, count]) => sum + count, 0);
       const customTotal = visibleCustom.filter((q) => matches(q.topic)).length;
-      return Object.freeze({ ...collection, questionCount: builtInCount + customTotal });
+      // Its past papers too, counted the same way: the topic screen's
+      // ข้อสอบเก่า switch prints this beside the card, and without it a
+      // collection read 0 while its button served 47 (รวมหมาหอน, 23 Nov 2026).
+      const builtInPast = Object.entries(builtInPastByTopic)
+        .filter(([topicId]) => matches(topicId) && !hidden.has(topicId))
+        .reduce((sum, [, count]) => sum + count, 0);
+      const customPast = visibleCustom.filter((q) => matches(q.topic) && isPastPaperQuestion(q)).length;
+      return Object.freeze({ ...collection, questionCount: builtInCount + customTotal, pastPaperCount: builtInPast + customPast });
     });
 
     return Object.freeze({

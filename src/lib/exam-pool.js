@@ -97,6 +97,20 @@ export function appliedCategory(category, subject, practiceMode) {
   return categoryPickerShown(subject, practiceMode) ? category : 'all';
 }
 
+// The config screen's ข้อที่ใช้ row (every question, or past papers only) is
+// drawn for the plain pools alone: a random or level-picked set, which Panic
+// and an exam also draw from. The curated pools (bookmarks, weak, wrong) and
+// the scope modes are their own launchers' promise. The type picker above
+// learned it: a choice applies only where its control is on screen.
+export function pastOnlyShown(practiceMode) {
+  return practiceMode === 'all' || practiceMode === 'adaptive';
+}
+
+/** The past papers of a set, which is what buildExamPool's onlyPastPaper serves. */
+export function pastPapersOf(pool) {
+  return (pool || []).filter(isPastPaperQuestion);
+}
+
 /**
  * One pool definition for both ConfigView's truthful availability count and
  * startExam's actual selection. Keeping these paths together prevents the UI
@@ -249,9 +263,6 @@ export function buildExamPool({
       pool = pool.filter((q) => onlyTopics.has(q.topic)
         || (Array.isArray(q.topics) && q.topics.some((t) => onlyTopics.has(t))));
     }
-    // "ฝึกเฉพาะข้อสอบเก่า": the lecturer's part, past papers only.
-    if (onlyPastPaper) pool = pool.filter(isPastPaperQuestion);
-
     if (practiceMode === 'current-scope' || practiceMode === 'predicted') {
       const matchesScope = practiceMode === 'predicted'
         ? isHighPredictionQuestion
@@ -302,6 +313,16 @@ export function buildExamPool({
     const named = subject !== 'all' || Boolean(topic);
     if (onPaper.length || !named) pool = onPaper;
   }
+
+  // Past papers only (a lecturer card's "ฝึกเฉพาะข้อสอบเก่า", the topic
+  // screen's ข้อสอบเก่า switch, the config screen's row): AFTER the paper, so
+  // the paper is chosen from the whole topic and this only narrows it. Before
+  // the paper, a topic whose past papers all sat the other paper emptied the
+  // paper filter, and its never-empty guard then served those other-paper
+  // questions under a switch whose count, from this paper's table, was 0.
+  // Last of the narrowing steps, so this set is always the plain set's past
+  // papers and nothing else, which is what the counts beside it divide.
+  if (onlyPastPaper && !curated) pool = pastPapersOf(pool);
 
   if (excludeIds && excludeIds.size) {
     pool = pool.filter((q) => !excludeIds.has(`${q.subject}:${q.id}`));

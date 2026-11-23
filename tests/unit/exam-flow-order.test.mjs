@@ -112,7 +112,7 @@ function appAt(state = {}) {
     alertDialog: record('alert'),
     offerBankRetry: async () => false,
     mode: 'quick', subject: 'all', topic: null, practiceMode: 'all', questionCategory: 'all',
-    numQuestions: 10, useTimer: true, timePerQ: 60, panicPending: false,
+    numQuestions: 10, useTimer: true, timePerQ: 60, panicPending: false, pastOnly: false,
     selectedYear: 5, selectedPhase: null, paperPhase: null,
     customQuestions: [], bookmarks: [], analytics: null, history: [], QB: [],
     finishingRef: { current: false },
@@ -121,7 +121,7 @@ function appAt(state = {}) {
     // App's own guard (it reads refs this harness does not model). Here the
     // student has nothing unfinished, or agreed to drop it.
     confirmReplaceUnfinished: async () => true,
-    setSessionKind() {}, setChallengeSender() {},
+    setSessionKind() {}, setSessionPastOnly() {}, setChallengeSender() {},
     setPendingResume() {}, setQbReady() {}, setQbRevision() {},
     setSubject() {}, setTopic() {}, setPracticeMode() {}, setPracticeModeRaw() {}, setNumQuestions() {}, setUseTimer() {}, setTimePerQ() {},
     setMode: record('setMode'),

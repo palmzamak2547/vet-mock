@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { parse } from '@babel/parser';
-import { buildExamPool, normalizePracticeMode, appliedCategory, USER_CURATED_MODES } from '../../src/lib/exam-pool.js';
+import { buildExamPool, normalizePracticeMode, appliedCategory, USER_CURATED_MODES, pastOnlyShown } from '../../src/lib/exam-pool.js';
 
 const source = readFileSync(new URL('../../src/App.jsx', import.meta.url), 'utf8');
 const ast = parse(source, { sourceType: 'module', plugins: ['jsx'] });
@@ -25,20 +25,20 @@ function harness(initial = {}) {
     view: 'config', user: null, authLoading: false, examSessionId: 'existing-session',
     selectedYear: 4, selectedPhase: '2-final', mode: 'quick', subject: 'vca', topic: null,
     practiceMode: 'all', questionCategory: 'all', numQuestions: 1, useTimer: false, timePerQ: 60,
-    panicPending: false, customQuestions: [], QB: [q(60100), q(60101)], bookmarks: [], history: [], analytics: null,
+    panicPending: false, pastOnly: false, customQuestions: [], QB: [q(60100), q(60101)], bookmarks: [], history: [], analytics: null,
     viewRef, eventContextRef, finishingRef: { current: true }, sessionRef: { current: null },
     confirmReplaceUnfinished: async () => true, isQBFullyLoaded: () => true, isQBYearLoaded: () => true,
     loadQBForYear: async () => {}, loadQB: async () => {}, offerBankRetry: async () => false,
     yearForSubject: () => null,
     confirmDialog: async () => false, alertDialog: message => alerts.push(message),
-    buildExamPool, normalizePracticeMode, appliedCategory, USER_CURATED_MODES,
+    buildExamPool, normalizePracticeMode, appliedCategory, USER_CURATED_MODES, pastOnlyShown,
     isQuestionDeliverable: () => true, SUBJECTS: [], shuffle: rows => [...rows], timeForQuestion: () => 0,
     loadQuestionDifficulty: async () => ({}), computeAbility: () => ({}), questionDifficulty: () => 0,
     adaptiveSelect: (rows, { count }) => rows.slice(0, count),
     session: { startNewSession: (...args) => starts.push(args) },
   };
   defaults.sessionRef.current = defaults.session;
-  for (const name of ['setPendingResume', 'setSessionKind', 'setChallengeSender', 'setQbReady', 'setQbRevision',
+  for (const name of ['setPendingResume', 'setSessionKind', 'setSessionPastOnly', 'setChallengeSender', 'setQbReady', 'setQbRevision',
     'setMode', 'setSubject', 'setTopic', 'setPracticeMode', 'setPracticeModeRaw', 'setNumQuestions', 'setUseTimer', 'setTimePerQ']) {
     defaults[name] = value => writes.push([name, value]);
   }

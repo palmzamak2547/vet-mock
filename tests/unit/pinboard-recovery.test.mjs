@@ -139,7 +139,8 @@ test('a replay confirmation consumes the pin request but cannot carry A private 
         confirmations++;
         return new Promise(resolve => { answerConfirmation = resolve; });
       },
-      setSessionKind: value => effects.push(['kind', value]), setMode: value => effects.push(['mode', value]),
+      setSessionKind: value => effects.push(['kind', value]), setSessionPastOnly: value => effects.push(['pastOnly', value]),
+      setMode: value => effects.push(['mode', value]),
       setChallengeSender: value => effects.push(['challenge', value]), setUseTimer: value => effects.push(['timer', value]),
       setView: value => effects.push(['view', value]),
     });
@@ -157,7 +158,8 @@ test('a replay confirmation consumes the pin request but cannot carry A private 
       assert.deepEqual(effects, [], 'a cancelled or previous-owner replay has no session/navigation effects');
       assert.equal(finishingRef.current, true);
     } else {
-      assert.deepEqual(effects, [['kind', 'normal'], ['challenge', null], ['timer', false],
+      // A pinned question opens as a set of its own, drawn from no filter.
+      assert.deepEqual(effects, [['kind', 'normal'], ['pastOnly', false], ['challenge', null], ['timer', false],
         ['session', 'account-a', privateQuestion.id], ['view', 'exam']]);
       assert.equal(finishingRef.current, false);
     }
