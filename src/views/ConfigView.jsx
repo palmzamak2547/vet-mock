@@ -34,6 +34,12 @@ import DecideLines from '../components/DecideLines.jsx';
 //   • The subject, as a native select, when the set is cross-subject or an
 //     exam: the owner's "โหมดสอบเลือกวิชาไม่ได้" (2026-10-11). A topic chosen
 //     one screen back is the student's own narrowing, so the select hides.
+//   • Which questions: every question, or past papers only (ข้อที่ใช้). A
+//     friend asked on 23 Nov 2026 whether a set can hold only the questions
+//     that have been on a real paper. The topic screen's ข้อสอบเก่า switch
+//     arrives with it on; it is for this
+//     visit, drawn only for the plain pools (App passes setPastOnly there)
+//     and only when the set holds a past paper or the choice is already on.
 //   • Question category (only for engprof — only subject with writing items;
 //     other subjects are pure MCQ so the picker would be UI noise)
 //   • # of questions (presets + custom)
@@ -111,7 +117,7 @@ export function subjectChoices({ selectedYear, selectedPhase }) {
 
 const PICKABLE_MODES = new Set(['all', 'adaptive']);
 
-export default function ConfigView({ practiceMode, setPracticeMode, subject, setSubject = null, topic, setTopic = null, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory: cat, setQuestionCategory: setCat, showCategoryPicker = false, instantFeedback, setInstantFeedback, startExam, goHome, onBack, availableCount, availablePool = null, mode, setMode = null, selectedYear = null, selectedPhase = null, panicPending = false, setPanicPending = null, hasHistory = false }) {
+export default function ConfigView({ practiceMode, setPracticeMode, subject, setSubject = null, topic, setTopic = null, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory: cat, setQuestionCategory: setCat, showCategoryPicker = false, instantFeedback, setInstantFeedback, startExam, goHome, onBack, availableCount, availablePool = null, mode, setMode = null, selectedYear = null, selectedPhase = null, panicPending = false, setPanicPending = null, hasHistory = false, pastOnly = false, setPastOnly = null, pastCount = null }) {
   const knownAvailableCount = Number.isFinite(availableCount)
     ? Math.max(0, Math.floor(availableCount))
     : null;
@@ -135,6 +141,18 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
   const rememberRow = (rows) => { if (rememberable) rememberRows(PRACTICE_SETUP, rows); };
   const startRef = useRef(null);
   const questionCountRef = useRef(numQuestions);
+  // The count asked for, before the clamp below fits it to a smaller set, and
+  // whether the student picked it (a count chip or the typed number) rather
+  // than a rung, a subject pick or the restore: a switch between every
+  // question and past papers gives the student's own count back.
+  const wantedCountRef = useRef(numQuestions);
+  const countIsTheirsRef = useRef(false);
+  const setCount = (n, theirs = false) => {
+    questionCountRef.current = n;
+    wantedCountRef.current = n;
+    countIsTheirsRef.current = theirs;
+    setNumQuestions(n);
+  };
   const timePerQuestionRef = useRef(timePerQ);
   // The difficulty snapshot is its own lazy chunk; it is fetched only once the
   // student picks the adaptive chip (undefined = not loaded, null = failed).
@@ -162,11 +180,11 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
   const updateQuestionCount = (e) => {
     const value = Number(e.currentTarget.value);
     if (Number.isFinite(value) && value >= 1) {
-      questionCountRef.current = knownAvailableCount == null
+      const n = knownAvailableCount == null
         ? Math.floor(value)
         : Math.min(Math.floor(value), Math.max(1, knownAvailableCount));
-      rememberRow({ numQuestions: questionCountRef.current });
-      setNumQuestions(questionCountRef.current);
+      rememberRow({ numQuestions: n });
+      setCount(n, true);
     }
   };
   const updateTimePerQuestion = (e) => {
@@ -225,8 +243,7 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
     // that choice back instead of promising one.
     if (id === 'understand' && setInstantFeedback) setInstantFeedback(true);
     if (preset.useTimer) { timePerQuestionRef.current = preset.timePerQ; setTimePerQ(preset.timePerQ); }
-    questionCountRef.current = preset.numQuestions;
-    setNumQuestions(preset.numQuestions);
+    setCount(preset.numQuestions);
     rememberLadderStep(id);
     // A rung sets every row at once, so on a set the app decided it replaces
     // the rows remembered before it; the ladder itself remembers the rung. An
@@ -279,15 +296,15 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
     // a 50-question exam does not stay clamped to the 35 of the subject before.
     const listed = id === 'all' ? choices.yearCount : choices.groups.flatMap((g) => g.items).find((s) => s.id === id)?.count;
     const n = ladderPreset(activeStep, { available: listed || null, timePerQ }).numQuestions;
-    questionCountRef.current = n;
-    setNumQuestions(n);
+    setCount(n);
   };
 
   // ── The start bar ─────────────────────────────────────────────────────
   const servedCount = knownAvailableCount ? Math.min(numQuestions, knownAvailableCount) : numQuestions;
   const practiceMinutes = Math.ceil((servedCount * timePerQ) / 60);
   const summary = [
-    `${servedCount.toLocaleString()} ข้อ`,
+    // Past papers only is a property of the set, said with its size, once.
+    `${pastOnly ? 'ข้อสอบเก่า ' : ''}${servedCount.toLocaleString()} ข้อ`,
     // The exam clock's rule is said once, at its switch; here only its length.
     !useTimer ? 'ไม่จับเวลา' : isExamMode ? examBudgetLabel : `${timePerQ} วินาทีต่อข้อ (ประมาณ ${practiceMinutes} นาที)`,
     isExamMode ? 'เฉลยหลังส่ง' : instantFeedback ? 'เฉลยทันทีรายข้อ' : 'เฉลยหลังส่ง',
@@ -347,13 +364,44 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
     setUseTimer(auto.useTimer);
     if (setInstantFeedback) setInstantFeedback(auto.instantFeedback);
     if (auto.useTimer) { timePerQuestionRef.current = auto.timePerQ; setTimePerQ(auto.timePerQ); }
-    questionCountRef.current = auto.numQuestions;
-    setNumQuestions(auto.numQuestions);
+    setCount(auto.numQuestions);
     if (stored?.pick === 'adaptive' && practiceMode === 'adaptive' && setPracticeMode) setPracticeMode('all');
     setPickedRung(false);
     // The button goes away with what it restored; the start takes the focus.
     globalThis.requestAnimationFrame?.(() => startRef.current?.focus());
   };
+
+  // ── Which questions: every one, or past papers only ───────────────────
+  // Shown while the set is still being counted (so the row does not appear
+  // under the student's eyes), then only if the set holds a past paper or the
+  // choice is already on, so a set with none never offers a dead chip.
+  const showPoolRow = Boolean(setPastOnly) && (pastOnly || pastCount == null || pastCount > 0);
+  // A switch keeps the count's meaning: on a set the app decided, the app's
+  // own count follows the new set's size; a count the student picked, or one
+  // a Home card brought, comes back when the set grows again. Settled once the
+  // switched set is counted (App counts it in the same render, so this runs
+  // right after the switch).
+  const poolSwitchRef = useRef(null);
+  const choosePool = (past) => {
+    if (!setPastOnly || past === pastOnly) return;
+    poolSwitchRef.current = countIsTheirsRef.current || !arrivalRef.current?.decided ? 'wanted' : 'app';
+    setPastOnly(past);
+  };
+  useEffect(() => {
+    const how = poolSwitchRef.current;
+    if (!how || knownAvailableCount == null) return;
+    poolSwitchRef.current = null;
+    const n = how === 'app' && chosen ? chosen.numQuestions : wantedCountRef.current;
+    const fit = knownAvailableCount > 0 ? Math.min(n, knownAvailableCount) : n;
+    questionCountRef.current = fit;
+    if (how === 'app') wantedCountRef.current = fit;
+    setNumQuestions(fit);
+  }, [knownAvailableCount, pastOnly, chosen, setNumQuestions]);
+  const poolHelp = pastOnly
+    ? 'เฉพาะข้อที่เคยออกสอบจริง'
+    : pastCount == null ? 'กำลังนับข้อสอบเก่าในชุดนี้…' : `ในชุดนี้เป็นข้อสอบเก่า ${pastCount.toLocaleString()} ข้อ`;
+  // An empty set says which choice emptied it.
+  const emptyLine = pastOnly ? 'ชุดนี้ยังไม่มีข้อสอบเก่า' : 'ยังไม่มีข้อที่พร้อมใช้ในชุดนี้';
 
   // Back and start as one action row (docs/DESIGN_SYSTEM.md, Action rows):
   // the way back at the left, the start last, at the right edge of the column.
@@ -430,7 +478,7 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
           <DecideLines
             id="vmx-config-summary"
             pending={knownAvailableCount == null ? 'กำลังตรวจจำนวนข้อ…' : null}
-            what={knownAvailableCount === 0 ? 'ยังไม่มีข้อที่พร้อมใช้ในชุดนี้ เปลี่ยนได้ใน "ปรับเอง"' : <><strong>{lead}:</strong> {summary}</>}
+            what={knownAvailableCount === 0 ? `${emptyLine} เปลี่ยนได้ใน "ปรับเอง"` : <><strong>{lead}:</strong> {summary}</>}
             why={knownAvailableCount !== 0 && why ? (
               <>
                 {why}
@@ -505,6 +553,25 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
           </div>
         )}
 
+        {/* Which questions: every question, or past papers only. Two chips
+            like the pick-method row, because both choices are equal and the
+            one in force is always visible; the line under them says what
+            the other one would change. */}
+        {showPoolRow && (
+          <div className="vmx-config-row" role="group" aria-labelledby="vmx-config-pool-label">
+            <div id="vmx-config-pool-label" className="vmx-label">ข้อที่ใช้</div>
+            <div className="vmx-chip-row">
+              <button type="button" className={`vmx-chip ${!pastOnly ? 'active' : ''}`} aria-pressed={!pastOnly} onClick={() => choosePool(false)}>
+                ทุกข้อ
+              </button>
+              <button type="button" className={`vmx-chip ${pastOnly ? 'active' : ''}`} aria-pressed={pastOnly} onClick={() => choosePool(true)}>
+                ข้อสอบเก่า
+              </button>
+            </div>
+            <div className="vmx-config-hint vmx-config-pool-hint" aria-live="polite">{poolHelp}</div>
+          </div>
+        )}
+
         {/* Question category — only shown for engprof (the one subject
             that actually has writing items). For other subjects, the
             picker would be inert noise. */}
@@ -565,12 +632,12 @@ export default function ConfigView({ practiceMode, setPracticeMode, subject, set
                 ? 'กำลังตรวจจำนวนข้อ…'
                 : knownAvailableCount > 0
                   ? `มี ${knownAvailableCount.toLocaleString()} ข้อในชุดนี้`
-                  : 'ยังไม่มีข้อที่พร้อมใช้ในชุดนี้'}
+                  : emptyLine}
             </div>
           </div>
           <div className="vmx-chip-row">
             {countPresets.map((n) => (
-              <button key={n} className={`vmx-chip ${numQuestions === n ? 'active' : ''}`} aria-pressed={numQuestions === n} onClick={() => { questionCountRef.current = n; rememberRow({ numQuestions: n }); setNumQuestions(n); }}>
+              <button key={n} className={`vmx-chip ${numQuestions === n ? 'active' : ''}`} aria-pressed={numQuestions === n} onClick={() => { rememberRow({ numQuestions: n }); setCount(n, true); }}>
                 {/* The whole pool is a count with a unit and a meaning, not a
                     bare "6257" (5.226). */}
                 {n === knownAvailableCount && !QCOUNT_PRESETS.includes(n) ? `ทั้งหมด ${n.toLocaleString()} ข้อ` : n}

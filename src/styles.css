@@ -1784,6 +1784,15 @@ html, body {
   color: var(--clr-ink-soft);
   font-size: 14px;
 }
+/* The topic grid's heading carries the ข้อสอบเก่า switch at its right; on a
+   narrow phone the switch wraps under the words instead of squeezing them. */
+.vmx-topic-head { flex-wrap: wrap; row-gap: 8px; }
+/* Under that switch, a topic with questions but no past paper keeps its place
+   and reads as unavailable by its words and the secondary ink, never by
+   opacity (DESIGN_SYSTEM.md); its main area takes no hover, as it opens
+   nothing. Its notes and wiki buttons are untouched. */
+.vmx-topic-card[data-no-past] .vmx-topic-main { color: var(--clr-ink-soft); }
+.vmx-topic-card[data-no-past]:hover { border-color: var(--clr-border); background: var(--clr-surface); box-shadow: var(--shadow-sm); }
 .vmx-topic-past {
   display: inline-flex;
   margin-top: 4px;
@@ -7506,7 +7515,7 @@ button.vmx-ladder-step:focus-visible { outline: 2px solid var(--clr-ink); outlin
 .vmx-config-hint { color: var(--clr-ink-soft); font-size: var(--text-sm); line-height: 1.5; }
 /* The switch keeps its 44px width inside its flex row (it measured 41px on a 390px phone). */
 .vmx-toggle { flex: 0 0 auto; }
-.vmx-config-ladder-hint { margin-top: var(--space-2); }
+.vmx-config-ladder-hint, .vmx-config-pool-hint { margin-top: var(--space-2); }
 .vmx-config-note { padding: 10px 12px; border-radius: var(--r-sm); background: var(--clr-surface-2); color: var(--clr-ink); font-size: 14px; line-height: 1.5; }
 .vmx-config-subrow { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--clr-border); }
 .vmx-config-sublabel { font-size: 14px; font-weight: 600; color: var(--clr-ink-soft); margin-bottom: var(--space-2); }

@@ -83,6 +83,7 @@ import { isQuestionDeliverable } from './data/question-delivery.generated.js';
 import {
   PANIC_SIZE, PANIC_SUBJECT_MAX, WEAK_POOL_CAP, USER_CURATED_MODES,
   normalizePracticeMode, categoryPickerShown, appliedCategory, buildExamPool,
+  pastOnlyShown, pastPapersOf,
 } from './lib/exam-pool.js';
 import { panicPool } from './lib/question-metadata.js';
 import { adaptiveSelect, computeAbility, keepPassageOrder } from './lib/adaptive-select.js';
@@ -416,6 +417,7 @@ export default function App() {
       sharedResolvedRef.current = true;
       if (matched.length > 0) {
         session.startNewSession(matched, timeForQuestion(matched[0], timePerQ));
+        setSessionPastOnly(false);
         setView('exam');
       } else {
         // URL referenced Q IDs that no longer exist — drop to home
@@ -1299,6 +1301,11 @@ export default function App() {
   // 'redo' for a round of the questions whose key the results page just
   // showed. It is review, not a run: no leaderboard row, no personal best.
   const [sessionKind, setSessionKind] = useState('normal');
+  // Whether the set on screen was drawn from past papers only (the topic
+  // screen's ข้อสอบเก่า switch or the config screen's ข้อที่ใช้ row). The
+  // results page continues a set the way it was drawn, so its ทำอีก 5 ข้อ and
+  // the next rung keep it; the in-flight record keeps it for a resumed set.
+  const [sessionPastOnly, setSessionPastOnly] = useState(false);
   // Feedback prefill — populated when a contextual entry (e.g. scaffold
   // subject card) routes to feedback. FeedbackView reads it on mount,
   // then clears so a manual revisit isn't pre-stuffed with old context.
@@ -1546,6 +1553,7 @@ export default function App() {
       // rules changed by a deploy.
       clock: session.clockKind(),
       sessionKind,
+      pastOnly: sessionPastOnly,
     };
     // Never inside the tap: React runs this effect before the browser paints
     // the answer, and the snapshot is the whole set, stringified. When a write
@@ -1564,7 +1572,7 @@ export default function App() {
     }
     const timer = setTimeout(writeInflight, 500);
     return () => clearTimeout(timer);
-  }, [view, questions, answers, currentIdx, questionDeadline, examStartTime, examSessionId, mode, practiceMode, useTimer, timePerQ, selectedYear, selectedPhase, sessionKind, writeInflight]);
+  }, [view, questions, answers, currentIdx, questionDeadline, examStartTime, examSessionId, mode, practiceMode, useTimer, timePerQ, selectedYear, selectedPhase, sessionKind, sessionPastOnly, writeInflight]);
   useEffect(() => {
     const onHide = () => writeInflight();
     window.addEventListener('pagehide', onHide);
@@ -1669,6 +1677,7 @@ export default function App() {
         if (typeof saved.useTimer === 'boolean') setUseTimer(saved.useTimer);
         if (Number.isFinite(saved.timePerQ)) setTimePerQ(saved.timePerQ);
         setSessionKind(saved.sessionKind === 'redo' ? 'redo' : 'normal');
+        setSessionPastOnly(saved.pastOnly === true);
         setPendingResume(null);
         finishingRef.current = false; // arm the finish latch for the resumed session
         setView(saved.submitted ? 'results' : 'exam');
@@ -1937,15 +1946,26 @@ export default function App() {
   // leaving the config screen by any route, so an ordinary practice run that
   // follows can never inherit the panic ranking.
   const [panicPending, setPanicPending] = useState(false);
+  // The config screen's ข้อที่ใช้ row: past papers only, for this visit. The
+  // topic screen's ข้อสอบเก่า switch arms it with a topic tap, as a Panic card
+  // arms panicPending, and it is cleared the same way: a Home card, an exam or
+  // the sidebar's โหมดสอบ opened afterwards starts from every question. Like
+  // the type picker, it applies only where its row is on screen
+  // (pastOnlyShown), so it can never narrow a curated pool unseen.
+  const [pastOnly, setPastOnly] = useState(false);
   // Cleared on leaving the config screen by ANY route — back, home, a card on
   // the home screen that opens config for something else — rather than only
   // when a set starts. startExam reads it before the view changes, so a panic
   // run still gets its pool; nothing that follows does.
   useEffect(() => {
-    if (view !== 'config') setPanicPending(false);
+    if (view !== 'config') { setPanicPending(false); setPastOnly(false); }
   }, [view]);
 
   const configPracticeMode = normalizePracticeMode(practiceMode, subject, false);
+  // The ข้อที่ใช้ row is drawn for the plain pools only, and the choice counts
+  // only where it is drawn (pastOnlyShown).
+  const configPastShown = pastOnlyShown(configPracticeMode);
+  const configPastOnly = pastOnly && configPastShown;
   // The set the config screen describes. Its size is the count on screen, and
   // ConfigView reads the questions themselves for the whole-set clock, which
   // gives written and matching items more than the base time.
@@ -1962,6 +1982,7 @@ export default function App() {
       questionCategory: appliedCategory(questionCategory, subject, practiceMode),
       selectedYear,
       selectedPhase,
+      onlyPastPaper: configPastOnly,
       bookmarks,
       weakQuestions: analytics?.weakQuestions || [],
       weakQuestionKeys: analytics?.weakQuestionKeys,
@@ -1970,8 +1991,14 @@ export default function App() {
     // Panic keeps only the questions closest to a paper, so counting the whole
     // subject here printed a number the session would never serve.
     return panicPending ? panicPool(pool) : pool;
-  }, [allQuestions, analytics?.weakQuestions, bookmarks, configPracticeMode, courseYearMissing, history, panicPending, practiceMode, questionCategory, selectedPhase, selectedYear, subject, topic]);
+  }, [allQuestions, analytics?.weakQuestions, bookmarks, configPastOnly, configPracticeMode, courseYearMissing, history, panicPending, practiceMode, questionCategory, selectedPhase, selectedYear, subject, topic]);
   const configAvailableCount = configServedPool ? configServedPool.length : null;
+  // What the ข้อที่ใช้ row needs: how many past papers this set holds on its
+  // paper (null while counting), which is the set its ข้อสอบเก่า chip serves.
+  // Panic keeps every past paper, so the count is the same under it.
+  const configPastCount = configServedPool && configPastShown
+    ? pastPapersOf(configServedPool, { practiceMode: configPracticeMode, subject, selectedYear, selectedPhase }).length
+    : null;
 
   // startExam accepts an optional `overrides` object so a caller (like the
   // 1-click "ฝึก 1 ข้อด่วน" from HomeView) can bypass React's async state
@@ -1990,7 +2017,7 @@ export default function App() {
   // overrides use the override's name (panicPool is fed by panicPending).
   const examStartFields = { view, user: user?.id ?? null, authLoading, examSessionId,
     selectedYear, selectedPhase, subject, topic, practiceMode, questionCategory, mode,
-    numQuestions, useTimer, timePerQ, panicPool: panicPending };
+    numQuestions, useTimer, timePerQ, panicPool: panicPending, onlyPastPaper: pastOnly };
   const examStartContextRef = useRef(examStartFields);
   // Retire on every context change, including a change away and back while
   // loading, except in a field the pending start passed explicitly ('key' in
@@ -2037,7 +2064,7 @@ export default function App() {
   const startExam = async (overrides = {}) => {
     const ticket = { context: examStartContextRef.current, view: viewRef.current,
       owner: eventContextRef.current?.owner ?? null, sessionId: eventContextRef.current?.sessionId,
-      pinned: ['subject', 'topic', 'practiceMode', 'questionCategory', 'mode', 'numQuestions', 'useTimer', 'timePerQ', 'panicPool']
+      pinned: ['subject', 'topic', 'practiceMode', 'questionCategory', 'mode', 'numQuestions', 'useTimer', 'timePerQ', 'panicPool', 'onlyPastPaper']
         .filter((key) => key in overrides) };
     examStartRequestRef.current = ticket;
     const current = () => examStartRequestRef.current === ticket
@@ -2060,6 +2087,11 @@ export default function App() {
     const _timePerQ = 'timePerQ' in overrides ? overrides.timePerQ : timePerQ;
     if (panicPending && !('panicPool' in overrides)) {
       overrides = { ...overrides, panicPool: true };
+    }
+    // The config screen's ข้อที่ใช้ row, read the same way. It counts only for
+    // a pool its row is drawn for, judged after the mode is normalised below.
+    if (pastOnly && !('onlyPastPaper' in overrides)) {
+      overrides = { ...overrides, onlyPastPaper: true };
     }
     const _mode = 'mode' in overrides ? overrides.mode : mode;
 
@@ -2085,7 +2117,7 @@ export default function App() {
     const _onlyTopics = Array.isArray(overrides.onlyTopics) && overrides.onlyTopics.length
       ? new Set(overrides.onlyTopics)
       : null;
-    const _onlyPastPaper = overrides.onlyPastPaper === true;
+    const _onlyPastPaper = overrides.onlyPastPaper === true && pastOnlyShown(_practiceMode);
     // A lecturer card or wrap-up names its own paper: its set is served on the
     // paper its count was printed from.
     const _selectedPhase = 'selectedPhase' in overrides ? overrides.selectedPhase : selectedPhase;
@@ -2159,10 +2191,12 @@ export default function App() {
       // more banks cannot change it, so say so before the retry path runs.
       if (overrides.excludeIds?.size) {
         const again = await confirmDialog({
-          title: 'ทำครบทุกข้อของส่วนนี้แล้ว',
-          body: _topic
-            ? 'ไม่มีข้อใหม่ในหัวข้อนี้อีกแล้ว จะทำข้อเดิมซ้ำอีกครั้งไหม'
-            : 'ไม่มีข้อใหม่ในส่วนนี้อีกแล้ว จะทำข้อเดิมซ้ำอีกครั้งไหม',
+          title: _onlyPastPaper ? 'ทำข้อสอบเก่าครบทุกข้อแล้ว' : 'ทำครบทุกข้อของส่วนนี้แล้ว',
+          body: _onlyPastPaper
+            ? `ไม่มีข้อสอบเก่าข้อใหม่ใน${_topic ? 'หัวข้อนี้' : 'ส่วนนี้'}อีกแล้ว จะทำข้อเดิมซ้ำอีกครั้งไหม`
+            : _topic
+              ? 'ไม่มีข้อใหม่ในหัวข้อนี้อีกแล้ว จะทำข้อเดิมซ้ำอีกครั้งไหม'
+              : 'ไม่มีข้อใหม่ในส่วนนี้อีกแล้ว จะทำข้อเดิมซ้ำอีกครั้งไหม',
           confirmLabel: 'ทำซ้ำ',
           cancelLabel: 'ไว้ก่อน',
         });
@@ -2199,6 +2233,12 @@ export default function App() {
       }
       if (_questionCategory === 'writing') {
         alertDialog('ยังไม่มีข้อเขียนในหมวดนี้ — ลองเปลี่ยนเป็น "ปรนัย ถูก-ผิด จับคู่" หรือ "ทุกประเภท"');
+        return;
+      }
+      // Past papers only, and none here: the student asked for exactly that,
+      // so the answer is that there are none, not a set of something else.
+      if (_onlyPastPaper) {
+        alertDialog('ชุดนี้ยังไม่มีข้อสอบเก่า เลือก "ทุกข้อ" เพื่อฝึกจากข้อทั้งหมด');
         return;
       }
       // A topic with no questions of its own is a dead end 33 VetWiki
@@ -2318,6 +2358,7 @@ export default function App() {
     finishingRef.current = false;
     setPendingResume(null);
     setSessionKind('normal');
+    setSessionPastOnly(_onlyPastPaper);
     setChallengeSender(null);
     if ('subject' in overrides) setSubject(_subject);
     if ('topic' in overrides) setTopic(_onlyTopics?.size === 1 ? [..._onlyTopics][0] : _topic);
@@ -2517,7 +2558,7 @@ export default function App() {
       window.localStorage?.setItem(inflightExamKey(eventOwner), JSON.stringify({
         questions, answers, currentIdx, questionDeadline: deadlineOnWall(questionDeadline), examStartTime, sessionId: examSessionId,
         ownerId: eventOwner, questionTimes: getQuestionTimes(), mode, practiceMode, useTimer, timePerQ,
-        selectedYear, selectedPhase, submitted: true, submittedAt: completedAt,
+        selectedYear, selectedPhase, submitted: true, submittedAt: completedAt, pastOnly: sessionPastOnly,
         localSaved: saved.accepted, detailsSaved: false, savedAt: Date.now(),
       }));
       inflightRef.current = null;
@@ -3030,6 +3071,9 @@ export default function App() {
     if ((eventContextRef.current?.owner ?? null) !== requestOwner) return;
     finishingRef.current = false; // arm the finish latch for the redo round
     setSessionKind(redo ? 'redo' : 'normal');
+    // A redo round is the set it came from, continued; any other round (the
+    // daily question, a glossary card's questions) is drawn from nothing.
+    if (!redo) setSessionPastOnly(false);
     if (redo) setMode('quick');
     setChallengeSender(null);
     setUseTimer(false); // redo rounds never on a clock — focused review
@@ -3487,7 +3531,7 @@ export default function App() {
               {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups'), onEditIdentity: () => setView('profile') }} />}
               {view === 'leaderboard-global' && user && <LeaderboardView {...{ user, goHome, selectedYear, setView }} />}
               {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions, selectedYear, selectedPhase, qbReady, history }} />}
-              {view === 'topic-select' && <TopicSelectView onOpenInstructor={setOpenInstructor} initialSection={topicSection} onSectionChange={setTopicSection} {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, timePerQ, setTimePerQ, practiceMode, setPracticeMode, customQuestions, readingChecklist, selectedYear, selectedPhase, paperPhase, onStartPanic: startSubjectPanic, onStartLecturer: startLecturerPractice, onOpenDoc: openLibraryReader, instantFeedback, setInstantFeedback, onOpenWrapUp: openWrapUp, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }) }} hasHistory={(history?.length || 0) > 0} />}
+              {view === 'topic-select' && <TopicSelectView onOpenInstructor={setOpenInstructor} initialSection={topicSection} onSectionChange={setTopicSection} {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, timePerQ, setTimePerQ, practiceMode, setPracticeMode, customQuestions, readingChecklist, selectedYear, selectedPhase, paperPhase, onStartPanic: startSubjectPanic, onStartLecturer: startLecturerPractice, onOpenDoc: openLibraryReader, instantFeedback, setInstantFeedback, onOpenWrapUp: openWrapUp, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }), setPastOnly }} hasHistory={(history?.length || 0) > 0} />}
               {/* setSubject is what makes Back correct: NotesView already calls it when the
     reader switches subject, but without the prop the call was swallowed and
     Back returned to the previous subject's topic list. */}
@@ -3505,10 +3549,10 @@ export default function App() {
               )}
 {view === 'notes' && <NotesView subject={subject || 'com5'} initialTopic={topic} setSubject={setSubject} goBack={returnFromNotes} backLabel={(notesReturnRef.current.view === 'knowledge' && /^\/wiki\/?$/.test(notesReturnRef.current.path || '') ? 'สารบัญ VetWiki' : NOTES_RETURN_LABELS.get(notesReturnRef.current.view)) || 'เลือกหัวข้ออื่น'} goHome={goHome} onOpenWiki={openWiki} />}
               {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, openNonce: wikiOpenNonce, setView, setSubject, setTopic, goHome, startExam, readingChecklist, setReadingChecklist, onOpenDoc: openLibraryReader }} />}
-              {view === 'config' && <ConfigView {...{ practiceMode, setPracticeMode, subject, setSubject, topic, setTopic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, setMode, selectedYear, selectedPhase, panicPending, setPanicPending }} hasHistory={(history?.length || 0) > 0} showCategoryPicker={categoryPickerShown(subject, practiceMode)} availableCount={configAvailableCount} availablePool={configServedPool} onBack={goBackFromConfig} />}
+              {view === 'config' && <ConfigView {...{ practiceMode, setPracticeMode, subject, setSubject, topic, setTopic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, setMode, selectedYear, selectedPhase, panicPending, setPanicPending }} hasHistory={(history?.length || 0) > 0} showCategoryPicker={categoryPickerShown(subject, practiceMode)} availableCount={configAvailableCount} availablePool={configServedPool} pastOnly={configPastOnly} setPastOnly={configPastShown ? setPastOnly : null} pastCount={configPastCount} onBack={goBackFromConfig} />}
               {view === 'exam' && !currentQ && <ViewFallback />}
               {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, questionDeadline, timedOutIdx, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes: notesView, setNote, answers, bookmarks, user, goHome, selectedYear, selectedPhase, mode, instantFeedback, onOpenWiki: openWiki }} />}
-              {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, useTimer, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions: replayWrongRound, challengeSender, sessionKind, examStartTime, completedAt: session.completedAt ?? completedAtRef.current, saveStatus: examSaveStatus }} />}
+              {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, useTimer, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions: replayWrongRound, challengeSender, sessionKind, pastOnly: sessionPastOnly, examStartTime, completedAt: session.completedAt ?? completedAtRef.current, saveStatus: examSaveStatus }} />}
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes: notesView, setNote, user, selectedYear, selectedPhase, onOpenWiki: openWiki }} />}
               {view === 'sr-session' && <SRSessionView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady, qbRevision, loadAllYears, onOpenWiki: openWiki, history, startExam }} />}
               {view === 'dashboard' && <DashboardView key={user?.id || 'guest'} ownerId={user?.id || null} recoveryArchive={userDataSync.recoveryArchive} accountUnread={isAccountUnread(Boolean(user), userDataSync)} onRetrySync={userDataSync.retry} {...{ analytics, bookmarks, setHistory, setBookmarks, setSrCards, setNotes, setCustomQuestions, setStreakData, setPracticeMode, setView, setMode, setSubject, setTopic, history, notes, srCards, streak: streakShown(streakData), streakData, customQuestions, selectedYear, selectedPhase, readingChecklist, pendingExamResults, restoreUserData: changeUserData }} />}

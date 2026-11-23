@@ -37,6 +37,21 @@ import { topicPrimaryLabel } from '../lib/empty-state-copy.js';
 // when the tap completes; a failed warm-up is the tap's to report.
 const warmInstructorProfile = () => { import('../components/InstructorProfile.jsx').catch(() => {}); };
 
+// The ข้อสอบเก่า switch over the topic grid (every question, or past papers
+// only), kept on this device. A friend's ask, 23 Nov 2026: whether VetMock
+// can practise only the questions that have been on a real paper. A blocked
+// store only means the switch starts on ทุกข้อ.
+export const PAST_ONLY_PREF = 'vmx-topic-past-only';
+function readPastPref() {
+  try { return globalThis.localStorage?.getItem(PAST_ONLY_PREF) === '1'; } catch { return false; }
+}
+function writePastPref(on) {
+  try {
+    if (on) globalThis.localStorage?.setItem(PAST_ONLY_PREF, '1');
+    else globalThis.localStorage?.removeItem(PAST_ONLY_PREF);
+  } catch { /* the switch still holds for this visit */ }
+}
+
 // VCA-specific: cross-link map from VCA topic id → existing notes subject
 // (where direct match exists). Click "📖 Notes" chip → navigate to NotesView
 // with that subject. Other species (swine, equine) have video summaries
@@ -76,7 +91,7 @@ function lecturerChip(label, profile) {
   return { kind: 'text', text: label.name };
 }
 
-export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, timePerQ = 60, setTimePerQ, practiceMode = 'all', setPracticeMode = null, hasHistory = false, customQuestions = [], readingChecklist = {}, onOpenWiki, onOpenVideos, onOpenInstructor = null, initialSection = 'topics', onSectionChange, selectedYear = null, selectedPhase: chosenPhase = null, paperPhase: chosenPaper = chosenPhase, onStartPanic = null, onStartLecturer = null, onOpenDoc = null, instantFeedback = true, setInstantFeedback = null, onOpenWrapUp = null }) {
+export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, timePerQ = 60, setTimePerQ, practiceMode = 'all', setPracticeMode = null, hasHistory = false, customQuestions = [], readingChecklist = {}, onOpenWiki, onOpenVideos, onOpenInstructor = null, initialSection = 'topics', onSectionChange, selectedYear = null, selectedPhase: chosenPhase = null, paperPhase: chosenPaper = chosenPhase, onStartPanic = null, onStartLecturer = null, onOpenDoc = null, instantFeedback = true, setInstantFeedback = null, onOpenWrapUp = null, setPastOnly = null }) {
   // The period narrows a course of the student's own year only; another
   // year's course opens whole (phaseForCourse), as its study card counts it
   // and as the config pool serves it. Every period-driven number and notice
@@ -150,6 +165,8 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   // with disabled "🚧 รอข้อสอบเพิ่ม" cards. Collapse empties behind a
   // toggle so the default view focuses on what users can actually do.
   const [showEmptyTopics, setShowEmptyTopics] = useState(false);
+  const [pastPref, setPastPref] = useState(readPastPref);
+  const choosePastPref = (on) => { setPastPref(on); writePastPref(on); };
 
   // Open instructor profile by lecturer string. Looks up via the matcher
   // in lib/instructor-lookup.js, which handles "(KB)" tag stripping +
@@ -292,6 +309,23 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
     return topics.find((topic) => topic.id === topicId)?.pastPaperCount || 0;
   };
 
+  // The ข้อสอบเก่า switch. Drawn only where it can change something, a subject
+  // with past papers on the paper in scope; anywhere else the grid is every
+  // question, whatever was kept, so a kept switch never empties a page unseen.
+  // Under it, the number beside every practice button is the set that button
+  // opens: its past papers, the same predicate (isPastPaperQuestion) the
+  // percentage chip and the source line read, and buildExamPool serves them
+  // as the last narrowing of the very set the plain count describes.
+  const pastAll = Math.min(pastPaperCountFor('all'), countFor('all'));
+  const showPastSwitch = Boolean(setPastOnly) && pastAll > 0;
+  const pastMode = showPastSwitch && pastPref;
+  const servedCountFor = (topicId) => {
+    const all = countFor(topicId);
+    return pastMode ? Math.min(pastPaperCountFor(topicId), all) : all;
+  };
+  // "ข้อสอบเก่า 12 ข้อ" under the switch, "12 ข้อ" without it.
+  const countLabel = (n) => (pastMode ? `ข้อสอบเก่า ${n} ข้อ` : `${n} ข้อ`);
+
   const hasTopicContent = (entry) => Boolean(
     entry?.questionCount > 0
     || entry?.resources?.notes?.enabled
@@ -323,7 +357,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   // questions), with any row they changed on the config screen kept their
   // way. The config screen says what was set up and why.
   const choose = (topicId) => {
-    const available = countFor(topicId);
+    const available = servedCountFor(topicId);
     if (setMode) setMode('quick');
     const { value, by } = decide(PRACTICE_SETUP, practiceSignals({
       subject, year: selectedYear, available, timePerQ, instantFeedback, practiceMode, hasHistory,
@@ -336,6 +370,8 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
       setPracticeMode(value.pick === 'adaptive' ? 'adaptive' : 'all');
     }
     setTopic(topicId === 'all' ? null : topicId);
+    // The config screen opens on the set this card counted.
+    setPastOnly?.(pastMode);
     setView('config');
   };
   // Nothing on this paper at all: the subject's topics are all on the other
@@ -740,7 +776,24 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           </div>
         </div>
       )}
-      {!paperEmpty && <div className="vmx-section-label">เลือกหัวข้อที่จะฝึก</div>}
+      {!paperEmpty && (
+        <div className="vmx-section-label vmx-topic-head">
+          <span>เลือกหัวข้อที่จะฝึก</span>
+          {/* Every question, or past papers only: two chips, the one in force
+              filled, at the head of the grid it changes. Every count below
+              follows it, and so does the set a card opens. */}
+          {showPastSwitch && (
+            <div className="vmx-chip-row vmx-topic-pool" role="group" aria-label="ข้อที่ใช้ฝึก">
+              <button type="button" className={`vmx-chip ${!pastMode ? 'active' : ''}`} aria-pressed={!pastMode} onClick={() => choosePastPref(false)}>
+                ทุกข้อ
+              </button>
+              <button type="button" className={`vmx-chip ${pastMode ? 'active' : ''}`} aria-pressed={pastMode} onClick={() => choosePastPref(true)}>
+                ข้อสอบเก่า
+              </button>
+            </div>
+          )}
+        </div>
+      )}
       {!paperEmpty && (
       <div className="vmx-topic-grid">
         {/* Panic Mode takes the first cell, immediately before รวมทุกหัวข้อ and
@@ -773,13 +826,13 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           <div className="icon"><NavIcon name="practice" size={22} /></div>
           <div className="title">รวมทุกหัวข้อ</div>
           <div className="sub">{subjectMeta?.name} ทุกหัวข้อ</div>
-          <div className="count">{scopedAll} ข้อ</div>
+          <div className="count">{countLabel(servedCountFor('all'))}</div>
         </button>
         )}
 
         {/* Collection cards — virtual "ทำรวม" bundles for grouped topic blocks */}
         {collections.map((c) => {
-          const cnt = countFor(c.id);
+          const cnt = servedCountFor(c.id);
           return (
             <button
               key={c.id}
@@ -792,7 +845,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
               <div className="icon">{c.label.match(/^\p{Emoji}/u)?.[0] || '📦'}</div>
               <div className="title">{c.label.replace(/^\p{Emoji}\s*/u, '')}</div>
               <div className="sub">{c.sub}</div>
-              <div className="count">{cnt} ข้อ</div>
+              <div className="count">{cnt > 0 || !pastMode ? countLabel(cnt) : 'ไม่มีข้อสอบเก่า'}</div>
             </button>
           );
         })}
@@ -809,6 +862,11 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           const ppCount = Math.min(pastPaperCountFor(t.id), count);
           const ppPct = count > 0 ? Math.round((ppCount / count) * 100) : 0;
           const hasQuestions = count > 0;
+          // Under the ข้อสอบเก่า switch a topic with questions but no past
+          // paper stays in its place (nothing is hidden) and says so; it opens
+          // no set, since its set would be empty. Its notes and wiki buttons
+          // below stay as they are.
+          const noPast = pastMode && hasQuestions && ppCount === 0;
           const hasNotesForTopic = t.resources?.notes?.enabled;
           const hasWikiForTopic = t.resources?.wiki?.enabled;
           const related = relatedDocs.get(`${subject}/${t.id}`) || [];
@@ -827,9 +885,12 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
           // unknown is never filtered out) and says so, apart from the topics
           // that are on this paper.
           const unscoped = Boolean(paperScope) && !scopeForTopic(subject, t.id);
-          const primaryLabelBase = topicPrimaryLabel({ label: t.label, count, notes: hasNotesForTopic, wiki: hasWikiForTopic });
+          const primaryLabelBase = pastMode && hasQuestions
+            ? (noPast ? `หัวข้อ ${t.label} ไม่มีข้อสอบเก่า` : `ฝึกข้อสอบเก่า ${t.label} ${ppCount} ข้อ`)
+            : topicPrimaryLabel({ label: t.label, count, notes: hasNotesForTopic, wiki: hasWikiForTopic });
           const primaryLabel = `${primaryLabelBase}${unscoped ? ', ยังไม่ระบุช่วงสอบ' : ''}${isRead ? ', อ่านแล้ว' : ''}${caveat && !isEmpty ? `, ${t.lecturerNote}` : ''}`;
           const openPrimary = () => {
+            if (noPast) return;
             if (hasQuestions) choose(t.id);
             else if (hasNotesForTopic) runStudyAction(t.resources.notes);
           };
@@ -837,6 +898,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
             <article
               key={t.id}
               className="vmx-topic-card"
+              data-no-past={noPast ? '' : undefined}
               style={{
                 opacity: isEmpty ? 0.5 : 1,
                 position: 'relative',
@@ -847,7 +909,7 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
               <button
                 type="button"
                 className="vmx-topic-main"
-                disabled={isEmpty}
+                disabled={isEmpty || noPast}
                 onClick={openPrimary}
                 aria-label={primaryLabel}
                 title={isEmpty ? 'ยังไม่มีข้อสอบ, Notes หรือ VetWiki ในหัวข้อนี้' : primaryLabel}
@@ -856,9 +918,13 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
                 <span className="title">{t.label}</span>
                 {unscoped && <span className="vmx-topic-unscoped">ยังไม่ระบุช่วงสอบ</span>}
                 <span className="count" style={{ color: isEmpty ? 'var(--clr-rose-text)' : 'var(--clr-ink-soft)' }}>
-                  {hasQuestions ? `${count} ข้อ` : hasNotesForTopic ? (hasWikiForTopic ? 'มีสรุปและ VetWiki' : 'มีสรุป') : 'รอเนื้อหาเพิ่ม'}
+                  {hasQuestions
+                    ? (noPast ? 'ไม่มีข้อสอบเก่า' : countLabel(pastMode ? ppCount : count))
+                    : hasNotesForTopic ? (hasWikiForTopic ? 'มีสรุปและ VetWiki' : 'มีสรุป') : 'รอเนื้อหาเพิ่ม'}
                 </span>
-                {ppCount > 0 && hasQuestions && (
+                {/* Under the switch every number on the card is already past
+                    papers, so the share would only repeat it. */}
+                {ppCount > 0 && hasQuestions && !pastMode && (
                   // ข้อสอบเก่า, the word the question card's source line uses for
                   // the same predicate (isPastPaperQuestion). It read อิงแนวเดิม,
                   // the card chip's word for a wider set, until 5.189.2.
