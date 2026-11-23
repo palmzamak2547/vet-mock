@@ -1993,11 +1993,12 @@ export default function App() {
     return panicPending ? panicPool(pool) : pool;
   }, [allQuestions, analytics?.weakQuestions, bookmarks, configPastOnly, configPracticeMode, courseYearMissing, history, panicPending, practiceMode, questionCategory, selectedPhase, selectedYear, subject, topic]);
   const configAvailableCount = configServedPool ? configServedPool.length : null;
-  // What the ข้อที่ใช้ row needs: how many past papers this set holds (null
-  // while counting). buildExamPool narrows to past papers as its last step and
-  // Panic keeps every past paper, so they are the same questions whichever of
-  // the two chips is on.
-  const configPastCount = configServedPool && configPastShown ? pastPapersOf(configServedPool).length : null;
+  // What the ข้อที่ใช้ row needs: how many past papers this set holds on its
+  // paper (null while counting), which is the set its ข้อสอบเก่า chip serves.
+  // Panic keeps every past paper, so the count is the same under it.
+  const configPastCount = configServedPool && configPastShown
+    ? pastPapersOf(configServedPool, { practiceMode: configPracticeMode, subject, selectedYear, selectedPhase }).length
+    : null;
 
   // startExam accepts an optional `overrides` object so a caller (like the
   // 1-click "ฝึก 1 ข้อด่วน" from HomeView) can bypass React's async state

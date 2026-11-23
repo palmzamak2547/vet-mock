@@ -106,9 +106,22 @@ export function pastOnlyShown(practiceMode) {
   return practiceMode === 'all' || practiceMode === 'adaptive';
 }
 
-/** The past papers of a set, which is what buildExamPool's onlyPastPaper serves. */
-export function pastPapersOf(pool) {
-  return (pool || []).filter(isPastPaperQuestion);
+/**
+ * The past papers of a set that sit its paper: exactly what buildExamPool
+ * serves with onlyPastPaper from the same arguments. `set` names the set as
+ * buildExamPool was asked for it (practiceMode, subject, selectedYear,
+ * selectedPhase); without a paper nothing is narrowed by it.
+ *
+ * The paper is asked again because the plain set may not be its paper's: when
+ * a paper holds nothing of a named subject or topic, its never-empty guard
+ * hands back the other paper's questions. Past papers only never does (Palm,
+ * 23 Nov 2026: "การแยกกลางภาคปลายภาคยังต้องอยู่นะครับ อย่าให้ปนกัน").
+ */
+export function pastPapersOf(pool, { practiceMode = 'all', subject = 'all', selectedYear = null, selectedPhase = null } = {}) {
+  const paper = USER_CURATED_MODES.has(practiceMode)
+    ? null
+    : scopeForPhase(phaseForCourse(subject, selectedYear, selectedPhase));
+  return (pool || []).filter((q) => isPastPaperQuestion(q) && (!paper || questionInScope(q, paper)));
 }
 
 /**
@@ -311,7 +324,12 @@ export function buildExamPool({
     // That is what "ทำไม Equine Repro มี final ติดมาด้วย" looks like at scale,
     // and the pool is in no danger of emptying when it spans a whole year.
     const named = subject !== 'all' || Boolean(topic);
-    if (onPaper.length || !named) pool = onPaper;
+    // Past papers only takes no guard: the student asked for one paper's past
+    // papers, and when it holds none the answer is none, never the other
+    // paper's (Palm, 23 Nov 2026: "การแยกกลางภาคปลายภาคยังต้องอยู่นะครับ
+    // อย่าให้ปนกัน"). Epidemiology sits only the final, and under กลางภาค the
+    // guard would have served its 66 final past papers.
+    if (onPaper.length || !named || (onlyPastPaper && !curated)) pool = onPaper;
   }
 
   // Past papers only (a lecturer card's "ฝึกเฉพาะข้อสอบเก่า", the topic
@@ -322,7 +340,7 @@ export function buildExamPool({
   // questions under a switch whose count, from this paper's table, was 0.
   // Last of the narrowing steps, so this set is always the plain set's past
   // papers and nothing else, which is what the counts beside it divide.
-  if (onlyPastPaper && !curated) pool = pastPapersOf(pool);
+  if (onlyPastPaper && !curated) pool = pool.filter(isPastPaperQuestion);
 
   if (excludeIds && excludeIds.size) {
     pool = pool.filter((q) => !excludeIds.has(`${q.subject}:${q.id}`));

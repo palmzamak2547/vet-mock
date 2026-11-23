@@ -64,6 +64,25 @@ test('past papers only never borrows the other paper', () => {
   assert.deepEqual(ids(build({ ...args, selectedPhase: '1-final', onlyPastPaper: true })), [finalPast.id]);
 });
 
+// Palm, 23 Nov 2026: "การแยกกลางภาคปลายภาคยังต้องอยู่นะครับ อย่าให้ปนกัน".
+test('a paper with no past paper of a subject gets none, never the other paper\'s', () => {
+  // Epidemiology sits only the final: the timetable settles every question.
+  const subject = 'epidemiology';
+  const finalPast = q(subject, { sourceType: 'past-paper' });
+  const finalLecture = q(subject, { sourceType: 'lecture-derived' });
+  const args = { questions: [finalPast, finalLecture], subject, selectedYear: 5 };
+  // Premise: the plain midterm set falls back to the whole subject (the
+  // never-empty guard, for a subject the student named); nothing here changes it.
+  assert.deepEqual(ids(build({ ...args, selectedPhase: '1-mid' })).sort(), [finalPast.id, finalLecture.id].sort(),
+    'the premise moved: the plain set no longer falls back, so this fixture proves nothing');
+  // Past papers only under กลางภาค: none.
+  assert.deepEqual(ids(build({ ...args, selectedPhase: '1-mid', onlyPastPaper: true })), []);
+  assert.deepEqual(ids(pastPapersOf(build({ ...args, selectedPhase: '1-mid' }), { subject, selectedYear: 5, selectedPhase: '1-mid' })), [],
+    'the config row counts the same set its chip serves');
+  // Under ปลายภาค: the final's past paper.
+  assert.deepEqual(ids(build({ ...args, selectedPhase: '1-final', onlyPastPaper: true })), [finalPast.id]);
+});
+
 test('past papers only is the plain set\'s past papers and leaves curated pools alone', () => {
   const subject = 'avian-medicine';
   const paper = q(subject, { sourceType: 'past-paper' });
@@ -140,8 +159,8 @@ test('every number under the switch is the past-only set its button opens', asyn
           const plain = build(args);
           const past = build({ ...args, onlyPastPaper: true });
           checked++;
-          const expect = ids(plain.filter(isPastPaperQuestion));
-          if (ids(past).join() !== expect.join()) wrong.push(`${s.id}/${topicId} y${year} ${phase}: past-only set is not the plain set's past papers`);
+          const expect = ids(pastPapersOf(plain, args));
+          if (ids(past).join() !== expect.join()) wrong.push(`${s.id}/${topicId} y${year} ${phase}: past-only set is not the plain set's past papers on its paper`);
           if (countFor(topicId) > 0 && pastFor(topicId) !== past.length) {
             wrong.push(`${s.id}/${topicId} y${year} ${phase}: switch says ${pastFor(topicId)}, serves ${past.length}`);
           }
@@ -151,6 +170,63 @@ test('every number under the switch is the past-only set its button opens', asyn
   }
   assert.ok(checked > 500, `only ${checked} sets checked; the matrix lost its courses`);
   assert.deepEqual(wrong.slice(0, 20), []);
+});
+
+// Palm, 23 Nov 2026: "การแยกกลางภาคปลายภาคยังต้องอยู่นะครับ อย่าให้ปนกัน".
+// Every set a student can open under ข้อสอบเก่า (a course of the paper's own
+// term: รวมทุกหัวข้อ, each listed topic, each collection) sits that paper:
+// each question is on it by the one resolver (lib/exam-scope.js, the topic
+// decides), and no cohort is served its own sat paper under the other one.
+// What sits both papers sits both by its topic's declared scope ('both'), or
+// by a paper nobody has recorded, which Rule 10 never filters out.
+test('past papers only never leaves the picked paper', async () => {
+  const { QB, loadQB } = await import('../../src/data/questions.js');
+  const { SUBJECTS_BY_YEAR, yearForSubject, semesterForSubject } = await import('../../src/data/curriculum.js');
+  const { phaseForCourse, scopeForPhase, questionInScope, scopeOfQuestion, topicOnPaper } = await import('../../src/lib/exam-scope.js');
+  const { createStudyCatalog } = await import('../../src/lib/study-catalog.js');
+  const { originEntry } = await import('../../src/data/exam-origins.js');
+  const { SEMESTER } = await import('../../src/data/semester.js');
+  const { cohortForYear } = await import('../../src/lib/public-identity.js');
+  await loadQB();
+  const catalog = createStudyCatalog();
+  const bySubject = new Map();
+  for (const x of QB) {
+    if (!bySubject.has(x.subject)) bySubject.set(x.subject, []);
+    bySubject.get(x.subject).push(x);
+  }
+  const wrong = [];
+  let served = 0;
+  for (const year of Object.keys(SUBJECTS_BY_YEAR).map(Number).filter(Number.isFinite)) {
+    const cohort = Number(String(cohortForYear(year, SEMESTER.cohortNote) || '').replace(/\D/g, '')) || null;
+    for (const s of SUBJECTS_BY_YEAR[year] || []) {
+      if (!s?.id || yearForSubject(s.id) !== year) continue;
+      const term = semesterForSubject(s.id);
+      for (const phase of ['1-mid', '1-final', '2-mid', '2-final']) {
+        // A course of the other term lists nothing under this period.
+        if ((term === 1 || term === 2) && !phase.startsWith(`${term}-`)) continue;
+        const coursePhase = phaseForCourse(s.id, year, phase);
+        const paper = scopeForPhase(coursePhase);
+        if (!paper) continue;
+        const page = catalog.browse({ subject: s.id });
+        const topics = (page.topics || []).filter((t) => topicOnPaper(s.id, t.id, coursePhase)).map((t) => t.id);
+        for (const topic of [null, ...topics, ...(page.collections || []).map((c) => c.id)]) {
+          const set = build({ questions: bySubject.get(s.id) || [], subject: s.id, topic, selectedYear: year, selectedPhase: phase, onlyPastPaper: true });
+          served += set.length;
+          for (const x of set) {
+            if (!questionInScope(x, paper)) wrong.push(`${s.id}/${topic ?? 'all'} y${year} ${phase}: #${x.id} sits ${scopeOfQuestion(x)}, not ${paper}`);
+            const filed = originEntry(x.examOrigin);
+            const sat = filed?.kind === 'paper' ? filed.paper : null;
+            const cohorts = [].concat(filed?.cohort ?? []);
+            if (cohort && cohorts.includes(cohort) && (sat === 'midterm' || sat === 'final') && sat !== paper) {
+              wrong.push(`${s.id}/${topic ?? 'all'} y${year} ${phase}: #${x.id} is Vet ${cohort}'s own ${sat} under ${paper}`);
+            }
+          }
+        }
+      }
+    }
+  }
+  assert.ok(served > 1000, `only ${served} past-paper questions served across the matrix; it lost its courses`);
+  assert.deepEqual([...new Set(wrong)].slice(0, 20), []);
 });
 
 // ── 3. The config screen's row ────────────────────────────────────────
