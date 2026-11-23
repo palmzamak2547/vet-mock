@@ -2558,7 +2558,7 @@ export default function App() {
       window.localStorage?.setItem(inflightExamKey(eventOwner), JSON.stringify({
         questions, answers, currentIdx, questionDeadline: deadlineOnWall(questionDeadline), examStartTime, sessionId: examSessionId,
         ownerId: eventOwner, questionTimes: getQuestionTimes(), mode, practiceMode, useTimer, timePerQ,
-        selectedYear, selectedPhase, submitted: true, submittedAt: completedAt,
+        selectedYear, selectedPhase, submitted: true, submittedAt: completedAt, pastOnly: sessionPastOnly,
         localSaved: saved.accepted, detailsSaved: false, savedAt: Date.now(),
       }));
       inflightRef.current = null;

@@ -468,6 +468,11 @@ test('the choice lives for one config visit and is read only where its row is dr
   assert.match(app, /setPastOnly=\{configPastShown \? setPastOnly : null\}/, 'the row gets its setter only where it is drawn');
   assert.match(app, /setSessionPastOnly\(_onlyPastPaper\);/, 'the set remembers how it was drawn');
   assert.match(app, /pastOnly: sessionPastOnly,\n {4}\};/, 'the in-flight record keeps it for a resumed set');
+  // The submitted record replaces the in-flight one under the same key, and a
+  // results page that failed to load is recovered from it: it keeps the flag
+  // too, or ทำอีก 5 ข้อ after a recovery would draw from every question.
+  assert.match(app, /submitted: true, submittedAt: completedAt, pastOnly: sessionPastOnly,/,
+    'the submitted record drops the past-only flag');
   assert.match(app, /setSessionPastOnly\(saved\.pastOnly === true\);/);
 });
 
