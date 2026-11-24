@@ -558,10 +558,11 @@ export const SOURCE_DOCS = [
     match: /One Health perspective of food and feed GMOs \(4 พ\.ย\. 69\)/i,
     editions: [{ id: '21p', pages: 21 }],
   },
-  // The 11 Nov 2569 livestock waste lecture; the library file is named OHVPH_SP_E4.
+  // The 11 Nov 2569 livestock waste lecture. Rows cite its file name, OHVPH_SP_E4; since 25 Nov 2026 the library
+  // shelves it under the title on its first page, matched whole so no row's free text can reach it that way.
   {
     slug: 'oh-livestock-waste-2569', subject: 'one-health', title: "OHVPH_SP_E4 (livestock waste management, 11 พ.ย. 69)",
-    match: /OHVPH_SP_E4/,
+    match: /OHVPH_SP_E4|^One Health approach for livestock waste management$/,
     editions: [{ id: '56p', pages: 56 }],
   },
   {
