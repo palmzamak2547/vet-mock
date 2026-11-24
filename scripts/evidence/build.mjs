@@ -532,7 +532,10 @@ async function find(subject) {
 // A verdict holds only for the pick it was given on (`at`): a different page, other lines or an edited question
 // puts the row back in the queue.
 const PROPOSED = new Set(['states', 'review', 'conflict']);
-const sigOf = (r) => `${r.sha16}:${r.page}:${r.h}:${crypto.createHash('sha1').update(JSON.stringify(r.boxes || [])).digest('hex').slice(0, 8)}`;
+const sha8 = (v) => crypto.createHash('sha1').update(JSON.stringify(v)).digest('hex').slice(0, 8);
+// `also`: further pages the answer rests on ({ sha16, page, w, h2, boxes }), shown under the first; a verdict covers them too.
+const sigOf = (r) => `${r.sha16}:${r.page}:${r.h}:${sha8(r.boxes || [])}${r.also?.length ? `:${sha8(r.also.map((a) => [a.sha16, a.page, a.boxes || []]))}` : ''}`;
+const pagesOf = (r) => [r, ...(r.also || [])];
 
 function registry(subject) {
   const file = path.join(DATA, 'registry', `${subject}.jsonl`);
@@ -559,7 +562,9 @@ async function tocheck(subject) {
   const bank = new Map(questions.map(({ q }) => [q.id, q]));
   const out = rows.map((r) => {
     const q = bank.get(r.id) || {};
+    // `also` goes to the sheet too: the verdict covers every page, so every page is drawn (pages.py panel).
     return { qid: r.qid, at: sigOf(r), type: r.type, state: r.state, sha16: r.sha16, page: r.page, boxes: r.boxes || [], pictured: Boolean(r.pictured),
+      also: (r.also || []).map((a) => ({ sha16: a.sha16, page: a.page, boxes: a.boxes || [] })),
       q: String(q.q || ''), key: q.type === 'tf' ? (q.answer ? 'TRUE' : 'FALSE') : keyText(q), numbers: r.numbers || null };
   });
   writeJson(path.join(DATA, 'work', `${subject}.tocheck.json`), out);
@@ -612,12 +617,17 @@ async function index(subject) {
   const cat = readJson(path.join(DATA, 'catalog.json'), []);
   const docs = [];
   const q = {};
+  const docOf = (sha16) => {
+    const c = cat.find((d) => d.sha16 === sha16);
+    if (!c) return -1;
+    const di = docs.findIndex((d) => d[0] === sha16);
+    return di < 0 ? docs.push([sha16, c.slug, c.title, c.kind]) - 1 : di;
+  };
   for (const r of rows) {
-    const c = cat.find((d) => d.sha16 === r.sha16);
-    if (!c) continue;
-    let di = docs.findIndex((d) => d[0] === r.sha16);
-    if (di < 0) di = docs.push([r.sha16, c.slug, c.title, c.kind]) - 1;
-    q[r.id] = [di, r.page, Math.round(r.w), Math.round(r.h2), r.boxes, r.h];
+    const di = docOf(r.sha16);
+    if (di < 0) continue;
+    const more = (r.also || []).map((a) => [docOf(a.sha16), a.page, Math.round(a.w), Math.round(a.h2), a.boxes || []]).filter((m) => m[0] >= 0);
+    q[r.id] = [di, r.page, Math.round(r.w), Math.round(r.h2), r.boxes, r.h, ...(more.length ? [more] : [])];
   }
   const dir = path.join(REPO, 'src/data/evidence');
   fs.mkdirSync(dir, { recursive: true });
@@ -626,7 +636,8 @@ async function index(subject) {
   if (Object.keys(q).length) fs.writeFileSync(file, `${GENERATED}export const EVIDENCE = ${JSON.stringify({ docs, q })};\n`);
   else fs.rmSync(file, { force: true });
   writeLoaders(dir);
-  console.log(`${subject}: ${Object.keys(q).length} questions on ${new Set(rows.map((r) => `${r.sha16}:${r.page}`)).size} pages of ${docs.length} documents`);
+  const filed = new Set(Object.values(q).flatMap((row) => [row, ...(row[6] || [])].map((p) => `${p[0]}:${p[1]}`)));
+  console.log(`${subject}: ${Object.keys(q).length} questions on ${filed.size} pages of ${docs.length} documents`);
 }
 
 /** One lazy import per subject that has a file: the map src/lib/evidence.js loads from. */
@@ -639,7 +650,7 @@ export function writeLoaders(dir) {
 async function upload(subject) {
   const { execFileSync } = await import('node:child_process');
   const rows = published(registry(subject));
-  const pages = [...new Map(rows.map((r) => [`${r.sha16}:${r.page}`, { sha16: r.sha16, page: r.page }])).values()]
+  const pages = [...new Map(rows.flatMap(pagesOf).map((r) => [`${r.sha16}:${r.page}`, { sha16: r.sha16, page: r.page }])).values()]
     .filter((p) => /^[0-9a-f]{16}$/.test(p.sha16) && Number.isInteger(p.page) && p.page > 0);
   const list = path.join(DATA, 'work', `${subject}.render.json`);
   writeJson(list, pages);

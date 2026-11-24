@@ -48,14 +48,25 @@ export async function lintEvidence(dir = DIR, dataDir = path.join(ROOT, 'src/dat
       total++;
       const q = bank.get(`${subject}:${id}`);
       if (!q) { gone++; continue; }   // a question removed or moved since: its row is dead weight, not a fault
-      const [doc, page, w, h, boxes, hash] = Array.isArray(row) ? row : [];
-      if (!docs[doc]) problems.push(`${subject}:${id}: document ${doc} is not in the file`);
-      if (!Number.isInteger(page) || page < 1) problems.push(`${subject}:${id}: page ${page}`);
-      if (!(w > 0 && h > 0)) problems.push(`${subject}:${id}: page size ${w}x${h}`);
+      const r = Array.isArray(row) ? row : [];
+      const [doc, page, w, h, boxes, hash, more] = r;
       if (!/^[0-9a-f]{8}$/.test(String(hash))) problems.push(`${subject}:${id}: hash ${hash}`);
-      const inside = Array.isArray(boxes) && boxes.every((b) => Array.isArray(b) && b.length === 4
-        && b.every((v) => Number.isInteger(v) && v >= 0 && v <= 1000) && b[0] + b[2] <= 1003 && b[1] + b[3] <= 1003 && b[2] > 0 && b[3] > 0);
-      if (!inside) problems.push(`${subject}:${id}: a highlight box lies outside the page`);
+      // A further page the answer rests on is filed after the hash as [document, page, width, height, boxes].
+      if (!(r.length === 6 || (r.length === 7 && Array.isArray(more) && more.length))) problems.push(`${subject}:${id}: a row is six fields, or seven ending in a list of further pages`);
+      const seen = new Set();
+      for (const [n, p] of [[doc, page, w, h, boxes], ...(Array.isArray(more) ? more : [])].entries()) {
+        const at = n ? `${subject}:${id} (page ${n + 1})` : `${subject}:${id}`;
+        if (n && !(Array.isArray(p) && p.length === 5)) problems.push(`${at}: not [document, page, width, height, boxes]`);
+        const [d, pg, pw, ph, b] = Array.isArray(p) ? p : [];
+        if (!Number.isInteger(d) || !docs[d]) problems.push(`${at}: document ${d} is not in the file`);
+        if (seen.has(`${d}:${pg}`)) problems.push(`${at}: page ${pg} of document ${d} is filed twice`);
+        seen.add(`${d}:${pg}`);
+        if (!Number.isInteger(pg) || pg < 1) problems.push(`${at}: page ${pg}`);
+        if (!(pw > 0 && ph > 0)) problems.push(`${at}: page size ${pw}x${ph}`);
+        const inside = Array.isArray(b) && b.every((x) => Array.isArray(x) && x.length === 4
+          && x.every((v) => Number.isInteger(v) && v >= 0 && v <= 1000) && x[0] + x[2] <= 1003 && x[1] + x[3] <= 1003 && x[2] > 0 && x[3] > 0);
+        if (!inside) problems.push(`${at}: a highlight box lies outside the page`);
+      }
       if (hash !== evidenceHash(q)) stale++;
     }
   }

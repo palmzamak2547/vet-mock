@@ -46,6 +46,46 @@ test('a slide is shown only for the question it was matched to', async () => {
   assert.equal(hasEvidence('none'), false);
 });
 
+test('a row that files further pages still shows its first page', async () => {
+  resetEvidence();
+  const docs = [['0123456789abcdef', 'deck', 'Deck', 'slide']];
+  const loaders = { s: async () => ({ EVIDENCE: { docs, q: { 7: [0, 3, 960, 540, [[1, 2, 3, 4]], evidenceHash(mcq), [[0, 9, 960, 540, []]]] } } }) };
+  await prefetchEvidence('s', loaders);
+  assert.deepEqual(evidenceFor(mcq), { sha16: '0123456789abcdef', slug: 'deck', title: 'Deck', kind: 'slide', page: 3, w: 960, h: 540, boxes: [[1, 2, 3, 4]] });
+  resetEvidence();
+});
+
+test('the lint turns down a further page that is malformed, repeated, or a row of the wrong length', async () => {
+  const { mkdtempSync, mkdirSync, writeFileSync, rmSync } = await import('node:fs');
+  const { tmpdir } = await import('node:os');
+  const { join } = await import('node:path');
+  const root = mkdtempSync(join(tmpdir(), 'evi-lint-'));
+  const data = join(root, 'data');
+  const dir = join(data, 'evidence');
+  mkdirSync(dir, { recursive: true });
+  try {
+    writeFileSync(join(data, 'questions-s.js'), `export const Q = ${JSON.stringify([1, 2, 3, 4, 5, 6, 7].map((id) => ({ ...mcq, id })))};`);
+    const h = evidenceHash(mcq);   // the stem and the key, not the id: every row below hashes alike
+    const first = [0, 3, 960, 540, [[1, 2, 3, 4]]];
+    const q = {
+      1: [...first, h],
+      2: [...first, h, [[0, 4, 960, 540, []]]],
+      3: [...first, h, []],
+      4: [...first, h, [[0, 3, 960, 540, []]]],
+      5: [...first, h, [['length', 4, 960, 540, []]]],
+      6: [...first, h, [[0, 4, 960, 540, [], 'words']]],
+      7: [...first, h, [[0, 4, 960, 540, []]], 'extra'],
+    };
+    writeFileSync(join(dir, 's.generated.js'), `export const EVIDENCE = ${JSON.stringify({ docs: [['0123456789abcdef', 'deck', 'Deck', 'slide']], q })};`);
+    writeFileSync(join(dir, 'loaders.generated.js'), "export const EVIDENCE_LOADERS = { s: () => import('./s.generated.js') };");
+    const { problems, total } = await lintEvidence(dir, data);
+    assert.equal(total, 7);
+    assert.deepEqual([...new Set(problems.map((p) => p.match(/^s:(\d+)/)[1]))], ['3', '4', '5', '6', '7'], problems.join('\n'));
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
 test('an index that failed to load is asked for again', async () => {
   resetEvidence();
   let calls = 0;
@@ -290,6 +330,9 @@ test('the filed index is well formed, names no slide text, and the loader map li
     const text = readFileSync(new URL(f, dir), 'utf8');
     assert.doesNotMatch(text, /slides\.vetmock\.com|[0-9a-f]{32}/, `${f} must not hold the image address`);
     const { EVIDENCE } = await import(new URL(f, dir).href);
-    for (const row of Object.values(EVIDENCE.q)) assert.equal(row.length, 6, 'a row is document, page, width, height, boxes, hash: no words of the slide');
+    for (const row of Object.values(EVIDENCE.q)) {
+      assert.ok(row.length === 6 || (row.length === 7 && row[6].every((m) => m.length === 5)),
+        'a row is document, page, width, height, boxes, hash, then any further page as document, page, width, height, boxes: no words of the slide');
+    }
   }
 });

@@ -102,7 +102,11 @@ d.save(sys.argv[1])`, f, JSON.stringify(pages)], { encoding: 'utf8' });
     const record = JSON.parse(fs.readFileSync(env.LIBRARY_PII_REVIEWS, 'utf8'));
     assert.equal(record.releases.length, 1);
     assert.deepEqual(record.releases[0].pages, { 2: { national: 1 } });
-    assert.doesNotMatch(JSON.stringify(record), /\d{9}/, 'the record holds no copy of what the check found');
+    // The file's hash is hex of a PDF saved with its own timestamp: now and then it holds nine digits in a row by
+    // chance (a554847739957c35 did), so the digits are looked for everywhere else.
+    const { sha256_16: hash, ...kept } = record.releases[0];
+    assert.match(hash, /^[0-9a-f]{16}$/);
+    assert.doesNotMatch(JSON.stringify({ ...record, releases: [kept] }), /\d{9}/, 'the record holds no copy of what the check found');
     const after = check(deck);
     assert.equal(after.status, 'ok');
     assert.equal(after.sha256_16, record.releases[0].sha256_16);

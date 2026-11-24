@@ -344,7 +344,7 @@ export const SOURCE_DOCS = [
   },
   {
     slug: 'oh-import-risk-2569', subject: 'one-health', title: "Import Risk Assessment (Present)",
-    match: /Import Risk Assessment \(Present\)/,
+    match: /Import Risk Assessment \(Present\)|^Import Risk Assessment for Prawn and Prawn Products$/,
     editions: [{ id: '47p', pages: 47 }],
   },
   {
@@ -528,9 +528,11 @@ export const SOURCE_DOCS = [
     editions: [{ id: '66p', pages: 66 }],
   },
   // One Health and Zoonoses FINAL sources, 31 ต.ค. 2569: the 2569 library decks by their titles, the 2024 decks and the seniors' files.
+  // Since 25 Nov 2026 the library shelves the 2569 One Health decks under the titles printed on their first pages; the
+  // patterns below take those whole (anchored), so no row's free text reaches them that way.
   {
     slug: 'oh-amr-2569', subject: 'one-health', title: "One health AMR",
-    match: /One health AMR(?! deck 2024)/i,
+    match: /One health AMR(?! deck 2024)|^Understanding and addressing AMR from One Health Perspective$/i,
     editions: [{ id: '35p', pages: 35 }],
   },
   {
@@ -550,12 +552,12 @@ export const SOURCE_DOCS = [
   },
   {
     slug: 'oh-risk-analysis-2569', subject: 'one-health', title: "Animal & Human Health Risk Analysis (Present)",
-    match: /Animal & Human Health Risk Analysis \(Present\)/i,
+    match: /Animal & Human Health Risk Analysis \(Present\)|^Animal and Human Health Risk Analysis$/i,
     editions: [{ id: '34p', pages: 34 }],
   },
   {
     slug: 'oh-gmo-2569', subject: 'one-health', title: "One Health perspective of food and feed GMOs (4 พ.ย. 69)",
-    match: /One Health perspective of food and feed GMOs \(4 พ\.ย\. 69\)/i,
+    match: /One Health perspective of food and feed GMOs \(4 พ\.ย\. 69\)|^One Health Perspective on Food and Feed GMOs$/i,
     editions: [{ id: '21p', pages: 21 }],
   },
   // The 11 Nov 2569 livestock waste lecture. Rows cite its file name, OHVPH_SP_E4; since 25 Nov 2026 the library
