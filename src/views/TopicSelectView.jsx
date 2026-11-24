@@ -1170,10 +1170,10 @@ function ExamFormatBanner({ format, accent }) {
 }
 
 // The predicted paper takes its space while its code loads, so the topics
-// under it do not jump: its three blocks (poster, basis, parts) as measured at
-// 320, 375, 540 and 720 to 1,280 px. Its stylesheet comes with its code, so the
-// width is read here.
-const PREDICT_SKELETON = [[360, [564, 92, 572]], [500, [557, 69, 440]], [720, [508, 46, 377]], [Infinity, [302, 46, 1387]]];
+// under it do not jump: its three blocks (poster, parts, the folded sources
+// row) as measured at 320, 360, 375, 540 and 840 to 1,280 px. Its stylesheet
+// comes with its code, so the width is read here.
+const PREDICT_SKELETON = [[360, [564, 296, 44]], [375, [557, 241, 44]], [500, [557, 189, 44]], [720, [508, 189, 44]], [Infinity, [302, 648, 44]]];
 function PredictSetSkeleton() {
   const width = typeof window === 'undefined' ? 375 : window.innerWidth;
   const [, blocks] = PREDICT_SKELETON.find(([below]) => width < below);

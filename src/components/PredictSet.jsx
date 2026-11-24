@@ -4,10 +4,12 @@
 // The head is a chart, not a picture: one ring per part of the paper, the
 // first part outermost, its colour the part's format and its length how firm
 // the evidence for that part is. Under it, the whole paper on the paper's own
-// clock, then one card per part with what the forecast rests on, where its
-// questions come from, and the questions to practise. Every number on a
-// button is the length of the list the tap serves (predict-sets.js, checked
-// against the banks by a unit test).
+// clock, then one card per part: its format, how firm the forecast is, and
+// the questions to practise. What each forecast rests on (lecturer, session,
+// evidence, where its questions come from) lives in one folded row under the
+// cards, as every source on a screen does (AGENTS.md, Quiet screens rule 3).
+// Every number on a button is the length of the list the tap serves
+// (predict-sets.js, checked against the banks by a unit test).
 // ============================================================
 import { PREDICT_FORMAT_LABEL } from '../data/predict-sets.js';
 import '../styles-predict.css';
@@ -119,14 +121,11 @@ export default function PredictSet({ set, subject, onStart }) {
         </button>
       </div>
 
-      <p className="vmx-predict-basis">{set.basis}</p>
-
       <ol className="vmx-predict-parts" role="list" onFocus={bringPartIn}>
         {set.parts.map((p, i) => (
           <li key={p.id} className={`vmx-predict-part is-${FORMAT_TONE[p.format]}`}>
             <span className="vmx-predict-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
             <h3>{p.title}</h3>
-            <p className="vmx-predict-who">{p.lecturer} <span>คาบ {thaiDate(p.session)}</span></p>
             <div className="vmx-predict-tags">
               <span className="vmx-predict-fmt">{PREDICT_FORMAT_LABEL[p.format]} {p.count} ข้อ</span>
               <span className="vmx-predict-conf" data-level={p.confidence}>
@@ -134,10 +133,6 @@ export default function PredictSet({ set, subject, onStart }) {
                 {CONFIDENCE_LABEL[p.confidence]}
               </span>
             </div>
-            <ul className="vmx-predict-ev" role="list">
-              {p.evidence.map((line) => <li key={line}>{line}</li>)}
-            </ul>
-            <Mix part={p} />
             <div className="vmx-predict-acts">
               <button type="button" className="vmx-lect-btn is-primary" onClick={() => startPart(p.ids, p.format)}>
                 ฝึกส่วนนี้ {p.ids.length} ข้อ<span className="vmx-sr-only"> {p.title}</span>
@@ -151,6 +146,22 @@ export default function PredictSet({ set, subject, onStart }) {
           </li>
         ))}
       </ol>
+
+      <details className="vmx-topic-prov vmx-predict-why">
+        <summary>ที่มาของการคาดการณ์แต่ละส่วน</summary>
+        <p>{set.basis}</p>
+        <ol role="list">
+          {set.parts.map((p, i) => (
+            <li key={p.id} className={`is-${FORMAT_TONE[p.format]}`}>
+              <p><b>{String(i + 1).padStart(2, '0')} {p.title}</b> <span>{p.lecturer}, คาบ {thaiDate(p.session)}</span></p>
+              <ul className="vmx-predict-ev" role="list">
+                {p.evidence.map((line) => <li key={line}>{line}</li>)}
+              </ul>
+              <Mix part={p} />
+            </li>
+          ))}
+        </ol>
+      </details>
     </section>
   );
 }

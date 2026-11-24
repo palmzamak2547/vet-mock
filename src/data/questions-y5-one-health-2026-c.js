@@ -2931,4 +2931,114 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_C = [
       "oh-livestock-waste"
     ]
   },
+  {
+    "id": 219670,
+    "subject": "one-health",
+    "topic": "oh-amr",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Without antibiotic use, resistance passed on by vertical transfer may decline, while resistance spread by horizontal transfer is stably maintained.",
+    "answer": false,
+    "explain": "กลับกัน การดื้อยาที่ถ่ายทอดแบบ vertical transfer ส่งต่อไปยังลูกหลานเมื่อเชื้อแบ่งตัว จึงคงอยู่ได้อย่างเสถียรแม้ไม่มีการใช้ยาต้านจุลชีพ ส่วนการดื้อยาที่ถ่ายทอดแบบ horizontal transfer ผ่าน plasmid จากเชื้อหนึ่งไปอีกเชื้อหนึ่ง คาดว่าจะลดลงได้เมื่อไม่มีการใช้ยา การหยุดใช้ยาจึงไม่ได้ทำให้เชื้อดื้อยาหายไปทั้งหมด",
+    "source": "One health AMR หน้า 11; 2sG_D3pcAwc [31:56]",
+    "verified": "ตรวจกับคลิปคาบ 30 ก.ย. 2569 2sG_D3pcAwc [31:56] และ One health AMR หน้า 11; สรุปปลายภาคของรุ่น Vet 86 ฉบับ 24 พ.ย. 2569 จดไว้ข้างกล่อง R-plasmid ว่า horizontal จะหายไปถ้าไม่ใช้ยา",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่สรุปปลายภาคของรุ่น Vet 86 ไฮไลต์หรือจดโน้ตไว้",
+    "tags": [
+      "oh-amr",
+      "horizontal-transfer",
+      "vertical-transfer",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-amr-2569",
+        "edition": "35p",
+        "page": 11
+      }
+    ]
+  },
+  {
+    "id": 219671,
+    "subject": "one-health",
+    "topic": "oh-amr",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Antimicrobial consumption in food animals accounts for about 73% of all antimicrobials sold worldwide.",
+    "answer": true,
+    "explain": "การศึกษาของ Van Boeckel และคณะ (2020) ประเมินว่ายาต้านจุลชีพที่ใช้ใน food animals คิดเป็นประมาณ 73% ของยาต้านจุลชีพที่ขายทั้งหมดทั่วโลก ยาส่วนใหญ่ที่ซื้อขายกันจึงไปลงที่สัตว์ที่เลี้ยงเป็นอาหาร และในปี 2017 สุกรใช้ยาต่อหน่วยประชากรสัตว์มากที่สุด 193 mg/PCU มากกว่าไก่ 68 และโค 42 mg/PCU",
+    "source": "One health AMR หน้า 5; 2sG_D3pcAwc [15:43]",
+    "verified": "ตรวจกับคลิปคาบ 30 ก.ย. 2569 2sG_D3pcAwc [15:43] และ One health AMR หน้า 5; ตัวเลข 73% ไฮไลต์ไว้ในสรุปปลายภาคของรุ่น Vet 86 ฉบับ 24 พ.ย. 2569",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่สรุปปลายภาคของรุ่น Vet 86 ไฮไลต์หรือจดโน้ตไว้",
+    "tags": [
+      "oh-amr",
+      "antimicrobial-use",
+      "food-animals",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-amr-2569",
+        "edition": "35p",
+        "page": 5
+      }
+    ]
+  },
+  {
+    "id": 219672,
+    "subject": "one-health",
+    "topic": "oh-env-mutagen",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Companion animals can serve as sentinels of environmental health hazards partly because disease from a toxic exposure develops in them after a longer latency than in humans.",
+    "answer": false,
+    "explain": "สัตว์เลี้ยงใช้เป็น sentinel ได้เพราะอยู่ในสิ่งแวดล้อมเดียวกับคน ได้รับสารมากกว่าและไวต่อสารมากกว่า และมีระยะแฝง (latency) สั้นกว่าคน เมื่อได้รับสารเคมีชนิดเดียวกัน สัตว์จึงป่วยให้เห็นก่อนคนและเป็นสัญญาณเตือนล่วงหน้าได้ ระยะแฝงที่ยาวกว่าคนจึงเป็นข้อความที่ผิด",
+    "source": "One Health approach to address environmental health risks II_28 Oct 26 (WT) หน้า 3; _gZS4uB8SJ4 [4:27]",
+    "verified": "ตรวจกับคลิปคาบ 28 ต.ค. 2569 _gZS4uB8SJ4 [4:27] และ One Health approach to address environmental health risks II_28 Oct 26 (WT) หน้า 3; สรุปปลายภาคของรุ่น Vet 86 จดข้างคำว่า latency ที่สั้นกว่าคน ว่าโจทย์บอกยาว",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่สรุปปลายภาคของรุ่น Vet 86 ไฮไลต์หรือจดโน้ตไว้",
+    "tags": [
+      "oh-env-mutagen",
+      "companion-animal-sentinel",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-env-risks-2-2569",
+        "edition": "20p",
+        "page": 3
+      }
+    ]
+  },
+  {
+    "id": 219673,
+    "subject": "one-health",
+    "topic": "oh-env-carcinogen",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Agroecology is a concept of sustainable agriculture that balances economic, social and environmental aspects.",
+    "answer": true,
+    "explain": "Agroecology หรือนิเวศเกษตรเป็นแนวคิดการทำเกษตรยั่งยืนที่สมดุลทั้งด้านเศรษฐกิจ สังคม และสิ่งแวดล้อม มาตรการในกลยุทธ์นี้ ได้แก่ ลดจำนวนสัตว์ ใช้ feed additives ลดการปล่อยก๊าซเรือนกระจก ปรับปรุงพันธุ์ให้ผลผลิตสูง ปล่อยมีเทนน้อยและต้านทานโรค ดูแลสุขภาพสัตว์ด้วยวัคซีน biosecurity และสวัสดิภาพสัตว์ และจัดการปุ๋ย สารกำจัดศัตรูพืช มูลสัตว์ และน้ำเสียให้ดีขึ้น",
+    "source": "One Health approach to address environmental health risks I_21 Oct 26 (WT) หน้า 10; pj_zkis2ziU [52:01]",
+    "verified": "ตรวจกับคลิปคาบ 21 ต.ค. 2569 pj_zkis2ziU [52:01] และ One Health approach to address environmental health risks I_21 Oct 26 (WT) หน้า 10; สรุปปลายภาคของรุ่น Vet 86 ฉบับ 24 พ.ย. 2569 จดข้าง Agroecology ว่าแนวคิดสมดุลของเศรษฐกิจ สังคม สิ่งแวดล้อม",
+    "sourceType": "student-compilation",
+    "examOrigin": "One Health final: จุดที่สรุปปลายภาคของรุ่น Vet 86 ไฮไลต์หรือจดโน้ตไว้",
+    "tags": [
+      "oh-env-carcinogen",
+      "agroecology",
+      "อิงแนวข้อสอบ"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-env-risks-1-2569",
+        "edition": "13p",
+        "page": 10
+      }
+    ]
+  },
 ];
