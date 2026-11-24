@@ -376,7 +376,10 @@ export function useExamSession({ view, useTimer, timePerQ, onFinish, ownerId = n
     // the same handler, so this closure still holds the setting from the render before: the
     // exam rung at 60 seconds a question got half its time under a 30-second setting.
     const perQ = Number.isFinite(opts.timePerQ) ? opts.timePerQ : timePerQ;
-    setTimeLeft(oneClock && firstTime > 0 ? budgetFor(picked, perQ) : firstTime);
+    // A launcher that knows its paper's length names it (a predicted paper's 90 minutes): no whole
+    // number of seconds a question adds 70 questions and 2 written ones up to it (89:56 or 91:12).
+    const paper = Number.isFinite(opts.budget) && opts.budget > 0 ? opts.budget : budgetFor(picked, perQ);
+    setTimeLeft(oneClock && firstTime > 0 ? paper : firstTime);
     setExamStartTime(Date.now());
   }, [ownerId, sessionBudget, budgetFor, timePerQ]);
 

@@ -22,6 +22,9 @@
 //      and at most 3 s apart during continuous typing — it used to be a
 //      resetting debounce that never fired while a student kept typing and
 //      was discarded when the tab went away.
+//   6. A predicted paper (keepOrder) waits for its own year's banks, not
+//      every year's, draws bank questions only, and a written part of it
+//      runs untimed.
 // ============================================================
 
 import test from 'node:test';
@@ -48,7 +51,8 @@ test('startExam reads the mode override and applies it like the timer overrides'
 
 test('a curated set is picked in order; ordinary practice still shuffles', () => {
   const fn = between('const startExam = async (overrides = {}) => {', 'const finishExam = async () => {');
-  assert.match(fn, /const ordered = USER_CURATED_MODES\.has\(_practiceMode\);/);
+  // A predicted paper's list (keepOrder) is served in its own order too.
+  assert.match(fn, /const ordered = USER_CURATED_MODES\.has\(_practiceMode\) \|\| keepOrder;/);
   assert.match(fn, /let ranked = ordered \? pool : shuffle\(pool\);/, 'the pick must only shuffle non-curated pools');
   // Panic Mode narrows and re-orders `ranked` between the shuffle and the
   // slice. That step must stay AFTER the curated check, or a most-missed-first
@@ -64,6 +68,17 @@ test('a curated set is picked in order; ordinary practice still shuffles', () =>
     'the Panic narrowing must sit between the curated check and the slice',
   );
   assert.doesNotMatch(fn, /picked = shuffle\(pool\)\.slice/, 'the unconditional shuffle is back');
+});
+
+test('a predicted paper waits for its own year, draws bank questions only, and a written part is untimed', () => {
+  const fn = between('const startExam = async (overrides = {}) => {', 'const finishExam = async () => {');
+  // Offline the night before, the other years' banks may never have been fetched.
+  assert.match(fn, /const needsFullRegistry = isUserCuratedPool \|\| \(Boolean\(onlyIds\) && !keepOrder\);/);
+  assert.ok(fn.indexOf('const keepOrder =') < fn.indexOf('const needsFullRegistry ='), 'keepOrder must be known before the banks to wait for are chosen');
+  // A personal question restored from a backup under a bank id is not part of the paper.
+  assert.match(fn, /\(keepOrder \? QB : examQuestions\)\.filter\(/);
+  const launch = between('const startPredictSet = ', 'const openWrapUp = ');
+  assert.match(launch, /useTimer: whole \|\| timed,/, 'a written part runs untimed, the whole paper keeps its clock');
 });
 
 test('the adaptive set is selected, never shuffled, and skips the Panic narrowing', () => {
