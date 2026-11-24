@@ -19,6 +19,7 @@ const TopicClips = lazyWithRetry(() => import('../components/TopicClips.jsx'));
 import { takeViewIntent, consumeViewIntent } from '../lib/feature-registry.js';
 import { lessonsForSubject } from '../data/lessons.js';
 import { hasLecturerSet, lecturerSetFor } from '../data/lecturer-sets.js';
+import { predictSetFor } from '../data/predict-sets.js';
 import { topicLecturerLabel } from '../lib/lecturer-name.js';
 import { wrapUpFor, wrapUpStillAhead } from '../data/exam-wrapups.js';
 import { getUpcomingExams, EXAM_SCHEDULE } from '../data/schedule.js';
@@ -66,6 +67,7 @@ const VCA_NOTES_MAP = {
 // Loaded when the tab is opened: it carries the per-kind count table (~96 KB)
 // that no other screen needs, so the topic screen's own chunk stays as it was.
 const LecturerSets = lazyWithRetry(() => import('../components/LecturerSets.jsx'));
+const PredictSet = lazyWithRetry(() => import('../components/PredictSet.jsx'));
 
 // One lazy index for the whole view (and every later visit): the names that
 // have a profile, not the profiles (data/instructor-index.js).
@@ -91,7 +93,7 @@ function lecturerChip(label, profile) {
   return { kind: 'text', text: label.name };
 }
 
-export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, timePerQ = 60, setTimePerQ, practiceMode = 'all', setPracticeMode = null, hasHistory = false, customQuestions = [], readingChecklist = {}, onOpenWiki, onOpenVideos, onOpenInstructor = null, initialSection = 'topics', onSectionChange, selectedYear = null, selectedPhase: chosenPhase = null, paperPhase: chosenPaper = chosenPhase, onStartPanic = null, onStartLecturer = null, onOpenDoc = null, instantFeedback = true, setInstantFeedback = null, onOpenWrapUp = null, setPastOnly = null }) {
+export default function TopicSelectView({ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, timePerQ = 60, setTimePerQ, practiceMode = 'all', setPracticeMode = null, hasHistory = false, customQuestions = [], readingChecklist = {}, onOpenWiki, onOpenVideos, onOpenInstructor = null, initialSection = 'topics', onSectionChange, selectedYear = null, selectedPhase: chosenPhase = null, paperPhase: chosenPaper = chosenPhase, onStartPanic = null, onStartLecturer = null, onStartPredict = null, onOpenDoc = null, instantFeedback = true, setInstantFeedback = null, onOpenWrapUp = null, setPastOnly = null }) {
   // The period narrows a course of the student's own year only; another
   // year's course opens whole (phaseForCourse), as its study card counts it
   // and as the config pool serves it. Every period-driven number and notice
@@ -404,6 +406,8 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
   // How many lecturer cards the section will draw, so its loading skeleton
   // takes the same space and the topic list below it does not jump.
   const lecturerCount = lecturerSetFor(subject, selectedYear, paperPhase)?.lecturers?.length || 1;
+  // A forecast of this paper, part by part (predict-sets.js), until it is sat.
+  const predictSet = onStartPredict ? predictSetFor(subject, selectedYear, paperPhase) : null;
   // The one-page wrap-up of this paper (exam-wrapups.js): first thing on the
   // topics tab the week of the exam, above the lecturer block.
   // Gone once its paper is sat, the same rule as Home's strip.
@@ -721,6 +725,27 @@ export default function TopicSelectView({ subject, setSubject, setTopic, setView
             เปิด wrap-up
           </button>
         </section>
+      )}
+      {/* The forecast of this paper comes under the wrap-up entry: the one-page
+          read stays the first thing in exam week, a tall card would push it a
+          phone screen and more down. */}
+      {predictSet && (
+        <OptionalFeature
+          pending={<PredictSetSkeleton />}
+          onRetry={PredictSet.retry}
+          failed={(retry) => (
+            <section className="vmx-wrap-entry" role="alert">
+              <div className="vmx-wrap-entry-text">
+                <div className="vmx-wrap-entry-eyebrow">Predict ปลายภาค</div>
+                <h3>โหลดชุดคาดการณ์ข้อสอบไม่สำเร็จ</h3>
+                <p>ตรวจการเชื่อมต่อแล้วลองอีกครั้ง</p>
+              </div>
+              <button type="button" className="vmx-wrap-entry-btn" onClick={retry}>ลองอีกครั้ง</button>
+            </section>
+          )}
+        >
+          <PredictSet set={predictSet} subject={subject} onStart={onStartPredict} />
+        </OptionalFeature>
       )}
       {showLecturers && (
         <div className="vmx-lect-block">
@@ -1141,6 +1166,24 @@ function ExamFormatBanner({ format, accent }) {
         โปรดยืนยันกับอาจารย์/หัวปีอีกครั้งก่อนวันสอบจริง
       </div>
     </details>
+  );
+}
+
+// The predicted paper takes its space while its code loads, so the topics
+// under it do not jump: its three blocks (poster, basis, parts) as measured at
+// 320, 375, 540 and 720 to 1,280 px. Its stylesheet comes with its code, so the
+// width is read here.
+const PREDICT_SKELETON = [[360, [564, 92, 572]], [500, [557, 69, 440]], [720, [508, 46, 377]], [Infinity, [302, 46, 1387]]];
+function PredictSetSkeleton() {
+  const width = typeof window === 'undefined' ? 375 : window.innerWidth;
+  const [, blocks] = PREDICT_SKELETON.find(([below]) => width < below);
+  return (
+    <div aria-busy="true" style={{ display: 'grid', gap: 14, margin: '0 0 22px' }}>
+      <span className="vmx-sr-only" role="status">กำลังโหลดชุดคาดการณ์ข้อสอบ</span>
+      {blocks.map((h, i) => (
+        <span key={i} className="vmx-skeleton" aria-hidden="true" style={{ display: 'block', height: h, borderRadius: 'var(--r-lg)' }} />
+      ))}
+    </div>
   );
 }
 

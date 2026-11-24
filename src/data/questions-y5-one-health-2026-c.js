@@ -2001,4 +2001,934 @@ export const QUESTIONS_Y5_ONE_HEALTH_2026_C = [
       }
     ]
   },
+  {
+    "id": 219600,
+    "subject": "one-health",
+    "topic": "oh-env-carcinogen",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Climate change can increase the susceptibility of livestock to infection by impairing immune function.",
+    "answer": true,
+    "explain": "Climate Change อาจทำให้การทำงานของภูมิคุ้มกันของปศุสัตว์ลดลง เมื่อร่างกายรับมือกับเชื้อก่อโรคได้ลดลง สัตว์จึงติดเชื้อได้ง่ายขึ้น",
+    "source": "pj_zkis2ziU [36:02]",
+    "verified": "ตรวจกับคลิปคาบ 21 ต.ค. 2569 pj_zkis2ziU [36:02]",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง environmental health risks I",
+    "tags": [
+      "oh-env-carcinogen"
+    ]
+  },
+  {
+    "id": 219601,
+    "subject": "one-health",
+    "topic": "oh-env-carcinogen",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "As oxygen-consuming microorganisms proliferate in livestock wastewater, their activity increases the concentration of dissolved oxygen.",
+    "answer": false,
+    "explain": "ส่วนที่ผิดคือการระบุว่า dissolved oxygen เพิ่มขึ้น เมื่อจุลชีพที่ใช้ออกซิเจนเพิ่มจำนวน จุลชีพจะใช้ออกซิเจนรวมมากขึ้น ทำให้ dissolved oxygen ในน้ำเสียอาจลดลง",
+    "source": "pj_zkis2ziU [50:46]",
+    "verified": "ตรวจกับคลิปคาบ 21 ต.ค. 2569 pj_zkis2ziU [50:46]",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง environmental health risks I",
+    "tags": [
+      "oh-env-carcinogen"
+    ]
+  },
+  {
+    "id": 219602,
+    "subject": "one-health",
+    "topic": "oh-env-carcinogen",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Strategies to reduce the environmental impacts of livestock production should be evaluated for their effects on food security and farm income.",
+    "answer": true,
+    "explain": "มาตรการลดมลพิษ เช่น การลดจำนวนสัตว์ในฟาร์ม อาจเปลี่ยนปริมาณอาหารที่ผลิตได้และรายได้ของเกษตรกร การประเมินจึงต้องดู Food Security และรายได้เกษตรกรควบคู่กับผลต่อสิ่งแวดล้อม",
+    "source": "One Health approach to address environmental health risks I_21 Oct 26 (WT) หน้า 11; pj_zkis2ziU [57:52]",
+    "verified": "ตรวจกับคลิปคาบ 21 ต.ค. 2569 pj_zkis2ziU [57:52] และ One Health approach to address environmental health risks I_21 Oct 26 (WT) หน้า 11",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง environmental health risks I",
+    "tags": [
+      "oh-env-carcinogen"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-env-risks-1-2569",
+        "edition": "13p",
+        "page": 11
+      }
+    ]
+  },
+  {
+    "id": 219603,
+    "subject": "one-health",
+    "topic": "oh-env-carcinogen",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "When poultry are moved from indoor housing to a free-range system to improve welfare, the risk of parasitic infection is expected to decrease.",
+    "answer": false,
+    "explain": "ส่วนที่ผิดคือการคาดว่าความเสี่ยงติดปรสิตจะลดลง หลังเปลี่ยนเป็น Free-range housing สวัสดิภาพของไก่อาจดีขึ้นพร้อมกับความเสี่ยงติดปรสิตที่สูงขึ้น ซึ่งอาจเพิ่มค่าใช้จ่ายในการรักษา",
+    "source": "pj_zkis2ziU [1:02:22]",
+    "verified": "ตรวจกับคลิปคาบ 21 ต.ค. 2569 pj_zkis2ziU [1:02:22]",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง environmental health risks I",
+    "tags": [
+      "oh-env-carcinogen"
+    ]
+  },
+  {
+    "id": 219604,
+    "subject": "one-health",
+    "topic": "oh-env-carcinogen",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "To report total greenhouse gas emissions in carbon dioxide equivalents (CO₂e), the masses of the different gases are added before adjusting for their warming effects.",
+    "answer": false,
+    "explain": "ส่วนที่ผิดคือลำดับการคำนวณ ต้องแปลงปริมาณของ GHG แต่ละชนิดเป็น CO₂e ก่อนแล้วจึงนำค่าที่แปลงแล้วมารวมกัน GHG แต่ละชนิดมีผลต่อภาวะโลกร้อนต่างกันแม้ปล่อยออกมาในมวลเท่ากัน",
+    "source": "pj_zkis2ziU [16:33]",
+    "verified": "ตรวจกับคลิปคาบ 21 ต.ค. 2569 pj_zkis2ziU [16:33]",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง environmental health risks I",
+    "tags": [
+      "oh-env-carcinogen"
+    ]
+  },
+  {
+    "id": 219605,
+    "subject": "one-health",
+    "topic": "oh-env-carcinogen",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "High concentrations of nitrogen and phosphorus in waters receiving livestock wastewater can promote algal blooms.",
+    "answer": true,
+    "explain": "Nitrogen และ phosphorus เป็นธาตุอาหารที่ส่งเสริมการเพิ่มจำนวนของสาหร่ายในแหล่งน้ำ เมื่อมีธาตุอาหารเหล่านี้สูงจนเกิด Algal Bloom คุณภาพน้ำอาจเปลี่ยนไปและเป็นอันตรายต่อสัตว์น้ำ",
+    "source": "pj_zkis2ziU [50:09]",
+    "verified": "ตรวจกับคลิปคาบ 21 ต.ค. 2569 pj_zkis2ziU [50:09]",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง environmental health risks I",
+    "tags": [
+      "oh-env-carcinogen"
+    ]
+  },
+  {
+    "id": 219610,
+    "subject": "one-health",
+    "topic": "oh-env-mutagen",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "When direct measurement of chemical exposure in humans is impractical, sentinel animals sharing the same environment can be used to estimate the extent of that exposure.",
+    "answer": true,
+    "explain": "สัตว์ที่อยู่ในสิ่งแวดล้อมเดียวกับคนอาจสัมผัสสารจากแหล่งเดียวกัน เมื่อวัดการสัมผัสในคนโดยตรงได้ยาก ข้อมูลจาก sentinel animals จึงช่วยประเมินขอบเขตการสัมผัสได้",
+    "source": "One Health approach to address environmental health risks II_28 Oct 26 (WT) หน้า 4; _gZS4uB8SJ4 [6:54]",
+    "verified": "ตรวจกับคลิปคาบ 28 ต.ค. 2569 _gZS4uB8SJ4 [6:54] และ One Health approach to address environmental health risks II_28 Oct 26 (WT) หน้า 4",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง environmental health risks II",
+    "tags": [
+      "oh-env-mutagen"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-env-risks-2-2569",
+        "edition": "20p",
+        "page": 4
+      }
+    ]
+  },
+  {
+    "id": 219611,
+    "subject": "one-health",
+    "topic": "oh-env-mutagen",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "The toxic fumes released by overheated polytetrafluoroethylene (PTFE) have a noticeable odor.",
+    "answer": false,
+    "explain": "คำว่า noticeable odor ผิด เพราะไอพิษจาก PTFE ที่ร้อนจัดเป็นไอไร้กลิ่น ผู้สัมผัสจึงอาจสูดไอเข้าไปจนเกิดพิษเฉียบพลันได้โดยไม่มีกลิ่นเตือน",
+    "source": "_gZS4uB8SJ4 [18:54]",
+    "verified": "ตรวจกับคลิปคาบ 28 ต.ค. 2569 _gZS4uB8SJ4 [18:54]",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง environmental health risks II",
+    "tags": [
+      "oh-env-mutagen"
+    ]
+  },
+  {
+    "id": 219612,
+    "subject": "one-health",
+    "topic": "oh-env-mutagen",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Acute death in a pet bird after exposure to fumes from overheated PTFE can be a clue to polymer fume fever in a person with flu-like symptoms who shared the exposure.",
+    "answer": true,
+    "explain": "การตายเฉียบพลันของนกหลังสูดไอ PTFE เป็นเบาะแสว่าคนในบริเวณเดียวกันอาจสูดไอชนิดเดียวกัน เมื่อคนมีอาการคล้ายไข้หวัด ประวัติการสัมผัสร่วมจึงช่วยให้นึกถึง polymer fume fever",
+    "source": "One Health approach to address environmental health risks II_28 Oct 26 (WT) หน้า 10; _gZS4uB8SJ4 [20:43]",
+    "verified": "ตรวจกับคลิปคาบ 28 ต.ค. 2569 _gZS4uB8SJ4 [20:43] และ One Health approach to address environmental health risks II_28 Oct 26 (WT) หน้า 10",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง environmental health risks II",
+    "tags": [
+      "oh-env-mutagen"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-env-risks-2-2569",
+        "edition": "20p",
+        "page": 10
+      }
+    ]
+  },
+  {
+    "id": 219613,
+    "subject": "one-health",
+    "topic": "oh-env-mutagen",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "The lungs are the main target organs for systemic toxicity after ingestion of inorganic mercury.",
+    "answer": false,
+    "explain": "คำว่า lungs ระบุอวัยวะเป้าหมายผิด หลังได้รับ inorganic mercury ทางการกิน ไตเป็นอวัยวะสำคัญที่ได้รับผล เพราะเกี่ยวข้องกับการกำจัดปรอทรูปนี้ออกจากร่างกาย",
+    "source": "_gZS4uB8SJ4 [30:20]",
+    "verified": "ตรวจกับคลิปคาบ 28 ต.ค. 2569 _gZS4uB8SJ4 [30:20]",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง environmental health risks II",
+    "tags": [
+      "oh-env-mutagen"
+    ]
+  },
+  {
+    "id": 219614,
+    "subject": "one-health",
+    "topic": "oh-env-mutagen",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Methylmercury accumulates in aquatic organisms and is transferred through the food web when those organisms are eaten.",
+    "answer": true,
+    "explain": "Methylmercury สะสมในสิ่งมีชีวิตน้ำและส่งต่อไปยังสัตว์ที่กินสิ่งมีชีวิตเหล่านั้น การได้รับซ้ำผ่านอาหารทำให้สารสะสมเพิ่มขึ้นตามเวลาและอาจนำไปสู่พิษเรื้อรัง",
+    "source": "One Health approach to address environmental health risks II_28 Oct 26 (WT) หน้า 13; _gZS4uB8SJ4 [35:20]",
+    "verified": "ตรวจกับคลิปคาบ 28 ต.ค. 2569 _gZS4uB8SJ4 [35:20] และ One Health approach to address environmental health risks II_28 Oct 26 (WT) หน้า 13",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง environmental health risks II",
+    "tags": [
+      "oh-env-mutagen"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-env-risks-2-2569",
+        "edition": "20p",
+        "page": 13
+      }
+    ]
+  },
+  {
+    "id": 219615,
+    "subject": "one-health",
+    "topic": "oh-env-mutagen",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "In humans, asbestosis is an acute consequence of inhaling asbestos fibers.",
+    "answer": false,
+    "explain": "คำว่า acute ระบุระยะการเกิดโรคผิด Asbestosis เกิดหลังการสูดใย asbestos เรื้อรัง และอาจใช้เวลาหลายปีกว่าจะแสดงอาการทางระบบหายใจ",
+    "source": "One Health approach to address environmental health risks II_28 Oct 26 (WT) หน้า 15; _gZS4uB8SJ4 [42:38]",
+    "verified": "ตรวจกับคลิปคาบ 28 ต.ค. 2569 _gZS4uB8SJ4 [42:38] และ One Health approach to address environmental health risks II_28 Oct 26 (WT) หน้า 15",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง environmental health risks II",
+    "tags": [
+      "oh-env-mutagen"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-env-risks-2-2569",
+        "edition": "20p",
+        "page": 15
+      }
+    ]
+  },
+  {
+    "id": 219616,
+    "subject": "one-health",
+    "topic": "oh-env-mutagen",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "A weak positive association between chronic 2,4-D exposure and lymphoma is sufficient to establish a causal relationship.",
+    "answer": false,
+    "explain": "ส่วนที่ผิดคือการสรุปว่า 2,4-D เป็นสาเหตุของ lymphoma จากหลักฐานนี้ Weak positive association บอกเพียงว่าการสัมผัสและโรคมีแนวโน้มสัมพันธ์กันในทิศทางเดียวกันในข้อมูลที่ศึกษา จึงยังสรุปเหตุและผลไม่ได้",
+    "source": "One Health approach to address environmental health risks II_28 Oct 26 (WT) หน้า 16; _gZS4uB8SJ4 [44:07]",
+    "verified": "ตรวจกับคลิปคาบ 28 ต.ค. 2569 _gZS4uB8SJ4 [44:07] และ One Health approach to address environmental health risks II_28 Oct 26 (WT) หน้า 16",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง environmental health risks II",
+    "tags": [
+      "oh-env-mutagen"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-env-risks-2-2569",
+        "edition": "20p",
+        "page": 16
+      }
+    ]
+  },
+  {
+    "id": 219617,
+    "subject": "one-health",
+    "topic": "oh-env-mutagen",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "In the exposome framework, an animal's hormone levels are classified as an external exposure.",
+    "answer": false,
+    "explain": "คำว่า external exposure จัดระดับ hormone ไว้ผิดกลุ่ม ระดับ hormone อยู่ในกลุ่ม internal exposure เพราะสะท้อนสภาวะทางสรีรวิทยาภายในร่างกายสัตว์",
+    "source": "_gZS4uB8SJ4 [49:11]",
+    "verified": "ตรวจกับคลิปคาบ 28 ต.ค. 2569 _gZS4uB8SJ4 [49:11]",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง environmental health risks II",
+    "tags": [
+      "oh-env-mutagen"
+    ]
+  },
+  {
+    "id": 219618,
+    "subject": "one-health",
+    "topic": "oh-env-mutagen",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "When the severity of poisoning is held constant, reducing the likelihood of exposure increases the estimated risk of poisoning.",
+    "answer": false,
+    "explain": "คำว่า increases ระบุทิศทางผิด เพราะเมื่อ severity คงเดิม การลด likelihood ของการสัมผัสทำให้ risk ลดลง การปิดภาชนะให้สนิทเป็นตัวอย่างที่ลดโอกาสสัมผัสได้ แม้ความรุนแรงของพิษจากสารนั้นจะเท่าเดิม",
+    "source": "_gZS4uB8SJ4 [26:16]",
+    "verified": "ตรวจกับคลิปคาบ 28 ต.ค. 2569 _gZS4uB8SJ4 [26:16]",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง environmental health risks II",
+    "tags": [
+      "oh-env-mutagen"
+    ]
+  },
+  {
+    "id": 219619,
+    "subject": "one-health",
+    "topic": "oh-env-mutagen",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Comparing cancer study results between companion animals and humans may require standardization of biomarkers that differ between species.",
+    "answer": true,
+    "explain": "แม้ตรวจพบ biomarker ชนิดเดียวกันในสัตว์เลี้ยงและคน ค่าที่วัดได้อาจมีความหมายต่างกันระหว่างชนิด การปรับให้อยู่บนมาตรฐานที่เทียบเคียงกันได้ช่วยให้ตีความผลการศึกษาข้ามชนิดได้เหมาะสม",
+    "source": "One Health approach to address environmental health risks II_28 Oct 26 (WT) หน้า 18; _gZS4uB8SJ4 [48:37]",
+    "verified": "ตรวจกับคลิปคาบ 28 ต.ค. 2569 _gZS4uB8SJ4 [48:37] และ One Health approach to address environmental health risks II_28 Oct 26 (WT) หน้า 18",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง environmental health risks II",
+    "tags": [
+      "oh-env-mutagen"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-env-risks-2-2569",
+        "edition": "20p",
+        "page": 18
+      }
+    ]
+  },
+  {
+    "id": 219620,
+    "subject": "one-health",
+    "topic": "oh-gmo",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Roundup Ready soybean owes its tolerance to glyphosate to a glyphosate-sensitive form of EPSP synthase.",
+    "answer": false,
+    "explain": "จุดที่ผิดคือความไวต่อ glyphosate ของ EPSP synthase ที่เพิ่มเข้ามาใน Roundup Ready soybean เอนไซม์ชนิดนี้ไม่ไวต่อ glyphosate จึงยังทำงานได้เมื่อพืชสัมผัสสารดังกล่าว",
+    "source": "One Health perspective of food and feed GMOs (4 พ.ย. 69) หน้า 4; pXxxZN-3hNA [13:01]",
+    "verified": "ตรวจกับคลิปคาบ 4 พ.ย. 2569 pXxxZN-3hNA [13:01] และ One Health perspective of food and feed GMOs (4 พ.ย. 69) หน้า 4",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง food and feed GMOs",
+    "tags": [
+      "oh-gmo"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-gmo-2569",
+        "edition": "21p",
+        "page": 4
+      }
+    ]
+  },
+  {
+    "id": 219621,
+    "subject": "one-health",
+    "topic": "oh-gmo",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "The ocean pout promoter in AquAdvantage salmon allows growth hormone to be produced throughout the year.",
+    "answer": true,
+    "explain": "Promoter ควบคุมการแสดงออกของ growth hormone gene เมื่อใช้ promoter จาก ocean pout ปลา AquAdvantage salmon จึงสร้าง growth hormone ได้ตลอดปี",
+    "source": "pXxxZN-3hNA [14:45]",
+    "verified": "ตรวจกับคลิปคาบ 4 พ.ย. 2569 pXxxZN-3hNA [14:45]",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง food and feed GMOs",
+    "tags": [
+      "oh-gmo"
+    ]
+  },
+  {
+    "id": 219622,
+    "subject": "one-health",
+    "topic": "oh-gmo",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "When target insects become resistant to Bt, growers may need to apply more insecticide to the Bt crop.",
+    "answer": true,
+    "explain": "เมื่อแมลงเป้าหมายดื้อต่อ Bt toxin ลักษณะต้านแมลงของพืชจะควบคุมแมลงกลุ่มนั้นได้ลดลง ผู้ปลูกจึงอาจต้องใช้ insecticide เพิ่มเพื่อควบคุมแมลงที่รอด",
+    "source": "One Health perspective of food and feed GMOs (4 พ.ย. 69) หน้า 10; pXxxZN-3hNA [33:43]",
+    "verified": "ตรวจกับคลิปคาบ 4 พ.ย. 2569 pXxxZN-3hNA [33:43] และ One Health perspective of food and feed GMOs (4 พ.ย. 69) หน้า 10",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง food and feed GMOs",
+    "tags": [
+      "oh-gmo"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-gmo-2569",
+        "edition": "21p",
+        "page": 10
+      }
+    ]
+  },
+  {
+    "id": 219623,
+    "subject": "one-health",
+    "topic": "oh-gmo",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "In comparative feeding studies, gene transfer from feed to livestock was more likely with GM feed than with non-GM feed.",
+    "answer": false,
+    "explain": "ผลเปรียบเทียบอาหารสัตว์ GM กับ non-GM ไม่พบความแตกต่างของโอกาสเกิด gene transfer จากอาหารไปสู่สัตว์ จุดที่ผิดคือข้อสรุปว่าโอกาสถ่ายโอนยีนสูงกว่าเมื่อใช้อาหารสัตว์ GM",
+    "source": "One Health perspective of food and feed GMOs (4 พ.ย. 69) หน้า 13; pXxxZN-3hNA [42:31]",
+    "verified": "ตรวจกับคลิปคาบ 4 พ.ย. 2569 pXxxZN-3hNA [42:31] และ One Health perspective of food and feed GMOs (4 พ.ย. 69) หน้า 13",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง food and feed GMOs",
+    "tags": [
+      "oh-gmo"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-gmo-2569",
+        "edition": "21p",
+        "page": 13
+      }
+    ]
+  },
+  {
+    "id": 219624,
+    "subject": "one-health",
+    "topic": "oh-gmo",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "The herbicide-tolerant trait of a GM crop is sufficient to determine whether pesticide residues in feed made from that crop will increase or decrease.",
+    "answer": false,
+    "explain": "จุดที่ผิดคือการใช้ HT trait เพียงปัจจัยเดียวเพื่อทำนายทิศทางของ pesticide residues การตกค้างอาจเพิ่มหรือลดได้ตามชนิดสารและปริมาณที่ใช้จริง",
+    "source": "One Health perspective of food and feed GMOs (4 พ.ย. 69) หน้า 14; pXxxZN-3hNA [43:11]",
+    "verified": "ตรวจกับคลิปคาบ 4 พ.ย. 2569 pXxxZN-3hNA [43:11] และ One Health perspective of food and feed GMOs (4 พ.ย. 69) หน้า 14",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง food and feed GMOs",
+    "tags": [
+      "oh-gmo"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-gmo-2569",
+        "edition": "21p",
+        "page": 14
+      }
+    ]
+  },
+  {
+    "id": 219625,
+    "subject": "one-health",
+    "topic": "oh-gmo",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Higher yields from GM crops can reduce pressure to clear forests when growers can meet their production goals on existing farmland.",
+    "answer": true,
+    "explain": "เมื่อ yield ต่อพื้นที่สูงขึ้น แปลงเดิมอาจให้ผลผลิตเพียงพอตามที่ผู้ปลูกต้องการ หากผู้ปลูกได้ผลผลิตตามเป้าจากพื้นที่เดิม ความจำเป็นที่จะถางป่าเพิ่มก็ลดลงได้",
+    "source": "One Health perspective of food and feed GMOs (4 พ.ย. 69) หน้า 16; pXxxZN-3hNA [45:38]",
+    "verified": "ตรวจกับคลิปคาบ 4 พ.ย. 2569 pXxxZN-3hNA [45:38] และ One Health perspective of food and feed GMOs (4 พ.ย. 69) หน้า 16",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง food and feed GMOs",
+    "tags": [
+      "oh-gmo"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-gmo-2569",
+        "edition": "21p",
+        "page": 16
+      }
+    ]
+  },
+  {
+    "id": 219626,
+    "subject": "one-health",
+    "topic": "oh-gmo",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "A lack of data on the long-term effects of expanding GM crop monocultures limits environmental risk assessment.",
+    "answer": true,
+    "explain": "Monoculture คือการปลูกพืชชนิดเดียวในพื้นที่เพาะปลูก เมื่อขาดข้อมูลระยะยาว จึงประเมินได้จำกัดว่าการขยายพื้นที่ปลูกพืช GM แบบนี้จะส่งผลอย่างไรต่อสิ่งแวดล้อม",
+    "source": "One Health perspective of food and feed GMOs (4 พ.ย. 69) หน้า 18; pXxxZN-3hNA [51:10]",
+    "verified": "ตรวจกับคลิปคาบ 4 พ.ย. 2569 pXxxZN-3hNA [51:10] และ One Health perspective of food and feed GMOs (4 พ.ย. 69) หน้า 18",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง food and feed GMOs",
+    "tags": [
+      "oh-gmo"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-gmo-2569",
+        "edition": "21p",
+        "page": 18
+      }
+    ]
+  },
+  {
+    "id": 219627,
+    "subject": "one-health",
+    "topic": "oh-gmo",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "A refuge planted alongside a Bt crop uses the same Bt variety as the main crop.",
+    "answer": false,
+    "explain": "จุดที่ผิดคือการใช้พันธุ์ Bt เดียวกับแปลงหลักใน refuge area การจัดพื้นที่ปลูกพืช non-GM ควบคู่กับแปลง Bt ช่วยลดแรงคัดเลือกให้เกิดการดื้อต่อ Bt ในประชากรแมลง",
+    "source": "pXxxZN-3hNA [53:16]",
+    "verified": "ตรวจกับคลิปคาบ 4 พ.ย. 2569 pXxxZN-3hNA [53:16]",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง food and feed GMOs",
+    "tags": [
+      "oh-gmo"
+    ]
+  },
+  {
+    "id": 219628,
+    "subject": "one-health",
+    "topic": "oh-gmo",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Rising herbicide residues in animal feed can be an indirect sign of declining weed control in the field.",
+    "answer": true,
+    "explain": "เมื่อวัชพืชเริ่มทนต่อ herbicide การควบคุมด้วยวิธีเดิมอาจได้ผลลดลงและผู้ปลูกอาจใช้สารเพิ่ม การพบ herbicide ตกค้างในอาหารสัตว์สูงขึ้นจึงใช้เป็นเบาะแสทางอ้อมว่าการควบคุมวัชพืชในแปลงอาจเริ่มได้ผลลดลง",
+    "source": "pXxxZN-3hNA [55:49]",
+    "verified": "ตรวจกับคลิปคาบ 4 พ.ย. 2569 pXxxZN-3hNA [55:49]",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง food and feed GMOs",
+    "tags": [
+      "oh-gmo"
+    ]
+  },
+  {
+    "id": 219629,
+    "subject": "one-health",
+    "topic": "oh-gmo",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "A person who eats meat from livestock raised on GM crops is a primary consumer in that food chain.",
+    "answer": false,
+    "explain": "พืช GM เป็น producer และปศุสัตว์ที่กินพืชเป็น primary consumer จุดที่ผิดคือการจัดคนเป็น primary consumer เพราะคนที่กินเนื้อจากปศุสัตว์ในห่วงโซ่นี้เป็น secondary consumer",
+    "source": "One Health perspective of food and feed GMOs (4 พ.ย. 69) หน้า 6; pXxxZN-3hNA [20:44]",
+    "verified": "ตรวจกับคลิปคาบ 4 พ.ย. 2569 pXxxZN-3hNA [20:44] และ One Health perspective of food and feed GMOs (4 พ.ย. 69) หน้า 6",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง food and feed GMOs",
+    "tags": [
+      "oh-gmo"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-gmo-2569",
+        "edition": "21p",
+        "page": 6
+      }
+    ]
+  },
+  {
+    "id": 219630,
+    "subject": "one-health",
+    "topic": "oh-gmo",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Bees and butterflies are non-target insects that can be exposed to pesticides through spray drift.",
+    "answer": true,
+    "explain": "Spray drift ทำให้ละออง pesticide ฟุ้งกระจายออกจากบริเวณที่ฉีดพ่น ผึ้งและผีเสื้อจึงอาจสัมผัสสารได้ในบริเวณที่ละอองพัดไปถึง",
+    "source": "pXxxZN-3hNA [49:18]",
+    "verified": "ตรวจกับคลิปคาบ 4 พ.ย. 2569 pXxxZN-3hNA [49:18]",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง food and feed GMOs",
+    "tags": [
+      "oh-gmo"
+    ]
+  },
+  {
+    "id": 219640,
+    "subject": "one-health",
+    "topic": "oh-amr",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Imipenem and meropenem are carbapenems used to treat infections caused by ESBL-producing bacteria.",
+    "answer": true,
+    "explain": "ESBL เป็นเอนไซม์ที่ทำให้ยากลุ่ม β-lactams บางชนิดออกฤทธิ์ไม่ได้ Imipenem และ meropenem เป็น carbapenems ที่ใช้รักษาการติดเชื้อจาก ESBL-producing bacteria ได้เมื่อเชื้อยังไวต่อยา",
+    "source": "One health AMR หน้า 6; 2sG_D3pcAwc [19:39]",
+    "verified": "ตรวจกับคลิปคาบ 30 ก.ย. 2569 2sG_D3pcAwc [19:39] และ One health AMR หน้า 6",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง antimicrobial resistance",
+    "tags": [
+      "oh-amr"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-amr-2569",
+        "edition": "35p",
+        "page": 6
+      }
+    ]
+  },
+  {
+    "id": 219641,
+    "subject": "one-health",
+    "topic": "oh-amr",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Two plasmids in the same incompatibility group can be stably maintained in the same bacterial cell.",
+    "answer": false,
+    "explain": "Plasmids ใน Inc group เดียวกันมีความสัมพันธ์ทางพันธุกรรม ส่วนที่ผิดคือการคงอยู่ร่วมกันอย่างเสถียร เพราะ plasmids ในกลุ่มเดียวกันคงอยู่ร่วมกันในเซลล์แบคทีเรียเดียวได้ไม่เสถียร",
+    "source": "2sG_D3pcAwc [29:14]",
+    "verified": "ตรวจกับคลิปคาบ 30 ก.ย. 2569 2sG_D3pcAwc [29:14]",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง antimicrobial resistance",
+    "tags": [
+      "oh-amr"
+    ]
+  },
+  {
+    "id": 219642,
+    "subject": "one-health",
+    "topic": "oh-amr",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Clinically healthy meat ducks can carry colistin-resistant Escherichia coli.",
+    "answer": true,
+    "explain": "พบ E. coli ที่ดื้อ colistin ในเป็ดเนื้อที่มีสุขภาพดีตามการตรวจทางคลินิก เป็ดที่ไม่แสดงอาการจึงเป็นแหล่งสะสมเชื้อดื้อยาได้",
+    "source": "One health AMR หน้า 23; 2sG_D3pcAwc [48:52]",
+    "verified": "ตรวจกับคลิปคาบ 30 ก.ย. 2569 2sG_D3pcAwc [48:52] และ One health AMR หน้า 23",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง antimicrobial resistance",
+    "tags": [
+      "oh-amr"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-amr-2569",
+        "edition": "35p",
+        "page": 23
+      }
+    ]
+  },
+  {
+    "id": 219643,
+    "subject": "one-health",
+    "topic": "oh-amr",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "The spread of antimicrobial resistance from one bacterium to another is termed emergence.",
+    "answer": false,
+    "explain": "เมื่อความดื้อยาแพร่จากแบคทีเรียตัวหนึ่งไปยังอีกตัวหนึ่ง ขั้นนั้นเรียกว่า distribution คำว่า emergence ใช้กับขั้นที่เชื้อดื้อยาปรากฏขึ้นในประชากร",
+    "source": "One health AMR หน้า 9; 2sG_D3pcAwc [26:30]",
+    "verified": "ตรวจกับคลิปคาบ 30 ก.ย. 2569 2sG_D3pcAwc [26:30] และ One health AMR หน้า 9",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง antimicrobial resistance",
+    "tags": [
+      "oh-amr"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-amr-2569",
+        "edition": "35p",
+        "page": 9
+      }
+    ]
+  },
+  {
+    "id": 219644,
+    "subject": "one-health",
+    "topic": "oh-amr",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "Metagenomic analysis can characterize a bacterial community from a single sample of airborne dust collected on a pig farm.",
+    "answer": true,
+    "explain": "ฝุ่นหนึ่งตัวอย่างมีสารพันธุกรรมจากแบคทีเรียหลายชนิด Metagenomics วิเคราะห์สารพันธุกรรมในตัวอย่างรวม จึงใช้ศึกษาว่ามีแบคทีเรียกลุ่มใดอยู่ในชุมชนนั้นได้",
+    "source": "One health AMR หน้า 28; 2sG_D3pcAwc [52:58]",
+    "verified": "ตรวจกับคลิปคาบ 30 ก.ย. 2569 2sG_D3pcAwc [52:58] และ One health AMR หน้า 28",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง antimicrobial resistance",
+    "tags": [
+      "oh-amr"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-amr-2569",
+        "edition": "35p",
+        "page": 28
+      }
+    ]
+  },
+  {
+    "id": 219645,
+    "subject": "one-health",
+    "topic": "oh-amr",
+    "year": 5,
+    "type": "tf",
+    "examScope": "final",
+    "q": "In the analysis of airborne dust inside pig farms, tetracycline resistance genes accounted for the largest proportion of detected resistance genes.",
+    "answer": false,
+    "explain": "กลุ่มที่มีสัดส่วนสูงที่สุดคือยีนดื้อ aminoglycosides ยีนดื้อ tetracyclines เป็นอีกกลุ่มที่ตรวจพบในตัวอย่างฝุ่นชุดเดียวกัน",
+    "source": "2sG_D3pcAwc [55:39]",
+    "verified": "ตรวจกับคลิปคาบ 30 ก.ย. 2569 2sG_D3pcAwc [55:39]",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง antimicrobial resistance",
+    "tags": [
+      "oh-amr"
+    ]
+  },
+  {
+    "id": 219650,
+    "subject": "one-health",
+    "topic": "oh-import-risk",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ในการประเมิน WSSV จากการนำเข้ากุ้งแช่แข็งดิบทั้งตัว มีค่า partial likelihood of exposure (PLE) แยกสำหรับ farm, hatchery และ wild ควรใช้ค่า likelihood of entry กับทั้งสามกลุ่มอย่างไร",
+    "options": [
+      "ใช้ค่าร่วมกันทั้ง farm, hatchery และ wild",
+      "ใช้ค่าร่วมสำหรับ farm กับ hatchery และแยกค่าให้ wild",
+      "ใช้ค่าร่วมสำหรับ hatchery กับ wild และแยกค่าให้ farm",
+      "ใช้ค่าแยกกันสำหรับ farm, hatchery และ wild"
+    ],
+    "answer": 0,
+    "explain": "Likelihood of entry ประเมินโอกาสที่ WSSV จะเข้าสู่ประเทศผู้นำเข้าพร้อมกับกุ้งนำเข้ารูปแบบนี้ จึงใช้ค่าเดียวกันทั้งสามกลุ่ม PLE ประเมินโอกาสที่โฮสต์แต่ละกลุ่มจะสัมผัสเชื้อ จึงประเมินแยกตาม exposure group",
+    "source": "Import Risk Assessment (Present) หน้า 31; hLl7taXYRWQ [1:06:29]",
+    "verified": "ตรวจกับคลิปคาบ 7 ต.ค. 2569 hLl7taXYRWQ [1:06:29] และ Import Risk Assessment (Present) หน้า 31",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง import risk assessment",
+    "tags": [
+      "oh-import-risk"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-import-risk-2569",
+        "edition": "47p",
+        "page": 31
+      }
+    ]
+  },
+  {
+    "id": 219651,
+    "subject": "one-health",
+    "topic": "oh-import-risk",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ในการประเมินความเสี่ยงการนำเข้ากุ้งสู่ออสเตรเลียเชิงคุณภาพ ข้อใดเรียงระดับ likelihood จากสูงไปต่ำได้ถูกต้อง",
+    "options": [
+      "Very low, Low, Extremely low",
+      "Low, Very low, Extremely low",
+      "Extremely low, Low, Very low",
+      "Low, Extremely low, Very low"
+    ],
+    "answer": 1,
+    "explain": "ในมาตรา likelihood นี้ ระดับ Very low อยู่ถัดลงมาจาก Low ระดับ Extremely low อยู่ต่ำกว่า Very low จึงเรียงเป็น Low, Very low และ Extremely low",
+    "source": "Import Risk Assessment (Present) หน้า 11; hLl7taXYRWQ [48:17]",
+    "verified": "ตรวจกับคลิปคาบ 7 ต.ค. 2569 hLl7taXYRWQ [48:17] และ Import Risk Assessment (Present) หน้า 11",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง import risk assessment",
+    "tags": [
+      "oh-import-risk"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-import-risk-2569",
+        "edition": "47p",
+        "page": 11
+      }
+    ]
+  },
+  {
+    "id": 219652,
+    "subject": "one-health",
+    "topic": "oh-import-risk",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "หลังสัตว์ในประเทศผู้นำเข้าสัมผัสเชื้อ ผู้ประเมินคาดการณ์จำนวนสัตว์ที่จะป่วยหรือตายหากเกิดการระบาด งานนี้อยู่ในขั้นตอนใดของการประเมินความเสี่ยงการนำเข้า",
+    "options": [
+      "ขั้นประเมินการนำเข้า (Entry Assessment)",
+      "ขั้นประเมินการสัมผัส (Exposure Assessment)",
+      "ขั้นประเมินผลกระทบ (Consequence Assessment)",
+      "ขั้นสรุปค่าความเสี่ยง (Risk Estimation)"
+    ],
+    "answer": 2,
+    "explain": "จำนวนสัตว์ป่วยหรือตายเป็นผลกระทบที่คาดว่าจะเกิดขึ้นหากเชื้อก่อตัวและแพร่กระจายหลังสัตว์สัมผัสเชื้อ จึงอยู่ใน Consequence Assessment Entry Assessment ประเมินโอกาสที่เชื้อจะเข้ามากับสินค้า ส่วน Exposure Assessment ประเมินโอกาสที่สัตว์จะสัมผัสเชื้อ Risk Estimation นำผลจากทั้งสามขั้นมารวมกัน",
+    "source": "Import Risk Assessment (Present) หน้า 12; hLl7taXYRWQ [42:09]",
+    "verified": "ตรวจกับคลิปคาบ 7 ต.ค. 2569 hLl7taXYRWQ [42:09] และ Import Risk Assessment (Present) หน้า 12",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง import risk assessment",
+    "tags": [
+      "oh-import-risk"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-import-risk-2569",
+        "edition": "47p",
+        "page": 12
+      }
+    ]
+  },
+  {
+    "id": 219653,
+    "subject": "one-health",
+    "topic": "oh-import-risk",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ในการประเมิน WSSV จากกุ้งนำเข้า ค่า partial annual risk (PAR) ของ farm, hatchery และ wild เป็น Moderate, High และ Low ตามลำดับ ค่า overall annual risk อยู่ที่ระดับใด",
+    "options": [
+      "ความเสี่ยงระดับ Moderate",
+      "ความเสี่ยงระดับ Low",
+      "ความเสี่ยงระดับ Very low",
+      "ความเสี่ยงระดับ High"
+    ],
+    "answer": 3,
+    "explain": "การสรุป overall annual risk ในกรณีนี้ใช้ระดับ PAR สูงสุดจากทั้งสาม exposure groups ค่า PAR ของ hatchery อยู่ที่ระดับ High ซึ่งสูงกว่าค่าของ farm และ wild จึงได้ overall annual risk ระดับ High",
+    "source": "Import Risk Assessment (Present) หน้า 41; hLl7taXYRWQ [1:11:20]",
+    "verified": "ตรวจกับคลิปคาบ 7 ต.ค. 2569 hLl7taXYRWQ [1:11:20] และ Import Risk Assessment (Present) หน้า 41",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง import risk assessment",
+    "tags": [
+      "oh-import-risk"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-import-risk-2569",
+        "edition": "47p",
+        "page": 41
+      }
+    ]
+  },
+  {
+    "id": 219660,
+    "subject": "one-health",
+    "topic": "oh-livestock-waste",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "เหตุใดน้ำทิ้งจากระบบก๊าซชีวภาพของฟาร์มปศุสัตว์จึงต้องผ่านการบำบัดขั้นหลัง",
+    "options": [
+      "น้ำทิ้งมีเศษวัสดุขนาดใหญ่ที่ต้องแยกด้วยตะแกรง",
+      "น้ำทิ้งยังมีสารอินทรีย์ตกค้างที่ต้องกำจัดต่อ",
+      "น้ำทิ้งมีกรวดทรายปนอยู่ที่ต้องแยกออกจากน้ำ",
+      "น้ำทิ้งมีค่า pH สูงขึ้นจนต้องปรับให้เป็นกลาง"
+    ],
+    "answer": 1,
+    "explain": "ระบบก๊าซชีวภาพมุ่งผลิตพลังงาน น้ำที่ออกจากระบบจึงยังมีสารอินทรีย์ตกค้างและต้องบำบัดต่อเพื่อลดสารอินทรีย์ส่วนนี้ การแยกเศษวัสดุขนาดใหญ่และกรวดทรายอยู่ในขั้น preliminary treatment ส่วนการปรับ pH ขึ้นกับค่า pH ที่ตรวจวัดได้",
+    "source": "OHVPH_SP_E4 (livestock waste management, 11 พ.ย. 69) หน้า 41; 720ploUu9Oo [48:26]",
+    "verified": "ตรวจกับคลิปคาบ 11 พ.ย. 2569 720ploUu9Oo [48:26] และ OHVPH_SP_E4 (livestock waste management, 11 พ.ย. 69) หน้า 41",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง livestock waste management",
+    "tags": [
+      "oh-livestock-waste"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-livestock-waste-2569",
+        "edition": "56p",
+        "page": 41
+      }
+    ]
+  },
+  {
+    "id": 219661,
+    "subject": "one-health",
+    "topic": "oh-livestock-waste",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "เมื่อเปรียบเทียบเกณฑ์ระยะเวลากักเก็บน้ำเสียของบ่อหมัก บ่อหมักผสม และบ่อผึ่ง ข้อใดถูกต้อง",
+    "options": [
+      "บ่อผึ่งกักเก็บน้ำเสียนานกว่าบ่อหมักและบ่อหมักผสม",
+      "บ่อหมักผสมกักเก็บน้ำเสียนานกว่าบ่อหมักและบ่อผึ่ง",
+      "บ่อหมักกักเก็บน้ำเสียนานกว่าบ่อหมักผสมและบ่อผึ่ง",
+      "บ่อทั้งสามชนิดกักเก็บน้ำเสียด้วยระยะเวลาเท่ากัน"
+    ],
+    "answer": 2,
+    "explain": "บ่อหมักมีเกณฑ์ระยะเวลากักเก็บมากกว่า 30 วัน เพื่อให้จุลินทรีย์แบบ anaerobic มีเวลาย่อยสลายสารอินทรีย์ บ่อหมักผสมและบ่อผึ่งใช้เกณฑ์มากกว่า 15 วันเท่ากัน จึงมีเกณฑ์ระยะเวลากักเก็บสั้นกว่าบ่อหมักทั้งคู่",
+    "source": "OHVPH_SP_E4 (livestock waste management, 11 พ.ย. 69) หน้า 38; 720ploUu9Oo [47:19]",
+    "verified": "ตรวจกับคลิปคาบ 11 พ.ย. 2569 720ploUu9Oo [47:19] และ OHVPH_SP_E4 (livestock waste management, 11 พ.ย. 69) หน้า 38",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง livestock waste management",
+    "tags": [
+      "oh-livestock-waste"
+    ],
+    "sourcePages": [
+      {
+        "doc": "oh-livestock-waste-2569",
+        "edition": "56p",
+        "page": 38
+      }
+    ]
+  },
+  {
+    "id": 219662,
+    "subject": "one-health",
+    "topic": "oh-livestock-waste",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "บ่อรวมน้ำเสียในขั้นเตรียมการ (preliminary treatment) มีหน้าที่หลักอย่างไร",
+    "options": [
+      "ทำให้ปริมาณและคุณภาพน้ำเสียที่เข้าระบบสม่ำเสมอ",
+      "กำจัดสารอินทรีย์ละลายน้ำด้วยการใช้จุลินทรีย์",
+      "ปรับสภาพน้ำหลังผ่านการบำบัดก่อนปล่อยทิ้ง",
+      "ใช้ตะแกรงดักแยกเศษวัสดุขนาดใหญ่ออกจากน้ำเสีย"
+    ],
+    "answer": 0,
+    "explain": "บ่อรวมน้ำเสียพักน้ำไว้ก่อนส่งเข้าระบบ ทำให้ปริมาณและคุณภาพน้ำที่เข้าสู่ขั้นถัดไปสม่ำเสมอขึ้น การดักเศษวัสดุขนาดใหญ่เป็นหน้าที่ของ screening ส่วนการใช้จุลินทรีย์กำจัดสารอินทรีย์ที่ละลายน้ำเป็นหน้าที่ของ secondary treatment การปรับสภาพน้ำหลังบำบัดก่อนปล่อยทิ้งเป็นหน้าที่ของ tertiary treatment",
+    "source": "720ploUu9Oo [38:16]",
+    "verified": "ตรวจกับคลิปคาบ 11 พ.ย. 2569 720ploUu9Oo [38:16]",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง livestock waste management",
+    "tags": [
+      "oh-livestock-waste"
+    ]
+  },
 ];

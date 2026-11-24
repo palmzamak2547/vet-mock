@@ -94,7 +94,11 @@ async function openHub(page, state) {
   test.skip(state.db === 0, 'Built bundle has no Supabase configuration; accounts need it');
   await page.getByRole('button', { name: 'โปรไฟล์', exact: true }).filter({ visible: true }).first().click();
   await expect(page.locator('.vmx-hero h1')).toHaveText('โปรไฟล์');
-  return page.getByTestId('profile-photo-controls');
+  // The picture buttons arrive with their own code after the card: a student
+  // sees them before using them, so a test that then goes offline waits too.
+  const controls = page.getByTestId('profile-photo-controls');
+  await expect(controls.getByTestId('profile-photo-input')).toBeAttached();
+  return controls;
 }
 
 async function shot(page, name) {

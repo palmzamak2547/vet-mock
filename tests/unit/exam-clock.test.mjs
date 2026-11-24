@@ -454,6 +454,21 @@ test('the paper clock adds up the allowance the launcher passed, not the setting
   assert.equal(view.timer()?.text, '50:00', 'a 50-question paper at 60 seconds a question gets 50 minutes');
 });
 
+test('a launcher that names its paper\'s length gets exactly that clock', async (t) => {
+  // A predicted paper runs on the real paper's 90 minutes. Seventy objective questions and two
+  // written ones come to 89:56 at 71 seconds a question and 91:12 at 72, so the card names it.
+  const view = await mount(t, { timePerQ: 30 });
+  const paper = [...Array.from({ length: 70 }, (_, i) => mcq(9700 + i)), shortQ(9770), shortQ(9771)];
+  mod.act(() => {
+    probe.session.startNewSession(paper, 30, { sessionBudget: true, timePerQ: 30, budget: 5400 });
+    probe.setView('exam');
+  });
+  assert.equal(view.timer()?.text, '90:00');
+  // Without it, the allowance adds up as before.
+  mod.act(() => { probe.session.startNewSession(paper, 30, { sessionBudget: true, timePerQ: 30 }); });
+  assert.equal(view.timer()?.text, '41:00', '70 x 30 s + 2 x 180 s');
+});
+
 test('time up on the paper clock ends the paper where the student stands, once, with every answer kept', async (t) => {
   await mount(t);
   start([mcq(9201), mcq(9202), mcq(9203)], 60, true);

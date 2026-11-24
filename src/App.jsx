@@ -2128,7 +2128,13 @@ export default function App() {
     // very quick OR background-load is slow (cold cache, slow network)
     // we hold here until QB is populated rather than starting an exam
     // against an empty pool.
-    const needsFullRegistry = isUserCuratedPool || !!onlyIds;
+    // A predicted paper (predict-sets.js) hands over its questions part by
+    // part, in the order the paper prints them. That order is the set, and
+    // its ids are its own subject's, so a same-numbered id elsewhere stays out
+    // and its subject's year is all it waits for: offline the night before,
+    // the other years' banks may never have been fetched.
+    const keepOrder = Boolean(onlyIds) && overrides.keepOrder === true;
+    const needsFullRegistry = isUserCuratedPool || (Boolean(onlyIds) && !keepOrder);
     // Another year's course needs its own year's banks too: started while
     // they were still loading, a VCA set from year 4 served 316 of 455.
     const subjectYear = _subject && _subject !== 'all' ? yearForSubject(_subject) : null;
@@ -2164,7 +2170,9 @@ export default function App() {
     const pool = onlyIds
       // A named set skips buildExamPool, so it must apply the delivery gate
       // itself: glossary cards once linked to 67 blocked questions this way.
-      ? examQuestions.filter((q) => onlyIds.has(q.id) && isQuestionDeliverable(q))
+      // A predicted paper lists bank ids: a personal question restored from a
+      // backup under the same number is not one of them.
+      ? (keepOrder ? QB : examQuestions).filter((q) => onlyIds.has(q.id) && isQuestionDeliverable(q) && (!keepOrder || q.subject === _subject))
       : buildExamPool({
       questions: examQuestions,
       practiceMode: _practiceMode,
@@ -2184,6 +2192,10 @@ export default function App() {
       // that same question, five times over.
       excludeIds: overrides.excludeIds,
     });
+    if (keepOrder) {
+      const at = new Map(overrides.onlyIds.map((id, i) => [id, i]));
+      pool.sort((a, b) => at.get(a.id) - at.get(b.id));
+    }
 
     if (!pool.length) {
       // An exclusion emptied it: the student has answered everything there is
@@ -2271,7 +2283,7 @@ export default function App() {
     // order away, so a student who stopped after ten questions had drilled
     // ten random ones from everything they had ever missed, not their ten
     // weakest. Ordinary practice still shuffles.
-    const ordered = USER_CURATED_MODES.has(_practiceMode);
+    const ordered = USER_CURATED_MODES.has(_practiceMode) || keepOrder;
     // Exam mode never shows the pick-method row, so it is always a draw.
     const isAdaptive = _practiceMode === 'adaptive' && _mode !== 'exam';
     // Rung 1 of the practice ladder (lib/practice-ladder.js): the config
@@ -2371,7 +2383,7 @@ export default function App() {
     // useExamSession owns the runtime state shape; this single call
     // primes questions/answers/currentIdx/timeLeft/examStartTime in
     // one synchronous batch (was 5 inline setters pre-refactor).
-    session.startNewSession(picked, firstTime, { sessionBudget: _mode === 'exam', timePerQ: baseTime });
+    session.startNewSession(picked, firstTime, { sessionBudget: _mode === 'exam', timePerQ: baseTime, budget: overrides.budget });
     setView('exam');
     // NOTE: the streak used to be bumped right here — i.e. for merely OPENING
     // a set, before a single answer. That inflated the header counter and made
@@ -3264,6 +3276,28 @@ export default function App() {
       selectedPhase: paperPhase,
     });
   };
+  // A predicted paper (PredictSet): its exact questions in print order. One
+  // part practises like a lecturer card; the whole paper runs as an exam on
+  // the paper's own clock, answers at the end.
+  const startPredictSet = ({ subjectId, ids, whole = false, timePerQ: perQ = 60, budget = null, timed = true }) => {
+    if (!subjectId || !Array.isArray(ids) || !ids.length) return;
+    startExam({
+      mode: whole ? 'exam' : 'quick',
+      subject: subjectId,
+      topic: null,
+      practiceMode: 'all',
+      onlyIds: ids,
+      keepOrder: true,
+      // The list is the set: a Panic or past-paper switch still armed must not re-rank or narrow it.
+      panicPool: false,
+      onlyPastPaper: false,
+      // A written part runs untimed, like a lecturer's written set: a clock
+      // would move on, or submit, in the middle of an answer.
+      useTimer: whole || timed,
+      // The whole paper runs on the paper's own length, a part on a per-question allowance.
+      ...(whole ? { budget } : { timePerQ: perQ }),
+    });
+  };
   // The pre-exam wrap-up of one subject (WrapUpView). The subject is set so
   // that "ฝึกหัวข้อนี้" and the reader's way back land on that subject.
   const openWrapUp = (subjectId, name = '') => {
@@ -3531,7 +3565,7 @@ export default function App() {
               {view === 'group-detail' && user && activeGroup && <GroupDetailView {...{ group: activeGroup, user, goBack: () => setView('groups'), onEditIdentity: () => setView('profile') }} />}
               {view === 'leaderboard-global' && user && <LeaderboardView {...{ user, goHome, selectedYear, setView }} />}
               {view === 'subject-select' && <SubjectSelectView {...{ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions, selectedYear, selectedPhase, qbReady, history }} />}
-              {view === 'topic-select' && <TopicSelectView onOpenInstructor={setOpenInstructor} initialSection={topicSection} onSectionChange={setTopicSection} {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, timePerQ, setTimePerQ, practiceMode, setPracticeMode, customQuestions, readingChecklist, selectedYear, selectedPhase, paperPhase, onStartPanic: startSubjectPanic, onStartLecturer: startLecturerPractice, onOpenDoc: openLibraryReader, instantFeedback, setInstantFeedback, onOpenWrapUp: openWrapUp, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }), setPastOnly }} hasHistory={(history?.length || 0) > 0} />}
+              {view === 'topic-select' && <TopicSelectView onOpenInstructor={setOpenInstructor} initialSection={topicSection} onSectionChange={setTopicSection} {...{ subject, setSubject, setTopic, setView, goHome, mode, setMode, setNumQuestions, setUseTimer, timePerQ, setTimePerQ, practiceMode, setPracticeMode, customQuestions, readingChecklist, selectedYear, selectedPhase, paperPhase, onStartPanic: startSubjectPanic, onStartLecturer: startLecturerPractice, onStartPredict: startPredictSet, onOpenDoc: openLibraryReader, instantFeedback, setInstantFeedback, onOpenWrapUp: openWrapUp, onOpenWiki: openWiki, onOpenVideos: (sourceSubject) => setView('videos', { subject: sourceSubject }), setPastOnly }} hasHistory={(history?.length || 0) > 0} />}
               {/* setSubject is what makes Back correct: NotesView already calls it when the
     reader switches subject, but without the prop the call was swallowed and
     Back returned to the previous subject's topic list. */}
