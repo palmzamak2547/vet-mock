@@ -39,7 +39,7 @@ import { CitedText, Keywords, Line, SignalLabel, WrapCiteContext } from '../comp
 import WrapDeck from '../components/WrapDeck.jsx';
 import WrapBoard from '../components/WrapBoard.jsx';
 import WrapSlide, { useSlideBase } from '../components/WrapSlide.jsx';
-import { slideFor, slideIndex } from '../lib/wrap-slide.js';
+import { itemSlides, slideFor, slideIndex } from '../lib/wrap-slide.js';
 import { deckKey } from '../lib/wrap-deck.js';
 import { EVIDENCE_LOADERS } from '../data/evidence/loaders.generated.js';
 import '../styles-wrap.css';
@@ -487,14 +487,12 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
               const doc = deck?.doc && docsBySlug ? docsBySlug.get(deck.doc) : null;
               // The slide each line cites, drawn under the first line that
               // cites that page (lib/wrap-slide.js); the rest keep the text.
-              const drawn = new Set();
+              // Decided here, before the lists draw, so a list drawn twice
+              // (StrictMode in development) draws the same slides.
+              const lineSlides = slides && typeof slideBase === 'string' ? itemSlides(it, slides) : null;
               const slideAt = (line) => {
-                if (!slides || typeof slideBase !== 'string') return null;
-                const rec = slideFor(line.src, slides);
-                const id = rec && `${rec.sha16}#${rec.page}`;
-                if (!rec || drawn.has(id)) return null;
-                drawn.add(id);
-                return <WrapSlide rec={rec} base={slideBase} />;
+                const rec = lineSlides?.get(line);
+                return rec ? <WrapSlide rec={rec} base={slideBase} /> : null;
               };
               // History, never a forecast: the cohorts that were asked this
               // item's cited past papers. No resolved cohort, no tag.

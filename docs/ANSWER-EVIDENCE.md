@@ -74,7 +74,10 @@ its own lines and boxes, and `index` files them after the hash. One verdict
 covers every page of a row, so `pages.py sheets` draws each of them under the
 first: another page or other boxes on any of them puts the row back in the
 queue, while a row without `also` keeps the signature it always had. The card
-shows the first page.
+shows every page in reading order, each with its own citation line, and paints
+them together; a further page that is malformed is left out, and a malformed
+first page shows nothing. A wrap-up line that cites a further page gets its
+picture too, since `slideIndex` reads the further pages as well.
 
 On 25 Nov 2026 the One Health forecast set was brought to the pages its
 answer key prints: 23 items gained a second page, 15 moved to the key's slide

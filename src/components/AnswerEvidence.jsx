@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { cropOf, evidenceBase, evidenceFor, forgetEvidenceBase, hasEvidence, knownBase, prefetchEvidence, slideUrl } from '../lib/evidence.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
@@ -48,6 +48,7 @@ export default function AnswerEvidence({ rec, late = false }) {
   const [base, setBase] = useState(() => knownBase());
   const [state, setState] = useState('wait');        // wait | ready | failed
   const [open, setOpen] = useState(false);
+  const citeId = useId();   // two pages under one answer: each button says which page it opens
   const triggerRef = useRef(null);
   const closeRef = useRef(null);
   const scrollRef = useRef(null);
@@ -96,10 +97,10 @@ export default function AnswerEvidence({ rec, late = false }) {
     <div className="vmx-evi">
       <div className="vmx-evi-head">
         <span className="k">จาก{kind}ที่เรียน</span>
-        <span className="vmx-evi-cite">{cite}</span>
+        <span className="vmx-evi-cite" id={citeId}>{cite}</span>
       </div>
       {!wanted && (
-        <button type="button" className="vmx-evi-ask" onClick={() => setWanted(true)}>ดูสไลด์ที่ใช้เฉลย</button>
+        <button type="button" className="vmx-evi-ask" aria-describedby={citeId} onClick={() => setWanted(true)}>ดูสไลด์ที่ใช้เฉลย</button>
       )}
       {wanted && src && (
         <button

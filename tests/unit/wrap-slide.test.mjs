@@ -3,7 +3,7 @@
 // ============================================================
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { deckCites, itemSlideAudit, normTitle, slideFor, slideIndex } from '../../src/lib/wrap-slide.js';
+import { deckCites, itemSlideAudit, itemSlides, normTitle, slideFor, slideIndex } from '../../src/lib/wrap-slide.js';
 
 const EV = {
   docs: [
@@ -46,6 +46,13 @@ test('the index holds only pages a row filed with a size, and drops a title two 
   assert.equal(slideIndex(null).size, 0);
 });
 
+test('a page filed only as a further page of an answer has its picture too', () => {
+  const index = slideIndex({ docs: EV.docs, q: { 1: [0, 97, 960, 540, [], 'h', [[0, 33, 720, 540, [[1, 2, 3, 4]]], 'junk', [0, 0, 720, 540, []]]] } });
+  const swine = index.get(normTitle('Swine Enteric Diseases'));
+  assert.deepEqual([...swine.pages.keys()].sort((a, b) => a - b), [33, 97]);
+  assert.deepEqual(swine.pages.get(33), { w: 720, h: 540 });
+});
+
 test('a line gets the first cited page that has a picture, unmarked', () => {
   const index = slideIndex(EV);
   assert.deepEqual(slideFor('เดค Swine Enteric Diseases หน้า 98, 97', index), {
@@ -55,6 +62,23 @@ test('a line gets the first cited page that has a picture, unmarked', () => {
   assert.equal(slideFor('เดค Swine Enteric Diseases หน้า 40', index), null, 'a page the store does not hold');
   assert.equal(slideFor('เดค Nipah หน้า 4', index), null, 'a deck the store does not hold');
   assert.equal(slideFor('เดค Swine Enteric Diseases หน้า 97', new Map()), null);
+});
+
+test('an item shows each page once, under the first line that cites it, however often it is drawn', () => {
+  const index = slideIndex(EV);
+  const a = { text: 'a', src: 'เดค Swine Enteric Diseases หน้า 97' };
+  const b = { text: 'b', src: 'เดค Swine Enteric Diseases หน้า 98, 97' }; // the same page again
+  const c = { text: 'c', src: 'เดค Nipah หน้า 4' }; // no picture
+  const d = { text: 'd', src: 'เดค Equine Surgery and Anesthesia หน้า 12' };
+  const item = { emphasis: [a, b, c], examined: [d] };
+  const first = itemSlides(item, index);
+  assert.deepEqual([...first.keys()], [a, d]);
+  assert.equal(first.get(a).page, 97);
+  assert.equal(first.get(d).sha16, 'bbbbbbbbbbbbbbbb');
+  // Drawn a second time (React StrictMode draws every list twice in development): the same slides, not none.
+  assert.deepEqual([...itemSlides(item, index).keys()], [a, d]);
+  assert.equal(itemSlides(item, new Map()).size, 0);
+  assert.equal(itemSlides({}, index).size, 0);
 });
 
 test('the audit lists every cited page with whether it has a picture', () => {

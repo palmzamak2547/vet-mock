@@ -49,7 +49,7 @@ export function deckCites(src) {
 
 /**
  * The pages that have a picture, from a subject's evidence index
- * ({ docs: [[sha16, slug, title, kind]], q: { id: [doc, page, w, h, boxes, hash] } }):
+ * ({ docs: [[sha16, slug, title, kind]], q: { id: [doc, page, w, h, boxes, hash, further?] } }):
  * Map(normTitle → { sha16, title, kind, pages: Map(page → { w, h }) }).
  * A title shared by two different documents is left out.
  */
@@ -69,9 +69,12 @@ export function slideIndex(evidence) {
   const byDoc = new Map([...byTitle.values()].map((v) => [v.doc, v]));
   for (const row of Object.values(evidence?.q || {})) {
     if (!Array.isArray(row)) continue;
-    const [doc, page, w, h] = row;
-    const entry = byDoc.get(doc);
-    if (entry && page > 0 && w > 0 && h > 0 && !entry.pages.has(page)) entry.pages.set(page, { w, h });
+    // A further page an answer rests on is filed after the hash (row[6]) and has its picture too.
+    for (const p of [row, ...(Array.isArray(row[6]) ? row[6] : [])]) {
+      const [doc, page, w, h] = Array.isArray(p) ? p : [];
+      const entry = byDoc.get(doc);
+      if (entry && page > 0 && w > 0 && h > 0 && !entry.pages.has(page)) entry.pages.set(page, { w, h });
+    }
   }
   return byTitle;
 }
@@ -93,6 +96,27 @@ export function slideFor(src, index) {
     }
   }
   return null;
+}
+
+/**
+ * The slide under each line of an item: Map(line → record) for the first line
+ * that cites each page with a picture, in reading order (emphasis, then
+ * examined). Worked out before the lines are drawn, so drawing a list twice
+ * draws the same slides: React StrictMode renders each list twice in
+ * development, and a list that marked pages as taken while it drew found
+ * every page taken on the second pass and drew none.
+ */
+export function itemSlides(item, index) {
+  const out = new Map();
+  const taken = new Set();
+  for (const line of [...(item?.emphasis || []), ...(item?.examined || [])]) {
+    const rec = slideFor(line?.src, index);
+    const id = rec && `${rec.sha16}#${rec.page}`;
+    if (!rec || taken.has(id)) continue;
+    taken.add(id);
+    out.set(line, rec);
+  }
+  return out;
 }
 
 /** Every deck page an item's lines cite, each with whether it has a picture: for the audit script and tests. */
