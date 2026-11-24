@@ -430,32 +430,43 @@ def wrap_text(draw, text, font, width):
     return out
 
 
-def panel(root, r, font):
+def drawn(root, sha16, page, boxes):
     from PIL import ImageDraw
-    pg = fitz.open(pdf_path(root, r['sha16']))[r['page'] - 1]
+    pg = fitz.open(pdf_path(root, sha16))[page - 1]
     z = 1000 / pg.rect.width
     pix = pg.get_pixmap(matrix=fitz.Matrix(z, z), alpha=False)
     img = Image.frombytes('RGB', (pix.width, pix.height), pix.samples).convert('RGBA')
     over = Image.new('RGBA', img.size, (0, 0, 0, 0))
     d = ImageDraw.Draw(over)
-    for x, y, w, h in r['boxes']:
+    for x, y, w, h in boxes:
         d.rectangle([x / 1000 * img.width, y / 1000 * img.height, (x + w) / 1000 * img.width, (y + h) / 1000 * img.height],
                     fill=(255, 200, 0, 90), outline=(200, 120, 0, 255), width=2)
     img = Image.alpha_composite(img, over).convert('RGB')
     if img.height > 700:
         img = img.resize((round(img.width * 700 / img.height), 700))
+    return img
+
+
+def panel(root, r, font):
+    from PIL import ImageDraw
+    # A row whose answer rests on further pages draws them under the first: its verdict covers every page.
+    also = r.get('also') or []
+    imgs = [drawn(root, r['sha16'], r['page'], r['boxes'])] + [drawn(root, a['sha16'], a['page'], a.get('boxes') or []) for a in also]
     probe = ImageDraw.Draw(Image.new('RGB', (10, 10)))
-    head = f"{r['qid']} [{r['type']}] p{r['page']}{' (picture)' if r['pictured'] else ''}"
+    more = ''.join(f" + {a['sha16'][:6]} p{a['page']}" for a in also)
+    head = f"{r['qid']} [{r['type']}] p{r['page']}{more}{' (picture)' if r['pictured'] else ''}"
     if r.get('numbers'):
         head += f"  numbers of the key not on the lines: {', '.join(r['numbers'])}"
     rows = [(head, (0, 90, 160))] + [(t, (20, 20, 20)) for t in wrap_text(probe, 'Q: ' + r['q'][:420], font, SHEET_W - 30)] \
         + [(t, (0, 120, 40)) for t in wrap_text(probe, 'KEY: ' + r['key'][:300], font, SHEET_W - 30)]
     top = 28 * len(rows) + 16
-    out = Image.new('RGB', (SHEET_W, top + img.height + 14), 'white')
+    out = Image.new('RGB', (SHEET_W, top + sum(i.height + 14 for i in imgs)), 'white')
     d = ImageDraw.Draw(out)
     for i, (t, colour) in enumerate(rows):
         d.text((14, 8 + 28 * i), t, font=font, fill=colour)
-    out.paste(img, (14, top))
+    for img in imgs:
+        out.paste(img, (14, top))
+        top += img.height + 14
     d.line([(0, out.height - 2), (SHEET_W, out.height - 2)], fill=(0, 0, 0), width=2)
     return out
 

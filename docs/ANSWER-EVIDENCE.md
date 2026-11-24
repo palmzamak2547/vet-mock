@@ -26,7 +26,9 @@ list. A timed paper reveals nothing in session, as before.
 ## What is public and what is not
 
 The repository is public. A row in the index is a citation: document, page,
-boxes in thousandths of the page, and the hash. It holds no slide text.
+boxes in thousandths of the page, and the hash. It holds no slide text. An
+answer that rests on more than one page files the others after the hash, each
+as document, page, width, height and boxes.
 
 The page image is course material, served like the library's files: to Chula
 members only. Images are stored as `e/<folder>/<sha256_16>/pNNN.webp`. The
@@ -62,6 +64,25 @@ needs to be remembered by whoever made the edit, and `lint:evidence` counts
 such rows instead of failing. The stem that is hashed is the whole sentence
 (`wholeStem`): a stem whose numbers moved into a passage table keeps that
 sentence in `say`, so laying it out as a table keeps its slide.
+
+## An answer that rests on two pages
+
+Some answers need a second page: a heading on one slide and its figure on the
+next, or a step's name on one and its definition a few slides on. The
+registry row then holds `also`, the further pages in reading order, each with
+its own lines and boxes, and `index` files them after the hash. One verdict
+covers every page of a row, so `pages.py sheets` draws each of them under the
+first: another page or other boxes on any of them puts the row back in the
+queue, while a row without `also` keeps the signature it always had. The card
+shows the first page.
+
+On 25 Nov 2026 the One Health forecast set was brought to the pages its
+answer key prints: 23 items gained a second page, 15 moved to the key's slide
+(11 of them had shown a page whole, with no highlight) and one page shown
+whole gained the key's frames, each drawn beside the key's picture and looked
+at. Seven items keep what they showed: there the shown highlight sits on the
+printed words that settle the item, and the key's mark on a handwritten note
+or on the lines around them.
 
 ## How a slide is matched
 
