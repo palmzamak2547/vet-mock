@@ -38,14 +38,16 @@ export function evidenceFor(q) {
   const rec = pageOf(index, doc, page, w, h, boxes);
   if (!rec) return null;
   // An answer that rests on more than one page files the others after the hash; a malformed one is left out.
-  const rest = Array.isArray(more) ? more.map((m) => (Array.isArray(m) ? pageOf(index, ...m) : null)).filter(Boolean) : [];
+  const rest = Array.isArray(more) ? more.map((m) => (Array.isArray(m) && m.length === 5 ? pageOf(index, ...m) : null)).filter(Boolean) : [];
   return rest.length ? { ...rec, more: rest } : rec;
 }
 
 function pageOf(index, doc, page, w, h, boxes) {
   const d = Number.isInteger(doc) ? index.docs?.[doc] : null;
-  if (!Array.isArray(d) || !Number.isInteger(page) || page < 1 || !(w > 0 && h > 0) || !Array.isArray(boxes)
-    || !boxes.every((b) => Array.isArray(b) && b.length === 4 && b.every(Number.isFinite))) return null;
+  const size = (n) => Number.isFinite(n) && n > 0;   // a number, not '960' and not Infinity: the frame's shape divides by it
+  // Spread before every(): it skips the holes of a sparse array, and a hole would reach the frame as undefined.
+  if (!Array.isArray(d) || !Number.isSafeInteger(page) || page < 1 || !(size(w) && size(h)) || !Array.isArray(boxes)
+    || ![...boxes].every((b) => Array.isArray(b) && b.length === 4 && [...b].every(Number.isFinite))) return null;
   const [sha16, slug, title, kind] = d;
   return sha16 ? { sha16, slug, title, kind, page, w, h, boxes } : null;
 }

@@ -25,7 +25,8 @@ async function pickQuestion() {
   for (const file of bankFiles('src/data').filter((f) => /equine/.test(f))) {
     for (const q of (await readBank(file)).questions) {
       const row = q.subject === SUBJECT && q.type === 'mcq' && EVIDENCE.q[q.id];
-      if (row && row[4].length && row[5] === evidenceHash(q)) return { q, row, doc: EVIDENCE.docs[row[0]] };
+      // One page only: the checks below read the answer's block as a single frame.
+      if (row && row[4].length && row[5] === evidenceHash(q) && !row[6]?.length) return { q, row, doc: EVIDENCE.docs[row[0]] };
     }
   }
   return null;

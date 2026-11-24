@@ -489,7 +489,7 @@ export default function WrapUpView({ subject, subjectName = '', goBack, onStartT
               // cites that page (lib/wrap-slide.js); the rest keep the text.
               // Decided here, before the lists draw, so a list drawn twice
               // (StrictMode in development) draws the same slides.
-              const lineSlides = slides && typeof slideBase === 'string' ? itemSlides(it, slides) : null;
+              const lineSlides = shownMode === 'full' && slides && typeof slideBase === 'string' ? itemSlides(it, slides) : null;
               const slideAt = (line) => {
                 const rec = lineSlides?.get(line);
                 return rec ? <WrapSlide rec={rec} base={slideBase} /> : null;

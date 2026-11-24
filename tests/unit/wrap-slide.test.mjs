@@ -37,6 +37,11 @@ test('a citation names its deck pages; a range names none', () => {
   assert.deepEqual(deckCites(undefined), []);
 });
 
+test('a page whose number or size is not a plain number gets no picture', () => {
+  const index = slideIndex({ docs: EV.docs, q: { 1: [0, '5', 960, 540, [], 'h'], 2: [0, 6, Infinity, 540, [], 'h'], 3: [0, 7.5, 960, 540, [], 'h'], 4: [0, 8, '960', 540, [], 'h'], 5: [0, 1e21, 960, 540, [], 'h'] } });
+  assert.deepEqual([...index.get(normTitle('Swine Enteric Diseases')).pages.keys()], []);
+});
+
 test('the index holds only pages a row filed with a size, and drops a title two documents share', () => {
   const index = slideIndex(EV);
   const swine = index.get(normTitle('Swine Enteric Diseases'));
@@ -64,19 +69,21 @@ test('a line gets the first cited page that has a picture, unmarked', () => {
   assert.equal(slideFor('เดค Swine Enteric Diseases หน้า 97', new Map()), null);
 });
 
-test('an item shows each page once, under the first line that cites it, however often it is drawn', () => {
+test('an item shows each page once, under the first line that cites it', () => {
   const index = slideIndex(EV);
   const a = { text: 'a', src: 'เดค Swine Enteric Diseases หน้า 97' };
   const b = { text: 'b', src: 'เดค Swine Enteric Diseases หน้า 98, 97' }; // the same page again
   const c = { text: 'c', src: 'เดค Nipah หน้า 4' }; // no picture
   const d = { text: 'd', src: 'เดค Equine Surgery and Anesthesia หน้า 12' };
-  const item = { emphasis: [a, b, c], examined: [d] };
+  const e = { text: 'e', src: 'เดค Swine Enteric Diseases หน้า 97, 5' }; // its first page is drawn: it takes its next one
+  const item = { emphasis: [a, b, c, e], examined: [d] };
   const first = itemSlides(item, index);
-  assert.deepEqual([...first.keys()], [a, d]);
+  assert.deepEqual([...first.keys()], [a, e, d]);
   assert.equal(first.get(a).page, 97);
+  assert.equal(first.get(e).page, 5);
   assert.equal(first.get(d).sha16, 'bbbbbbbbbbbbbbbb');
-  // Drawn a second time (React StrictMode draws every list twice in development): the same slides, not none.
-  assert.deepEqual([...itemSlides(item, index).keys()], [a, d]);
+  // Nothing is marked on the item: asked again (the view asks on every render), the same lines get their slides.
+  assert.deepEqual([...itemSlides(item, index).keys()], [a, e, d]);
   assert.equal(itemSlides(item, new Map()).size, 0);
   assert.equal(itemSlides({}, index).size, 0);
 });

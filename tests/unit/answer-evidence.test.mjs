@@ -50,8 +50,10 @@ test('an answer that rests on two pages carries the second; a malformed further 
   resetEvidence();
   const h = evidenceHash(mcq);
   const docs = [['0123456789abcdef', 'deck', 'Deck', 'slide'], ['fedcba9876543210', 'notes', 'Notes', 'handout']];
+  const holey = Object.assign(new Array(2), { 1: [1, 2, 3, 4] });   // a list of boxes whose first place is empty
   const more = [[1, 9, 720, 540, [[5, 6, 7, 8]]], [4, 1, 960, 540, []], [0, 2, 0, 540, []], 'not a page',
-    ['length', 2, 960, 540, []], [0, 0, 960, 540, []], [0, 2.5, 960, 540, []], [0, 2, 960, 540, [null]], [0, 2, 960, 540, [[1, 2, 3]]]];
+    ['0', 2, 960, 540, []], [0, 0, 960, 540, []], [0, 2.5, 960, 540, []], [0, 2, 960, 540, [null]], [0, 2, 960, 540, [[1, 2, 3]]],
+    [0, 2, Infinity, 540, []], [0, 2, '960', 540, []], [0, 2, 960, 540, holey], [0, 2, 960, 540, [], 'sixth'], [0, 1e21, 960, 540, []]];
   const loaders = { s: async () => ({ EVIDENCE: { docs, q: { 7: [0, 3, 960, 540, [[1, 2, 3, 4]], h, more], 8: [0, 3, 960, 540, [], h, []], 9: [0, 3, 0, 540, [], h, more] } } }) };
   await prefetchEvidence('s', loaders);
   assert.deepEqual(evidenceFor(mcq), {
