@@ -105,6 +105,10 @@ export default defineConfig({
           // each first load fetched the 40 KB summaries index (14 KB gzip)
           // for one small function. vendor-react loads on first paint anyway.
           if (id.includes('vite/preload-helper')) return 'vendor-react'
+          // search-key is a 400-byte leaf shared by eight lazy screens, Home's
+          // library counts among them. Unclaimed, Rollup gave it a chunk of its
+          // own: one more request on Home's first visit (perf-budget.spec.js).
+          if (id.includes('src/lib/search-key')) return 'vendor-react'
           if (id.includes('node_modules')) {
             if (/[\\/]node_modules[\\/]three[\\/]/.test(id)) return 'vendor-atlas'
             if (/[\\/]node_modules[\\/]lucide-react[\\/]/.test(id)) return 'vendor-icons'
