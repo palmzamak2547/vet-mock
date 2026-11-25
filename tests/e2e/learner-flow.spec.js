@@ -222,24 +222,52 @@ test('a double tap, a double key press, or next and the map at once, moves one q
   test.setTimeout(120_000);
   await resume(page, context, { questions: LONG, mode: 'exam', timed: true });
   const steps = { dblNext: [], doubleKey: [], nextThenMap: [], dblPrev: [] };
-  const settle = () => page.waitForTimeout(400);
+  // Then two frames, as a runner's own click waits for before it clicks: the
+  // question the move showed has painted, so its hold is released. A busy
+  // WebKit can take longer than 400 ms to paint it.
+  const settle = async () => {
+    await page.waitForTimeout(400);
+    await page.evaluate(() => new Promise((done) => requestAnimationFrame(() => requestAnimationFrame(done))));
+  };
   // The counts are the evidence: recorded however the test ends.
   test.info().annotations.push({ type: 'steps', description: '' });
   const note = test.info().annotations[test.info().annotations.length - 1];
   const record = (k, v) => { steps[k].push(v); note.description = JSON.stringify(steps); };
-  // Real double clicks on ข้อถัดไป.
+  // A double input as the fault happened: the second lands the moment the move
+  // is on the page, on the new question's own button or key handler, before
+  // that question is painted. Only the move guard (useExamSession.js) can
+  // refuse it. Both inputs run in one task: two inputs the runner sends one
+  // after the other can land more than 120 ms apart on a busy machine, and the
+  // guard rightly takes a second input that late as deliberate (MOVE_FLOOR_MS).
+  // Two inputs with no move between them would reach the same old handler and
+  // prove nothing, so the case fails if the move is not on the page first.
+  const twice = async (target) => {
+    const moved = await page.evaluate(async (target) => {
+      const shown = () => document.querySelector('.vmx-progress').textContent;
+      const input = () => {
+        if (target === 'key') document.querySelector('.vmx-qtext').dispatchEvent(new KeyboardEvent('keydown', { key: 'j', bubbles: true, cancelable: true }));
+        else document.querySelector(target).click();
+      };
+      const before = shown();
+      input();
+      for (let i = 0; i < 20 && shown() === before; i++) await Promise.resolve();
+      const done = shown() !== before;
+      input();
+      return done;
+    }, target);
+    expect(moved, 'the first input moved before the second landed').toBe(true);
+  };
+  // A double tap on ข้อถัดไป.
   for (let k = 0; k < 4; k++) {
     const a = await position(page);
-    await page.locator('.vmx-exam-next').dblclick();
+    await twice('.vmx-exam-next');
     await settle();
     record('dblNext', await position(page) - a);
   }
-  // The next key pressed twice, from the question text.
+  // The next key pressed twice.
   for (let k = 0; k < 3; k++) {
-    await page.locator('.vmx-qtext').click();
     const a = await position(page);
-    await page.keyboard.press('j');
-    await page.keyboard.press('j');
+    await twice('key');
     await settle();
     record('doubleKey', await position(page) - a);
   }
@@ -260,7 +288,7 @@ test('a double tap, a double key press, or next and the map at once, moves one q
   // And back.
   for (let k = 0; k < 2; k++) {
     const a = await position(page);
-    await page.locator('.vmx-exam-prev').dblclick();
+    await twice('.vmx-exam-prev');
     await settle();
     record('dblPrev', await position(page) - a);
   }
