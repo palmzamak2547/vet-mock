@@ -117,6 +117,9 @@ export const EXAM_ORIGINS = Object.freeze({
   "Zoonoses midterm Vet 83 บันทึกหลังสอบ": { kind: 'paper', cohort: 83, paper: 'midterm' },
   "Zoonoses midterm บันทึกหลังสอบ (ไม่ระบุรุ่น)": { kind: 'paper', cohort: null, paper: 'midterm' },
   "Zoonoses บันทึกข้อสอบเก่า ไม่ระบุว่ากลางภาคหรือปลายภาค": { kind: 'paper', cohort: null, paper: null },
+  // A Bacterial Zoonosis paper of academic year 2553, written down after the paper with the writer's own key, in the
+  // Vet 86 class pack for the final (pages 11 and 12). The record names the year, not the cohort that sat it or the paper.
+  "Zoonoses ข้อสอบเก่าปีการศึกษา 2553 บันทึกหลังสอบ (ไม่ระบุรุ่น)": { kind: 'paper', cohort: null, paper: null },
   "Equine Med & Surg final บันทึกหลังสอบ (ไม่ระบุรุ่น)": { kind: 'paper', cohort: null, paper: 'final' },
   "Equine Med & Surg midterm บันทึกหลังสอบ (ไม่ระบุรุ่น)": { kind: 'paper', cohort: null, paper: 'midterm' },
   "Equine Med & Surg final Vet 83 บันทึกหลังสอบ": { kind: 'paper', cohort: 83, paper: 'final' },

@@ -573,7 +573,7 @@ const LEAVES = [
  [6412],
  // end ["jaundice|universal","vca","swine"]
  // ["jaundice|universal","zoonoses","zoo-bacterial"]
- [106007],
+ [106007,219902],
  // end ["jaundice|universal","zoonoses","zoo-bacterial"]
  // ["jaundice|universal","zoonoses","zoo-vbz"]
  [208039],
@@ -5005,7 +5005,7 @@ const LEAVES = [
  [202016,208032,208104,208106,106105],
  // end ["reservoir|public-health","zoonoses","zoo-ai-basic"]
  // ["reservoir|public-health","zoonoses","zoo-bacterial"]
- [106006,106008,106009,106011,106012,106015,106017,106021,106024,106030,216804,216830,210552,210562],
+ [106006,106008,106009,106011,106012,106015,106017,106021,106024,106030,216804,216830,219901,210552,210562],
  // end ["reservoir|public-health","zoonoses","zoo-bacterial"]
  // ["reservoir|public-health","zoonoses","zoo-corona"]
  [202021,202337,202338,106110],
@@ -5026,7 +5026,7 @@ const LEAVES = [
  [202346,202349,208025,208059,208124],
  // end ["reservoir|public-health","zoonoses","zoo-helminthic"]
  // ["reservoir|public-health","zoonoses","zoo-mycoses"]
- [106150,216851,216852,210589,210591],
+ [106150,216851,216852,219914,210589,210591],
  // end ["reservoir|public-health","zoonoses","zoo-mycoses"]
  // ["reservoir|public-health","zoonoses","zoo-protozoal"]
  [208140],
@@ -5267,7 +5267,7 @@ const LEAVES = [
  [208032],
  // end ["vector|public-health","zoonoses","zoo-ai-basic"]
  // ["vector|public-health","zoonoses","zoo-bacterial"]
- [8031,106006,106009,106013,106030,216808,216822,216835,210559,210575],
+ [8031,106006,106009,106013,106030,216808,216822,216835,219900,210559,210575],
  // end ["vector|public-health","zoonoses","zoo-bacterial"]
  // ["vector|public-health","zoonoses","zoo-corona"]
  [202021],
@@ -5344,7 +5344,7 @@ const LEAVES = [
  [93027,93028,93029],
  // end ["zoonosis|public-health","vet-juris","animal-epidemic-act-2558"]
  // ["zoonosis|public-health","zoonoses","zoo-bacterial"]
- [8031,8036,106005,106007,106008,106010,106016,106018,106019,106022,106024,216801,216805,216820,216823,216828,210564],
+ [8031,8036,106005,106007,106008,106010,106016,106018,106019,106022,106024,216801,216805,216820,216823,216828,219901,210564],
  // end ["zoonosis|public-health","zoonoses","zoo-bacterial"]
  // ["zoonosis|public-health","zoonoses","zoo-corona"]
  [106114],
