@@ -437,8 +437,10 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   if (currentQ.type === 'fill' && !isAnswered(currentAnswer)) FILL_CHECKED.delete(compoundId);
   const [fillCheckedNow, setFillCheckedNow] = useState(null);
   // Fill follows the written answers' timing: with เฉลยหลังส่งทั้งชุด it waits for the review.
+  // An item already checked stays checked and locked when the timing is switched on another card,
+  // or the key just read could be typed in.
   const fillRow = Boolean(revealAnswer) && writtenTiming === REVEAL_ROW;
-  const fillRevealed = fillRow && fillComplete && FILL_CHECKED.has(compoundId);
+  const fillRevealed = Boolean(revealAnswer) && fillComplete && FILL_CHECKED.has(compoundId);
   const fillOk = fillRevealed && isCorrect(currentQ, currentAnswer);
   const fillReport = fillRevealed ? fillBlankReport(currentQ, currentAnswer) : [];
   const fillRight = fillReport.filter((b) => b.ok).length;
@@ -489,7 +491,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   const isTfc = currentQ.type === 'tfc';
   const tfcComplete = isTfc && fillFilled(currentQ, currentAnswer);
   if (isTfc && !isAnswered(currentAnswer)) FILL_CHECKED.delete(compoundId);
-  const tfcRevealed = isTfc && fillRow && tfcComplete && FILL_CHECKED.has(compoundId);
+  const tfcRevealed = isTfc && Boolean(revealAnswer) && tfcComplete && FILL_CHECKED.has(compoundId);
   const tfcOut = tfcRevealed ? tfcOutcome(currentQ, currentAnswer) : null;
   const tfcFieldId = `vmx-tfc-${currentQ.subject}-${currentQ.id}`;
   const checkTfc = () => {

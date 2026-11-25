@@ -7,8 +7,11 @@
 // so this type reveals exactly when a fill-in item does: on ตรวจคำตอบ, never on the tap, because
 // the verdict must not show before the correction is typed.
 
-import { useRef } from 'react';
 import { TYPED_MAX_CHARS } from '../hooks/utils.js';
+
+// The correction put away when the student switched to ถูก, by field, for this page load: one
+// card serves the whole set, so each item keeps its own. A fresh (unanswered) item drops its own.
+const TFC_DRAFTS = new Map();
 
 export const tfcVerdict = (answer) => (Array.isArray(answer) && (answer[0] === 'T' || answer[0] === 'F') ? answer[0] : null);
 export const tfcText = (answer) => (Array.isArray(answer) && answer[0] === 'F' && typeof answer[1] === 'string' ? answer[1] : '');
@@ -17,17 +20,16 @@ export default function TfcControls({ q, answer, answerCurrent, revealed = false
   const picked = tfcVerdict(answer);
   const text = tfcText(answer);
   const keyIs = q.answer === true ? 'T' : 'F';
-  // The correction put away when the student switched to ถูก, by field: one card serves the whole set.
-  const draft = useRef({ field: null, text: '' });
+  if (!picked) TFC_DRAFTS.delete(fieldId);
   const pick = (value) => {
     if (revealed) return;
     if (value === 'T') {
-      if (text) draft.current = { field: fieldId, text };
+      if (picked === 'F') TFC_DRAFTS.set(fieldId, text);
       answerCurrent(['T']);
       return;
     }
     // The correction typed so far comes back when the student returns to ผิด.
-    answerCurrent(['F', picked === 'F' ? text : draft.current.field === fieldId ? draft.current.text : '']);
+    answerCurrent(['F', picked === 'F' ? text : TFC_DRAFTS.get(fieldId) ?? '']);
   };
   // After the check each button says in words what it is, as a true/false card does.
   const mark = (value) => {

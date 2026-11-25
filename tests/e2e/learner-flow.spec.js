@@ -132,9 +132,15 @@ test('a true-false item with a written correction waits for the check, then mark
   await expect(panel).toHaveCount(0);
   await field.fill('2500');
   await expect(field).toHaveAttribute('maxlength', '200');
-  // To ถูก and back to ผิด: the correction typed so far comes back.
+  // To ถูก, a correction typed and put away on the next item too, then back to ผิด here:
+  // each item's correction comes back.
   await tfcBtn(page, 'ถูก').click();
   await expect(field).toHaveCount(0);
+  await page.locator('.vmx-exam-next').click();
+  await tfcBtn(page, 'ผิด').click();
+  await field.fill('อะไรสักอย่าง');
+  await tfcBtn(page, 'ถูก').click();
+  await page.locator('.vmx-exam-prev').click();
   await tfcBtn(page, 'ผิด').click();
   await expect(field).toHaveValue('2500');
   // The live tally waits for the check too, or it would say whether the text is right.
@@ -149,10 +155,18 @@ test('a true-false item with a written correction waits for the check, then mark
   await expect(field).toHaveJSProperty('readOnly', true);
   await tfcBtn(page, 'ถูก').click({ force: true });
   await expect(tfcBtn(page, 'ผิด')).toHaveAttribute('aria-pressed', 'true');
-  // A true statement marked ผิด.
+  // It stays checked and locked when the timing is switched on another card.
+  const timing = (name) => page.locator('.vmx-reveal-toggle').getByRole('button', { name, exact: true });
   await page.locator('.vmx-exam-next').click();
+  await timing('เฉลยหลังส่งทั้งชุด').click();
+  await page.locator('.vmx-exam-prev').click();
+  await expect(panel).toBeVisible();
+  await expect(field).toHaveJSProperty('readOnly', true);
+  // A true statement marked ผิด, its own correction back from before.
+  await page.locator('.vmx-exam-next').click();
+  await timing('เฉลยได้ทันที').click();
   await tfcBtn(page, 'ผิด').click();
-  await field.fill('อะไรสักอย่าง');
+  await expect(field).toHaveValue('อะไรสักอย่าง');
   await page.getByRole('button', { name: 'ตรวจคำตอบ', exact: true }).click();
   await expect(panel.locator('.vmx-feedback-headline .v')).toHaveText('✗ ข้อความนี้ถูกอยู่แล้ว');
 });

@@ -130,7 +130,7 @@ function containsKey(u, bl) {
 // that apart from a list.
 const JOINER = /\s*(?:หรือ|\/)\s*|(?:^|\s+)or(?:\s+|$)/;
 const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-function namesAnother(u, bl, right) {
+function namesAnother(u, bl, right, stemNumbers = null) {
   // A right answer that holds a joiner of its own ("2/1", "กินหรือดื่ม") is one
   // alternative: it is set aside whole before the answer is split, so "2/1" is
   // one answer and "2/1 or 8/1" is still two.
@@ -140,7 +140,16 @@ function namesAnother(u, bl, right) {
   });
   const parts = text.split(JOINER).map((part) => part.trim()).filter(Boolean);
   if (parts.length < 2) return false;
-  return !parts.every((part) => part.includes('\u0000') || right.some((key) => part === key || (part.length >= 3 && containsKey(part, key))));
+  // Each alternative by the rule of the key it names: a number by the number
+  // rule ("2:1.5" is not 2:1), and a form set aside above must not be negated.
+  const isRight = (part) => {
+    const at = part.indexOf('\u0000');
+    if (at >= 0) return !NEGATED.test(part.slice(0, at));
+    return right.some((key) => (NUMERIC_KEY.test(key)
+      ? numericBlankCorrect(part, key, stemNumbers)
+      : part === key || (part.length >= 3 && containsKey(part, key))));
+  };
+  return !parts.every(isRight);
 }
 
 // `also`: the blank's other right answers (the key and its accept entries), so
@@ -152,7 +161,7 @@ function blankMatches(rawAnswer, rawKey, allowFragment = true, stemNumbers = nul
   if (u === bl) return true;
   if (NUMERIC_KEY.test(bl)) return numericBlankCorrect(u, bl, stemNumbers);
   if (u.length < 3) return false;
-  if (containsKey(u, bl)) return !namesAnother(u, bl, [bl, ...(also || []).map(normFill)]);
+  if (containsKey(u, bl)) return !namesAnother(u, bl, [bl, ...(also || []).map(normFill)], stemNumbers);
   // Writing LESS used to be fine too, and that was the bug: any three
   // characters of the key scored full marks. Measured on the corpus,
   // 36 of 60 blanks accepted their own first three letters — "lat" for

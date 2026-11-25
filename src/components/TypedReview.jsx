@@ -68,7 +68,7 @@ export function TfcKey({ q }) {
           {at === -1 ? <RichText text={sentence} /> : <>{sentence.slice(0, at)}<mark>{right}</mark>{sentence.slice(at + right.length)}</>}
         </span>
       ) : null}
-      {q.fix?.selfCheck === true ? <span className="vmx-tfc-self">ข้อนี้นับคะแนนจากถูกหรือผิด ส่วนคำที่แก้ให้เทียบกับเฉลยเอง</span> : null}
+      {q.fix?.selfCheck === true ? <span className="vmx-tfc-self">ข้อนี้ได้คะแนนเมื่อตัดสินว่าผิดและเขียนคำที่แก้ไว้ ส่วนคำที่แก้ให้เทียบกับเฉลยเอง</span> : null}
     </>
   );
 }

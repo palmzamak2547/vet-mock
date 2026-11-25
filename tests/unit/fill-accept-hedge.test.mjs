@@ -91,6 +91,12 @@ test('a comma is not a joiner, and an accepted form that holds a joiner is one a
   assert.equal(isCorrect(ratio, typed(ratio, 0, '2/1 or 8/1')), false);
   assert.equal(isCorrect(ratio, typed(ratio, 0, '2/1 หรือ 12/1')), false);
   assert.equal(isCorrect(ratio, typed(ratio, 0, '2/1 / 2:1')), true, 'two forms of the same answer');
+  // Each alternative by its own key's rule: a ratio by the number rule.
+  assert.equal(isCorrect(ratio, typed(ratio, 0, '2/1 or 2:1.5')), false);
+  assert.equal(isCorrect(ratio, typed(ratio, 0, '2/1 หรือ 2:1 ถึง 3:1')), false);
+  // A form set aside whole is still read for "not" before it.
+  assert.equal(isCorrect(fill('คือ ____', ['T3/T4']), ['not T3/T4 or T3/T4']), false);
+  assert.equal(isCorrect(fill('คือ ____', ['T3/T4']), ['T3/T4 หรือ T3/T4']), true);
 });
 
 test('one answer written with more words, or two forms of the same answer, is still right', () => {
