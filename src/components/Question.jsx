@@ -1,7 +1,8 @@
 import { examScopeLabel } from '../lib/question-prediction.js';
 import { scopeOfQuestion } from '../lib/exam-scope.js';
-import { useRef, useState, useEffect, useMemo, useSyncExternalStore } from 'react';
-import { subjectText, isAnswered, isCorrect, fillBlankMarks } from '../hooks/utils.js';
+import { Fragment, useRef, useState, useEffect, useMemo, useSyncExternalStore } from 'react';
+import { subjectText, isAnswered, isCorrect, fillBlankReport, fillFilledCount, fillUnorderedGroups, fillBlankNumeric } from '../hooks/utils.js';
+import { fillStemParts, fillHead } from '../lib/fill-stem.js';
 import { SUBJECTS } from '../data/questions.js';
 import { RichText } from '../lib/richtext.jsx';
 import WikiLinkForQuestion from './WikiLinkForQuestion.jsx';
@@ -207,7 +208,8 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     // phrase is marked in it.
     // The voice reads Thai: with the English stem or options on screen it marks no phrase in them.
     container: (kind, option = -1) => (kind === 'stem'
-      ? (what === 'q' ? (saysTable || stemShortened || shownEnglishStem ? null : stemRef.current) : (saysParagraph ? null : explainRef.current))
+      // A fill-in stem holds its gap chips, so its text is not the text the voice reads.
+      ? (what === 'q' ? (saysTable || stemShortened || shownEnglishStem || fillParts ? null : stemRef.current) : (saysParagraph ? null : explainRef.current))
       : (shownEnglishOptions ? null : stemRef.current?.closest('.vmx-question-card')?.querySelectorAll('.vmx-option')[option] || null)),
     // The element kept above the bar while a piece is read: the table, while the voice says its numbers.
     block: (kind, option = -1) => (kind === 'stem' && what === 'q' && saysTable ? passageRef.current : null)
@@ -433,12 +435,47 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   const fillRow = Boolean(revealAnswer) && writtenTiming === REVEAL_ROW;
   const fillRevealed = fillRow && fillComplete && FILL_CHECKED.has(compoundId);
   const fillOk = fillRevealed && isCorrect(currentQ, currentAnswer);
-  const fillMarks = fillRevealed ? fillBlankMarks(currentQ, currentAnswer) : [];
-  const fillRight = fillMarks.filter(Boolean).length;
+  const fillReport = fillRevealed ? fillBlankReport(currentQ, currentAnswer) : [];
+  const fillRight = fillReport.filter((b) => b.ok).length;
+  const fillCount = currentQ.type === 'fill' && Array.isArray(currentQ.blanks) ? currentQ.blanks.length : 0;
+  const fillDone = fillCount ? fillFilledCount(currentQ, currentAnswer) : 0;
+  // The stem cut at its gaps, so each gap is a numbered place that shows what
+  // was typed for it. A stem whose gaps do not match its blanks keeps its
+  // underscores and the fields are named by number alone.
+  const fillParts = useMemo(
+    () => (fillCount ? fillStemParts(stemShown, fillCount) : null),
+    [stemShown, fillCount],
+  );
+  const fillFree = useMemo(() => new Set(fillUnorderedGroups(currentQ).flat()), [currentQ]);
+  const fillInputId = (i) => `vmx-fill-${currentQ.subject}-${currentQ.id}-${i}`;
+  const fillTyped = (i) => String((Array.isArray(currentAnswer) && currentAnswer[i]) || '');
+  // The first blank still empty, looking from the one after `from` and around.
+  const fillNextEmpty = (from) => {
+    for (let step = 1; step <= fillCount; step++) {
+      const i = (from + step) % fillCount;
+      if (!fillTyped(i).trim()) return i;
+    }
+    return -1;
+  };
+  const focusFill = (i) => { try { document.getElementById(fillInputId(i))?.focus(); } catch { /* no document */ } };
   const checkFill = () => {
-    if (!fillRow || !fillComplete) return;
+    if (!fillRow) return;
+    // Pressed with a blank still empty: go to that blank. The count under the
+    // fields already says how many are left.
+    if (!fillComplete) { focusFill(fillNextEmpty(-1)); return; }
     FILL_CHECKED.add(compoundId);
     setFillCheckedNow(compoundId);
+  };
+  // Enter goes to the next empty blank. With none left it checks (practice),
+  // and in a timed paper it only puts the keyboard away.
+  const fillEnter = (e, i) => {
+    if (e.key !== 'Enter' || e.nativeEvent?.isComposing) return;
+    e.preventDefault();
+    if (fillRevealed) return;
+    const next = fillTyped(i).trim() ? fillNextEmpty(i) : -1;
+    if (next !== -1 && next !== i) { focusFill(next); return; }
+    if (!fillTyped(i).trim()) return;
+    if (fillRow) checkFill(); else e.currentTarget.blur?.();
   };
   const keyShown = mcqRevealed || tfRevealed || fillRevealed || Boolean(revealAnswer && matchFilled) || Boolean(writtenRevealPanel);
   // The header line in words, for the hover title: a held topic stays out
@@ -519,7 +556,27 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 
   const contentBlock = (
     <div className="vmx-q-content-pane">
-      {stemSplit ? (
+      {fillParts ? (
+        // A fill-in stem: each gap is a numbered place, and shows the words typed for it.
+        <h2 ref={stemRef} className={`vmx-qtext vmx-fill-stem${readWhat === 'q' && readKind === 'stem' ? ' is-reading' : ''}`}>
+          {fillParts.texts.map((t, i) => (
+            <Fragment key={i}>
+              {t ? <TermLinkedRichText text={t} subject={currentQ.subject} /> : null}
+              {i < fillCount && (() => {
+                const typed = fillTyped(i).trim();
+                const mark = fillRevealed ? (fillReport[i]?.ok ? ' is-ok' : ' is-no') : '';
+                return (
+                  <span className={`vmx-fill-gap${typed ? ' is-typed' : ''}${mark}`}>
+                    <span className="vmx-sr-only">{`ช่องที่ ${i + 1}${typed ? ': ' : ' ยังว่าง'}`}</span>
+                    <span className="n" aria-hidden="true">{i + 1}</span>
+                    {typed ? <span className="t">{typed}</span> : null}
+                  </span>
+                );
+              })()}
+            </Fragment>
+          ))}
+        </h2>
+      ) : stemSplit ? (
         <SplitStem
           text={stemShown}
           split={stemSplit}
@@ -653,32 +710,59 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 
       {currentQ.type === 'fill' && (
         <div className="vmx-fill-row">
-          {currentQ.blanks.map((_, i) => (
-            <div key={i}>
-              <label className="vmx-fill-label" htmlFor={`vmx-fill-${currentQ.subject}-${currentQ.id}-${i}`}>
-                {currentQ.blanks.length > 1 ? `ช่องที่ ${i + 1}` : 'คำตอบ'}
-              </label>
-              <div className="vmx-fill-input-wrap">
-                <input id={`vmx-fill-${currentQ.subject}-${currentQ.id}-${i}`} type="text" className="vmx-fill-input" value={(currentAnswer && currentAnswer[i]) || ''}
-                  readOnly={fillRevealed}
-                  onChange={(e) => { if (fillRevealed) return; const arr = currentAnswer ? [...currentAnswer] : []; arr[i] = e.target.value; answerCurrent(arr); }}
-                  onKeyDown={(e) => { if (e.key === 'Enter' && fillComplete && !fillRevealed && fillRow) { e.preventDefault(); checkFill(); } }}
-                  placeholder={`เติมในช่อง ____ ${currentQ.blanks.length > 1 ? '(' + (i + 1) + ')' : ''}`} />
-                {fillRevealed && (
-                  <span className={`vmx-fill-mark ${fillMarks[i] ? 'is-ok' : 'is-no'}`} role="img" aria-label={fillMarks[i] ? 'ช่องนี้ถูก' : 'ช่องนี้ยังไม่ใช่'}>{fillMarks[i] ? '✓' : '✗'}</span>
-                )}
-              </div>
-            </div>
-          ))}
+          {fillFree.size > 1 && (
+            <p className="vmx-fill-order">
+              {fillFree.size === fillCount ? 'ตอบสลับลำดับได้' : `ช่อง ${[...fillFree].map((i) => i + 1).join(', ')} ตอบสลับลำดับได้`}
+            </p>
+          )}
+          <div className="vmx-fill-fields">
+            {currentQ.blanks.map((_, i) => {
+              const head = fillParts && fillCount > 1 ? fillHead(fillParts.heads[i]) : null;
+              const report = fillRevealed ? fillReport[i] : null;
+              const wrong = report && !report.ok;
+              const keyId = `${fillInputId(i)}-key`;
+              const typed = fillTyped(i);
+              const more = !typed.trim() ? fillNextEmpty(i) !== i && fillNextEmpty(i) !== -1 : fillNextEmpty(i) !== -1;
+              return (
+                <div key={i} className={`vmx-fill-field${fillBlankNumeric(currentQ, i) ? ' is-num' : ''}${report ? (report.ok ? ' is-ok' : ' is-no') : ''}`}>
+                  <label className="vmx-fill-label" htmlFor={fillInputId(i)}>
+                    {fillCount > 1 ? <span className="n" aria-hidden="true">{i + 1}</span> : null}
+                    <span className="w">
+                      {fillCount === 1 ? 'คำตอบ' : head?.label || `ช่องที่ ${i + 1}`}
+                    </span>
+                  </label>
+                  <div className="vmx-fill-input-wrap">
+                    <input id={fillInputId(i)} type="text" className="vmx-fill-input" value={typed}
+                      aria-label={fillCount > 1 ? `ช่องที่ ${i + 1} จาก ${fillCount}${head?.said ? `, ${head.said}` : ''}` : undefined}
+                      readOnly={fillRevealed}
+                      aria-invalid={wrong ? true : undefined}
+                      aria-describedby={report && (wrong || report.alt) ? keyId : undefined}
+                      autoCapitalize="off" autoCorrect="off" spellCheck={false} autoComplete="off"
+                      inputMode={fillBlankNumeric(currentQ, i) ? 'decimal' : undefined}
+                      enterKeyHint={more ? 'next' : 'done'}
+                      onChange={(e) => { if (fillRevealed) return; const arr = Array.isArray(currentAnswer) ? [...currentAnswer] : []; arr[i] = e.target.value; answerCurrent(arr); }}
+                      onKeyDown={(e) => fillEnter(e, i)} />
+                    {/* The mark sits inside the field's own right edge, kept free from the start, so nothing narrows on the check. */}
+                    {report && (
+                      <span className={`vmx-fill-mark ${report.ok ? 'is-ok' : 'is-no'}`}>{report.ok ? '✓ ถูก' : '✗ ผิด'}</span>
+                    )}
+                  </div>
+                  {wrong && <p id={keyId} className="vmx-fill-keyline"><span className="k">เฉลย:</span> <RichText text={report.key} /></p>}
+                  {report && report.ok && report.alt && <p id={keyId} className="vmx-fill-altline">เฉลยเขียนว่า <RichText text={report.key} /></p>}
+                </div>
+              );
+            })}
+          </div>
+          {!fillRevealed && fillCount > 1 && (
+            <p id={`${fillInputId(0)}-count`} className="vmx-fill-count" role="status">เติมแล้ว {fillDone} จาก {fillCount} ช่อง</p>
+          )}
           {revealAnswer && !fillRevealed && (
-            <div className="vmx-written-reveal-bar">
-              <RevealTimingToggle mode={writtenTiming} onChange={setWrittenTiming} rowLabel={REVEAL_LABELS.writtenRow} endLabel={REVEAL_LABELS.end} />
+            <div className="vmx-fill-actions">
               {fillRow && (
-                <button type="button" className="vmx-written-reveal-btn" disabled={!fillComplete} aria-describedby={fillComplete ? undefined : `vmx-fill-hint-${currentQ.subject}-${currentQ.id}`} onClick={checkFill}>ตรวจคำตอบ</button>
+                // Never a dead button: with a blank still empty it is drawn quiet, and a press goes to that blank.
+                <button type="button" className={fillComplete ? 'vmx-fill-check' : 'vmx-fill-check is-waiting'} aria-describedby={!fillComplete && fillCount > 1 ? `${fillInputId(0)}-count` : undefined} onClick={checkFill}>ตรวจคำตอบ</button>
               )}
-              {fillRow && !fillComplete && (
-                <span id={`vmx-fill-hint-${currentQ.subject}-${currentQ.id}`} className="vmx-fill-check-hint">{currentQ.blanks.length > 1 ? 'เติมให้ครบทุกช่องก่อน' : 'พิมพ์คำตอบก่อน'}</span>
-              )}
+              <RevealTimingToggle mode={writtenTiming} onChange={setWrittenTiming} rowLabel={REVEAL_LABELS.writtenRow} endLabel={REVEAL_LABELS.end} />
             </div>
           )}
           {fillRevealed && (
@@ -686,15 +770,14 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
               key={compoundId}
               ok={fillOk}
               // Partly right has its own mark and colour, as Review draws it (◐ 2/3): a cross read as all wrong.
-              headline={!fillOk && fillRight > 0 ? `◐ ถูก ${fillRight} จาก ${currentQ.blanks.length} ช่อง ดูเฉลยด้านล่าง` : null}
+              // Each wrong blank has its key right under it, so the panel does not print the key again.
+              headline={fillOk ? null : fillRight > 0 ? `◐ ถูก ${fillRight} จาก ${fillCount} ช่อง` : '✗ ยังไม่ถูก'}
               partial={!fillOk && fillRight > 0}
               focusOnShow
               caution={cautionChip}
               run={answerRun}
               fresh={fillCheckedNow === compoundId}
-              correctNode={currentQ.blanks.length > 1
-                ? <ol className="vmx-fill-key">{currentQ.blanks.map((b, i) => <li key={i}><RichText text={b} /></li>)}</ol>
-                : <RichText text={currentQ.blanks[0]} />}
+              correctNode={null}
               explain={currentQ.explain} listen={explainListen} listenNote={explainNote} explainRef={explainRef} reading={explainOn} onShown={warmExplain}
               figure={explainFigure}
               evidence={evidence}

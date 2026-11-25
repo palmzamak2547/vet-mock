@@ -121,14 +121,29 @@ function containsKey(u, bl) {
   return false;
 }
 
-function blankMatches(rawAnswer, rawKey, allowFragment = true, stemNumbers = null) {
+// One blank takes one answer. "Piperazine หรือ Levamisole" names two drugs, and
+// because it holds the key as a whole word it scored as right: a student could
+// list every candidate. An answer that joins alternatives (หรือ, or, a slash, a
+// comma) is right only when every alternative is itself a right answer for the
+// blank ("Act / Action"). A key that holds a joiner of its own is left alone.
+const JOINER = /\s*(?:หรือ|\/|,)\s*|(?:^|\s+)or(?:\s+|$)/;
+function namesAnother(u, bl, right) {
+  if (JOINER.test(bl)) return false;
+  const parts = u.split(JOINER).map((part) => part.trim()).filter(Boolean);
+  if (parts.length < 2) return false;
+  return !parts.every((part) => right.some((key) => part === key || (part.length >= 3 && containsKey(part, key))));
+}
+
+// `also`: the blank's other right answers (the key and its accept entries), so
+// an answer that offers two of them is not read as a hedge.
+function blankMatches(rawAnswer, rawKey, allowFragment = true, stemNumbers = null, also = null) {
   const u = normFill(rawAnswer);
   const bl = normFill(rawKey);
   if (!u) return false;
   if (u === bl) return true;
   if (NUMERIC_KEY.test(bl)) return numericBlankCorrect(u, bl, stemNumbers);
   if (u.length < 3) return false;
-  if (containsKey(u, bl)) return true;
+  if (containsKey(u, bl)) return !namesAnother(u, bl, [bl, ...(also || []).map(normFill)]);
   // Writing LESS used to be fine too, and that was the bug: any three
   // characters of the key scored full marks. Measured on the corpus,
   // 36 of 60 blanks accepted their own first three letters — "lat" for
@@ -177,18 +192,36 @@ function stemNumbersOf(stem) {
 // The negation the stem prints right before the blank ("ทำให้สัตว์น้ำไม่ ____").
 const STEM_NEGATION = /(ไม่ใช่|มิใช่|ไม่)\s*$|(?:^|[^a-z])(not|no|non)[\s-]*$/;
 
+// q.accept: extra right answers for a blank, by blank index ({ 3: ['Act'] } for
+// the key "Action"). Each is written by hand for one item and matched by the
+// same rules as the key. There is no fuzzy matching: Linoleic and linolenic are
+// one letter apart and are different acids.
+function acceptedFor(q, i) {
+  const list = q?.accept && typeof q.accept === 'object' ? q.accept[i] : null;
+  return Array.isArray(list) ? list.filter((a) => typeof a === 'string' && a.trim()) : [];
+}
+
 function blankCorrect(q, i, answer, key) {
-  if (blankMatches(answer, key, true, stemNumbersOf(q.q))) return true;
+  const accepted = acceptedFor(q, i);
+  if (keyCorrect(q, answer, key, textBeforeBlank(q.q, i), stemEchoRest(q.q, i, key), accepted)) return true;
+  const all = [key, ...accepted];
+  return accepted.some((a) => keyCorrect(q, answer, a, textBeforeBlank(q.q, i), null, all));
+}
+
+// One right answer (the key, or an accept entry) against what was typed.
+// `before` is the stem text in front of the blank, `rest` the key without the
+// word the stem already prints, `also` the blank's other right answers.
+function keyCorrect(q, answer, key, before, rest, also) {
+  if (blankMatches(answer, key, true, stemNumbersOf(q.q), also)) return true;
   // A student who writes the stem's own negation with the key ("ไม่กินกันเอง"
   // for "ไม่ ____" = กินกันเอง) is answering, not negating: drop the echo.
-  const neg = textBeforeBlank(q.q, i).match(STEM_NEGATION);
+  const neg = before.match(STEM_NEGATION);
   const said = normFill(answer);
   const echo = neg && (neg[1] || neg[2]);
   const tail = echo && said.startsWith(echo) ? said.slice(echo.length) : null;
-  if (tail !== null && !/^\s*ใช่/.test(tail) && blankMatches(tail, key)) return true;
-  const rest = stemEchoRest(q.q, i, key);
+  if (tail !== null && !/^\s*ใช่/.test(tail) && blankMatches(tail, key, true, null, also)) return true;
   // The rest is short ("หน้า"), so a fragment of it ("น้า") is not it.
-  return rest !== null && blankMatches(answer, rest, false);
+  return rest !== null && blankMatches(answer, rest, false, null, [key, ...also]);
 }
 
 // q.unordered: true when every blank is one set, or a list of index groups
@@ -213,6 +246,11 @@ function unorderedGroups(q) {
 // whose answer is paired with a key. Scoring and the marks both read it, so
 // the marks can never disagree with the score.
 function groupPairing(q, idx, ua) {
+  return new Set(groupOwners(q, idx, ua).filter((a) => a !== -1).map((a) => idx[a]));
+}
+
+// For each key slot of the group, the answer slot the pairing gave it (-1: none).
+function groupOwners(q, idx, ua) {
   const owner = new Array(idx.length).fill(-1); // key slot -> answer slot
   const tryPlace = (a, seen) => {
     for (let k = 0; k < idx.length; k++) {
@@ -223,7 +261,7 @@ function groupPairing(q, idx, ua) {
     return false;
   };
   for (let a = 0; a < idx.length; a++) tryPlace(a, new Array(idx.length).fill(false));
-  return new Set(owner.filter((a) => a !== -1).map((a) => idx[a]));
+  return owner;
 }
 
 // Each typed answer in a group must match a different key of that group.
@@ -243,6 +281,63 @@ export function fillBlankMarks(q, ua) {
     for (const i of g) marks[i] = paired.has(i);
   }
   return marks;
+}
+
+/**
+ * Each blank as the reveal and Review draw it: whether it is right, the key to
+ * print for it (in an unordered group, the key its answer took, or for a wrong
+ * blank one of the keys nobody took, so each key prints once), and `alt` when
+ * the answer is right through an accept entry and is not the key's own
+ * wording. Display only, like fillBlankMarks: isCorrect is the score.
+ */
+export function fillBlankReport(q, ua) {
+  if (!Array.isArray(q?.blanks)) return [];
+  const answers = Array.isArray(ua) ? ua : [];
+  const keyAt = q.blanks.map((_, i) => i);
+  const ok = q.blanks.map((b, i) => blankCorrect(q, i, answers[i], b));
+  for (const g of unorderedGroups(q)) {
+    const owner = groupOwners(q, g, answers);
+    const free = g.filter((_, k) => owner[k] === -1);
+    for (const i of g) ok[i] = false;
+    owner.forEach((a, k) => { if (a !== -1) { keyAt[g[a]] = g[k]; ok[g[a]] = true; } });
+    for (const i of g) if (!ok[i]) keyAt[i] = free.shift();
+  }
+  return q.blanks.map((_, i) => {
+    const k = keyAt[i];
+    const key = q.blanks[k];
+    const own = ok[i] && keyCorrect(q, answers[i], key, textBeforeBlank(q.q, k), stemEchoRest(q.q, k, key), acceptedFor(q, k));
+    return { ok: ok[i], key, alt: ok[i] && !own };
+  });
+}
+
+/** Blank indexes that may be answered in any order, as groups ([] when the order is fixed). */
+export function fillUnorderedGroups(q) {
+  return Array.isArray(q?.blanks) ? unorderedGroups(q) : [];
+}
+
+/** Whether a blank's key is a number, for the phone's numeric keyboard. */
+export function fillBlankNumeric(q, i) {
+  return NUMERIC_KEY.test(normFill(q?.blanks?.[i]));
+}
+
+/** How many blanks of a fill item hold text. */
+export function fillFilledCount(q, ua) {
+  if (!Array.isArray(q?.blanks) || !Array.isArray(ua)) return 0;
+  return q.blanks.filter((_, i) => typeof ua[i] === 'string' && ua[i].trim().length > 0).length;
+}
+
+/**
+ * Whether a typed question is answered in full: every blank of a fill item
+ * holds text. isAnswered says yes from the first blank, which is the right rule
+ * for "was anything answered" (results, the redo set) and the wrong one for the
+ * exam map and the submit dialog: an item with one blank of three typed was
+ * painted as done and never warned about. Every other type follows isAnswered.
+ */
+export function fillFilled(q, ua) {
+  if (q?.type === 'fill' && Array.isArray(q.blanks) && q.blanks.length > 0) {
+    return fillFilledCount(q, ua) === q.blanks.length;
+  }
+  return isAnswered(ua);
 }
 
 function fillCorrect(q, ua) {
@@ -423,6 +518,12 @@ export function timeForQuestion(q, baseSeconds) {
     const extra = Array.isArray(q.distractors) ? q.distractors.length : 0;
     const perPair = 15;
     return Math.max(baseSeconds, baseSeconds + Math.max(0, (n + Math.min(extra, 2) - 2)) * perPair);
+  }
+  if (q.type === 'fill') {
+    // 15 s for each blank after the first, the step matching uses per pair:
+    // five blanks had the 60 s of one.
+    const n = Array.isArray(q.blanks) ? q.blanks.length : 0;
+    return baseSeconds + Math.max(0, n - 1) * 15;
   }
   return baseSeconds;
 }

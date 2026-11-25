@@ -3,7 +3,7 @@ import ConfirmDialog from '../components/ConfirmDialog.jsx';
 import QuestionComponent from '../components/Question.jsx';
 import ExamClock from '../components/ExamClock.jsx';
 import NavIcon from '../components/NavIcon.jsx';
-import { isCorrect, isWritingType, isAnswered } from '../hooks/utils.js';
+import { isCorrect, isWritingType, isAnswered, fillFilled } from '../hooks/utils.js';
 import { useBuddyCountOnQ } from '../hooks/useStudyBuddies.js';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 import { motionIsReduced } from '../lib/motion-preferences.js';
@@ -283,14 +283,22 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
             data-vmx-modal="true"
           >
             {(() => {
-              const answered = questions.filter((q) => isAnswered(answers[q.id])).length;
-              const remaining = questions.length - answered;
+              // Answered means answered in full: a fill-in item with a blank still
+              // empty is named on its own line, not counted as done.
+              const answered = questions.filter((q) => fillFilled(q, answers[q.id])).length;
+              const partFilled = questions.filter((q) => isAnswered(answers[q.id]) && !fillFilled(q, answers[q.id])).length;
+              const remaining = questions.length - answered - partFilled;
               return (
                 <>
                   <h2 id="vmx-submit-title" style={{ margin: '0 0 8px' }}>ส่งข้อสอบ?</h2>
                   <p style={{ margin: '0 0 6px', color: 'var(--clr-ink-soft)', fontSize: 14, lineHeight: 1.6 }}>
                     ตอบแล้ว {answered} จาก {questions.length} ข้อ
                   </p>
+                  {partFilled > 0 && (
+                    <p role="alert" style={{ margin: '0 0 4px', color: 'var(--clr-rose-text)', fontSize: 14, fontWeight: 600, lineHeight: 1.6 }}>
+                      มี {partFilled} ข้อที่ยังเติมไม่ครบทุกช่อง
+                    </p>
+                  )}
                   {remaining > 0 && (
                     <p role="alert" style={{ margin: '0 0 4px', color: 'var(--clr-rose-text)', fontSize: 14, fontWeight: 600, lineHeight: 1.6 }}>
                       ยังไม่ได้ตอบอีก {remaining} ข้อ — ถ้าส่งตอนนี้ ข้อที่เว้นจะไม่ได้คะแนน
@@ -329,7 +337,7 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
 }
 
 function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose }) {
-  const answered = questions.filter((q) => isAnswered(answers[q.id])).length;
+  const answered = questions.filter((q) => fillFilled(q, answers[q.id])).length;
   const remaining = questions.length - answered;
   const dialogRef = useModalFocus({ onClose });
 
@@ -370,7 +378,9 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
           }}
         >
           {questions.map((q, i) => {
-            const answeredHere = isAnswered(answers[q.id]);
+            const answeredHere = fillFilled(q, answers[q.id]);
+            // Typed into, with a blank still empty: neither done nor untouched.
+            const partHere = !answeredHere && isAnswered(answers[q.id]);
             const isBookmarked = bookmarks?.includes(q.id);
             const isCurrent = i === currentIdx;
             return (
@@ -378,7 +388,9 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
                 key={q.id}
                 type="button"
                 onClick={() => onJump(i)}
-                title={`ข้อ ${i + 1}${answeredHere ? ', ตอบแล้ว' : ''}${isBookmarked ? ', ★' : ''}`}
+                title={`ข้อ ${i + 1}${answeredHere ? ', ตอบแล้ว' : partHere ? ', เติมไม่ครบ' : ''}${isBookmarked ? ', ★' : ''}`}
+                aria-label={`ข้อ ${i + 1}${isCurrent ? ', ข้อปัจจุบัน' : ''}${answeredHere ? ', ตอบแล้ว' : partHere ? ', เติมไม่ครบ' : ', ยังไม่ตอบ'}`}
+                data-state={answeredHere ? 'answered' : partHere ? 'part' : 'open'}
                 style={{
                   all: 'unset',
                   cursor: 'pointer',
@@ -395,7 +407,7 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
                       ? 'var(--clr-sage-soft)'
                       : 'var(--clr-surface-2)',
                   color: isCurrent ? 'var(--clr-surface)' : 'var(--clr-ink)',
-                  border: isCurrent ? '2px solid var(--clr-ink)' : '1px solid var(--clr-border)',
+                  border: isCurrent ? '2px solid var(--clr-ink)' : partHere ? '2px dashed var(--clr-part)' : '1px solid var(--clr-border)',
                   transition: 'transform 0.1s',
                   minHeight: 44,
                 }}
@@ -415,6 +427,9 @@ function NavGrid({ questions, answers, bookmarks, currentIdx, onJump, onClose })
           <span><span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--clr-ink)', borderRadius: 3, verticalAlign: 'middle', marginRight: 4 }} /> ข้อปัจจุบัน</span>
           <span><span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--clr-sage-soft)', borderRadius: 3, verticalAlign: 'middle', marginRight: 4 }} /> ตอบแล้ว</span>
           <span><span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--clr-surface-2)', borderRadius: 3, border: '1px solid var(--clr-border)', verticalAlign: 'middle', marginRight: 4 }} /> ยังไม่ตอบ</span>
+          {questions.some((q) => isAnswered(answers[q.id]) && !fillFilled(q, answers[q.id])) && (
+            <span><span style={{ display: 'inline-block', width: 12, height: 12, borderRadius: 3, border: '2px dashed var(--clr-part)', verticalAlign: 'middle', marginRight: 4, boxSizing: 'border-box' }} /> เติมไม่ครบ</span>
+          )}
           <span>★ Bookmark</span>
         </div>
 

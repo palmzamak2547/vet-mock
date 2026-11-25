@@ -31,6 +31,7 @@ const HASHED = ['type', 'q', 'front', 'back', 'options', 'answer', 'blanks', 'pa
 const HASHED_WHEN_PRESENT = {
   unordered: 'which blanks of a fill question may be answered in any order; the grader reads it',
   keywords: 'the words a short answer must mention (75% of them); the grader reads it',
+  accept: 'extra right answers for a blank of a fill question, by blank index; the grader reads it',
 };
 const GRADED_FIELDS = [...HASHED, ...Object.keys(HASHED_WHEN_PRESENT)];
 
@@ -108,9 +109,10 @@ test('editing a hashed field changes the revision, editing any other field does 
   assert.notEqual(questionRevision({ ...plain, keywords: [] }), questionRevision(plain), 'adding keywords where there were none changes it');
 });
 
-test('only the questions that carry unordered or keywords changed revision in 5.214', () => {
+// accept joined the same way with the fill-in release: only the items that carry it changed.
+test('only the questions that carry unordered, keywords or accept differ from the nine-field revision', () => {
   const changed = BANK.filter(([, q]) => questionRevision(q) !== nineFieldRevision(q)).map(([, q]) => q.id);
-  const carriers = BANK.filter(([, q]) => q.unordered !== undefined || q.keywords !== undefined).map(([, q]) => q.id);
+  const carriers = BANK.filter(([, q]) => q.unordered !== undefined || q.keywords !== undefined || q.accept !== undefined).map(([, q]) => q.id);
   assert.deepEqual(changed, carriers);
 });
 

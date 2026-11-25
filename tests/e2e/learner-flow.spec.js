@@ -47,19 +47,38 @@ test('a fill-in item shows its key in practice once checked, and nothing in a ti
   await resume(page, context, { questions: [FILL, ...MCQ.slice(0, 1)] });
   const inputs = page.locator('.vmx-fill-input');
   const check = page.getByRole('button', { name: 'ตรวจคำตอบ', exact: true });
-  await expect(check).toBeDisabled();
-  await expect(check).toHaveAttribute('aria-describedby', /vmx-fill-hint/);
-  await expect(page.getByText('เติมให้ครบทุกช่องก่อน')).toBeVisible();
   const n = await inputs.count();
-  for (let i = 0; i < n; i++) await inputs.nth(i).fill(i === 0 ? 'ผิด' : String(FILL.blanks[i]));
-  await check.click();
   const panel = page.locator('.vmx-instant-feedback');
+  const count = page.locator('.vmx-fill-count');
+  // With a blank still empty the button is not dead: it names the count and a press goes to the first empty blank.
+  await expect(count).toHaveText(`เติมแล้ว 0 จาก ${n} ช่อง`);
+  await expect(check).toHaveAttribute('aria-describedby', await count.getAttribute('id'));
+  await check.click();
+  await expect(inputs.first()).toBeFocused();
+  await expect(panel).toHaveCount(0);
+  // Each gap of the stem is a numbered place that takes the typed words; Enter goes to the next empty blank.
+  await page.keyboard.type('ผิด');
+  await expect(page.locator('.vmx-fill-gap').first()).toContainText('ผิด');
+  await page.keyboard.press('Enter');
+  await expect(inputs.nth(1)).toBeFocused();
+  for (let i = 1; i < n; i++) await inputs.nth(i).fill(String(FILL.blanks[i]));
+  await expect(count).toHaveText(`เติมแล้ว ${n} จาก ${n} ช่อง`);
+  // Nothing narrows when the marks land.
+  const width = await inputs.first().evaluate((el) => el.offsetWidth);
+  await inputs.nth(n - 1).press('Enter');
   await expect(panel).toContainText(`ถูก ${n - 1} จาก ${n} ช่อง`);
+  expect(await inputs.first().evaluate((el) => el.offsetWidth)).toBe(width);
   await expect(page.locator('.vmx-fill-mark.is-no')).toHaveCount(1);
+  await expect(page.locator('.vmx-fill-mark.is-no')).toHaveText('✗ ผิด');
   await expect(page.locator('.vmx-fill-mark.is-ok')).toHaveCount(n - 1);
   // The verdict takes focus: the button that opened it is gone.
   await expect(panel.locator('.v')).toBeFocused();
-  await expect(panel).toContainText(FILL.blanks[0]);
+  // The key stands under the blank that missed it, and that blank points at it.
+  const keyLine = page.locator('.vmx-fill-keyline');
+  await expect(keyLine).toHaveCount(1);
+  await expect(keyLine).toContainText(`เฉลย: ${FILL.blanks[0]}`);
+  await expect(inputs.first()).toHaveAttribute('aria-invalid', 'true');
+  await expect(inputs.first()).toHaveAttribute('aria-describedby', await keyLine.getAttribute('id'));
   await expect(panel).toContainText('เหตุผล');
   await expect(inputs.first()).toHaveJSProperty('readOnly', true);
   await expect(page.getByText('ดูเต็มหลังเฉลย')).toHaveCount(0);
@@ -70,9 +89,22 @@ test('a timed paper offers no check on a fill-in item and shows no key', async (
   await resume(page, context, { questions: [FILL, ...MCQ.slice(0, 1)], mode: 'exam', timed: true });
   const inputs = page.locator('.vmx-fill-input');
   const n = await inputs.count();
+  await inputs.first().fill(String(FILL.blanks[0]));
+  await expect(page.locator('.vmx-fill-count')).toHaveText(`เติมแล้ว 1 จาก ${n} ช่อง`);
+  // One blank of several is not an answered question on the exam map.
+  await page.getByRole('button', { name: /เปิดแผนผังข้อสอบ/ }).click();
+  await expect(page.locator('.vmx-nav-grid button').first()).toHaveAttribute('data-state', 'part');
+  await page.getByRole('button', { name: 'ปิด', exact: true }).click();
   for (let i = 0; i < n; i++) await inputs.nth(i).fill(String(FILL.blanks[i]));
+  // Enter on the last blank only puts the keyboard away.
+  await inputs.nth(n - 1).press('Enter');
+  await expect(inputs.nth(n - 1)).not.toBeFocused();
   await expect(page.getByRole('button', { name: 'ตรวจคำตอบ' })).toHaveCount(0);
+  await expect(page.locator('.vmx-fill-mark')).toHaveCount(0);
   await expect(page.locator('.vmx-instant-feedback')).toHaveCount(0);
+  await page.getByRole('button', { name: /เปิดแผนผังข้อสอบ/ }).click();
+  await expect(page.locator('.vmx-nav-grid button').first()).toHaveAttribute('data-state', 'answered');
+  await page.getByRole('button', { name: 'ปิด', exact: true }).click();
   await expect(inputs.first()).toHaveJSProperty('readOnly', false);
 });
 

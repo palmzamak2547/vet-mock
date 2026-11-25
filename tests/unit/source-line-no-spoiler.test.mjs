@@ -378,7 +378,8 @@ test('the caution chip shows with the key on every question type that reveals in
       showNote: false, setShowNote: () => {}, revealAnswer: practice,
     });
     if (reveal) {
-      const [button] = fr.findAll(inst.tree, (n) => n.props?.className === 'vmx-written-reveal-btn');
+      // ดูเฉลยข้อนี้ under a written answer, ตรวจคำตอบ under a fill-in item.
+      const [button] = fr.findAll(inst.tree, (n) => n.props?.className === 'vmx-written-reveal-btn' || n.props?.className === 'vmx-fill-check');
       assert.ok(button, `${q.type}: the written answer offers its เฉลย`);
       button.props.onClick();
       inst.flush();

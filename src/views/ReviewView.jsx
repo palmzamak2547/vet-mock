@@ -12,6 +12,7 @@ import { hasTable, wholeExplain, wholeStem } from '../lib/rich-blocks.js';
 import { safeImageUrl } from '../lib/safe-url.js';
 import SmartGrader from '../components/SmartGrader.jsx';
 import { MatchReview } from '../components/AnswerReveal.jsx';
+import { FillReview, fillScore } from '../components/TypedReview.jsx';
 import BackBar from '../components/BackBar.jsx';
 import ZoomableImage from '../components/ZoomableImage.jsx';
 import EvidenceSlot from '../components/EvidenceSlot.jsx';
@@ -347,7 +348,9 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
         const outcome = reviewOutcome(q, userAns);
         const correct = outcome === 'correct';
         // match: แสดง partial เป็น wrong แต่มีแถบส้มถ้าได้บางส่วน (ให้กำลังใจ)
-        const ms = q.type === 'match' && answered ? matchScore(q, userAns) : null;
+        // A fill-in item is partly right the same way, by its blanks; the score stays all or nothing.
+        const ms = q.type === 'match' && answered ? matchScore(q, userAns)
+          : q.type === 'fill' && answered && Array.isArray(q.blanks) ? fillScore(q, userAns) : null;
         const isPartial = ms && ms.correct > 0 && ms.correct < ms.total;
         const cls = outcome === 'correct' ? 'correct' : (outcome === 'wrong' && !isPartial ? 'wrong' : 'skipped');
 
@@ -530,6 +533,9 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
               // One row per item and the explain organism by organism — an
               // eighteen-row set used to print as one run-on line.
               <MatchReview q={q} userAns={userAns} answered={answered} />
+            ) : q.type === 'fill' && answered && Array.isArray(q.blanks) ? (
+              // The sentence with the student's words in its gaps, the key beside each one that missed.
+              <FillReview q={q} userAns={userAns} stem={displayStem(q)} />
             ) : (
               <>
                 <div className={`vmx-review-ans ${correct ? 'correct-ans' : 'wrong-ans'}`}><span className="k">{correct ? 'คำตอบของคุณ (ถูกต้อง):' : 'คำตอบของคุณ:'}</span>{userDisplay}</div>

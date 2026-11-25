@@ -13,6 +13,7 @@
 // ============================================================
 import { splitBlocks } from './rich-blocks.js';
 import { safeImageUrl } from './safe-url.js';
+import { fillKeyLine, fillStemNumbered } from './fill-stem.js';
 
 const esc = (s) => String(s ?? '')
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -45,7 +46,8 @@ function front(q, src) {
   const parts = [];
   if (q.passage) parts.push(`${q.passage_title ? `<b>${html(q.passage_title)}</b><br>` : ''}${rich(q.passage)}`);
   if (src) parts.push(`<img src="${esc(src)}">`);
-  parts.push(html(q.q));
+  // A fill-in stem with several gaps numbers them, as the key on the back does.
+  parts.push(html(q.type === 'fill' && (q.blanks || []).length > 1 ? fillStemNumbered(q.q, q.blanks.length, (n) => `(${n}) ____`) : q.q));
   if (q.type === 'mcq' && Array.isArray(q.options)) {
     parts.push(q.options.map((o, i) => `${LETTERS[i]}. ${html(o)}`).join('<br>'));
   }
@@ -57,7 +59,7 @@ function front(q, src) {
 function answer(q) {
   if (q.type === 'mcq') return Number.isInteger(q.answer) && q.options?.[q.answer] != null ? `${LETTERS[q.answer]}. ${html(q.options[q.answer])}` : '';
   if (q.type === 'tf') return q.answer === true ? 'ถูก' : q.answer === false ? 'ผิด' : '';
-  if (q.type === 'fill') return (q.blanks || []).map(html).join(', ');
+  if (q.type === 'fill') return fillKeyLine(q, html);
   if (q.type === 'match') return (q.pairs || []).map((p) => `${html(p.left)} → ${html(p.right)}`).join('<br>');
   if (q.type === 'short' || q.type === 'essay') return html(q.model_answer || (q.keywords || []).join(', '));
   return '';
