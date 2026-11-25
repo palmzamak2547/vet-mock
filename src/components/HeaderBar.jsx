@@ -57,7 +57,7 @@ export default function HeaderBar({
   // The sync store has this account's history (the level's carry waits for it).
   xpReady = false,
   user, profile, handleSignOut,
-  theme, themePref, setTheme, palette, setPalette,
+  theme, themePref, setTheme, palette, setPalette, uiLang, setUiLang,
 }) {
   const showYear = selectedYearStored !== null && view !== 'year-select';
   // A pick the timetable cannot back narrows nothing, and the pill says so on
@@ -180,7 +180,7 @@ export default function HeaderBar({
             <span>เข้าสู่ระบบ</span>
           </button>
         )}
-        <ThemePicker theme={theme} themePref={themePref} setTheme={setTheme} palette={palette} setPalette={setPalette} />
+        <ThemePicker theme={theme} themePref={themePref} setTheme={setTheme} palette={palette} setPalette={setPalette} uiLang={uiLang} setUiLang={setUiLang} />
       </div>
     </header>
     {isHome && (

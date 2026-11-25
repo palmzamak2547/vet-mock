@@ -231,6 +231,7 @@ import { exitSetDialog } from './lib/exit-set.js';
 import { deadlineOnWall } from './lib/exam-clock.js';
 
 import { clearNoteRetryTarget, readNoteRetryTarget } from './lib/note-retry.js';
+import { UI_LANG_KEY, showInterfaceIn } from './lib/ui-translate.js';
 
 // What the exam says when its own record cannot be written (storage full or blocked).
 const INFLIGHT_SAVE_FAILED = 'บันทึกคำตอบลงเครื่องไม่ได้ (พื้นที่อาจเต็ม) อย่าปิดหน้านี้จนกว่าจะส่งชุด';
@@ -1330,18 +1331,25 @@ export default function App() {
       typeof next === 'function' ? next(shown || effectiveTheme(prev, systemPrefersDark())) : next
     ));
   }, [setThemePref]);
-  // Landing page: language (landing-local; the app itself is Thai-first
-  // with no i18n framework) + cookie consent. Consent gates the optional
-  // analytics mount below — 'ask' | 'all' | 'essential' | 'custom'.
-  // Thai by default — the audience is Thai veterinary students and the whole
-  // app behind the landing is Thai. (An EN/ไทย toggle stays in the header for
-  // exchange students and for sharing the page abroad.)
-  const [savedLandingLang, saveLandingLang] = useLocalStorage('vmx-landing-lang', 'th');
+  // The language of the whole site, Thai by default: the audience is Thai veterinary students.
+  // The landing page's EN/ไทย and the app's own switch (ThemePicker) set the same choice. The landing
+  // page has its own dictionary; in the app the interface is translated on the page
+  // (lib/ui-translate.js) and content keeps its own language. Cookie consent below gates the
+  // optional analytics mount — 'ask' | 'all' | 'essential' | 'custom'.
+  const [savedLandingLang, saveLandingLang] = useLocalStorage(UI_LANG_KEY, 'th');
   const landingLang = visit.lang || savedLandingLang;
   const setLandingLang = useCallback((l) => {
     if (visitRef.current.lang) { dropVisit('lang'); setVisit((v) => ({ ...v, lang: null })); }
     saveLandingLang(l);
   }, [saveLandingLang]);
+  // main.jsx already showed the saved language before the first paint; a later switch cross-fades,
+  // except on the landing page, which runs its own transition.
+  const langShown = useRef(false);
+  useEffect(() => {
+    showInterfaceIn(landingLang, { animate: langShown.current && view !== 'landing' });
+    langShown.current = true;
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- the view only decides the animation
+  }, [landingLang]);
   const [consent, setConsent] = useLocalStorage('vmx-consent', 'ask');
   const [consentPrefs, setConsentPrefs] = useLocalStorage('vmx-consent-prefs', { analytics: true, personal: true });
   const analyticsAllowed = consent === 'all' || (consent === 'custom' && !!consentPrefs.analytics);
@@ -3486,6 +3494,8 @@ export default function App() {
               setTheme={setTheme}
               palette={palette}
               setPalette={setPalette}
+              uiLang={landingLang}
+              setUiLang={setLandingLang}
             />
           )}
 
@@ -3615,6 +3625,8 @@ export default function App() {
                   setTheme={setTheme}
                   palette={palette}
                   setPalette={setPalette}
+                  uiLang={landingLang}
+                  setUiLang={setLandingLang}
                   hasSupabase={hasSupabase}
                   selectedYear={selectedYear}
                   onIdentitySaved={(next) => setProfile(next)}

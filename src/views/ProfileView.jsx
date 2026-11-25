@@ -97,6 +97,8 @@ export default function ProfileView({
   setTheme = () => {},
   palette = 'default',
   setPalette = () => {},
+  uiLang = 'th',
+  setUiLang,
   hasSupabase = true,
   selectedYear = null,
   onIdentitySaved = null,
@@ -355,7 +357,7 @@ export default function ProfileView({
                 keeps them from drifting instead of growing a second copy. */}
             <div className="vmx-profile-theme">
               <span>ธีมและสี</span>
-              <ThemePicker theme={theme} themePref={themePref} setTheme={setTheme} palette={palette} setPalette={setPalette} />
+              <ThemePicker theme={theme} themePref={themePref} setTheme={setTheme} palette={palette} setPalette={setPalette} uiLang={uiLang} setUiLang={setUiLang} />
             </div>
             <Row label="เชื่อมแอป" note="ตารางสอบเข้าปฏิทิน การ์ด Anki และแอปที่เชื่อมได้" onClick={() => setView('connect-apps')} />
             {user && (
