@@ -1886,7 +1886,7 @@ const LEAVES = [
   ["zoonoses","zoo-ai-basic",22,{"1-mid":[20,1,0,1]},{"1-mid":[7,1,0,1]}], // 00e7c07db010
   // end ["zoonoses","zoo-ai-basic"]
   // ["zoonoses","zoo-bacterial"]
-  ["zoonoses","zoo-bacterial",102,{"1-final":[81,1,0,20]},{"1-final":[30,1,0,20]}], // 569843fc2530
+  ["zoonoses","zoo-bacterial",107,{"1-final":[81,5,1,20]},{"1-final":[30,5,1,20]}], // 853e4a5f9db8
   // end ["zoonoses","zoo-bacterial"]
   // ["zoonoses","zoo-corona"]
   ["zoonoses","zoo-corona",21,{"1-mid":[18,0,0,3]},{"1-mid":[10,0,0,3]}], // 24f8d4f43981
@@ -1910,7 +1910,7 @@ const LEAVES = [
   ["zoonoses","zoo-intro",21,{"1-mid":[19,0,0,2]},{"1-mid":[10,0,0,2]}], // e1988bb182a4
   // end ["zoonoses","zoo-intro"]
   // ["zoonoses","zoo-mycoses"]
-  ["zoonoses","zoo-mycoses",28,{"1-final":[28,0,0,0]},{"1-final":[20,0,0,0]}], // 968c40894571
+  ["zoonoses","zoo-mycoses",40,{"1-final":[40,0,0,0]},{"1-final":[25,0,0,0]}], // d00f0f3af67f
   // end ["zoonoses","zoo-mycoses"]
   // ["zoonoses","zoo-outbreak"]
   ["zoonoses","zoo-outbreak",12,{"1-mid":[11,0,0,1]},{}], // 13187ed576d9

@@ -4648,7 +4648,7 @@ export const EXAM_RECURRENCE = {
   },
   "zoonoses": {
     "cohorts": [80, 82, 83, 84, 85],
-    "items": 263,
+    "items": 273,
     "topics": {
       "zoo-ai-basic": {
         "cohorts": [85],
@@ -4667,7 +4667,7 @@ export const EXAM_RECURRENCE = {
         "cohorts": [80, 85],
         "first": 80,
         "last": 85,
-        "items": 51,
+        "items": 56,
         "sat": {
           "80": {
             "unknown": ["zoonoses:8031", "zoonoses:8036"],
@@ -4677,7 +4677,7 @@ export const EXAM_RECURRENCE = {
             "unknown": ["zoonoses:106005", "zoonoses:106006", "zoonoses:106007", "zoonoses:106008", "zoonoses:106009", "zoonoses:106010", "zoonoses:106011", "zoonoses:106012", "zoonoses:106013", "zoonoses:106014", "zoonoses:106015", "zoonoses:106016", "zoonoses:106017", "zoonoses:106018", "zoonoses:106019", "zoonoses:106020", "zoonoses:106021", "zoonoses:106022", "zoonoses:106023", "zoonoses:106024", "zoonoses:106025", "zoonoses:106026", "zoonoses:106027", "zoonoses:106028"],
           },
         },
-        "unattributed": ["zoonoses:210554", "zoonoses:210555", "zoonoses:210556", "zoonoses:210557", "zoonoses:210558", "zoonoses:210559", "zoonoses:210560", "zoonoses:210561", "zoonoses:210562", "zoonoses:210563", "zoonoses:210564", "zoonoses:210565", "zoonoses:210566", "zoonoses:210567", "zoonoses:210568", "zoonoses:210569", "zoonoses:210570", "zoonoses:210571", "zoonoses:210572", "zoonoses:210573", "zoonoses:210574", "zoonoses:210575", "zoonoses:210576"],
+        "unattributed": ["zoonoses:210554", "zoonoses:210555", "zoonoses:210556", "zoonoses:210557", "zoonoses:210558", "zoonoses:210559", "zoonoses:210560", "zoonoses:210561", "zoonoses:210562", "zoonoses:210563", "zoonoses:210564", "zoonoses:210565", "zoonoses:210566", "zoonoses:210567", "zoonoses:210568", "zoonoses:210569", "zoonoses:210570", "zoonoses:210571", "zoonoses:210572", "zoonoses:210573", "zoonoses:210574", "zoonoses:210575", "zoonoses:210576", "zoonoses:219900", "zoonoses:219901", "zoonoses:219902", "zoonoses:219903", "zoonoses:219904"],
       },
       "zoo-corona": {
         "cohorts": [85],
@@ -4761,7 +4761,7 @@ export const EXAM_RECURRENCE = {
         "cohorts": [82, 83, 85],
         "first": 82,
         "last": 85,
-        "items": 20,
+        "items": 25,
         "sat": {
           "82": {
             "unknown": ["zoonoses:210587", "zoonoses:210588", "zoonoses:210589"],
@@ -4774,7 +4774,7 @@ export const EXAM_RECURRENCE = {
             "unknown": ["zoonoses:210587", "zoonoses:210588", "zoonoses:210589"],
           },
         },
-        "unattributed": ["zoonoses:210590", "zoonoses:210591", "zoonoses:210592", "zoonoses:210593"],
+        "unattributed": ["zoonoses:210590", "zoonoses:210591", "zoonoses:210592", "zoonoses:210593", "zoonoses:219905", "zoonoses:219906", "zoonoses:219907", "zoonoses:219908", "zoonoses:219909"],
       },
       "zoo-prion": {
         "cohorts": [83],
