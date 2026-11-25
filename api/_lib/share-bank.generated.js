@@ -2042,7 +2042,7 @@ const LEAVES = [
   ["zoonoses","zoo-intro",[[106043,106050],[106082,106086],[202000,202002],[202321,202324],208100]],
   // end ["zoonoses","zoo-intro"]
   // ["zoonoses","zoo-mycoses"]
-  ["zoonoses","zoo-mycoses",[[106148,106164],[210587,210593],[216851,216854],[219905,219916]]],
+  ["zoonoses","zoo-mycoses",[[106148,106164],[210587,210593],[210700,210705],[216851,216854],[219905,219916]]],
   // end ["zoonoses","zoo-mycoses"]
   // ["zoonoses","zoo-outbreak"]
   ["zoonoses","zoo-outbreak",[[208141,208152]]],
