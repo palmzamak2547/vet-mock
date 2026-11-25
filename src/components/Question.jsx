@@ -1,7 +1,7 @@
 import { examScopeLabel } from '../lib/question-prediction.js';
 import { scopeOfQuestion } from '../lib/exam-scope.js';
 import { Fragment, useRef, useState, useEffect, useMemo, useSyncExternalStore } from 'react';
-import { subjectText, isAnswered, isCorrect, fillBlankReport, fillFilledCount, fillUnorderedGroups, fillBlankNumeric, fillFilled, tfcOutcome, TYPED_MAX_CHARS } from '../hooks/utils.js';
+import { subjectText, isAnswered, isCorrect, fillBlankReport, fillFilledCount, fillUnorderedGroups, fillBlankNumeric, fillBlankDecimal, fillFilled, tfcOutcome, TYPED_MAX_CHARS } from '../hooks/utils.js';
 import TfcControls, { tfcText } from './TfcControls.jsx';
 import { TfcKey } from './TypedReview.jsx';
 import { fillStemParts, fillHead } from '../lib/fill-stem.js';
@@ -772,7 +772,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
                       aria-invalid={wrong ? true : undefined}
                       aria-describedby={report && (wrong || report.alt) ? keyId : undefined}
                       autoCapitalize="off" autoCorrect="off" spellCheck={false} autoComplete="off"
-                      inputMode={fillBlankNumeric(currentQ, i) ? 'decimal' : undefined}
+                      inputMode={fillBlankDecimal(currentQ, i) ? 'decimal' : undefined}
                       maxLength={TYPED_MAX_CHARS}
                       enterKeyHint={more ? 'next' : 'done'}
                       onChange={(e) => { if (fillRevealed) return; const arr = Array.isArray(currentAnswer) ? [...currentAnswer] : []; arr[i] = e.target.value; answerCurrent(arr); }}

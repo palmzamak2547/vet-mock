@@ -243,6 +243,19 @@ test('the per-blank report names the key under a wrong blank and marks an accept
   }
 });
 
+test('only a plain number opens the decimal keypad, which has no ":", "/" or "-" for a ratio or a range', () => {
+  const ratio = item('poultry', 4036); // 2:1 and 10:1
+  const keypad = (q, i) => utils.fillBlankDecimal(q, i);
+  assert.deepEqual([keypad(ratio, 0), keypad(ratio, 1)], [false, false]);
+  assert.equal(keypad(item('poultry', 4042), 0), false, '2-4');
+  assert.equal(keypad(item('poultry', 4050), 0), false, '80-100');
+  assert.deepEqual([keypad(item('poultry', 4056), 0), keypad(item('poultry', 4056), 1)], [true, true]);
+  assert.equal(keypad(fill('ค่า ____', ['1.25']), 0), true);
+  assert.equal(keypad(fill('คือ ____', ['IgG']), 0), false);
+  // The field's width still follows the number rule: a ratio's field stays half the row.
+  assert.deepEqual([utils.fillBlankNumeric(ratio, 0), utils.fillBlankNumeric(ratio, 1)], [true, true]);
+});
+
 test('a fill item gets 15 seconds for each blank after the first, as matching does per pair', () => {
   assert.equal(timeForQuestion(fill('____', ['a']), 60), 60);
   assert.equal(timeForQuestion(fill('____ ____', ['a', 'b']), 60), 75);

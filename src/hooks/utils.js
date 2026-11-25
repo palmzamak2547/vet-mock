@@ -418,9 +418,15 @@ export function fillUnorderedGroups(q) {
 /** The longest text a fill-in blank or a tfc correction takes: room for any term, never a paste that outweighs the paper. */
 export const TYPED_MAX_CHARS = 200;
 
-/** Whether a blank's key is a number, for the phone's numeric keyboard. */
+/** Whether a blank's key is a number, a ratio or a range, for a field half the row wide. */
 export function fillBlankNumeric(q, i) {
   return NUMERIC_KEY.test(normFill(q?.blanks?.[i]));
+}
+
+/** Whether the phone's decimal keypad can type the blank's key. The keypad has digits and a point only,
+ *  so a ratio ("2:1") or a range ("80-100") keeps the text keyboard. */
+export function fillBlankDecimal(q, i) {
+  return /^\d+(?:\.\d+)?$/.test(normFill(q?.blanks?.[i]));
 }
 
 /** How many blanks of a fill item hold text. */
