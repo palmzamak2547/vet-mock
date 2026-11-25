@@ -690,7 +690,11 @@ export const SOURCE_DOCS = [
   {
     slug: 'zoo-final-pack-vet86', subject: 'zoonoses', title: "ชุดเตรียมสอบ Zoonoses ปลายภาคของรุ่น 86",
     match: /ชุดเตรียมสอบ Zoonoses ปลายภาคของรุ่น 86/i,
-    editions: [{ id: '24p', pages: 24 }],
+    editions: [
+      { id: '24p', pages: 24 },
+      // A second copy of 32 pages with its own page numbers.
+      { id: '32p', pages: 32 },
+    ],
   },
   {
     slug: 'zoo-mid-summary-vet83', subject: 'zoonoses', title: "zoonoses mid (Vet 83 summary)",
