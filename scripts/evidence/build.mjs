@@ -60,8 +60,13 @@ async function catalog() {
   const rows = await librarySql(`select d.id, d.slug, d.title, d.kind, d.subject, d.academic_year, d.lecturer, d.page_count,
     d.sha256_16 as sha16, d.mime, d.byte_size, d.storage_provider, d.storage_bucket, d.storage_key, d.text_status
     from library_docs d where ${SERVED} and d.year = 5 and d.subject <> 'vca' order by d.subject, d.title`);
+  const before = readJson(path.join(DATA, 'catalog.json'), []);
   writeJson(path.join(DATA, 'catalog.json'), rows);
   console.log(`${rows.length} served Year-5 documents`);
+  const { SOURCE_DOCS } = await imp('src/data/source-docs.js');
+  for (const sd of lostLinks(before, rows, SOURCE_DOCS)) {
+    console.log(`! ${sd.slug} no longer finds its library file (a title changed): add the new title to its match in src/data/source-docs.js`);
+  }
 }
 
 // ---------- text ----------
@@ -108,6 +113,18 @@ function libraryOf(sourceDoc, docs) {
   const hits = docs.filter((d) => (sourceDoc.match.test(d.title) || sourceDoc.match.test(d.title.replace(/\s*\([^)]*\)\s*$/, '')))
     && sourceDoc.editions.some((e) => e.pages === d.pageCount));
   return hits.length === 1 ? hits[0] : null;
+}
+
+/**
+ * Registered source documents that found their library file in the catalog before and find none now: a library
+ * row was retitled and the document's match does not read the new title, so a question citing it loses its cited
+ * page among the candidates. On 25 Nov 2026 two Zoonoses retitles did this unnoticed.
+ */
+export function lostLinks(before, after, sourceDocs) {
+  const docsOf = (rows, sd) => rows
+    .filter((r) => r.subject === sd.subject || (sd.alsoSubjects ?? []).includes(r.subject))
+    .map((r) => ({ title: String(r.title ?? ''), pageCount: r.page_count }));
+  return sourceDocs.filter((sd) => libraryOf(sd, docsOf(before, sd)) && !libraryOf(sd, docsOf(after, sd)));
 }
 
 // ---------- candidates ----------

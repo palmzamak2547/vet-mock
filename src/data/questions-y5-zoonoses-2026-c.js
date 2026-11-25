@@ -1695,7 +1695,7 @@ export const QUESTIONS_Y5_ZOONOSES_2026_C = [
       "Aspergillosis"
     ],
     "answer": 1,
-    "explain": "Trichophytosis เป็น dermatophytosis เชื้ออยู่เฉพาะชั้น keratin ของผิวหนัง ขน และเล็บ และมักไม่รุกเข้าเนื้อเยื่อ จึงจัดอยู่ในกลุ่ม superficial and cutaneous mycoses อีกสามโรคลึกกว่านั้น cryptococcosis เป็น systemic mycosis ส่วน sporotrichosis เชื้อเข้าทางบาดแผลแล้วลามตามท่อน้ำเหลืองใต้ผิวหนังและกระจายไปอวัยวะอื่นได้ จึงจัดเป็น systemic mycosis และในบางการจัดกลุ่มนับเป็น subcutaneous mycosis ส่วน aspergillosis เป็นโรคของระบบทางเดินหายใจเป็นหลักและกระจายไปอวัยวะอื่นทางเลือดได้ ในการแบ่งตามลักษณะการเกิดโรคจัดไว้ในกลุ่ม subcutaneous mycoses ร่วมกับ candidiasis",
+    "explain": "Trichophytosis เป็น dermatophytosis เชื้ออยู่เฉพาะชั้น keratin ของผิวหนัง ขน และเล็บ และมักไม่รุกเข้าเนื้อเยื่อ จึงจัดอยู่ในกลุ่ม superficial and cutaneous mycoses อีกสามโรคลึกกว่านั้น cryptococcosis เป็น systemic mycosis ส่วน sporotrichosis เชื้อเข้าทางบาดแผลแล้วลามตามท่อน้ำเหลืองใต้ผิวหนังและกระจายไปอวัยวะอื่นได้ จึงจัดเป็น systemic mycosis และในบางการจัดกลุ่มนับเป็น subcutaneous mycosis ส่วน aspergillosis เป็นโรคของระบบทางเดินหายใจเป็นหลักและกระจายไปอวัยวะอื่นทางเลือดได้",
     "verified": "ซูสุขติ mid น.14",
     "sourcePages": [{ "doc": "zoonoses-mid85", "edition": "15p", "page": 14 }],
     "sourceType": "student-compilation",

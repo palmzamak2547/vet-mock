@@ -1,5 +1,5 @@
 // GENERATED from the authored-and-verified wrap-up JSON (ingest-wrapup-final.mjs)
-// on 2026-11-15, for the 2569-1 year-5 1-final paper. Edit the JSON and
+// on 2026-11-25, for the 2569-1 year-5 1-final paper. Edit the JSON and
 // re-run the ingest, not this file. Every bullet names its source (a recording
 // timestamp, a deck page, or a past-paper item); the ingest refuses one that does not.
 export const WRAPUP = {
@@ -870,8 +870,8 @@ export const WRAPUP = {
     {
       "id": "saha",
       "lecturer": "รศ.สพ.ญ.ดร.สหฤทัย เจียมศรีพงษ์",
-      "format": "all",
-      "formatNote": "ยังไม่มีประกาศรูปแบบข้อสอบปลายภาคของส่วนนี้ ณ วันที่เขียน ซึ่งยังไม่มีบันทึกคาบ 13 พ.ย. ในคลัง ข้อสอบเก่าของหัวข้อนี้ในคลังมีข้อเขียนภาษาไทยและอังกฤษ ปรนัย ถูกผิด และจับคู่",
+      "format": "mcq",
+      "formatNote": "คาบ 13 พ.ย. ต้นคาบบอกว่าส่วนนี้เป็นกากบาทราว 10 ข้อ [4HoVshWJzAo 15:25] ท้ายคาบบอกว่า 12 ข้อ เป็นช้อยส์ไม่ยาก [4HoVshWJzAo 1:36:02] ออกเฉพาะเนื้อหาที่สอน [4HoVshWJzAo 1:09:07] และน่าจะมีหนึ่งถึงสองข้อที่ให้สถานการณ์แล้วถามว่าควรใช้การศึกษาแบบใด [4HoVshWJzAo 1:06:36]",
       "items": [
         {
           "topic": "zoo-epi-approach",
