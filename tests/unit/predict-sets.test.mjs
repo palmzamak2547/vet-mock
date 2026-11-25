@@ -4,8 +4,8 @@
 // Every number the PredictSet card prints is the length of a list it serves,
 // so each list must hold real, deliverable questions of the part's own
 // subject, topic and format, in the counts the card states: the part's size,
-// how many came from a senior paper (`past`) and how many were written from
-// this year's recording (`fresh`). The set leaves the screen when its paper
+// how many came from a senior paper (`past`) and how many come from this
+// year's session (`fresh`). The set leaves the screen when its paper
 // ends. The whole paper runs on its own minutes (exam-clock.test.mjs holds
 // the clock to the length a launcher names).
 // ============================================================
@@ -16,7 +16,9 @@ import { QB, loadQB } from '../../src/data/questions.js';
 import { isPastPaperQuestion } from '../../src/lib/question-metadata.js';
 import { isQuestionDeliverable } from '../../src/data/question-delivery.generated.js';
 
-const FRESH = /^เขียนขึ้นจากเลคเชอร์ .+ ปี 2569 เรื่อง /;
+// This year's session: written from its recording or slides, a quiz the lecturer set in class, or written to the
+// format the class LINE announced for this paper.
+const FRESH = /^(เขียนขึ้นจากเลคเชอร์ .+ ปี 2569 เรื่อง |ควิซในคาบ .+ ของ Vet 86|แนวข้อสอบ .+ 2569 ที่รุ่นแจ้งในกลุ่มไลน์ชั้นปี)/;
 
 test('every predicted question is a real, deliverable question of its part', async () => {
   await loadQB();
