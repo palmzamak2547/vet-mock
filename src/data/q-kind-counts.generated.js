@@ -23,7 +23,7 @@ const LEAVES = [
   ["aquatic-clinic","aqua-conservation",20,{"1-final":[17,0,0,3]},{"1-final":[0,0,0,2]}], // 9a7121908c1c
   // end ["aquatic-clinic","aqua-conservation"]
   // ["aquatic-clinic","aqua-disease-control"]
-  ["aquatic-clinic","aqua-disease-control",119,{"1-final":[118,0,0,1]},{"1-final":[110,0,0,0]}], // f1c0d9c72ef1
+  ["aquatic-clinic","aqua-disease-control",124,{"1-final":[123,0,0,1]},{"1-final":[110,0,0,0]}], // 4c69d1845730
   // end ["aquatic-clinic","aqua-disease-control"]
   // ["aquatic-clinic","aqua-fish-biology"]
   ["aquatic-clinic","aqua-fish-biology",45,{"1-mid":[43,2,0,0]},{"1-mid":[9,0,0,0]}], // ccd580ccf7fc

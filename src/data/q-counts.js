@@ -165,7 +165,7 @@ const LEAVES = [
   ["aquatic-clinic","aqua-conservation",0,[[7,5,1,0,2,0,0,0],[11,5,1,0,2,1,0,0],[2,5,1,1,2,1,0,0]]], // b3ea76c76e21
   // end ["aquatic-clinic","aqua-conservation"]
   // ["aquatic-clinic","aqua-disease-control"]
-  ["aquatic-clinic","aqua-disease-control",0,[[8,5,1,0,2,0,0,0],[1,5,1,0,2,1,0,0],[110,5,1,1,2,1,0,0]]], // 8a8e01d61891
+  ["aquatic-clinic","aqua-disease-control",0,[[13,5,1,0,2,0,0,0],[1,5,1,0,2,1,0,0],[110,5,1,1,2,1,0,0]]], // ca781234c831
   // end ["aquatic-clinic","aqua-disease-control"]
   // ["aquatic-clinic","aqua-fish-biology"]
   ["aquatic-clinic","aqua-fish-biology",0,[[18,5,1,0,1,0,0,0],[18,5,1,0,1,1,0,0],[9,5,1,1,1,1,0,0]]], // cd4da805e6b8

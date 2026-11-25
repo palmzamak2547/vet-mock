@@ -415,6 +415,7 @@ export const EXAM_ORIGINS = Object.freeze({
   "เขียนขึ้นจากเลคเชอร์ Swine Medicine ปี 2569 เรื่อง epidemic disease control and diagnostic approach": { kind: 'source-doc' },
   "เขียนขึ้นจากเลคเชอร์ Aquatic Animal Medicine ปี 2569 เรื่อง aquatic toxicology": { kind: 'source-doc' },
   "เขียนขึ้นจากเลคเชอร์ Aquatic Animal Medicine ปี 2569 เรื่อง aquarium management and medicine": { kind: 'source-doc' },
+  "เขียนขึ้นจากเลคเชอร์ Aquatic Animal Medicine ปี 2569 เรื่อง biosecurity and disease control in aquaculture": { kind: 'source-doc' },
   "FIQC final study notes (Vet 85)": { kind: 'source-doc' },
   "Swine Medicine bacterial respiratory lecture slides (Vet 85 notes)": { kind: 'source-doc' },
   "Swine Medicine midterm study notes, author-added lesion list (Vet 85)": { kind: 'source-doc' },

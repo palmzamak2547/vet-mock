@@ -931,6 +931,12 @@ export const SOURCE_DOCS = [
     match: /Diseases in shrimp culture|^Shrimp Diseases$/,
     editions: [{ id: '118p', pages: 118 }],
   },
+  // The 17 Nov 2026 biosecurity session has no recording; its deck is in the library (31 pages).
+  {
+    slug: 'aqua-biosecurity-2569', subject: 'aquatic-clinic', title: "Biosecurity & Disease Control in Aquaculture",
+    match: /Biosecurity & Disease Control in Aquaculture/,
+    editions: [{ id: '31p', pages: 31 }],
+  },
   {
     slug: 'aqua-shark-problems-2012', subject: 'aquatic-clinic', title: "ปัญหาของฉลามในอควาเรียม (Shark problems in Aquaria)",
     match: /ปัญหาของฉลามในอควาเรียม \(Shark problems in Aquaria\)/,
