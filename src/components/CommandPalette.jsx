@@ -64,20 +64,13 @@ import {
 import { displayDocTitle, docOpenMode, openDocOrOffer, readerPayload, recordRecentDoc, resolveDocUrl } from '../lib/library.js';
 import { authHeader } from '../lib/api-auth.js';
 import { crossingHref, chosenTheme } from '../lib/family/family.js';
+import { searchKey, searchTerms } from '../lib/search-key.js';
 
 // localStorage keys for user-authored content surfaced in the palette.
 // Keeping the literals here mirrors the convention used by NotesView
 // (the writer) — a single rename would touch both files, which is
 // acceptable for two strings.
 const NOTES_LS_KEY = 'vmx-notes';
-
-// Cap on how many results we render at once. The full index has
-// ~1700 items (mostly question stems). Rendering all of them as
-// <button>s on every keystroke turned the palette into a noticeable
-// freeze on slower phones. 80 fills the visible list comfortably and
-// the user almost never scrolls past the top of the result set
-// anyway — they refine the query instead.
-const MAX_RESULTS = 80;
 
 // ── Module-level cache for the static parts of the index ─────────
 // The actual run() handlers depend on App.jsx's setState refs (fresh
@@ -150,9 +143,9 @@ function questionPlace(q, subjects) {
 //   payload   data needed by the dispatcher (action key, subject id,
 //             Q ref, instructor object, …) — keeps the cached entry
 //             pure data so it can outlive any component instance.
-//   _labelLc  label.toLowerCase() — used by fuzzyFilter so we don't
-//             re-lowercase 1700 strings per keystroke
-//   _hayLc    (label + ' ' + kw).toLowerCase() — same idea
+//   _labelLc  searchKey(label), folded once so a keystroke never re-folds
+//             9,000 strings (lib/search-key.js has the rule)
+//   _hayLc    _labelLc + ' ' + searchKey(kw): the label leads it
 function buildStaticItems(ownerId, notes) {
   // The cache is keyed on the bank size: QB is lazy-loaded and mutated in
   // place, so a cache built before the load (or before a year switch pulls a
@@ -167,11 +160,11 @@ function buildStaticItems(ownerId, notes) {
   const items = [];
 
   const push = (it) => {
-    const labelLc = (it.label || '').toLowerCase();
+    const labelLc = searchKey(it.label);
     items.push({
       ...it,
       _labelLc: labelLc,
-      _hayLc: labelLc + ' ' + (it.kw || '').toLowerCase(),
+      _hayLc: labelLc + ' ' + searchKey(it.kw),
     });
   };
 
@@ -261,16 +254,19 @@ function buildStaticItems(ownerId, notes) {
     });
   }
 
-  // Question stems
+  // Question stems. One row per distinct stem in a subject: the same words
+  // twice would read as one question listed twice. Matched on the whole stem
+  // (a 50-character key hid 57 different questions that open alike), and the
+  // whole stem is searched, not only the 100 characters the row shows.
   const subjectsById = new Map(SUBJECTS.map((s) => [s.id, s]));
-  const seenQText = new Set();
+  const seenStems = new Set();
   for (const q of (QB || [])) {
     if (!isQuestionDeliverable(q)) continue;
     if (!q?.q || typeof q.q !== 'string') continue;
+    const stemKey = q.subject + ':' + q.q;
+    if (seenStems.has(stemKey)) continue;
+    seenStems.add(stemKey);
     const stem = q.q.slice(0, 100);
-    const dedupeKey = q.subject + ':' + stem.slice(0, 50);
-    if (seenQText.has(dedupeKey)) continue;
-    seenQText.add(dedupeKey);
     push({
       type: 'question',
       payload: { subject: q.subject, id: q.id },
@@ -279,7 +275,7 @@ function buildStaticItems(ownerId, notes) {
       // study, so it is searched and shown beside the place.
       hint: [questionPlace(q, subjectsById), q.passage_title].filter(Boolean).join(', '),
       icon: '❓',
-      kw: stem + ' ' + (q.passage_title || '') + ' ' + (q.tags || []).join(' '),
+      kw: q.q + ' ' + (q.passage_title || '') + ' ' + (q.tags || []).join(' '),
     });
   }
 
@@ -420,35 +416,45 @@ function runItem(item, handlers) {
 // it matched raw substrings: "เกม" -> "game" listed every "ligament" question.
 // A synonym hit adds at most 25, where a literal hit in the label adds up to 100
 // (and 200 more at its start), so an exact match outranks one found through it.
+//
+// Every hit is returned: each group takes its own best rows, so one group of
+// many strong hits (question stems) can never push another group out of the
+// list, and a group's count is its real count. A cut of 80 here once left
+// "a" with no questions at all and every busy query counting 80 in total.
 function rankItems(items, query) {
-  const q = query.trim().toLowerCase();
-  const tokens = splitGluedCodes(q.split(/\s+/).filter(Boolean));
+  const tokens = splitGluedCodes(searchTerms(query));
   const scored = [];
+  if (!tokens.length) return scored;
   for (let i = 0; i < items.length; i++) {
     const item = items[i];
+    const hay = item._hayLc;
     const dictionary = item.type === 'action' || item.type === 'summary';
     let score = 0;
     let allMatch = true;
     for (const t of tokens) {
-      const alts = dictionary ? alternatesFor(t) : [];
-      const hits = [t, ...alts].filter((a) => item._hayLc.indexOf(a) >= 0);
-      if (hits.length === 0) { allMatch = false; break; }
-      const literal = hits[0] === t;
-      const pos = item._hayLc.indexOf(t);
-      const labelPos = item._labelLc.indexOf(t);
-      if (literal) {
-        score += labelPos >= 0 ? (100 - labelPos) : (50 - Math.min(50, pos));
-        if (item._labelLc.startsWith(t)) score += 200;
-      } else {
-        // Found through the synonym dictionary: a nudge, never a headline.
-        const altPos = item._hayLc.indexOf(hits[0]);
-        score += 25 - Math.min(25, altPos);
+      const pos = hay.indexOf(t);
+      if (pos >= 0) {
+        // The label leads the haystack and no word holds a space, so a hit
+        // that starts inside the label lies in it.
+        score += pos < item._labelLc.length ? 100 - pos : 50 - Math.min(50, pos);
+        if (pos === 0) score += 200;
+        continue;
       }
+      let altPos = -1;
+      if (dictionary) {
+        for (const alt of alternatesFor(t)) {
+          altPos = hay.indexOf(alt);
+          if (altPos >= 0) break;
+        }
+      }
+      if (altPos < 0) { allMatch = false; break; }
+      // Found through the synonym dictionary: a nudge, never a headline.
+      score += 25 - Math.min(25, altPos);
     }
     if (allMatch) scored.push({ item, score });
   }
   scored.sort((a, b) => b.score - a.score);
-  return scored.slice(0, MAX_RESULTS);
+  return scored;
 }
 
 // ── Presentation helpers ─────────────────────────────────────────────────
@@ -523,8 +529,7 @@ function pushRecent(item) {
 // First-token match highlight. One <mark> is enough to show WHY a row
 // matched; painting every token turns labels into confetti.
 function HighlightedLabel({ label, query }) {
-  const q = (query || '').trim().toLowerCase();
-  const first = q.split(/\s+/)[0] || '';
+  const first = searchTerms(query)[0] || '';
   const pos = first ? (label || '').toLowerCase().indexOf(first) : -1;
   if (pos < 0) return label;
   return (

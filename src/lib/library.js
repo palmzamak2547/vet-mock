@@ -29,6 +29,7 @@ import { EXTERNAL_COURSES } from '../data/library-courses.js';
 import { googleDriveSourceUrl, mergeLibrarySources, vcaFileDoc, vcaLibraryDocs } from './vca-library.js';
 import { openSourceDocs, openSourceUrl, withOpenLabels } from './open-sources.js';
 import { hasStoredAuthToken } from './auth-storage.js';
+import { searchKey, searchTerms, matchesAll } from './search-key.js';
 
 const CDN_BASE = import.meta.env?.VITE_LIBRARY_CDN_BASE || '';
 
@@ -203,7 +204,7 @@ export function subjectMeta(id) {
 export function indexDocs(docs) {
   return (Array.isArray(docs) ? docs : []).map((doc) => ({
     doc,
-    _hayLc: [
+    _hayLc: searchKey([
       doc.title, doc.description, doc.subject,
       subjectMeta(doc.subject)?.name, subjectMeta(doc.subject)?.name_en,
       subjectMeta(doc.subject)?.code, doc.attribution, doc.lecturer,
@@ -211,7 +212,7 @@ export function indexDocs(docs) {
       doc.academic_year, buddhistYear(doc.academic_year),
       ...(Array.isArray(doc.topics) ? doc.topics : []),
       ...(doc.source_files || []).map((file) => file.title),
-    ].filter(Boolean).join(' ').toLowerCase(),
+    ].filter(Boolean).join(' ')),
   }));
 }
 
@@ -219,8 +220,7 @@ export function filterIndexed(index, {
   query = '', kind = 'all', subject = 'all',
   year = 'all', semester = 'all', academicYear = 'all',
 } = {}) {
-  const qlc = (query || '').trim().toLowerCase();
-  const terms = qlc ? qlc.split(/\s+/) : null;
+  const terms = searchTerms(query);
   const out = [];
   for (const entry of (Array.isArray(index) ? index : [])) {
     const d = entry.doc;
@@ -229,7 +229,7 @@ export function filterIndexed(index, {
     if (year !== 'all' && String(d.year) !== String(year)) continue;
     if (semester !== 'all' && String(d.semester) !== String(semester)) continue;
     if (academicYear !== 'all' && String(d.academic_year) !== String(academicYear)) continue;
-    if (terms && !terms.every((t) => entry._hayLc.includes(t))) continue;
+    if (!matchesAll(entry._hayLc, terms)) continue;
     out.push(d);
   }
   return out;

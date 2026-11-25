@@ -22,6 +22,7 @@ import OptionalFeature from '../components/OptionalFeature.jsx';
 import { ALL_INSTRUCTORS } from '../data/instructors.js';
 import { SUBJECTS } from '../data/curriculum.js';
 import { foldThaiName, twoPassSearch } from '../lib/thai-name-fold.js';
+import { searchKey } from '../lib/search-key.js';
 import BackBar from '../components/BackBar.jsx';
 import NavIcon from '../components/NavIcon.jsx';
 import InstructorPortrait from '../components/InstructorPortrait.jsx';
@@ -96,11 +97,11 @@ export default function FacultyView({ goHome }) {
     return (ALL_INSTRUCTORS || []).map((ins) => ({
       ins,
       _deptId: classifyDept(ins.department),
-      _hayLc: [
+      _hayLc: searchKey([
         ins.nameEn, ins.nameTh, ins.position, ins.department,
         ins.institution, ins.nickname, ...(ins.aliases || []),
         ...(ins.areas || []),
-      ].filter(Boolean).join(' ').toLowerCase(),
+      ].filter(Boolean).join(' ')),
       // The Thai names, folded for the second pass (lib/thai-name-fold.js).
       _looseHay: foldThaiName([ins.nameTh, ins.nickname, ...(ins.aliases || [])].filter(Boolean).join(' ')),
       // Pre-lowered English name used as sort key. localeCompare is
