@@ -229,8 +229,9 @@ function layout(card, stats, w, heroSize, g = 1, mochi = null, strip = null, wit
     card.style({ weight: 600, size: SIZE.xs, family: FAMILY.label });
     return card.fit(value, colW - card.measure(unit) - 10, { weight: 800, family: FAMILY.numeral, max: SIZE.l, min: SIZE.m });
   }));
+  // A label longer than its column ("Approx. study time") takes a second line; the numerals stand under the tallest.
   const labels = figs.map(([label], i) => card.para(label, LIVE.left + i * (colW + gutter), figTop, colW,
-    { weight: 500, size: SIZE.xs, family: FAMILY.label, color: pal.soft }, { maxLines: 1, balance: false, role: 'figure-label' }));
+    { weight: 500, size: SIZE.xs, family: FAMILY.label, color: pal.soft }, { maxLines: 2, role: 'figure-label' }));
   const figBase = Math.max(...labels.map((l) => l.bottom)) + 16 + numeral * 0.72;
   const nums = figs.map(([, value, unit], i) => {
     const x = LIVE.left + i * (colW + gutter);

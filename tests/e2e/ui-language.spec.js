@@ -180,6 +180,27 @@ test('the what\'s-new note in English keeps the release notes as written', async
   await expect.poll(() => page.evaluate(thaiLeftovers)).toEqual([]);
 });
 
+// The recap card is a canvas the page's translator cannot reach: a switch draws it again, in English.
+test('the recap card is drawn again in English when the language switches', async ({ page, context }, info) => {
+  test.skip(info.project.name !== 'chromium-mobile', 'one engine draws the card');
+  test.setTimeout(90_000);
+  await page.setViewportSize(PHONE);
+  await context.addInitScript(seedStudent, { now: Date.parse(PINNED_NOW), studied: await studiedQuestions() });
+  await context.addInitScript(recordCanvasThai);
+  await visit(page, '/app/wrapped');
+  await settle(page);
+  const card = page.locator('.vmx-share-preview img');
+  await expect(card).toHaveAttribute('alt', /^สรุป/, { timeout: LOADING_BUDGET_MS });
+  await page.evaluate(() => window.__vmxCanvasThai.clear());
+  await page.locator('button.vmx-theme-btn[aria-expanded]').first().click();
+  await page.getByRole('button', { name: 'English', exact: true }).click();
+  await expect(card).toHaveAttribute('alt', /^Exam period summary/, { timeout: LOADING_BUDGET_MS });
+  await expect.poll(() => page.evaluate(thaiLeftovers)).toEqual([]);
+  expect(await page.evaluate(() => [...window.__vmxCanvasThai]), 'Thai drawn on the card after the switch').toEqual([]);
+  // The English words fit as the Thai ones do: nothing cut short, nothing over the signature.
+  await expect(page.locator('.vmx-share-preview')).toHaveAttribute('data-layout', 'clean');
+});
+
 // English that cannot be fetched (a first visit offline) leaves the page Thai and the menu saying so;
 // a press once online loads it. Chromium keeps a failed import failed, so that press must fetch afresh.
 test('English that cannot load leaves the page and the menu Thai, and a later press loads it', async ({ page, context }, info) => {
