@@ -3189,4 +3189,186 @@ export const QUESTIONS_Y5_AQUATIC_2026_B = [
       "formalin"
     ]
   },
+  {
+    "id": 219917,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-disease-control",
+    "year": 5,
+    "type": "mcq",
+    "q": "ข้อใดเป็นความเสี่ยงที่จะนำโรคเข้าสู่ฟาร์มเพาะเลี้ยงกุ้งสูงที่สุด",
+    "options": [
+      "พ่อแม่พันธุ์และลูกกุ้งจากแหล่งที่รับรองว่าปลอดโรค",
+      "อาหารเม็ดสำเร็จรูปคุณภาพสูงจากบริษัทที่ได้มาตรฐาน",
+      "พ่อแม่พันธุ์และลูกกุ้งจากแหล่งที่ไม่รู้ที่มา และไม่ได้ตรวจโรค",
+      "พ่อแม่พันธุ์และลูกกุ้งจากแหล่งที่ไม่รู้ที่มา แต่ตรวจโรคแล้ว"
+    ],
+    "answer": 2,
+    "explain": "สัตว์ที่นำเข้าฟาร์มเป็นปัจจัยเสี่ยงสำคัญที่สุด ต่อให้ออกแบบฟาร์มและจัดการดีเพียงใด ถ้าลูกพันธุ์ติดเชื้อก็ไม่สำเร็จ ความเสี่ยงสูงสุดคือพ่อแม่พันธุ์และลูกกุ้งที่ไม่รู้แหล่งที่มาและไม่ได้ตรวจโรค เพราะสัตว์ที่ติดเชื้อแฝงยังดูแข็งแรงตามปกติ ถ้าไม่รู้แหล่งแต่ตรวจโรคแล้ว ความเสี่ยงลดลง ส่วนพ่อแม่พันธุ์และลูกกุ้งจากแหล่งปลอดโรค และอาหารเม็ดคุณภาพสูง อยู่ฝั่งความเสี่ยงต่ำ",
+    "source": "Biosecurity & Disease Control in Aquaculture หน้า 14 และ 17",
+    "verified": "Biosecurity & Disease Control in Aquaculture หน้า 14: ระดับความเสี่ยงเรียงจากสูงไปต่ำ เริ่มที่ Broodstock and PL from unknown sources without disease screening ถัดมาคือ unknown sources แต่ conduct disease screening ฝั่งต่ำคือ Broodstock and PL from disease-free sources และ High quality commercial feed; Biosecurity & Disease Control in Aquaculture หน้า 17: สัตว์ (broodstock, PL, fry) คือ the most important factor และ it will not success when having infected seed",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Aquatic Animal Medicine ปี 2569 เรื่อง biosecurity and disease control in aquaculture",
+    "tags": [
+      "aqua-disease-control",
+      "biosecurity",
+      "risk-degree",
+      "broodstock-screening"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-biosecurity-2569",
+        "edition": "31p",
+        "page": 14
+      },
+      {
+        "doc": "aqua-biosecurity-2569",
+        "edition": "31p",
+        "page": 17
+      }
+    ]
+  },
+  {
+    "id": 219918,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-disease-control",
+    "year": 5,
+    "type": "mcq",
+    "q": "ระยะเวลากักโรคสัตว์น้ำที่นำเข้าฟาร์มใหม่กำหนดจากข้อใดเป็นหลัก",
+    "options": [
+      "ลักษณะของโรคที่ต้องการป้องกัน",
+      "จำนวนสัตว์ที่นำเข้ามาในแต่ละรอบ",
+      "ขนาดของบ่อกักโรคที่ฟาร์มมีอยู่",
+      "ระยะทางขนส่งจากแหล่งต้นทาง"
+    ],
+    "answer": 0,
+    "explain": "การกักโรคคือการแยกสัตว์ที่นำเข้าใหม่ไว้ต่างหากจากสัตว์หลักจนกว่าจะพิสูจน์ได้ว่าไม่มีโรค ระยะเวลาจึงต้องนานพอให้โรคที่ต้องการป้องกันแสดงออกหรือตรวจพบได้ ซึ่งขึ้นกับลักษณะของโรคนั้น พื้นที่กักต้องแยกขาดจากส่วนอื่นทั้งหน่วยการผลิต อุปกรณ์ และระบบน้ำ และบำบัดน้ำทิ้งก่อนปล่อย จำนวนสัตว์ ขนาดบ่อ และระยะทางขนส่งไม่ได้เป็นตัวกำหนดระยะเวลากักโรค",
+    "source": "Biosecurity & Disease Control in Aquaculture หน้า 20 และ 21",
+    "verified": "Biosecurity & Disease Control in Aquaculture หน้า 20: Quarantine (การกักโรค) คือ keeping newly introduced animal in one place apart from the main population until it is proved that the new animal contains no disease; Biosecurity & Disease Control in Aquaculture หน้า 21: Quarantine period depends on disease characteristic, complete separation (unit of production, equipment, water system) และ waste water treatment before dispose",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Aquatic Animal Medicine ปี 2569 เรื่อง biosecurity and disease control in aquaculture",
+    "tags": [
+      "aqua-disease-control",
+      "biosecurity",
+      "quarantine"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-biosecurity-2569",
+        "edition": "31p",
+        "page": 20
+      },
+      {
+        "doc": "aqua-biosecurity-2569",
+        "edition": "31p",
+        "page": 21
+      }
+    ]
+  },
+  {
+    "id": 219919,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-disease-control",
+    "year": 5,
+    "type": "mcq",
+    "q": "จุดประสงค์หลักของการตรวจคัดกรองลูกกุ้งและสัตว์น้ำที่นำเข้าใหม่ด้วย PCR ในระบบความปลอดภัยทางชีวภาพคือข้อใด",
+    "options": [
+      "หายีนดื้อยาของเชื้อเพื่อเลือกยาปฏิชีวนะผสมอาหารก่อนปล่อยสัตว์ลงบ่อ",
+      "ยืนยันชนิดเชื้อในสัตว์ที่แสดงอาการป่วยชัดเจนแล้ว",
+      "วัดปริมาณแอมโมเนียและไนไตรต์ในน้ำที่ใช้ขนส่งสัตว์น้ำ",
+      "หาสารพันธุกรรมของเชื้อปริมาณน้อยในสัตว์ที่ติดเชื้อแฝงหรือเป็นพาหะ"
+    ],
+    "answer": 3,
+    "explain": "PCR ตรวจหาสารพันธุกรรมของเชื้อ (DNA หรือ RNA) จึงพบเชื้อได้แม้มีปริมาณน้อยในเนื้อเยื่อ เหมาะกับการหาสัตว์ที่ติดเชื้อแฝงหรือเป็นพาหะซึ่งยังดูปกติ ใช้ทั้งในการเฝ้าระวังประจำและตรวจสัตว์ที่นำเข้าใหม่ ควบคู่กับการใช้พ่อแม่พันธุ์ SPF การคัดกรองนี้จึงไม่ได้มีไว้เลือกยา ไม่ได้จำกัดอยู่ที่สัตว์ที่ป่วยชัดเจนแล้ว และไม่ได้วัดคุณภาพน้ำ",
+    "source": "Biosecurity & Disease Control in Aquaculture หน้า 22 และ 23",
+    "verified": "Biosecurity & Disease Control in Aquaculture หน้า 22: PCR screening for pathogens: presence of low level of pathogens in tissue, screening of genomic material (DNA, RNA), latent infection & carrier, routine surveillance, newly introduce animal; Biosecurity & Disease Control in Aquaculture หน้า 23: SPF broodstock, PCR screening of PL and imported animal",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Aquatic Animal Medicine ปี 2569 เรื่อง biosecurity and disease control in aquaculture",
+    "tags": [
+      "aqua-disease-control",
+      "biosecurity",
+      "pcr-screening",
+      "carrier"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-biosecurity-2569",
+        "edition": "31p",
+        "page": 22
+      },
+      {
+        "doc": "aqua-biosecurity-2569",
+        "edition": "31p",
+        "page": 23
+      }
+    ]
+  },
+  {
+    "id": 219920,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-disease-control",
+    "year": 5,
+    "type": "mcq",
+    "q": "เมื่อพบโรคระบาดในบ่อหนึ่งของฟาร์ม ข้อใดเป็นการปฏิบัติตามแผนเผชิญเหตุ (contingency plan) ที่ถูกต้อง",
+    "options": [
+      "ใส่สารเคมีในบ่อที่เกิดโรค แล้วระบายน้ำออกสู่ทางน้ำสาธารณะเพื่อเปลี่ยนน้ำใหม่",
+      "แยกสัตว์ที่ยังไม่แสดงอาการไปเลี้ยงในบ่อที่ปลอดโรค และกำจัดซากในบ่อเดิม",
+      "งดปล่อยน้ำจากบ่อที่เกิดโรค หยุดเคลื่อนย้ายสัตว์ และแจ้งเพื่อนบ้านกับหน่วยงาน",
+      "กำจัดซากและใส่สารเคมีในบ่อที่เกิดโรค โดยยังไม่ต้องแจ้งเพื่อนบ้านหรือหน่วยงาน"
+    ],
+    "answer": 2,
+    "explain": "เมื่อเกิดโรคแล้ว เป้าหมายคือไม่ให้โรคแพร่ออกจากบ่อนั้น จึงต้องงดปล่อยน้ำจากบ่อที่เกิดโรค หยุดเคลื่อนย้ายสัตว์ รักษาหรือใช้สารเคมีและกำจัดซากให้ถูกวิธี ระวังการปนเปื้อนข้ามพื้นที่ผ่านเครื่องมือและอุปกรณ์ และแจ้งเพื่อนบ้านกับหน่วยงาน การระบายน้ำออก การย้ายสัตว์ไปบ่ออื่น และการไม่แจ้งเพื่อนบ้านกับหน่วยงาน ล้วนเปิดทางให้โรคแพร่ออกจากบ่อ แม้จะกำจัดซากหรือใส่สารเคมีควบคู่ไปด้วยก็ตาม",
+    "source": "Biosecurity & Disease Control in Aquaculture หน้า 29",
+    "verified": "Biosecurity & Disease Control in Aquaculture หน้า 29: Contingency plan for aquaculture ทำอย่างไรเมื่อมีโรคเกิดขึ้น ทำอย่างไรไม่ให้โรคแพร่กระจาย: Do not release water from affected pond; Cease animal movement; Treatment, apply chemical, carcass disposal; Cross-contamination between areas is a highly concern; Tools and equipment; Tell your neighbor & authority",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Aquatic Animal Medicine ปี 2569 เรื่อง biosecurity and disease control in aquaculture",
+    "tags": [
+      "aqua-disease-control",
+      "biosecurity",
+      "contingency-plan"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-biosecurity-2569",
+        "edition": "31p",
+        "page": 29
+      }
+    ]
+  },
+  {
+    "id": 219921,
+    "subject": "aquatic-clinic",
+    "topic": "aqua-disease-control",
+    "year": 5,
+    "type": "mcq",
+    "q": "เหตุใดโรคไวรัสร้ายแรงในสัตว์น้ำ เช่นโรคในบัญชีของ WOAH จึงต้องจัดการด้วยระบบความปลอดภัยทางชีวภาพเป็นหลัก",
+    "options": [
+      "มีวัคซีนและยาต้านไวรัสที่ได้ผล แต่ราคาสูงจึงคุ้มกว่าถ้าป้องกันไว้ก่อน",
+      "ไม่มียารักษา ติดง่ายหลายโฮสต์ และกำจัดยากเมื่อเชื้อเข้าระบบแล้ว",
+      "ก่อโรคในสัตว์น้ำชนิดเดียวและไม่ส่งผ่านทางไข่ จึงกันได้ด้วยการแยกบ่อ",
+      "ทำให้สัตว์ป่วยแบบเรื้อรังแต่ตายน้อย จึงไม่คุ้มที่จะรักษาเป็นรายตัว"
+    ],
+    "answer": 1,
+    "explain": "โรคไวรัสร้ายแรงทำให้สัตว์ป่วยและตายสูงโดยไม่มียารักษา ติดต่อได้ง่าย มีโฮสต์หลายชนิด ส่งผ่านจากพ่อแม่สู่ลูกได้ สร้างความเสียหายทางเศรษฐกิจรุนแรง และกำจัดได้ยากมากเมื่อเชื้อเข้าสู่ระบบการเลี้ยงแล้ว ทางที่ได้ผลจึงเป็นการกันเชื้อไม่ให้เข้ามาตั้งแต่แรก ไวรัสกลุ่มนี้ไม่มียาที่ใช้รักษาได้ ติดได้หลายโฮสต์ ส่งผ่านทางพ่อแม่ได้ และทำให้ตายสูง ข้ออื่นจึงผิด",
+    "source": "Biosecurity & Disease Control in Aquaculture หน้า 3 และ 6",
+    "verified": "Biosecurity & Disease Control in Aquaculture หน้า 6: Severe epidemic diseases for example, viral disease (WOAH listed diseases): high mortality, morbidity, no treatment; highly contagious, multiple host, vertical transmission; severe economic loss; difficult to eradicate once the pathogen enters culture system, จึงนำไปสู่ Biosecurity; Biosecurity & Disease Control in Aquaculture หน้า 3: biosecurity คือ the practice of exclusion of specific pathogens from cultured stocks",
+    "sourceType": "lecture-derived",
+    "examOrigin": "เขียนขึ้นจากเลคเชอร์ Aquatic Animal Medicine ปี 2569 เรื่อง biosecurity and disease control in aquaculture",
+    "tags": [
+      "aqua-disease-control",
+      "biosecurity",
+      "woah-listed-viral-disease"
+    ],
+    "sourcePages": [
+      {
+        "doc": "aqua-biosecurity-2569",
+        "edition": "31p",
+        "page": 3
+      },
+      {
+        "doc": "aqua-biosecurity-2569",
+        "edition": "31p",
+        "page": 6
+      }
+    ]
+  },
 ];
