@@ -1,8 +1,8 @@
 import { examScopeLabel } from '../lib/question-prediction.js';
 import { scopeOfQuestion } from '../lib/exam-scope.js';
 import { Fragment, useRef, useState, useEffect, useMemo, useSyncExternalStore } from 'react';
-import { subjectText, isAnswered, isCorrect, fillBlankReport, fillFilledCount, fillUnorderedGroups, fillBlankNumeric, fillFilled, tfcOutcome } from '../hooks/utils.js';
-import TfcControls from './TfcControls.jsx';
+import { subjectText, isAnswered, isCorrect, fillBlankReport, fillFilledCount, fillUnorderedGroups, fillBlankNumeric, fillFilled, tfcOutcome, TYPED_MAX_CHARS } from '../hooks/utils.js';
+import TfcControls, { tfcText } from './TfcControls.jsx';
 import { TfcKey } from './TypedReview.jsx';
 import { fillStemParts, fillHead } from '../lib/fill-stem.js';
 import { SUBJECTS } from '../data/questions.js';
@@ -89,8 +89,10 @@ const TYPE_LABEL = {
 // page load. Outside the component because one instance serves the whole
 // set (ExamView renders the card without a key) and a set may be revisited.
 const FILL_CHECKED = new Set();
+/** Whether a fill-in or tfc item was checked: the live tally counts a typed item only then. */
+export const typedChecked = (q) => FILL_CHECKED.has(`${q?.subject || '?'}:${q?.id}`);
 
-export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote, revealAnswer, onOpenWiki, answerRun = 0, english = null, englishNote = null, ownerId = null, clock = null, timed = false }) {
+export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote, revealAnswer, onOpenWiki, answerRun = 0, english = null, englishNote = null, ownerId = null, clock = null, timed = false, onTypedCheck = null }) {
   // A verdict is fresh when this visit to the question began unanswered: the
   // student answered it just now. Coming back to a question answered earlier
   // shows its verdict again, but Mochi does not react and the phone stays
@@ -449,7 +451,8 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     () => (fillCount ? fillStemParts(stemShown, fillCount) : null),
     [stemShown, fillCount],
   );
-  const fillFree = useMemo(() => new Set(fillUnorderedGroups(currentQ).flat()), [currentQ]);
+  // Blanks that may swap places, group by group: a swap is marked right only inside its group.
+  const fillGroups = useMemo(() => fillUnorderedGroups(currentQ).filter((g) => g.length > 1), [currentQ]);
   const fillInputId = (i) => `vmx-fill-${currentQ.subject}-${currentQ.id}-${i}`;
   const fillTyped = (i) => String((Array.isArray(currentAnswer) && currentAnswer[i]) || '');
   // The first blank still empty, looking from the one after `from` and around.
@@ -468,6 +471,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     if (!fillComplete) { focusFill(fillNextEmpty(-1)); return; }
     FILL_CHECKED.add(compoundId);
     setFillCheckedNow(compoundId);
+    onTypedCheck?.();
   };
   // Enter goes to the next empty blank. With none left it checks (practice),
   // and in a timed paper it only puts the keyboard away.
@@ -494,6 +498,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     if (!tfcComplete) { try { document.getElementById(tfcFieldId)?.focus(); } catch { /* no document */ } return; }
     FILL_CHECKED.add(compoundId);
     setFillCheckedNow(compoundId);
+    onTypedCheck?.();
   };
   const tfcHeadline = !tfcOut || tfcOut.correct ? null
     : tfcOut.verdict ? '◐ ตัดสินถูก แต่คำที่แก้ยังไม่ตรง'
@@ -731,9 +736,11 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
 
       {currentQ.type === 'fill' && (
         <div className="vmx-fill-row">
-          {fillFree.size > 1 && (
+          {fillGroups.length > 0 && (
             <p className="vmx-fill-order">
-              {fillFree.size === fillCount ? 'ตอบสลับลำดับได้' : `ช่อง ${[...fillFree].map((i) => i + 1).join(', ')} ตอบสลับลำดับได้`}
+              {fillGroups.length === 1 && fillGroups[0].length === fillCount
+                ? 'ตอบสลับลำดับได้'
+                : fillGroups.map((g) => `ช่อง ${g.map((i) => i + 1).join(', ')} ตอบสลับลำดับได้`).join(' ')}
             </p>
           )}
           <div className="vmx-fill-fields">
@@ -760,6 +767,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
                       aria-describedby={report && (wrong || report.alt) ? keyId : undefined}
                       autoCapitalize="off" autoCorrect="off" spellCheck={false} autoComplete="off"
                       inputMode={fillBlankNumeric(currentQ, i) ? 'decimal' : undefined}
+                      maxLength={TYPED_MAX_CHARS}
                       enterKeyHint={more ? 'next' : 'done'}
                       onChange={(e) => { if (fillRevealed) return; const arr = Array.isArray(currentAnswer) ? [...currentAnswer] : []; arr[i] = e.target.value; answerCurrent(arr); }}
                       onKeyDown={(e) => fillEnter(e, i)} />
@@ -813,7 +821,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
         <div className="vmx-fill-row">
           <TfcControls
             q={currentQ} answer={currentAnswer} answerCurrent={answerCurrent} revealed={tfcRevealed} outcome={tfcOut} fieldId={tfcFieldId}
-            onEnter={(e) => { if (fillRow) checkTfc(); else e.currentTarget.blur?.(); }}
+            onEnter={(e) => { if (fillRow) checkTfc(); else if (tfcText(currentAnswer).trim()) e.currentTarget.blur?.(); }}
           />
           {revealAnswer && !tfcRevealed && (
             <div className="vmx-fill-actions">

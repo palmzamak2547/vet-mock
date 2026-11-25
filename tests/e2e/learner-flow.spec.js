@@ -131,8 +131,17 @@ test('a true-false item with a written correction waits for the check, then mark
   await expect(field).toBeFocused();
   await expect(panel).toHaveCount(0);
   await field.fill('2500');
+  await expect(field).toHaveAttribute('maxlength', '200');
+  // To ถูก and back to ผิด: the correction typed so far comes back.
+  await tfcBtn(page, 'ถูก').click();
+  await expect(field).toHaveCount(0);
+  await tfcBtn(page, 'ผิด').click();
+  await expect(field).toHaveValue('2500');
+  // The live tally waits for the check too, or it would say whether the text is right.
+  await expect(page.locator('.vmx-live-score')).toHaveText('✓ 0/0');
   await field.press('Enter');
   await expect(panel.locator('.vmx-feedback-headline .v')).toHaveText('◐ ตัดสินถูก แต่คำที่แก้ยังไม่ตรง');
+  await expect(page.locator('.vmx-live-score')).toHaveText('✓ 0/1');
   await expect(page.locator('.vmx-tfc-field .vmx-fill-mark')).toHaveText('✗ ผิด');
   await expect(field).toHaveAttribute('aria-invalid', 'true');
   await expect(panel.locator('.a')).toContainText('ผิด, แก้เป็น 250');
@@ -157,6 +166,9 @@ test('a timed paper gives a true-false item with a correction no check and no ma
   await page.getByRole('button', { name: /เปิดแผนผังข้อสอบ/ }).click();
   await expect(page.locator('.vmx-nav-grid button').first()).toHaveAttribute('data-state', 'part');
   await page.getByRole('button', { name: 'ปิด', exact: true }).click();
+  // Enter with nothing written keeps the keyboard on the correction still owed.
+  await field.press('Enter');
+  await expect(field).toBeFocused();
   await field.fill('250');
   await field.press('Enter');
   await expect(field).not.toBeFocused();
@@ -172,6 +184,21 @@ test('a timed paper gives a true-false item with a correction no check and no ma
   const confirm = page.getByRole('dialog').getByRole('button', { name: /ส่ง/ });
   if (await confirm.count()) await confirm.first().click();
   await expect(page.getByRole('region', { name: 'ผลชุดนี้' })).toContainText('ถูก 1 จาก 2 ข้อ');
+});
+
+test('in a timed paper a tap on ถูก or ผิด is in storage a moment after the tap, as an option is', async ({ page, context }) => {
+  await resume(page, context, { questions: [TFC_TRUE, TFC_FALSE], mode: 'exam', timed: true });
+  await tfcBtn(page, 'ถูก').click();
+  await page.locator('.vmx-exam-next').click();
+  await expect.poll(() => position(page)).toBe(2);
+  // At once: a typed answer waits half a second for the next keystroke, a tap must not.
+  await tfcBtn(page, 'ผิด').click();
+  const stored = await page.evaluate(() => new Promise((done) => {
+    requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(() => {
+      done(Object.keys(JSON.parse(localStorage.getItem('vmx-inflight-exam:guest') || '{}').answers || {}).length);
+    }, 60)));
+  }));
+  expect(stored).toBe(2);
 });
 
 // item 2

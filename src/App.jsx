@@ -1563,8 +1563,11 @@ export default function App() {
     // In a timed exam every tap is written, not one write in three seconds: a
     // tab the phone killed half a second after an answer lost that answer
     // (pagehide never fires on a kill). A typed answer (short, essay, fill)
-    // keeps the throttle, so an essay is not written on every keystroke.
-    const typing = ['short', 'essay', 'fill', 'tfc'].includes(questions[currentIdx]?.type);
+    // keeps the throttle, so an essay is not written on every keystroke. A tfc
+    // item is typed only once its correction holds text: its ถูก/ผิด is a tap.
+    const onScreen = questions[currentIdx];
+    const typing = ['short', 'essay', 'fill'].includes(onScreen?.type)
+      || (onScreen?.type === 'tfc' && Boolean(answers[onScreen.id]?.[1]));
     if ((mode === 'exam' && !typing) || Date.now() - inflightWrittenAtRef.current >= 3000) {
       let soon = 0;
       const frame = requestAnimationFrame(() => { soon = setTimeout(writeInflight, 0); });

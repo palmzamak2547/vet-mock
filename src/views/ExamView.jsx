@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import ConfirmDialog from '../components/ConfirmDialog.jsx';
-import QuestionComponent from '../components/Question.jsx';
+import QuestionComponent, { typedChecked } from '../components/Question.jsx';
 import ExamClock from '../components/ExamClock.jsx';
 import NavIcon from '../components/NavIcon.jsx';
 import { isCorrect, isWritingType, isAnswered, fillFilled } from '../hooks/utils.js';
@@ -14,6 +14,8 @@ import { readQuestionLang, writeQuestionLang, loadQuestionTranslations, englishN
 
 export default function ExamView({ currentQ, currentIdx, questions, questionDeadline, timedOutIdx, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote, jumpToQ, answers, bookmarks, user, goHome, mode, instantFeedback, onOpenWiki }) {
   const [showNote, setShowNote] = useState(false);
+  // A check on the card changes no answer, so it re-renders the live tally itself.
+  const [, setTypedChecks] = useState(0);
   const [showNav, setShowNav] = useState(false);
   const [confirmSubmit, setConfirmSubmit] = useState(false);
   const [confirmExit, setConfirmExit] = useState(false);
@@ -164,8 +166,11 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
         {revealAnswer && (() => {
           // Running tally over auto-gradable answered questions — the
           // motivational "✓ n/m" chip. Writing types self-grade in Review,
-          // so they stay out of the count entirely.
-          const graded = questions.filter((q) => !isWritingType(q) && isAnswered(answers[q.id]));
+          // so they stay out of the count entirely. A typed item (fill, tfc)
+          // counts once checked: before that the tally would say whether the
+          // text being typed is right.
+          const graded = questions.filter((q) => !isWritingType(q) && isAnswered(answers[q.id])
+            && ((q.type !== 'fill' && q.type !== 'tfc') || typedChecked(q)));
           // Its place is kept before the first answer, so the header does not grow and the
           // card does not jump down when that answer lands.
           if (!graded.length) return <div className="vmx-live-score is-empty" aria-hidden="true">✓ 0/0</div>;
@@ -222,6 +227,7 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
         showNote={showNote}
         setShowNote={setShowNote}
         revealAnswer={revealAnswer}
+        onTypedCheck={() => setTypedChecks((n) => n + 1)}
         timed={Boolean(useTimer)}
         answerRun={answerRun}
         onOpenWiki={revealAnswer ? onOpenWiki : undefined}

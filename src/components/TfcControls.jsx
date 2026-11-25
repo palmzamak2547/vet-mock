@@ -7,6 +7,9 @@
 // so this type reveals exactly when a fill-in item does: on ตรวจคำตอบ, never on the tap, because
 // the verdict must not show before the correction is typed.
 
+import { useRef } from 'react';
+import { TYPED_MAX_CHARS } from '../hooks/utils.js';
+
 export const tfcVerdict = (answer) => (Array.isArray(answer) && (answer[0] === 'T' || answer[0] === 'F') ? answer[0] : null);
 export const tfcText = (answer) => (Array.isArray(answer) && answer[0] === 'F' && typeof answer[1] === 'string' ? answer[1] : '');
 
@@ -14,10 +17,17 @@ export default function TfcControls({ q, answer, answerCurrent, revealed = false
   const picked = tfcVerdict(answer);
   const text = tfcText(answer);
   const keyIs = q.answer === true ? 'T' : 'F';
+  // The correction put away when the student switched to ถูก, by field: one card serves the whole set.
+  const draft = useRef({ field: null, text: '' });
   const pick = (value) => {
     if (revealed) return;
-    // The correction typed so far comes back if the student returns to ผิด.
-    answerCurrent(value === 'T' ? ['T'] : ['F', text]);
+    if (value === 'T') {
+      if (text) draft.current = { field: fieldId, text };
+      answerCurrent(['T']);
+      return;
+    }
+    // The correction typed so far comes back when the student returns to ผิด.
+    answerCurrent(['F', picked === 'F' ? text : draft.current.field === fieldId ? draft.current.text : '']);
   };
   // After the check each button says in words what it is, as a true/false card does.
   const mark = (value) => {
@@ -73,6 +83,7 @@ export default function TfcControls({ q, answer, answerCurrent, revealed = false
               aria-invalid={fixState === 'no' ? true : undefined}
               aria-describedby={fixState === 'no' ? `${fieldId}-key` : undefined}
               autoCapitalize="off" autoCorrect="off" spellCheck={false} autoComplete="off"
+              maxLength={TYPED_MAX_CHARS}
               enterKeyHint="done"
               onChange={(e) => { if (!revealed) answerCurrent(['F', e.target.value]); }}
               onKeyDown={(e) => { if (e.key === 'Enter' && !e.nativeEvent?.isComposing) { e.preventDefault(); if (!revealed) onEnter?.(e); } }}

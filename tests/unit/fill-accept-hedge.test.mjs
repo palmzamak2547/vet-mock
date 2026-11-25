@@ -75,12 +75,22 @@ test('an accepted alternative works in a group answered in any order', () => {
 test('a blank that names two answers is wrong, in either order and with any joiner', () => {
   const q = item('poultry', 4011);
   for (const text of ['Piperazine หรือ Levamisole', 'Levamisole หรือ Piperazine', 'Piperazineหรือ Levamisole', 'piperazine or levamisole',
-    'Levamisole or Piperazine', 'Piperazine / Levamisole', 'Piperazine/Levamisole', 'Piperazine, Levamisole', 'Levamisole, Piperazine',
-    'Piperazine, Levamisole หรือ Ivermectin']) {
+    'Levamisole or Piperazine', 'Piperazine / Levamisole', 'Piperazine/Levamisole', 'Piperazine, Levamisole หรือ Ivermectin']) {
     assert.equal(isCorrect(q, [text]), false, text);
   }
   const two = item('surg3', 40);
   assert.equal(isCorrect(two, ['greater trochanter or lesser trochanter', 'lateral condyle']), false);
+});
+
+test('a comma is not a joiner, and an accepted form that holds a joiner is one answer', () => {
+  // A comma opens an explanation as often as a list, and nothing tells the two apart.
+  const stt = item('surg2', 204);
+  assert.equal(isCorrect(stt, typed(stt, 0, 'Schirmer tear test, the standard test for tear production')), true);
+  // "2/1" is the item's own accepted form of 2:1. It does not let a second ratio through.
+  const ratio = item('poultry', 4036);
+  assert.equal(isCorrect(ratio, typed(ratio, 0, '2/1 or 8/1')), false);
+  assert.equal(isCorrect(ratio, typed(ratio, 0, '2/1 หรือ 12/1')), false);
+  assert.equal(isCorrect(ratio, typed(ratio, 0, '2/1 / 2:1')), true, 'two forms of the same answer');
 });
 
 test('one answer written with more words, or two forms of the same answer, is still right', () => {

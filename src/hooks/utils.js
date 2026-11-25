@@ -123,15 +123,24 @@ function containsKey(u, bl) {
 
 // One blank takes one answer. "Piperazine หรือ Levamisole" names two drugs, and
 // because it holds the key as a whole word it scored as right: a student could
-// list every candidate. An answer that joins alternatives (หรือ, or, a slash, a
-// comma) is right only when every alternative is itself a right answer for the
-// blank ("Act / Action"). A key that holds a joiner of its own is left alone.
-const JOINER = /\s*(?:หรือ|\/|,)\s*|(?:^|\s+)or(?:\s+|$)/;
+// list every candidate. An answer that joins alternatives (หรือ, or, a slash) is
+// right only when every alternative is itself a right answer for the blank
+// ("Act / Action"). A comma is not a joiner: in "Schirmer tear test, the
+// standard test for tear production" it opens an explanation, and nothing tells
+// that apart from a list.
+const JOINER = /\s*(?:หรือ|\/)\s*|(?:^|\s+)or(?:\s+|$)/;
+const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 function namesAnother(u, bl, right) {
-  if (JOINER.test(bl)) return false;
-  const parts = u.split(JOINER).map((part) => part.trim()).filter(Boolean);
+  // A right answer that holds a joiner of its own ("2/1", "กินหรือดื่ม") is one
+  // alternative: it is set aside whole before the answer is split, so "2/1" is
+  // one answer and "2/1 or 8/1" is still two.
+  let text = u;
+  right.forEach((key, i) => {
+    if (JOINER.test(key)) text = text.replace(new RegExp(`(^|[^a-z0-9])${escapeRe(key)}(?![a-z0-9])`, 'g'), `$1\u0000${i}\u0000`);
+  });
+  const parts = text.split(JOINER).map((part) => part.trim()).filter(Boolean);
   if (parts.length < 2) return false;
-  return !parts.every((part) => right.some((key) => part === key || (part.length >= 3 && containsKey(part, key))));
+  return !parts.every((part) => part.includes('\u0000') || right.some((key) => part === key || (part.length >= 3 && containsKey(part, key))));
 }
 
 // `also`: the blank's other right answers (the key and its accept entries), so
@@ -315,6 +324,9 @@ export function fillUnorderedGroups(q) {
   return Array.isArray(q?.blanks) ? unorderedGroups(q) : [];
 }
 
+/** The longest text a fill-in blank or a tfc correction takes: room for any term, never a paste that outweighs the paper. */
+export const TYPED_MAX_CHARS = 200;
+
 /** Whether a blank's key is a number, for the phone's numeric keyboard. */
 export function fillBlankNumeric(q, i) {
   return NUMERIC_KEY.test(normFill(q?.blanks?.[i]));
@@ -365,8 +377,10 @@ export function tfcOutcome(q, ua) {
   const verdict = (said === 'T') === q.answer;
   if (!verdict || q.answer) return { answered: true, verdict, fix: 'none', correct: verdict };
   const fix = q.fix && typeof q.fix === 'object' ? q.fix : null;
-  if (fix?.selfCheck === true) return { answered: true, verdict, fix: 'self', correct: true };
   const text = typeof ua[1] === 'string' ? ua[1] : '';
+  // An item that leaves the correction to the student still needs one written:
+  // ผิด with nothing put right is not the paper's answer.
+  if (fix?.selfCheck === true) return { answered: true, verdict, fix: text.trim() ? 'self' : 'off', correct: Boolean(text.trim()) };
   const right = typeof fix?.right === 'string' ? fix.right : '';
   const ok = Boolean(right.trim() && text.trim())
     && blankCorrect({ q: '', blanks: [right], accept: { 0: fix.accept } }, 0, text, right);

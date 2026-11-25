@@ -55,9 +55,10 @@ test('fix.accept lists further right corrections', () => {
   assert.equal(isCorrect({ ...FALSE, fix: { ...FALSE.fix, accept: 'not a list' } }, ['F', 'เฉพาะ CIRCI']), true, 'a malformed accept is no accept');
 });
 
-test('fix.selfCheck scores the verdict and leaves the correction to the student', () => {
+test('fix.selfCheck scores the verdict and leaves the correction to the student, who must still write one', () => {
   assert.equal(isCorrect(SELF, ['F', 'ไม่เสมอไป']), true);
-  assert.equal(isCorrect(SELF, ['F', '']), true, 'the verdict is what is scored');
+  assert.equal(isCorrect(SELF, ['F', '']), false, 'ผิด with nothing put right is not the answer');
+  assert.equal(isCorrect(SELF, ['F', '   ']), false);
   assert.equal(isCorrect(SELF, ['T']), false);
 });
 
