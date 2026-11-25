@@ -7,6 +7,9 @@
 #   22 Oct 2026  azure.archive.ubuntu.com sent WebKit's libraries at 75 kB/s; every WebKit job hit its cap.
 #   11 Nov 2026  the runners could not resolve any ubuntu.com name for hours (archive, azure and security
 #                alike); Build and every e2e job failed at install.
+#   25 Nov 2026  the runners named their regional mirror us-east-2.ec2.archive.ubuntu.com, not azure; the
+#                script did not know it, so it neither chose nor retried, and three e2e jobs ran out of time
+#                at install. Any <region>.archive.ubuntu.com name is the runner's regional mirror.
 # So nothing is trusted in advance. Each mirror is asked for the main package index first:
 #   - a ubuntu.com mirror answers: it goes first, the other stays as apt's fallback (the runner's own list);
 #   - neither answers: apt uses, for this job only, the mirrors outside ubuntu.com that do answer.
@@ -25,9 +28,9 @@ codename="$( (. /etc/os-release 2>/dev/null; echo "${VERSION_CODENAME:-noble}") 
 arch="$(dpkg --print-architecture 2>/dev/null || echo amd64)"
 outside="https://mirrors.edge.kernel.org/ubuntu/ https://mirrors.mit.edu/ubuntu/"
 
-# "://" keeps the plain archive from matching inside azure.archive.ubuntu.com.
+# "://" keeps the plain archive from matching inside a regional name such as azure.archive.ubuntu.com.
 archive="$(grep -oE 'https?://archive\.ubuntu\.com/ubuntu/?' "$file" 2>/dev/null | head -1)"
-azure="$(grep -oE 'https?://azure\.archive\.ubuntu\.com/ubuntu/?' "$file" 2>/dev/null | head -1)"
+regional="$(grep -oE 'https?://[a-z0-9.-]+\.archive\.ubuntu\.com/ubuntu/?' "$file" 2>/dev/null | head -1)"
 
 answers() { # true when the mirror sends the main package index (about 1.8 MB) within 6 s
   if [ -n "${APT_MIRRORS_ALIVE+set}" ]; then
@@ -43,14 +46,14 @@ mode=own    # own: the runner's ubuntu.com mirrors; outside: mirrors under anoth
 
 pick() { # fills $order; false when the runner's list is one we do not recognise
   order=(); mode=own
-  [ -n "$archive" ] && [ -n "$azure" ] || return 1
+  [ -n "$archive" ] && [ -n "$regional" ] || return 1
   local m
-  if answers "$archive"; then order=("$archive" "$azure")
-  elif answers "$azure"; then order=("$azure" "$archive")
+  if answers "$archive"; then order=("$archive" "$regional")
+  elif answers "$regional"; then order=("$regional" "$archive")
   else
     for m in $outside; do answers "$m" && order+=("$m"); done
     if [ "${#order[@]}" -gt 0 ]; then mode=outside
-    else order=("$archive" "$azure"); echo "::warning::no Ubuntu mirror answered the probe; trying anyway"
+    else order=("$archive" "$regional"); echo "::warning::no Ubuntu mirror answered the probe; trying anyway"
     fi
   fi
 }
@@ -58,7 +61,7 @@ pick() { # fills $order; false when the runner's list is one we do not recognise
 apply() { # writes $order into the list; the runner's other lines stay unless every ubuntu.com name is down
   local tmp priority=1 m
   tmp="$(mktemp)"
-  [ "$mode" = own ] && grep -vE '://(azure\.)?archive\.ubuntu\.com/' "$file" > "$tmp"
+  [ "$mode" = own ] && grep -vE '://([a-z0-9.-]+\.)?archive\.ubuntu\.com/' "$file" > "$tmp"
   for m in "${order[@]}"; do printf '%s\tpriority:%s\n' "$m" "$priority" >> "$tmp"; priority=9; done
   $sudo cp "$tmp" "$file"
   rm -f "$tmp"
