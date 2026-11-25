@@ -947,6 +947,11 @@ export const SOURCE_DOCS = [
     editions: [{ id: '52p', pages: 52 }],
   },
   {
+    slug: 'aqua-organizations-2569', subject: 'aquatic-clinic', title: "หน่วยงานและองค์กรที่เกี่ยวข้องกับการควบคุมโรคระบาดสัตว์น้ำ (10 พ.ย. 69)",
+    match: /หน่วยงานและองค์กรที่เกี่ยวข้องกับการควบคุมโรคระบาดสัตว์น้ำ 2569/i,
+    editions: [{ id: '53p', pages: 53 }],
+  },
+  {
     slug: 'aqua-shrimp-bio-immuno-2024', subject: 'aquatic-clinic', title: "Shrimp biology and fish immunology (deck 2024)",
     match: /Shrimp biology and fish immunology deck 2024/i,
     editions: [{ id: '133p', pages: 133 }],
