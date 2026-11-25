@@ -4905,4 +4905,338 @@ export const QUESTIONS_Y5_ZOONOSES_FINAL_RECALL = [
       }
     ]
   },
+  {
+    "id": 210700,
+    "subject": "zoonoses",
+    "topic": "zoo-mycoses",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ข้อใดไม่ใช่ชื่อพ้องของ Candidiasis",
+    "options": [
+      "San Joaquin Valley fever",
+      "Thrush",
+      "Moniliasis",
+      "Candidosis"
+    ],
+    "answer": 0,
+    "explain": "Candidiasis มีชื่อพ้องคือ Candidosis, Moniliasis และ Thrush ส่วน San Joaquin Valley fever เป็นชื่อพ้องของ coccidioidomycosis ที่เกิดจาก Coccidioides immitis เช่นเดียวกับ desert fever, desert rheumatism และ Posada's disease จึงไม่ใช่ชื่อพ้องของ Candidiasis",
+    "source": "Mycozoonoses Present หน้า 27 และ 46; Mycozoonoses Reading Material หน้า 10 และ 17",
+    "verified": "ภาพหน้าจอข้อสอบปลายภาค Zoonoses ของรุ่น 82 ส่วน Mycozoonoses หน้า 23 ข้อ 4; สรุปกลางภาค Zoonoses ของรุ่น 85 หน้า 14",
+    "sourceType": "past-paper",
+    "examOrigin": "Zoonoses final Vet 82, midterm Vet 85 บันทึกหลังสอบ",
+    "tags": [
+      "zoo-mycoses",
+      "candidiasis",
+      "coccidioidomycosis",
+      "synonym",
+      "past-paper"
+    ],
+    "sourcePages": [
+      {
+        "doc": "zoo-mycoses-present-2569",
+        "edition": "87p",
+        "page": 27
+      },
+      {
+        "doc": "zoo-mycoses-present-2569",
+        "edition": "87p",
+        "page": 46
+      },
+      {
+        "doc": "zoo-mycoses-reading-2569",
+        "edition": "30p",
+        "page": 10
+      },
+      {
+        "doc": "zoo-mycoses-reading-2569",
+        "edition": "30p",
+        "page": 17
+      },
+      {
+        "doc": "zoo-final-screens-vet82",
+        "edition": "79p",
+        "page": 23
+      },
+      {
+        "doc": "zoonoses-mid85",
+        "edition": "15p",
+        "page": 14
+      }
+    ]
+  },
+  {
+    "id": 210701,
+    "subject": "zoonoses",
+    "topic": "zoo-mycoses",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ลักษณะทางระบาดวิทยาที่สำคัญของ Dermatophytes",
+    "options": [
+      "อุบัติการณ์เกิด M. canis พบมากในเจ้าของสุนัขมากกว่าเจ้าของแมว",
+      "Zoophilic มีแนวโน้มเป็นปัญหามากกว่า Anthropophilic",
+      "อุบัติการณ์พบมากในสัตว์ที่ปล่อยทุ่งมากกว่าสัตว์ที่เลี้ยงในคอก เนื่องจากแหล่งเก็บเชื้อสำคัญอยู่ในสิ่งแวดล้อมและธรรมชาติ",
+      "ประชาชนชาวชนบทที่เลี้ยงปศุสัตว์และเป็นเจ้าของสัตว์เลี้ยงมีโอกาสเกิด Dermatophyte น้อยกว่าประชาชนชาวเมืองที่มีเฉพาะสัตว์เลี้ยง"
+    ],
+    "answer": 1,
+    "explain": "ในประเทศที่พัฒนาแล้ว อุบัติการณ์ของเชื้อกลุ่ม anthropophilic เช่น Microsporum audouinii ลดลงมาก ขณะที่เชื้อกลุ่ม zoophilic เช่น M. canis, Trichophyton verrucosum และ T. mentagrophytes กลับมีบทบาทสำคัญในการก่อโรคในคน zoophilic จึงมีแนวโน้มเป็นปัญหามากกว่า อีกสามตัวเลือกกลับด้านทั้งหมด ในบ้านที่มีสุนัขป่วยเป็น ringworm เจ้าของป่วยด้วยราวร้อยละ 10 ส่วนบ้านที่มีแมวป่วย เจ้าของป่วยราวร้อยละ 30 Dermatophyte พบในปศุสัตว์ที่เลี้ยงในคอกมากกว่าที่เลี้ยงในทุ่ง และแหล่งเก็บเชื้อสำคัญของกลุ่ม zoophilic คือตัวสัตว์ ไม่ใช่สิ่งแวดล้อม ส่วนในคน เชื้อกลุ่ม zoophilic เป็นสาเหตุของ ringworm ในคนเมืองราวร้อยละ 20 และในคนชนบทราวร้อยละ 80 เพราะคนชนบทที่เลี้ยงโคได้รับทั้ง T. verrucosum จากโค และ M. canis จากสุนัขและแมว",
+    "source": "Mycozoonoses Present หน้า 17 และ 20; Mycozoonoses Reading Material หน้า 5, 6, 7 และ 8",
+    "verified": "ภาพหน้าจอข้อสอบปลายภาค Zoonoses ของรุ่น 82 ส่วน Mycozoonoses หน้า 24 ข้อ 5; สรุปกลางภาค Zoonoses ของรุ่น 85 หน้า 14",
+    "sourceType": "past-paper",
+    "examOrigin": "Zoonoses final Vet 82, midterm Vet 85 บันทึกหลังสอบ",
+    "tags": [
+      "zoo-mycoses",
+      "dermatophytosis",
+      "epidemiology",
+      "past-paper"
+    ],
+    "sourcePages": [
+      {
+        "doc": "zoo-mycoses-present-2569",
+        "edition": "87p",
+        "page": 17
+      },
+      {
+        "doc": "zoo-mycoses-present-2569",
+        "edition": "87p",
+        "page": 20
+      },
+      {
+        "doc": "zoo-mycoses-reading-2569",
+        "edition": "30p",
+        "page": 5
+      },
+      {
+        "doc": "zoo-mycoses-reading-2569",
+        "edition": "30p",
+        "page": 6
+      },
+      {
+        "doc": "zoo-mycoses-reading-2569",
+        "edition": "30p",
+        "page": 7
+      },
+      {
+        "doc": "zoo-mycoses-reading-2569",
+        "edition": "30p",
+        "page": 8
+      },
+      {
+        "doc": "zoo-final-screens-vet82",
+        "edition": "79p",
+        "page": 24
+      },
+      {
+        "doc": "zoonoses-mid85",
+        "edition": "15p",
+        "page": 14
+      }
+    ]
+  },
+  {
+    "id": 210702,
+    "subject": "zoonoses",
+    "topic": "zoo-mycoses",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "เชื้อที่มักก่อให้เกิด Candidiasis ในคน เช่น",
+    "options": [
+      "Candida albicans",
+      "Candida glabrata",
+      "ถูกทุกข้อ",
+      "Candida tropicalis"
+    ],
+    "answer": 2,
+    "explain": "Candidiasis ในคนส่วนใหญ่เกิดจาก Candida albicans และ Candida glabrata บางครั้งเกิดจาก Candida tropicalis ซึ่งพบใน cutaneous candidiasis ทั้งสามชนิดจึงถูก Candida เป็นเชื้อฉวยโอกาสที่พบเป็นเชื้อปกติ (normal flora) ในทางเดินอาหารของคนและสัตว์จำนวนมาก",
+    "source": "Mycozoonoses Present หน้า 27; Mycozoonoses Reading Material หน้า 10 และ 11",
+    "verified": "ภาพหน้าจอข้อสอบปลายภาค Zoonoses ของรุ่น 82 ส่วน Mycozoonoses หน้า 26 ข้อ 9; สรุปกลางภาค Zoonoses ของรุ่น 85 หน้า 14",
+    "sourceType": "past-paper",
+    "examOrigin": "Zoonoses final Vet 82, midterm Vet 85 บันทึกหลังสอบ",
+    "tags": [
+      "zoo-mycoses",
+      "candidiasis",
+      "etiology",
+      "past-paper"
+    ],
+    "sourcePages": [
+      {
+        "doc": "zoo-mycoses-present-2569",
+        "edition": "87p",
+        "page": 27
+      },
+      {
+        "doc": "zoo-mycoses-reading-2569",
+        "edition": "30p",
+        "page": 10
+      },
+      {
+        "doc": "zoo-mycoses-reading-2569",
+        "edition": "30p",
+        "page": 11
+      },
+      {
+        "doc": "zoo-final-screens-vet82",
+        "edition": "79p",
+        "page": 26
+      },
+      {
+        "doc": "zoonoses-mid85",
+        "edition": "15p",
+        "page": 14
+      }
+    ]
+  },
+  {
+    "id": 210703,
+    "subject": "zoonoses",
+    "topic": "zoo-mycoses",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "Cryptococcosis ที่พบในคนมักเกิดกับระบบใดของร่างกาย",
+    "options": [
+      "ระบบภูมิคุ้มกัน",
+      "ระบบหายใจ",
+      "ถูกทุกข้อ",
+      "ระบบปัสสาวะ"
+    ],
+    "answer": 1,
+    "explain": "Cryptococcus neoformans อาศัยอยู่ในดินและฝุ่นในสิ่งแวดล้อม การติดเชื้อหลักในคนเกิดที่ระบบทางเดินหายใจ (pulmonary cryptococcosis) ติดที่ผิวหนังโดยตรงได้บ้างแต่น้อยกว่า หลังติดเชื้อที่ปอด โรคอาจดำเนินไปเป็น cryptococcal meningitis ที่ระบบประสาทส่วนกลาง และพบเชื้อที่ผิวหนัง ไต ตับ หรือกระดูกได้ ระบบภูมิคุ้มกันไม่ใช่ตำแหน่งที่เกิดโรค แต่ผู้ที่ภูมิคุ้มกันต่ำติดเชื้อได้ง่าย ระบบปัสสาวะก็ไม่ใช่ตำแหน่งหลัก ตัวเลือกถูกทุกข้อจึงผิด",
+    "source": "Mycozoonoses Present หน้า 83; Mycozoonoses Reading Material หน้า 25",
+    "verified": "ภาพหน้าจอข้อสอบปลายภาค Zoonoses ของรุ่น 82 ส่วน Mycozoonoses หน้า 27 ข้อ 11; สรุปกลางภาค Zoonoses ของรุ่น 85 หน้า 14",
+    "sourceType": "past-paper",
+    "examOrigin": "Zoonoses final Vet 82, midterm Vet 85 บันทึกหลังสอบ",
+    "tags": [
+      "zoo-mycoses",
+      "cryptococcosis",
+      "past-paper"
+    ],
+    "sourcePages": [
+      {
+        "doc": "zoo-mycoses-present-2569",
+        "edition": "87p",
+        "page": 83
+      },
+      {
+        "doc": "zoo-mycoses-reading-2569",
+        "edition": "30p",
+        "page": 25
+      },
+      {
+        "doc": "zoo-final-screens-vet82",
+        "edition": "79p",
+        "page": 27
+      },
+      {
+        "doc": "zoonoses-mid85",
+        "edition": "15p",
+        "page": 14
+      }
+    ]
+  },
+  {
+    "id": 210704,
+    "subject": "zoonoses",
+    "topic": "zoo-mycoses",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "ชื่อพ้องของ Dermatomycoses คือ",
+    "options": [
+      "Skinny",
+      "Both Ringworm and Tinea",
+      "Ringworm",
+      "Tinea"
+    ],
+    "answer": 1,
+    "explain": "Dermatomycoses หรือ dermatophytosis มีชื่อพ้องสองชื่อคือ Tinea และ Ringworm ตัวเลือกที่รวมทั้งสองชื่อจึงตอบครบที่สุด เชื้อก่อโรคคือ Trichophyton spp., Microsporum spp. และ Epidermophyton floccosum ส่วน Skinny ไม่ใช่ชื่อพ้องของโรคนี้",
+    "source": "Mycozoonoses Present หน้า 12; Mycozoonoses Reading Material หน้า 4",
+    "verified": "ภาพหน้าจอข้อสอบปลายภาค Zoonoses ของรุ่น 82 ส่วน Mycozoonoses หน้า 28 ข้อ 13; สรุปกลางภาค Zoonoses ของรุ่น 85 หน้า 14",
+    "sourceType": "past-paper",
+    "examOrigin": "Zoonoses final Vet 82, midterm Vet 85 บันทึกหลังสอบ",
+    "tags": [
+      "zoo-mycoses",
+      "dermatophytosis",
+      "synonym",
+      "past-paper"
+    ],
+    "sourcePages": [
+      {
+        "doc": "zoo-mycoses-present-2569",
+        "edition": "87p",
+        "page": 12
+      },
+      {
+        "doc": "zoo-mycoses-reading-2569",
+        "edition": "30p",
+        "page": 4
+      },
+      {
+        "doc": "zoo-final-screens-vet82",
+        "edition": "79p",
+        "page": 28
+      },
+      {
+        "doc": "zoonoses-mid85",
+        "edition": "15p",
+        "page": 14
+      }
+    ]
+  },
+  {
+    "id": 210705,
+    "subject": "zoonoses",
+    "topic": "zoo-mycoses",
+    "year": 5,
+    "type": "mcq",
+    "examScope": "final",
+    "q": "สาเหตุของการเพิ่มขึ้นของอุบัติการณ์ของ Candidiasis เนื่องจาก",
+    "options": [
+      "ถูกทุกข้อ",
+      "การใช้ยาปฏิชีวนะเพิ่มมากขึ้น",
+      "อุบัติการณ์ผู้ป่วยที่มีภูมิคุ้มกันต่ำเพิ่มขึ้น",
+      "การใช้ยา corticosteroid ไม่เฉพาะเจาะจงและยาวนานเกินไป"
+    ],
+    "answer": 0,
+    "explain": "Candidiasis เป็นโรคเชื้อราแบบฉวยโอกาสที่พบบ่อยที่สุด อุบัติการณ์เพิ่มขึ้นเรื่อยๆ ตามการใช้ยาปฏิชีวนะและ corticosteroid ในการรักษาอย่างไม่เฉพาะเจาะจงและนานเกินไป ส่วนผู้ใหญ่ที่เสี่ยงต่อโรคคือผู้ที่ภูมิต้านทานต่ำหรือมีโรคอื่นอยู่ก่อน เช่น เบาหวาน มะเร็งเม็ดเลือดขาว เมื่อผู้ป่วยกลุ่มนี้มีมากขึ้น ผู้ป่วย candidiasis ก็มากขึ้นตาม ทั้งสามข้อจึงเป็นสาเหตุ",
+    "source": "Mycozoonoses Present หน้า 27; Mycozoonoses Reading Material หน้า 10 และ 11",
+    "verified": "ภาพหน้าจอข้อสอบปลายภาค Zoonoses ของรุ่น 82 ส่วน Mycozoonoses หน้า 29 ข้อ 15; สรุปกลางภาค Zoonoses ของรุ่น 85 หน้า 14",
+    "sourceType": "past-paper",
+    "examOrigin": "Zoonoses final Vet 82, midterm Vet 85 บันทึกหลังสอบ",
+    "tags": [
+      "zoo-mycoses",
+      "candidiasis",
+      "risk-factor",
+      "past-paper"
+    ],
+    "sourcePages": [
+      {
+        "doc": "zoo-mycoses-present-2569",
+        "edition": "87p",
+        "page": 27
+      },
+      {
+        "doc": "zoo-mycoses-reading-2569",
+        "edition": "30p",
+        "page": 10
+      },
+      {
+        "doc": "zoo-mycoses-reading-2569",
+        "edition": "30p",
+        "page": 11
+      },
+      {
+        "doc": "zoo-final-screens-vet82",
+        "edition": "79p",
+        "page": 29
+      },
+      {
+        "doc": "zoonoses-mid85",
+        "edition": "15p",
+        "page": 14
+      }
+    ]
+  },
 ];

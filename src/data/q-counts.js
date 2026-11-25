@@ -2058,7 +2058,7 @@ const LEAVES = [
   ["zoonoses","zoo-intro",0,[[8,5,1,0,1,0,0,0],[1,5,1,0,1,1,0,0],[12,5,1,1,1,1,0,0]]], // 1f47317e51d4
   // end ["zoonoses","zoo-intro"]
   // ["zoonoses","zoo-mycoses"]
-  ["zoonoses","zoo-mycoses",0,[[15,5,1,0,2,1,0,0],[25,5,1,1,2,1,0,0]]], // 08ff9b82639e
+  ["zoonoses","zoo-mycoses",0,[[15,5,1,0,2,1,0,0],[31,5,1,1,2,1,0,0]]], // f678df8bca3b
   // end ["zoonoses","zoo-mycoses"]
   // ["zoonoses","zoo-outbreak"]
   ["zoonoses","zoo-outbreak",0,[[12,5,1,0,1,1,0,0]]], // 2ee71e14d52b

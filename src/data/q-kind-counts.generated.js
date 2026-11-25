@@ -1910,7 +1910,7 @@ const LEAVES = [
   ["zoonoses","zoo-intro",21,{"1-mid":[19,0,0,2]},{"1-mid":[10,0,0,2]}], // e1988bb182a4
   // end ["zoonoses","zoo-intro"]
   // ["zoonoses","zoo-mycoses"]
-  ["zoonoses","zoo-mycoses",40,{"1-final":[40,0,0,0]},{"1-final":[25,0,0,0]}], // d00f0f3af67f
+  ["zoonoses","zoo-mycoses",46,{"1-final":[46,0,0,0]},{"1-final":[31,0,0,0]}], // 63c2469f9002
   // end ["zoonoses","zoo-mycoses"]
   // ["zoonoses","zoo-outbreak"]
   ["zoonoses","zoo-outbreak",12,{"1-mid":[11,0,0,1]},{}], // 13187ed576d9
