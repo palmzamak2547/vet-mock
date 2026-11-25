@@ -1886,7 +1886,7 @@ const LEAVES = [
   ["zoonoses","zoo-ai-basic",22,{"1-mid":[20,1,0,1]},{"1-mid":[7,1,0,1]}], // 00e7c07db010
   // end ["zoonoses","zoo-ai-basic"]
   // ["zoonoses","zoo-bacterial"]
-  ["zoonoses","zoo-bacterial",107,{"1-final":[81,5,1,20]},{"1-final":[30,5,1,20]}], // 853e4a5f9db8
+  ["zoonoses","zoo-bacterial",114,{"1-final":[84,6,1,23]},{"1-final":[30,6,1,23]}], // 9c77f3b7a4f9
   // end ["zoonoses","zoo-bacterial"]
   // ["zoonoses","zoo-corona"]
   ["zoonoses","zoo-corona",21,{"1-mid":[18,0,0,3]},{"1-mid":[10,0,0,3]}], // 24f8d4f43981
@@ -1901,7 +1901,7 @@ const LEAVES = [
   ["zoonoses","zoo-eid-wildlife",23,{"1-mid":[9,12,0,2],"1-final":[9,12,0,2]},{"1-mid":[0,8,0,2],"1-final":[0,8,0,2]}], // 73146aa7fe11
   // end ["zoonoses","zoo-eid-wildlife"]
   // ["zoonoses","zoo-epi-approach"]
-  ["zoonoses","zoo-epi-approach",87,{"1-mid":[68,9,4,6],"1-final":[68,9,4,6]},{"1-mid":[33,9,4,6],"1-final":[33,9,4,6]}], // c234d6fc9bf5
+  ["zoonoses","zoo-epi-approach",95,{"1-mid":[76,9,4,6],"1-final":[76,9,4,6]},{"1-mid":[33,9,4,6],"1-final":[33,9,4,6]}], // 12d4a8e1befa
   // end ["zoonoses","zoo-epi-approach"]
   // ["zoonoses","zoo-helminthic"]
   ["zoonoses","zoo-helminthic",64,{"1-mid":[64,0,0,0]},{"1-mid":[24,0,0,0]}], // de9fe9f593fb
@@ -1910,13 +1910,13 @@ const LEAVES = [
   ["zoonoses","zoo-intro",21,{"1-mid":[19,0,0,2]},{"1-mid":[10,0,0,2]}], // e1988bb182a4
   // end ["zoonoses","zoo-intro"]
   // ["zoonoses","zoo-mycoses"]
-  ["zoonoses","zoo-mycoses",40,{"1-final":[40,0,0,0]},{"1-final":[25,0,0,0]}], // d00f0f3af67f
+  ["zoonoses","zoo-mycoses",46,{"1-final":[46,0,0,0]},{"1-final":[31,0,0,0]}], // 63c2469f9002
   // end ["zoonoses","zoo-mycoses"]
   // ["zoonoses","zoo-outbreak"]
   ["zoonoses","zoo-outbreak",12,{"1-mid":[11,0,0,1]},{}], // 13187ed576d9
   // end ["zoonoses","zoo-outbreak"]
   // ["zoonoses","zoo-prion"]
-  ["zoonoses","zoo-prion",22,{"1-final":[15,7,0,0]},{"1-final":[2,7,0,0]}], // 8f8ce4d9cea8
+  ["zoonoses","zoo-prion",25,{"1-final":[15,10,0,0]},{"1-final":[2,10,0,0]}], // 449d1831a639
   // end ["zoonoses","zoo-prion"]
   // ["zoonoses","zoo-protozoal"]
   ["zoonoses","zoo-protozoal",28,{"1-mid":[28,0,0,0]},{"1-mid":[17,0,0,0]}], // fddaea6f1238
