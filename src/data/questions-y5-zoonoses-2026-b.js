@@ -834,10 +834,18 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "ย้อมสี Ziehl-Neelsen จากรอยโรคในสมองส่วน medulla"
     ],
     "answer": 2,
-    "explain": "วินิจฉัยจาก histopathology ที่พบ neural vacuolation หรือจากน้ำไขสันหลัง และย้ำว่าตรวจจาก serology ไม่ได้เพราะ prion ไม่ทำให้เกิดการสร้าง antibody prion ไม่ใช่สิ่งมีชีวิตจึงเพาะเลี้ยงไม่ได้ ส่วน Ziehl-Neelsen เป็นการย้อมหาเชื้อทนกรดในกลุ่ม Mycobacterium",
+    "explain": "วินิจฉัยจาก histopathology ที่พบ neuronal vacuolation ร่วมกับ immunohistochemistry (IHC) หรือ western blot และ real-time quaking-induced conversion (RT-QuIC) ซึ่งตรวจ prion seeding activity ในน้ำไขสันหลัง (CSF) หรือ olfactory mucosa ตรวจ serology ไม่ได้เพราะ prion ไม่กระตุ้นการสร้าง antibody prion ไม่ใช่สิ่งมีชีวิตจึงเพาะเลี้ยงไม่ได้ ส่วน Ziehl-Neelsen เป็นการย้อมหาเชื้อทนกรดในกลุ่ม Mycobacterium",
+    "source": "Prion Diseases 2569 หน้า 11",
     "verified": "Zoonoses 85 น.6",
     "sourceType": "lecture-derived",
-    "examOrigin": "เขียนขึ้นจากสรุป prion ในเอกสาร Vet 85"
+    "examOrigin": "เขียนขึ้นจากสรุป prion ในเอกสาร Vet 85",
+    "sourcePages": [
+      {
+        "doc": "zoo-prion-2569",
+        "edition": "40p",
+        "page": 11
+      }
+    ]
   },
   {
     "id": 106040,
@@ -858,10 +866,18 @@ export const QUESTIONS_Y5_ZOONOSES_2026_B = [
       "ติดต่อจากคนสู่คนโดย direct contact ได้ง่ายกว่า CJD มาก"
     ],
     "answer": 0,
-    "explain": "vCJD สัมพันธ์กับการที่คนกินวัวที่เป็น BSE มี median duration of illness 14 เดือน ขณะที่ CJD อยู่ที่ 5 เดือน และ vCJD มี incubation 2 ปีซึ่งไม่นานเท่า CJD ส่วน CJD ต่างหากที่เกิดในคนแก่และฟักตัวนานมาก",
+    "explain": "vCJD สัมพันธ์กับการกินเนื้อวัวหรือผลิตภัณฑ์จากวัวที่ป่วยเป็น BSE มี median duration of illness ราว 14 เดือน นานกว่า CJD แบบดั้งเดิมที่ราว 5 เดือน vCJD มักเกิดในคนอายุน้อย median age at death อยู่ที่ 28 ปี เทียบกับ 68 ปีใน CJD แบบดั้งเดิม ระยะฟักตัวของ vCJD ยังไม่ทราบแน่ชัด ประมาณไว้ราว 10 ปี และไม่มีหลักฐานว่าติดต่อจากคนสู่คนด้วยการสัมผัสกันโดยตรง",
+    "source": "Prion Diseases 2569 หน้า 18",
     "verified": "Zoonoses 85 น.6",
     "sourceType": "lecture-derived",
-    "examOrigin": "เขียนขึ้นจากสรุป prion ในเอกสาร Vet 85"
+    "examOrigin": "เขียนขึ้นจากสรุป prion ในเอกสาร Vet 85",
+    "sourcePages": [
+      {
+        "doc": "zoo-prion-2569",
+        "edition": "40p",
+        "page": 18
+      }
+    ]
   },
   {
     "id": 106041,
