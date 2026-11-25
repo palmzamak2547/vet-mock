@@ -33,9 +33,22 @@ export function evidenceFor(q) {
   if (index === undefined) return undefined;
   const row = index?.q && Object.hasOwn(index.q, q.id) ? index.q[q.id] : null;
   if (!Array.isArray(row)) return null;
-  const [doc, page, w, h, boxes, hash] = row;
-  if (hash !== evidenceHash(q) || !(w > 0 && h > 0) || !Array.isArray(boxes)) return null;
-  const [sha16, slug, title, kind] = index.docs?.[doc] || [];
+  const [doc, page, w, h, boxes, hash, more] = row;
+  if (hash !== evidenceHash(q)) return null;
+  const rec = pageOf(index, doc, page, w, h, boxes);
+  if (!rec) return null;
+  // An answer that rests on more than one page files the others after the hash; a malformed one is left out.
+  const rest = Array.isArray(more) ? more.map((m) => (Array.isArray(m) && m.length === 5 ? pageOf(index, ...m) : null)).filter(Boolean) : [];
+  return rest.length ? { ...rec, more: rest } : rec;
+}
+
+function pageOf(index, doc, page, w, h, boxes) {
+  const d = Number.isInteger(doc) ? index.docs?.[doc] : null;
+  const size = (n) => Number.isFinite(n) && n > 0;   // a number, not '960' and not Infinity: the frame's shape divides by it
+  // Spread before every(): it skips the holes of a sparse array, and a hole would reach the frame as undefined.
+  if (!Array.isArray(d) || !Number.isSafeInteger(page) || page < 1 || !(size(w) && size(h)) || !Array.isArray(boxes)
+    || ![...boxes].every((b) => Array.isArray(b) && b.length === 4 && [...b].every(Number.isFinite))) return null;
+  const [sha16, slug, title, kind] = d;
   return sha16 ? { sha16, slug, title, kind, page, w, h, boxes } : null;
 }
 

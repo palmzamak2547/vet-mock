@@ -49,7 +49,7 @@ export function deckCites(src) {
 
 /**
  * The pages that have a picture, from a subject's evidence index
- * ({ docs: [[sha16, slug, title, kind]], q: { id: [doc, page, w, h, boxes, hash] } }):
+ * ({ docs: [[sha16, slug, title, kind]], q: { id: [doc, page, w, h, boxes, hash, further?] } }):
  * Map(normTitle → { sha16, title, kind, pages: Map(page → { w, h }) }).
  * A title shared by two different documents is left out.
  */
@@ -69,9 +69,13 @@ export function slideIndex(evidence) {
   const byDoc = new Map([...byTitle.values()].map((v) => [v.doc, v]));
   for (const row of Object.values(evidence?.q || {})) {
     if (!Array.isArray(row)) continue;
-    const [doc, page, w, h] = row;
-    const entry = byDoc.get(doc);
-    if (entry && page > 0 && w > 0 && h > 0 && !entry.pages.has(page)) entry.pages.set(page, { w, h });
+    // A further page an answer rests on is filed after the hash (row[6]) and has its picture too.
+    for (const p of [row, ...(Array.isArray(row[6]) ? row[6] : [])]) {
+      const [doc, page, w, h] = Array.isArray(p) ? p : [];
+      const entry = byDoc.get(doc);
+      const fine = Number.isSafeInteger(page) && page > 0 && Number.isFinite(w) && w > 0 && Number.isFinite(h) && h > 0;
+      if (entry && fine && !entry.pages.has(page)) entry.pages.set(page, { w, h });
+    }
   }
   return byTitle;
 }
@@ -83,16 +87,45 @@ export function slideIndex(evidence) {
  * question asked, not what this line says, so the page is shown unmarked.
  */
 export function slideFor(src, index) {
+  return slidesOf(src, index, () => true);
+}
+
+// The first page the citation names that has a picture and that `wanted` accepts.
+function slidesOf(src, index, wanted) {
   if (!index?.size) return null;
   for (const { title, pages } of deckCites(src)) {
     const entry = index.get(normTitle(title));
     if (!entry) continue;
     for (const page of pages) {
       const size = entry.pages.get(page);
-      if (size) return { sha16: entry.sha16, title: entry.title, kind: entry.kind, page, w: size.w, h: size.h, boxes: [] };
+      const rec = size && { sha16: entry.sha16, title: entry.title, kind: entry.kind, page, w: size.w, h: size.h, boxes: [] };
+      if (rec && wanted(rec)) return rec;
     }
   }
   return null;
+}
+
+/**
+ * The slide under each line of an item: Map(line → record), in reading order
+ * (emphasis, then examined). Each page is drawn once, under the first line
+ * that takes it; a line whose first page is already drawn takes the next page
+ * it cites that has a picture, so filing more pages never takes a picture
+ * away from a line. Worked out before the lines are drawn, so drawing a list
+ * twice draws the same slides: React StrictMode renders each list twice in
+ * development, and a list that marked pages as taken while it drew found
+ * every page taken on the second pass and drew none.
+ */
+export function itemSlides(item, index) {
+  const out = new Map();
+  const taken = new Set();
+  const key = (rec) => `${rec.sha16}#${rec.page}`;
+  for (const line of [...(item?.emphasis || []), ...(item?.examined || [])]) {
+    const rec = slidesOf(line?.src, index, (r) => !taken.has(key(r)));
+    if (!rec) continue;
+    taken.add(key(rec));
+    out.set(line, rec);
+  }
+  return out;
 }
 
 /** Every deck page an item's lines cite, each with whether it has a picture: for the audit script and tests. */

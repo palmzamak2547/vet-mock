@@ -34,5 +34,7 @@ export default function EvidenceSlot({ q, late = false }) {
     return () => { live = false; };
   }, [q, late, rec]);
   const View = runtime?.default;
-  return rec && View ? <View rec={rec} late={late} /> : null;
+  if (!rec || !View) return null;
+  // An answer that rests on two pages shows both, painted together, the second under the first.
+  return [rec, ...(rec.more || [])].map((r, i) => <View key={`${i}:${r.sha16}:${r.page}`} rec={r} late={late} />);
 }

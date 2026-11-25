@@ -46,12 +46,23 @@ test('a slide is shown only for the question it was matched to', async () => {
   assert.equal(hasEvidence('none'), false);
 });
 
-test('a row that files further pages still shows its first page', async () => {
+test('an answer that rests on two pages carries the second; a malformed further page is left out', async () => {
   resetEvidence();
-  const docs = [['0123456789abcdef', 'deck', 'Deck', 'slide']];
-  const loaders = { s: async () => ({ EVIDENCE: { docs, q: { 7: [0, 3, 960, 540, [[1, 2, 3, 4]], evidenceHash(mcq), [[0, 9, 960, 540, []]]] } } }) };
+  const h = evidenceHash(mcq);
+  const docs = [['0123456789abcdef', 'deck', 'Deck', 'slide'], ['fedcba9876543210', 'notes', 'Notes', 'handout']];
+  const holey = Object.assign(new Array(2), { 1: [1, 2, 3, 4] });   // a list of boxes whose first place is empty
+  const more = [[1, 9, 720, 540, [[5, 6, 7, 8]]], [4, 1, 960, 540, []], [0, 2, 0, 540, []], 'not a page',
+    ['0', 2, 960, 540, []], [0, 0, 960, 540, []], [0, 2.5, 960, 540, []], [0, 2, 960, 540, [null]], [0, 2, 960, 540, [[1, 2, 3]]],
+    [0, 2, Infinity, 540, []], [0, 2, '960', 540, []], [0, 2, 960, 540, holey], [0, 2, 960, 540, [], 'sixth'], [0, 1e21, 960, 540, []]];
+  const loaders = { s: async () => ({ EVIDENCE: { docs, q: { 7: [0, 3, 960, 540, [[1, 2, 3, 4]], h, more], 8: [0, 3, 960, 540, [], h, []], 9: [0, 3, 0, 540, [], h, more] } } }) };
   await prefetchEvidence('s', loaders);
-  assert.deepEqual(evidenceFor(mcq), { sha16: '0123456789abcdef', slug: 'deck', title: 'Deck', kind: 'slide', page: 3, w: 960, h: 540, boxes: [[1, 2, 3, 4]] });
+  assert.deepEqual(evidenceFor(mcq), {
+    sha16: '0123456789abcdef', slug: 'deck', title: 'Deck', kind: 'slide', page: 3, w: 960, h: 540, boxes: [[1, 2, 3, 4]],
+    more: [{ sha16: 'fedcba9876543210', slug: 'notes', title: 'Notes', kind: 'handout', page: 9, w: 720, h: 540, boxes: [[5, 6, 7, 8]] }],
+  });
+  assert.equal(evidenceFor({ ...mcq, id: 8 }).more, undefined, 'an empty list adds nothing');
+  assert.equal(evidenceFor({ ...mcq, id: 9 }), null, 'a malformed first page shows nothing, whatever follows it');
+  assert.equal(evidenceFor({ ...mcq, id: 7, q: 'โจทย์ที่แก้แล้ว' }), null, 'an edited question drops every page');
   resetEvidence();
 });
 
