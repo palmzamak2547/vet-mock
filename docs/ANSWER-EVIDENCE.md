@@ -87,6 +87,17 @@ at. Seven items keep what they showed: there the shown highlight sits on the
 printed words that settle the item, and the key's mark on a handwritten note
 or on the lines around them.
 
+Later the same day the Zoonoses decks shelved after the first run (Prion
+Diseases, Epidemiological approach to zoonoses, two on wildlife) were fetched,
+read and matched. 91 picks were drawn and looked at: 83 published, 7 weak, 1
+wrong, and a second reading of 20 published picks agreed on 18 (the two it
+found weak were withdrawn). The run had found no pick for two questions whose
+slides were already published, so `find` now keeps a pick that was looked at
+and found right while its question is unchanged (`keepSeen`): the eye
+outranks a later run, and the models are not asked about it again. Four decks
+shelved under file names were retitled to the names the wrap-up cites, since
+`slideIndex` finds a wrap-up line's picture by the deck's title.
+
 ## How a slide is matched
 
 No model writes or changes an answer. For each question in scope:

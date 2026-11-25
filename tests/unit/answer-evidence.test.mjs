@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 import { evidenceHash, keyText } from '../../src/lib/evidence-hash.js';
 import { cropOf, evidenceBase, evidenceFor, forgetEvidenceBase, hasEvidence, knownBase, prefetchEvidence, resetEvidence, slideUrl } from '../../src/lib/evidence.js';
-import { boxesOf, grounded, headingOf, numbersOf, settle, squash, tokens } from '../../scripts/evidence/build.mjs';
+import { boxesOf, grounded, headingOf, keepSeen, numbersOf, settle, squash, tokens } from '../../scripts/evidence/build.mjs';
 import { lintEvidence } from '../../scripts/lint-evidence.mjs';
 import { resetChulaGate } from '../../api/_lib/chula-gate.js';
 
@@ -267,6 +267,24 @@ test('highlight boxes are thousandths of the page, with touching lines joined an
   assert.deepEqual(boxes[0], [80, 365, 465, 111]);
   const over = boxesOf({ w: 1440, h: 810, lines: [[445.7, 222.7, 1443.1, 257.7, 'a line that runs a point past the page', 25]] }, [0]);
   assert.ok(over[0][0] + over[0][2] <= 1000, 'a line running past the edge is cut at the edge');
+});
+
+test('a later matching run keeps a pick the eye found right while its question is unchanged', () => {
+  const row = { v: 9, qid: 's:7', id: 7, topic: 'new-topic', scope: 'final', h: 'aaaa', cites: [], state: 'none' };
+  const seen = { v: 7, qid: 's:7', id: 7, topic: 'old-topic', scope: 'both', h: 'aaaa', state: 'states', sha16: 'f'.repeat(16),
+    page: 20, w: 720, h2: 540, lines: [3], boxes: [[100, 200, 300, 40]], checked: 'ok' };
+  const kept = keepSeen(row, seen);
+  assert.equal(kept.sha16, seen.sha16);
+  assert.equal(kept.page, 20);
+  assert.deepEqual(kept.boxes, seen.boxes);
+  assert.equal(kept.state, 'states');
+  assert.equal(kept.topic, 'new-topic');
+  assert.equal(kept.v, 9);
+  assert.equal('checked' in kept, false);
+  assert.equal(keepSeen({ ...row, h: 'bbbb' }, seen), null);
+  assert.equal(keepSeen(row, { ...seen, checked: 'weak' }), null);
+  assert.equal(keepSeen(row, { ...seen, checked: undefined }), null);
+  assert.equal(keepSeen(row, undefined), null);
 });
 
 test('search tokens: Thai by word, Latin lowercased with a plural folded, stop words gone', () => {

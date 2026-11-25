@@ -443,12 +443,27 @@ export function boxesOf(page, idx) {
   }).filter(([, , w, h]) => w > 0 && h > 0);
 }
 
+/**
+ * The eye outranks a later run: a pick that was looked at and found right (`seen`, a registry row whose verdict
+ * still holds) stays, state and all, while the question is unchanged, and the models are not asked about it again;
+ * only the question's own fields are refreshed. Returns the row to file, or null when the models should be asked.
+ * On 25 Nov 2026 a Zoonoses run found no pick for two such questions, and their published slides would have gone
+ * with the next `index`.
+ */
+export function keepSeen(row, seen) {
+  if (!seen || seen.checked !== 'ok' || seen.h !== row.h) return null;
+  const pick = { ...seen };
+  delete pick.checked;
+  return { ...pick, ...row, state: seen.state };
+}
+
 async function find(subject) {
   const docs = loadDocs(subject);
   const index = pageIndex(docs);
   const { questions, SOURCE_DOCS } = await finalPool(subject);
   const sourceDocs = SOURCE_DOCS.filter((d) => d.subject === subject || (d.alsoSubjects ?? []).includes(subject));
   const byTopic = await topicDocs(subject, docs, questions, sourceDocs);
+  const before = new Map(registry(subject).map((r) => [r.qid, r]));
   const rows = [];
   let done = 0;
   await pool(questions, 8, async (item) => {
@@ -456,6 +471,8 @@ async function find(subject) {
     const cited = citedPages(item, sourceDocs, docs);
     const row = { v: FIND_V, qid: `${q.subject}:${q.id}`, id: q.id, subject, topic: q.topic, type: q.type || 'mcq', scope: item.scope,
       bankFile: item.bankFile, h: evidenceHash(q), cites: [...cited], state: 'none' };
+    const kept = keepSeen(row, before.get(row.qid));
+    if (kept) { rows.push(kept); return; }
     rows.push(row);
     const key = keyText(q);
     if (!key || q.type === 'match' || !index.n) { row.state = key ? 'no-pages' : 'no-key'; return; }
