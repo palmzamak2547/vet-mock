@@ -31,6 +31,7 @@ import { motionIsReduced } from '../lib/motion-preferences.js';
 // (the same line the VetWiki article shows).
 import { noteSourceLine } from '../lib/note-source-line.js';
 import ScrollFrame from '../components/ScrollFrame.jsx';
+import { searchKey, searchTerms, matchesAll } from '../lib/search-key.js';
 
 // One topic can only count once a day towards the reading quests, so
 // re-opening the same page cannot tick the counter three times. The day is
@@ -97,7 +98,7 @@ function getSectionHaystack(sec) {
     }
   };
   walk(sec);
-  const out = buf.join(' ').toLowerCase();
+  const out = searchKey(buf.join(' '));
   _sectionHaystackCache.set(sec, out);
   return out;
 }
@@ -292,10 +293,11 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
   // Filter sections by search. Each section's haystack is cached in
   // a module-scope WeakMap (see getSectionHaystack) so a 50-section
   // topic doesn't re-stringify ~500KB of JSON on every keystroke.
+  // Every word typed must be in the section, in any order, as in the search box.
   const filteredSections = useMemo(() => {
-    const q = debouncedSearch.trim().toLowerCase();
-    if (!q) return topicSections;
-    return topicSections.filter((sec) => getSectionHaystack(sec).includes(q));
+    const terms = searchTerms(debouncedSearch);
+    if (!terms.length) return topicSections;
+    return topicSections.filter((sec) => matchesAll(getSectionHaystack(sec), terms));
   }, [topicSections, debouncedSearch]);
   // A section's own number in its topic, whatever the search leaves on screen.
   const sectionNumber = useMemo(() => new Map(topicSections.map((sec, i) => [sec, i + 1])), [topicSections]);

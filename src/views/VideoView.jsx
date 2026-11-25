@@ -41,6 +41,7 @@ function useLocalExtra(key, fallback) {
   return [value, update];
 }
 import { copyText } from '../lib/clipboard.js';
+import { searchKey, searchTerms, matchesAll } from '../lib/search-key.js';
 import BackBar from '../components/BackBar.jsx';
 import SummaryModal from '../components/SummaryModal.jsx';
 import VideoNotePanel from '../components/VideoNotePanel.jsx';
@@ -1097,15 +1098,15 @@ function PlayerModal({ video, onClose, watched, markWatched }) {
   // this, the search useMemo below was calling `it.title.toLowerCase()`
   // on every playlist item per keystroke (30-130 items typical).
   const indexedItems = useMemo(
-    () => playlistItems.map((it) => ({ ...it, _titleLc: (it.title || '').toLowerCase() })),
+    () => playlistItems.map((it) => ({ ...it, _titleLc: searchKey(it.title) })),
     [playlistItems]
   );
 
   // Filtered items for search — uses debouncedSearch + pre-lowered haystack.
   const filteredItems = useMemo(() => {
-    const q = debouncedSearch.trim().toLowerCase();
-    if (!q) return indexedItems;
-    return indexedItems.filter((it) => it._titleLc.includes(q));
+    const terms = searchTerms(debouncedSearch);
+    if (!terms.length) return indexedItems;
+    return indexedItems.filter((it) => matchesAll(it._titleLc, terms));
   }, [indexedItems, debouncedSearch]);
 
   // Position of each clip in the playlist, built once per list. Every
