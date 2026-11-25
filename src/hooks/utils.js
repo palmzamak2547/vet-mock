@@ -78,19 +78,23 @@ const numberParts = (s) => {
 // for 1 ml. A number is right only when the answer holds exactly one number
 // and it is the key: units, spacing and "ถึง"/"to" for a range are allowed.
 function numericBlankCorrect(u, key, stemNumbers = null) {
+  // Thousands separators only in a whole group: "2,500,000" is 2500000, "1.2,500,000" stays three numbers,
+  // and a comma that opens a clause ("1,000, based on") ends the number.
   const text = u
-    .replace(/(\d),(\d{3})(?!\d)/g, '$1$2')
+    .replace(/(^|[^\d.,])(\d{1,3}(?:,\d{3})+)(?!\d|,\d)/g, (m, before, n) => before + n.replace(/,/g, ''))
     .replace(/(\d)\s*(?:ถึง|to|~)\s*(\d)/g, '$1-$2');
-  let found = [...text.matchAll(NUMBER_IN_ANSWER)].map((m) => m[2]);
+  let found = [...text.matchAll(NUMBER_IN_ANSWER)].map((m) => ({ n: m[2], at: m.index + m[1].length }));
   // A number the stem itself prints ("dose ___ ml/100 kg", "ตอบในรูป x:1") is
   // not held against a student who copies the unit: "1 ml/100 kg" is 1. Only
   // when that leaves exactly one number, so "1 ml/10 kg" and "100" stay wrong.
   if (found.length > 1 && stemNumbers?.size) {
-    const own = found.filter((n) => !stemNumbers.has(n));
+    const own = found.filter((f) => !stemNumbers.has(f.n));
     if (own.length === 1) found = own;
   }
   if (found.length !== 1) return false;
-  const a = numberParts(found[0]);
+  // "ไม่ใช่ 15" says the answer is not 15.
+  if (NEGATED.test(text.slice(0, found[0].at))) return false;
+  const a = numberParts(found[0].n);
   const k = numberParts(key);
   return a.nums.length === k.nums.length
     && a.seps.join('') === k.seps.join('')
@@ -101,22 +105,30 @@ const LATIN_WORD = /[a-z0-9]/;
 // "hips" for hip, "condyles" for condyle: an English plural ending is still
 // the key. Only s or es, and only when the word ends there.
 const PLURAL_TAIL = /^(?:s|es)(?![a-z0-9])/;
-const NEGATED = /(?:ไม่\s*ใช่|มิ\s*ใช่|ไม่)\s*$|(?:^|[^a-z])(?:not|no|non)[\s-]*$/;
+// "not" right before the key, also across a bracket, colon or quote ("not (15 mg)", "ไม่ใช่:15").
+const NEGATED = /(?:ไม่\s*ใช่|มิ\s*ใช่|ไม่)[\s([:"'“‘]*$|(?:^|[^a-z])(?:not|no|non)[\s\-([:"'“‘]*$/;
+
+// Where the key found at `at` ends, a plural ending included, or -1 when it is
+// only the inside of a longer word, code or decimal ("S55" for S5,
+// "noncohesive" for cohesive, "2/1.5", "1.2/1" or ".2/1" for 2/1).
+function keyEnd(u, bl, at) {
+  const last = bl[bl.length - 1];
+  if (at > 0 && LATIN_WORD.test(u[at - 1]) && LATIN_WORD.test(bl[0])) return -1;
+  if (/\d/.test(bl[0]) && u[at - 1] === '.') return -1;
+  const end = at + bl.length;
+  const tail = /[a-z]/.test(last) ? u.slice(end).match(PLURAL_TAIL) : null;
+  if (tail) return end + tail[0].length;
+  if (end < u.length && LATIN_WORD.test(u[end]) && LATIN_WORD.test(last)) return -1;
+  if (/\d/.test(last) && /^\.\d/.test(u.slice(end))) return -1;
+  return end;
+}
 
 // Writing MORE than the key is fine: "the lateral condyle" still names the
 // lateral condyle. It is not fine when the key is only the inside of a
-// longer word or code ("S55" for S5, "noncohesive" for cohesive) or when the
-// answer says it is NOT the key ("ไม่ใช่ตับอ่อน").
+// longer word or code, or when the answer says it is NOT the key ("ไม่ใช่ตับอ่อน").
 function containsKey(u, bl) {
   for (let at = u.indexOf(bl); at >= 0; at = u.indexOf(bl, at + 1)) {
-    const before = u[at - 1];
-    const after = u[at + bl.length];
-    if (before && LATIN_WORD.test(before) && LATIN_WORD.test(bl[0])) continue;
-    const last = bl[bl.length - 1];
-    const plural = /[a-z]/.test(last) && PLURAL_TAIL.test(u.slice(at + bl.length));
-    if (after && LATIN_WORD.test(after) && LATIN_WORD.test(last) && !plural) continue;
-    if (NEGATED.test(u.slice(0, at))) continue;
-    return true;
+    if (keyEnd(u, bl, at) >= 0 && !NEGATED.test(u.slice(0, at))) return true;
   }
   return false;
 }
@@ -128,23 +140,85 @@ function containsKey(u, bl) {
 // ("Act / Action"). A comma is not a joiner: in "Schirmer tear test, the
 // standard test for tear production" it opens an explanation, and nothing tells
 // that apart from a list.
-const JOINER = /\s*(?:หรือ|\/)\s*|(?:^|\s+)or(?:\s+|$)/;
-const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+// "or" as a word, also after a bracket, comma, colon or slash: "Piperazine (or Levamisole)", "and/or".
+// Not after a dash: "Odds ratio—OR measures association" names one thing.
+const WORD_JOINER = /\s*หรือ\s*|(?:^|[\s([{,;:/])or(?![a-z0-9])\s*/;
+const JOINER = new RegExp(`${WORD_JOINER.source}|\\s*\\/\\s*`);
+// Units a dose, a count or a rate writes after a slash ("mg/kg", "CFU/mL", "2 ครั้ง/วัน").
+const SLASH_UNITS = new Set(['ml', 'dl', 'ul', 'µl', 'μl', 'kg', 'mg', 'mcg', 'µg', 'μg', 'ug', 'ng', 'lb', 'min', 'mins',
+  'minute', 'minutes', 'hr', 'hrs', 'hour', 'hours', 'day', 'days', 'wk', 'week', 'weeks', 'month', 'months', 'yr',
+  'year', 'years', 'sec', 'second', 'seconds', 'cell', 'cells', 'dose', 'doses', 'head', 'unit', 'units', 'mmol',
+  'meq', 'kcal', 'iu', 'beats', 'breaths', 'copies', 'hpf', 'liter', 'litre', 'milliliter', 'millilitre', 'gram',
+  'kilogram', 'milligram', 'วัน', 'ครั้ง', 'ชั่วโมง', 'ชม', 'ชม.', 'นาที', 'วินาที', 'สัปดาห์', 'เดือน', 'ปี', 'ตัว',
+  'กรัม', 'ลิตร', 'มิลลิลิตร', 'ไมโครลิตร', 'กิโลกรัม', 'กก', 'กก.', 'มก', 'มก.', 'มล', 'มล.']);
+// A word of its own: letters only, not a unit, and in Latin three letters or more (Na, K, M are symbols).
+const plainWord = (t) => /^\p{L}[\p{L}\p{M}]*$/u.test(t) && !SLASH_UNITS.has(t) && (/[^a-z]/.test(t) || t.length >= 3);
+// A slash joins two answers where a right answer stands on one side of it and no unit on the other
+// ("IgG/IgM", "IgG/M", "H5/H7", "T3/T4" for T3, "ไต/ตับ"; but "CFU/mL" and "Ketamine/kg" are one answer),
+// and between two plain words outside brackets ("Piperazine citrate / Levamisole", "ไต/เนื้อตับ"). Elsewhere it
+// belongs to a unit, ratio or code in one answer: "Ketamine 10 mg/kg/day", "thyroid hormone (T3/T4)",
+// "(Na+/K+ ATPase)", "Clavamox (amoxicillin/clavulanate)". Each side is read only as far as the longest right
+// answer reaches, so a long answer costs no more.
+function keepAnswerSlashes(s, right) {
+  const reach = Math.max(12, ...right.map((f) => f.length)) + 8;
+  const endsWithRight = (b) => right.some((f) => [f, `${f}s`, `${f}es`]
+    .some((g) => b.endsWith(g) && keyEnd(b, f, b.length - g.length) >= 0));
+  const startsWithRight = (a) => right.some((f) => a.startsWith(f) && keyEnd(a, f, 0) >= 0);
+  let out = '';
+  let from = 0;
+  let depth = 0;
+  let seen = 0;
+  for (let at = s.indexOf('/'); at >= 0; at = s.indexOf('/', at + 1)) {
+    for (; seen < at; seen++) {
+      if (s[seen] === '(' || s[seen] === '[') depth++;
+      else if ((s[seen] === ')' || s[seen] === ']') && depth > 0) depth--;
+    }
+    // Each side without the spaces, further slashes and brackets right beside the slash.
+    const before = s.slice(Math.max(0, at - reach), at).replace(/[\s/)\]]+$/, '');
+    const after = s.slice(at + 1, at + 1 + reach).replace(/^[\s/([]+/, '');
+    const leftWord = before.match(/[\p{L}\p{M}\d.]*$/u)[0];
+    const rightWord = after.match(/^[\p{L}\p{M}\d.]*/u)[0];
+    const joins = /\u0000$/.test(before) || /^(?:\u0000|or(?![a-z0-9]))/.test(after)
+      || (endsWithRight(before) && !SLASH_UNITS.has(rightWord))
+      || (startsWithRight(after) && !SLASH_UNITS.has(leftWord))
+      || (depth === 0 && plainWord(leftWord) && plainWord(rightWord));
+    if (joins) continue;
+    out += `${s.slice(from, at)}\u0001`;
+    from = at + 1;
+  }
+  return out + s.slice(from);
+}
+// The alternatives of an answer. A piece with no letter or digit is not one: "odds ratio (OR)".
+const splitAlternatives = (s, joiner, right = null) => (right ? keepAnswerSlashes(s, right) : s).split(joiner)
+  .map((part) => part.replace(/\u0001/g, '/').trim())
+  .filter((part) => /[\p{L}\p{N}]/u.test(part));
+// Every whole occurrence of a right answer (as containsKey finds it) put away as one token.
+function maskKey(s, key, i) {
+  let out = '';
+  let from = 0;
+  for (let at = s.indexOf(key); at >= 0; at = s.indexOf(key, at + 1)) {
+    const end = at >= from ? keyEnd(s, key, at) : -1;
+    if (end < 0) continue;
+    out += `${s.slice(from, at)}\u0000${i}\u0000`;
+    from = end;
+  }
+  return out + s.slice(from);
+}
 function namesAnother(u, bl, right, stemNumbers = null) {
   // A right answer that holds a joiner of its own ("2/1", "กินหรือดื่ม") is one
   // alternative: it is set aside whole before the answer is split, so "2/1" is
   // one answer and "2/1 or 8/1" is still two.
   let text = u;
   right.forEach((key, i) => {
-    if (JOINER.test(key)) text = text.replace(new RegExp(`(^|[^a-z0-9])${escapeRe(key)}(?![a-z0-9])`, 'g'), `$1\u0000${i}\u0000`);
+    if (JOINER.test(key)) text = maskKey(text, key, i);
   });
-  const parts = text.split(JOINER).map((part) => part.trim()).filter(Boolean);
+  const parts = splitAlternatives(text, JOINER, right);
   if (parts.length < 2) return false;
   // Each alternative by the rule of the key it names: a number by the number
   // rule ("2:1.5" is not 2:1), and a form set aside above must not be negated.
   const isRight = (part) => {
-    const at = part.indexOf('\u0000');
-    if (at >= 0) return !NEGATED.test(part.slice(0, at));
+    const masks = [...part.matchAll(/\u0000\d+\u0000/g)];
+    if (masks.length) return !masks.some((m) => NEGATED.test(part.slice(0, m.index)));
     return right.some((key) => (NUMERIC_KEY.test(key)
       ? numericBlankCorrect(part, key, stemNumbers)
       : part === key || (part.length >= 3 && containsKey(part, key))));
@@ -157,9 +231,17 @@ function namesAnother(u, bl, right, stemNumbers = null) {
 function blankMatches(rawAnswer, rawKey, allowFragment = true, stemNumbers = null, also = null) {
   const u = normFill(rawAnswer);
   const bl = normFill(rawKey);
-  if (!u) return false;
+  // A blank holds a word or a short phrase, and the field takes 200 characters. Far longer text is not
+  // an answer, and the server re-score, which takes any stored answer, never spends time on it.
+  if (!u || u.length > 1000) return false;
   if (u === bl) return true;
-  if (NUMERIC_KEY.test(bl)) return numericBlankCorrect(u, bl, stemNumbers);
+  // A number blank takes one number, so every alternative that holds a number
+  // must be that number ("15 mg หรือ 15mg"); words beside it are not a second
+  // answer ("odds ratio (OR) 2.5"). A slash is not split here: "1 ml/100 kg" is one dose.
+  if (NUMERIC_KEY.test(bl)) {
+    const parts = splitAlternatives(u, WORD_JOINER).filter((part) => /\d/.test(part));
+    return parts.length > 0 && parts.every((part) => numericBlankCorrect(part, bl, stemNumbers));
+  }
   if (u.length < 3) return false;
   if (containsKey(u, bl)) return !namesAnother(u, bl, [bl, ...(also || []).map(normFill)], stemNumbers);
   // Writing LESS used to be fine too, and that was the bug: any three

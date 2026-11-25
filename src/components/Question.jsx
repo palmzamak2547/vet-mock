@@ -85,14 +85,17 @@ const TYPE_LABEL = {
   essay: 'เขียนบรรยาย',
 };
 
-// Fill-in items checked with ตรวจคำตอบ in practice, by subject:id, for this
-// page load. Outside the component because one instance serves the whole
-// set (ExamView renders the card without a key) and a set may be revisited.
+// Fill-in and tfc items checked with ตรวจคำตอบ in practice, by attempt and
+// subject:id, for this page load. Outside the component because one instance
+// serves the whole set (ExamView renders the card without a key) and a set may
+// be revisited. The attempt is in the key: a check in one set does not reveal
+// or lock the same question in another set, even one that opens answered.
 const FILL_CHECKED = new Set();
-/** Whether a fill-in or tfc item was checked: the live tally counts a typed item only then. */
-export const typedChecked = (q) => FILL_CHECKED.has(`${q?.subject || '?'}:${q?.id}`);
+const checkKeyOf = (sessionId, q) => `${sessionId || ''}|${q?.subject || '?'}:${q?.id}`;
+/** Whether a fill-in or tfc item was checked in this attempt: the live tally counts a typed item only then. */
+export const typedChecked = (q, sessionId = null) => FILL_CHECKED.has(checkKeyOf(sessionId, q));
 
-export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote, revealAnswer, onOpenWiki, answerRun = 0, english = null, englishNote = null, ownerId = null, clock = null, timed = false, onTypedCheck = null }) {
+export default function QuestionComponent({ currentQ, currentAnswer, answerCurrent, isBookmarked, toggleBookmark, note, onNoteChange, showNote, setShowNote, revealAnswer, onOpenWiki, answerRun = 0, english = null, englishNote = null, ownerId = null, clock = null, timed = false, onTypedCheck = null, sessionId = null }) {
   // A verdict is fresh when this visit to the question began unanswered: the
   // student answered it just now. Coming back to a question answered earlier
   // shows its verdict again, but Mochi does not react and the phone stays
@@ -434,13 +437,14 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   // blanks are a fresh start of the same question (a new set).
   const fillComplete = currentQ.type === 'fill' && Array.isArray(currentQ.blanks) && currentQ.blanks.length > 0
     && Array.isArray(currentAnswer) && currentQ.blanks.every((_, i) => String(currentAnswer[i] ?? '').trim().length > 0);
-  if (currentQ.type === 'fill' && !isAnswered(currentAnswer)) FILL_CHECKED.delete(compoundId);
+  const checkKey = checkKeyOf(sessionId, currentQ);
+  if (currentQ.type === 'fill' && !isAnswered(currentAnswer)) FILL_CHECKED.delete(checkKey);
   const [fillCheckedNow, setFillCheckedNow] = useState(null);
   // Fill follows the written answers' timing: with เฉลยหลังส่งทั้งชุด it waits for the review.
   // An item already checked stays checked and locked when the timing is switched on another card,
   // or the key just read could be typed in.
   const fillRow = Boolean(revealAnswer) && writtenTiming === REVEAL_ROW;
-  const fillRevealed = Boolean(revealAnswer) && fillComplete && FILL_CHECKED.has(compoundId);
+  const fillRevealed = Boolean(revealAnswer) && fillComplete && FILL_CHECKED.has(checkKey);
   const fillOk = fillRevealed && isCorrect(currentQ, currentAnswer);
   const fillReport = fillRevealed ? fillBlankReport(currentQ, currentAnswer) : [];
   const fillRight = fillReport.filter((b) => b.ok).length;
@@ -471,7 +475,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     // Pressed with a blank still empty: go to that blank. The count under the
     // fields already says how many are left.
     if (!fillComplete) { focusFill(fillNextEmpty(-1)); return; }
-    FILL_CHECKED.add(compoundId);
+    FILL_CHECKED.add(checkKey);
     setFillCheckedNow(compoundId);
     onTypedCheck?.();
   };
@@ -490,15 +494,15 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
   // not show before the correction is typed. Same check record, same lock once checked.
   const isTfc = currentQ.type === 'tfc';
   const tfcComplete = isTfc && fillFilled(currentQ, currentAnswer);
-  if (isTfc && !isAnswered(currentAnswer)) FILL_CHECKED.delete(compoundId);
-  const tfcRevealed = isTfc && Boolean(revealAnswer) && tfcComplete && FILL_CHECKED.has(compoundId);
+  if (isTfc && !isAnswered(currentAnswer)) FILL_CHECKED.delete(checkKey);
+  const tfcRevealed = isTfc && Boolean(revealAnswer) && tfcComplete && FILL_CHECKED.has(checkKey);
   const tfcOut = tfcRevealed ? tfcOutcome(currentQ, currentAnswer) : null;
   const tfcFieldId = `vmx-tfc-${currentQ.subject}-${currentQ.id}`;
   const checkTfc = () => {
     if (!fillRow) return;
     // ผิด with nothing written: go to the field. Nothing picked: the buttons are right above.
     if (!tfcComplete) { try { document.getElementById(tfcFieldId)?.focus(); } catch { /* no document */ } return; }
-    FILL_CHECKED.add(compoundId);
+    FILL_CHECKED.add(checkKey);
     setFillCheckedNow(compoundId);
     onTypedCheck?.();
   };
@@ -822,7 +826,7 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
       {isTfc && (
         <div className="vmx-fill-row">
           <TfcControls
-            q={currentQ} answer={currentAnswer} answerCurrent={answerCurrent} revealed={tfcRevealed} outcome={tfcOut} fieldId={tfcFieldId}
+            q={currentQ} answer={currentAnswer} answerCurrent={answerCurrent} revealed={tfcRevealed} outcome={tfcOut} fieldId={tfcFieldId} draftKey={checkKey}
             onEnter={(e) => { if (fillRow) checkTfc(); else if (tfcText(currentAnswer).trim()) e.currentTarget.blur?.(); }}
           />
           {revealAnswer && !tfcRevealed && (

@@ -99,6 +99,66 @@ test('a comma is not a joiner, and an accepted form that holds a joiner is one a
   assert.equal(isCorrect(fill('คือ ____', ['T3/T4']), ['T3/T4 หรือ T3/T4']), true);
 });
 
+test('every alternative is read whole and by its own rule: a number, "not", a decimal, a plural, a bracketed or', () => {
+  // A number blank takes one number in every alternative, and a number the stem prints is no way out.
+  const dose = item('practrum', 2211);
+  assert.equal(isCorrect(dose, typed(dose, 2, '1 ml หรือ 100 ml')), false);
+  assert.equal(isCorrect(dose, typed(dose, 2, '1 ml/100 kg หรือ 1 ml ต่อ 100 kg')), true);
+  const n = fill('ให้ยา ____ mg', ['15']);
+  assert.equal(isCorrect(n, ['15 mg หรือ 15mg']), true);
+  assert.equal(isCorrect(n, ['15 หรือ 20']), false);
+  assert.equal(isCorrect(n, ['หรือ']), false);
+  assert.equal(isCorrect(fill('ช่วง ____', ['80-100']), ['80–100 หรือ 80 ถึง 100']), true);
+  assert.equal(isCorrect(fill('นับได้ ____ cells', ['2500000']), ['2,500,000 cells']), true);
+  // A separator only in a whole thousands group: a decimal followed by commas is not the key.
+  assert.equal(isCorrect(fill('ค่า ____', ['1.25']), ['1.2,500,000']), false);
+  assert.equal(isCorrect(fill('ค่า ____', ['1500.5']), ['1,500.5']), true);
+  assert.equal(isCorrect(fill('นับได้ ____ cells', ['1000']), ['1,000, based on the cell count']), true);
+  // Words beside the number are not a second answer.
+  assert.equal(isCorrect(dose, typed(dose, 2, '1 ml per 100 kg (body mass or live weight)')), true);
+  const oddsRatio = fill('ค่า OR = ____', ['2.5']);
+  for (const text of ['OR = 2.5', 'odds ratio (OR) 2.5', 'odds ratio OR = 2.5']) assert.equal(isCorrect(oddsRatio, [text]), true, text);
+  // "not" before a number, before an alternative, or before a second form in one alternative.
+  for (const text of ['ไม่ใช่ 15', 'not 15', '15 mg or not (15 mg)', '15 mg or not [15 mg]', '15 mg หรือ ไม่ใช่:15 mg']) {
+    assert.equal(isCorrect(n, [text]), false, text);
+  }
+  const ratio = item('poultry', 4036);
+  assert.equal(isCorrect(ratio, typed(ratio, 0, '2/1 or not 2:1')), false);
+  assert.equal(isCorrect(ratio, typed(ratio, 0, '2/1หรือไม่ใช่2:1')), false);
+  assert.equal(isCorrect(fill('คือ ____', ['T3/T4']), ['T3/T4 not T3/T4 or T3/T4']), false);
+  // A decimal goes on: 2/1.5, 1.2/1 and .2/1 are not 2/1.
+  for (const text of ['2/1.5', '1.2/1', '.2/1', '2/1.5 or 2/1', '1.2/1 หรือ 2/1']) {
+    assert.equal(isCorrect(ratio, typed(ratio, 0, text)), false, text);
+  }
+  // A plural is the same answer, also in a form set aside whole.
+  assert.equal(isCorrect(fill('คือ ____', ['Na/K pump']), ['Na/K pump or Na/K pumps']), true);
+  // "or" after a bracket or a slash still joins two answers; "(OR)" alone is an abbreviation.
+  const drug = item('poultry', 4011);
+  for (const text of ['Piperazine (or Levamisole)', 'Piperazine (หรือ Levamisole)', 'Piperazine and/or Levamisole',
+    'Piperazine citrate / Levamisole', 'Piperazine citrate // Levamisole']) {
+    assert.equal(isCorrect(drug, [text]), false, text);
+  }
+  assert.equal(isCorrect(ratio, typed(ratio, 0, '(2/1) / 8/1')), false);
+  assert.equal(isCorrect(fill('คือ ____', ['odds ratio']), ['Odds ratio (OR)']), true);
+  // After a dash, OR is the abbreviation, not a joiner.
+  assert.equal(isCorrect(fill('คือ ____', ['odds ratio']), ['Odds ratio—OR measures association']), true);
+  // A slash joins two answers with the key on one side and no unit on the other, however short that side,
+  // and between two plain words outside brackets; a slash in a unit, ratio or code beside the key does not.
+  for (const [key, text] of [['IgG', 'IgG/IgM'], ['IgG', 'IgG/M'], ['IgG', 'IgGs/IgMs'], ['H5', 'H5/H7'], ['T3', 'T3/T4'],
+    ['K', 'K/Na'], ['Na', 'K/Na'], ['ไข้หวัดนก', 'ND/ไข้หวัดนก'], ['ตับ', 'ไต/ตับ'], ['ตับ', 'เนื้อตับ/ไต'], ['ตับ', 'ไต/เนื้อตับ']]) {
+    assert.equal(isCorrect(fill('คือ ____', [key]), [text]), false, text);
+  }
+  for (const [key, text] of [['Ketamine', 'Ketamine 10 mg/kg/day'], ['thyroid hormone', 'thyroid hormone (T3/T4)'],
+    ['BID', 'BID (2 ครั้ง/วัน)'], ['Schirmer tear test', 'Schirmer tear test (mm/min)'], ['tachypnea', 'tachypnea 60 breaths/min'],
+    ['sodium-potassium pump', 'sodium-potassium pump (Na+/K+ ATPase)'], ['Schirmer tear test', 'Schirmer tear test (millimeters/minute)'],
+    ['ตรวจนับเกล็ดเลือด', 'ตรวจนับเกล็ดเลือด (เกล็ดเลือด/ไมโครลิตร)'], ['CFU', 'CFU/mL (colony-forming units per milliliter)'],
+    ['Ketamine', 'Ketamine/kg'], ['Clavamox', 'Clavamox (amoxicillin/clavulanate)']]) {
+    assert.equal(isCorrect(fill('คือ ____', [key]), [text]), true, text);
+  }
+  // A blank holds a short answer: text far past the field's 200 characters is not graded as one.
+  assert.equal(isCorrect(fill('คือ ____', ['Ketamine']), [`Ketamine ${'a'.repeat(40000)}`]), false);
+});
+
 test('one answer written with more words, or two forms of the same answer, is still right', () => {
   const q = item('poultry', 4011);
   for (const text of ['Piperazine', 'piperazine citrate', 'ยา Piperazine', 'Piperazine (GABA agonist)', 'piperazin', 'Piperazine,', 'Piperazine /']) {

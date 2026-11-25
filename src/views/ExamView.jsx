@@ -12,7 +12,7 @@ import { exitSetDialog } from '../lib/exit-set.js';
 import { preloadMochiRig } from '../components/MochiLive.jsx';
 import { readQuestionLang, writeQuestionLang, loadQuestionTranslations, englishNoteFor } from '../lib/question-language.js';
 
-export default function ExamView({ currentQ, currentIdx, questions, questionDeadline, timedOutIdx, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote, jumpToQ, answers, bookmarks, user, goHome, mode, instantFeedback, onOpenWiki }) {
+export default function ExamView({ currentQ, currentIdx, questions, questionDeadline, timedOutIdx, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, notes, setNote, jumpToQ, answers, bookmarks, user, goHome, mode, instantFeedback, onOpenWiki, sessionId = null }) {
   const [showNote, setShowNote] = useState(false);
   // A check on the card changes no answer, so it re-renders the live tally itself.
   const [, setTypedChecks] = useState(0);
@@ -170,7 +170,7 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
           // counts once checked: before that the tally would say whether the
           // text being typed is right.
           const graded = questions.filter((q) => !isWritingType(q) && isAnswered(answers[q.id])
-            && ((q.type !== 'fill' && q.type !== 'tfc') || typedChecked(q)));
+            && ((q.type !== 'fill' && q.type !== 'tfc') || typedChecked(q, sessionId)));
           // Its place is kept before the first answer, so the header does not grow and the
           // card does not jump down when that answer lands.
           if (!graded.length) return <div className="vmx-live-score is-empty" aria-hidden="true">✓ 0/0</div>;
@@ -228,6 +228,7 @@ export default function ExamView({ currentQ, currentIdx, questions, questionDead
         setShowNote={setShowNote}
         revealAnswer={revealAnswer}
         onTypedCheck={() => setTypedChecks((n) => n + 1)}
+        sessionId={sessionId}
         timed={Boolean(useTimer)}
         answerRun={answerRun}
         onOpenWiki={revealAnswer ? onOpenWiki : undefined}

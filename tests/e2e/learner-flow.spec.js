@@ -31,6 +31,15 @@ async function resume(page, context, { questions, mode = 'quick', timed = false,
   await expect(page.locator('.vmx-question-card')).toBeVisible();
 }
 const position = (page) => page.locator('.vmx-progress').innerText().then((t) => Number(t.match(/(\d+)\s*\//)?.[1]));
+// A deliberate move, as a student makes one: outside the double tap guard's window after the last
+// move (120 ms, held until a frame is painted), and done once the position has changed.
+async function move(page, dir) {
+  await page.waitForTimeout(400);
+  await page.evaluate(() => new Promise((done) => requestAnimationFrame(() => requestAnimationFrame(done))));
+  const from = await position(page);
+  await page.locator(dir === 'next' ? '.vmx-exam-next' : '.vmx-exam-prev').click();
+  await expect.poll(() => position(page)).toBe(from + (dir === 'next' ? 1 : -1));
+}
 
 async function openResults(page, context, width) {
   await page.setViewportSize({ width, height: 812 });
@@ -116,9 +125,13 @@ const TFC_TRUE = { id: 990002, subject: FILL.subject, topic: FILL.topic, year: 5
 const tfcBtn = (page, word) => page.locator('.vmx-tfc-btn', { hasText: word }).first();
 
 test('a true-false item with a written correction waits for the check, then marks the verdict and the correction apart', async ({ page, context }) => {
+  // A long walk through both timings on two cards: about 16 s on WebKit, so the default 30 s is too close.
+  test.setTimeout(60_000);
   await resume(page, context, { questions: [TFC_FALSE, TFC_TRUE] });
   const field = page.locator('.vmx-tfc-field input');
   const panel = page.locator('.vmx-instant-feedback');
+  // Any sign of the verdict: a mark, a coloured button, a coloured field.
+  const verdict = page.locator('.vmx-tfc-mark, .vmx-fill-mark, .reveal-correct, .reveal-wrong, .vmx-tfc-field.is-ok, .vmx-tfc-field.is-no, .vmx-tfc-field .is-void');
   await expect(page.locator('.vmx-tfc-hint')).toHaveText('ถ้าผิด ต้องเขียนแก้ให้ถูก');
   await expect(field).toHaveCount(0);
   // The tap alone reveals nothing: the correction comes first.
@@ -126,6 +139,7 @@ test('a true-false item with a written correction waits for the check, then mark
   await expect(tfcBtn(page, 'ผิด')).toHaveAttribute('aria-pressed', 'true');
   await expect(field).toHaveAttribute('placeholder', 'คำหรือตัวเลขที่ถูก');
   await expect(panel).toHaveCount(0);
+  await expect(verdict).toHaveCount(0);
   // The check with nothing written goes to the field.
   await page.getByRole('button', { name: 'ตรวจคำตอบ', exact: true }).click();
   await expect(field).toBeFocused();
@@ -136,13 +150,16 @@ test('a true-false item with a written correction waits for the check, then mark
   // each item's correction comes back.
   await tfcBtn(page, 'ถูก').click();
   await expect(field).toHaveCount(0);
-  await page.locator('.vmx-exam-next').click();
+  await move(page, 'next');
   await tfcBtn(page, 'ผิด').click();
   await field.fill('อะไรสักอย่าง');
   await tfcBtn(page, 'ถูก').click();
-  await page.locator('.vmx-exam-prev').click();
+  await move(page, 'prev');
   await tfcBtn(page, 'ผิด').click();
   await expect(field).toHaveValue('2500');
+  // Nothing tells the verdict before the check: no mark or colour on a button or the field, no panel.
+  await expect(verdict).toHaveCount(0);
+  await expect(panel).toHaveCount(0);
   // The live tally waits for the check too, or it would say whether the text is right.
   await expect(page.locator('.vmx-live-score')).toHaveText('✓ 0/0');
   await field.press('Enter');
@@ -157,13 +174,26 @@ test('a true-false item with a written correction waits for the check, then mark
   await expect(tfcBtn(page, 'ผิด')).toHaveAttribute('aria-pressed', 'true');
   // It stays checked and locked when the timing is switched on another card.
   const timing = (name) => page.locator('.vmx-reveal-toggle').getByRole('button', { name, exact: true });
-  await page.locator('.vmx-exam-next').click();
+  await move(page, 'next');
   await timing('เฉลยหลังส่งทั้งชุด').click();
-  await page.locator('.vmx-exam-prev').click();
+  await expect(timing('เฉลยหลังส่งทั้งชุด')).toHaveAttribute('aria-pressed', 'true');
+  // With the key after the whole set, an unchecked item offers no check, also with a correction
+  // written, and Enter in it shows nothing.
+  await expect(page.getByRole('button', { name: 'ตรวจคำตอบ', exact: true })).toHaveCount(0);
+  await tfcBtn(page, 'ผิด').click();
+  await expect(field).toHaveValue('อะไรสักอย่าง');
+  await expect(page.getByRole('button', { name: 'ตรวจคำตอบ', exact: true })).toHaveCount(0);
+  await field.press('Enter');
+  await expect(panel).toHaveCount(0);
+  await expect(verdict).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'ตรวจคำตอบ', exact: true })).toHaveCount(0);
+  await tfcBtn(page, 'ถูก').click();
+  await expect(field).toHaveCount(0);
+  await move(page, 'prev');
   await expect(panel).toBeVisible();
   await expect(field).toHaveJSProperty('readOnly', true);
   // A true statement marked ผิด, its own correction back from before.
-  await page.locator('.vmx-exam-next').click();
+  await move(page, 'next');
   await timing('เฉลยได้ทันที').click();
   await tfcBtn(page, 'ผิด').click();
   await expect(field).toHaveValue('อะไรสักอย่าง');
