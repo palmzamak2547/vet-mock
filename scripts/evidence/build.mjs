@@ -294,6 +294,8 @@ const ALL_OF = /ถูกทุกข้อ|ผิดทุกข้อ|ถู�
 const TF = ['ถูก (true)', 'ผิด (false)'];
 /** What the student chose between, as text: the options of an MCQ, true and false of a TF. */
 function choices(q) {
+  // tfc has no choices here: its key is a verdict plus a written word, which the blind reader's
+  // one-of-these answer cannot give. It is left out with the other typed kinds.
   if (q.type === 'tf') return TF;
   return Array.isArray(q.options) ? q.options.map(String) : null;
 }

@@ -1,7 +1,9 @@
 import { examScopeLabel } from '../lib/question-prediction.js';
 import { scopeOfQuestion } from '../lib/exam-scope.js';
 import { Fragment, useRef, useState, useEffect, useMemo, useSyncExternalStore } from 'react';
-import { subjectText, isAnswered, isCorrect, fillBlankReport, fillFilledCount, fillUnorderedGroups, fillBlankNumeric } from '../hooks/utils.js';
+import { subjectText, isAnswered, isCorrect, fillBlankReport, fillFilledCount, fillUnorderedGroups, fillBlankNumeric, fillFilled, tfcOutcome } from '../hooks/utils.js';
+import TfcControls from './TfcControls.jsx';
+import { TfcKey } from './TypedReview.jsx';
 import { fillStemParts, fillHead } from '../lib/fill-stem.js';
 import { SUBJECTS } from '../data/questions.js';
 import { RichText } from '../lib/richtext.jsx';
@@ -77,6 +79,7 @@ const TYPE_LABEL = {
   mcq: 'ปรนัย',
   tf: 'ถูก-ผิด',
   fill: 'เติมคำ',
+  tfc: 'ถูก-ผิด เขียนแก้',
   match: 'จับคู่',
   short: 'ตอบสั้น',
   essay: 'เขียนบรรยาย',
@@ -477,7 +480,25 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
     if (!fillTyped(i).trim()) return;
     if (fillRow) checkFill(); else e.currentTarget.blur?.();
   };
-  const keyShown = mcqRevealed || tfRevealed || fillRevealed || Boolean(revealAnswer && matchFilled) || Boolean(writtenRevealPanel);
+  // True or false with a written correction waits for ตรวจคำตอบ as fill does: the verdict must
+  // not show before the correction is typed. Same check record, same lock once checked.
+  const isTfc = currentQ.type === 'tfc';
+  const tfcComplete = isTfc && fillFilled(currentQ, currentAnswer);
+  if (isTfc && !isAnswered(currentAnswer)) FILL_CHECKED.delete(compoundId);
+  const tfcRevealed = isTfc && fillRow && tfcComplete && FILL_CHECKED.has(compoundId);
+  const tfcOut = tfcRevealed ? tfcOutcome(currentQ, currentAnswer) : null;
+  const tfcFieldId = `vmx-tfc-${currentQ.subject}-${currentQ.id}`;
+  const checkTfc = () => {
+    if (!fillRow) return;
+    // ผิด with nothing written: go to the field. Nothing picked: the buttons are right above.
+    if (!tfcComplete) { try { document.getElementById(tfcFieldId)?.focus(); } catch { /* no document */ } return; }
+    FILL_CHECKED.add(compoundId);
+    setFillCheckedNow(compoundId);
+  };
+  const tfcHeadline = !tfcOut || tfcOut.correct ? null
+    : tfcOut.verdict ? '◐ ตัดสินถูก แต่คำที่แก้ยังไม่ตรง'
+      : currentQ.answer === true ? '✗ ข้อความนี้ถูกอยู่แล้ว' : '✗ ข้อความนี้ผิด';
+  const keyShown = mcqRevealed || tfRevealed || fillRevealed || tfcRevealed || Boolean(revealAnswer && matchFilled) || Boolean(writtenRevealPanel);
   // The header line in words, for the hover title: a held topic stays out
   // until the key is shown, as on the line itself.
   const metaTitle = (() => {
@@ -783,6 +804,43 @@ export default function QuestionComponent({ currentQ, currentAnswer, answerCurre
               evidence={evidence}
               subject={currentQ.subject}
               wikiLink={onOpenWiki && <WikiLinkForQuestion q={currentQ} onOpenWiki={onOpenWiki} correct={fillOk} />}
+            />
+          )}
+        </div>
+      )}
+
+      {isTfc && (
+        <div className="vmx-fill-row">
+          <TfcControls
+            q={currentQ} answer={currentAnswer} answerCurrent={answerCurrent} revealed={tfcRevealed} outcome={tfcOut} fieldId={tfcFieldId}
+            onEnter={(e) => { if (fillRow) checkTfc(); else e.currentTarget.blur?.(); }}
+          />
+          {revealAnswer && !tfcRevealed && (
+            <div className="vmx-fill-actions">
+              {fillRow && (
+                <button type="button" className={tfcComplete ? 'vmx-fill-check' : 'vmx-fill-check is-waiting'} onClick={checkTfc}>ตรวจคำตอบ</button>
+              )}
+              <RevealTimingToggle mode={writtenTiming} onChange={setWrittenTiming} rowLabel={REVEAL_LABELS.writtenRow} endLabel={REVEAL_LABELS.end} />
+            </div>
+          )}
+          {tfcRevealed && (
+            <InstantFeedback
+              key={compoundId}
+              ok={tfcOut.correct}
+              headline={tfcHeadline}
+              partial={!tfcOut.correct && tfcOut.verdict}
+              focusOnShow
+              caution={cautionChip}
+              run={answerRun}
+              fresh={fillCheckedNow === compoundId}
+              // A false statement always shows its corrected sentence, a right answer included.
+              alwaysShowCorrect={currentQ.answer === false}
+              correctNode={<TfcKey q={currentQ} />}
+              explain={currentQ.explain} listen={explainListen} listenNote={explainNote} explainRef={explainRef} reading={explainOn} onShown={warmExplain}
+              figure={explainFigure}
+              evidence={evidence}
+              subject={currentQ.subject}
+              wikiLink={onOpenWiki && <WikiLinkForQuestion q={currentQ} onOpenWiki={onOpenWiki} correct={tfcOut.correct} />}
             />
           )}
         </div>

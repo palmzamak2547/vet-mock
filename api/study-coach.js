@@ -201,6 +201,7 @@ async function buildReview(body) {
   const picked = [];
   for (const item of raw) {
     const q = catalog.get(String(item?.qid ?? '').slice(0, 32));
+    // Typed kinds (fill, tfc, short, essay) are skipped: the coach reads which option was picked.
     if (!q || (q.type !== 'mcq' && q.type !== 'tf')) continue;
     let chose;
     let answer;

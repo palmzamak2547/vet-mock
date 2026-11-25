@@ -337,7 +337,40 @@ export function fillFilled(q, ua) {
   if (q?.type === 'fill' && Array.isArray(q.blanks) && q.blanks.length > 0) {
     return fillFilledCount(q, ua) === q.blanks.length;
   }
+  // ผิด always needs its correction: the map cannot read the key to know otherwise.
+  if (q?.type === 'tfc') {
+    const said = tfcSaid(ua);
+    return said === 'T' || (said === 'F' && typeof ua[1] === 'string' && ua[1].trim().length > 0);
+  }
   return isAnswered(ua);
+}
+
+// True or false with a written correction (type 'tfc'). The answer is stored as a
+// fill-in answer is, an array of strings: ['T'], or ['F', 'the correction'].
+const tfcSaid = (ua) => (Array.isArray(ua) && (ua[0] === 'T' || ua[0] === 'F') ? ua[0] : null);
+
+/**
+ * How a tfc answer stands: { answered, verdict, fix, correct }.
+ *   verdict  the student's ถูก/ผิด is the key's
+ *   fix      'ok' | 'off' for the written correction of a false statement,
+ *            'self' when the item leaves it to the student (fix.selfCheck),
+ *            'none' when no correction is graded (a true key, or a wrong verdict)
+ *   correct  the score, all or nothing: isCorrect returns exactly this
+ * The correction is matched as a fill-in blank is: fix.right is the key and
+ * fix.accept its other right answers.
+ */
+export function tfcOutcome(q, ua) {
+  const said = tfcSaid(ua);
+  if (!said || typeof q?.answer !== 'boolean') return { answered: false, verdict: false, fix: 'none', correct: false };
+  const verdict = (said === 'T') === q.answer;
+  if (!verdict || q.answer) return { answered: true, verdict, fix: 'none', correct: verdict };
+  const fix = q.fix && typeof q.fix === 'object' ? q.fix : null;
+  if (fix?.selfCheck === true) return { answered: true, verdict, fix: 'self', correct: true };
+  const text = typeof ua[1] === 'string' ? ua[1] : '';
+  const right = typeof fix?.right === 'string' ? fix.right : '';
+  const ok = Boolean(right.trim() && text.trim())
+    && blankCorrect({ q: '', blanks: [right], accept: { 0: fix.accept } }, 0, text, right);
+  return { answered: true, verdict, fix: ok ? 'ok' : 'off', correct: ok };
 }
 
 function fillCorrect(q, ua) {
@@ -403,6 +436,7 @@ export const isCorrect = (q, ua) => {
   if (ua === null || ua === undefined) return false;
   if (q.type === 'mcq' || q.type === 'tf') return ua === q.answer;
   if (q.type === 'fill') return fillCorrect(q, ua);
+  if (q.type === 'tfc') return tfcOutcome(q, ua).correct;
   if (q.type === 'match') {
     if (!ua || typeof ua !== 'object') return false;
     // รองรับทั้ง object {0:right} (เดิม) และ array [right, ...]
@@ -525,6 +559,8 @@ export function timeForQuestion(q, baseSeconds) {
     const n = Array.isArray(q.blanks) ? q.blanks.length : 0;
     return baseSeconds + Math.max(0, n - 1) * 15;
   }
+  // One typed field on top of the tap, whatever the key: the time must not hint at it.
+  if (q.type === 'tfc') return baseSeconds + 15;
   return baseSeconds;
 }
 
@@ -581,7 +617,8 @@ export function wholeSetTimeLabel({ min, max }) {
 // typed-input questions together (fill + short + essay).
 export function questionCategory(q) {
   if (!q?.type) return 'mcq';
-  return (q.type === 'short' || q.type === 'essay' || q.type === 'fill') ? 'writing' : 'mcq';
+  // tfc is auto-marked like fill and, like fill, needs a keyboard.
+  return (q.type === 'short' || q.type === 'essay' || q.type === 'fill' || q.type === 'tfc') ? 'writing' : 'mcq';
 }
 
 // Check if today is a new study day (for streak).

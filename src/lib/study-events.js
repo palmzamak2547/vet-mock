@@ -22,8 +22,8 @@ export function newStudySessionId() {
 // (tests/unit/question-revision-coverage.test.mjs holds the grader to the hash).
 const contentFields = (q) => [q.type, q.q, q.front, q.back, q.options, q.answer, q.blanks, q.pairs, q.distractors];
 // `accept` (fill: extra right answers per blank) joined the same way: only a question that carries
-// it changes revision.
-const carriesGradingFields = (q) => q.unordered !== undefined || q.keywords !== undefined || q.accept !== undefined;
+// it changes revision. `fix` (tfc: the written correction of a false statement) likewise.
+const carriesGradingFields = (q) => q.unordered !== undefined || q.keywords !== undefined || q.accept !== undefined || q.fix !== undefined;
 function revisionOf(fields) {
   const text = JSON.stringify(fields);
   let hash = 2166136261;
@@ -38,6 +38,7 @@ export function questionRevision(q) {
     if (q.unordered !== undefined) grading.unordered = q.unordered;
     if (q.keywords !== undefined) grading.keywords = q.keywords;
     if (q.accept !== undefined) grading.accept = q.accept;
+    if (q.fix !== undefined) grading.fix = q.fix;
     fields.push(grading);
   }
   return revisionOf(fields);

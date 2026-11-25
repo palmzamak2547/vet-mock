@@ -11,7 +11,7 @@
 import { isCorrect, isAnswered } from '../hooks/utils.js';
 
 // Only these give a verdict the moment they are answered (Question.jsx);
-// fill, match and writing are graded at the end.
+// fill, tfc, match and writing are graded at the end.
 const INSTANT = new Set(['mcq', 'tf']);
 
 /**

@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { RichText } from '../lib/richtext.jsx';
-import { fillBlankReport } from '../hooks/utils.js';
+import { fillBlankReport, tfcOutcome } from '../hooks/utils.js';
 import { fillStemParts, fillOrderNote } from '../lib/fill-stem.js';
 
 // A typed answer as Review prints it: the sentence with the student's own words
@@ -51,6 +51,52 @@ export function FillReview({ q, userAns, stem }) {
       {altKeys.length > 0 && <p className="vmx-fill-altline">เฉลยเขียนว่า {altKeys.map((key, i) => <Fragment key={i}>{i ? ', ' : ''}<RichText text={key} /></Fragment>)}</p>}
     </div>
   );
+}
+
+/** The key of a tfc item in words: the verdict, the word that puts the statement right, and the
+ *  corrected sentence with that word marked. */
+export function TfcKey({ q }) {
+  if (q.answer === true) return <>ถูก</>;
+  const right = typeof q.fix?.right === 'string' ? q.fix.right : '';
+  const sentence = typeof q.fix?.sentence === 'string' ? q.fix.sentence : '';
+  const at = right ? sentence.indexOf(right) : -1;
+  return (
+    <>
+      <span>ผิด{right ? <>, แก้เป็น <b><RichText text={right} /></b></> : null}</span>
+      {sentence ? (
+        <span className="vmx-tfc-sentence">
+          {at === -1 ? <RichText text={sentence} /> : <>{sentence.slice(0, at)}<mark>{right}</mark>{sentence.slice(at + right.length)}</>}
+        </span>
+      ) : null}
+      {q.fix?.selfCheck === true ? <span className="vmx-tfc-self">ข้อนี้นับคะแนนจากถูกหรือผิด ส่วนคำที่แก้ให้เทียบกับเฉลยเอง</span> : null}
+    </>
+  );
+}
+
+/** A tfc answer as Review prints it: what the student said, then the key. */
+export function TfcReview({ q, userAns }) {
+  const o = tfcOutcome(q, userAns);
+  const said = Array.isArray(userAns) ? userAns[0] : null;
+  const text = said === 'F' && typeof userAns[1] === 'string' ? userAns[1].trim() : '';
+  // Struck: a correction that is off, or one written for a statement that was true.
+  const struck = said === 'F' && (q.answer === true || o.fix === 'off');
+  return (
+    <>
+      <div className={`vmx-review-ans ${o.correct ? 'correct-ans' : 'wrong-ans'}`}>
+        <span className="k">คุณตอบ:</span>
+        {said === 'T' ? 'ถูก' : text ? <>ผิด, แก้เป็น <span className={struck ? 'vmx-tfc-struck' : undefined}>{text}</span></> : 'ผิด, ไม่ได้เขียนแก้'}
+      </div>
+      {(!o.correct || q.answer === false) && (
+        <div className="vmx-review-ans correct-ans vmx-tfc-key"><span className="k">เฉลย:</span><TfcKey q={q} /></div>
+      )}
+    </>
+  );
+}
+
+/** The two parts of a tfc answer, for the badge: "◐ 1/2" is a right verdict with a correction that is off. */
+export function tfcScore(q, userAns) {
+  const o = tfcOutcome(q, userAns);
+  return { correct: o.correct ? 2 : o.verdict && o.fix === 'off' ? 1 : 0, total: 2 };
 }
 
 /** Right and total blanks of a fill answer, for the badge "◐ 1/2". */

@@ -277,9 +277,10 @@ function QuestionDetail({ row, question, missingText, onOpen, onClose }) {
   // A true/false key is stored as the words true/false, not an index.
   const tf = question?.type === 'tf' ? { yes: Number(answers.true || 0), no: Number(answers.false || 0) } : null;
   const copy = () => { try { navigator.clipboard?.writeText(String(row.question_id)); } catch { /* clipboard is a nicety */ } };
-  // fill / short / essay keep their key in other fields; mcq and tf use options + answer index.
+  // fill / tfc / short / essay keep their key in other fields; mcq and tf use options + answer index.
   const keyText = question && !question.options
-    ? (question.blanks?.join(', ') || question.model_answer || (typeof question.answer === 'boolean' ? (question.answer ? 'ถูก' : 'ผิด') : question.answer != null && typeof question.answer !== 'object' ? String(question.answer) : null))
+    ? (question.type === 'tfc' ? [question.answer === true ? 'ถูก' : `ผิด: ${question.fix?.right ?? ''}`, question.fix?.sentence].filter(Boolean).join(' | ')
+      : question.blanks?.join(', ') || question.model_answer || (typeof question.answer === 'boolean' ? (question.answer ? 'ถูก' : 'ผิด') : question.answer != null && typeof question.answer !== 'object' ? String(question.answer) : null))
     : null;
   return (
     <div className="ad-detail" role="region" aria-label={`รายละเอียดข้อ ${row.question_id}`}>

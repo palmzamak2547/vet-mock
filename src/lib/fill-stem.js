@@ -139,6 +139,14 @@ export function fillKeyLine(q, text = (s) => String(s)) {
   return note ? `${line} ${note}` : line;
 }
 
+/** The key of a tfc item as one line: "ถูก", or "ผิด: เฉพาะ CIRCI" (the word that puts the statement right). */
+export function tfcKeyLine(q, text = (s) => String(s), join = ': ') {
+  if (q?.answer === true) return 'ถูก';
+  if (q?.answer !== false) return '';
+  const right = typeof q.fix?.right === 'string' ? q.fix.right.trim() : '';
+  return right ? `ผิด${join}${text(right)}` : 'ผิด';
+}
+
 /** "ลำดับใดก็ได้" where blanks may be answered in any order, naming them when only some may. */
 export function fillOrderNote(q) {
   const n = Array.isArray(q?.blanks) ? q.blanks.length : 0;

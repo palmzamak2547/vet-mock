@@ -259,9 +259,9 @@ test('the question card hands the chip whether the key is on screen, and the dat
   // The caution chip lives in the verdict panel, which exists only once the key is shown.
   // One chip value, handed to every reveal (multiple choice, true/false, written, match).
   assert.ok(card.includes('const cautionChip = cautionChipShown(currentQ.flag)\n    ? <FlagChip key={`flag:${compoundId}`} flag={currentQ.flag} revealed />'.replace(/\n/g, card.includes('\r\n') ? '\r\n' : '\n')));
-  assert.equal((card.match(/caution=\{cautionChip\}/g) || []).length, 3, 'the three verdict panels: choice, true/false, fill-in');
+  assert.equal((card.match(/caution=\{cautionChip\}/g) || []).length, 4, 'the four verdict panels: choice, true/false, fill-in, true/false with a correction');
   assert.equal((card.match(/<FlagChip /g) || []).length, 1, 'one place draws the chip');
-  assert.match(card, /const keyShown = mcqRevealed \|\| tfRevealed \|\| fillRevealed \|\| Boolean\(revealAnswer && matchFilled\) \|\| Boolean\(writtenRevealPanel\);/);
+  assert.match(card, /const keyShown = mcqRevealed \|\| tfRevealed \|\| fillRevealed \|\| tfcRevealed \|\| Boolean\(revealAnswer && matchFilled\) \|\| Boolean\(writtenRevealPanel\);/);
   const pkg = JSON.parse(readFileSync(new URL('../../package.json', import.meta.url), 'utf8'));
   assert.equal(pkg.scripts['lint:source-line'], 'node scripts/lint-source-line.mjs');
   assert.match(lintDataCommands().join(' && '), /npm run lint:source-line/);

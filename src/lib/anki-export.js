@@ -13,7 +13,7 @@
 // ============================================================
 import { splitBlocks } from './rich-blocks.js';
 import { safeImageUrl } from './safe-url.js';
-import { fillKeyLine, fillStemNumbered } from './fill-stem.js';
+import { fillKeyLine, fillStemNumbered, tfcKeyLine } from './fill-stem.js';
 
 const esc = (s) => String(s ?? '')
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -52,6 +52,7 @@ function front(q, src) {
     parts.push(q.options.map((o, i) => `${LETTERS[i]}. ${html(o)}`).join('<br>'));
   }
   if (q.type === 'tf') parts.push('ถูก หรือ ผิด');
+  if (q.type === 'tfc') parts.push('ถูก หรือ ผิด ถ้าผิด แก้เป็นอะไร');
   if (q.type === 'match' && Array.isArray(q.pairs)) parts.push(q.pairs.map((p) => html(p.left)).join('<br>'));
   return parts.join('<br><br>');
 }
@@ -60,6 +61,7 @@ function answer(q) {
   if (q.type === 'mcq') return Number.isInteger(q.answer) && q.options?.[q.answer] != null ? `${LETTERS[q.answer]}. ${html(q.options[q.answer])}` : '';
   if (q.type === 'tf') return q.answer === true ? 'ถูก' : q.answer === false ? 'ผิด' : '';
   if (q.type === 'fill') return fillKeyLine(q, html);
+  if (q.type === 'tfc') return [tfcKeyLine(q, html), q.answer === false && q.fix?.sentence ? html(q.fix.sentence) : ''].filter(Boolean).join('<br>');
   if (q.type === 'match') return (q.pairs || []).map((p) => `${html(p.left)} → ${html(p.right)}`).join('<br>');
   if (q.type === 'short' || q.type === 'essay') return html(q.model_answer || (q.keywords || []).join(', '));
   return '';

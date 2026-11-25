@@ -165,7 +165,7 @@ function questionTexts(q, withExplain) {
 }
 // The practice card offers its เหตุผล read aloud on every question that has
 // one; the earlier generations voiced mcq and true/false only.
-function explains(q) { return PAXA || q.type === 'mcq' || q.type === 'tf'; }
+function explains(q) { return PAXA || q.type === 'mcq' || q.type === 'tf' || q.type === 'tfc'; }
 // What part of a question a text is, for the dry run's groups.
 function textKinds(q, withExplain) {
   const options = Array.isArray(q.options) ? q.options.map(String) : [];

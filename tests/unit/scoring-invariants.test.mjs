@@ -59,7 +59,7 @@ function distinctWords(r, n) {
   return out;
 }
 
-const TYPES = ['mcq', 'mcq', 'mcq', 'tf', 'fill', 'match', 'short', 'essay'];
+const TYPES = ['mcq', 'mcq', 'mcq', 'tf', 'tfc', 'fill', 'match', 'short', 'essay'];
 function makeQuestion(r, id) {
   const type = r.pick(TYPES);
   const base = { id, subject: 'gen', year: 5, type, q: `โจทย์ทดสอบข้อ ${id}` };
@@ -70,6 +70,11 @@ function makeQuestion(r, id) {
     return { ...base, options, answer: r.int(n) };
   }
   if (type === 'tf') return { ...base, answer: r.bool() };
+  if (type === 'tfc') {
+    if (r.bool()) return { ...base, answer: true };
+    const right = distinctWords(r, 1)[0];
+    return { ...base, answer: false, fix: { wrong: 'ทดสอบ', right, sentence: `โจทย์ทดสอบข้อ ${id} ${right}` } };
+  }
   if (type === 'fill') {
     const blanks = distinctWords(r, 1 + r.int(3));
     const q = `เติมคำ ${blanks.map(() => '____').join(' และ ')}`;
@@ -90,6 +95,12 @@ function makeAnswer(r, q) {
   switch (q.type) {
     case 'mcq': return right ? q.answer : r.int(q.options.length);
     case 'tf': return right ? q.answer : r.bool();
+    case 'tfc': {
+      // The stored shape: ['T'], or ['F', the correction].
+      if (q.answer) return right ? ['T'] : ['F', r.pick([word(r, WRONG_LETTERS, 4), ''])];
+      if (right) return ['F', r.bool(0.3) ? `  ${q.fix.right.toUpperCase()} ` : q.fix.right];
+      return r.pick([['T'], ['F', word(r, WRONG_LETTERS, 4)], ['F', ''], ['F', q.fix.right]]);
+    }
     case 'fill': {
       const keys = q.unordered && right ? r.shuffle(q.blanks) : q.blanks;
       return keys.map((k) => {
@@ -117,6 +128,10 @@ function oracle(q, ua) {
   switch (q.type) {
     case 'mcq': return ua === q.answer;
     case 'tf': return ua === q.answer;
+    case 'tfc': {
+      if (!Array.isArray(ua) || ua[0] !== (q.answer ? 'T' : 'F')) return false;
+      return q.answer || String(ua[1] ?? '').trim().toLowerCase() === q.fix.right;
+    }
     case 'fill': {
       if (!Array.isArray(ua)) return false;
       const said = ua.map((v) => String(v ?? '').trim().toLowerCase());
@@ -254,7 +269,7 @@ test('answering in any order, changing answers and resuming at any point give th
     // A random route to that sheet: each question gets up to two earlier answers (often wrong, some
     // cleared), then its final one (or a clear, when the sheet leaves it unanswered), and the
     // questions' routes are interleaved at random, so questions are answered in any order.
-    const clear = (q) => (q.type === 'mcq' || q.type === 'tf' ? undefined : q.type === 'match' ? {} : q.type === 'fill' ? q.blanks.map(() => '') : '');
+    const clear = (q) => (q.type === 'mcq' || q.type === 'tf' || q.type === 'tfc' ? undefined : q.type === 'match' ? {} : q.type === 'fill' ? q.blanks.map(() => '') : '');
     const routes = questions.map((q) => {
       const route = Array.from({ length: r.int(3) }, () => [q.id, makeAnswer(r, q) ?? clear(q)]);
       if (q.id in finalSheet) route.push([q.id, finalSheet[q.id]]);
@@ -357,7 +372,7 @@ test('the generator really covers every type, blanks, wrong and right answers', 
       seen.set(k, (seen.get(k) || 0) + 1);
     }
   }
-  for (const type of ['mcq', 'tf', 'fill', 'match', 'short']) for (const kind of ['blank', 'right', 'wrong']) {
+  for (const type of ['mcq', 'tf', 'tfc', 'fill', 'match', 'short']) for (const kind of ['blank', 'right', 'wrong']) {
     assert.ok((seen.get(`${type}:${kind}`) || 0) >= 20, `${type} ${kind}: ${seen.get(`${type}:${kind}`) || 0}`);
   }
   assert.ok(seen.get('essay:blank') && (seen.get('essay:wrong') || 0) > 0);

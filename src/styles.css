@@ -3304,6 +3304,15 @@ html.dark .vmx-panic-scrim {
 .vmx-fill-gap .e { font-weight: 400; color: var(--clr-ink-soft); }
 .vmx-fill-gap .key { color: var(--clr-right-text); }
 .vmx-fill-review .vmx-fill-stem { margin: 6px 0 0; font-size: 15px; }
+.vmx-tfc { display: flex; flex-direction: column; gap: 12px; }
+.vmx-tfc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.vmx-tf-btn.vmx-tfc-btn { min-height: 48px !important; padding: 10px 12px; font-size: 18px; line-height: 1.3; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; }
+.vmx-tfc-mark { font-family: var(--vmx-sans); font-size: 14px; font-weight: 600; }
+.vmx-tfc-hint { margin: 0; font-size: 14px; line-height: 1.6; color: var(--clr-ink-soft); }
+.vmx-fill-input.is-void, .vmx-tfc-struck { text-decoration: line-through; }
+.vmx-tfc-sentence, .vmx-tfc-self { display: block; margin-top: 4px; }
+.vmx-tfc-sentence mark { background: none; color: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.vmx-tfc-self { font-size: 14px; color: var(--clr-ink-soft); }
 .vmx-fill-review-list { margin: 6px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; }
 .vmx-fill-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: end; }
 .vmx-fill-field { grid-column: 1 / -1; min-width: 0; }

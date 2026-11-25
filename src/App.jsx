@@ -1564,7 +1564,7 @@ export default function App() {
     // tab the phone killed half a second after an answer lost that answer
     // (pagehide never fires on a kill). A typed answer (short, essay, fill)
     // keeps the throttle, so an essay is not written on every keystroke.
-    const typing = ['short', 'essay', 'fill'].includes(questions[currentIdx]?.type);
+    const typing = ['short', 'essay', 'fill', 'tfc'].includes(questions[currentIdx]?.type);
     if ((mode === 'exam' && !typing) || Date.now() - inflightWrittenAtRef.current >= 3000) {
       let soon = 0;
       const frame = requestAnimationFrame(() => { soon = setTimeout(writeInflight, 0); });
@@ -1754,6 +1754,7 @@ export default function App() {
         // answered while matching no option at all.
         if (!locked && displayIdx < displayToOriginal.length) answerCurrent(displayToOriginal[displayIdx]);
       }
+      // tfc has no T/F keys: its answer is not complete on the key press, and it has a text field.
       else if (q.type === 'tf' && !locked) {
         if (e.key === 't' || e.key === 'T') answerCurrent(true);
         if (e.key === 'f' || e.key === 'F') answerCurrent(false);

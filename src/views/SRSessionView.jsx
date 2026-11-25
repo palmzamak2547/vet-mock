@@ -27,7 +27,7 @@ import CaseSlot from '../components/case/CaseSlot.jsx';
 import FlagChip from '../components/FlagChip.jsx';
 import { useReadAloud, ListenButton } from '../components/ReadAloudListen.jsx';
 import { wholeExplain, wholeStem } from '../lib/rich-blocks.js';
-import { fillKeyLine, fillStemNumbered } from '../lib/fill-stem.js';
+import { fillKeyLine, fillStemNumbered, tfcKeyLine } from '../lib/fill-stem.js';
 import { loadUserFlashcards, srCardFor } from '../lib/user-flashcards.js';
 // Wave-4 card types — each lib produces Q-shaped objects with a
 // distinct `type` so the renderer below can dispatch to the right
@@ -782,6 +782,9 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
       </span>
     );
     answerText = currentQ.answer ? 'True' : 'False';
+  } else if (currentQ.type === 'tfc') {
+    // The key the printed paper uses, then the corrected sentence.
+    answerText = [tfcKeyLine(currentQ, stripRichText), currentQ.answer === false && currentQ.fix?.sentence ? stripRichText(currentQ.fix.sentence) : ''].filter(Boolean).join('\n');
   } else if (currentQ.type === 'fill') {
     // The numbered key the printed paper and the Anki card use: "(1) a (2) b", and where the order is free it says so.
     answerText = fillKeyLine(currentQ, stripRichText);

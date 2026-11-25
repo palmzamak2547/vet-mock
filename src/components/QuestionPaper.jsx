@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { createPortal } from 'react-dom';
 import { StemText } from './RichBlocks.jsx';
 import { SUBJECTS } from '../data/curriculum.js';
-import { fillStemNumbered, fillStemParts, fillKeyLine } from '../lib/fill-stem.js';
+import { fillStemNumbered, fillStemParts, fillKeyLine, tfcKeyLine } from '../lib/fill-stem.js';
 
 // A question set as a printed exam paper. Only the print stylesheet shows it
 // (src/styles-print.css, loaded by print-document.js); on a screen it stays
@@ -43,6 +43,7 @@ export function matchSide(q) {
 export function answerOf(q) {
   if (q.type === 'mcq') return typeof q.answer === 'number' ? LETTERS[q.answer] : String(q.answer ?? '');
   if (q.type === 'tf') return q.answer === true || q.answer === 'true' ? 'ถูก' : 'ผิด';
+  if (q.type === 'tfc') return tfcKeyLine(q);
   // Numbered, so a key that holds a comma reads as one key, and an order that is free says so.
   if (q.type === 'fill') return fillKeyLine(q);
   if (q.type === 'match') {
@@ -66,6 +67,15 @@ function Body({ q }) {
         <li data-letter="A">ถูก</li>
         <li data-letter="B">ผิด</li>
       </ol>
+    );
+  }
+  if (q.type === 'tfc') {
+    // The paper's own form: circle one, and a single line for the correction.
+    return (
+      <div className="vmx-paper-tfc">
+        <p>ถูก / ผิด</p>
+        <p className="vmx-paper-fix">แก้เป็น <span aria-hidden="true" /></p>
+      </div>
     );
   }
   if (q.type === 'match') {

@@ -301,7 +301,7 @@ export function buildExamPool({
   else if (questionCategory === 'tf') pool = pool.filter((q) => q.type === 'tf');
   // The lecturer cards' ปรนัย: exactly what regen-q-counts counts as mcq —
   // not tf, match or a written type — so the card's number is what is served.
-  else if (questionCategory === 'mcq-only') pool = pool.filter((q) => !['tf', 'match', 'short', 'essay', 'fill'].includes(q.type));
+  else if (questionCategory === 'mcq-only') pool = pool.filter((q) => !['tf', 'tfc', 'match', 'short', 'essay', 'fill'].includes(q.type));
   else if (questionCategory === 'match') pool = pool.filter((q) => q.type === 'match');
 
   // Applied last so it holds for every mode. Compound keys, because ids
