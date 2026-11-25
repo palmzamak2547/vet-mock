@@ -12,6 +12,7 @@ import { computeSubjectProgress } from '../lib/subject-progress.js';
 import { takeViewIntent, rememberViewIntent, consumeViewIntent } from '../lib/feature-registry.js';
 import SubjectCover from '../components/SubjectCover.jsx';
 import NavIcon from '../components/NavIcon.jsx';
+import { searchKey, searchTerms, matchesAll } from '../lib/search-key.js';
 
 export default function SubjectSelectView({ setSubject, setTopic, setView, setPracticeMode, goHome, mode, customQuestions = [], selectedYear, selectedPhase = null, qbReady = true, history = [] }) {
   const allQuestions = [...QB, ...customQuestions];
@@ -105,12 +106,12 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
   ), [selectedYear, yearHasQuestions, yearSubjects]);
   const indexedSubjects = useMemo(() => baseSubjects.map((item) => ({
     item,
-    searchText: `${item.name || ''} ${item.name_en || ''} ${item.code || ''}`.toLowerCase(),
+    searchText: searchKey(`${item.name || ''} ${item.name_en || ''} ${item.code || ''}`),
   })), [baseSubjects]);
-  const normalizedSearch = searchQuery.trim().toLowerCase();
+  const searchWords = searchTerms(searchQuery);
   const visibleSubjects = indexedSubjects
     .filter(({ item, searchText }) => (!readingIntent || item.id !== 'all')
-      && (!normalizedSearch || item.id === 'all' || searchText.includes(normalizedSearch)))
+      && (!searchWords.length || item.id === 'all' || matchesAll(searchText, searchWords)))
     .map(({ item }) => item);
 
   // Year and term are the layer a student thinks in — "ปี 2 เทอม 1" is one

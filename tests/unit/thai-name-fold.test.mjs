@@ -7,12 +7,13 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { ALL_INSTRUCTORS } from '../../src/data/instructors.js';
 import { foldThaiName, twoPassSearch, looseThaiMatch } from '../../src/lib/thai-name-fold.js';
+import { searchKey } from '../../src/lib/search-key.js';
 
 // Built as FacultyView builds them (pinned below).
 const entries = ALL_INSTRUCTORS.map((ins) => ({
   ins,
-  _hayLc: [ins.nameEn, ins.nameTh, ins.position, ins.department, ins.institution, ins.nickname,
-    ...(ins.aliases || []), ...(ins.areas || [])].filter(Boolean).join(' ').toLowerCase(),
+  _hayLc: searchKey([ins.nameEn, ins.nameTh, ins.position, ins.department, ins.institution, ins.nickname,
+    ...(ins.aliases || []), ...(ins.areas || [])].filter(Boolean).join(' ')),
   _looseHay: foldThaiName([ins.nameTh, ins.nickname, ...(ins.aliases || [])].filter(Boolean).join(' ')),
 }));
 

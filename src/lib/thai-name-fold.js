@@ -17,6 +17,8 @@
 // nobody (FacultyView), so an exact spelling always ranks first.
 // ============================================================
 
+import { searchKey } from './search-key.js';
+
 const TONES = /[่-๋]/g;
 const SILENT = /[ก-ฮ][ิุ]?์/g;
 const LEADING = new Set(['เ', 'แ', 'โ', 'ใ', 'ไ']);
@@ -44,7 +46,7 @@ function foldWord(word) {
 /** The loose key of a text: lower-cased, each word folded. A title written
  *  onto a name (รศ.ดร.น.สพ.อนุวัตน์) is split at its dots. */
 export function foldThaiName(text) {
-  return String(text || '').toLowerCase().split(/[\s.]+/).filter(Boolean).map(foldWord).join(' ');
+  return searchKey(text).split(/[\s.]+/).filter(Boolean).map(foldWord).join(' ');
 }
 
 /** Does a text hold Thai letters? */
@@ -58,7 +60,7 @@ export function hasThai(text) {
  * finds nobody, the folded one. Returns { hits, loose }.
  */
 export function twoPassSearch(pool, query) {
-  const q = String(query || '').trim().toLowerCase();
+  const q = searchKey(query);
   if (!q) return { hits: pool, loose: false };
   const exact = pool.filter((entry) => entry._hayLc.includes(q));
   if (exact.length) return { hits: exact, loose: false };

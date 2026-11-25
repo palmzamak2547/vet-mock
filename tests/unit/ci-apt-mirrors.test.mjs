@@ -52,6 +52,13 @@ test('Azure is slow or down (22 Oct): apt starts from the public archive', onRun
   assert.deepEqual(priority, { [SECURITY]: 3, [ARCHIVE]: 1, [AZURE]: 9 });
 });
 
+test('the runners\' regional mirror on AWS (25 Nov) is weighed the way Azure\'s was', onRunner, () => {
+  const EC2 = 'http://us-east-2.ec2.archive.ubuntu.com/ubuntu/';
+  const list = `${EC2}\tpriority:1\n${ARCHIVE}\tpriority:2\n${SECURITY}\tpriority:3\n`;
+  assert.deepEqual(order(list, [ARCHIVE]).priority, { [SECURITY]: 3, [ARCHIVE]: 1, [EC2]: 9 });
+  assert.deepEqual(order(list, [EC2]).priority, { [SECURITY]: 3, [EC2]: 1, [ARCHIVE]: 9 });
+});
+
 test('no ubuntu.com name answers (11 Nov): apt uses only the outside mirrors that do, and the log says so', onRunner, () => {
   const { text, out } = order(RUNNER_LIST, [KERNEL, MIT]);
   assert.equal(text, `${KERNEL}\tpriority:1\n${MIT}\tpriority:9\n`);

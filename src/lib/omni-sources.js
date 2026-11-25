@@ -20,6 +20,7 @@
 // search always follows the data without anyone maintaining an index.
 
 import { getLibraryCatalog, subjectMeta, formatBytes, indexDocs } from './library.js';
+import { searchKey } from './search-key.js';
 
 const cache = new Map(); // sourceId → entries[]
 let cacheEpoch = 0;
@@ -30,9 +31,10 @@ if (typeof window !== 'undefined') {
   window.addEventListener('vmx-library-auth-changed', invalidate);
 }
 
+// Folded the way the palette folds its own rows, the label first.
 function lowered(entry) {
-  const labelLc = (entry.label || '').toLowerCase();
-  return { ...entry, _labelLc: labelLc, _hayLc: labelLc + ' ' + (entry.kw || '').toLowerCase() };
+  const labelLc = searchKey(entry.label);
+  return { ...entry, _labelLc: labelLc, _hayLc: labelLc + ' ' + searchKey(entry.kw) };
 }
 
 /** Pure mapper — exported for tests. */
