@@ -4638,7 +4638,7 @@ const LEAVES = [
  [104014,219811,219812,216855,210500,210506,210521],
  // end ["incidence|public-health","zoonoses","zoo-epi-approach"]
  // ["incidence|public-health","zoonoses","zoo-mycoses"]
- [106150,106158],
+ [106150,106158,210701,210705],
  // end ["incidence|public-health","zoonoses","zoo-mycoses"]
  // end of "incidence|public-health"
  "methylene blue reduction test|public-health",
