@@ -29,7 +29,7 @@ const RING_MAX = 86;
 function Rings({ parts, total }) {
   return (
     <svg className="vmx-predict-rings" viewBox="0 0 200 200" role="img"
-      aria-label={`ข้อสอบ ${parts.length} ส่วน รวม ${total} ข้อ วงนอกสุดคือส่วนแรก สีบอกรูปแบบ ความยาววงบอกความแน่นของหลักฐาน`}>
+      aria-label={`ข้อสอบที่คาด ${parts.length} ส่วน รวม ${total} ข้อ วงนอกสุดคือส่วนแรก สีบอกรูปแบบ ความยาววงบอกความแน่นของหลักฐาน`}>
       <g transform="rotate(-90 100 100)">
         {parts.map((p, i) => {
           const r = 90 - i * 8.4;
@@ -75,8 +75,13 @@ function Mix({ part }) {
 export default function PredictSet({ set, subject, onStart }) {
   if (!set || typeof onStart !== 'function') return null;
   const all = set.parts.flatMap((p) => p.ids);
+  // A part whose lecturer named more items than the banks hold shows the named count on its tag, in the legend
+  // and in the ring total (`announced`); its button still says how many it serves, and the whole-paper button
+  // says that some parts are short instead of printing a count it does not serve.
+  const size = (p) => p.announced ?? p.count;
+  const paper = set.parts.reduce((n, p) => n + size(p), 0);
   const byFormat = ['tf', 'mcq', 'short']
-    .map((f) => [f, set.parts.filter((p) => p.format === f).reduce((n, p) => n + p.ids.length, 0)])
+    .map((f) => [f, set.parts.filter((p) => p.format === f).reduce((n, p) => n + size(p), 0)])
     .filter(([, n]) => n > 0);
   const startPart = (ids, format) => onStart({
     subjectId: subject, ids, timePerQ: format === 'tf' ? 45 : 60, timed: format !== 'short',
@@ -105,7 +110,7 @@ export default function PredictSet({ set, subject, onStart }) {
           <h2 id="vmx-predict-title">ชุดคาดการณ์ข้อสอบ</h2>
           <p className="vmx-predict-when">สอบ {thaiDate(set.examDate)} {set.minutes} นาที {set.parts.length} ส่วน</p>
         </div>
-        <Rings parts={set.parts} total={all.length} />
+        <Rings parts={set.parts} total={paper} />
         <ul className="vmx-predict-legend" role="list" aria-label="จำนวนข้อตามรูปแบบ">
           {byFormat.map(([f, n]) => (
             <li key={f} className={`is-${FORMAT_TONE[f]}`}>{PREDICT_FORMAT_LABEL[f]} {n} ข้อ</li>
@@ -117,7 +122,7 @@ export default function PredictSet({ set, subject, onStart }) {
           onClick={() => onStart({ subjectId: subject, ids: all, whole: true, budget: set.minutes * 60 })}
         >
           ทำทั้งฉบับ {all.length} ข้อ จับเวลา {set.minutes} นาที
-          <span><span>เรียงตามส่วนเหมือนกระดาษข้อสอบ</span> <span>เฉลยหลังส่ง</span></span>
+          <span><span>เรียงทีละส่วน</span> {all.length < paper && <><span>บางส่วนยังมีข้อไม่ครบ</span> </>}<span>เฉลยหลังส่ง</span></span>
         </button>
       </div>
 
@@ -127,7 +132,7 @@ export default function PredictSet({ set, subject, onStart }) {
             <span className="vmx-predict-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
             <h3>{p.title}</h3>
             <div className="vmx-predict-tags">
-              <span className="vmx-predict-fmt">{PREDICT_FORMAT_LABEL[p.format]} {p.count} ข้อ</span>
+              <span className="vmx-predict-fmt">{PREDICT_FORMAT_LABEL[p.format]} {size(p)} ข้อ</span>
               <span className="vmx-predict-conf" data-level={p.confidence}>
                 <span className="bars" aria-hidden="true"><i /><i /><i /></span>
                 {CONFIDENCE_LABEL[p.confidence]}
