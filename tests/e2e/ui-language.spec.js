@@ -6,7 +6,7 @@
 // The walk over every route runs on chromium-mobile, a phone's width; the switch itself on every
 // project. A string this finds belongs in src/data/ui-en.js, or, when it is content, under an element
 // that carries its language.
-import { writeFileSync } from 'node:fs';
+import { appendFileSync } from 'node:fs';
 import { test, expect, PINNED_NOW } from './fixtures.js';
 import { ROUTES, seedStudent, studiedQuestions, visit, readScreen } from './lib/routes.js';
 
@@ -50,10 +50,23 @@ async function settle(page) {
   await page.waitForTimeout(600);
 }
 
-const report = [];
-test.afterAll(() => {
-  if (process.env.VMX_UI_LANG_REPORT && report.length) writeFileSync(process.env.VMX_UI_LANG_REPORT, JSON.stringify(report, null, 1));
-});
+// The page's text with its digits masked: Home's countdown ticks every second while it is read.
+const pageText = () => document.body.innerText.replace(/\d/g, '#');
+
+// Parts of Home arrive late (the plan, the cohort): read it once it has held still for two seconds.
+async function steadyText(page) {
+  let last = null;
+  let since = Date.now();
+  for (const end = Date.now() + 20_000; Date.now() < end;) {
+    const now = await page.evaluate(pageText);
+    if (now !== last) { last = now; since = Date.now(); } else if (Date.now() - since >= 2000) break;
+    await page.waitForTimeout(250);
+  }
+  return last;
+}
+
+// VMX_UI_LANG_REPORT=<file> keeps one JSON line per route, from every worker, to work through.
+const report = (row) => { if (process.env.VMX_UI_LANG_REPORT) appendFileSync(process.env.VMX_UI_LANG_REPORT, `${JSON.stringify(row)}\n`); };
 
 for (const [view, path] of ROUTES) {
   test(`${path} in English shows no Thai of its own`, async ({ page, context }, info) => {
@@ -64,10 +77,11 @@ for (const [view, path] of ROUTES) {
     await context.addInitScript(() => { try { localStorage.setItem('vmx-landing-lang', JSON.stringify('en')); } catch { /* the visit says so */ } });
     await visit(page, path);
     await settle(page);
+    expect((await page.evaluate(readScreen)).errorCard, `${path}: the English page crashed`).toBe(false);
     const lang = await page.evaluate(() => document.documentElement.lang);
     const left = await page.evaluate(thaiLeftovers);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
-    report.push({ path, view, lang, overflow, left });
+    report({ path, view, lang, overflow, left });
     expect(lang, `${path}: <html lang>`).toBe('en');
     expect(overflow, `${path}: the English page scrolls sideways`).toBeLessThanOrEqual(1);
     expect(left, `${path}: Thai left in the English interface`).toEqual([]);
@@ -76,13 +90,16 @@ for (const [view, path] of ROUTES) {
 
 test('switching to English and back gives the Thai page exactly as it was', async ({ page, context }) => {
   test.setTimeout(90_000);
+  // The wordmark's words rotate unless motion is reduced (Wordmark.jsx).
+  await page.emulateMedia({ reducedMotion: 'reduce' });
   await context.addInitScript(seedStudent, { now: Date.parse(PINNED_NOW), studied: await studiedQuestions() });
   await visit(page, '/app/home');
   await settle(page);
-  const thai = await page.evaluate(() => document.body.innerText);
+  const thai = await steadyText(page);
   expect(await page.evaluate(() => document.documentElement.lang)).toBe('th');
 
-  const openMenu = () => page.locator('.vmx-theme-btn').first().click();
+  // The theme menu's own button: the saved-questions button beside it shares the class.
+  const openMenu = () => page.locator('button.vmx-theme-btn[aria-expanded]').first().click();
   await openMenu();
   await page.getByRole('button', { name: 'English', exact: true }).click();
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
@@ -92,5 +109,5 @@ test('switching to English and back gives the Thai page exactly as it was', asyn
   await openMenu();
   await page.getByRole('button', { name: 'ไทย', exact: true }).click();
   await expect(page.locator('html')).toHaveAttribute('lang', 'th');
-  await expect.poll(() => page.evaluate(() => document.body.innerText)).toBe(thai);
+  await expect.poll(() => page.evaluate(pageText)).toBe(thai);
 });

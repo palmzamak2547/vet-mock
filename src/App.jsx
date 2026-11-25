@@ -231,7 +231,7 @@ import { exitSetDialog } from './lib/exit-set.js';
 import { deadlineOnWall } from './lib/exam-clock.js';
 
 import { clearNoteRetryTarget, readNoteRetryTarget } from './lib/note-retry.js';
-import { UI_LANG_KEY, showInterfaceIn } from './lib/ui-translate.js';
+import { UI_LANG_KEY, showInterfaceIn } from './lib/ui-lang.js';
 
 // What the exam says when its own record cannot be written (storage full or blocked).
 const INFLIGHT_SAVE_FAILED = 'บันทึกคำตอบลงเครื่องไม่ได้ (พื้นที่อาจเต็ม) อย่าปิดหน้านี้จนกว่าจะส่งชุด';

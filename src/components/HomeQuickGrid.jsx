@@ -42,10 +42,12 @@ function openAllMenu() {
 
 // A tile label wraps only between words, never inside one: "สรุปบท / เรียน"
 // read as a broken word on a 360 px phone. canvas-wrap knows the compounds.
+// The words stay one label (data-phrase on the tile's label): the English
+// interface reads them together and lets its words wrap (.vmx-word:lang(th)).
 function TileLabel({ text }) {
   // A space stays plain text: inside a no-wrap span it stops being a place to
   // break, and "ตารางเรียน & สอบ" ran off a 390 px screen in WebKit.
-  return breakUnits(text).map((unit, i) => (/^\s+$/.test(unit) ? unit : <span key={i} style={{ whiteSpace: 'nowrap' }}>{unit}</span>));
+  return breakUnits(text).map((unit, i) => (/^\s+$/.test(unit) ? unit : <span key={i} className="vmx-word">{unit}</span>));
 }
 
 export default function HomeQuickGrid({
@@ -95,7 +97,7 @@ export default function HomeQuickGrid({
                 <span className="vmx-quick-tile-icon" aria-hidden="true">
                   {icon ? <NavIcon name={icon} size={22} /> : f.icon}
                 </span>
-                <span className="vmx-quick-tile-label"><TileLabel text={f.label} /></span>
+                <span className="vmx-quick-tile-label" data-phrase=""><TileLabel text={f.label} /></span>
                 {f.hint && <span className="vmx-sr-only"> {f.hint}</span>}
               </button>
             </li>

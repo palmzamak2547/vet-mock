@@ -60,7 +60,7 @@ export default function AtlasPartDirectory({ parts, total, selected, visibleIds,
                 <div className="vmx-atlas-part-row" key={item.id} data-selected={selected === item.id}>
                   <button type="button" className="vmx-atlas-select" aria-label={`เลือก ${item.en}`}
                     aria-pressed={selected === item.id} onClick={() => onSelect(item.id)}>
-                    <span>{item.en}<small>{item.th}</small></span>
+                    <span>{item.en}<small lang="th">{item.th}</small></span>
                     {selected === item.id && <Check size={15} aria-hidden="true" />}
                   </button>
                   <button type="button" className="vmx-atlas-eye"

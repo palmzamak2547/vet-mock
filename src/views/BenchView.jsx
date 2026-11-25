@@ -292,10 +292,12 @@ export default function BenchView({ goHome }) {
       .reduce((sum, s) => sum + (s.minutes || 0), 0),
   }));
 
+  // The lesson is Module 5 as the lecture gave it, in Thai: marked so an English interface leaves it
+  // as written (src/lib/ui-translate.js); the progress line and its button are interface.
   return (
     <div className="vmx-lesson">
       <header className="vmx-lesson__head">
-        <div className="vmx-lesson__headmain">
+        <div className="vmx-lesson__headmain" lang="th">
           <p className="vmx-lesson__eyebrow">{MODULE5.module} &nbsp;&#124;&nbsp; {MODULE5.course}</p>
           <h1 className="vmx-lesson__title">{MODULE5.title}</h1>
           <p className="vmx-lesson__sub">{MODULE5.subtitle}</p>
@@ -323,9 +325,9 @@ export default function BenchView({ goHome }) {
         </div>
       </header>
 
-      <p className="vmx-lesson__disclaimer">{MODULE5.disclaimer}</p>
+      <p className="vmx-lesson__disclaimer" lang="th">{MODULE5.disclaimer}</p>
 
-      <div className="vmx-lesson__body">
+      <div className="vmx-lesson__body" lang="th">
         <nav className="vmx-lesson__toc" aria-label="สารบัญบทเรียน">
           {groups.map((g) => (
             <div key={g.id} className="vmx-lesson__tocgroup">

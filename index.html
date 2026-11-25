@@ -29,7 +29,7 @@
             history.replaceState(history.state, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
           }
         } catch (e) {}
-        // The site's language (src/lib/ui-translate.js UI_LANG_KEY), so the page says what it will be
+        // The site's language (src/lib/ui-lang.js UI_LANG_KEY), so the page says what it will be
         // in before the first paint.
         try {
           var lang = visit.lang === 'en' || visit.lang === 'th' ? visit.lang : JSON.parse(localStorage.getItem('vmx-landing-lang') || 'null');

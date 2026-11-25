@@ -5,8 +5,8 @@
 // (src/data/ui-en.js) and replaced on the page before it is painted. A string with no entry stays
 // Thai, and tests/e2e/ui-language.spec.js counts it. Content keeps its own language: an element that
 // carries its own `lang` (a question, a note, a person's name, the landing page that translates
-// itself) is left as it is, with everything inside it. With Thai chosen none of this runs and the
-// dictionary is never fetched.
+// itself) is left as it is, with everything inside it. With Thai chosen neither this module nor the
+// dictionary is fetched: the app reaches it through ui-lang.js.
 //
 // The page belongs to React, so a text node is only ever given a new value here, never replaced or
 // moved: React keeps writing to the same nodes, each of its writes is seen, kept as the original and
@@ -23,9 +23,11 @@ const NUMBER = /\d[\d,]*(?:\.\d+)?/g;
 const WILD = /\{([a-h])\}/g;
 const ATTRS = ['aria-label', 'title', 'placeholder', 'alt'];
 const NO_TEXT = new Set(['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEXTAREA', 'CODE', 'PRE']);
+const LISTS = [' — ', ', '];
+const EMOJI_LEAD = /^\p{Extended_Pictographic}[\p{Extended_Pictographic}️‍]*\s+/u;
 
 /** @typedef {string | { one: string, other: string }} Entry */
-/** @typedef {{ re: RegExp, names: string[], literal: string, en: Entry }} Pattern */
+/** @typedef {{ re: RegExp, names: string[], literal: string, size: number, en: Entry }} Pattern */
 /** @typedef {{ exact: Map<string, Entry>, byPrefix: Map<string, Pattern[]>, loose: Pattern[] }} Dictionary */
 
 const collapse = (/** @type {string} */ s) => s.trim().replace(/\s+/g, ' ');
@@ -36,11 +38,16 @@ export function compileDictionary(raw) {
   /** @type {Dictionary} */
   const dict = { exact: new Map(), byPrefix: new Map(), loose: [] };
   for (const [th, en] of Object.entries(raw)) {
-    const key = collapse(th);
+    // Read the way the screen's strings are read before they are looked up (dates in English).
+    const key = collapse(englishDates(th));
     if (!/\{[a-h]\}/.test(key)) { dict.exact.set(key, en); continue; }
     const names = [...key.matchAll(WILD)].map((m) => m[1]);
     const parts = key.split(WILD).filter((_, i) => i % 2 === 0);
-    const pattern = { re: new RegExp('^' + parts.map(escape).join('(.+?)') + '$'), names, literal: parts.find((p) => THAI.test(p)) || parts.join(''), en };
+    // Two values the code wrote side by side ("{a}{b}") have no knowable split between them: the
+    // first capture takes both and the second stays empty, so a Thai word is never cut in half.
+    const groups = parts.slice(1).map((_, i) => (i > 0 && parts[i] === '' ? '()' : '(.+?)'));
+    const re = new RegExp('^' + escape(parts[0]) + groups.map((g, i) => g + escape(parts[i + 1])).join('') + '$');
+    const pattern = { re, names, literal: parts.find((p) => THAI.test(p)) || parts.join(''), size: parts.join('').length, en };
     // A pattern that opens with words is found by its first two characters; one that opens with a
     // wildcard is tried on every string that holds its first Thai words.
     if (parts[0].length >= 2) {
@@ -49,6 +56,10 @@ export function compileDictionary(raw) {
       dict.byPrefix.set(parts[0].slice(0, 2), list);
     } else dict.loose.push(pattern);
   }
+  // The most specific pattern is tried first: "แสดงหมวด {a}" before "แสดง{a}".
+  const bySize = (/** @type {Pattern} */ a, /** @type {Pattern} */ b) => b.size - a.size;
+  for (const list of dict.byPrefix.values()) list.sort(bySize);
+  dict.loose.sort(bySize);
   return dict;
 }
 
@@ -59,8 +70,30 @@ function fill(entry, nums) {
   return tpl.replace(/\{(\d+)\}/g, (m, i) => nums[Number(i)] ?? m);
 }
 
-/** @param {string} core @param {Dictionary} dict @param {number} depth @returns {string | null} */
-function lookup(core, dict, depth) {
+/**
+ * Labels the code joined ("Practice | VetMock", "Library, Clips", "Zoonoses — this year's class"):
+ * each Thai part looked up on its own, used only when every one is found (or, with partialOk, as far
+ * as the parts go).
+ * @param {string} core @param {Dictionary} dict @param {number} depth @param {string[]} seps @param {boolean} partialOk
+ */
+function joined(core, dict, depth, seps, partialOk) {
+  for (const sep of seps) {
+    if (!core.includes(sep)) continue;
+    const pieces = core.split(sep);
+    const parts = pieces.map((p) => (THAI.test(p) ? lookup(p.trim(), dict, depth + 1, false) : p));
+    // "Rabies — โรคพิษสุนัขบ้า" names one thing twice; in English once is enough.
+    if (parts.every((p) => p !== null)) return parts.filter((p, i) => i === 0 || p?.toLowerCase() !== parts[i - 1]?.toLowerCase()).join(sep);
+    if (partialOk) return pieces.map((p, i) => parts[i] ?? lookup(p.trim(), dict, depth + 1, true) ?? p).join(sep);
+  }
+  return null;
+}
+
+/**
+ * @param {string} core @param {Dictionary} dict @param {number} depth
+ * @param {boolean} partialOk whether an answer may keep a capture Thai (only the string as shown may)
+ * @returns {string | null}
+ */
+function lookup(core, dict, depth, partialOk) {
   const direct = dict.exact.get(core);
   if (direct !== undefined) return fill(direct, []);
   /** @type {string[]} */
@@ -71,20 +104,73 @@ function lookup(core, dict, depth) {
     if (numbered !== undefined) return fill(numbered, nums);
   }
   if (depth > 2) return null;
+  // A page title is "<view> | VetMock": split before any pattern reads the whole line as one phrase.
+  const titled = joined(core, dict, depth, [' | '], partialOk);
+  if (titled !== null) return titled;
   const candidates = [...(dict.byPrefix.get(core.slice(0, 2)) || []), ...dict.loose.filter((p) => core.includes(p.literal))];
+  // A pattern whose Thai captures are all found wins. One that leaves a capture Thai (a name inside a
+  // sentence) is the last resort, after the list reading below.
+  /** @type {string | null} */
+  let partial = null;
   for (const pattern of candidates) {
     const m = pattern.re.exec(core);
     if (!m) continue;
+    let whole = true;
     /** @type {Record<string, string>} */
     const got = {};
     pattern.names.forEach((name, i) => {
       const part = m[i + 1];
-      got[name] = THAI.test(part) ? (lookup(part, dict, depth + 1) ?? part) : part;
+      const en = THAI.test(part) ? lookup(part, dict, depth + 1, false) : part;
+      if (en === null) whole = false;
+      got[name] = en ?? (partialOk ? lookup(part, dict, depth + 1, true) : null) ?? part;
     });
     const firstNumber = /** @type {RegExpMatchArray | null} */ (Object.values(got).join(' ').match(/\d[\d,]*/));
-    return fill(pattern.en, firstNumber ? [firstNumber[0]] : []).replace(WILD, (_, name) => got[name] ?? '');
+    const out = fill(pattern.en, firstNumber ? [firstNumber[0]] : []).replace(WILD, (_, name) => got[name] ?? '');
+    if (whole) return out;
+    partial ??= out;
   }
-  return null;
+  const listed = joined(core, dict, depth, LISTS, false);
+  if (listed !== null || !partialOk) return listed;
+  return byPhrases(core, dict, depth) ?? partial ?? joined(core, dict, depth, LISTS, true);
+}
+
+// Dates the app writes the Thai way ("ศุกร์ 21 พ.ย. 2569", "4 ธ.ค. 69"): English weekday and
+// month, and the Buddhist-era year as its Common Era year. A two-digit year counts only with nothing
+// Thai after it, so "15 ธ.ค. 80 ข้อ" keeps its 80 questions. Dictionary keys are read the same way.
+const MONTHS = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
+const EN_MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const WEEKDAYS = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'พฤหัส', 'ศุกร์', 'เสาร์'];
+const EN_WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Thu', 'Fri', 'Sat'];
+const THAI_RANGE = THAI.source.slice(1, -1);
+const THAI_DATE = new RegExp(`(\\d{1,2}) (${MONTHS.map((m) => m.replace(/\./g, '\\.')).join('|')})(?: (25\\d\\d|[6-9]\\d(?![\\d:]|\\s*[${THAI_RANGE}])))?`, 'g');
+// A weekday only right before a date or a time ("จันทร์ 13:00"), never inside a longer Thai word.
+const THAI_WEEKDAY = new RegExp(`(^|[^${THAI_RANGE}])(?:วัน)?(${WEEKDAYS.join('|')}) (?=\\d)`, 'g');
+const THAI_PHRASE = new RegExp(`[${THAI_RANGE}](?:[${THAI_RANGE} ]*[${THAI_RANGE}])?`, 'g');
+/** @param {string} text */
+function englishDates(text) {
+  return text
+    .replace(THAI_DATE, (_, day, month, year) =>
+      `${day} ${EN_MONTHS[MONTHS.indexOf(month)]}${year ? ` ${(year.length === 2 ? 2500 : 0) + Number(year) - 543}` : ''}`)
+    .replace(THAI_WEEKDAY, (_, before, day) => `${before}${EN_WEEKDAYS[WEEKDAYS.indexOf(day)]} `);
+}
+
+/**
+ * The last reading: the Thai phrases between English words, numbers and times ("Mon 10:00
+ * ระบาดวิทยา"), each looked up alone, used only when every one is found.
+ * @param {string} core @param {Dictionary} dict @param {number} depth
+ */
+function byPhrases(core, dict, depth) {
+  // "10:00 น." is a time; its น. has no English of its own.
+  const timed = core.replace(/(\d{1,2}[:.]\d{2}) น\./g, '$1');
+  const phrases = timed.match(THAI_PHRASE) || [];
+  if (phrases.length === 1 && phrases[0] === timed) return null;
+  let found = true;
+  const out = timed.replace(THAI_PHRASE, (p) => {
+    const en = lookup(p, dict, depth + 1, false);
+    if (en === null) found = false;
+    return en ?? p;
+  });
+  return found ? collapse(out) : null;
 }
 
 /**
@@ -94,9 +180,14 @@ function lookup(core, dict, depth) {
  */
 export function translateString(text, dict) {
   if (!text || !THAI.test(text)) return null;
-  const hit = lookup(collapse(text), dict, 0);
+  const dated = collapse(englishDates(text));
+  // A label led by an emoji ("🐟 สัตว์น้ำ — Fish & Shrimp") is read without it, unless it has an entry whole.
+  const lead = (!dict.exact.has(dated) && EMOJI_LEAD.exec(dated)?.[0]) || '';
+  const core = dated.slice(lead.length);
+  // With no entry, a date read the English way is still better than none.
+  const hit = THAI.test(core) ? lookup(core, dict, 0, true) ?? (dated !== collapse(text) ? core : null) : core;
   if (hit === null) return null;
-  return /^\s*/.exec(text)?.[0] + hit + /\s*$/.exec(text)?.[0];
+  return /^\s*/.exec(text)?.[0] + lead + hit + /\s*$/.exec(text)?.[0];
 }
 
 // ---- the page ------------------------------------------------------------------------------------
@@ -142,16 +233,21 @@ function translateText(el, dict) {
   if (!texts.length) return;
   const originals = texts.map(originalOf);
   if (!originals.some((t) => THAI.test(t))) return;
+  const parts = () => originals.map((t) => translateString(t, dict) ?? t);
   // React writes "5" and " ข้อ" as two text nodes; read together they are one string to look up.
+  // A whole reading that keeps some Thai loses to the parts read one by one when they come out whole.
   if (onlyText && texts.length > 1) {
     const whole = translateString(originals.join(''), dict);
-    if (whole !== null) {
+    const each = whole !== null && THAI.test(whole) ? parts() : null;
+    if (whole !== null && !(each && !each.some((p) => THAI.test(p)))) {
       put(texts[0], whole);
       for (let i = 1; i < texts.length; i++) put(texts[i], '');
       return;
     }
+    if (each) { texts.forEach((node, i) => put(node, each[i])); return; }
   }
-  texts.forEach((node, i) => put(node, translateString(originals[i], dict) ?? originals[i]));
+  const each = parts();
+  texts.forEach((node, i) => put(node, each[i]));
 }
 
 /** @param {Element} el @param {Dictionary} dict */
@@ -174,10 +270,26 @@ function translateAttributes(el, dict) {
   }
 }
 
+/**
+ * A label the page split into words so a line breaks only between them (HomeQuickGrid's "สรุป"
+ * "บทเรียน"), marked data-phrase: read whole, its English written into the first word.
+ * @param {Element} el @param {Dictionary} dict
+ */
+function translatePhrase(el, dict) {
+  /** @type {Text[]} */
+  const texts = [];
+  const walker = /** @type {Document} */ (el.ownerDocument).createTreeWalker(el, 4);
+  while (walker.nextNode()) texts.push(/** @type {Text} */ (walker.currentNode));
+  const originals = texts.map(originalOf);
+  const whole = translateString(originals.join(''), dict);
+  texts.forEach((node, i) => put(node, whole === null ? originals[i] : i === 0 ? whole : ''));
+}
+
 /** @param {Element} el @param {Dictionary} dict */
 function translateElement(el, dict) {
   if (!el.isConnected || keepsItsLanguage(el)) return;
-  translateText(el, dict);
+  const phrase = el.closest('[data-phrase]');
+  if (phrase) translatePhrase(phrase, dict); else translateText(el, dict);
   translateAttributes(el, dict);
 }
 
@@ -210,22 +322,7 @@ function restore(doc) {
   }
 }
 
-// ---- the language of the whole site -----------------------------------------------------------
-
-// The key kept its first name from when only the landing page had a language; it holds the language
-// of the whole site. index.html reads it too, to set <html lang> before the first paint.
-export const UI_LANG_KEY = 'vmx-landing-lang';
-
-/** The language this visit opens in: one carried from another VetMock site, else the saved one. */
-export function readUiLang() {
-  try {
-    const visit = JSON.parse(sessionStorage.getItem('vmx-family-visit') || '{}') || {};
-    if (visit.lang === 'en' || visit.lang === 'th') return visit.lang;
-    return JSON.parse(localStorage.getItem(UI_LANG_KEY) || 'null') === 'en' ? 'en' : 'th';
-  } catch {
-    return 'th';
-  }
-}
+// ---- the language of the whole site (reached through ui-lang.js) -------------------------------
 
 /** @type {Promise<Dictionary> | null} */
 let englishLoad = null;

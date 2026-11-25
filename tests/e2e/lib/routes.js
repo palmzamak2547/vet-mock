@@ -20,6 +20,7 @@ export const NOT_ROUTED = {
   knowledge: 'the wiki reader, served at /wiki/* (opened below as an extra route)',
   wiki: 'the wiki reader, served at /wiki/* (opened below as an extra route)',
   profile: 'a personal hub opened from the bar; view-route.js explains why it has no link',
+  'card-studio': 'the card studio, opened from the card on the profile, which has no address either',
   'group-detail': 'needs a signed-in account and a chosen group',
   lab: 'Imaging Practical, opened at /#lab (an extra route below)',
   'connect-apps': 'opened from settings with a signed-in account',
@@ -83,16 +84,17 @@ export async function visit(page, path) {
   }
 }
 
-// The screen a visit drew, read in the page.
+// The screen a visit drew, read in the page, in either language of the interface
+// (tests/e2e/ui-language.spec.js walks the English one).
 export function readScreen() {
   const main = document.querySelector('#main') || document.querySelector('main');
   const loading = !!main && (!!main.querySelector('.vmx-view-fallback')
-    || [...main.querySelectorAll('[aria-busy="true"]')].some((el) => /กำลังโหลด/.test(el.textContent || '')));
+    || [...main.querySelectorAll('[aria-busy="true"]')].some((el) => /กำลังโหลด|Loading/.test(el.textContent || '')));
   return {
     landing: !!document.querySelector('.lp-root main#lp-main'),
     view: document.querySelector('#main')?.getAttribute('data-view') || null,
     authCard: !!document.getElementById('vmx-auth-required-title'),
-    errorCard: /หน้านี้ขัดข้อง/.test(main?.innerText || ''),
+    errorCard: /หน้านี้ขัดข้อง|This page crashed/.test(main?.innerText || ''),
     loading,
   };
 }

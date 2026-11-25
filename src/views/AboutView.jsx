@@ -198,7 +198,7 @@ export default function AboutView({ goHome, setView, onOpenTour }) {
                   sources.js are the maintainers' provenance, not student copy. */}
               <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', lineHeight: 1.6, overflowWrap: 'anywhere' }}>
                 <strong>หัวข้อ:</strong> {src.topics}
-                {src.contributors?.length > 0 && <><br/><strong>ขอบคุณ:</strong> {src.contributors.join(', ')}</>}
+                {src.contributors?.length > 0 && <><br/><strong>ขอบคุณ:</strong> <span lang="th">{src.contributors.join(', ')}</span></>}
               </div>
             </div>
           );
@@ -210,7 +210,7 @@ export default function AboutView({ goHome, setView, onOpenTour }) {
         <h3>ขอบคุณ</h3>
         <div style={{ fontSize: 14, lineHeight: 1.7 }}>
           <ul style={{ paddingLeft: 20, margin: 0 }}>
-            <li><strong>พี่พล Vet 84</strong>: แชร์โน้ตทบทวน Orthopedic, ESF, Approach</li>
+            <li><strong lang="th">พี่พล Vet 84</strong>: แชร์โน้ตทบทวน Orthopedic, ESF, Approach</li>
             <li><strong>Kimchii 85</strong>: แชร์โน้ตทบทวน COM III, COM IV, Exotic</li>
             <li><strong>TJ86</strong>: แชร์โน้ตทบทวน COM V (รวบรวมจากรุ่นพี่ + อัพเดต 2024)</li>
             <li><strong>pployyyn Vet 83</strong>: แชร์โน้ตทบทวน Repro Lab</li>

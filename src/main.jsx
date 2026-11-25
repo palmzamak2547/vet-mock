@@ -18,7 +18,7 @@ import './lib/dom-compat.js'
 import './lib/app-lifecycle.js'
 import './lib/install-prompt.js'
 import { applyMotionPreference, subscribeMotionPreferences } from './lib/motion-preferences.js'
-import { readUiLang, showInterfaceIn } from './lib/ui-translate.js'
+import { readUiLang, showInterfaceIn } from './lib/ui-lang.js'
 
 // Everything that reads the student's stored data, in the order it always ran.
 function startApp() {
