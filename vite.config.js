@@ -109,6 +109,9 @@ export default defineConfig({
           // library counts among them. Unclaimed, Rollup gave it a chunk of its
           // own: one more request on Home's first visit (perf-budget.spec.js).
           if (id.includes('src/lib/search-key')) return 'vendor-react'
+          // fill-stem is a 1.4 KB leaf (gzip) shared by five lazy screens, and Home's
+          // first visit loads one of them. Unclaimed, it too was one more request there.
+          if (id.includes('src/lib/fill-stem')) return 'vendor-react'
           if (id.includes('node_modules')) {
             if (/[\\/]node_modules[\\/]three[\\/]/.test(id)) return 'vendor-atlas'
             if (/[\\/]node_modules[\\/]lucide-react[\\/]/.test(id)) return 'vendor-icons'
