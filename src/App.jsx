@@ -1345,8 +1345,15 @@ export default function App() {
   // main.jsx already showed the saved language before the first paint; a later switch cross-fades,
   // except on the landing page, which runs its own transition.
   const langShown = useRef(false);
+  const langAsked = useRef(landingLang);
+  langAsked.current = landingLang;
   useEffect(() => {
-    showInterfaceIn(landingLang, { animate: langShown.current && view !== 'landing' });
+    const asked = landingLang;
+    showInterfaceIn(asked, { animate: langShown.current && view !== 'landing' }).then((shown) => {
+      // English could not be fetched (offline on a first visit): this visit shows Thai and the menu
+      // says so. The saved choice stays, so the next visit, or pressing English again, tries again.
+      if (shown !== asked && langAsked.current === asked) setVisit((v) => ({ ...v, lang: shown }));
+    });
     langShown.current = true;
     // eslint-disable-next-line react-hooks/exhaustive-deps -- the view only decides the animation
   }, [landingLang]);

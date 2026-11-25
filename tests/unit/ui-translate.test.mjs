@@ -53,6 +53,17 @@ test('a joined list is read part by part; a part with no entry stays as written'
   assert.equal(translateString('สรุป คำที่ไม่มี, ฝึกข้อสอบ', dict), 'คำที่ไม่มี, Practice summary');
 });
 
+// A set's title lists its kind, subject and topic with ", ", and a topic's own label holds ", " too.
+test('a part of a list that holds the separator itself is read as one', () => {
+  const titled = compileDictionary({
+    'ปรนัย': 'Multiple choice',
+    'สัปดาห์ 9-11, โรคติดเชื้อในนก (1-3)': 'Weeks 9-11, infectious avian diseases (1-3)',
+    'บทที่ {0}, ส่วนที่ {1}': 'Chapter {0}, part {1}',
+  });
+  assert.equal(translateString('ปรนัย, Wildlife, สัปดาห์ 9-11, โรคติดเชื้อในนก (1-3)', titled), 'Multiple choice, Wildlife, Weeks 9-11, infectious avian diseases (1-3)');
+  assert.equal(translateString('ปรนัย, บทที่ 3, ส่วนที่ 2', titled), 'Multiple choice, Chapter 3, part 2');
+});
+
 test('the most specific pattern wins, and two values written side by side read as one', () => {
   const d = compileDictionary({
     'ช': 'G', 'เปิด{a}{b}': 'Open {a}{b}', 'ชั้นผิวหนัง': 'the skin layer',
@@ -79,9 +90,33 @@ test('a weekday and a two-digit year read the English way, and a time drops its 
 });
 
 test('a label led by an emoji is read without it, unless the emoji is part of an entry', () => {
-  const d = compileDictionary({ 'สัตว์น้ำ — Fish & Shrimp': 'Fish & Shrimp', '📋 มีเอกสาร': 'Documents attached' });
+  const d = compileDictionary({ 'สัตว์น้ำ — Fish & Shrimp': 'Fish & Shrimp', '📋 มีเอกสาร': 'Documents attached', '🏁 เริ่ม! ({0} คน)': '🏁 Start! ({0} players)' });
   assert.equal(translateString('🐟 สัตว์น้ำ — Fish & Shrimp', d), '🐟 Fish & Shrimp');
   assert.equal(translateString('📋 มีเอกสาร', d), 'Documents attached');
+  assert.equal(translateString('🏁 เริ่ม! (2 คน)', d), '🏁 Start! (2 players)', 'an entry with a count keeps its emoji too');
+});
+
+test('a date reads the English way only where it is a date', () => {
+  const d = compileDictionary({ 'คะแนน {a}': 'Score {a}', 'อาทิตย์ {0} จาก {1}': 'Week {0} of {1}', 'เพิ่มเมื่อ {a}': 'Added on {a}', 'ภาคการศึกษาต้น {0}': 'First semester {0}' });
+  assert.equal(translateString('คะแนน 4 ธ.ค. 75/100', d), 'Score 4 Dec 75/100', 'a score after a date is not a year');
+  assert.equal(translateString('อาทิตย์ 3 จาก 16', d), 'Week 3 of 16', 'อาทิตย์ with no date after it is a week');
+  assert.equal(translateString('เพิ่มเมื่อ 26/11/2569', d), 'Added on 26/11/2026');
+  assert.equal(translateString('ภาคการศึกษาต้น 2569', d), 'First semester 2026');
+});
+
+test('a line break stays where the page put it, and a string with nothing found stays as written', () => {
+  const d = compileDictionary({ 'ลบข้อนี้?': 'Delete this question?', 'ย้อนกลับไม่ได้': 'This cannot be undone' });
+  assert.equal(translateString('ลบข้อนี้?\n\nย้อนกลับไม่ได้', d), 'Delete this question?\n\nThis cannot be undone');
+  assert.equal(translateString('ข้อความของเพื่อน\n\nย่อหน้าใหม่, อีกส่วน', dict), null);
+  assert.equal(translateString('ย่อหน้าใหม่, อีกส่วน', dict), null, 'a list with no part found is no reading');
+});
+
+test('a paragraph far longer than any pattern is read whole only, at once', () => {
+  const real = compileDictionary(UI_EN);
+  const paragraph = 'A '.repeat(600) + 'แยกตามอาจารย์ผู้สอนและรูปแบบข้อสอบที่แต่ละท่านใช้';
+  const started = performance.now();
+  translateString(paragraph, real);
+  assert.ok(performance.now() - started < 100, 'four lazy captures over a long string backtrack for seconds');
 });
 
 test('no Thai, or no entry, is left alone', () => {

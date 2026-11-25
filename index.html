@@ -32,7 +32,7 @@
         // The site's language (src/lib/ui-lang.js UI_LANG_KEY), so the page says what it will be
         // in before the first paint.
         try {
-          var lang = visit.lang === 'en' || visit.lang === 'th' ? visit.lang : JSON.parse(localStorage.getItem('vmx-landing-lang') || 'null');
+          var lang = visit.lang === 'en' || visit.lang === 'th' ? visit.lang : JSON.parse(localStorage.getItem('vmx-lang') || 'null');
           if (lang === 'en') document.documentElement.lang = 'en';
         } catch (e) {}
         try {

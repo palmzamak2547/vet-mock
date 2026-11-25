@@ -17,6 +17,7 @@ import {
 } from './kit.js';
 import { CARD_PLATES } from '../../data/art.js';
 import { studyTime, subjectRows } from '../phase-wrapped.js';
+import { uiText } from '../ui-lang.js';
 
 /** The frieze over the recap: Muybridge's trotting horse, a term as a gait. */
 export const PHASE_STRIP = CARD_PLATES.phase;
@@ -42,6 +43,64 @@ export function phaseLine(stats) {
   if (qCount >= 500) return 'ทำไปห้าร้อยข้อแล้ว ใจสู้จริง';
   if (ratio >= 0.6) return 'ถึงเกณฑ์ซ้อมแล้ว รอบหน้าไปให้ไกลกว่านี้';
   return 'ทุกข้อที่ทำ คือทางที่เดินมาแล้ว';
+}
+
+const TIME_UNIT_EN = { 'นาที': 'min', 'ชม.': 'h' };
+
+/**
+ * The card's words in the language on screen. The page's translator cannot reach a canvas, so English
+ * comes from the same dictionary here; the units beside a numeral are counted here, since the
+ * dictionary reads a lone "ข้อ" as a label ("Question").
+ */
+export function phaseWords(stats, lang = 'th', t = lang === 'en' ? uiText : (/** @type {string} */ s) => s) {
+  const en = lang === 'en';
+  const count = (n, th, one, other) => (en ? (Number(n) === 1 ? one : other) : th);
+  const year = stats.phaseEnd ? academicYear(stats.phaseEnd) : null;
+  const streak = Number(stats.longestStreak ?? 0);
+  const [time, timeUnit] = studyTime(stats.totalStudyMin);
+  const { best, weak } = subjectRows(stats);
+  const row = (r) => r && { label: t(r.label), name: t(r.subject.name), pct: r.subject.pct, single: !!r.single };
+  const line = phaseLine(stats);
+  return {
+    masthead: t(stats.phaseCompleted ? 'สรุปช่วงสอบ' : 'สรุปช่วงสอบ ระหว่างทาง'),
+    // In English the Common Era year, as every date on the page reads.
+    year: year && (en ? year - 543 : year),
+    yearLabel: year ? t(`ปีการศึกษา ${year}`) : '',
+    title: t(stats.phaseLabel),
+    heroUnit: count(stats.qCount, 'ข้อ', 'question', 'questions'),
+    heroLabel: t('ฝึกไปแล้ว'),
+    heroLine: t('ข้อที่ฝึกไปแล้ว'),
+    strip: t('จังหวะการอ่าน 30 วันล่าสุด'),
+    peak: (/** @type {number} */ n) => t(`สูงสุด ${n.toLocaleString('en-US')} ข้อ`),
+    figures: [
+      [t('ความแม่นยำ'), String(stats.correctPct ?? 0), '%'],
+      [t('ต่อเนื่องสูงสุด'), streak.toLocaleString('en-US'), count(streak, 'วัน', 'day', 'days')],
+      [t(stats.studyTimeEstimated !== false ? 'เวลาอ่านราว' : 'เวลาอ่าน'), time, en ? TIME_UNIT_EN[timeUnit] : timeUnit],
+    ],
+    best: row(best),
+    weak: row(weak),
+    line: line && t(line),
+  };
+}
+
+/**
+ * In English, the picture's alt and the text shared with it, from the card's own words: the page's
+ * translator reads a sentence joined from numbers and parts only in part.
+ */
+export function phaseEnglish(stats, w) {
+  const n = Number(stats.qCount || 0).toLocaleString('en-US');
+  const [accuracy, streak, time] = w.figures;
+  const rows = [w.best, w.weak].filter(Boolean);
+  const alt = [`${w.masthead}, ${w.title}`, `${n} ${w.heroUnit} practiced`, `${accuracy[0]} ${accuracy[1]}%`,
+    `${streak[0]} ${streak[1]} ${streak[2]}`, `${time[0]} ${time[1]} ${time[2]}`,
+    ...rows.map((r) => `${r.label} ${r.name} ${r.pct}%`)].join(', ');
+  const text = [`📊 VetMock Wrapped, ${w.title}`, '', `🎯 ${n} ${w.heroUnit}, ${stats.correctPct}% correct`,
+    ...rows.map((r) => `${r === w.weak ? '💪' : r.single ? '📚' : '🏆'} ${r.label}: ${r.name} (${r.pct}%)`),
+    ...(stats.longestStreak > 0 ? [`🔥 ${streak[0]}: ${streak[1]} ${streak[2]}`] : []),
+    ...(stats.totalStudyMin > 0 ? [`⏱ ${time[0]}: ${time[1]} ${time[2]}`] : []),
+    ...(stats.masteredCards > 0 ? [`🧠 ${stats.masteredCards} cards mastered`] : []),
+    '', 'vetmock.com, @vetmock.cu'].join('\n');
+  return { alt, text };
 }
 
 
@@ -109,19 +168,18 @@ function ecg(card, days, top, height) {
   return peak;
 }
 
-function layout(card, stats, heroSize, g = 1, mochi = null, strip = null, withLine = true) {
+function layout(card, stats, w, heroSize, g = 1, mochi = null, strip = null, withLine = true) {
   const { ctx, pal } = card;
-  const year = stats.phaseEnd ? academicYear(stats.phaseEnd) : null;
   paper(card);
   cropMarks(card);
-  if (year) ghostNumeral(card, year, { baseline: CORE.bottom + 470, size: 560, x: W + 30 });
+  if (w.year) ghostNumeral(card, w.year, { baseline: CORE.bottom + 470, size: 560, x: W + 30 });
   sticker(card, mochi);
   plateBand(card, strip, 'Eadweard Muybridge, 1882');
-  masthead(card, stats.phaseCompleted ? 'สรุปช่วงสอบ' : 'สรุปช่วงสอบ ระหว่างทาง', year ? `ปีการศึกษา ${year}` : '');
+  masthead(card, w.masthead, w.yearLabel);
 
   // The term, as large as one line allows.
-  const titleSize = card.fit(stats.phaseLabel, WIDTH, { weight: 700, max: SIZE.l, min: SIZE.m });
-  const title = card.para(stats.phaseLabel, LIVE.left, LIVE.top, WIDTH,
+  const titleSize = card.fit(w.title, WIDTH, { weight: 700, max: SIZE.l, min: SIZE.m });
+  const title = card.para(w.title, LIVE.left, LIVE.top, WIDTH,
     { weight: 700, size: titleSize, family: FAMILY.serif, color: pal.ink }, { maxLines: 2, role: 'title' });
 
   // Hero: questions answered. Beside it, stacked, what the number counts.
@@ -129,14 +187,16 @@ function layout(card, stats, heroSize, g = 1, mochi = null, strip = null, withLi
   const heroBase = title.bottom + 44 * g + heroSize * 0.72;
   const hero = card.textInk(n, LIVE.left, heroBase, { weight: 800, size: heroSize, family: FAMILY.numeral, color: pal.ink }, 'hero');
   card.style({ weight: 600, size: SIZE.m, family: FAMILY.serif });
-  const unitW = card.measure('ข้อ');
+  const unitW = card.measure(w.heroUnit);
+  card.style({ weight: 500, size: SIZE.xs, family: FAMILY.label });
+  const labelW = card.measure(w.heroLabel);
   let heroBottom = hero.bottom;
-  if (hero.right + 28 + Math.max(unitW, 170) <= LIVE.right) {
+  if (hero.right + 28 + Math.max(unitW, labelW, 170) <= LIVE.right) {
     const x = hero.right + 28;
-    const unit = card.text('ข้อ', x, heroBase, { weight: 600, size: SIZE.m, family: FAMILY.serif, color: pal.ink }, 'hero-unit');
-    card.text('ฝึกไปแล้ว', x, unit.top - 22, { weight: 500, size: SIZE.xs, family: FAMILY.label, color: pal.soft }, 'hero-label');
+    const unit = card.text(w.heroUnit, x, heroBase, { weight: 600, size: SIZE.m, family: FAMILY.serif, color: pal.ink }, 'hero-unit');
+    card.text(w.heroLabel, x, unit.top - 22, { weight: 500, size: SIZE.xs, family: FAMILY.label, color: pal.soft }, 'hero-label');
   } else {
-    const label = card.para('ข้อที่ฝึกไปแล้ว', LIVE.left, hero.bottom + 18, WIDTH,
+    const label = card.para(w.heroLine, LIVE.left, hero.bottom + 18, WIDTH,
       { weight: 500, size: SIZE.s, family: FAMILY.label, color: pal.soft }, { maxLines: 1, role: 'hero-label' });
     heroBottom = label.bottom;
   }
@@ -145,13 +205,13 @@ function layout(card, stats, heroSize, g = 1, mochi = null, strip = null, withLi
   // drew a flat trace, which a vet reads as asystole.
   let figTop = heroBottom + 48 * g;
   if ((stats.byDay || []).some((d) => d.qs > 0)) {
-    const stripLabel = card.para('จังหวะการอ่าน 30 วันล่าสุด', LIVE.left, heroBottom + 48 * g, WIDTH,
+    const stripLabel = card.para(w.strip, LIVE.left, heroBottom + 48 * g, WIDTH,
       { weight: 500, size: SIZE.xs, family: FAMILY.label, color: pal.soft }, { maxLines: 1, role: 'strip-label' });
     const stripTop = stripLabel.bottom + 16;
     const stripH = 126;
     const peak = ecg(card, stats.byDay, stripTop, stripH);
     if (peak) {
-      const label = `สูงสุด ${peak.qs.toLocaleString('en-US')} ข้อ`;
+      const label = w.peak(peak.qs);
       card.style({ weight: 600, size: SIZE.xs, family: FAMILY.label });
       const room = peak.x + 18 + card.measure(label) <= LIVE.right;
       card.padded(label, room ? peak.x + 18 : peak.x - 18, Math.max(stripTop + 40, peak.y + 13),
@@ -164,12 +224,7 @@ function layout(card, stats, heroSize, g = 1, mochi = null, strip = null, withLi
   // numerals share one size, the largest at which each fits its column.
   const gutter = 40;
   const colW = (WIDTH - 2 * gutter) / 3;
-  const approx = stats.studyTimeEstimated !== false;
-  const figs = [
-    ['ความแม่นยำ', String(stats.correctPct ?? 0), '%'],
-    ['ต่อเนื่องสูงสุด', Number(stats.longestStreak ?? 0).toLocaleString('en-US'), 'วัน'],
-    [approx ? 'เวลาอ่านราว' : 'เวลาอ่าน', ...studyTime(stats.totalStudyMin)],
-  ];
+  const figs = w.figures;
   const numeral = Math.min(...figs.map(([, value, unit]) => {
     card.style({ weight: 600, size: SIZE.xs, family: FAMILY.label });
     return card.fit(value, colW - card.measure(unit) - 10, { weight: 800, family: FAMILY.numeral, max: SIZE.l, min: SIZE.m });
@@ -197,7 +252,7 @@ function layout(card, stats, heroSize, g = 1, mochi = null, strip = null, withLi
 
   // The best subject, and the weakest, quieter, under it when it is lower.
   // A long name runs to a second line instead of being cut.
-  const { best, weak } = subjectRows(stats);
+  const { best, weak } = w;
   if (best) {
     rule(card, y);
     const row = (label, subject, size, nameColor, labelColor, pctColor, role) => {
@@ -216,14 +271,14 @@ function layout(card, stats, heroSize, g = 1, mochi = null, strip = null, withLi
       return nameBox.bottom;
     };
     const tone = best.single ? pal.soft : pal.sage;
-    y = row(best.label, best.subject, SIZE.s, pal.ink, tone, best.single ? pal.ink : pal.sage, 'best') + 12;
-    if (weak) y = row(weak.label, weak.subject, SIZE.xs, pal.ink, pal.soft, pal.soft, 'weak') + 12;
+    y = row(best.label, best, SIZE.s, pal.ink, tone, best.single ? pal.ink : pal.sage, 'best') + 12;
+    if (weak) y = row(weak.label, weak, SIZE.xs, pal.ink, pal.soft, pal.soft, 'weak') + 12;
     y += 14;
     rule(card, y);
   }
 
   // One line that is true of these numbers.
-  const line = phaseLine(stats);
+  const { line } = w;
   if (line && withLine) card.para(line, LIVE.left, y + 36 * g, WIDTH, { weight: 500, size: SIZE.s, family: FAMILY.serif, color: pal.ink }, { maxLines: 2, role: 'line' });
 
   footer(card);
@@ -238,12 +293,13 @@ const HERO_STEPS = [365, 324, 288, 256, 243, 216, 192, 162];
  * signature.
  * @returns {{ card, problems: string[] }} problems is empty when the layout is clean
  */
-export function drawPhaseCard(stats, { theme = 'light', mochi = null, strip = null } = {}) {
+export function drawPhaseCard(stats, { theme = 'light', mochi = null, strip = null, lang = 'th' } = {}) {
+  const words = phaseWords(stats, lang);
   const run = (withLine) => fitCard({
     sizes: HERO_STEPS,
     draw: (size, gap, dry) => {
       const card = createCard(theme, 20261013, STORY, { dry });
-      layout(card, stats, size, gap, mochi, strip, withLine);
+      layout(card, stats, words, size, gap, mochi, strip, withLine);
       return card;
     },
   });

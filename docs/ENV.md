@@ -9,7 +9,7 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 - **optional**: a feature turns off or a default applies.
 - Runtime: *browser build* is baked in by Vite at build time (a change needs a rebuild); *function* is read by a Vercel function per request; *edge function* by a Supabase function; *script*, *test* and *build* run on a machine or in CI.
 
-134 names, 12 required; 11 more are set by the platform.
+135 names, 12 required; 11 more are set by the platform.
 
 ## Supabase
 
@@ -184,6 +184,7 @@ Where values live: the Vercel project `vetmock` (browser build and functions), S
 | `VMX_ROUTE_SWEEP` | optional | test | `playwright.config.js` | Set to 1 by test:e2e:sweep to run the route sweep, which every other run leaves out. |
 | `VMX_DEFECT_SWEEP` | optional | test | `playwright.config.js` | Set to 1 by sweep:defects to run the defect sweep, which every other run leaves out. |
 | `VMX_DEFECT_OUT` | optional | script, test | `scripts/defect-sweep.mjs`, `tests/e2e/lib/defects.js` | Folder the defect sweep writes its findings and pictures to; default work/defect-sweep. |
+| `VMX_UI_LANG_REPORT` | optional | test | `tests/e2e/ui-language.spec.js` | A file the English walk (tests/e2e/ui-language.spec.js) appends one JSON line per route to: its lang, sideways scroll and the Thai it found. |
 | `VCA_BUILD_QUIET` | optional | script | `vca/scripts/build-bank.mjs` | 1 is --quiet for vca/scripts/build-bank.mjs. |
 | `VCA_E2E_PORT` | optional | test | `vca/playwright.config.js` | Port of the VCA e2e server. |
 | `RESEARCH_BASE_URL` | optional | test | `research/playwright.config.js`, `research/tests/e2e/research-headers.spec.js` | Runs the Research e2e against another origin. |

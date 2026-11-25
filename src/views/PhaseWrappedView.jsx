@@ -23,7 +23,8 @@ import {
   studyTimeText,
   subjectRows,
 } from '../lib/phase-wrapped.js';
-import { drawPhaseCard, academicYear, PHASE_STRIP } from '../lib/share-card/phase-card.js';
+import { drawPhaseCard, academicYear, phaseWords, phaseEnglish, PHASE_STRIP } from '../lib/share-card/phase-card.js';
+import { uiText, useShownLang } from '../lib/ui-lang.js';
 import { picture } from '../lib/share-card/kit.js';
 import { MOCHI_POSE_ASSETS } from '../data/mochi-poses.generated.js';
 import { SUBJECTS } from '../data/curriculum.js';
@@ -71,10 +72,13 @@ export default function PhaseWrappedView({ goHome, history = [], srCards = {}, b
     [stats, history, srCards, customQuestions],
   );
 
+  // The card is drawn in the language on screen, and again when it changes.
+  const lang = useShownLang();
+  const english = useMemo(() => (stats && lang === 'en' ? phaseEnglish(stats, phaseWords(stats, 'en')) : null), [stats, lang]);
   const draw = useCallback(async (theme) => {
     const [mochi, strip] = await Promise.all([picture(MOCHI_POSE_ASSETS.happy), picture(PHASE_STRIP)]);
-    return drawPhaseCard(stats, { theme, mochi, strip });
-  }, [stats]);
+    return drawPhaseCard(stats, { theme, mochi, strip, lang });
+  }, [stats, lang]);
 
   if (!phase || !stats) {
     return (
@@ -121,9 +125,9 @@ export default function PhaseWrappedView({ goHome, history = [], srCards = {}, b
           <ShareCardPanel
             draw={draw}
             fileBase={`vetmock-wrapped-${stats.phaseId}-${year}`}
-            title="สรุปช่วงสอบ VetMock"
-            shareText={statsToText(stats)}
-            alt={altText(stats)}
+            title={uiText('สรุปช่วงสอบ VetMock')}
+            shareText={english ? english.text : statsToText(stats)}
+            alt={english ? english.alt : altText(stats)}
           />
         )}
         {bannerId === stats.phaseId && (

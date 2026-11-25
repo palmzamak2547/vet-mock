@@ -1,24 +1,49 @@
 // @ts-check
 // The site's language, read before anything is drawn. The translator (ui-translate.js) and its
 // dictionary are fetched only when English is on screen or chosen, so a Thai visit downloads neither.
+import { useSyncExternalStore } from 'react';
+import { importFresh } from './chunk-error.js';
+import { isPlainObject, readStoredJson } from './stored-json.js';
 
-// The key kept its first name from when only the landing page had a language; it holds the language
-// of the whole site. index.html reads it too, to set <html lang> before the first paint.
-export const UI_LANG_KEY = 'vmx-landing-lang';
+// The language of the whole site. Not 'vmx-landing-lang', which set only the landing page's language
+// before the app had English: a student who once read the landing page in English never chose an
+// English app. index.html reads this key too, to set <html lang> before the first paint.
+export const UI_LANG_KEY = 'vmx-lang';
 
 /** The language this visit opens in: one carried from another VetMock site, else the saved one. */
 export function readUiLang() {
-  try {
-    const visit = JSON.parse(sessionStorage.getItem('vmx-family-visit') || '{}') || {};
-    if (visit.lang === 'en' || visit.lang === 'th') return visit.lang;
-    return JSON.parse(localStorage.getItem(UI_LANG_KEY) || 'null') === 'en' ? 'en' : 'th';
-  } catch {
-    return 'th';
-  }
+  /** @type {Storage | undefined} */
+  let session;
+  try { session = window.sessionStorage; } catch { /* refused: the saved choice decides */ }
+  const carried = session && readStoredJson('vmx-family-visit', {}, { accept: isPlainObject, storage: session }).lang;
+  if (carried === 'en' || carried === 'th') return carried;
+  return readStoredJson(UI_LANG_KEY, 'th') === 'en' ? 'en' : 'th';
 }
 
 /** @type {Promise<typeof import('./ui-translate.js')> | null} */
 let translator = null;
+/** The translator once it has arrived, for text read at once. @type {typeof import('./ui-translate.js') | null} */
+let loaded = null;
+
+/** Text a canvas draws, which the page's translator cannot reach, in the language on screen. */
+export function uiText(/** @type {string} */ text) {
+  return loaded ? loaded.uiText(text) : text;
+}
+
+/**
+ * The language on screen: English once the dictionary reads the page. Not `<html lang>` alone, which
+ * index.html sets to the saved language before the dictionary has arrived; the translator sets it
+ * again when it switches, and that is the moment this changes.
+ */
+export function useShownLang() {
+  return useSyncExternalStore(watchShownLang, () => loaded?.langOnScreen() ?? 'th');
+}
+
+function watchShownLang(/** @type {() => void} */ onChange) {
+  const watch = new MutationObserver(onChange);
+  watch.observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+  return () => watch.disconnect();
+}
 
 /**
  * Shows the interface in this language and resolves to the one on screen: 'en' unless the translator
@@ -34,8 +59,10 @@ export function showInterfaceIn(lang, options) {
   }
   // The dictionary is the larger file: ask for it beside the translator, not after it.
   if (lang === 'en') import('../data/ui-en.js').catch(() => {});
-  translator ??= import('./ui-translate.js');
-  return translator.then((m) => m.showInterfaceIn(lang, options), () => {
+  // A chunk that failed (offline on a first visit) stays failed for the page's life in Chromium:
+  // the next try fetches it under a fresh query (chunk-error.js), so English loads once online.
+  translator ??= /** @type {Promise<typeof import('./ui-translate.js')>} */ (importFresh(() => import('./ui-translate.js')));
+  return translator.then((m) => { loaded = m; return m.showInterfaceIn(lang, options); }, () => {
     translator = null;
     document.documentElement.lang = 'th';
     return /** @type {'th'} */ ('th');

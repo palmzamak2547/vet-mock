@@ -98,7 +98,7 @@ test('every site\'s boot reads the same two names before its first paint', () =>
 test('a value that arrives in an address never overwrites the saved choice', () => {
   // Each saved key, and the boot or entry that must never write it from an address.
   const SAVED = {
-    'index.html': [/localStorage\.setItem\('vmx-theme'/, /localStorage\.setItem\('vmx-landing-lang'/],
+    'index.html': [/localStorage\.setItem\('vmx-theme'/, /localStorage\.setItem\('vmx-lang'/],
     'vca/public/theme-boot.js': [/localStorage\.setItem\('vca:prefs'/],
     'ai/public/theme-boot.js': [/localStorage\.setItem\('vmai-theme'/],
     'research/src/main.jsx': [/writePrefs\(/],

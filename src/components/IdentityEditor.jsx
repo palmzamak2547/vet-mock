@@ -105,7 +105,7 @@ export default function IdentityEditor({
         <span className="vmx-id-preview-label">เพื่อนจะเห็นแบบนี้</span>
         <div className={`vmx-id-row${shown ? '' : ' is-hidden'}`}>
           <span key={picture} className="vmx-id-pic" aria-hidden="true">{picture}</span>
-          <span className="vmx-id-row-name">{previewName || 'ชื่อของคุณ'}</span>
+          <span className="vmx-id-row-name" translate={previewName ? 'no' : undefined}>{previewName || 'ชื่อของคุณ'}</span>
         </div>
       </div>
 

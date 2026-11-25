@@ -112,8 +112,8 @@ test('the real theme menu stops effects without disabling reading or overflowing
   await openPointerPicker(page);
   await page.getByRole('combobox', { name: 'ตัวชี้ขณะอ่าน', exact: true }).selectOption('paw');
   await expect(page.locator('.vmx-reading-effect-stage canvas')).toHaveCount(1);
-  await page.getByRole('button', { name: 'ตัวเลือกธีมและจานสี', exact: true }).click();
-  const settings = page.getByRole('dialog', { name: 'ตั้งค่าธีมและจานสี', exact: true });
+  await page.getByRole('button', { name: 'ตัวเลือกธีม จานสี และภาษา', exact: true }).click();
+  const settings = page.getByRole('dialog', { name: 'ตั้งค่าธีม จานสี และภาษา', exact: true });
   await settings.getByText('ตั้งค่า Mochi และการเคลื่อนไหว', { exact: true }).click();
   await settings.getByRole('combobox', { name: 'การเคลื่อนไหว', exact: true }).selectOption('off');
   await expect(page.locator('html')).toHaveAttribute('data-vmx-motion', 'off');

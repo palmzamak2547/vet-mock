@@ -17,9 +17,11 @@
 //   '{0} ข้อ'              numbers as {0}, {1} in order; the value may be { one, other }
 //   'สรุป {a}'             {a}, {b} any text, matched in order; Thai inside is looked up too
 // ponytail: one observer over the whole page; observe per subtree if English ever profiles slow.
+import { importFresh } from './chunk-error.js';
 
 const THAI = /[\u0E00-\u0E7F]/;
-const NUMBER = /\d[\d,]*(?:\.\d+)?/g;
+// "2,014" is one number; in "บทที่ 3, ส่วนที่ 2" the comma after 3 belongs to the list.
+const NUMBER = /\d+(?:,\d{3})*(?:\.\d+)?/g;
 const WILD = /\{([a-h])\}/g;
 const ATTRS = ['aria-label', 'title', 'placeholder', 'alt'];
 const NO_TEXT = new Set(['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEXTAREA', 'CODE', 'PRE']);
@@ -28,19 +30,24 @@ const EMOJI_LEAD = /^\p{Extended_Pictographic}[\p{Extended_Pictographic}️‍]*
 
 /** @typedef {string | { one: string, other: string }} Entry */
 /** @typedef {{ re: RegExp, names: string[], literal: string, size: number, en: Entry }} Pattern */
-/** @typedef {{ exact: Map<string, Entry>, byPrefix: Map<string, Pattern[]>, loose: Pattern[] }} Dictionary */
+/** @typedef {{ exact: Map<string, Entry>, byPrefix: Map<string, Pattern[]>, loose: Pattern[], reach: number, memo: Map<string, string | null> }} Dictionary */
 
 const collapse = (/** @type {string} */ s) => s.trim().replace(/\s+/g, ' ');
 const escape = (/** @type {string} */ s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+// ponytail: answers kept per string, emptied whole when full; an LRU only if a long session profiles slow.
+const MEMO_SIZE = 20000;
 
 /** @param {Record<string, Entry>} raw @returns {Dictionary} */
 export function compileDictionary(raw) {
   /** @type {Dictionary} */
-  const dict = { exact: new Map(), byPrefix: new Map(), loose: [] };
+  const dict = { exact: new Map(), byPrefix: new Map(), loose: [], reach: 160, memo: new Map() };
   for (const [th, en] of Object.entries(raw)) {
     // Read the way the screen's strings are read before they are looked up (dates in English).
     const key = collapse(englishDates(th));
     if (!/\{[a-h]\}/.test(key)) { dict.exact.set(key, en); continue; }
+    // A string much longer than every pattern is a paragraph, not a label with a name in it: it is
+    // read only whole, so a pattern never spends long on it (four lazy captures backtrack).
+    dict.reach = Math.max(dict.reach, key.length + 160);
     const names = [...key.matchAll(WILD)].map((m) => m[1]);
     const parts = key.split(WILD).filter((_, i) => i % 2 === 0);
     // Two values the code wrote side by side ("{a}{b}") have no knowable split between them: the
@@ -79,13 +86,39 @@ function fill(entry, nums) {
 function joined(core, dict, depth, seps, partialOk) {
   for (const sep of seps) {
     if (!core.includes(sep)) continue;
-    const pieces = core.split(sep);
+    const pieces = runs(core.split(sep), sep, dict);
     const parts = pieces.map((p) => (THAI.test(p) ? lookup(p.trim(), dict, depth + 1, false) : p));
     // "Rabies — โรคพิษสุนัขบ้า" names one thing twice; in English once is enough.
     if (parts.every((p) => p !== null)) return parts.filter((p, i) => i === 0 || p?.toLowerCase() !== parts[i - 1]?.toLowerCase()).join(sep);
-    if (partialOk) return pieces.map((p, i) => parts[i] ?? lookup(p.trim(), dict, depth + 1, true) ?? p).join(sep);
+    if (!partialOk) continue;
+    const some = pieces.map((p, i) => parts[i] ?? lookup(p.trim(), dict, depth + 1, true) ?? p);
+    // Nothing found is no reading: the string stays as the page wrote it, its line breaks too.
+    if (some.some((p, i) => p !== pieces[i])) return some.join(sep);
   }
   return null;
+}
+
+/**
+ * A part of a list can hold the separator itself: the topic "สัปดาห์ 9-11, โรคติดเชื้อในนก (1-3)" in a
+ * title joined with ", ". The longest run of pieces that is an entry as it stands is one part.
+ * @param {string[]} pieces @param {string} sep @param {Dictionary} dict
+ */
+function runs(pieces, sep, dict) {
+  const out = [];
+  for (let i = 0; i < pieces.length;) {
+    let j = pieces.length;
+    while (j > i + 1 && !isEntry(pieces.slice(i, j).join(sep).trim(), dict)) j--;
+    out.push(pieces.slice(i, j).join(sep));
+    i = j;
+  }
+  return out;
+}
+
+/** An entry as it stands, its numbers as {0}, {1}. @param {string} core @param {Dictionary} dict */
+function isEntry(core, dict) {
+  if (!THAI.test(core)) return false;
+  let n = 0;
+  return dict.exact.has(core) || dict.exact.has(core.replace(NUMBER, () => `{${n++}}`));
 }
 
 /**
@@ -103,7 +136,7 @@ function lookup(core, dict, depth, partialOk) {
     const numbered = dict.exact.get(key);
     if (numbered !== undefined) return fill(numbered, nums);
   }
-  if (depth > 2) return null;
+  if (depth > 2 || core.length > dict.reach) return null;
   // A page title is "<view> | VetMock": split before any pattern reads the whole line as one phrase.
   const titled = joined(core, dict, depth, [' | '], partialOk);
   if (titled !== null) return titled;
@@ -134,24 +167,29 @@ function lookup(core, dict, depth, partialOk) {
   return byPhrases(core, dict, depth) ?? partial ?? joined(core, dict, depth, LISTS, true);
 }
 
-// Dates the app writes the Thai way ("ศุกร์ 21 พ.ย. 2569", "4 ธ.ค. 69"): English weekday and
-// month, and the Buddhist-era year as its Common Era year. A two-digit year counts only with nothing
-// Thai after it, so "15 ธ.ค. 80 ข้อ" keeps its 80 questions. Dictionary keys are read the same way.
+// Dates the app writes the Thai way ("ศุกร์ 21 พ.ย. 2569", "4 ธ.ค. 69", "26/11/2569", "ภาคการศึกษาต้น
+// 2569"): English weekday and month, and the Buddhist-era year as its Common Era year. Two digits after
+// a month are a year only where a date ends (the string's end, a bracket, a comma, a range's dash), so
+// "15 ธ.ค. 80 ข้อ" keeps its 80 questions and "4 ธ.ค. 75/100" its score. Dictionary keys are read the same way.
 const MONTHS = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
 const EN_MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const WEEKDAYS = ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'พฤหัส', 'ศุกร์', 'เสาร์'];
 const EN_WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Thu', 'Fri', 'Sat'];
 const THAI_RANGE = THAI.source.slice(1, -1);
-const THAI_DATE = new RegExp(`(\\d{1,2}) (${MONTHS.map((m) => m.replace(/\./g, '\\.')).join('|')})(?: (25\\d\\d|[6-9]\\d(?![\\d:]|\\s*[${THAI_RANGE}])))?`, 'g');
-// A weekday only right before a date or a time ("จันทร์ 13:00"), never inside a longer Thai word.
-const THAI_WEEKDAY = new RegExp(`(^|[^${THAI_RANGE}])(?:วัน)?(${WEEKDAYS.join('|')}) (?=\\d)`, 'g');
+const THAI_DATE = new RegExp(`(\\d{1,2}) (${MONTHS.map((m) => m.replace(/\./g, '\\.')).join('|')})(?: (25\\d\\d(?!\\d)|[6-9]\\d(?=\\s*(?:$|[)\\],;|]|[-–](?:\\s|$)))))?`, 'g');
+// A weekday only right before a date or a time ("จันทร์ 13:00"): "อาทิตย์ 3" is also "week 3".
+const THAI_WEEKDAY = new RegExp(`(^|[^${THAI_RANGE}])(?:วัน)?(${WEEKDAYS.join('|')}) (?=\\d{1,2} (?:${EN_MONTHS.join('|')})\\b|\\d{1,2}[:.]\\d{2})`, 'g');
+const NUMERIC_DATE = /\b(\d{1,2}\/\d{1,2}\/)(25\d\d)(?!\d)/g;
+const TERM_YEAR = /(ภาคการศึกษาต้น|ภาคการศึกษาปลาย|ภาคฤดูร้อน|ปีการศึกษา) (25\d\d)(?!\d)/g;
 const THAI_PHRASE = new RegExp(`[${THAI_RANGE}](?:[${THAI_RANGE} ]*[${THAI_RANGE}])?`, 'g');
 /** @param {string} text */
 function englishDates(text) {
   return text
     .replace(THAI_DATE, (_, day, month, year) =>
       `${day} ${EN_MONTHS[MONTHS.indexOf(month)]}${year ? ` ${(year.length === 2 ? 2500 : 0) + Number(year) - 543}` : ''}`)
-    .replace(THAI_WEEKDAY, (_, before, day) => `${before}${EN_WEEKDAYS[WEEKDAYS.indexOf(day)]} `);
+    .replace(THAI_WEEKDAY, (_, before, day) => `${before}${EN_WEEKDAYS[WEEKDAYS.indexOf(day)]} `)
+    .replace(NUMERIC_DATE, (_, dayMonth, year) => `${dayMonth}${Number(year) - 543}`)
+    .replace(TERM_YEAR, (_, term, year) => `${term} ${Number(year) - 543}`);
 }
 
 /**
@@ -180,15 +218,40 @@ function byPhrases(core, dict, depth) {
  */
 export function translateString(text, dict) {
   if (!text || !THAI.test(text)) return null;
+  const known = dict.memo.get(text);
+  if (known !== undefined) return known;
+  const found = readString(text, dict);
+  if (dict.memo.size >= MEMO_SIZE) dict.memo.clear();
+  dict.memo.set(text, found);
+  return found;
+}
+
+/** @param {string} text @param {Dictionary} dict @returns {string | null} */
+function readString(text, dict) {
   const dated = collapse(englishDates(text));
-  // A label led by an emoji ("🐟 สัตว์น้ำ — Fish & Shrimp") is read without it, unless it has an entry whole.
-  const lead = (!dict.exact.has(dated) && EMOJI_LEAD.exec(dated)?.[0]) || '';
+  // A line break the page shows (a dialog's second paragraph) stays where it was: with no entry for
+  // the whole string, each line is read on its own.
+  if (/\S\s*\n\s*\S/.test(text) && !dict.exact.has(dated)) {
+    let found = false;
+    const lines = text.split(/(\s*\n\s*)/).map((line, i) => {
+      const en = i % 2 ? null : translateString(line, dict);
+      if (en !== null) found = true;
+      return en ?? line;
+    });
+    return found ? lines.join('') : null;
+  }
+  // A label led by an emoji ("🐟 สัตว์น้ำ — Fish & Shrimp") is read without it, unless an entry keeps it.
+  const lead = EMOJI_LEAD.exec(dated)?.[0] || '';
+  const kept = lead ? lookup(dated, dict, 0, false) : null;
+  if (kept !== null) return edges(text, kept);
   const core = dated.slice(lead.length);
   // With no entry, a date read the English way is still better than none.
   const hit = THAI.test(core) ? lookup(core, dict, 0, true) ?? (dated !== collapse(text) ? core : null) : core;
-  if (hit === null) return null;
-  return /^\s*/.exec(text)?.[0] + lead + hit + /\s*$/.exec(text)?.[0];
+  return hit === null ? null : edges(text, lead + hit);
 }
+
+/** The spaces around the string as the page wrote them. @param {string} text @param {string} s */
+const edges = (text, s) => /^\s*/.exec(text)?.[0] + s + /\s*$/.exec(text)?.[0];
 
 // ---- the page ------------------------------------------------------------------------------------
 
@@ -232,7 +295,9 @@ function translateText(el, dict) {
   }
   if (!texts.length) return;
   const originals = texts.map(originalOf);
-  if (!originals.some((t) => THAI.test(t))) return;
+  // No Thai left (React took away the node that held it): what this module wrote goes back.
+  if (!originals.some((t) => THAI.test(t))) { texts.forEach((node, i) => put(node, originals[i])); return; }
+  if (!onlyText && readSentence(el, texts, originals, dict)) return;
   const parts = () => originals.map((t) => translateString(t, dict) ?? t);
   // React writes "5" and " ข้อ" as two text nodes; read together they are one string to look up.
   // A whole reading that keeps some Thai loses to the parts read one by one when they come out whole.
@@ -248,6 +313,37 @@ function translateText(el, dict) {
   }
   const each = parts();
   texts.forEach((node, i) => put(node, each[i]));
+}
+
+/**
+ * A sentence that names controls (HowToText: "กด <ฝึกข้อสอบวิชานี้> ใต้วิชาในตารางสอบ…", each control
+ * marked data-ui) is looked up whole, as "กด {ui:ฝึกข้อสอบวิชานี้} ใต้วิชาในตารางสอบ…", and its words
+ * are written around the controls, which keep their own entries. Used only when the English has a
+ * place for every word: a control is never moved.
+ * @param {Element} el @param {Text[]} texts @param {string[]} originals @param {Dictionary} dict
+ */
+function readSentence(el, texts, originals, dict) {
+  /** @type {Text[][]} */
+  const gaps = [[]];
+  let sentence = '';
+  for (const child of el.childNodes) {
+    if (child.nodeType === 3) {
+      sentence += originals[texts.indexOf(/** @type {Text} */ (child))];
+      gaps[gaps.length - 1].push(/** @type {Text} */ (child));
+    } else if (child.nodeType === 1 && /** @type {Element} */ (child).hasAttribute('data-ui')) {
+      const walker = /** @type {Document} */ (el.ownerDocument).createTreeWalker(child, 4);
+      let label = '';
+      while (walker.nextNode()) label += originalOf(/** @type {Text} */ (walker.currentNode));
+      sentence += `{ui:${collapse(label)}}`;
+      gaps.push([]);
+    } else if (child.nodeType !== 8) return false;
+  }
+  const en = gaps.length > 1 ? dict.exact.get(collapse(englishDates(sentence))) : undefined;
+  if (typeof en !== 'string') return false;
+  const words = en.split(/\{ui:[^}]*\}/);
+  if (words.length !== gaps.length || words.some((w, i) => w.trim() && !gaps[i].length)) return false;
+  gaps.forEach((nodes, i) => nodes.forEach((node, j) => put(node, j === 0 ? words[i] : '')));
+  return true;
 }
 
 /** @param {Element} el @param {Dictionary} dict */
@@ -328,7 +424,18 @@ function restore(doc) {
 let englishLoad = null;
 /** @type {null | (() => void)} */
 let stopTranslating = null;
+/** The dictionary the page is read through, null while it is Thai. @type {Dictionary | null} */
+let onScreen = null;
 let wanted = 'th';
+let calls = 0;
+
+/** A string the page draws itself (a share card's canvas, which no text walk reaches), in the language on screen. */
+export function uiText(/** @type {string} */ text) {
+  return (onScreen && translateString(text, onScreen)) ?? text;
+}
+
+/** 'en' once the page is read through the dictionary. */
+export const langOnScreen = () => (onScreen ? 'en' : 'th');
 
 // A switch made on a page already painted cross-fades, as App's withTransition does, and like it
 // not under reduced motion nor on WebKit, which can crash snapshotting a large page.
@@ -354,23 +461,26 @@ function crossFade(/** @type {() => void} */ swap) {
  * @returns {Promise<'th' | 'en'>}
  */
 export async function showInterfaceIn(lang, { animate = false } = {}) {
+  const call = ++calls;
   wanted = lang === 'en' ? 'en' : 'th';
   /** @type {Dictionary | null} */
   let dict = null;
   if (wanted === 'en') {
     try {
-      englishLoad ??= import('../data/ui-en.js').then((m) => compileDictionary(m.default));
+      englishLoad ??= importFresh(() => import('../data/ui-en.js')).then((m) => compileDictionary(m.default));
       dict = await englishLoad;
     } catch {
       englishLoad = null;
     }
   }
   const shown = wanted === 'en' && dict ? 'en' : 'th';
-  // A later call decided while the dictionary was on its way.
-  if (shown === 'en' && wanted !== 'en') return 'th';
   const swap = () => {
+    // A choice made after this one (while the dictionary was on its way, or before a cross-fade ran
+    // this) has done its own swap.
+    if (call !== calls) return;
     if (shown === 'en' && dict) stopTranslating ??= startUiTranslation(dict);
     else { stopTranslating?.(); stopTranslating = null; }
+    onScreen = shown === 'en' ? dict : null;
     document.documentElement.lang = shown;
   };
   if (animate && document.documentElement.lang !== shown) crossFade(swap);
@@ -396,8 +506,14 @@ export function startUiTranslation(dict, doc = document) {
         r.addedNodes.forEach((n) => gather(n, pending));
         if (r.target.nodeType === 1) pending.add(/** @type {Element} */ (r.target));
       } else if (r.target.nodeType === 3) {
+        // Every record here is the page's own write (this module's are taken below), even one that
+        // wrote the value this module last gave the node ("Fish" typed after "ปลา" read as Fish).
+        WRITTEN.delete(r.target);
         if (r.target.parentElement) pending.add(r.target.parentElement);
-      } else pending.add(/** @type {Element} */ (r.target));
+      } else {
+        ATTR_WRITTEN.get(/** @type {Element} */ (r.target))?.delete(r.attributeName ?? '');
+        pending.add(/** @type {Element} */ (r.target));
+      }
     }
     flush();
     // What is left in the queue are this module's own writes.

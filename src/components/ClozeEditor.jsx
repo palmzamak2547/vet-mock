@@ -259,7 +259,7 @@ export default function ClozeEditor({
             <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--clr-ink-soft, #5e635e)', marginBottom: 4, textTransform: 'uppercase', letterSpacing: 0.5 }}>
               ด้านหลัง (เฉลย)
             </div>
-            <div style={{ fontSize: 14, lineHeight: 1.6, whiteSpace: 'pre-wrap', wordBreak: 'break-word', color: 'var(--clr-ink-soft, #5e635e)' }}>
+            <div lang="th" style={{ fontSize: 14, lineHeight: 1.6, whiteSpace: 'pre-wrap', wordBreak: 'break-word', color: 'var(--clr-ink-soft, #5e635e)' }}>
               {preview.back}
             </div>
           </div>

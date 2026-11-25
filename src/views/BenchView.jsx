@@ -327,8 +327,8 @@ export default function BenchView({ goHome }) {
 
       <p className="vmx-lesson__disclaimer" lang="th">{MODULE5.disclaimer}</p>
 
-      <div className="vmx-lesson__body" lang="th">
-        <nav className="vmx-lesson__toc" aria-label="สารบัญบทเรียน">
+      <div className="vmx-lesson__body">
+        <nav className="vmx-lesson__toc" aria-label="สารบัญบทเรียน" lang="th">
           {groups.map((g) => (
             <div key={g.id} className="vmx-lesson__tocgroup">
               <p className="vmx-lesson__tochead">{g.label} ({g.minutes} นาที)</p>
@@ -363,6 +363,7 @@ export default function BenchView({ goHome }) {
           {MODULE5.sections.map((s, i) => (
             <section
               key={s.id}
+              lang="th"
               className="vmx-lesson__section"
               data-section={s.id}
               ref={(el) => { sectionRefs.current[s.id] = el; }}
@@ -386,7 +387,7 @@ export default function BenchView({ goHome }) {
           ))}
 
           <footer className="vmx-lesson__foot">
-            <p>
+            <p lang="th">
               เนื้อหาทั้งหมดมาจากสไลด์ {MODULE5.module} วิชา{MODULE5.course} ({MODULE5.courseNo}) โดย{MODULE5.lecturer}
               ซึ่งอยู่ในคลังเอกสารของแอป ตัวเลขในโต๊ะทดลองคำนวณสดจากค่าที่ตั้ง ไม่ได้พิมพ์ค้างไว้
             </p>

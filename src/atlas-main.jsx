@@ -44,8 +44,10 @@ function AtlasShell() {
 
 startWebVitals();
 // The site's language reaches Atlas too: with English chosen, its dictionary arrives before the first
-// frame, as in main.jsx. A failed fetch leaves Atlas in Thai.
-(readUiLang() === 'en' ? showInterfaceIn('en').catch(() => {}) : Promise.resolve()).then(() => {
+// frame, as in main.jsx. A failed fetch leaves Atlas in Thai, and a stalled one gets four seconds
+// (main.jsx's MOVE_WAIT_MS): then Atlas opens and turns English when the dictionary arrives.
+const english = readUiLang() === 'en' ? showInterfaceIn('en').catch(() => {}) : null;
+(english ? Promise.race([english, new Promise((done) => setTimeout(done, 4000))]) : Promise.resolve()).then(() => {
   createRoot(document.getElementById('root')).render(
     <React.StrictMode>
       <AtlasShell />

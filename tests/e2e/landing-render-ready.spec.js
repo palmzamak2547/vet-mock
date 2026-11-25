@@ -73,7 +73,7 @@ test('the theme follows the phone until the student picks one', async ({ page })
   await expect(html).toHaveAttribute('data-theme', 'dark');
   await page.emulateMedia({ colorScheme: 'light' });
   await expect(html).toHaveAttribute('data-theme', 'light');
-  await page.getByRole('button', { name: 'ตัวเลือกธีมและจานสี' }).filter({ visible: true }).first().click();
+  await page.getByRole('button', { name: 'ตัวเลือกธีม จานสี และภาษา' }).filter({ visible: true }).first().click();
   const system = page.getByRole('button', { name: 'ตามเครื่อง', exact: true });
   await expect(system).toHaveAttribute('aria-pressed', 'true');
   await page.getByRole('button', { name: 'มืด', exact: true }).click();

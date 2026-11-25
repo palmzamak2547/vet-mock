@@ -545,7 +545,7 @@ test.describe('landing accessibility', () => {
         window.localStorage.removeItem('vmx-selected-year');
         window.localStorage.removeItem('vmx-seen-landing');
         window.localStorage.setItem('vmx-consent', JSON.stringify('essential'));
-        window.localStorage.setItem('vmx-landing-lang', JSON.stringify('th'));
+        window.localStorage.setItem('vmx-lang', JSON.stringify('th'));
         window.localStorage.setItem('vmx-theme', JSON.stringify('light'));
       } catch {}
     });
@@ -608,7 +608,7 @@ test.describe('landing accessibility', () => {
         window.localStorage.removeItem('vmx-selected-year');
         window.localStorage.removeItem('vmx-seen-landing');
         window.localStorage.setItem('vmx-consent', JSON.stringify('essential'));
-        window.localStorage.setItem('vmx-landing-lang', JSON.stringify('th'));
+        window.localStorage.setItem('vmx-lang', JSON.stringify('th'));
         window.localStorage.setItem('vmx-theme', JSON.stringify('light'));
       } catch {}
     });

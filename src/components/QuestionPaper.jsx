@@ -120,7 +120,7 @@ export default function QuestionPaper({ questions, form }) {
         </header>
         <ol className="vmx-paper-list">
           {questions.map((q, i) => (
-            <li key={q.id ?? i} className="vmx-paper-q" data-n={i + 1}>
+            <li key={q.id ?? i} className="vmx-paper-q" data-n={i + 1} lang="th">
               <StemText text={q.q} renderText={plainText} ask={paperStem} />
               {q.image ? <img className="vmx-paper-fig" src={q.image} alt="" /> : null}
               <Body q={q} />

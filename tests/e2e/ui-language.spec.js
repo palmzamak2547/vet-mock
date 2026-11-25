@@ -9,6 +9,18 @@
 import { appendFileSync } from 'node:fs';
 import { test, expect, PINNED_NOW } from './fixtures.js';
 import { ROUTES, seedStudent, studiedQuestions, visit, readScreen } from './lib/routes.js';
+import { encodeQuizSet } from '../../src/lib/share-link.js';
+import { QB_EXOTIC } from '../../src/data/questions-exotic.js';
+
+// Runs in the page before it loads: Thai a canvas draws (a game's prompt), which no text walk sees.
+function recordCanvasThai() {
+  const draw = CanvasRenderingContext2D.prototype.fillText;
+  window.__vmxCanvasThai = new Set();
+  CanvasRenderingContext2D.prototype.fillText = function fillText(text, ...rest) {
+    if (/[\u0E00-\u0E7F]/.test(String(text))) window.__vmxCanvasThai.add(String(text));
+    return draw.call(this, text, ...rest);
+  };
+}
 
 const PHONE = { width: 390, height: 844 };
 const LOADING_BUDGET_MS = 30_000;
@@ -45,7 +57,12 @@ function thaiLeftovers() {
 }
 
 async function settle(page) {
-  await expect.poll(async () => (await page.evaluate(readScreen)).loading, { timeout: LOADING_BUDGET_MS }).toBe(false);
+  // Drawn first: before React's first frame there is no #main, so nothing is loading and there is no
+  // Thai to find. Read then, a route passed with an empty page (26 Nov: 2 of 8 reads of the review queue).
+  await expect.poll(async () => {
+    const screen = await page.evaluate(readScreen);
+    return (screen.landing || screen.view !== null) && !screen.loading;
+  }, { timeout: LOADING_BUDGET_MS }).toBe(true);
   // Lazy parts of a screen (counts, cards) arrive a moment after the frame.
   await page.waitForTimeout(600);
 }
@@ -74,12 +91,18 @@ for (const [view, path] of ROUTES) {
     test.setTimeout(90_000);
     await page.setViewportSize(PHONE);
     await context.addInitScript(seedStudent, { now: Date.parse(PINNED_NOW), studied: await studiedQuestions() });
-    await context.addInitScript(() => { try { localStorage.setItem('vmx-landing-lang', JSON.stringify('en')); } catch { /* the visit says so */ } });
+    await context.addInitScript(() => { try { localStorage.setItem('vmx-lang', JSON.stringify('en')); } catch { /* the visit says so */ } });
+    await context.addInitScript(recordCanvasThai);
     await visit(page, path);
     await settle(page);
+    // VetWiki's index draws its featured topic once the topics are in; the walk reads it drawn.
+    if (path === '/wiki') await page.locator('.vw-featured').waitFor({ timeout: LOADING_BUDGET_MS });
     expect((await page.evaluate(readScreen)).errorCard, `${path}: the English page crashed`).toBe(false);
     const lang = await page.evaluate(() => document.documentElement.lang);
-    const left = await page.evaluate(thaiLeftovers);
+    const left = [
+      ...await page.evaluate(thaiLeftovers),
+      ...await page.evaluate(() => [...(window.__vmxCanvasThai || [])].map((t) => `@canvas ${t}`)),
+    ];
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     report({ path, view, lang, overflow, left });
     expect(lang, `${path}: <html lang>`).toBe('en');
@@ -87,6 +110,97 @@ for (const [view, path] of ROUTES) {
     expect(left, `${path}: Thai left in the English interface`).toEqual([]);
   });
 }
+
+// The card around a question turns English; the question, its choices and its key stay as written.
+// Exotic 50053's last choice, หัวใจ, is also the interface's word for a life in the game.
+test('a question in the English interface reads exactly as the bank wrote it', async ({ page, context }, info) => {
+  test.skip(info.project.name !== 'chromium-mobile', 'one engine reads the card');
+  test.setTimeout(90_000);
+  await page.setViewportSize(PHONE);
+  await context.addInitScript(() => { try { localStorage.setItem('vmx-lang', JSON.stringify('en')); } catch { /* the visit says so */ } });
+  const q = QB_EXOTIC.find((x) => x.id === 50053);
+  await page.goto(`/?qset=${encodeQuizSet([q])}`);
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+  const choices = page.locator('.vmx-option-text');
+  await expect(choices).toHaveCount(q.options.length, { timeout: LOADING_BUDGET_MS });
+  const norm = (s) => s.replace(/\s+/g, ' ').trim();
+  // The card shuffles the choices.
+  expect((await choices.allInnerTexts()).map(norm).sort()).toEqual([...q.options].sort());
+  expect(norm(await page.locator('body').innerText())).toContain(norm(q.q));
+  await expect.poll(() => page.evaluate(thaiLeftovers)).toEqual([]);
+});
+
+// The page owns its text: what it writes stands, even the English the translator last wrote there,
+// and a part it takes away takes its English with it.
+test('the page\'s own writes win over the English', async ({ page, context }, info) => {
+  test.skip(info.project.name !== 'chromium-mobile', 'one engine runs the page\'s writes');
+  test.setTimeout(90_000);
+  await context.addInitScript(seedStudent, { now: Date.parse(PINNED_NOW), studied: await studiedQuestions() });
+  await context.addInitScript(() => { try { localStorage.setItem('vmx-lang', JSON.stringify('en')); } catch { /* the visit says so */ } });
+  await visit(page, '/app/home');
+  await settle(page);
+  const text = (id) => page.evaluate((i) => document.getElementById(i)?.textContent, id);
+  const frame = () => page.evaluate(() => new Promise((done) => requestAnimationFrame(() => setTimeout(done, 0))));
+  await page.evaluate(() => {
+    const typed = document.createElement('p');
+    typed.id = 'vmx-t-typed';
+    typed.textContent = 'ปลา';
+    const counted = document.createElement('p');
+    counted.id = 'vmx-t-counted';
+    counted.append('2', ' ปลา');
+    document.body.append(typed, counted);
+  });
+  await frame();
+  expect(await text('vmx-t-typed')).toBe('Fish');
+  expect(await page.evaluate(() => document.getElementById('vmx-t-counted').firstChild.nodeValue), 'two parts read as one').toBe('2 Fish');
+  await page.evaluate(() => {
+    document.getElementById('vmx-t-typed').firstChild.nodeValue = 'Fish';
+    document.getElementById('vmx-t-counted').lastChild.remove();
+  });
+  await frame();
+  expect(await text('vmx-t-counted'), 'the Thai part went, and its English with it').toBe('2');
+  await page.locator('button.vmx-theme-btn[aria-expanded]').first().click();
+  await page.getByRole('button', { name: 'ไทย', exact: true }).click();
+  await expect(page.locator('html')).toHaveAttribute('lang', 'th');
+  expect(await text('vmx-t-typed'), 'what the student typed stays').toBe('Fish');
+});
+
+// A release note is written per release, in Thai, and the dictionary reads it only in part: opened in
+// English, the note around it is English and the notes keep their language.
+test('the what\'s-new note in English keeps the release notes as written', async ({ page, context }, info) => {
+  test.skip(info.project.name !== 'chromium-mobile', 'one engine reads the note');
+  test.setTimeout(90_000);
+  await page.setViewportSize(PHONE);
+  await context.addInitScript(seedStudent, { now: Date.parse(PINNED_NOW), studied: await studiedQuestions() });
+  await context.addInitScript(() => { try { localStorage.setItem('vmx-lang', JSON.stringify('en')); } catch { /* the visit says so */ } });
+  await visit(page, '/app/home');
+  await settle(page);
+  await page.getByRole('button', { name: /^(What’s new|Latest update)$/ }).click();
+  await expect(page.locator('.vmx-changelog-title').first()).toBeVisible();
+  await expect.poll(() => page.evaluate(thaiLeftovers)).toEqual([]);
+});
+
+// English that cannot be fetched (a first visit offline) leaves the page Thai and the menu saying so;
+// a press once online loads it. Chromium keeps a failed import failed, so that press must fetch afresh.
+test('English that cannot load leaves the page and the menu Thai, and a later press loads it', async ({ page, context }, info) => {
+  test.skip(info.project.name !== 'chromium-mobile', 'WebKit names no URL in its import error, so there is none to fetch afresh');
+  test.setTimeout(90_000);
+  await context.addInitScript(seedStudent, { now: Date.parse(PINNED_NOW), studied: await studiedQuestions() });
+  await visit(page, '/app/home');
+  await settle(page);
+  // The translator and the dictionary, under any query.
+  const english = /\/assets\/ui-(?:en|translate)-[^/?]+\.js(?:\?.*)?$/;
+  await page.route(english, (route) => route.abort());
+  const openMenu = () => page.locator('button.vmx-theme-btn[aria-expanded]').first().click();
+  await openMenu();
+  await page.getByRole('button', { name: 'English', exact: true }).click();
+  await openMenu();
+  await expect(page.getByRole('button', { name: 'ไทย', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('html')).toHaveAttribute('lang', 'th');
+  await page.unroute(english);
+  await page.getByRole('button', { name: 'English', exact: true }).click();
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+});
 
 test('switching to English and back gives the Thai page exactly as it was', async ({ page, context }) => {
   test.setTimeout(90_000);
@@ -104,7 +218,7 @@ test('switching to English and back gives the Thai page exactly as it was', asyn
   await page.getByRole('button', { name: 'English', exact: true }).click();
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   await expect.poll(() => page.evaluate(thaiLeftovers)).toEqual([]);
-  expect(await page.evaluate(() => localStorage.getItem('vmx-landing-lang'))).toBe(JSON.stringify('en'));
+  expect(await page.evaluate(() => localStorage.getItem('vmx-lang'))).toBe(JSON.stringify('en'));
 
   await openMenu();
   await page.getByRole('button', { name: 'ไทย', exact: true }).click();

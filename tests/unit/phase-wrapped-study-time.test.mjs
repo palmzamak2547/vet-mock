@@ -16,8 +16,9 @@
 //   1. buildPhaseStats flags an estimated total (and does not flag a
 //      fully measured one);
 //   2. statsToText hedges only when told the number is a guess;
-//   3. the poster (lib/share-card/phase-card.js) and the page's alt text
-//      both consult the flag (canvas can't run here: a source pin).
+//   3. the poster's words (phaseWords in lib/share-card/phase-card.js) and
+//      the page's alt text both consult the flag (the view can't run here:
+//      a source pin).
 // ============================================================
 
 import test from 'node:test';
@@ -25,6 +26,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { buildPhaseStats, statsToText } from '../../src/lib/phase-wrapped.js';
+import { phaseWords } from '../../src/lib/share-card/phase-card.js';
 
 const phase = {
   id: '1-mid',
@@ -80,14 +82,14 @@ test('statsToText hedges the guess and does not hedge a measurement', () => {
   assert.doesNotMatch(measured, /~/);
 });
 
-// ── Poster source pin ────────────────────────────────────────
-const CARD = readFileSync(join(resolve(process.cwd()), 'src/lib/share-card/phase-card.js'), 'utf8');
+// ── The poster's words, and the alt text's source pin ───────
 const VIEW = readFileSync(join(resolve(process.cwd()), 'src/views/PhaseWrappedView.jsx'), 'utf8');
 
 test('the poster labels a guessed total "เวลาอ่านราว", and only a guessed one', () => {
-  assert.ok(CARD.includes("const approx = stats.studyTimeEstimated !== false;"), 'the poster must consult the estimate flag');
-  assert.ok(CARD.includes("[approx ? 'เวลาอ่านราว' : 'เวลาอ่าน', ...studyTime(stats.totalStudyMin)]"),
-    'a fixed "เวลาอ่าน" label presents the estimate as measured');
+  const label = (studyTimeEstimated) => phaseWords({ phaseLabel: phase.label, totalStudyMin: 90, studyTimeEstimated }).figures[2][0];
+  assert.equal(label(true), 'เวลาอ่านราว');
+  assert.equal(label(undefined), 'เวลาอ่านราว', 'stats that never heard of the flag keep the hedge');
+  assert.equal(label(false), 'เวลาอ่าน', 'a fixed "เวลาอ่านราว" label presents a measurement as a guess');
 });
 
 test('the picture\'s alt text carries the same hedge', () => {

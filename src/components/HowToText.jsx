@@ -20,7 +20,7 @@ export default function HowToText({ text }) {
     if (seg.t === 'text') return seg.v;
     const icon = navIconFor(seg);
     return (
-      <span key={i} className="vmx-guide-ui">
+      <span key={i} className="vmx-guide-ui" data-ui="">
         {icon && <NavIcon name={icon} size={14} />}
         {resolveSegment(seg)}
       </span>

@@ -80,8 +80,9 @@ export function RichText({ text, highlight }) {
   // A search highlight cuts the text by its own offsets, so it wins there.
   const plain = (s, key) => (highlight ? highlightMatches(s, highlight, key) : keepSilentFinals(s, key));
   const parts = str.split(TOKEN_RE);
+  // Content in its own language: the English interface (lib/ui-translate.js) leaves it as written.
   return (
-    <>
+    <span lang="th">
       {parts.map((p, i) => {
         if (!p) return null;
         if (p === '\n') return <br key={i} />;
@@ -98,7 +99,7 @@ export function RichText({ text, highlight }) {
         }
         return <Fragment key={i}>{plain(p, i)}</Fragment>;
       })}
-    </>
+    </span>
   );
 }
 

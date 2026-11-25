@@ -252,19 +252,20 @@ export function WikiFeatured({ flagship, ranked, heading, subjectInfo, onOpenTop
         type="button"
         className="vw-book"
         onClick={() => onOpenTopic(flagship.id)}
-        aria-label={`อ่านหัวข้อ ${flagship.title}`}
+        aria-labelledby="vw-book-read vw-featured-title"
         style={{ '--vw-cloth': s?.cloth.light, '--vw-cloth-dark': s?.cloth.dark, '--vw-book-depth': `${s ? spineSize(s).width : 44}px` }}
       >
+        <span id="vw-book-read" hidden>อ่านหัวข้อ</span>
         <span className="vw-book-kicker" aria-hidden="true"><span>VetWiki</span><span>{spineLabel(name)}</span></span>
         {cover?.src && <span className="vw-book-plate" aria-hidden="true" style={{ '--vw-plate': `url(${cover.src})` }} />}
         {/* A cover sets each language on its own line, so "โรคพิษสุนัขบ้า" never breaks after "Rabies —". */}
-        <span className="vw-book-title" aria-hidden="true">
+        <span className="vw-book-title" aria-hidden="true" lang="th">
           {flagship.title.split(/\s+[—–]\s+/).map((part, i) => <span key={i}>{part}</span>)}
         </span>
       </button>
       <div className="vw-featured-text">
         <p className="vw-featured-kicker" id="vw-featured-kicker">เริ่มอ่านที่นี่</p>
-        <h2 className="vw-featured-title">{keepSilentFinals(flagship.title)}</h2>
+        <h2 className="vw-featured-title" id="vw-featured-title" lang="th">{keepSilentFinals(flagship.title)}</h2>
         <p className="vw-featured-meta">
           <span>{name}</span>
           {sections > 0 && <span>{n(sections)} หัวข้อย่อย</span>}
@@ -279,7 +280,7 @@ export function WikiFeatured({ flagship, ranked, heading, subjectInfo, onOpenTop
                 <li key={r.id}>
                   <button type="button" onClick={() => onOpenTopic(r.id)}>
                     <span className="vw-ranked-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-                    <span className="vw-ranked-title">{keepSilentFinals(r.title)}</span>
+                    <span className="vw-ranked-title" lang="th">{keepSilentFinals(r.title)}</span>
                     <span className="vw-ranked-subject">{subjectInfo(r.subject).name}</span>
                   </button>
                 </li>

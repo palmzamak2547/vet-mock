@@ -14,8 +14,8 @@ test.beforeEach(async ({ context }) => {
 // leaves focus on the button, so a phone's page does not scroll to the panel.
 test('the theme panel takes focus from the keyboard, not from a tap', async ({ page }) => {
   await page.goto('/app', { waitUntil: 'domcontentloaded' });
-  const button = page.getByRole('button', { name: 'ตัวเลือกธีมและจานสี', exact: true });
-  const panel = page.getByRole('dialog', { name: 'ตั้งค่าธีมและจานสี', exact: true });
+  const button = page.getByRole('button', { name: 'ตัวเลือกธีม จานสี และภาษา', exact: true });
+  const panel = page.getByRole('dialog', { name: 'ตั้งค่าธีม จานสี และภาษา', exact: true });
   await button.click();
   await expect(panel).toBeVisible();
   // Give the open effect its frame, then focus must still not be inside the panel.
