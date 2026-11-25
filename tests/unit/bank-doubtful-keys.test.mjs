@@ -83,3 +83,16 @@ test('epidemiology 214565 states the kappa its four cells give', async () => {
   assert.match(q.q, new RegExp(`kappa = ${kappa.replace('.', '\\.')}`));
   assert.match(q.options[2], new RegExp(po.toFixed(3).replace('.', '\\.')));
 });
+
+// zoonoses 219945 keyed "no evidence at all" of person-to-person spread and
+// offered contact with a cutaneous lesion as a wrong answer. Lesions can pass
+// the infection on before treatment starts (Emerg Infect Dis 2020;26(12),
+// doi:10.3201/eid2612.200470), so that option was true as well. The key now
+// says such spread is very rare; the lesion option that stays is false
+// (contagious for weeks after treatment), since lesions turn sterile within a day.
+test('anthrax 219945 has one true option about person-to-person spread', async () => {
+  const q = await row('questions-y5-zoonoses-final-pack.js', 'zoonoses', 219945);
+  assert.match(q.options[q.answer], /พบได้น้อยมาก/);
+  assert.equal(q.options.some((o) => /สัมผัสแผลของผู้ป่วย/.test(o)), false, 'lesion contact is a real, rare route, not a wrong answer');
+  assert.doesNotMatch(q.explain, /ยังไม่มีหลักฐานว่าติดต่อจากคนสู่คน/);
+});
