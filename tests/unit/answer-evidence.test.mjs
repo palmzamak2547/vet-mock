@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 import { evidenceHash, keyText } from '../../src/lib/evidence-hash.js';
 import { cropOf, evidenceBase, evidenceFor, forgetEvidenceBase, hasEvidence, knownBase, prefetchEvidence, resetEvidence, slideUrl } from '../../src/lib/evidence.js';
-import { boxesOf, grounded, headingOf, keepSeen, numbersOf, settle, squash, tokens } from '../../scripts/evidence/build.mjs';
+import { boxesOf, grounded, headingOf, keepSeen, lostLinks, numbersOf, settle, squash, tokens } from '../../scripts/evidence/build.mjs';
 import { lintEvidence } from '../../scripts/lint-evidence.mjs';
 import { resetChulaGate } from '../../api/_lib/chula-gate.js';
 
@@ -285,6 +285,17 @@ test('a later matching run keeps a pick the eye found right while its question i
   assert.equal(keepSeen(row, { ...seen, checked: 'weak' }), null);
   assert.equal(keepSeen(row, { ...seen, checked: undefined }), null);
   assert.equal(keepSeen(row, undefined), null);
+});
+
+test('a retitled library row that a source document no longer finds is reported, and a widened match is not', () => {
+  const before = [{ subject: 'zoonoses', title: 'Mycozoonoses Present', page_count: 87 }];
+  const after = [{ subject: 'zoonoses', title: 'Mycozoonoses', page_count: 87 }];
+  const doc = { slug: 'zoo-mycoses-present-2569', subject: 'zoonoses', match: /Mycozoonoses Present/i, editions: [{ id: '87p', pages: 87 }] };
+  assert.deepEqual(lostLinks(before, after, [doc]).map((d) => d.slug), ['zoo-mycoses-present-2569']);
+  assert.deepEqual(lostLinks(before, after, [{ ...doc, match: /Mycozoonoses Present|^Mycozoonoses$/i }]), []);
+  // Another subject's row, or another edition's page count, was never this document's file.
+  assert.deepEqual(lostLinks(before.map((r) => ({ ...r, subject: 'epidemiology' })), [], [doc]), []);
+  assert.deepEqual(lostLinks(before.map((r) => ({ ...r, page_count: 30 })), [], [doc]), []);
 });
 
 test('search tokens: Thai by word, Latin lowercased with a plural folded, stop words gone', () => {

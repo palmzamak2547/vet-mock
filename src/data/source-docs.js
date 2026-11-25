@@ -634,12 +634,12 @@ export const SOURCE_DOCS = [
   },
   {
     slug: 'zoo-mycoses-present-2569', subject: 'zoonoses', title: "Mycozoonoses Present",
-    match: /Mycozoonoses Present(?! deck 2024)/i,
+    match: /Mycozoonoses Present(?! deck 2024)|^Mycozoonoses$/i,
     editions: [{ id: '87p', pages: 87 }],
   },
   {
     slug: 'zoo-mycoses-reading-2569', subject: 'zoonoses', title: "Mycozoonoses Reading Material",
-    match: /Mycozoonoses Reading Material(?! deck 2024)/i,
+    match: /Mycozoonoses Reading Material(?! deck 2024)|^โรคติดต่อจากสัตว์สู่คนสาเหตุจากเชื้อราและยีสต์$/i,
     editions: [{ id: '30p', pages: 30 }],
   },
   {
@@ -679,7 +679,7 @@ export const SOURCE_DOCS = [
   },
   {
     slug: 'zoo-prion-2024', subject: 'zoonoses', title: "Prion Diseases (deck 2024)",
-    match: /Prion diseases Zoonoses deck 2024/i,
+    match: /Prion diseases Zoonoses deck 2024|^Prion Diseases \(ชุดปี 2567\)$/i,
     editions: [{ id: '32p', pages: 32 }],
   },
   {
@@ -751,13 +751,18 @@ export const SOURCE_DOCS = [
   // the 2567 bacterial and mycoses decks whose marks the questions record.
   {
     slug: 'zoo-prion-2569', subject: 'zoonoses', title: "Prion Diseases",
-    match: /Prion Diseases 2569/i,
+    match: /Prion Diseases 2569|^Prion Diseases$/i,
     editions: [{ id: '40p', pages: 40 }],
   },
   {
     slug: 'zoo-epi-2569', subject: 'zoonoses', title: "Zoonoses Epidem",
-    match: /Zoonoses Epidem 2569/i,
+    match: /Zoonoses Epidem 2569|^Epidemiological approach to zoonoses$/i,
     editions: [{ id: '53p', pages: 53 }],
+  },
+  {
+    slug: 'zoo-eid-wildlife-2569', subject: 'zoonoses', title: "Wildlife and Emergence of Zoonotic Diseases",
+    match: /Wildlife and Emergence of Zoonotic Diseases 2569|^Wildlife and Emergence of Zoonotic Diseases$/i,
+    editions: [{ id: '81p', pages: 81 }],
   },
   {
     slug: 'zoo-bacterial-2567-vet84', subject: 'zoonoses', title: "Bacterial Zoonoses 2567 (the Vet 84 copy)",
@@ -918,7 +923,7 @@ export const SOURCE_DOCS = [
   },
   {
     slug: 'aqua-shrimp-diseases-2569', subject: 'aquatic-clinic', title: "Diseases in shrimp culture",
-    match: /Diseases in shrimp culture/,
+    match: /Diseases in shrimp culture|^Shrimp Diseases$/,
     editions: [{ id: '118p', pages: 118 }],
   },
   {

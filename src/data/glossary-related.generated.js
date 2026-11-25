@@ -2372,7 +2372,7 @@ const LEAVES = [
  [216807],
  // end ["e. coli|universal","zoonoses","zoo-bacterial"]
  // ["e. coli|universal","zoonoses","zoo-epi-approach"]
- [104010,104015,210531,210546],
+ [104010,104015,219806,210531,210546],
  // end ["e. coli|universal","zoonoses","zoo-epi-approach"]
  // end of "e. coli|universal"
  "salmonella|universal",
@@ -2563,7 +2563,7 @@ const LEAVES = [
  [6441,694612,694615,694622,694623,6414,6450,6452],
  // end ["salmonella|universal","vca","swine"]
  // ["salmonella|universal","zoonoses","zoo-epi-approach"]
- [104011,210529],
+ [104011,219807,210529],
  // end ["salmonella|universal","zoonoses","zoo-epi-approach"]
  // end of "salmonella|universal"
  "staphylococcus pseudintermedius|small-animal",
@@ -4635,7 +4635,7 @@ const LEAVES = [
  [105980,105981],
  // end ["incidence|public-health","one-health","oh-env-mutagen"]
  // ["incidence|public-health","zoonoses","zoo-epi-approach"]
- [104014,216855,210500,210506,210521],
+ [104014,219811,219812,216855,210500,210506,210521],
  // end ["incidence|public-health","zoonoses","zoo-epi-approach"]
  // ["incidence|public-health","zoonoses","zoo-mycoses"]
  [106150,106158],
@@ -4720,7 +4720,7 @@ const LEAVES = [
  [207152,207353,207356,105681,105682,105683,105687,105694,101028,104686,104768],
  // end ["pasteurisation|public-health","milk-meat-hygiene","milk-raw-storage"]
  // ["pasteurisation|public-health","zoonoses","zoo-bacterial"]
- [216803,216805,210562,210564,210573],
+ [216803,216805,210562,210573],
  // end ["pasteurisation|public-health","zoonoses","zoo-bacterial"]
  // ["pasteurisation|public-health","zoonoses","zoo-epi-approach"]
  [210512],
@@ -4834,7 +4834,7 @@ const LEAVES = [
  [106054],
  // end ["prevalence|public-health","zoonoses","zoo-eid-wildlife"]
  // ["prevalence|public-health","zoonoses","zoo-epi-approach"]
- [216855,216858],
+ [219811,216855,216858],
  // end ["prevalence|public-health","zoonoses","zoo-epi-approach"]
  // end of "prevalence|public-health"
  "r0|public-health",
@@ -4880,7 +4880,7 @@ const LEAVES = [
  [214614,214620],
  // end ["relative risk|public-health","epidemiology","epidem-surveillance"]
  // ["relative risk|public-health","zoonoses","zoo-epi-approach"]
- [104014,216858,216859],
+ [104014,219811,219812,216858,216859],
  // end ["relative risk|public-health","zoonoses","zoo-epi-approach"]
  // end of "relative risk|public-health"
  "odds ratio|public-health",
@@ -4903,7 +4903,7 @@ const LEAVES = [
  [214614,214620],
  // end ["odds ratio|public-health","epidemiology","epidem-surveillance"]
  // ["odds ratio|public-health","zoonoses","zoo-epi-approach"]
- [104014,216859],
+ [104014,219811,219812,216859],
  // end ["odds ratio|public-health","zoonoses","zoo-epi-approach"]
  // end of "odds ratio|public-health"
  "95% ci|public-health",
@@ -5005,7 +5005,7 @@ const LEAVES = [
  [202016,208032,208104,208106,106105],
  // end ["reservoir|public-health","zoonoses","zoo-ai-basic"]
  // ["reservoir|public-health","zoonoses","zoo-bacterial"]
- [106006,106008,106009,106011,106012,106015,106017,106021,106024,106030,216804,216830,210552,210562,210563,210564,210568,210571],
+ [106006,106008,106009,106011,106012,106015,106017,106021,106024,106030,216804,216830,210552,210562],
  // end ["reservoir|public-health","zoonoses","zoo-bacterial"]
  // ["reservoir|public-health","zoonoses","zoo-corona"]
  [202021,202337,202338,106110],
@@ -5020,7 +5020,7 @@ const LEAVES = [
  [216861,216862,216863,210577,210579,210580,210583,210584],
  // end ["reservoir|public-health","zoonoses","zoo-eid-wildlife"]
  // ["reservoir|public-health","zoonoses","zoo-epi-approach"]
- [104008,104009,210501,210503,210504,210505,210506,210507,210512,210520,210523,210525,210535,210536,210537],
+ [104008,104009,219803,210501,210503,210504,210505,210506,210507,210512,210520,210523,210525,210535,210536,210537],
  // end ["reservoir|public-health","zoonoses","zoo-epi-approach"]
  // ["reservoir|public-health","zoonoses","zoo-helminthic"]
  [202346,202349,208025,208059,208124],
@@ -5112,7 +5112,7 @@ const LEAVES = [
  [216860],
  // end ["sensitivity & specificity|public-health","zoonoses","zoo-eid-wildlife"]
  // ["sensitivity & specificity|public-health","zoonoses","zoo-epi-approach"]
- [104011,216857,216858,216859],
+ [104011,219813,216857,216858,216859],
  // end ["sensitivity & specificity|public-health","zoonoses","zoo-epi-approach"]
  // end of "sensitivity & specificity|public-health"
  "somatic cell count|public-health",
@@ -5267,7 +5267,7 @@ const LEAVES = [
  [208032],
  // end ["vector|public-health","zoonoses","zoo-ai-basic"]
  // ["vector|public-health","zoonoses","zoo-bacterial"]
- [8031,106006,106009,106013,106030,216808,216822,216835,210556,210559,210575],
+ [8031,106006,106009,106013,106030,216808,216822,216835,210559,210575],
  // end ["vector|public-health","zoonoses","zoo-bacterial"]
  // ["vector|public-health","zoonoses","zoo-corona"]
  [202021],
@@ -5279,7 +5279,7 @@ const LEAVES = [
  [106054,216861,216862,216863],
  // end ["vector|public-health","zoonoses","zoo-eid-wildlife"]
  // ["vector|public-health","zoonoses","zoo-epi-approach"]
- [104009,210501,210503,210505,210509,210510,210511,210512,210513,210517,210518,210523,210524,210527,210529,210530,210531,210532,210533,210538,210544,210545,210546,210547,210548,210550],
+ [104009,219803,210501,210503,210505,210509,210510,210511,210512,210513,210517,210518,210523,210524,210527,210529,210530,210531,210532,210533,210538,210544,210545,210546,210547,210548,210550],
  // end ["vector|public-health","zoonoses","zoo-epi-approach"]
  // ["vector|public-health","zoonoses","zoo-helminthic"]
  [202027,202346,202348,202349,208019,208022,208024,208026,208059,106147],

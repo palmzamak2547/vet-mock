@@ -370,6 +370,7 @@ export const EXAM_ORIGINS = Object.freeze({
   "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง environmental health risks II": { kind: 'source-doc' },
   "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง food and feed GMOs": { kind: 'source-doc' },
   "เขียนขึ้นจากเลคเชอร์ One Health ปี 2569 เรื่อง livestock waste management": { kind: 'source-doc' },
+  "เขียนขึ้นจากเลคเชอร์ Zoonoses ปี 2569 เรื่อง epidemiological approach to zoonoses": { kind: 'source-doc' },
   "เขียนขึ้นจากสรุป SRRT ในเอกสาร Vet 85": { kind: 'source-doc' },
   "เขียนขึ้นจากสไลด์ angiostrongylosis (Vet 85)": { kind: 'source-doc' },
   "เขียนขึ้นจากสไลด์ animal rabies in Thailand (Vet 85)": { kind: 'source-doc' },

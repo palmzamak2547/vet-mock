@@ -214,6 +214,7 @@ export default defineConfig({
           if (id.includes('questions-y5-one-health-final-recall')) return 'data-q-y5-one-health-final-recall'
           if (id.includes('questions-y5-zoonoses-final-recall')) return 'data-q-y5-zoonoses-final-recall'
           if (id.includes('questions-y5-zoonoses-final-marked')) return 'data-q-y5-zoonoses-final-marked'
+          if (id.includes('questions-y5-zoonoses-class-quiz')) return 'data-q-y5-zoonoses-class-quiz'
           // ฉบับอังกฤษของโจทย์ (นำร่อง zoonoses) และกล่องศัพท์ท้ายบท VetWiki
           // โหลดเฉพาะเมื่อนักเรียนสลับภาษา/เปิดบทที่มี — ให้แต่ละชิ้นเป็น chunk ของตัวเอง
           if (id.includes('question-translations-zoonoses')) return 'data-q-translations-zoonoses'
