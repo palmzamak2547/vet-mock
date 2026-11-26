@@ -47,11 +47,13 @@ test.beforeEach(async ({ page }) => {
 
 test('the update chip names what changed instead of saying the system updated', async ({ page }) => {
   const { entry } = await announce(page);
-  // The chip's tooltip carries the untruncated headline and the release date.
-  const chip = page.getByTitle(entry.headline);
+  // The chip's label carries the untruncated headline and the release date on its tooltip. The tooltip sits on
+  // the label, not the button, because the label is a release note and keeps its language in English.
+  const label = page.getByTitle(entry.headline);
+  const chip = page.locator('button', { has: label });
   await expect(chip).toBeVisible();
   await expect(chip).not.toContainText('อัปเดตระบบ');
-  await expect(chip.locator('span').first()).toHaveText(truncateThai(entry.headline, 30));
+  await expect(label).toHaveText(truncateThai(entry.headline, 30));
   // No count: the chip says there is news, the note says what.
   await expect(chip.locator('.vmx-vitals-row-meta')).toHaveText('ใหม่');
   await expect(chip).not.toContainText('รายการ');
