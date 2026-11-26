@@ -17,7 +17,7 @@ const LEAVES = [
   ["aquatic-clinic","aqua-amphibian",12,{"1-mid":[12,0,0,0]},{"1-mid":[1,0,0,0]}], // 92f95cbcf983
   // end ["aquatic-clinic","aqua-amphibian"]
   // ["aquatic-clinic","aqua-aquarium-vet"]
-  ["aquatic-clinic","aqua-aquarium-vet",26,{"1-final":[20,0,0,6]},{"1-final":[0,0,0,1]}], // db14de51d0c3
+  ["aquatic-clinic","aqua-aquarium-vet",28,{"1-final":[22,0,0,6]},{"1-final":[0,0,0,1]}], // 8d64152e88a0
   // end ["aquatic-clinic","aqua-aquarium-vet"]
   // ["aquatic-clinic","aqua-conservation"]
   ["aquatic-clinic","aqua-conservation",20,{"1-final":[17,0,0,3]},{"1-final":[0,0,0,2]}], // 9a7121908c1c
@@ -50,7 +50,7 @@ const LEAVES = [
   ["aquatic-clinic","aqua-shrimp-immunology",26,{"1-mid":[25,0,0,1]},{"1-mid":[6,0,0,1]}], // 87e43355dee2
   // end ["aquatic-clinic","aqua-shrimp-immunology"]
   // ["aquatic-clinic","aqua-toxicology"]
-  ["aquatic-clinic","aqua-toxicology",8,{"1-final":[8,0,0,0]},{}], // 294f3562711e
+  ["aquatic-clinic","aqua-toxicology",20,{"1-final":[20,0,0,0]},{}], // 7dcbf1478bf4
   // end ["aquatic-clinic","aqua-toxicology"]
   // ["aquatic-clinic","aqua-turtle"]
   ["aquatic-clinic","aqua-turtle",15,{"1-mid":[13,0,0,2]},{"1-mid":[6,0,0,0]}], // 048e2ef8ae79
