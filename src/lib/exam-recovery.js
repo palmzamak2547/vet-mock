@@ -38,6 +38,8 @@ export function claimLegacyExam(storage, owner) {
 // between the parked copy and the bank's, that question stays exactly as it was parked, so an index
 // can never point at another option than the one picked. A question the bank no longer has (or one
 // whose id now names a question of another subject: a student's own question) also stays as parked.
+// tfc adds no field: its answer (['T'], or ['F', the correction]) reads the same under any key, so
+// only a change of type keeps the parked copy. Its key and fix are refreshed like any other key.
 export const PARKED_ANSWER_SPACE = Object.freeze(['type', 'options', 'pairs', 'distractors', 'blanks']);
 // Kept from the parked copy even when the rest is refreshed: the order the options were shown in.
 export const PARKED_KEPT = Object.freeze(['noShuffle']);

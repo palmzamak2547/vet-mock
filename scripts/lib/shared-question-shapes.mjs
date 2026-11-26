@@ -9,7 +9,9 @@
 
 const thai = (n) => 'ก'.repeat(n);
 
-/** Questions as the app writes them: one of each kind the student's own list holds. */
+/** Questions as the app writes them: one of each kind the student's own list holds.
+ *  tfc is not one of them: a student cannot write one (the editor and the stored-question schema
+ *  have no such kind), so none is ever shared and the database shape does not know it. */
 export const APP_WRITTEN = [
   { name: 'a multiple-choice question', data: { id: 'c-1', type: 'mcq', subject: 'com5', topic: 'com5-cardio', year: 5, q: 'Which drug lowers preload?', options: ['Furosemide', 'Atenolol', 'Digoxin', 'Pimobendan'], answer: 0, explain: 'A loop diuretic lowers preload.', tags: ['pharm', 'cardio'] } },
   { name: 'a true or false question', data: { type: 'tf', subject: 'avian', q: 'Birds have a diaphragm.', answer: false } },

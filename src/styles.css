@@ -3290,14 +3290,55 @@ html.dark .vmx-panic-scrim {
 .vmx-written-reveal-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 8px; }
 .vmx-written-reveal-btn { appearance: none; font: inherit; font-size: 14px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--clr-ink); background: var(--clr-ink); color: var(--clr-bg); cursor: pointer; }
 .vmx-written-reveal-btn:disabled { cursor: default; opacity: 0.45; }
-/* A checked fill-in blank: its mark beside it, the colour and the sign both. */
-.vmx-fill-input-wrap { display: flex; align-items: center; gap: 8px; }
-.vmx-fill-input-wrap > .vmx-fill-input { flex: 1 1 auto; min-width: 0; }
-.vmx-fill-mark { flex: none; font-size: 18px; font-weight: 700; line-height: 1; }
+/* Fill-in: the stem's gaps are numbered places that take the typed words, and
+   each field under the stem is headed by the words beside its gap. The mark of
+   a checked field sits inside its right edge, kept free from the start, so
+   nothing narrows when the check lands. */
+.vmx-fill-stem { line-height: 1.9; }
+.vmx-fill-gap { display: inline-flex; align-items: baseline; gap: 6px; min-width: 56px; margin: 0 3px; padding: 0 8px 0 3px; border: 1px dashed var(--clr-ink-soft); border-radius: 8px; background: var(--clr-surface); font-weight: 600; line-height: 1.5; vertical-align: baseline; overflow-wrap: anywhere; }
+.vmx-fill-gap .n, .vmx-fill-field .vmx-fill-label .n { flex: none; display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; border-radius: 6px; background: var(--clr-ink); color: var(--clr-bg); font-family: var(--vmx-mono); font-size: 12px; font-weight: 700; line-height: 1; align-self: center; }
+.vmx-fill-gap.is-typed { border-style: solid; border-color: var(--clr-ink); }
+.vmx-fill-gap.is-ok { border-style: solid; border-color: var(--clr-right); }
+.vmx-fill-gap.is-no { border-style: solid; border-color: var(--clr-rose); }
+.vmx-fill-gap.is-no .t { text-decoration: line-through; }
+.vmx-fill-gap .e { font-weight: 400; color: var(--clr-ink-soft); }
+.vmx-fill-gap .key { color: var(--clr-right-text); }
+.vmx-fill-review .vmx-fill-stem { margin: 6px 0 0; font-size: 15px; }
+.vmx-tfc { display: flex; flex-direction: column; gap: 12px; }
+.vmx-tfc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.vmx-tf-btn.vmx-tfc-btn { min-height: 48px !important; padding: 10px 12px; font-size: 18px; line-height: 1.3; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; }
+.vmx-tfc-mark { font-family: var(--vmx-sans); font-size: 14px; font-weight: 600; }
+.vmx-tfc-hint { margin: 0; font-size: 14px; line-height: 1.6; color: var(--clr-ink-soft); }
+.vmx-fill-input.is-void, .vmx-tfc-struck { text-decoration: line-through; }
+.vmx-tfc-sentence, .vmx-tfc-self { display: block; margin-top: 4px; }
+.vmx-tfc-sentence mark { background: none; color: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.vmx-tfc-self { font-size: 14px; color: var(--clr-ink-soft); }
+.vmx-fill-review-list { margin: 6px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.vmx-fill-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: end; }
+.vmx-fill-field { grid-column: 1 / -1; min-width: 0; }
+.vmx-fill-field.is-num { grid-column: auto; }
+.vmx-fill-field.is-num:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.vmx-fill-field .vmx-fill-label { display: flex; align-items: center; gap: 8px; line-height: 1.5; }
+.vmx-fill-field .vmx-fill-label .w { min-width: 0; overflow-wrap: anywhere; }
+.vmx-fill-input-wrap { position: relative; }
+.vmx-fill-field .vmx-fill-input { min-height: 48px; padding: 10px 76px 10px 14px; scroll-margin-bottom: 120px; }
+.vmx-fill-field .vmx-fill-input:focus-visible { outline: 2px solid var(--clr-ink); outline-offset: 1px; }
+.vmx-fill-field .vmx-fill-input::placeholder { color: var(--clr-ink-soft); opacity: 1; }
+.vmx-fill-field.is-ok .vmx-fill-input { border-color: var(--clr-right); box-shadow: inset 0 0 0 1px var(--clr-right); }
+.vmx-fill-field.is-no .vmx-fill-input { border-color: var(--clr-rose); box-shadow: inset 0 0 0 1px var(--clr-rose); }
+.vmx-fill-mark { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 14px; font-weight: 700; line-height: 1.2; pointer-events: none; }
 .vmx-fill-mark.is-ok { color: var(--clr-right-text); }
 .vmx-fill-mark.is-no { color: var(--clr-rose-text); }
-.vmx-fill-check-hint { font-size: 14px; color: var(--clr-ink-soft); }
-.vmx-fill-key { margin: 0; padding-left: 1.4em; }
+.vmx-fill-keyline, .vmx-fill-altline, .vmx-fill-count, .vmx-fill-order { margin: 0; font-size: 14px; line-height: 1.6; color: var(--clr-ink-soft); }
+.vmx-fill-keyline { margin-top: 6px; color: var(--clr-ink); font-weight: 600; overflow-wrap: anywhere; }
+.vmx-fill-keyline .k { color: var(--clr-right-text); }
+.vmx-fill-altline { margin-top: 6px; }
+.vmx-fill-count { font-variant-numeric: tabular-nums; }
+.vmx-fill-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+.vmx-fill-check { appearance: none; width: 100%; min-height: 48px; padding: 10px 16px; border-radius: 12px; border: 1px solid var(--clr-ink); background: var(--clr-ink); color: var(--clr-bg); font: inherit; font-size: 16px; font-weight: 600; cursor: pointer; scroll-margin-bottom: 120px; }
+.vmx-fill-check.is-waiting { background: transparent; color: var(--clr-ink); border-color: var(--clr-border); }
+.vmx-fill-actions .vmx-reveal-toggle { margin-top: 0; }
+.vmx-fill-actions .vmx-reveal-toggle button { min-height: var(--touch-min); }
 .vmx-written-reveal { margin-top: 10px; padding: 12px; border-radius: 10px; background: var(--clr-surface-2); border: 1px solid var(--clr-border); font-size: 14px; line-height: 1.55; color: var(--clr-ink); }
 .vmx-written-reveal .k { font-weight: 700; color: var(--clr-gold-text); margin-bottom: 4px; }
 .vmx-written-reveal .k .c { font-family: var(--vmx-mono); font-weight: 400; color: var(--clr-ink-soft); margin-left: 6px; }

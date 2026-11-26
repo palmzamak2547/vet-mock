@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import { createPortal } from 'react-dom';
 import { StemText } from './RichBlocks.jsx';
 import { SUBJECTS } from '../data/curriculum.js';
+import { fillStemNumbered, fillStemParts, fillKeyLine, tfcKeyLine } from '../lib/fill-stem.js';
 
 // A question set as a printed exam paper. Only the print stylesheet shows it
 // (src/styles-print.css, loaded by print-document.js); on a screen it stays
@@ -42,7 +43,9 @@ export function matchSide(q) {
 export function answerOf(q) {
   if (q.type === 'mcq') return typeof q.answer === 'number' ? LETTERS[q.answer] : String(q.answer ?? '');
   if (q.type === 'tf') return q.answer === true || q.answer === 'true' ? 'ถูก' : 'ผิด';
-  if (q.type === 'fill') return (q.blanks || []).join(', ');
+  if (q.type === 'tfc') return tfcKeyLine(q);
+  // Numbered, so a key that holds a comma reads as one key, and an order that is free says so.
+  if (q.type === 'fill') return fillKeyLine(q);
   if (q.type === 'match') {
     const side = matchSide(q);
     return (q.pairs || []).map((p, i) => `${i + 1}${SIDE[side.indexOf(p.right)] || ''}`).join(' ');
@@ -66,6 +69,15 @@ function Body({ q }) {
       </ol>
     );
   }
+  if (q.type === 'tfc') {
+    // The paper's own form: circle one, and a single line for the correction.
+    return (
+      <div className="vmx-paper-tfc">
+        <p>ถูก / ผิด</p>
+        <p className="vmx-paper-fix">แก้เป็น <span aria-hidden="true" /></p>
+      </div>
+    );
+  }
   if (q.type === 'match') {
     const side = matchSide(q);
     return (
@@ -75,6 +87,8 @@ function Body({ q }) {
       </div>
     );
   }
+  // A fill-in item is answered in its own numbered gaps: no second set of lines under it.
+  if (q.type === 'fill' && fillStemParts(q.q, (q.blanks || []).length)) return null;
   const lines = q.type === 'essay' ? 8 : q.type === 'short' ? 3 : Math.max(1, (q.blanks || []).length);
   return (
     <div className="vmx-paper-lines" aria-hidden="true">
@@ -107,6 +121,9 @@ function Key({ items }) {
 // The paper prints the text as stored, so its blocks hold plain text.
 const plainText = (t) => t;
 const paperStem = (content) => <p className="vmx-paper-stem">{content}</p>;
+// A fill-in stem prints each gap as a numbered ruled space, long enough to write in.
+const PAPER_GAP = (n) => `(${n}) ${'.'.repeat(28)}`;
+export const paperStemText = (q) => (q.type === 'fill' ? fillStemNumbered(q.q, (q.blanks || []).length, PAPER_GAP) : q.q);
 
 export default function QuestionPaper({ questions, form }) {
   const { title, subject } = paperTitle(questions);
@@ -121,7 +138,7 @@ export default function QuestionPaper({ questions, form }) {
         <ol className="vmx-paper-list">
           {questions.map((q, i) => (
             <li key={q.id ?? i} className="vmx-paper-q" data-n={i + 1} lang="th">
-              <StemText text={q.q} renderText={plainText} ask={paperStem} />
+              <StemText text={paperStemText(q)} renderText={plainText} ask={paperStem} />
               {q.image ? <img className="vmx-paper-fig" src={q.image} alt="" /> : null}
               <Body q={q} />
               {form === 'reasons' ? (

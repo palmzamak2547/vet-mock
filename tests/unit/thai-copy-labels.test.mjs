@@ -34,7 +34,7 @@ test('the wrong-answer banner never says the answer is marked with a tick', () =
   // the row renders on a miss. Both callers do; the true/false one says True or False.
   assert.match(body, /\(alwaysShowCorrect \|\| !ok\) && correctNode != null/);
   const callers = src.split('<InstantFeedback').slice(1).map((s) => s.slice(0, s.indexOf('/>')));
-  assert.equal(callers.length, 3, 'MCQ, true/false and fill-in are the three callers');
+  assert.equal(callers.length, 4, 'MCQ, true/false, fill-in and true/false with a correction are the four callers');
   for (const caller of callers) assert.match(caller, /correctNode=\{/);
   // The words carry the choice (11 Nov 2026): no tick or cross in the true/false key.
   assert.ok(callers[1].includes("correctIsTrue ? 'True' : 'False'"));

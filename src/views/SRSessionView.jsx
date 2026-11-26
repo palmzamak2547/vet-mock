@@ -27,6 +27,7 @@ import CaseSlot from '../components/case/CaseSlot.jsx';
 import FlagChip from '../components/FlagChip.jsx';
 import { useReadAloud, ListenButton } from '../components/ReadAloudListen.jsx';
 import { wholeExplain, wholeStem } from '../lib/rich-blocks.js';
+import { fillKeyLine, fillStemNumbered, tfcKeyLine } from '../lib/fill-stem.js';
 import { loadUserFlashcards, srCardFor } from '../lib/user-flashcards.js';
 // Wave-4 card types — each lib produces Q-shaped objects with a
 // distinct `type` so the renderer below can dispatch to the right
@@ -60,6 +61,10 @@ import { SR_KEYS, SR_SETUP, SR_SIZES } from '../lib/decisions/sr-setup.js';
 // so the Home dashboard badge and this view always agree.
 // ============================================================
 
+// The front of a fill-in card: its gaps numbered, as the key under it numbers them.
+const frontStem = (q) => (q.type === 'fill' && Array.isArray(q.blanks) && q.blanks.length > 1
+  ? fillStemNumbered(displayStem(q), q.blanks.length, (n) => `(${n}) ____`)
+  : displayStem(q));
 const SIZE_PRESETS = SR_SIZES.filter((n) => n !== 'all');
 // Written by HomeView's launchSR (the daily plan), read once here.
 const SR_PLAN_SIZE_KEY = 'vmx-sr-plan-size';
@@ -306,7 +311,8 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
     options: [],
     explain: wholeExplain(q),
     container: (kind) => (kind !== 'stem' ? null
-      : what === 'q' ? (wholeStem(q) === displayStem(q) ? frontRef.current : null)
+      // A fill-in front numbers its gaps, so it is not the text the voice reads.
+      : what === 'q' ? (wholeStem(q) === frontStem(q) ? frontRef.current : null)
         : (wholeExplain(q) === q.explain ? backTextRef.current : null)),
     block: () => (what === 'q' ? frontRef.current : backTextRef.current),
   });
@@ -776,10 +782,12 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
       </span>
     );
     answerText = currentQ.answer ? 'True' : 'False';
+  } else if (currentQ.type === 'tfc') {
+    // The key the printed paper uses, then the corrected sentence.
+    answerText = [tfcKeyLine(currentQ, stripRichText), currentQ.answer === false && currentQ.fix?.sentence ? stripRichText(currentQ.fix.sentence) : ''].filter(Boolean).join('\n');
   } else if (currentQ.type === 'fill') {
-    answerText = currentQ.blanks.length > 1
-      ? currentQ.blanks.map((b, i) => `(${i + 1}) ${stripRichText(b)}`).join(' ,  ')
-      : stripRichText(currentQ.blanks[0] || '');
+    // The numbered key the printed paper and the Anki card use: "(1) a (2) b", and where the order is free it says so.
+    answerText = fillKeyLine(currentQ, stripRichText);
   } else if (currentQ.type === 'match') {
     answerText = currentQ.pairs.map((p) => `${stripRichText(p.left)} → ${stripRichText(p.right)}`).join('\n');
   } else if (currentQ.type === 'flashcard') {
@@ -901,7 +909,7 @@ export default function SRSessionView({ srCards, setSrCards, goHome, customQuest
           )}
           <div className="vmx-read-row">
             <div ref={frontRef} className={`vmx-read-grow${voice.readingId === `${readPrefix}q` ? ' is-reading' : ''}`}>
-              <StemText text={displayStem(currentQ)} ask={(content) => <div style={{ fontSize: 18 }}>{content}</div>} />
+              <StemText text={frontStem(currentQ)} ask={(content) => <div style={{ fontSize: 18 }}>{content}</div>} />
             </div>
             <ListenButton what="q" on={voice.readingId === `${readPrefix}q`} onClick={() => voice.speak(srJob(currentQ, 'q'))} onPointerDown={voice.preload} />
           </div>

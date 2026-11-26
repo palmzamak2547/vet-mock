@@ -21,7 +21,7 @@ export const QB_PART3 = [
     answer: 0, explain: 'Hotz-Celsus = ตัดเฉพาะหนังตารูปพระจันทร์เสี้ยว แก้ entropion' },
   { id: 204, subject: 'surg2', topic: 'ophthalmology-lab', year: 4, source: 'ข้อสอบเก่า_Sur_lab_final_eye_85.pdf', tags: ['ophthalmology'], type: 'fill',
     q: 'การทดสอบการผลิตน้ำตาใช้ ____ ค่าปกติ > ____ mm/min',
-    blanks: ['Schirmer tear test', '15'],
+    blanks: ['Schirmer tear test', '15'], accept: { 0: ['STT', 'Schirmer test', "Schirmer's tear test"] },
     explain: 'Schirmer tear test (STT); normal > 15 mm/min\nวัดโดยงอแถบฝั่งที่มีสี ปักที่เปลือกตาล่าง แล้วรอ 1 นาทีก่อนอ่านค่า' },
   { id: 205, subject: 'surg2', topic: 'dental-scaling-muzzle', year: 4, source: 'ข้อสอบเก่า_Sur_lab_final_eye_85.pdf', tags: ['dental'], type: 'mcq',
     q: 'ฟันซี่ใดที่พบ periodontal disease บ่อยที่สุดในสุนัข',

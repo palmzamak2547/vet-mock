@@ -9,6 +9,8 @@ import { wholeStem } from './rich-blocks.js';
 export function keyText(q) {
   if (!q) return '';
   if (q.type === 'tf') return typeof q.answer === 'boolean' ? (q.answer ? 'ถูก' : 'ผิด') : '';
+  // tfc: the verdict, and for a false statement the word that puts it right.
+  if (q.type === 'tfc') return typeof q.answer !== 'boolean' ? '' : q.answer ? 'ถูก' : `ผิด: ${String(q.fix?.right ?? '')}`;
   if (Array.isArray(q.options) && typeof q.answer === 'number') return String(q.options[q.answer] ?? '');
   return typeof q.model_answer === 'string' ? q.model_answer : '';
 }

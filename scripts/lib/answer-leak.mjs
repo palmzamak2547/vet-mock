@@ -192,7 +192,11 @@ export function answerParts(question) {
   }
   if (q.type === 'fill' && Array.isArray(q.blanks)) return { kind: 'written', key: q.blanks.map(String), seen, rivals: [] };
   if (q.type === 'short' && Array.isArray(q.keywords)) return { kind: 'written', key: q.keywords.map(String), seen, rivals: [] };
-  if (q.type === 'tf' && typeof q.answer === 'boolean') {
+  // tfc, false: the key the student writes is the correction. True: it reads as a true/false item.
+  if (q.type === 'tfc' && q.answer === false && typeof q.fix?.right === 'string') {
+    return { kind: 'written', key: [q.fix.right, ...(Array.isArray(q.fix.accept) ? q.fix.accept.map(String) : [])], seen, rivals: [] };
+  }
+  if ((q.type === 'tf' || q.type === 'tfc') && typeof q.answer === 'boolean') {
     // The fact a true/false item tests is what its explanation's first
     // sentence says is so, which the statement states or contradicts.
     const firstLine = String(q.explain || '').split('\n')[0];

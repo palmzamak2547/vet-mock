@@ -1578,8 +1578,11 @@ export default function App() {
     // In a timed exam every tap is written, not one write in three seconds: a
     // tab the phone killed half a second after an answer lost that answer
     // (pagehide never fires on a kill). A typed answer (short, essay, fill)
-    // keeps the throttle, so an essay is not written on every keystroke.
-    const typing = ['short', 'essay', 'fill'].includes(questions[currentIdx]?.type);
+    // keeps the throttle, so an essay is not written on every keystroke. A tfc
+    // item is typed only once its correction holds text: its ถูก/ผิด is a tap.
+    const onScreen = questions[currentIdx];
+    const typing = ['short', 'essay', 'fill'].includes(onScreen?.type)
+      || (onScreen?.type === 'tfc' && Boolean(answers[onScreen.id]?.[1]));
     if ((mode === 'exam' && !typing) || Date.now() - inflightWrittenAtRef.current >= 3000) {
       let soon = 0;
       const frame = requestAnimationFrame(() => { soon = setTimeout(writeInflight, 0); });
@@ -1769,6 +1772,7 @@ export default function App() {
         // answered while matching no option at all.
         if (!locked && displayIdx < displayToOriginal.length) answerCurrent(displayToOriginal[displayIdx]);
       }
+      // tfc has no T/F keys: its answer is not complete on the key press, and it has a text field.
       else if (q.type === 'tf' && !locked) {
         if (e.key === 't' || e.key === 'T') answerCurrent(true);
         if (e.key === 'f' || e.key === 'F') answerCurrent(false);
@@ -3602,7 +3606,7 @@ export default function App() {
               {(view === 'knowledge' || view === 'wiki') && <KnowledgeView {...{ subject, topic, openNonce: wikiOpenNonce, setView, setSubject, setTopic, goHome, startExam, readingChecklist, setReadingChecklist, onOpenDoc: openLibraryReader }} />}
               {view === 'config' && <ConfigView {...{ practiceMode, setPracticeMode, subject, setSubject, topic, setTopic, numQuestions, setNumQuestions, useTimer, setUseTimer, timePerQ, setTimePerQ, questionCategory, setQuestionCategory, instantFeedback, setInstantFeedback, startExam, goHome, mode, setMode, selectedYear, selectedPhase, panicPending, setPanicPending }} hasHistory={(history?.length || 0) > 0} showCategoryPicker={categoryPickerShown(subject, practiceMode)} availableCount={configAvailableCount} availablePool={configServedPool} pastOnly={configPastOnly} setPastOnly={configPastShown ? setPastOnly : null} pastCount={configPastCount} onBack={goBackFromConfig} />}
               {view === 'exam' && !currentQ && <ViewFallback />}
-              {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, questionDeadline, timedOutIdx, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes: notesView, setNote, answers, bookmarks, user, goHome, selectedYear, selectedPhase, mode, instantFeedback, onOpenWiki: openWiki }} />}
+              {view === 'exam' && currentQ && <ExamView {...{ currentQ, currentIdx, questions, questionDeadline, timedOutIdx, useTimer, isBookmarked, toggleBookmark, currentAnswer, answerCurrent, nextQ, prevQ, jumpToQ, notes: notesView, setNote, answers, bookmarks, user, goHome, selectedYear, selectedPhase, mode, instantFeedback, onOpenWiki: openWiki, sessionId: examSessionId }} />}
               {view === 'results' && <ResultsView {...{ score, questions, answers, goHome, setView, mode, useTimer, selectedYear, selectedPhase, startExam, setSubject, setTopic, setPracticeMode, setMode, setNumQuestions, setUseTimer, replayQuestions: replayWrongRound, challengeSender, sessionKind, pastOnly: sessionPastOnly, examStartTime, completedAt: session.completedAt ?? completedAtRef.current, saveStatus: examSaveStatus }} />}
               {view === 'review' && <ReviewView {...{ questions, answers, bookmarks, toggleBookmark, goHome, setView, notes: notesView, setNote, user, selectedYear, selectedPhase, onOpenWiki: openWiki }} />}
               {view === 'sr-session' && <SRSessionView key={user?.id || 'guest'} ownerId={user?.id || null} {...{ srCards, setSrCards, goHome, customQuestions, selectedYear, selectedPhase, qbReady, qbRevision, loadAllYears, onOpenWiki: openWiki, history, startExam }} />}

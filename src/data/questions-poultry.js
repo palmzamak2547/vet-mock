@@ -1497,7 +1497,7 @@ export const QB_POULTRY = [
     source: 'Poultry Final TJ.pdf p6 — fill-in style', sourceType: 'student-compilation',
     tags: ['PDCA', 'problem-solving', 'fill'], type: 'fill',
     q: 'PDCA cycle ใน Quality Assurance ย่อมาจาก ____ → ____ → ____ → ____ (Systematic Problem Solving / continuous improvement)',
-    blanks: ['Plan', 'Do', 'Check', 'Action'],
+    blanks: ['Plan', 'Do', 'Check', 'Action'], accept: { 3: ['Act'] },
     explain: 'PDCA = Plan → Do → Check → Action, Systematic Problem Solving (Deming wheel), ใช้ปรับปรุงคุณภาพต่อเนื่อง continuous improvement',
     verified: 'TJ p6 #2 — fill-in across years',
     sourcePages: [{ doc: 'poultry-final-tj', edition: '9p', page: 6 }] },
@@ -1690,7 +1690,7 @@ export const QB_POULTRY = [
     source: 'TJ p1 + Master 86 p4-5 (Hatairat Plaimast L8) — fill-in style', sourceType: 'student-compilation',
     tags: ['amino-acid', 'limiting', 'methionine', 'lysine', 'threonine', 'fill'], type: 'fill',
     q: '3 most limiting amino acids (กรดอะมิโนจำกัดที่สุด) ในอาหารไก่ คือ ____, ____, และ ____ (ตอบเรียงตามลำดับการขาดบ่อยสุด)',
-    blanks: ['Methionine', 'Lysine', 'Threonine'],
+    blanks: ['Methionine', 'Lysine', 'Threonine'], accept: { 0: ['Met'], 1: ['Lys'], 2: ['Thr'] },
     explain: '3 most limiting AAs ในไก่: Methionine (ไก่ไข่ขาดตัวนี้บ่อยสุด) → Lysine (ตัวที่กินเด่น เป็น ref = 100) → Threonine, ลำดับสำคัญในการเสริมอาหาร, Master 86 ระบุชัดเป็น 3 ตัวหลัก',
     verified: 'TJ p1 #1 + Master 86 p5 — fill-in across years' },
 
@@ -1698,7 +1698,7 @@ export const QB_POULTRY = [
     source: 'Master 86 p5 (Lysine ratio table) — fill-in style', sourceType: 'student-compilation',
     tags: ['lysine', 'ratio-100', 'AA-balance', 'fill'], type: 'fill',
     q: 'ใน Ideal amino acid profile ของไก่ ใช้กรดอะมิโน ____ เป็น reference (= 100) แล้วเทียบ AA ตัวอื่นเป็น %',
-    blanks: ['Lysine'],
+    blanks: ['Lysine'], accept: { 0: ['Lys'] },
     explain: 'Lysine = ref 100 ทุกช่วงอายุ (1-21d, 22-42d, 43-56d), กรดอะมิโนตัวอื่นจะเทียบเป็น % ของ Lysine เพื่อรักษาสัดส่วน, เช่น Methionine+Cysteine = 72, Threonine = 67-68.5, Tryptophan = 16-17, Arginine = 105-108',
     verified: 'Master 86 p5 table — fill-in style' },
 
@@ -1742,7 +1742,7 @@ export const QB_POULTRY = [
     source: 'Master 86 p7 (Ca:P ratio) — fill-in style', sourceType: 'student-compilation',
     tags: ['calcium-phosphorus', 'ratio', 'broiler-layer', 'fill'], type: 'fill',
     q: 'Optimum Ca:Available P ratio ในไก่เนื้อ (Broiler) = ____ และไก่ไข่ (Layer) = ____ (ตอบในรูป x:1)',
-    blanks: ['2:1', '10:1'],
+    blanks: ['2:1', '10:1'], accept: { 0: ['2/1'], 1: ['10/1'] },
     explain: 'Broiler Ca:P = 2:1 (โครงกระดูก), Layer Ca:P = 10:1 (สูงเพราะต้องสร้างเปลือกไข่ ~95% CaCO3), ถ้า Ca สูงเกิน + P ต่ำ → กระดูก osteomalacia, hen fatigue, Master 86 ระบุชัด',
     verified: 'Master 86 p7 + TJ p1 #3 — fill-in across years' },
 

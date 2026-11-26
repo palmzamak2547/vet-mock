@@ -12,7 +12,8 @@ const container = card.slice(at, card.indexOf('\n    // The element kept above t
 
 test('no stem to mark while the English stem is on screen', () => {
   assert.match(card, /const shownEnglishStem = Boolean\(english\?\.q\);/);
-  assert.match(container, /saysTable \|\| stemShortened \|\| shownEnglishStem \? null : stemRef\.current/);
+  // A fill-in stem is drawn in pieces around its gaps, so it has no phrase to mark either.
+  assert.match(container, /saysTable \|\| stemShortened \|\| shownEnglishStem \|\| fillParts \? null : stemRef\.current/);
 });
 
 test('no option row to mark while the English options are on screen', () => {

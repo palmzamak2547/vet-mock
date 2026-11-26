@@ -23,7 +23,10 @@ import { bankFiles, readBank } from './lib/bank-file.mjs';
 export function keyedText(q) {
   const parts = [];
   const type = q.type || 'mcq';
-  if (type === 'tf') {
+  if (type === 'tfc') {
+    // A true statement is asserted as written; a false one asserts its corrected sentence.
+    parts.push(q.answer === true ? q.q : q.fix?.sentence);
+  } else if (type === 'tf') {
     if (q.answer === true) parts.push(q.q);
   } else if (type === 'match') {
     for (const p of q.pairs || []) parts.push(`${p.left} ${p.right}`);
