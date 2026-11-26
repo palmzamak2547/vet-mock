@@ -123,7 +123,8 @@ export function ladderVerdict({ stepId, correct, total, passPct = 60 }) {
 // proxy is a rating-shaped number on the same 1500-centred scale so a measured
 // rating slots in without a special case.
 export const MEASURED_RAMP_MIN_ATTEMPTS = DIFFICULTY_MIN_ATTEMPTS;
-const TYPE_OFFSET = { tf: -100, mcq: 0, fill: 60, match: 60, short: 120, essay: 160 };
+// tfc sits with fill: a verdict alone is as light as tf, but a false one needs a recalled word.
+const TYPE_OFFSET = { tf: -100, mcq: 0, fill: 60, tfc: 60, match: 60, short: 120, essay: 160 };
 
 export function gentleRank(question, difficultyData = null) {
   if (hasMeasuredDifficulty(question, difficultyData)) return difficultyData[String(question.id)].rating;

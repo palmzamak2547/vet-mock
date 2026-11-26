@@ -185,6 +185,7 @@ export function normalizeStem(text) {
 export function keyText(question) {
   const q = question || {};
   if (q.type === 'tf') return q.answer === true ? 'T' : q.answer === false ? 'F' : '';
+  if (q.type === 'tfc') return q.answer === true ? 'T' : q.answer === false ? `F ${q.fix?.right ?? ''}` : '';
   if (Array.isArray(q.options) && Number.isInteger(q.answer)) return String(q.options[q.answer] ?? '');
   if (Array.isArray(q.pairs)) return q.pairs.map((p) => `${p?.left ?? ''} ${p?.right ?? ''}`).join(' ');
   if (Array.isArray(q.blanks)) return q.blanks.join(' ');
@@ -201,7 +202,7 @@ const numbersIn = (text) => [...new Set(text.match(/\d+(?:\.\d+)?/g) || [])].sor
 const speciesIn = (text) => new Set(SPECIES.filter(([, re]) => re.test(text)).map(([name]) => name));
 // Latin terms of six letters or more, plural folded: the named things a stem is about.
 const termsIn = (text) => new Set((text.match(/[a-z]{6,}/g) || []).map((w) => w.replace(/e?s$/, '')));
-const WRITTEN = new Set(['tf', 'short', 'essay']);
+const WRITTEN = new Set(['tf', 'tfc', 'short', 'essay']);
 
 /** Everything the same-item rule compares, computed once per question. */
 export function fingerprint(question) {

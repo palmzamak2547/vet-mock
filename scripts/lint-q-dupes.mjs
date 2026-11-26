@@ -165,6 +165,7 @@ const numbers = (s) => (String(s || '').match(/\d+(?:\.\d+)?/g) || []).sort().jo
 const qKey = (q) => `${q.subject}:${q.id}`;
 const pairKey = (a, b) => [a, b].sort().join('|');
 
+// tfc has no kind here: its key is a verdict plus a written word, so two are never compared as true/false twins.
 function keyKind(q) {
   if (q.type === 'tf' && typeof q.answer === 'boolean') return 'tf';
   if (Array.isArray(q.options) && Number.isInteger(q.answer) && q.options[q.answer] != null) return 'mcq';

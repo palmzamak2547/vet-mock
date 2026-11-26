@@ -11,7 +11,8 @@ const card = read('src/components/Question.jsx');
 const css = read('src/styles.css');
 
 test('a partly right fill-in verdict carries ◐, never the cross of a wrong answer', () => {
-  assert.match(card, /headline=\{!fillOk && fillRight > 0 \? `◐ ถูก \$\{fillRight\} จาก/);
+  // All right keeps the panel's own headline; partly right is ◐ with the count; nothing right is the plain cross.
+  assert.match(card, /headline=\{fillOk \? null : fillRight > 0 \? `◐ ถูก \$\{fillRight\} จาก \$\{fillCount\} ช่อง` : '✗ ยังไม่ถูก'\}/);
   assert.doesNotMatch(card, /`✗ ถูก \$\{fillRight\}/);
   assert.match(card, /partial=\{!fillOk && fillRight > 0\}/);
 });

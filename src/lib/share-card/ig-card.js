@@ -21,6 +21,7 @@ export function cleanText(s) {
 
 /** What the card offers as choices: an MCQ's options, or ถูก and ผิด. */
 export function cardOptions(q) {
+  // tfc gets no card: a card cannot hold its written correction (the studio lists mcq and tf only).
   if (q?.type === 'tf') return ['ถูก', 'ผิด'];
   return Array.isArray(q?.options) ? q.options.slice(0, LETTERS.length).map(cleanText) : [];
 }

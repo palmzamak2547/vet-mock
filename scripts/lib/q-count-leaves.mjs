@@ -11,7 +11,7 @@ const PHASE_TERM = { '1-mid': 1, '1-final': 1, '2-mid': 2, '2-final': 2 };
 const KINDS = ['mcq', 'tf', 'match', 'writing'];
 const kindOf = (q) => (q.type === 'tf' ? 'tf'
   : q.type === 'match' ? 'match'
-    : (q.type === 'short' || q.type === 'essay' || q.type === 'fill') ? 'writing' : 'mcq');
+    : (q.type === 'short' || q.type === 'essay' || q.type === 'fill' || q.type === 'tfc') ? 'writing' : 'mcq');
 
 /**
  * @param {any[]} questions every question in the source banks

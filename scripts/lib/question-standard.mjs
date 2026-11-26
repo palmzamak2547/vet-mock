@@ -147,7 +147,7 @@ export function restatesKey(q) {
   if (len < 25) return true;
   let key = '';
   if (q?.type === 'mcq' && Array.isArray(q.options) && Number.isInteger(q.answer)) key = String(q.options[q.answer] ?? '');
-  else if (q?.type === 'tf') key = String(q.q || '');
+  else if (q?.type === 'tf' || q?.type === 'tfc') key = String(q.q || '');
   if (key && !CAUSAL_WORD.test(explain)
     && len < Math.max(60, 1.6 * [...key].length)
     && diceOf(bigramSet(explain), bigramSet(key)) >= 0.6) return true;

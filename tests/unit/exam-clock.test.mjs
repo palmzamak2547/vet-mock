@@ -273,6 +273,7 @@ before(async () => {
           '  globalThis.__questionRenders = (globalThis.__questionRenders || 0) + 1;',
           '  return <div className="q-stub">{currentQ.q}</div>;',
           '}',
+          'export const typedChecked = () => false;',
         ].join('\n'),
         loader: 'jsx',
         resolveDir: repoRoot,

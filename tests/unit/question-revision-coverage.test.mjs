@@ -31,6 +31,8 @@ const HASHED = ['type', 'q', 'front', 'back', 'options', 'answer', 'blanks', 'pa
 const HASHED_WHEN_PRESENT = {
   unordered: 'which blanks of a fill question may be answered in any order; the grader reads it',
   keywords: 'the words a short answer must mention (75% of them); the grader reads it',
+  accept: 'extra right answers for a blank of a fill question, by blank index; the grader reads it',
+  fix: 'the written correction of a false tfc statement (right, accept, selfCheck); the grader reads it',
 };
 const GRADED_FIELDS = [...HASHED, ...Object.keys(HASHED_WHEN_PRESENT)];
 
@@ -108,9 +110,10 @@ test('editing a hashed field changes the revision, editing any other field does 
   assert.notEqual(questionRevision({ ...plain, keywords: [] }), questionRevision(plain), 'adding keywords where there were none changes it');
 });
 
-test('only the questions that carry unordered or keywords changed revision in 5.214', () => {
+// accept joined the same way with the fill-in release: only the items that carry it changed.
+test('only the questions that carry unordered, keywords or accept differ from the nine-field revision', () => {
   const changed = BANK.filter(([, q]) => questionRevision(q) !== nineFieldRevision(q)).map(([, q]) => q.id);
-  const carriers = BANK.filter(([, q]) => q.unordered !== undefined || q.keywords !== undefined).map(([, q]) => q.id);
+  const carriers = BANK.filter(([, q]) => q.unordered !== undefined || q.keywords !== undefined || q.accept !== undefined || q.fix !== undefined).map(([, q]) => q.id);
   assert.deepEqual(changed, carriers);
 });
 
@@ -126,6 +129,9 @@ test('the grader reads only hashed fields, however it reads them', () => {
     return out;
   };
   for (const [, q] of BANK) for (const ua of answersFor(q)) isCorrect(traced(q), ua);
+  // The bank holds no tfc item yet, so the grader's read of its fields is traced on a fixture.
+  const tfc = { id: 1, type: 'tfc', q: 'statement', answer: false, fix: { wrong: 'a', right: 'b', accept: ['c'], sentence: 's' } };
+  for (const ua of [['T'], ['F', 'b'], ['F', 'x']]) isCorrect(traced(tfc), ua);
   assert.ok(read.has('type') && read.has('answer') && read.has('blanks'), `fields the grader read: ${[...read]}`);
   for (const field of read) {
     assert.ok(GRADED_FIELDS.includes(field), `isCorrect reads q.${field}, which questionRevision does not hash: a release that edits it moves scores under the same revision`);

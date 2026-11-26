@@ -31,7 +31,7 @@ export const QB_SHORT = [
     confidence: 'EXTRACTED',
     tags: ['zoonosis', 'fill'], type: 'fill',
     q: 'จงเติมเชื้อก่อโรคของ avian zoonoses ต่อไปนี้ให้ถูกต้อง:\n1) Chlamydiosis (psittacosis) เกิดจากเชื้อ ___ \n2) Avian TB เกิดจาก Mycobacterium ___\n3) Q Fever เกิดจาก ___ burnetii',
-    blanks: ['Chlamydia psittaci', 'avium', 'Coxiella'],
+    blanks: ['Chlamydia psittaci', 'avium', 'Coxiella'], accept: { 0: ['C. psittaci', 'C.psittaci', 'C psittaci'] },
     explain: 'Chlamydiosis = Chlamydia psittaci (Gram-neg obligate intracellular), Avian TB = Mycobacterium avium, Q Fever = Coxiella burnetii (zoonotic from poultry/livestock)' },
 
   { id: 2201, subject: 'poultry', topic: 'avian-drugs', year: 4,
@@ -71,7 +71,7 @@ export const QB_SHORT = [
     confidence: 'EXTRACTED',
     tags: ['rumenotomy', 'indication', 'fill'], type: 'fill',
     q: 'Indications หลักของ rumenotomy ในวัวมี 6 ข้อ จงเติม 4 ข้อแรก:\n1) Hardware disease / ___ disease\n2) Frothy ___\n3) Persistent ___ impaction\n4) Some forms of ___',
-    blanks: ['Traumatic Reticuloperitonitis', 'bloat', 'rumen', 'choke'],
+    blanks: ['Traumatic Reticuloperitonitis', 'bloat', 'rumen', 'choke'], accept: { 0: ['TRP'] },
     explain: 'Rumenotomy indications:\n1. Hardware disease / Traumatic Reticuloperitonitis (TRP)\n2. Frothy bloat (ระบาย gas + foam)\n3. Persistent rumen impaction\n4. Some forms of choke (FB stuck)\n5. Other foreign bodies in reticulum\n6. Exploration of rumen, reticulum, parts of omasum' },
 
   { id: 2211, subject: 'practrum', topic: 'bovine-anesthesia', year: 4,
@@ -80,7 +80,7 @@ export const QB_SHORT = [
     confidence: 'EXTRACTED',
     tags: ['epidural', 'sacrococcygeal', 'fill'], type: 'fill',
     q: 'Caudal epidural block ในวัว: ฉีด lidocaine 2% ที่ ___-___ space (between vertebrae), dose ___ ml/100 kg, max ___ ml',
-    blanks: ['S5', 'C1', '1', '6'],
+    blanks: ['S5', 'C1', '1', '6'], accept: { 1: ['Co1'] },
     explain: 'Caudal epidural block:\n• Site: **Sacrococcygeal (S5-Co1) space** หรือ first intercoccygeal (Co1-Co2)\n• Anesthetic: 2% Lidocaine\n• Dose: **1 ml/100 kg**\n• Maximum: **6 ml**\n• Technique: loss of resistance + hanging drop\n• Indication: perineal sx, c-section, dystocia' },
 
   // ═══════════════════════════════════════════════════════════
@@ -115,7 +115,7 @@ export const QB_SHORT = [
     confidence: 'EXTRACTED',
     tags: ['contraception', 'progestin', 'fill'], type: 'fill',
     q: 'Synthetic progestins ใช้ใน contraception ของแมวเพศเมีย: \n1) ตัวอย่างยา ___ acetate (MPA)\n2) ผลข้างเคียงสำคัญที่พบบ่อย = ___ endometrial hyperplasia\n3) ทำให้แมวเสี่ยง mammary ___ เพิ่มขึ้น',
-    blanks: ['Medroxyprogesterone', 'Cystic', 'tumor'],
+    blanks: ['Medroxyprogesterone', 'Cystic', 'tumor'], accept: { 2: ['tumour'] },
     explain: 'Progestin contraceptives:\n• **Medroxyprogesterone acetate (MPA)**, Megestrol acetate, Altrenogest\n• Mechanism: negative feedback → ↓LH/FSH → no ovulation\n\n⚠️ Side effects:\n1. **Cystic Endometrial Hyperplasia (CEH)** → pyometra risk\n2. **Mammary tumor** (cats: very strong link, MPA = carcinogen)\n3. Diabetes mellitus (insulin resistance)\n4. Adrenal suppression\n5. Pyometra\n\n💡 Modern alternative: surgical neutering (OHE/OE) preferred over long-term progestin' },
 
   { id: 2231, subject: 'repro-lect', topic: 'infertility', year: 4,

@@ -76,6 +76,7 @@ function why(explain) {
 function keyText(q) {
   if (q.type === 'mcq' && Array.isArray(q.options) && Number.isInteger(q.answer)) return `${LETTERS[q.answer]}. ${q.options[q.answer]}`;
   if (q.type === 'tf') return q.answer === true || q.answer === 0 ? 'ถูก' : 'ผิด';
+  if (q.type === 'tfc') return q.answer === true ? 'ถูก' : `ผิด: ${q.fix?.right ?? ''}`;
   return null;
 }
 

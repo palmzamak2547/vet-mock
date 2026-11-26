@@ -52,10 +52,13 @@ test('the card shows the 26 without the drag clause, and the voice and the answe
   // A long stem is cut into its body and its ask from that same text (5.236.0); every other stem draws it whole.
   assert.match(card, /splitStem\(stemShown\)/);
   assert.match(card, /<TermLinkedRichText text=\{stemShown\}/);
-  for (const [file, name] of [['src/views/ReviewView.jsx', 'q'], ['src/views/SRSessionView.jsx', 'currentQ']]) {
+  // The spaced-review card numbers a fill-in stem's gaps, on top of the displayed stem.
+  for (const [file, call] of [['src/views/ReviewView.jsx', 'displayStem(q)'], ['src/views/SRSessionView.jsx', 'frontStem(currentQ)']]) {
     const src = readFileSync(new URL(`../../${file}`, import.meta.url), 'utf8');
-    assert.ok(src.includes(`<StemText text={displayStem(${name})}`), `${file} draws the displayed stem`);
+    assert.ok(src.includes(`<StemText text={${call}}`), `${file} draws the displayed stem`);
   }
+  const srs = readFileSync(new URL('../../src/views/SRSessionView.jsx', import.meta.url), 'utf8');
+  assert.match(srs, /const frontStem = \(q\) => \([^;]*fillStemNumbered\(displayStem\(q\)[^;]*: displayStem\(q\)\);/, 'frontStem is the displayed stem, numbered or as it is');
   assert.doesNotMatch(readFileSync(new URL('../../src/lib/rich-blocks.js', import.meta.url), 'utf8'), /displayStem/, 'wholeStem must not read the display');
 });
 

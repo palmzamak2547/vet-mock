@@ -25,6 +25,7 @@ export default function WeakSpots({ wrongQs, answers }) {
 
   // Two misses is the floor for a pattern — with one there is nothing to
   // compare it against, and the server refuses those anyway.
+  // tfc is left out with the other typed kinds: the server reads a picked option, not a written correction.
   const gradeable = (wrongQs || []).filter((q) => q.type === 'mcq' || q.type === 'tf');
   if (gradeable.length < 2) return null;
   // The server reads the first 25 and no more, so a 79-miss session was being

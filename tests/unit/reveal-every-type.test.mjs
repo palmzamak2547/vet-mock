@@ -47,6 +47,7 @@ const ANSWER = {
   mcq: (q) => q.answer,
   tf: (q) => q.answer,
   fill: (q) => q.blanks.map(String),
+  tfc: (q) => (q.answer === true ? ['T'] : ['F', String(q.fix?.right ?? 'คำตอบ')]),
   match: (q) => Object.fromEntries(q.pairs.map((p, i) => [i, p.right])),
   short: (q) => String(q.model_answer || 'คำตอบ'),
   essay: (q) => String(q.model_answer || 'คำตอบ'),
@@ -77,6 +78,13 @@ before(async () => {
     const list = samples.get(t) || [];
     if (list.length < 2) list.push(q); else list[1] = q;
     samples.set(t, list);
+  }
+  // The bank holds no tfc item yet: a true and a false fixture stand in until it does.
+  if (!samples.has('tfc')) {
+    samples.set('tfc', [
+      { id: 990001, subject: 't', type: 'tfc', q: 'ข้อความที่ถูก', answer: true, explain: 'เหตุผล' },
+      { id: 990002, subject: 't', type: 'tfc', q: 'ข้อความที่ผิด 150', answer: false, explain: 'เหตุผล', fix: { wrong: '150', right: '250', sentence: 'ข้อความที่ผิด 250' } },
+    ]);
   }
 });
 after(() => {

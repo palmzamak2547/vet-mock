@@ -53,6 +53,9 @@
   .vmx-paper-opts li::before, .vmx-paper-match li::before { content: attr(data-letter) "."; position: absolute; left: 0; }
   .vmx-paper-match { display: grid; grid-template-columns: 1fr 1fr; column-gap: 8mm; }
 
+  .vmx-paper-tfc p { margin: 1mm 0 0; }
+  .vmx-paper-fix { display: flex; align-items: flex-end; gap: 2mm; }
+  .vmx-paper-fix span { flex: 1; height: 7mm; border-bottom: 0.3pt solid #999; }
   .vmx-paper-lines { margin-top: 1mm; }
   .vmx-paper-lines span { display: block; height: 9mm; border-bottom: 0.3pt solid #999; }
 
