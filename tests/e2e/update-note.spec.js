@@ -7,20 +7,33 @@ const SEEN_KEY = 'vmx-seen-changelog';
 // Only news raises the chip (5.226): a release with a feature or content change.
 const news = (v) => isNews(CHANGELOG.find((item) => item.version === v));
 
-// WebKit on Linux, the CI image, now and then fails a navigation with "WebKit encountered an internal
-// error" before the new page commits: this spec's goto at 8577b7f0 and its reload at ab324f0f (O-341),
-// each time with the page it was leaving still on screen, whole. A second try is what a student's own
-// reload would do; the annotation keeps each sighting, and a navigation the app itself breaks fails the
-// second try. Any other failure, or any other engine's, stands.
-async function navigate(go) {
+// WebKit on Linux, the CI image, now and then breaks a navigation in this spec (O-341). At 8577b7f0 and
+// ab324f0f a goto and a reload threw "WebKit encountered an internal error" with the page being left still
+// on screen, whole; at 17eeb887 a goto to Home took 1.8 s instead of 0.2 and the page stayed blank. There,
+// and in those two cases only, the navigation is tried once more in the same attempt, as a student's own
+// reload would; the annotation keeps each sighting, and a navigation the app itself breaks fails the second
+// try. Any other failure, or any other engine's, stands. navigate(page, url) goes to url; navigate(page)
+// reloads.
+async function navigate(page, url) {
+  const go = () => (url ? page.goto(url) : page.reload());
+  const webkitOnLinux = test.info().project.name.startsWith('webkit') && process.platform === 'linux';
+  const again = (why) => {
+    test.info().annotations.push({ type: 'webkit-navigation-retried', description: why.slice(0, 160) });
+    return go();
+  };
   try {
     await go();
   } catch (error) {
-    const webkitOnLinux = test.info().project.name.startsWith('webkit') && process.platform === 'linux';
     if (!webkitOnLinux || !/internal error/i.test(String(error))) throw error;
-    test.info().annotations.push({ type: 'webkit-navigation-retried', description: String(error).slice(0, 120) });
-    await go();
+    return again(String(error));
   }
+  if (!webkitOnLinux) return;
+  // The app draws into #root within a few hundred ms of load; still blank 5 s later, it did not start.
+  // main.jsx sets __vmxMoveDue as it runs, so the annotation says whether the entry module ran at all.
+  const drawn = await page.locator('#root > *').first().waitFor({ state: 'attached', timeout: 5000 }).then(() => true, () => false);
+  if (drawn) return;
+  const state = await page.evaluate(() => `${document.readyState}, entry ${'__vmxMoveDue' in window ? 'ran' : 'never ran'}`).catch(() => 'unreadable');
+  return again(`#root blank 5 s after load (${state})`);
 }
 
 // Home announces every release this device has not seen, and a first visit has
@@ -31,7 +44,7 @@ async function navigate(go) {
 // can predate the newest generated entry, and a stale dist must not turn a
 // green release-note flow red), and looks each one up in the source changelog.
 async function announce(page, pick = (versions) => versions.find(news)) {
-  await navigate(() => page.goto('/'));
+  await navigate(page, '/');
   const stripLink = page.locator('.vmx-link-btn')
     .filter({ hasText: /อัปเดตล่าสุด|มีอะไรใหม่/ });
   await expect(stripLink).toBeVisible();
@@ -45,7 +58,7 @@ async function announce(page, pick = (versions) => versions.find(news)) {
   await page.evaluate(([key, v]) => {
     localStorage.setItem(key, JSON.stringify(JSON.parse(localStorage.getItem(key)).filter((x) => x !== v)));
   }, [SEEN_KEY, version]);
-  await navigate(() => page.reload());
+  await navigate(page);
   await expect(stripLink).toHaveText('มีอะไรใหม่');
   const entry = CHANGELOG.find((item) => item.version === version);
   expect(entry, `the build carries release ${version}, which has a changelog entry`).toBeTruthy();
@@ -78,19 +91,19 @@ test('the update chip names what changed instead of saying the system updated', 
 test('the chip appears on one Home visit a day, and the next day again while the news is unread', async ({ page }) => {
   const { stripLink, entry } = await announce(page);
   await expect(page.getByTitle(entry.headline)).toBeVisible();
-  await navigate(() => page.reload());
+  await navigate(page);
   await expect(stripLink).toHaveText('มีอะไรใหม่');
   await expect(page.getByTitle(entry.headline)).toHaveCount(0);
   // Yesterday's mark: today is a new day for the chip.
   await page.evaluate((key) => localStorage.setItem(key, JSON.stringify('2000-01-01')), CHIP_DAY_KEY);
-  await navigate(() => page.reload());
+  await navigate(page);
   await expect(page.getByTitle(entry.headline)).toBeVisible();
 });
 
 test('a release of fixes only raises no chip, and the foot link still opens its note', async ({ page }) => {
   const fixOnly = CHANGELOG.find((r) => Array.isArray(r.changes) && r.changes.length && !isNews(r));
   test.skip(!fixOnly, 'no fix-only release in this build');
-  await navigate(() => page.goto('/'));
+  await navigate(page, '/');
   const stripLink = page.locator('.vmx-link-btn').filter({ hasText: /อัปเดตล่าสุด|มีอะไรใหม่/ });
   await expect(stripLink).toBeVisible();
   await expect.poll(() => page.evaluate((key) => localStorage.getItem(key), SEEN_KEY)).not.toBeNull();
@@ -100,7 +113,7 @@ test('a release of fixes only raises no chip, and the foot link still opens its 
   await page.evaluate(([key, v]) => {
     localStorage.setItem(key, JSON.stringify(JSON.parse(localStorage.getItem(key)).filter((x) => x !== v)));
   }, [SEEN_KEY, fix]);
-  await navigate(() => page.reload());
+  await navigate(page);
   await expect(stripLink).toHaveText('มีอะไรใหม่');
   await expect(page.getByTitle(CHANGELOG.find((r) => r.version === fix).headline)).toHaveCount(0);
 });
@@ -212,10 +225,10 @@ test.describe('own clock', () => {
     // Seen the moment it opened, before any ✕.
     await expect.poll(() => page.evaluate((key) => JSON.parse(localStorage.getItem(key)), SEEN_KEY)).toContain(entry.version);
     // Leave the way a phone does: no ✕, just away and back.
-    await navigate(() => page.goto('/app/study'));
+    await navigate(page, '/app/study');
     for (const days of [1, 7]) {
       await page.clock.setSystemTime(new Date(start + days * 864e5));
-      await navigate(() => page.goto('/'));
+      await navigate(page, '/');
       await expect(stripLink).toBeVisible();
       await expect(stripLink, `${days} day(s) later`).toHaveText('อัปเดตล่าสุด');
       await expect(page.getByTitle(entry.headline), `the chip came back ${days} day(s) later`).toHaveCount(0);
