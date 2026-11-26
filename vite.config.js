@@ -105,13 +105,14 @@ export default defineConfig({
           // each first load fetched the 40 KB summaries index (14 KB gzip)
           // for one small function. vendor-react loads on first paint anyway.
           if (id.includes('vite/preload-helper')) return 'vendor-react'
-          // search-key is a 400-byte leaf shared by eight lazy screens, Home's
-          // library counts among them. Unclaimed, Rollup gave it a chunk of its
-          // own: one more request on Home's first visit (perf-budget.spec.js).
-          if (id.includes('src/lib/search-key')) return 'vendor-react'
-          // fill-stem is a 1.4 KB leaf (gzip) shared by five lazy screens, and Home's
-          // first visit loads one of them. Unclaimed, it too was one more request there.
-          if (id.includes('src/lib/fill-stem')) return 'vendor-react'
+          // Dependency-free text helpers share one chunk: public-display (the header's
+          // user menu, so the chunk comes with the app's first load), thai-text (Home),
+          // search-key (Home's library and seven more screens) and fill-stem (the exam
+          // and review views Home prefetches). Left to Rollup, the last three each took
+          // a request on Home's first visit (perf-budget.spec.js). search-key and
+          // fill-stem then sat in vendor-react, which put them on the Atlas's first
+          // load too, though it uses neither (perf-budget.mjs, atlas).
+          if (/src\/lib\/(public-display|thai-text|search-key|fill-stem)\.js/.test(id)) return 'text-helpers'
           if (id.includes('node_modules')) {
             if (/[\\/]node_modules[\\/]three[\\/]/.test(id)) return 'vendor-atlas'
             if (/[\\/]node_modules[\\/]lucide-react[\\/]/.test(id)) return 'vendor-icons'
