@@ -14,6 +14,7 @@ import { compileDictionary, translateString } from '../../src/lib/ui-translate.j
 import UI_EN from '../../src/data/ui-en.js';
 import * as SCHEDULE from '../../src/data/schedule.js';
 import { TERM_LABEL } from '../../src/lib/exam-countdown.js';
+import { EXAM_SCOPE_LABEL } from '../../src/lib/exam-scope.js';
 
 const dict = compileDictionary({
   'ฝึกข้อสอบ': 'Practice',
@@ -223,6 +224,17 @@ test("Home's streak row reads for any number and stays short", () => {
   const real = compileDictionary(UI_EN);
   assert.equal(translateString(' วันต่อเนื่อง', real), ' day streak');
   assert.equal(translateString(', วันนี้ 12 ข้อ', real), ', 12 done today');
+});
+
+// The review queue's line (SRSessionView) holds a bracketed list inside a list. With a card due, read as a list
+// alone, the bracket was cut at its comma and "ค้างทบทวน 1" stayed Thai: the walk on CI, which runs in UTC, had one.
+test("the review queue's line reads whole with a card due", () => {
+  const real = compileDictionary(UI_EN);
+  const line = (n, split, rest) => `${n} ใบ (${split}), ${rest.join(', ')}`;
+  assert.equal(translateString(line(25, 'ค้างทบทวน 1, ใหม่ 3,155', ['ปี 5', 'ทุกวิชา', EXAM_SCOPE_LABEL.midterm]), real),
+    '25 cards (Due 1, New 3,155), Year 5, All subjects, Midterm');
+  assert.equal(translateString(line(1, 'ค้างทบทวน 1', ['ทุกปี', 'ทุกวิชา', 'ทุกช่วงสอบ']), real),
+    '1 card (Due 1), All years, All subjects, All exam periods');
 });
 
 test('every interface string the schedule takes from its data reads in English', () => {

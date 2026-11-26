@@ -11,6 +11,7 @@ import { test, expect, PINNED_NOW } from './fixtures.js';
 import { ROUTES, seedStudent, studiedQuestions, visit, readScreen } from './lib/routes.js';
 import { encodeQuizSet } from '../../src/lib/share-link.js';
 import { QB_EXOTIC } from '../../src/data/questions-exotic.js';
+import { QUESTIONS_MID86_EQUINE_MEDICINE } from '../../src/data/questions-mid86-equine-medicine.js';
 
 // Runs in the page before it loads: Thai a canvas draws (a game's prompt), which no text walk sees.
 function recordCanvasThai() {
@@ -199,6 +200,29 @@ test('a question in the English interface reads exactly as the bank wrote it', a
   // The card shuffles the choices.
   expect((await choices.allInnerTexts()).map(norm).sort()).toEqual([...q.options].sort());
   expect(norm(await page.locator('body').innerText())).toContain(norm(q.q));
+  await expect.poll(() => page.evaluate(thaiLeftovers)).toEqual([]);
+});
+
+// A matching question's answers are content too: the dropdown lists them as written, and a row that
+// shows its key shows it as written. Equine 202394's first answer, กระเพาะอาหาร, is also a dictionary word.
+test('a matching question in the English interface lists its answers as the bank wrote them', async ({ page, context }, info) => {
+  test.skip(info.project.name !== 'chromium-mobile', 'one engine reads the card');
+  test.setTimeout(90_000);
+  await page.setViewportSize(PHONE);
+  await context.addInitScript(() => { try { localStorage.setItem('vmx-lang', JSON.stringify('en')); } catch { /* the visit says so */ } });
+  const q = QUESTIONS_MID86_EQUINE_MEDICINE.find((x) => x.id === 202394);
+  await page.goto(`/?qset=${encodeQuizSet([q])}`);
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+  const rows = page.locator('.vmx-match-native-select');
+  // The dropdown's own words read English once the page has been read.
+  await expect(rows.first().locator('option[value=""]')).toHaveText('— Choose an answer —', { timeout: LOADING_BUDGET_MS });
+  const listed = (await rows.first().locator('option:not([value=""])').allTextContents()).map((s) => s.trim()).sort();
+  expect(listed).toEqual([...q.pairs.map((p) => p.right), ...q.distractors].sort());
+  await expect(rows.first()).toHaveAttribute('aria-label', `Match item 1: ${q.pairs[0].left}`);
+  // A wrong pick shows the row's key; the next row marks the answer taken, in English.
+  await rows.first().selectOption(q.pairs[1].right);
+  await expect(page.locator('.vmx-match-answer-text').first()).toHaveText(q.pairs[0].right);
+  await expect(rows.nth(1).locator('option:disabled')).toHaveText(`[Used] ${q.pairs[1].right}`);
   await expect.poll(() => page.evaluate(thaiLeftovers)).toEqual([]);
 });
 

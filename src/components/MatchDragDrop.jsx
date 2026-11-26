@@ -1,5 +1,6 @@
 import { useMemo, useCallback, useRef, useEffect, useState } from 'react';
 import { RichText } from '../lib/richtext.jsx';
+import { uiText, useShownLang } from '../lib/ui-lang.js';
 import { useRevealTiming, RevealTimingToggle, REVEAL_ROW, explainParagraphFor } from './AnswerReveal.jsx';
 
 const SESSION_SEED = (() => {
@@ -54,6 +55,10 @@ const lockKey = (q) => `${q?.subject || '?'}:${q?.id}`;
 const BROWSE_KEYS = new Set(['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Home', 'End', 'PageUp', 'PageDown']);
 
 export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, revealAnswer, caution = null }) {
+  // An <option> holds text only, so a dropdown's answers (content, as written) and its own words
+  // share one element the translator cannot split: it skips the dropdown, which reads its own words
+  // through uiText and is drawn again on a switch.
+  useShownLang();
   // A printed matching set: `bank` is the answer list in printed order (A, B,
   // C ...) and the items reuse those letters — seven viruses across eighteen
   // statements. So the pool is the bank itself, unshuffled, and a letter is
@@ -279,15 +284,16 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
                     if (browsing.current === i) browsing.current = null;
                     if (val) lockRow(i);
                   }}
-                  aria-label={`จับคู่ข้อ ${i + 1}: ${strip(pair.left)}`}
+                  translate="no"
+                  aria-label={`${uiText(`จับคู่ข้อ ${i + 1}`)}: ${strip(pair.left)}`}
                 >
-                  <option value="">— เลือกคำตอบ —</option>
+                  <option value="">{uiText('— เลือกคำตอบ —')}</option>
                   {rightPool.map((r, j) => {
                     const isUsedElsewhere = !bank && usedRights.has(r) && r !== val;
                     const label = bank ? `${letterOf(r)}. ${strip(r)}` : strip(r);
                     return (
-                      <option key={j} value={r} disabled={isUsedElsewhere}>
-                        {isUsedElsewhere ? `[ใช้แล้ว] ${label}` : label}
+                      <option key={j} value={r} disabled={isUsedElsewhere} lang="th">
+                        {isUsedElsewhere ? `${uiText('[ใช้แล้ว]')} ${label}` : label}
                       </option>
                     );
                   })}
@@ -309,7 +315,7 @@ export default function MatchDragDrop({ currentQ, currentAnswer, answerCurrent, 
                 {revealed && !isCorrect && (
                   <div className="vmx-match-answer">
                     <span className="vmx-match-answer-label">เฉลย</span>
-                    <span className="vmx-match-answer-text">{bank ? `${letterOf(pair.right)}. ` : ''}{strip(pair.right)}</span>
+                    <span className="vmx-match-answer-text" lang="th">{bank ? `${letterOf(pair.right)}. ` : ''}{strip(pair.right)}</span>
                     {why && (
                       <details className="vmx-match-why">
                         <summary>เหตุผล</summary>
