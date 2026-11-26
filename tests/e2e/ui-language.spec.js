@@ -56,6 +56,76 @@ function thaiLeftovers() {
   return [...found];
 }
 
+// Runs in the page: English words drawn run together, or a capital in the middle of a two-tone heading.
+// Thai writes words without spaces, so a heading read part by part came out "Tablefor classes and
+// exams", and "เลือก <em>หัวข้อ</em>" came out "Choose Topic".
+function wordsOutOfPlace() {
+  const root = document.documentElement;
+  const keeps = (el) => {
+    const marked = el.closest('[lang]');
+    return (marked && marked !== root) || el.closest('[translate="no"],[contenteditable=""],[contenteditable="true"],script,style,noscript,template');
+  };
+  const edgeText = (node, last) => {
+    if (node.nodeType === 3) return node;
+    if (node.nodeType !== 1) return null;
+    const walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT);
+    let found = null;
+    for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+      if (!n.nodeValue.trim()) continue;
+      found = n;
+      if (!last) break;
+    }
+    return found;
+  };
+  const glyph = (node, at) => {
+    const range = document.createRange();
+    range.setStart(node, at);
+    range.setEnd(node, at + 1);
+    return range.getBoundingClientRect();
+  };
+  const found = new Set();
+  for (const el of document.body.querySelectorAll('*')) {
+    if (keeps(el)) continue;
+    const kids = el.childNodes;
+    for (let i = 0; i + 1 < kids.length; i++) {
+      const left = edgeText(kids[i], true);
+      const right = edgeText(kids[i + 1], false);
+      if (!left || !right || !/[A-Za-z]$/.test(left.nodeValue) || !/^[A-Za-z]/.test(right.nodeValue)) continue;
+      if (keeps(left.parentElement) || keeps(right.parentElement)) continue;
+      const a = glyph(left, left.nodeValue.length - 1);
+      const b = glyph(right, 0);
+      // Drawn apart (another line, a chip's padding, a gap) is not run together.
+      if (!a.width || !b.width || Math.abs(a.top - b.top) > a.height / 2 || b.left - a.right > 2) continue;
+      const word = left.nodeValue.match(/[A-Za-z]+$/)[0] + right.nodeValue.match(/^[A-Za-z]+/)[0];
+      if (!/^(VetMock|VetWiki)$/.test(word)) found.add(`run together: ${left.nodeValue.trim().slice(-30)}|${right.nodeValue.trim().slice(0, 30)}`);
+    }
+  }
+  // A name keeps its capital anywhere; an accent that ends a word ("Vet<em>Wiki</em>") is read with it.
+  const NAME = /^(VetMock|VetWiki|Instagram|Q bank|PDF|VCA|Mochi|XP|Term \d|Year \d)\b/;
+  for (const em of document.querySelectorAll('h1 em, h2 em, h3 em')) {
+    const heading = em.parentElement;
+    if (keeps(heading)) continue;
+    const nodes = [...heading.childNodes];
+    const before = nodes.slice(0, nodes.indexOf(em)).map((n) => n.textContent).join('');
+    const after = nodes.slice(nodes.indexOf(em) + 1).map((n) => n.textContent).join('').trim();
+    const own = before.match(/\S*$/)[0] + em.textContent.trim();
+    if ((before.trim() && /^[A-Z]/.test(em.textContent.trim()) && !NAME.test(own)) || (/^[A-Z]/.test(after) && !NAME.test(after))) {
+      found.add(`capital mid-heading: ${heading.textContent.replace(/\s+/g, ' ').trim()}`);
+    }
+  }
+  // A capture written into an English word joins two words in one string ("Exam{a}" read "ExamMidterm
+  // ended 21 Sep"): a capital right after a small letter, which only a name has.
+  const JOINED = /^(VetMock|VetWiki|PubMed|YouTube|iPhone|iPad|iOS|macOS|GitHub|pH|iApp|DekDokVet|WebP)$/;
+  const texts = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  for (let n = texts.nextNode(); n; n = texts.nextNode()) {
+    if (!n.parentElement || keeps(n.parentElement)) continue;
+    for (const [word] of n.nodeValue.matchAll(/[A-Za-z]*[a-z][A-Z][A-Za-z]*/g)) {
+      if (!JOINED.test(word)) found.add(`glued: ${word}`);
+    }
+  }
+  return [...found];
+}
+
 async function settle(page) {
   // Drawn first: before React's first frame there is no #main, so nothing is loading and there is no
   // Thai to find. Read then, a route passed with an empty page (26 Nov: 2 of 8 reads of the review queue).
@@ -104,10 +174,12 @@ for (const [view, path] of ROUTES) {
       ...await page.evaluate(() => [...(window.__vmxCanvasThai || [])].map((t) => `@canvas ${t}`)),
     ];
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
-    report({ path, view, lang, overflow, left });
+    const words = await page.evaluate(wordsOutOfPlace);
+    report({ path, view, lang, overflow, left, words });
     expect(lang, `${path}: <html lang>`).toBe('en');
     expect(overflow, `${path}: the English page scrolls sideways`).toBeLessThanOrEqual(1);
     expect(left, `${path}: Thai left in the English interface`).toEqual([]);
+    expect(words, `${path}: English words out of place`).toEqual([]);
   });
 }
 
@@ -178,6 +250,64 @@ test('the what\'s-new note in English keeps the release notes as written', async
   await page.getByRole('button', { name: /^(What’s new|Latest update)$/ }).click();
   await expect(page.locator('.vmx-changelog-title').first()).toBeVisible();
   await expect.poll(() => page.evaluate(thaiLeftovers)).toEqual([]);
+});
+
+// A two-tone heading is one sentence in English, its accent on the words the English marks, and Thai
+// comes back part by part.
+test('a two-tone heading reads as one sentence and keeps its accent', async ({ page, context }, info) => {
+  test.skip(info.project.name !== 'chromium-mobile', 'one engine reads the heading');
+  test.setTimeout(90_000);
+  await context.addInitScript(seedStudent, { now: Date.parse(PINNED_NOW), studied: await studiedQuestions() });
+  await context.addInitScript(() => { try { localStorage.setItem('vmx-lang', JSON.stringify('en')); } catch { /* the visit says so */ } });
+  await visit(page, '/app/schedule');
+  await settle(page);
+  const heading = page.locator('h1').filter({ has: page.locator('em') }).first();
+  await expect(heading).toHaveText('Class and exam schedule');
+  await expect(heading.locator('em')).toHaveText('schedule');
+  await page.locator('button.vmx-theme-btn[aria-expanded]').first().click();
+  await page.getByRole('button', { name: 'ไทย', exact: true }).click();
+  await expect(heading).toHaveText('ตารางเรียนและสอบ');
+  await expect(heading.locator('em')).toHaveText('เรียนและสอบ');
+});
+
+// A label cut to "Exam mo…" reads as broken. The bottom bar, the exam-period pill, Home's tiles and its streak
+// row show their English whole at 375 px, the narrowest phone the sheets are drawn at.
+test('the bottom bar, the exam-period pill, Home\'s tiles and streak row show their English whole', async ({ page, context }, info) => {
+  test.skip(info.project.name !== 'chromium-mobile', 'one engine measures the labels');
+  test.setTimeout(90_000);
+  await page.setViewportSize({ width: 375, height: 812 });
+  await context.addInitScript(seedStudent, { now: Date.parse(PINNED_NOW), studied: await studiedQuestions() });
+  await context.addInitScript(() => { try { localStorage.setItem('vmx-lang', JSON.stringify('en')); } catch { /* the visit says so */ } });
+  // A clamped label loses whole lines. A one-line label ends in an ellipsis however little it overflows
+  // ("Exam mode" lacked a pixel), so a copy drawn at its own width is measured against the room it has.
+  // The heatmap's day labels must end before its first column of cells, which is drawn over them.
+  const clipped = () => [
+    ...[...document.querySelectorAll('.vmx-bottom-nav-label, .vmx-context-pill, .vmx-context-label, .vmx-quick-tile-label, .vmx-streak-mini-text')]
+      .filter((el) => {
+        if (!el.getClientRects().length) return false;
+        if (getComputedStyle(el).webkitLineClamp !== 'none') return el.scrollHeight > el.clientHeight + 1;
+        const copy = el.cloneNode(true);
+        copy.style.cssText = 'position: absolute; visibility: hidden; width: max-content; max-width: none';
+        el.after(copy);
+        const need = copy.getBoundingClientRect().width;
+        copy.remove();
+        return need > el.getBoundingClientRect().width + 0.5;
+      }),
+    ...[...document.querySelectorAll('.vmx-heatmap-wrapper svg')].flatMap((svg) => {
+      const grid = Math.min(...[...svg.querySelectorAll('rect')].map((cell) => cell.getBoundingClientRect().left));
+      return [...svg.querySelectorAll('text')].filter((label) => {
+        const box = label.getBoundingClientRect();
+        return box.left < grid && box.right > grid + 0.5;
+      });
+    }),
+  ].map((el) => el.textContent.trim());
+  const cut = [];
+  for (const path of ['/app/home', '/app/study', '/app/progress']) {
+    await visit(page, path);
+    await settle(page);
+    cut.push(...(await page.evaluate(clipped)).map((label) => `${path}: ${label}`));
+  }
+  expect(cut, 'labels cut short').toEqual([]);
 });
 
 // The recap card is a canvas the page's translator cannot reach: a switch draws it again, in English.

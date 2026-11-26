@@ -20,7 +20,7 @@ const GAP = 3;              // gap between cells
 const ROWS = 7;             // days per week (Sun=0..Sat=6)
 const WEEKS = 53;
 const PAD_TOP = 18;         // space for month labels
-const PAD_LEFT = 22;        // space for day labels
+const PAD_LEFT = 30;        // space for day labels: "Mon" in English needs 28 px
 
 // Bucket → CSS color. 5 levels using warm gold/amber gradient
 // matching the app's streak theme (fire/gold palette).

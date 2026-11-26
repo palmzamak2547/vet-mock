@@ -29,7 +29,7 @@ const LISTS = [' — ', ', '];
 const EMOJI_LEAD = /^\p{Extended_Pictographic}[\p{Extended_Pictographic}️‍]*\s+/u;
 
 /** @typedef {string | { one: string, other: string }} Entry */
-/** @typedef {{ re: RegExp, names: string[], literal: string, size: number, en: Entry }} Pattern */
+/** @typedef {{ re: RegExp, names: string[], parts: string[], empty: boolean[], literal: string, size: number, en: Entry, count: string | undefined }} Pattern */
 /** @typedef {{ exact: Map<string, Entry>, byPrefix: Map<string, Pattern[]>, loose: Pattern[], reach: number, memo: Map<string, string | null> }} Dictionary */
 
 const collapse = (/** @type {string} */ s) => s.trim().replace(/\s+/g, ' ');
@@ -54,7 +54,7 @@ export function compileDictionary(raw) {
     // first capture takes both and the second stays empty, so a Thai word is never cut in half.
     const groups = parts.slice(1).map((_, i) => (i > 0 && parts[i] === '' ? '()' : '(.+?)'));
     const re = new RegExp('^' + escape(parts[0]) + groups.map((g, i) => g + escape(parts[i + 1])).join('') + '$');
-    const pattern = { re, names, literal: parts.find((p) => THAI.test(p)) || parts.join(''), size: parts.join('').length, en };
+    const pattern = { re, names, parts, empty: groups.map((g) => g === '()'), literal: parts.find((p) => THAI.test(p)) || parts.join(''), size: parts.join('').length, en, count: countName(en) };
     // A pattern that opens with words is found by its first two characters; one that opens with a
     // wildcard is tried on every string that holds its first Thai words.
     if (parts[0].length >= 2) {
@@ -114,6 +114,33 @@ function runs(pieces, sep, dict) {
   return out;
 }
 
+/**
+ * The ways a pattern's words fit a string, each capture as short as it can be first: the order the
+ * regex tries them, so the first fit is its own match. "ต่อไป {c} {d}" first cuts "สุขศาสตร์น้ำนม +
+ * เนื้อ จันทร์ 08:30" at the name's first space; a later fit keeps the name whole.
+ * @param {string} core @param {Pattern} p @param {number} [i] @param {number} [pos] @param {string[]} [caps]
+ * @returns {Generator<string[]>}
+ */
+function* fits(core, p, i = 0, pos = p.parts[0].length, caps = []) {
+  if (i === p.names.length) { if (pos === core.length) yield caps; return; }
+  const after = p.parts[i + 1];
+  const stop = core.length - after.length;
+  if (p.empty[i]) { if (core.startsWith(after, pos)) yield* fits(core, p, i + 1, pos + after.length, [...caps, '']); return; }
+  if (i === p.names.length - 1) { if (stop > pos && core.endsWith(after)) yield [...caps, core.slice(pos, stop)]; return; }
+  // indexOf('', k) answers k up to the string's length and the length past it: the bound is `from`.
+  for (let from = pos + 1; from <= stop;) {
+    const end = core.indexOf(after, from);
+    if (end === -1 || end > stop) return;
+    yield* fits(core, p, i + 1, end + after.length, [...caps, core.slice(pos, end)]);
+    from = end + 1;
+  }
+}
+// ponytail: a fixed number of further fits per line read. Of 1,702 real strings, the countdown's label with its
+// real TERM_LABEL among them, every one read whole spent at most 48; a string of unknown words spends all 64.
+// A cost model if one profiles slow.
+const SPARE_FITS = 64;
+let spareFits = 0;
+
 /** An entry as it stands, its numbers as {0}, {1}. @param {string} core @param {Dictionary} dict */
 function isEntry(core, dict) {
   if (!THAI.test(core)) return false;
@@ -142,29 +169,73 @@ function lookup(core, dict, depth, partialOk) {
   if (titled !== null) return titled;
   const candidates = [...(dict.byPrefix.get(core.slice(0, 2)) || []), ...dict.loose.filter((p) => core.includes(p.literal))];
   // A pattern whose Thai captures are all found wins. One that leaves a capture Thai (a name inside a
-  // sentence) is the last resort, after the list reading below.
-  /** @type {string | null} */
-  let partial = null;
+  // sentence) is the last resort, after the list reading below, and is read only then: read here, it
+  // spent the line's fits before the list was tried (the countdown's label, 86 fits, read half Thai).
+  /** @type {string[] | null} */
+  let first = null;
+  /** @type {Pattern[]} */
+  const matched = [];
   for (const pattern of candidates) {
     const m = pattern.re.exec(core);
     if (!m) continue;
-    let whole = true;
-    /** @type {Record<string, string>} */
-    const got = {};
-    pattern.names.forEach((name, i) => {
-      const part = m[i + 1];
-      const en = THAI.test(part) ? lookup(part, dict, depth + 1, false) : part;
-      if (en === null) whole = false;
-      got[name] = en ?? (partialOk ? lookup(part, dict, depth + 1, true) : null) ?? part;
-    });
-    const firstNumber = /** @type {RegExpMatchArray | null} */ (Object.values(got).join(' ').match(/\d[\d,]*/));
-    const out = fill(pattern.en, firstNumber ? [firstNumber[0]] : []).replace(WILD, (_, name) => got[name] ?? '');
-    if (whole) return out;
-    partial ??= out;
+    const reading = readFit(pattern, m.slice(1), dict, depth, false);
+    if (reading.whole) return reading.out;
+    first ??= m.slice(1);
+    matched.push(pattern);
   }
   const listed = joined(core, dict, depth, LISTS, false);
-  if (listed !== null || !partialOk) return listed;
-  return byPhrases(core, dict, depth) ?? partial ?? joined(core, dict, depth, LISTS, true);
+  if (listed !== null) return listed;
+  // A name with spaces in it, cut at its first one, left a capture Thai: the other fits of the same
+  // words are read, a few per string, before any reading that keeps Thai.
+  // A few for this string and its parts, never past the parts' own parts; a cap for the whole line.
+  let spare = depth > 1 ? 0 : 12;
+  for (const pattern of matched) {
+    let first = true;
+    for (const caps of fits(core, pattern)) {
+      if (first) { first = false; continue; }
+      if (spare <= 0 || spareFits <= 0) break;
+      spare -= 1;
+      spareFits -= 1;
+      const reading = readFit(pattern, caps, dict, depth, false);
+      if (reading.whole) return reading.out;
+    }
+  }
+  if (!partialOk) return null;
+  return byPhrases(core, dict, depth) ?? (first && readFit(matched[0], first, dict, depth, true).out) ?? joined(core, dict, depth, LISTS, true);
+}
+
+/** @param {Entry} en The value a plural is counted by: the last one written before "subject" turns "subjects". */
+function countName(en) {
+  if (typeof en === 'string') return undefined;
+  let same = 0;
+  while (same < en.one.length && en.one[same] === en.other[same]) same += 1;
+  return /\{([a-h])\}[^{]*$/.exec(en.one.slice(0, same))?.[1];
+}
+
+/**
+ * One fit of a pattern read: each capture looked up, the English filled in.
+ * @param {Pattern} pattern @param {string[]} caps @param {Dictionary} dict @param {number} depth @param {boolean} partialOk
+ */
+function readFit(pattern, caps, dict, depth, partialOk) {
+  let whole = true;
+  /** @type {Record<string, string>} */
+  const got = {};
+  pattern.names.forEach((name, i) => {
+    // A capture keeps the spaces it was written with ("วันนี้สอบ โรค…" captures " โรค…"); its words
+    // are looked up without them, as an entry is.
+    const [, lead, part, trail] = /** @type {RegExpExecArray} */ (/^(\s*)([\s\S]*?)(\s*)$/.exec(caps[i]));
+    const en = THAI.test(part) ? lookup(part, dict, depth + 1, false) : part;
+    if (en === null) whole = false;
+    got[name] = lead + (en ?? (partialOk ? lookup(part, dict, depth + 1, true) : null) ?? part) + trail;
+  });
+  // A plural counts the number written right before the word that changes: "รอบ 1 เหลืออีก 52 วัน" is
+  // 52 days, and a whole line read as "{a} วิชา เริ่มที่ …" with "อีก 1 วัน, …, 10" in {a} is 10 subjects.
+  const near = pattern.count && /(\d+(?:,\d{3})*(?:\.\d+)?)\D*$/.exec(got[pattern.count])?.[1];
+  const values = pattern.names.map((name) => got[name]);
+  const count = near ?? values.map((v) => v.trim()).find((v) => /^\d[\d,]*$/.test(v)) ?? values.join(' ').match(/\d[\d,]*/)?.[0];
+  // The spaces a capture kept stay inside the line; at its ends only the entry's own are kept (" (year {a})").
+  const filled = fill(pattern.en, count ? [count] : []);
+  return { out: edges(filled, filled.replace(WILD, (_, name) => got[name] ?? '').trim()), whole };
 }
 
 // Dates the app writes the Thai way ("ศุกร์ 21 พ.ย. 2569", "4 ธ.ค. 69", "26/11/2569", "ภาคการศึกษาต้น
@@ -220,6 +291,7 @@ export function translateString(text, dict) {
   if (!text || !THAI.test(text)) return null;
   const known = dict.memo.get(text);
   if (known !== undefined) return known;
+  spareFits = SPARE_FITS;
   const found = readString(text, dict);
   if (dict.memo.size >= MEMO_SIZE) dict.memo.clear();
   dict.memo.set(text, found);
@@ -297,7 +369,7 @@ function translateText(el, dict) {
   const originals = texts.map(originalOf);
   // No Thai left (React took away the node that held it): what this module wrote goes back.
   if (!originals.some((t) => THAI.test(t))) { texts.forEach((node, i) => put(node, originals[i])); return; }
-  if (!onlyText && readSentence(el, texts, originals, dict)) return;
+  if (!onlyText && readSentence(el, texts, originals, dict)) return true;
   const parts = () => originals.map((t) => translateString(t, dict) ?? t);
   // React writes "5" and " ข้อ" as two text nodes; read together they are one string to look up.
   // A whole reading that keeps some Thai loses to the parts read one by one when they come out whole.
@@ -312,19 +384,27 @@ function translateText(el, dict) {
     if (each) { texts.forEach((node, i) => put(node, each[i])); return; }
   }
   const each = parts();
-  texts.forEach((node, i) => put(node, each[i]));
+  texts.forEach((node, i) => put(node, spaced(node, originals[i], each[i])));
 }
+
+/** A heading's accent, "ตาราง<em>เรียนและสอบ</em>": one text node in an <em>. @param {Node} node */
+const isAccent = (node) => node.nodeType === 1 && /** @type {Element} */ (node).tagName === 'EM'
+  && !(/** @type {Element} */ (node)).hasAttribute('data-ui') && node.childNodes.length === 1 && node.firstChild?.nodeType === 3;
+const MARK = /\{(ui|em):([^}]*)\}/g;
 
 /**
  * A sentence that names controls (HowToText: "กด <ฝึกข้อสอบวิชานี้> ใต้วิชาในตารางสอบ…", each control
  * marked data-ui) is looked up whole, as "กด {ui:ฝึกข้อสอบวิชานี้} ใต้วิชาในตารางสอบ…", and its words
- * are written around the controls, which keep their own entries. Used only when the English has a
- * place for every word: a control is never moved.
+ * are written around the controls, which keep their own entries. A heading's accent is a word of its
+ * sentence: "ตาราง{em:เรียนและสอบ}" reads "Class and exam {em:schedule}", the accent on the words the
+ * English marks. Used only when the English has a place for every word: nothing is moved.
  * @param {Element} el @param {Text[]} texts @param {string[]} originals @param {Dictionary} dict
  */
 function readSentence(el, texts, originals, dict) {
   /** @type {Text[][]} */
   const gaps = [[]];
+  /** @type {(Text | null)[]} the accent's text for each mark, null for a control */
+  const slots = [];
   let sentence = '';
   for (const child of el.childNodes) {
     if (child.nodeType === 3) {
@@ -335,15 +415,53 @@ function readSentence(el, texts, originals, dict) {
       let label = '';
       while (walker.nextNode()) label += originalOf(/** @type {Text} */ (walker.currentNode));
       sentence += `{ui:${collapse(label)}}`;
+      slots.push(null);
+      gaps.push([]);
+    } else if (isAccent(child)) {
+      const text = /** @type {Text} */ (child.firstChild);
+      sentence += `{em:${collapse(originalOf(text))}}`;
+      slots.push(text);
       gaps.push([]);
     } else if (child.nodeType !== 8) return false;
   }
   const en = gaps.length > 1 ? dict.exact.get(collapse(englishDates(sentence))) : undefined;
   if (typeof en !== 'string') return false;
-  const words = en.split(/\{ui:[^}]*\}/);
-  if (words.length !== gaps.length || words.some((w, i) => w.trim() && !gaps[i].length)) return false;
+  const marks = [...en.matchAll(MARK)];
+  const words = en.split(MARK).filter((_, i) => i % 3 === 0);
+  if (marks.length !== slots.length || marks.some((m, i) => (m[1] === 'em') !== (slots[i] !== null))) return false;
+  if (words.some((w, i) => w.trim() && !gaps[i].length)) return false;
   gaps.forEach((nodes, i) => nodes.forEach((node, j) => put(node, j === 0 ? words[i] : '')));
+  slots.forEach((text, i) => { if (text) put(text, marks[i][2]); });
   return true;
+}
+
+/** The page's own text at the start or the end of an element. @param {Element} el @param {boolean} last */
+function edgeText(el, last) {
+  const walker = /** @type {Document} */ (el.ownerDocument).createTreeWalker(el, 4);
+  let found = '';
+  while (walker.nextNode()) {
+    const node = walker.currentNode;
+    const value = (WRITTEN.get(node) === node.nodeValue ? ORIGINAL.get(node) : node.nodeValue) ?? '';
+    if (!value.trim()) continue;
+    found = value;
+    if (!last) break;
+  }
+  return found;
+}
+
+/**
+ * Thai runs words together across elements and English does not: a part read on its own gets the
+ * space where it meets another Thai part ("ตาราง<b>…" gave "Tablefor classes and exams").
+ * @param {Text} node @param {string} original @param {string} english
+ */
+function spaced(node, original, english) {
+  if (english === original || !english.trim()) return english;
+  let out = english;
+  const next = node.nextSibling;
+  const prev = node.previousSibling;
+  if (/[฀-๿]$/.test(original) && /\S$/.test(out) && next?.nodeType === 1 && /^[฀-๿]/.test(edgeText(/** @type {Element} */ (next), false))) out += ' ';
+  if (/^[฀-๿]/.test(original) && /^\S/.test(out) && prev?.nodeType === 1 && /[฀-๿]$/.test(edgeText(/** @type {Element} */ (prev), true))) out = ` ${out}`;
+  return out;
 }
 
 /** @param {Element} el @param {Dictionary} dict */
@@ -384,6 +502,9 @@ function translatePhrase(el, dict) {
 /** @param {Element} el @param {Dictionary} dict */
 function translateElement(el, dict) {
   if (!el.isConnected || keepsItsLanguage(el)) return;
+  // An accent its heading reads as a word of the sentence is written by the heading, read again.
+  const heading = isAccent(el) ? el.parentElement : null;
+  if (heading && !keepsItsLanguage(heading) && translateText(heading, dict)) { translateAttributes(el, dict); return; }
   const phrase = el.closest('[data-phrase]');
   if (phrase) translatePhrase(phrase, dict); else translateText(el, dict);
   translateAttributes(el, dict);

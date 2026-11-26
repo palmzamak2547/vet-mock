@@ -140,8 +140,9 @@ export default function SubjectSelectView({ setSubject, setTopic, setView, setPr
     <>
       <BackBar onBack={goHome} label="หน้าแรก" />
       <div className="vmx-hero">
+        {/* The span holds the sentence the English page reads whole; the year label stands apart. */}
         <h1>
-          เลือก <em>วิชา</em>
+          <span>เลือก <em>วิชา</em></span>
           {yearMeta && (
             <span style={{ fontSize: '0.55em', marginLeft: 12, color: 'var(--clr-ink-soft)', verticalAlign: 'middle' }}>
               {yearMeta.label}
