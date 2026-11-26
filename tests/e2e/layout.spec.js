@@ -148,7 +148,7 @@ test.describe('landing chrome is never clipped', () => {
       test.skip(!!isMobile && width > 600, 'desktop widths run on the desktop projects');
 
       await context.addInitScript((l) => {
-        try { window.localStorage.setItem('vmx-landing-lang', JSON.stringify(l)); } catch {}
+        try { window.localStorage.setItem('vmx-lang', JSON.stringify(l)); } catch {}
       }, lang);
       await page.setViewportSize({ width, height: 900 });
       await page.goto('./?e2e-fresh=1');

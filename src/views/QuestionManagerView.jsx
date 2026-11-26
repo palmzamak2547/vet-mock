@@ -510,7 +510,7 @@ export default function QuestionManagerView({ customQuestions, setCustomQuestion
                       <button className="vmx-btn vmx-btn-ghost vmx-btn-sm" onClick={(e) => { e.stopPropagation(); deleteQ(q.id); }}>🗑</button>
                     </div>
                   </div>
-                  <div className="vmx-review-q">{q.q}</div>
+                  <div className="vmx-review-q" lang="th">{q.q}</div>
                   {q.tags && q.tags.length > 0 && (
                     <div>{q.tags.map((t) => <span key={t} className="vmx-tag-pill">#{t}</span>)}</div>
                   )}

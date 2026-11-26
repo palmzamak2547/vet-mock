@@ -161,6 +161,7 @@ export const ENV = [
   { name: 'VMX_ROUTE_SWEEP', group: 'Tests', need: 'optional', does: 'Set to 1 by test:e2e:sweep to run the route sweep, which every other run leaves out.' },
   { name: 'VMX_DEFECT_SWEEP', group: 'Tests', need: 'optional', does: 'Set to 1 by sweep:defects to run the defect sweep, which every other run leaves out.' },
   { name: 'VMX_DEFECT_OUT', group: 'Tests', need: 'optional', does: 'Folder the defect sweep writes its findings and pictures to; default work/defect-sweep.' },
+  { name: 'VMX_UI_LANG_REPORT', group: 'Tests', need: 'optional', does: 'A file the English walk (tests/e2e/ui-language.spec.js) appends one JSON line per route to: its lang, sideways scroll and the Thai it found.' },
   { name: 'VCA_BUILD_QUIET', group: 'Tests', need: 'optional', does: '1 is --quiet for vca/scripts/build-bank.mjs.' },
   { name: 'VCA_E2E_PORT', group: 'Tests', need: 'optional', does: 'Port of the VCA e2e server.' },
   { name: 'RESEARCH_BASE_URL', group: 'Tests', need: 'optional', does: 'Runs the Research e2e against another origin.' },

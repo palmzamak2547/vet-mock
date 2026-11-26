@@ -368,8 +368,10 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
           // the source-order letter anymore. Showing source letters here
           // would mislead users ("I picked B but it says C"). The TEXT
           // is the authoritative pick + answer.
-          userDisplay = userOpt ? stripRichText(userOpt) : 'ไม่ได้ตอบ';
-          correctDisplay = corrOpt ? stripRichText(corrOpt) : 'คำตอบของข้อนี้ผิดรูปแบบ';
+          // A choice, a blank and a written answer are kept as written in English: the bank's words
+          // and the student's own. The words for none of them translate.
+          userDisplay = userOpt ? <span lang="th">{stripRichText(userOpt)}</span> : 'ไม่ได้ตอบ';
+          correctDisplay = corrOpt ? <span lang="th">{stripRichText(corrOpt)}</span> : 'คำตอบของข้อนี้ผิดรูปแบบ';
         } else if (q.type === 'tf') {
           userDisplay = answered ? (userAns ? 'True' : 'False') : 'ไม่ได้ตอบ';
           correctDisplay = q.answer ? 'True' : 'False';
@@ -378,8 +380,8 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
           userDisplay = 'ไม่ได้ตอบ';
           correctDisplay = tfcKeyLine(q, stripRichText, ', แก้เป็น ');
         } else if (q.type === 'fill') {
-          userDisplay = answered && userAns.length ? userAns.map(stripRichText).join(' / ') : 'ไม่ได้ตอบ';
-          correctDisplay = q.blanks.map(stripRichText).join(' / ');
+          userDisplay = answered && userAns.length ? <span lang="th">{userAns.map(stripRichText).join(' / ')}</span> : 'ไม่ได้ตอบ';
+          correctDisplay = <span lang="th">{q.blanks.map(stripRichText).join(' / ')}</span>;
         } else if (q.type === 'match') {
           if (!answered) {
             userDisplay = 'ไม่ได้ตอบ';
@@ -395,7 +397,7 @@ export default function ReviewView({ questions, answers, bookmarks, toggleBookma
           }
           correctDisplay = q.pairs.map((p) => `${stripRichText(p.left)} → ${stripRichText(p.right)}`).join('; ');
         } else if (q.type === 'short' || q.type === 'essay') {
-          userDisplay = answered && typeof userAns === 'string' && userAns.trim() ? userAns : 'ไม่ได้เขียน';
+          userDisplay = answered && typeof userAns === 'string' && userAns.trim() ? <span lang="th">{userAns}</span> : 'ไม่ได้เขียน';
           correctDisplay = q.model_answer || '(no model answer)';
         }
 

@@ -37,7 +37,7 @@ function Question({ q }) {
         {disputed && <span className="ad-pn-flag is-bad">ยังเถียงกันอยู่</span>}
         {!disputed && q.confidence === 'low' && <span className="ad-pn-flag is-warn">มั่นใจต่ำ</span>}
       </div>
-      <p className="ad-pn-stem">{q.stem}</p>
+      <p className="ad-pn-stem" lang="th">{q.stem}</p>
       {q.fig ? (
         <figure className="ad-pn-fig">
           <img src={q.fig} alt={`รูปประกอบข้อ ${q.n}`} loading="lazy" />
@@ -54,7 +54,7 @@ function Question({ q }) {
         <i>เฉลย</i>
         {q.type === 'MULTIPLE_CHOICE' ? <b>{q.answer}</b> : <span className="ad-pn-free">{q.answer}</span>}
       </div>
-      {q.why ? <p className="ad-pn-why">{q.why}</p> : null}
+      {q.why ? <p className="ad-pn-why" lang="th">{q.why}</p> : null}
       {q.src ? <p className="ad-pn-src">ที่มา {q.src}</p> : null}
       {q.textbook ? <p className="ad-pn-note is-book"><i>ตำราว่า</i> {q.textbook}</p> : null}
       {q.note ? <p className="ad-pn-note"><i>หมายเหตุ</i> {q.note}</p> : null}

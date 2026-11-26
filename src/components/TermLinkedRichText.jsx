@@ -275,6 +275,7 @@ export default function TermLinkedRichText({ text, highlight, onOpenRelated, sub
   return (
     <>
       <span
+        lang="th"
         ref={wrapperRef}
         onClick={onWrapperClick}
         // Keyboard support: pressing Enter/Space on a focused .vmx-term

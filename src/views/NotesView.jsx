@@ -441,7 +441,7 @@ export default function NotesView({ subject: subjectProp = 'com5', initialTopic 
                 {/* "TBD" is a placeholder in the data, not a person: no line at all. */}
                 {topicLecturerLabel(activeSubject, t.lecturer) && (
                   <div style={{ fontSize: 14, color: active ? 'var(--clr-ink)' : 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 4 }}>
-                    ผู้สอน: {topicLecturerLabel(activeSubject, t.lecturer).name}
+                    ผู้สอน: <span lang="th">{topicLecturerLabel(activeSubject, t.lecturer).name}</span>
                   </div>
                 )}
                 <div style={{ fontSize: 14, fontFamily: 'var(--vmx-mono)', color: active ? 'var(--clr-ink)' : 'var(--clr-ink-soft)', marginTop: 4 }}>

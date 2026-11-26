@@ -9,6 +9,7 @@ import ErrorBoundary from './components/ErrorBoundary.jsx';
 import { useLocalStorage } from './hooks/useStorage.js';
 import { THEME_SYSTEM, effectiveTheme, useSystemDark } from './lib/theme-pref.js';
 import { startWebVitals } from './lib/web-vitals.js';
+import { readUiLang, showInterfaceIn } from './lib/ui-lang.js';
 import './lib/dom-compat.js';
 import './lib/app-lifecycle.js';
 import './styles.css';
@@ -42,8 +43,14 @@ function AtlasShell() {
 }
 
 startWebVitals();
-createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <AtlasShell />
-  </React.StrictMode>,
-);
+// The site's language reaches Atlas too: with English chosen, its dictionary arrives before the first
+// frame, as in main.jsx. A failed fetch leaves Atlas in Thai, and a stalled one gets four seconds
+// (main.jsx's MOVE_WAIT_MS): then Atlas opens and turns English when the dictionary arrives.
+const english = readUiLang() === 'en' ? showInterfaceIn('en').catch(() => {}) : null;
+(english ? Promise.race([english, new Promise((done) => setTimeout(done, 4000))]) : Promise.resolve()).then(() => {
+  createRoot(document.getElementById('root')).render(
+    <React.StrictMode>
+      <AtlasShell />
+    </React.StrictMode>,
+  );
+});

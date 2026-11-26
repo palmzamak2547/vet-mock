@@ -10,7 +10,11 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 import { PALETTES, thaiDate, layoutProblems, fitCard, STORY, POST, LIVE, SIZE, FAMILY, fauxBold } from '../../src/lib/share-card/kit.js';
-import { academicYear, phaseLine } from '../../src/lib/share-card/phase-card.js';
+import { academicYear, phaseLine, phaseWords, phaseEnglish } from '../../src/lib/share-card/phase-card.js';
+import { PHASES } from '../../src/lib/current-phase.js';
+import { SUBJECTS } from '../../src/data/curriculum.js';
+import { compileDictionary, translateString } from '../../src/lib/ui-translate.js';
+import UI_EN from '../../src/data/ui-en.js';
 import { studyTime, subjectRows } from '../../src/lib/phase-wrapped.js';
 import { dailyTitle, dailyLine } from '../../src/lib/share-card/daily-card.js';
 import { cleanText, cardOptions } from '../../src/lib/share-card/ig-card.js';
@@ -58,6 +62,34 @@ test('dates print in Thai with the Buddhist year; the academic year turns in Jun
   assert.equal(academicYear('2027-03-20'), 2569, 'term 2 belongs to the year it began in');
   assert.equal(academicYear('2027-06-01'), 2570);
   assert.equal(academicYear('nope'), null);
+});
+
+// The card is a canvas, out of the page translator's reach: in English it reads its words through the
+// same dictionary. A term, a closing line or a subject with no entry would be drawn in Thai.
+test('the recap card in English: every term, every closing line and every subject has its English', () => {
+  const dict = compileDictionary(UI_EN);
+  const t = (s) => translateString(s, dict) ?? s;
+  const THAI = /[\u0E00-\u0E7F]/;
+  // [correctPct, longestStreak, qCount]: each closing line, and a count of one.
+  const shapes = [[88, 9, 120], [81, 2, 120], [50, 15, 120], [50, 3, 500], [64, 3, 80], [50, 3, 120], [100, 1, 1]];
+  const subjects = SUBJECTS.filter((x) => THAI.test(x.name));
+  PHASES.forEach(({ label }, i) => shapes.forEach(([correctPct, longestStreak, qCount], j) => {
+    const at = (k) => ({ id: subjects[k % subjects.length].id, name: subjects[k % subjects.length].name, pct: 90 - (k % 2) * 40 });
+    const stats = {
+      phaseLabel: label, phaseEnd: '2026-12-04', phaseCompleted: j % 2 === 0, qCount, correctPct, longestStreak,
+      totalStudyMin: qCount * 0.75, studyTimeEstimated: j % 3 !== 0, masteredCards: j,
+      strongestSubject: at(i * shapes.length + j), weakestSubject: j === 6 ? null : at(i * shapes.length + j + 1),
+    };
+    const words = phaseWords(stats, 'en', t);
+    const { alt, text } = phaseEnglish(stats, words);
+    const drawn = [JSON.stringify(words), words.peak(qCount), alt, text].join('\n');
+    assert.doesNotMatch(drawn, THAI, `${label}, shape ${j}`);
+  }));
+  for (const s of subjects) assert.doesNotMatch(t(s.name), THAI, s.name);
+  const one = phaseWords({ phaseLabel: PHASES[0].label, qCount: 1, longestStreak: 1, totalStudyMin: 90 }, 'en', t);
+  assert.deepEqual([one.heroUnit, one.figures[1][2], one.figures[2][2]], ['question', 'day', 'h']);
+  assert.equal(phaseWords({ phaseLabel: 'x', phaseEnd: '2026-12-04' }, 'en', t).year, 2026, 'the Common Era year in English');
+  assert.equal(phaseWords({ phaseLabel: 'x', phaseEnd: '2026-12-04' }).year, 2569);
 });
 
 test('the recap line claims only what the numbers show', () => {

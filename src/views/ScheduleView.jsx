@@ -240,12 +240,13 @@ export default function ScheduleView({ goHome, setSubject, setTopic, setMode, se
     return (
       <>
         {facts.length > 0 && <p className="vmx-sched-extra">{facts.join(', ')}</p>}
+        {/* The outline and the remark are notes written per paper, kept as written in English too. */}
         {exam.content?.length > 0 && (
-          <ul className="vmx-sched-outline">
+          <ul className="vmx-sched-outline" lang="th">
             {exam.content.map((c, i) => <li key={i}>{c}</li>)}
           </ul>
         )}
-        {exam.notes && <p className="vmx-sched-extra">หมายเหตุ: {exam.notes}</p>}
+        {exam.notes && <p className="vmx-sched-extra">หมายเหตุ: <span lang="th">{exam.notes}</span></p>}
         {Array.isArray(exam.links) && exam.links.length > 0 && (
           <div className="vmx-sched-links">
             {exam.links.map((lnk, i) => (

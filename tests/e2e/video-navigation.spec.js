@@ -150,6 +150,10 @@ test('deleting the last clip of the chosen course clears it from the address too
   expect(VIDEO_LIBRARY.some((video) => video.subject === course.id), 'the course has no library clips').toBe(false);
   const addClip = async (topic) => {
     await page.getByRole('button', { name: 'เพิ่มคลิป', exact: true }).click();
+    // The dialog puts the cursor in the URL field one frame after it opens (useModalFocus). On WebKit under
+    // load in CI that frame came while the topic was being typed, and the topic went into the URL field
+    // (#372, 26 Nov). Typing starts once the cursor is there, as a person's would.
+    await expect(page.locator('#vmx-video-url')).toBeFocused();
     await page.locator('#vmx-video-url').fill('https://youtu.be/dQw4w9WgXcQ');
     await page.locator('#vmx-video-topic').fill(topic);
     await page.locator('#vmx-video-subject').selectOption(course.id);

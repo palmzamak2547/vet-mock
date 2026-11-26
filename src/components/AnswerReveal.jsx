@@ -181,12 +181,13 @@ export function MatchReview({ q, userAns, answered }) {
                   <RichText text={r.left} />
                 </button>
                 <div className="ans">
+                  {/* The answers are the bank's words, kept as written in English; the words around them translate. */}
                   {r.ok
-                    ? <span className="ok">✓ {letterOf(r.right)}{strip(r.right)}</span>
+                    ? <span className="ok">✓ <span lang="th">{letterOf(r.right)}{strip(r.right)}</span></span>
                     : (
                       <>
-                        <span className="you">{r.ua ? `คุณตอบ ${letterOf(r.ua)}${strip(r.ua)}` : 'ไม่ได้ตอบ'}</span>
-                        <span className="key">เฉลย {letterOf(r.right)}{strip(r.right)}</span>
+                        <span className="you">{r.ua ? <>คุณตอบ <span lang="th">{letterOf(r.ua)}{strip(r.ua)}</span></> : 'ไม่ได้ตอบ'}</span>
+                        <span className="key">เฉลย <span lang="th">{letterOf(r.right)}{strip(r.right)}</span></span>
                       </>
                     )}
                 </div>
@@ -204,7 +205,7 @@ export function MatchReview({ q, userAns, answered }) {
             const missed = name ? missedNames.includes(strip(name).toLowerCase()) : missedNames.some((n) => lower.includes(n));
             return (
               <details key={k} open={missed || undefined} className={missed ? 'is-missed' : ''}>
-                <summary>{name ? `${letterOf(name)}${strip(name)}` : paragraphTitle(p)}{missed ? ' — มีข้อที่พลาด' : ''}</summary>
+                <summary><span lang="th">{name ? `${letterOf(name)}${strip(name)}` : paragraphTitle(p)}</span>{missed ? ' — มีข้อที่พลาด' : ''}</summary>
                 <RichBlocks text={p} />
               </details>
             );

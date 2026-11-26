@@ -866,6 +866,9 @@ function render(ctx, s, textScale = 1) {
   }
 
   // ── Overlays ─────────────────────────────────────────────────────
+  // Drawn, not written: the English interface (lib/ui-translate.js) cannot reach the canvas, so the
+  // prompts follow <html lang> here.
+  const en = document.documentElement.lang === 'en';
   if (s.state === 'ready') {
     ctx.fillStyle = ink;
     ctx.font = `bold ${px(18)}px sans-serif`;
@@ -873,7 +876,7 @@ function render(ctx, s, textScale = 1) {
     // Pulse the prompt (the how-to-play line sits under the canvas, in page text)
     const pulse = 0.85 + 0.15 * Math.sin(s.frame * 0.08);
     ctx.globalAlpha = pulse;
-    ctx.fillText('แตะเพื่อเริ่ม', CANVAS_W / 2, CANVAS_H / 2);
+    ctx.fillText(en ? 'Tap to start' : 'แตะเพื่อเริ่ม', CANVAS_W / 2, CANVAS_H / 2);
     ctx.globalAlpha = 1;
     ctx.textAlign = 'left';
   } else if (s.state === 'gameover') {
@@ -886,10 +889,10 @@ function render(ctx, s, textScale = 1) {
     ctx.fillStyle = rose;
     ctx.font = `bold ${px(20)}px sans-serif`;
     ctx.textAlign = 'center';
-    ctx.fillText('จบเกม', CANVAS_W / 2, CANVAS_H / 2 - boxH / 2 + 10 + px(20));
+    ctx.fillText(en ? 'Game over' : 'จบเกม', CANVAS_W / 2, CANVAS_H / 2 - boxH / 2 + 10 + px(20));
     ctx.fillStyle = ink;
     ctx.font = `${px(14)}px sans-serif`;
-    ctx.fillText('แตะเพื่อเล่นอีกครั้ง', CANVAS_W / 2, CANVAS_H / 2 + boxH / 2 - 10);
+    ctx.fillText(en ? 'Tap to play again' : 'แตะเพื่อเล่นอีกครั้ง', CANVAS_W / 2, CANVAS_H / 2 + boxH / 2 - 10);
     ctx.textAlign = 'left';
   }
 }

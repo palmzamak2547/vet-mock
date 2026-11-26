@@ -221,7 +221,7 @@ export default function QComments({ qSubject, qId, user, setView }) {
                     >🗑</button>
                   )}
                 </div>
-                <div style={{ fontSize: 14, lineHeight: 1.55, whiteSpace: 'pre-wrap', color: 'var(--clr-ink)' }}>
+                <div lang="th" style={{ fontSize: 14, lineHeight: 1.55, whiteSpace: 'pre-wrap', color: 'var(--clr-ink)' }}>
                   {c.body}
                 </div>
               </li>

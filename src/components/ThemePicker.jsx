@@ -55,7 +55,12 @@ const PALETTES = [
   { id: 'mono',    name: 'Mono',        dot: '#4a4a4a' },
 ];
 
-export default function ThemePicker({ theme, themePref = theme, setTheme, palette, setPalette }) {
+// Each language is named in its own language and marked with it, so the page's translation leaves
+// both names as they are and a reader of either finds theirs.
+const LANGUAGES = [{ id: 'th', name: 'ไทย' }, { id: 'en', name: 'English' }];
+const HEAD = { fontSize: 14, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'var(--vmx-mono)', marginBottom: 6 };
+
+export default function ThemePicker({ theme, themePref = theme, setTheme, palette, setPalette, uiLang = 'th', setUiLang }) {
   // The pick, not the colour on screen: under 'system' neither สว่าง nor มืด is
   // chosen, the phone is.
   const picked = themePref === 'light' || themePref === 'dark' ? themePref : 'system';
@@ -115,8 +120,8 @@ export default function ThemePicker({ theme, themePref = theme, setTheme, palett
         onClick={(e) => { openedByKeys.current = e.detail === 0; setOpen((o) => !o); }}
         onPointerEnter={() => { loadMotionSettings().catch(() => {}); }}
         onFocus={() => { loadMotionSettings().catch(() => {}); }}
-        title="ธีมและสี"
-        aria-label="ตัวเลือกธีมและจานสี"
+        title={setUiLang ? 'ธีม สี และภาษา' : 'ธีมและสี'}
+        aria-label={setUiLang ? 'ตัวเลือกธีม จานสี และภาษา' : 'ตัวเลือกธีมและจานสี'}
         aria-expanded={open}
       >
         <NavIcon name={theme === 'light' ? 'moon' : 'sun'} size={18} />
@@ -125,7 +130,7 @@ export default function ThemePicker({ theme, themePref = theme, setTheme, palett
         <div
           ref={panelRef}
           role="dialog"
-          aria-label="ตั้งค่าธีมและจานสี"
+          aria-label={setUiLang ? 'ตั้งค่าธีม จานสี และภาษา' : 'ตั้งค่าธีมและจานสี'}
           onBlur={onPanelBlur}
           style={{
             position: 'absolute',
@@ -144,7 +149,24 @@ export default function ThemePicker({ theme, themePref = theme, setTheme, palett
             overflowY: 'auto',
           }}
         >
-          <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'var(--vmx-mono)', marginBottom: 6 }}>
+          {setUiLang && (
+            <>
+              <div style={HEAD}>ภาษา</div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6, marginBottom: 12 }}>
+                {LANGUAGES.map((l) => (
+                  <button
+                    key={l.id}
+                    type="button"
+                    lang={l.id}
+                    onClick={() => choose(() => setUiLang(l.id))}
+                    className={`vmx-chip ${(uiLang === 'en' ? 'en' : 'th') === l.id ? 'active' : ''}`}
+                    aria-pressed={(uiLang === 'en' ? 'en' : 'th') === l.id}
+                  >{l.name}</button>
+                ))}
+              </div>
+            </>
+          )}
+          <div style={HEAD}>
             โหมด
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6, marginBottom: 12 }}>
@@ -170,7 +192,7 @@ export default function ThemePicker({ theme, themePref = theme, setTheme, palett
               style={{ gap: 6, gridColumn: '1 / -1' }}
             ><NavIcon name="settings" size={15} /> ตามเครื่อง</button>
           </div>
-          <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'var(--vmx-mono)', marginBottom: 6 }}>
+          <div style={HEAD}>
             จานสี
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 6 }}>

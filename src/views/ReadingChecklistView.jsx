@@ -213,7 +213,7 @@ export default function ReadingChecklistView({
                         {/* "TBD" is a placeholder in the data, not a person: no line at all. */}
                         {topicLecturerLabel(subj.id, t.lecturer) && (
                           <div style={{ fontSize: 14, color: 'var(--clr-ink-soft)', fontStyle: 'italic', marginTop: 2 }}>
-                            ผู้สอน: {topicLecturerLabel(subj.id, t.lecturer).name}
+                            ผู้สอน: <span lang="th">{topicLecturerLabel(subj.id, t.lecturer).name}</span>
                           </div>
                         )}
                       </div>

@@ -1098,7 +1098,8 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                   <div className="vmx-changelog-kicker">
                     อัปเดตใหม่, {fmtThaiDate(release.date)}
                   </div>
-                  <div className="vmx-changelog-title">
+                  {/* A release note is written per release, in Thai, and keeps its language in English. */}
+                  <div className="vmx-changelog-title" lang="th">
                     {release.headline}
                   </div>
                 </div>
@@ -1147,7 +1148,7 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                     >
                       <span style={{ flex: 1, minWidth: 0 }}>
                         {c.fromFeedback && <FeedbackChip />}
-                        <strong style={{ color: 'var(--clr-ink)' }}>{c.title}</strong>
+                        <strong style={{ color: 'var(--clr-ink)' }} lang="th">{c.title}</strong>
                       </span>
                       <KindPill kind={c.kind} />
                     </li>
@@ -1822,9 +1823,12 @@ export default function HomeView({ onOpenWrapUp = null, setView, setMode, setSub
                     type="button"
                     onClick={revealChangelogNote}
                     className="vmx-vitals-row"
-                    title={`${newestNews.headline}, ${fmtThaiDate(newestNews.date)}`}
                   >
-                    <span style={{ minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    <span
+                      lang="th"
+                      title={`${newestNews.headline}, ${fmtThaiDate(newestNews.date)}`}
+                      style={{ minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                    >
                       {truncateThai(newestNews.headline, 30)}
                     </span>
                     <span className="vmx-vitals-row-meta" style={{ color: 'var(--clr-gold-text)' }}>

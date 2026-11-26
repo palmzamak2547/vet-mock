@@ -376,7 +376,7 @@ const FacultyCard = memo(function FacultyCard({ instructor, onOpen }) {
     >
       <div className="vmx-fac-card-head">
         <InstructorPortrait instructor={instructor} size={40} className="vmx-fac-card-portrait" />
-        <div className="vmx-fac-card-names">
+        <div className="vmx-fac-card-names" translate="no">
           {nameTh && <div className="vmx-fac-card-name-th">{nameTh}</div>}
           <div className="vmx-fac-card-name-en">{nameEn}</div>
         </div>
@@ -397,14 +397,14 @@ const FacultyCard = memo(function FacultyCard({ instructor, onOpen }) {
 
       {/* Position */}
       {position && (
-        <div className="vmx-fac-card-position">{position}</div>
+        <div className="vmx-fac-card-position" translate="no">{position}</div>
       )}
 
       {/* Research areas (max 3 visible) */}
       {areas && areas.length > 0 && (
         <div className="vmx-fac-card-areas">
           {areas.slice(0, 3).map((a) => (
-            <span key={a} className="vmx-fac-card-area">{a}</span>
+            <span key={a} className="vmx-fac-card-area" translate="no">{a}</span>
           ))}
           {areas.length > 3 && (
             <span className="vmx-fac-card-areas-more">+{areas.length - 3}</span>

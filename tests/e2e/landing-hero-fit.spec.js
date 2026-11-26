@@ -15,7 +15,7 @@ for (const lang of ['th', 'en']) {
   test(`the hero headline stays in its column and the lightbox in its stage (${lang})`, async ({ page }) => {
     test.setTimeout(120_000);
     await page.addInitScript((l) => {
-      try { localStorage.setItem('vmx-landing-lang', JSON.stringify(l)); } catch { /* storage off */ }
+      try { localStorage.setItem('vmx-lang', JSON.stringify(l)); } catch { /* storage off */ }
     }, lang);
     for (const [width, height] of SIZES) {
       await page.setViewportSize({ width, height });

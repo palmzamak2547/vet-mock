@@ -18,7 +18,19 @@ async function watch(page, pattern) {
 // The first screen once it has settled. Both loads of a pair run against the same seed, so they draw the
 // same thing; what moves on its own for a moment (the top loading bar running out, the countdown's number
 // counting up to its value) is waited out, never left out: the DOM is read when it has stopped changing
-// for 800 ms. Read at the load event instead, two loads were caught at different frames of those motions.
+// for 800 ms with no script or data request open. Read at the load event instead, two loads were caught at
+// different frames of those motions; read on stillness alone, one load of a returning student had Home's
+// Daily Q row and the other not (the row waits for the year's question banks, 1 of 6 runs on 26 Nov).
+const OPEN = new WeakMap();
+function trackRequests(page) {
+  const open = new Set();
+  const carriesData = (r) => ['document', 'script', 'fetch', 'xhr'].includes(r.resourceType());
+  page.on('request', (r) => { if (carriesData(r)) open.add(r); });
+  page.on('requestfinished', (r) => open.delete(r));
+  page.on('requestfailed', (r) => open.delete(r));
+  OPEN.set(page, open);
+}
+
 async function firstScreen(page) {
   await page.locator('#root > *').first().waitFor();
   await page.waitForLoadState('load');
@@ -46,7 +58,7 @@ async function firstScreen(page) {
   for (const deadline = Date.now() + 15_000; Date.now() < deadline;) {
     await page.waitForTimeout(200);
     const now = await read();
-    if (now !== last) { last = now; still = Date.now(); } else if (Date.now() - still >= 800) return now;
+    if (now !== last || OPEN.get(page)?.size) { last = now; still = Date.now(); } else if (Date.now() - still >= 800) return now;
   }
   return last;
 }
@@ -63,6 +75,7 @@ async function freshPage(browser, entries, block) {
   const ctx = await browser.newContext({ baseURL, viewport, userAgent, isMobile, hasTouch, deviceScaleFactor, reducedMotion: 'reduce' });
   await ctx.addInitScript(seed(entries), entries);
   const page = await ctx.newPage();
+  trackRequests(page);
   // The pinned calendar, as a clock the check can stop (firstScreen).
   await page.clock.install({ time: Date.parse(PINNED_NOW) });
   if (block) await page.route(block, (route) => route.abort());
@@ -238,8 +251,8 @@ test('inside the Android app with the app layer unreachable: the app still start
 
 // The theme panel on a page that shows the header's theme button (the same page motion-integration opens).
 const THEME_PAGE = '/wiki/zoonoses/zoo-rabies';
-const themeButton = (page) => page.getByRole('button', { name: 'ตัวเลือกธีมและจานสี', exact: true });
-const themePanel = (page) => page.getByRole('dialog', { name: 'ตั้งค่าธีมและจานสี', exact: true });
+const themeButton = (page) => page.getByRole('button', { name: 'ตัวเลือกธีม จานสี และภาษา', exact: true });
+const themePanel = (page) => page.getByRole('dialog', { name: 'ตั้งค่าธีม จานสี และภาษา', exact: true });
 
 test('the motion settings arrive with the theme panel, in the row that held their place', async ({ page }) => {
   let release;

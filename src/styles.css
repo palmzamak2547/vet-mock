@@ -7748,6 +7748,8 @@ button.vmx-ladder-step:focus-visible { outline: 2px solid var(--clr-ink); outlin
    10 + 40 icon + 6 + two 14px lines at 1.25 (35) + 10 = 101; the
    tiles in a row stretch to the tallest. */
 .vmx-quick-grid { display: none; }
+/* A Thai word kept whole; the English interface writes its own words, which wrap. */
+.vmx-word:lang(th) { white-space: nowrap; }
 @media (max-width: 1023px) {
   .vmx-quick-grid { display: block; margin: 0 0 var(--space-5); }
   .vmx-quick-grid-list {

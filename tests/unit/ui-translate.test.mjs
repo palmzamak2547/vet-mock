@@ -1,0 +1,269 @@
+// ============================================================
+// ui-translate.test.mjs: how a Thai string on screen finds its English
+// ============================================================
+// The English interface is the Thai one looked up string by string
+// (src/lib/ui-translate.js). These are the lookup rules; the page side, which
+// React writes to, is walked in tests/e2e/ui-language.spec.js.
+// ============================================================
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { readdirSync, readFileSync, statSync } from 'node:fs';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { compileDictionary, translateString } from '../../src/lib/ui-translate.js';
+import UI_EN from '../../src/data/ui-en.js';
+import * as SCHEDULE from '../../src/data/schedule.js';
+import { TERM_LABEL } from '../../src/lib/exam-countdown.js';
+import { EXAM_SCOPE_LABEL } from '../../src/lib/exam-scope.js';
+
+const dict = compileDictionary({
+  'ฝึกข้อสอบ': 'Practice',
+  '{0} ข้อ': { one: '{0} question', other: '{0} questions' },
+  '{0}/{1} วิชา': '{0} of {1} subjects',
+  'สรุป {a}': '{a} summary',
+  'โรคติดต่อระหว่างสัตว์และคน': 'Zoonoses',
+  '{a} ข้อที่ยังไม่ได้ทำ': '{a} not done yet',
+  'เหลือ {a} วัน': { one: '{a} day left', other: '{a} days left' },
+});
+
+test('an exact string, with the spaces around it kept', () => {
+  assert.equal(translateString('ฝึกข้อสอบ', dict), 'Practice');
+  assert.equal(translateString('  ฝึกข้อสอบ ', dict), '  Practice ');
+  assert.equal(translateString('ฝึก   ข้อสอบ', dict), null, 'a space inside is part of the words');
+});
+
+test('numbers fill {0} and {1}, and a count picks one or other', () => {
+  assert.equal(translateString('1 ข้อ', dict), '1 question');
+  assert.equal(translateString('2,014 ข้อ', dict), '2,014 questions');
+  assert.equal(translateString('2/13 วิชา', dict), '2 of 13 subjects');
+});
+
+test('{a} takes any text, and Thai inside it is looked up too', () => {
+  assert.equal(translateString('สรุป โรคติดต่อระหว่างสัตว์และคน', dict), 'Zoonoses summary');
+  assert.equal(translateString('สรุป Rabies', dict), 'Rabies summary');
+  assert.equal(translateString('12 ข้อที่ยังไม่ได้ทำ', dict), '12 not done yet', 'a pattern that opens with {a}');
+  assert.equal(translateString('เหลือ 1 วัน', dict), '1 day left');
+  assert.equal(translateString('เหลือ 3 วัน', dict), '3 days left');
+});
+
+test('a joined list is read part by part; a part with no entry stays as written', () => {
+  assert.equal(translateString('ฝึกข้อสอบ | VetMock', dict), 'Practice | VetMock');
+  assert.equal(translateString('ฝึกข้อสอบ, โรคติดต่อระหว่างสัตว์และคน', dict), 'Practice, Zoonoses');
+  assert.equal(translateString('ฝึกข้อสอบ, คำที่ไม่มีในพจนานุกรม', dict), 'Practice, คำที่ไม่มีในพจนานุกรม');
+  assert.equal(translateString('Zoonoses — โรคติดต่อระหว่างสัตว์และคน', dict), 'Zoonoses', 'one name given twice reads once');
+  // A pattern's capture can itself be such a list.
+  assert.equal(translateString('สรุป ฝึกข้อสอบ, โรคติดต่อระหว่างสัตว์และคน', dict), 'Practice, Zoonoses summary');
+  // A page title splits at its bar before a pattern can swallow the whole line.
+  assert.equal(translateString('สรุป โรคติดต่อระหว่างสัตว์และคน | VetMock', dict), 'Zoonoses summary | VetMock');
+  // Inside a list, a part a pattern only half reads does not count as found.
+  assert.equal(translateString('สรุป คำที่ไม่มี, ฝึกข้อสอบ', dict), 'คำที่ไม่มี, Practice summary');
+});
+
+// A set's title lists its kind, subject and topic with ", ", and a topic's own label holds ", " too.
+test('a part of a list that holds the separator itself is read as one', () => {
+  const titled = compileDictionary({
+    'ปรนัย': 'Multiple choice',
+    'สัปดาห์ 9-11, โรคติดเชื้อในนก (1-3)': 'Weeks 9-11, infectious avian diseases (1-3)',
+    'บทที่ {0}, ส่วนที่ {1}': 'Chapter {0}, part {1}',
+  });
+  assert.equal(translateString('ปรนัย, Wildlife, สัปดาห์ 9-11, โรคติดเชื้อในนก (1-3)', titled), 'Multiple choice, Wildlife, Weeks 9-11, infectious avian diseases (1-3)');
+  assert.equal(translateString('ปรนัย, บทที่ 3, ส่วนที่ 2', titled), 'Multiple choice, Chapter 3, part 2');
+});
+
+test('the most specific pattern wins, and two values written side by side read as one', () => {
+  const d = compileDictionary({
+    'ช': 'G', 'เปิด{a}{b}': 'Open {a}{b}', 'ชั้นผิวหนัง': 'the skin layer',
+    'หมวด {a}': 'Category {a}', 'แสดง{a}': 'Show {a}', 'แสดงหมวด {a}': 'Show the {a} group', 'ผิวหนัง': 'Skin',
+  });
+  // Split at the first letter, "ชั้น" lost its "ช" to the option letter G.
+  assert.equal(translateString('เปิดชั้นผิวหนัง', d), 'Open the skin layer');
+  assert.equal(translateString('แสดงหมวด ผิวหนัง', d), 'Show the Skin group');
+});
+
+test('a Thai date reads as an English one, the Buddhist-era year as its Common Era year', () => {
+  assert.equal(translateString('21 พ.ย. 2569', dict), '21 Nov 2026');
+  assert.equal(translateString('สรุป 5 มี.ค.', dict), '5 Mar summary');
+});
+
+test('a weekday and a two-digit year read the English way, and a time drops its น.', () => {
+  const d = compileDictionary({ 'ระบาดวิทยา': 'Veterinary Epidemiology', 'พรุ่งนี้': 'Tomorrow' });
+  assert.equal(translateString('ศุกร์ 25 ก.ย.', d), 'Fri 25 Sep');
+  assert.equal(translateString('23 พ.ย. - 4 ธ.ค. 69', d), '23 Nov - 4 Dec 2026');
+  assert.equal(translateString('วันจันทร์ 10:00 น. ระบาดวิทยา', d), 'Mon 10:00 Veterinary Epidemiology');
+  assert.equal(translateString('พรุ่งนี้ 10:00 น. ระบาดวิทยา', d), 'Tomorrow 10:00 Veterinary Epidemiology');
+  // Two digits with Thai after them count something; they are not a year.
+  assert.match(translateString('15 ธ.ค. 80 ข้อ', d) ?? '', /^15 Dec 80 /);
+});
+
+test('a label led by an emoji is read without it, unless the emoji is part of an entry', () => {
+  const d = compileDictionary({ 'สัตว์น้ำ — Fish & Shrimp': 'Fish & Shrimp', '📋 มีเอกสาร': 'Documents attached', '🏁 เริ่ม! ({0} คน)': '🏁 Start! ({0} players)' });
+  assert.equal(translateString('🐟 สัตว์น้ำ — Fish & Shrimp', d), '🐟 Fish & Shrimp');
+  assert.equal(translateString('📋 มีเอกสาร', d), 'Documents attached');
+  assert.equal(translateString('🏁 เริ่ม! (2 คน)', d), '🏁 Start! (2 players)', 'an entry with a count keeps its emoji too');
+});
+
+test('a date reads the English way only where it is a date', () => {
+  const d = compileDictionary({ 'คะแนน {a}': 'Score {a}', 'อาทิตย์ {0} จาก {1}': 'Week {0} of {1}', 'เพิ่มเมื่อ {a}': 'Added on {a}', 'ภาคการศึกษาต้น {0}': 'First semester {0}' });
+  assert.equal(translateString('คะแนน 4 ธ.ค. 75/100', d), 'Score 4 Dec 75/100', 'a score after a date is not a year');
+  assert.equal(translateString('อาทิตย์ 3 จาก 16', d), 'Week 3 of 16', 'อาทิตย์ with no date after it is a week');
+  assert.equal(translateString('เพิ่มเมื่อ 26/11/2569', d), 'Added on 26/11/2026');
+  assert.equal(translateString('ภาคการศึกษาต้น 2569', d), 'First semester 2026');
+});
+
+test('a line break stays where the page put it, and a string with nothing found stays as written', () => {
+  const d = compileDictionary({ 'ลบข้อนี้?': 'Delete this question?', 'ย้อนกลับไม่ได้': 'This cannot be undone' });
+  assert.equal(translateString('ลบข้อนี้?\n\nย้อนกลับไม่ได้', d), 'Delete this question?\n\nThis cannot be undone');
+  assert.equal(translateString('ข้อความของเพื่อน\n\nย่อหน้าใหม่, อีกส่วน', dict), null);
+  assert.equal(translateString('ย่อหน้าใหม่, อีกส่วน', dict), null, 'a list with no part found is no reading');
+});
+
+test('a paragraph far longer than any pattern is read whole only, at once', () => {
+  const real = compileDictionary(UI_EN);
+  const paragraph = 'A '.repeat(600) + 'แยกตามอาจารย์ผู้สอนและรูปแบบข้อสอบที่แต่ละท่านใช้';
+  const started = performance.now();
+  translateString(paragraph, real);
+  assert.ok(performance.now() - started < 100, 'four lazy captures over a long string backtrack for seconds');
+});
+
+test('no Thai, or no entry, is left alone', () => {
+  assert.equal(translateString('Rabies', dict), null);
+  assert.equal(translateString('', dict), null);
+  assert.equal(translateString('คำที่ไม่มีในพจนานุกรม', dict), null);
+});
+
+// A Thai word in quotation marks is named, not left untranslated: the contribution checks tell a writer
+// which Thai word to use instead.
+// "ตาราง<em>เรียนและสอบ</em>" read part by part was "Tablefor classes and exams"; "เลือก <em>หัวข้อ</em>"
+// was "Choose Topic". The page reads such a heading whole, as "ตาราง{em:เรียนและสอบ}".
+test('every two-tone heading reads as one sentence, its accent marked in the English', () => {
+  const files = [];
+  (function walk(dir) {
+    for (const name of readdirSync(dir)) {
+      const p = join(dir, name);
+      if (statSync(p).isDirectory()) walk(p); else if (p.endsWith('.jsx')) files.push(p);
+    }
+  })(fileURLToPath(new URL('../../src', import.meta.url)));
+  const missing = [];
+  for (const file of files) {
+    for (const [, a, b, c] of readFileSync(file, 'utf8').matchAll(/<h1>\s*(?:<span>)?([^<{]*)<em>([^<{]*)<\/em>([^<{]*)<\/(?:h1|span)>/g)) {
+      const key = `${a}{em:${b}}${c}`.trim().replace(/\s+/g, ' ');
+      if (/[฀-๿]/.test(key) && !(key in UI_EN)) missing.push(key);
+    }
+  }
+  assert.deepEqual(missing, [], 'a two-tone heading with no sentence entry');
+  const MARK = /\{em:[^}]*\}/g;
+  const bad = Object.entries(UI_EN).filter(([th, en]) => {
+    if (!th.includes('{em:')) return false;
+    if (typeof en !== 'string' || (en.match(MARK) || []).length !== (th.match(MARK) || []).length) return true;
+    const thai = th.split(MARK);
+    // English words only where the heading has text of its own: the page moves nothing.
+    return en.split(MARK).some((w, i) => w.trim() && !thai[i]);
+  }).map(([th]) => th);
+  assert.deepEqual(bad, []);
+  assert.equal(translateString('อีก 8 ชม. 19 นาที', compileDictionary(UI_EN)), 'In 8 hr 19 min', 'a countdown is "in", not "need"');
+});
+
+// Thai glues "สอบ" to what follows; an English entry that glued "Exam{a}" too read "ExamMidterm ended 21 Sep".
+test('an exam phase or a countdown read into a sentence is a word of its own', () => {
+  const real = compileDictionary(UI_EN);
+  assert.equal(translateString('ไม่มีสอบกลางภาค', real), 'No midterm exam');
+  assert.equal(translateString('สอบกลางภาคแล้ว 21 ก.ย.', real), 'Midterm exam ended 21 Sep');
+  assert.equal(translateString('สอบปลายภาค 3 ธ.ค.', real), 'Final exam 3 Dec');
+  assert.equal(translateString('เป้าหมาย: สอบอีก 8 ชม. 19 นาที', real), 'Goal: exam in 8 hr 19 min');
+  assert.equal(translateString('เป้าหมาย: สอบอีก 1 ชม.', real), 'Goal: exam in 1 hour');
+  // The capture is " โรคติดต่อ…", its space included; the name is found without it.
+  assert.equal(translateString('วันนี้สอบ โรคติดต่อระหว่างสัตว์-คน', real), 'Zoonoses exam today');
+});
+
+// The exam-day walk (26 Nov): a name with a space in it ("สุขศาสตร์น้ำนม + เนื้อ") was cut at that space and
+// half of it stayed Thai, and a whole line read as one pattern counted its first number ("อีก 1 วัน") for a plural.
+test('a name with spaces is read whole, and a plural counts the number before its word', () => {
+  const real = compileDictionary(UI_EN);
+  assert.equal(translateString('สอบไปแล้ว 5 จาก 10 วิชา ต่อไป สุขศาสตร์น้ำนม + เนื้อ จันทร์ 08:30', real), 'Exams completed: 5 of 10. Next: Milk Hygiene & Meat Inspection Mon 08:30');
+  assert.equal(translateString('สุขศาสตร์น้ำนม + เนื้อ ห้อง VET6 807 เหลือเวลาสอบอีก', real), 'Milk Hygiene & Meat Inspection, room VET6 807, time left');
+  // The countdown's label opens with the window's own name, as ExamCountdown writes it (the 29 Nov walk:
+  // the line read half Thai once the reading that keeps Thai had spent its fits before the list was read).
+  const { final, midterm } = TERM_LABEL;
+  assert.equal(
+    translateString(`${final}, อีก 1 วัน 0 ชั่วโมง 5 นาที, 23 พ.ย. - 4 ธ.ค. 69, 10 วิชา เริ่มที่ โรคติดต่อระหว่างสัตว์-คน พฤหัสบดี 13:00`, real),
+    'Final exam, in 1 day 0 hr 5 min, 23 Nov - 4 Dec 2026, 10 subjects, starting with Zoonoses Thu 13:00',
+  );
+  assert.equal(
+    translateString(`${final}, อีก 22 ชั่วโมง 29 นาที, 23 พ.ย. - 4 ธ.ค. 69, สอบไปแล้ว 5 จาก 10 วิชา ต่อไป สุขศาสตร์น้ำนม + เนื้อ จันทร์ 08:30`, real),
+    'Final exam, in 22 hr 29 min, 23 Nov - 4 Dec 2026, Exams completed: 5 of 10. Next: Milk Hygiene & Meat Inspection Mon 08:30',
+  );
+  assert.equal(
+    translateString(`${midterm}, อีก 2 ชั่วโมง 59 นาที, 21 - 25 ก.ย. 69, สอบไปแล้ว 3 จาก 10 วิชา ต่อไป กฎหมาย จริยธรรม + สวัสดิภาพสัตว์ ศุกร์ 08:30`, real),
+    'Midterm exam, in 2 hr 59 min, 21 - 25 Sep 2026, Exams completed: 3 of 10. Next: Veterinary Jurisprudent, Ethics, and Animal Welfare Fri 08:30',
+  );
+  assert.equal(translateString('แสดงความจำนง รอบ 1 เหลืออีก 52 วัน', real), 'Registration request, round 1: 52 days left');
+  assert.equal(translateString('แสดงความจำนง รอบ 3 เหลืออีก 1 วัน', real), 'Registration request, round 3: 1 day left');
+  // A count is a whole number as the lookup reads one, 2.1 included; the entry's own edge spaces stay.
+  assert.equal(translateString('แสดงความจำนง รอบ 1 เหลืออีก 2.1 วัน', real), 'Registration request, round 1: 2.1 days left');
+  assert.equal(translateString('(ปี 3)', real), ' (year 3)');
+});
+
+// Home's calendar chip prints a window's short name on one line beside its days, cut at 28 letters (HomeView's
+// truncateThai) and by an ellipsis past its width: at 375 px the name has 205 px beside "16 days left". The 29 Nov
+// walk found "Registration results, round 1, second semester" cut at "second", and two names of 30 letters read
+// "ภาคปล…" in Thai and stayed Thai in English. ponytail: a length cap stands in for the width; the names of 29
+// characters measured 177 px at most, so a width model only if a name of wide letters ever appears.
+test("every window's short name fits Home's calendar chip in both languages", () => {
+  const real = compileDictionary(UI_EN);
+  for (const m of SCHEDULE.ACADEMIC_MILESTONES) {
+    const th = m.shortTh || m.titleTh;
+    const en = translateString(th, real);
+    assert.ok(th.length <= 28 && en !== null && !/[฀-๿]/.test(en) && en.length <= 29, `${m.id}: ${th} ${JSON.stringify(en)}`);
+  }
+});
+
+// Home's streak row draws its number in an element of its own, so the unit beside it cannot count it, and the row
+// is one line beside the week's dots: it read "1 days in a row" for one day, and "3 days in a row, 12 questions
+// today" was cut at 375 px (the English walk's whole-label check measures the row).
+test("Home's streak row reads for any number and stays short", () => {
+  const real = compileDictionary(UI_EN);
+  assert.equal(translateString(' วันต่อเนื่อง', real), ' day streak');
+  assert.equal(translateString(', วันนี้ 12 ข้อ', real), ', 12 done today');
+});
+
+// The review queue's line (SRSessionView) holds a bracketed list inside a list. With a card due, read as a list
+// alone, the bracket was cut at its comma and "ค้างทบทวน 1" stayed Thai: the walk on CI, which runs in UTC, had one.
+test("the review queue's line reads whole with a card due", () => {
+  const real = compileDictionary(UI_EN);
+  const line = (n, split, rest) => `${n} ใบ (${split}), ${rest.join(', ')}`;
+  assert.equal(translateString(line(25, 'ค้างทบทวน 1, ใหม่ 3,155', ['ปี 5', 'ทุกวิชา', EXAM_SCOPE_LABEL.midterm]), real),
+    '25 cards (Due 1, New 3,155), Year 5, All subjects, Midterm');
+  assert.equal(translateString(line(1, 'ค้างทบทวน 1', ['ทุกปี', 'ทุกวิชา', 'ทุกช่วงสอบ']), real),
+    '1 card (Due 1), All years, All subjects, All exam periods');
+});
+
+test('every interface string the schedule takes from its data reads in English', () => {
+  const real = compileDictionary(UI_EN);
+  const thai = /[฀-๿]/;
+  const strings = [];
+  // Home's calendar chip and AcademicCalendar write a window's closing time after its title.
+  for (const m of SCHEDULE.ACADEMIC_MILESTONES) strings.push(m.titleTh, m.shortTh, m.noteTh, m.warnTh, m.endTimeTh, m.endTimeTh && `${m.titleTh}, ${m.endTimeTh}`);
+  for (const g of Object.values(SCHEDULE.COURSE_GROUPS)) strings.push(g.howTo, g.warning);
+  for (const e of [...SCHEDULE.CAMPUS_EVENTS, ...Object.values(SCHEDULE.EXAM_SCHEDULE).flat()].filter(Boolean)) {
+    strings.push(e.titleTh, e.noteTh, e.location, ...(e.links || []).map((l) => l.label));
+  }
+  const left = strings.filter((t) => t && thai.test(t) && thai.test(translateString(t, real) ?? t));
+  assert.deepEqual(left, []);
+});
+
+test('the dictionary itself: no Thai outside quotation marks, every placeholder kept, no middle dot', () => {
+  const thai = /[\u0E00-\u0E7F]/;
+  const holes = (s) => (s.match(/\{(?:\d+|[a-h])\}/g) || []).sort().join(',');
+  const problems = [];
+  for (const [th, en] of Object.entries(UI_EN)) {
+    const forms = typeof en === 'string' ? [en] : [en.one, en.other];
+    for (const form of forms) {
+      if (typeof form !== 'string') { problems.push(`${th}: not a string`); continue; }
+      if (thai.test(form.replace(/"[^"]*"/g, ''))) problems.push(`${th}: Thai in "${form}"`);
+      if (form.includes('\u00B7')) problems.push(`${th}: middle dot in "${form}"`);
+      if (typeof en === 'string' && holes(form) !== holes(th)) problems.push(`${th}: placeholders of "${form}"`);
+    }
+  }
+  assert.deepEqual(problems, []);
+  assert.ok(Object.keys(UI_EN).length > 4000, 'the interface has thousands of strings');
+});

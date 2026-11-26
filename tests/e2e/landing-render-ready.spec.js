@@ -35,7 +35,8 @@ test('the landing waits for model readiness before drawing and keeps the poster 
       .filter(entry => entry.name.endsWith('.glb')).length)).toBeGreaterThan(0);
     await expect(stage).not.toHaveClass(/is-live/);
     await expect(stage.locator('img')).toBeVisible();
-    expect(await stage.locator('img').evaluate(img => img.complete && img.naturalWidth > 0)).toBe(true);
+    // The poster loads lazily: wait for it, as a slow server delivers it after the model has failed.
+    await expect.poll(() => stage.locator('img').evaluate(img => img.complete && img.naturalWidth > 0)).toBe(true);
     expect(await page.evaluate(() => window.__skullDraws)).toBe(0);
   } finally {
     release();
@@ -73,7 +74,7 @@ test('the theme follows the phone until the student picks one', async ({ page })
   await expect(html).toHaveAttribute('data-theme', 'dark');
   await page.emulateMedia({ colorScheme: 'light' });
   await expect(html).toHaveAttribute('data-theme', 'light');
-  await page.getByRole('button', { name: 'ตัวเลือกธีมและจานสี' }).filter({ visible: true }).first().click();
+  await page.getByRole('button', { name: 'ตัวเลือกธีม จานสี และภาษา' }).filter({ visible: true }).first().click();
   const system = page.getByRole('button', { name: 'ตามเครื่อง', exact: true });
   await expect(system).toHaveAttribute('aria-pressed', 'true');
   await page.getByRole('button', { name: 'มืด', exact: true }).click();

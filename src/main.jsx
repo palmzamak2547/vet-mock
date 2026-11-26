@@ -18,6 +18,7 @@ import './lib/dom-compat.js'
 import './lib/app-lifecycle.js'
 import './lib/install-prompt.js'
 import { applyMotionPreference, subscribeMotionPreferences } from './lib/motion-preferences.js'
+import { readUiLang, showInterfaceIn } from './lib/ui-lang.js'
 
 // Everything that reads the student's stored data, in the order it always ran.
 function startApp() {
@@ -72,6 +73,9 @@ window.addEventListener('touchstart', _unlockOnce, { capture: true, passive: tru
 // second reading of storage. Neither a timeout nor a reload counts as a try.
 const before = []
 if (IS_APP) before.push(import('./lib/native-app.js').catch(() => {}))
+// English chosen: the dictionary is in and the page is watched before React draws, so the first
+// paint is already English. If it cannot load, the app starts in Thai.
+if (readUiLang() === 'en') before.push(showInterfaceIn('en'))
 const moveDue = dueMoveJobs(window)
 window.__vmxMoveDue = [...moveDue]
 const move = moveWork(window, Date.now(), moveDue)

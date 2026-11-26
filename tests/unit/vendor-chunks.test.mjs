@@ -112,6 +112,16 @@ test('the existing chunk rules are unchanged', () => {
   assert.equal(manualChunks('C:/work/vet-mock/src/views/HomeView.jsx'), undefined);
 });
 
+test('the text helpers share one chunk in the first load, off the React chunk the Atlas loads as well', () => {
+  // In vendor-react, search-key and fill-stem rode on the Atlas's first load, which uses
+  // neither, and took it over its budget (perf-budget.mjs, atlas). public-display, which the
+  // header imports, brings the chunk in with the app's first load, so the views opened after
+  // it find the helpers loaded as before, and Home makes no request it did not make.
+  for (const name of ['public-display', 'thai-text', 'search-key', 'fill-stem']) {
+    assert.equal(manualChunks(`C:/work/vet-mock/src/lib/${name}.js`), 'text-helpers', name);
+  }
+});
+
 test('a failed pdf.js load is not remembered, so the next open can try again', async () => {
   const source = readFileSync(new URL('../../src/views/PdfAnnotateView.jsx', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
   const start = source.indexOf('let _pdfjsPromise = null;');

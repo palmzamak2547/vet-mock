@@ -29,6 +29,7 @@ export default function InstructorPortrait({ instructor, size = 48, className = 
       className={`vmx-portrait${className ? ` ${className}` : ''}`}
       style={{ ...box, fontSize: Math.round(size * 0.36) }}
       data-portrait={src ? 'photo' : 'monogram'}
+      translate="no"
     >
       {src ? (
         <img

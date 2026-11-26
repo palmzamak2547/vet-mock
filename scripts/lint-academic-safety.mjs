@@ -193,19 +193,31 @@ let totalHits = 0;
 // examFormat are still scanned, so the lint keeps its reach over anything the
 // app says in its own voice.
 const SPEECH = /\*\*"[^"\r\n]*"\*\*/g;
-function shieldSpeech(text) {
+// The English dictionary carries the detector's own warnings, keyed by their Thai exactly as contributions.js
+// writes its labels, so they read in English too. Such a line names the words it warns about, as the detector
+// does, and is shielded the same way; every other line of the dictionary is scanned.
+const DETECTOR = readFileSync(join(SRC_DIR, 'lib', 'contributions.js'), 'utf8');
+const ENTRY_KEY = /^\s*("(?:[^"\\\r\n]|\\.)*"):/;
+function shieldSpeech(text, file = '') {
   const kept = [];
-  const masked = text.replace(SPEECH, (m) => {
+  const keep = (m) => {
     kept.push(m);
     return '@@VMXQUOTE' + (kept.length - 1) + '@@';
-  });
+  };
+  let masked = text.replace(SPEECH, keep);
+  if (file.endsWith('ui-en.js')) {
+    masked = masked.replace(/^.+$/gm, (line) => {
+      const key = ENTRY_KEY.exec(line);
+      return key && DETECTOR.includes(`'${JSON.parse(key[1])}'`) ? keep(line) : line;
+    });
+  }
   return { masked, restore: (s) => s.replace(/@@VMXQUOTE(\d+)@@/g, (_m, i) => kept[Number(i)]) };
 }
 
 for (const f of files) {
   let content = readFileSync(f, 'utf8');
   const before = content;
-  const shield = shieldSpeech(content);
+  const shield = shieldSpeech(content, f);
   content = shield.masked;
   for (const [pat, rep] of REPLACEMENTS) {
     let count = 0;
@@ -228,7 +240,7 @@ for (const f of files) {
   // making, so matches inside one are skipped — seniors named a PDF
   // "...Myco Protozoa ตรงมาก.pdf" and renaming it in our prose would break
   // the reference students use to find it.
-  const withoutFilenames = shieldSpeech(before).masked.replace(/"[^"\r\n]*\.(pdf|jpe?g|png|docx?|pptx?)"/gi, '""');
+  const withoutFilenames = shieldSpeech(before, f).masked.replace(/"[^"\r\n]*\.(pdf|jpe?g|png|docx?|pptx?)"/gi, '""');
   // Words that make a line about an EXAM rather than about veterinary medicine.
   // Deliberately generous — it only has to appear within a short window of the
   // phrase, so a real claim ("Vet 82 final ตรงมาก") keeps firing while a

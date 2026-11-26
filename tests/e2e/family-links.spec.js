@@ -26,7 +26,7 @@ test('the landing lists every other site, and a link carries the theme on screen
   }
   await expect(section.locator('a[data-family="main"]')).toHaveCount(0);
 
-  const lang = await page.evaluate(() => JSON.parse(localStorage.getItem('vmx-landing-lang') || '"th"'));
+  const lang = await page.evaluate(() => JSON.parse(localStorage.getItem('vmx-lang') || '"th"'));
   await Promise.all([
     page.waitForURL((u) => u.hostname === 'research.vetmock.com'),
     section.locator('a[data-family="research"]').click(),
@@ -54,7 +54,7 @@ test('an arrival from another site shows its theme and language for this visit o
   expect(url.searchParams.has('vml')).toBe(false);
   expect(url.searchParams.get('e2e-fresh')).toBe('1');
   // never written over the saved choice; kept for this visit only
-  expect(await page.evaluate(() => [localStorage.getItem('vmx-theme'), localStorage.getItem('vmx-landing-lang')])).not.toContain('"en"');
+  expect(await page.evaluate(() => [localStorage.getItem('vmx-theme'), localStorage.getItem('vmx-lang')])).not.toContain('"en"');
   expect(await page.evaluate(() => localStorage.getItem('vmx-theme'))).not.toBe('"dark"');
   expect(await page.evaluate(() => JSON.parse(sessionStorage.getItem('vmx-family-visit')))).toEqual({ theme: 'dark', lang: 'en' });
 });

@@ -867,7 +867,7 @@ export default function LibraryView({ goHome, onOpenDoc, onOpenLocalPdf, selecte
               <article key={doc.id} className="vmx-lib-card" style={cardStyle}>
                 <h3 className="vmx-lib-card-title">{displayDocTitle(doc.title)}</h3>
                 {snippet && (
-                  <p className="vmx-lib-card-desc vmx-lib-snippet">
+                  <p className="vmx-lib-card-desc vmx-lib-snippet" lang="th">
                     …{markTerms(snippet, textQuery).map((part, i) => (part.hit ? <mark key={i}>{part.text}</mark> : <span key={i}>{part.text}</span>))}…
                   </p>
                 )}

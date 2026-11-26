@@ -918,7 +918,7 @@ export default function AtlasView({ goHome, theme, onToggleTheme }) {
                   {part.side ? ` (${part.side}ของสัตว์)` : ''}
                 </span>
                 <h2>{part.en}</h2>
-                <p>{part.th}</p>
+                <p lang="th">{part.th}</p>
                 {part.latin && <em lang="la">{part.latin}</em>}
                 {!segmented && <em>{specimen.scientificName}</em>}
               </div>

@@ -436,7 +436,7 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
       </div>
 
       {/* Q stem */}
-      <div style={{ fontSize: 14, lineHeight: 1.65, color: 'var(--clr-ink)', marginBottom: 10, whiteSpace: 'pre-wrap' }}>
+      <div lang="th" style={{ fontSize: 14, lineHeight: 1.65, color: 'var(--clr-ink)', marginBottom: 10, whiteSpace: 'pre-wrap' }}>
         {stemPreview}
         {stemCollapsible && (
           <button
@@ -476,7 +476,7 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
         <div style={{ borderTop: '1px solid var(--clr-border)', paddingTop: 14, marginTop: 4 }}>
           {/* Full stem (always shown when expanded) */}
           <div style={sectionLabelStyle}>โจทย์เต็ม</div>
-          <div style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--clr-ink)', marginBottom: 14, whiteSpace: 'pre-wrap', padding: 12, background: 'var(--clr-bg)', borderRadius: 8 }}>
+          <div lang="th" style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--clr-ink)', marginBottom: 14, whiteSpace: 'pre-wrap', padding: 12, background: 'var(--clr-bg)', borderRadius: 8 }}>
             {stem}
           </div>
 
@@ -484,7 +484,7 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
           {Array.isArray(submission.options) && submission.options.length > 0 && (
             <>
               <div style={sectionLabelStyle}>ตัวเลือก</div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 14 }}>
+              <div lang="th" style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 14 }}>
                 {submission.options.map((opt, i) => {
                   const isCorrect = i === submission.answer_idx;
                   return (
@@ -525,7 +525,7 @@ function SubmissionCard({ submission, currentUserId, onVoted, onRefreshRequested
           {submission.explain_text && (
             <>
               <div style={sectionLabelStyle}>เฉลย / เหตุผล</div>
-              <div style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--clr-ink)', marginBottom: 14, whiteSpace: 'pre-wrap', padding: 12, background: 'var(--clr-surface-2)', borderRadius: 8 }}>
+              <div lang="th" style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--clr-ink)', marginBottom: 14, whiteSpace: 'pre-wrap', padding: 12, background: 'var(--clr-surface-2)', borderRadius: 8 }}>
                 {submission.explain_text}
               </div>
             </>
@@ -756,7 +756,7 @@ function PastReviewRow({ review }) {
         </span>
       </div>
       {review.feedback && (
-        <div style={{ color: 'var(--clr-ink-soft)', fontStyle: 'italic', whiteSpace: 'pre-wrap', paddingLeft: 4 }}>
+        <div lang="th" style={{ color: 'var(--clr-ink-soft)', fontStyle: 'italic', whiteSpace: 'pre-wrap', paddingLeft: 4 }}>
           " {review.feedback} "
         </div>
       )}

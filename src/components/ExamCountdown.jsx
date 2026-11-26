@@ -112,9 +112,10 @@ export default function ExamCountdown({ window: w, subjects = [], onOpenSchedule
 
   // Read the way the face shows it: under a day the face drops its day count,
   // and the label said "อีก 0 วัน 3 ชั่วโมง" where the face said 03 ชม.
+  // Its parts are joined with ", " so the English page reads each one as it reads it on the face.
   const ariaLabel = sitting
     ? `${w.label} กำลังสอบ ${nameOf(next)}`
-    : `${w.label} อีก ${hoursOnly ? '' : `${clock.days} วัน `}${clock.hours} ชั่วโมง ${clock.minutes} นาที ${w.range} ${caption}`;
+    : `${w.label}, อีก ${hoursOnly ? '' : `${clock.days} วัน `}${clock.hours} ชั่วโมง ${clock.minutes} นาที, ${w.range}, ${caption}`;
 
   return (
     <section
@@ -153,9 +154,8 @@ export default function ExamCountdown({ window: w, subjects = [], onOpenSchedule
               key={c.date}
               className={`vmx-countdown-day${c.exams.length ? ' is-exam' : ''}${c.today ? ' is-today' : ''}${c.done ? ' is-done' : ''}${c.weekend ? ' is-weekend' : ''}`}
               style={{ '--i': i }}
-              title={c.exams.length
-                ? `${fmtThaiDate(c.date)}: ${c.exams.map((e) => `${nameOf(e)} ${e.time || ''}`.trim()).join(', ')}`
-                : fmtThaiDate(c.date)}
+              // A line per paper, its name and its time apart, so the English page reads each one as a whole.
+              title={[fmtThaiDate(c.date), ...c.exams.map((e) => (e.time ? `${nameOf(e)}, ${e.time}` : nameOf(e)))].join('\n')}
             >
               <span className="vmx-countdown-dow">{DOW[c.dow]}</span>
               <span className="vmx-countdown-daynum">{c.day}</span>
